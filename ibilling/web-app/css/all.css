@@ -94,7 +94,7 @@ hr {
 }
 #header h1 {
 	margin:0;
-	width:107px;
+	width:207px;
 	height:60px;
 	overflow:hidden;
 	position:absolute;
@@ -106,7 +106,7 @@ hr {
 	height:100%;
 	color:#223e99;
 	text-decoration:none;
-	font-size:26px;
+	font-size:20px;
 	padding-top:15px;
 }
 #header .search {

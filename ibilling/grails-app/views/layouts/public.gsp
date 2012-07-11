@@ -21,7 +21,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-        <title><g:layoutTitle default="jBilling" /></title>
+        <title><g:layoutTitle default="云计费" /></title>
 
         <link rel="shortcut icon" href="${resource(dir:'images', file:'favicon.ico')}" type="image/x-icon" />
 
@@ -41,7 +41,7 @@
         <div id="wrapper">
             <!-- header -->
             <div id="header">
-                <h1><a href="${resource(dir:'')}">IBilling</a></h1>
+                <h1><a href="${resource(dir:'')}">云计费在线系统</a></h1>
             </div>
             <div id="navigation">
                 <ul></ul>

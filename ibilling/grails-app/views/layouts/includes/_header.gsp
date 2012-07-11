@@ -14,7 +14,7 @@
   is strictly forbidden.
   --}%
 
-<%@ page import="com.infosense.ibilling.common.Constants; ibilling.SearchType" %>
+<%@ page import="com.sapienter.jbilling.common.Constants; jbilling.SearchType" %>
 
 <%--
   Page header for all common jBilling layouts.
@@ -27,7 +27,7 @@
 
 <!-- header -->
 <div id="header">
-    <h1><a href="${resource(dir:'')}">jBilling</a></h1>
+    <h1><a href="${resource(dir:'')}">IBilling</a></h1>
     <div class="search">        
         <g:form controller="search" name="search-form">
             <fieldset>
@@ -85,18 +85,6 @@
                     <g:message code="topnav.link.account"/>
                 </g:link>
             </g:else>
-        </li>
-        <li>
-            <a href="http://www.jbilling.com/professional-services/training">
-                <img src="${resource(dir:'images', file:'icon26.gif')}" alt="training" />
-                <g:message code="topnav.link.training"/>
-            </a>
-        </li>
-        <li>
-            <a href="http://www.jbilling.com/product/documentation">
-                <img src="${resource(dir:'images', file:'icon27.gif')}" alt="help" />
-                <g:message code="topnav.link.help"/>
-            </a>
         </li>
         <li>
             <g:link controller='logout'>

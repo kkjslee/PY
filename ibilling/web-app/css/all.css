@@ -96,9 +96,7 @@ hr {
 	margin:0;
 	width:107px;
 	height:60px;
-	text-indent:-9999px;
 	overflow:hidden;
-	background:url(../images/logo.gif) no-repeat;
 	position:absolute;
 	top:6px;
 	left:0;
@@ -106,6 +104,10 @@ hr {
 #header h1 a {
 	display:block;
 	height:100%;
+	color:#223e99;
+	text-decoration:none;
+	font-size:26px;
+	padding-top:15px;
 }
 #header .search {
 	position:absolute;

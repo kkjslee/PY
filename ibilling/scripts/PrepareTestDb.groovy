@@ -48,7 +48,7 @@ target(prepareTestDb: "Import the test postgresql database.") {
     println "Importing file '${file.name}' into the ${database} database (user: ${username})"
     // call postgresl to load the database
     exec(executable: "psql", failonerror: false) {
-        arg(line: "-U ${username} -f ${file.path} ${database}")
+        arg(line: "-U ${username} -f \"${file.path}\" ${database}")
     }
 
     println "Done."

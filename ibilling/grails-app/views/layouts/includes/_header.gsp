@@ -14,7 +14,7 @@
   is strictly forbidden.
   --}%
 
-<%@ page import="com.sapienter.jbilling.common.Constants; jbilling.SearchType" %>
+<%@ page import="com.infosense.ibilling.common.Constants; ibilling.SearchType" %>
 
 <%--
   Page header for all common jBilling layouts.

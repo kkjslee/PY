@@ -17,7 +17,7 @@
 body {
 	color:#383838;
 	margin:0;
-	font:12px Arial, Helvetica, sans-serif;
+	font:12px 微软雅黑,Arial, Helvetica, sans-serif;
 	min-width:998px;
 	padding:0 10px;
 	background:#fff url(../images/bg-body.gif) repeat-x;
@@ -95,11 +95,13 @@ hr {
 #header h1 {
 	margin:0;
 	width:207px;
-	height:60px;
+	height:70px;
 	overflow:hidden;
 	position:absolute;
 	top:6px;
 	left:0;
+	background:url(../images/logo.png) no-repeat;
+	padding-left:82px;
 }
 #header h1 a {
 	display:block;
@@ -107,7 +109,7 @@ hr {
 	color:#223e99;
 	text-decoration:none;
 	font-size:20px;
-	padding-top:15px;
+	padding-top:20px;
 }
 #header .search {
 	position:absolute;

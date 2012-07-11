@@ -1,0 +1,1435 @@
+2012-06-27 08:21:48,515 53348803 WARN  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (Thread-24:) plugin change scanner is still running after the scanning interval. You should set the grails.scan.interval system property to a higher value. The current value is 5000 ms
+2012-06-27 09:22:28,836 537   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [core] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [urlMappings] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [logging] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [filters] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [codecs] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [servlets] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [dataSource] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [i18n] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,846 547   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [cookie] with version [0.2] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [include] with version [0.3] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [jquery] with version [1.4.4.1] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [jqueryUi] with version [1.8.7] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [log4jXml] with version [0.2] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [remotePagination] with version [0.2.4] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [remoting] with version [1.1] loaded successfully
+2012-06-27 09:22:28,874 575   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [tomcat] with version [1.3.6] loaded successfully
+2012-06-27 09:22:28,876 577   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [controllers] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,876 577   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [groovyPages] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,876 577   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [mimeTypes] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,876 577   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [scaffolding] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,876 577   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [domainClass] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,879 580   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [hibernate] with version [1.3.6] loaded successfully
+2012-06-27 09:22:28,881 582   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [webflow] with version [1.3.6] loaded successfully
+2012-06-27 09:22:28,881 582   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [converters] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,881 582   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [validation] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,881 582   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [services] with version [1.3.4] loaded successfully
+2012-06-27 09:22:28,881 582   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [cxf] with version [0.5.1] loaded successfully
+2012-06-27 09:22:28,881 582   INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Grails plug-in [springSecurityCore] with version [1.0.1] loaded successfully
+2012-06-27 09:22:30,520 2221  INFO  [org.apache.coyote.http11.Http11Protocol] (main:) Initializing Coyote HTTP/1.1 on http-8080
+2012-06-27 09:22:30,520 2221  INFO  [org.apache.catalina.core.StandardService] (main:) Starting service Tomcat
+2012-06-27 09:22:30,523 2224  INFO  [org.apache.catalina.core.StandardEngine] (main:) Starting Servlet Engine: Apache Tomcat/6.0-snapshot
+2012-06-27 09:22:30,723 2424  INFO  [org.apache.catalina.startup.ContextConfig] (main:) No default web.xml
+2012-06-27 09:22:30,955 2656  INFO  [org.apache.commons.digester.Digester] (main:) TLD skipped. URI: http://www.springframework.org/tags is already defined
+2012-06-27 09:22:31,023 2724  INFO  [org.apache.commons.digester.Digester] (main:) TLD skipped. URI: http://java.sun.com/jsp/jstl/core is already defined
+2012-06-27 09:22:31,044 2745  INFO  [org.apache.commons.digester.Digester] (main:) TLD skipped. URI: http://java.sun.com/jsp/jstl/fmt is already defined
+2012-06-27 09:22:31,171 2872  INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Initializing Spring root WebApplicationContext
+2012-06-27 09:22:31,171 2872  INFO  [org.springframework.web.context.ContextLoader] (main:) Root WebApplicationContext: initialization started
+2012-06-27 09:22:31,189 2890  INFO  [org.springframework.web.context.support.XmlWebApplicationContext] (main:) Refreshing Root WebApplicationContext: startup date [Wed Jun 27 09:22:31 CST 2012]; root of context hierarchy
+2012-06-27 09:22:31,254 2955  INFO  [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (main:) Loading XML bean definitions from ServletContext resource [/WEB-INF/applicationContext.xml]
+2012-06-27 09:22:31,426 3127  INFO  [org.springframework.beans.factory.support.DefaultListableBeanFactory] (main:) Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@38f42ac9: defining beans [grailsApplication,pluginManager,grailsConfigurator,grailsResourceLoader,grailsResourceHolder,characterEncodingFilter]; root of factory hierarchy
+2012-06-27 09:22:33,132 4833  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,358 5059  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,360 5061  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,378 5079  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,395 5096  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,410 5111  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,433 5134  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib.g:out vs. org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib.g:out. The former will take precedence.
+2012-06-27 09:22:33,433 5134  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,448 5149  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib.g:out vs. org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib.g:out. The former will take precedence.
+2012-06-27 09:22:33,448 5149  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,465 5166  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib.g:out vs. org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib.g:out. The former will take precedence.
+2012-06-27 09:22:33,465 5166  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:33,480 5181  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib.g:out vs. org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib.g:out. The former will take precedence.
+2012-06-27 09:22:33,480 5181  INFO  [org.codehaus.groovy.grails.commons.TagLibArtefactHandler] (main:) There are conflicting tags: JQueryTagLib.jq:pluginManager vs. JQueryResourceTagLib.jq:pluginManager. The former will take precedence.
+2012-06-27 09:22:34,078 5779  INFO  [grails.spring.BeanBuilder] (main:) [RuntimeConfiguration] Configuring data source for environment: DEVELOPMENT
+2012-06-27 09:22:34,655 6356  INFO  [com.mchange.v2.log.MLog] (main:) MLog clients using log4j logging.
+2012-06-27 09:22:34,655 6356  INFO  [com.mchange.v2.log.MLog] (main:) MLog clients using log4j logging.
+2012-06-27 09:22:34,759 6460  INFO  [org.codehaus.groovy.grails.plugins.orm.hibernate.HibernatePluginSupport] (main:) Using dataSource bean definition from /WEB-INF/spring/resources.groovy
+2012-06-27 09:22:34,759 6460  INFO  [org.codehaus.groovy.grails.plugins.orm.hibernate.HibernatePluginSupport] (main:) Set db generation strategy to 'none'
+2012-06-27 09:22:35,794 7495  INFO  [org.springframework.beans.factory.xml.XmlBeanDefinitionReader] (main:) Loading XML bean definitions from URL [file:./grails-app/conf/spring/resources.xml]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor': replacing [Root bean: class [org.springframework.context.annotation.ConfigurationClassPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.context.annotation.ConfigurationClassPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor': replacing [Root bean: class [org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.context.annotation.internalRequiredAnnotationProcessor': replacing [Root bean: class [org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor': replacing [Root bean: class [org.springframework.context.annotation.CommonAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.context.annotation.CommonAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.context.annotation.internalPersistenceAnnotationProcessor': replacing [Root bean: class [org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.aop.config.internalAutoProxyCreator': replacing [Root bean: class [org.springframework.aop.framework.autoproxy.InfrastructureAdvisorAutoProxyCreator]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.aop.framework.autoproxy.InfrastructureAdvisorAutoProxyCreator]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0': replacing [Root bean: class [org.springframework.transaction.annotation.AnnotationTransactionAttributeSource]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.transaction.annotation.AnnotationTransactionAttributeSource]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.transaction.interceptor.TransactionInterceptor#0': replacing [Root bean: class [org.springframework.transaction.interceptor.TransactionInterceptor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.transaction.interceptor.TransactionInterceptor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'org.springframework.transaction.config.internalTransactionAdvisor': replacing [Root bean: class [org.springframework.transaction.interceptor.BeanFactoryTransactionAttributeSourceAdvisor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [org.springframework.transaction.interceptor.BeanFactoryTransactionAttributeSourceAdvisor]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'securitySession': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.util.SecuritySession]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.util.SecuritySession]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'rememberMeAuthenticationFilter': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.CompanyUserRememberMeFilter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.CompanyUserRememberMeFilter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'viewUtils': replacing [Generic bean: class [com.infosense.ibilling.client.ViewUtils]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.ViewUtils]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'dataSource': replacing [Generic bean: class [com.mchange.v2.c3p0.ComboPooledDataSource]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=close] with [Generic bean: class [com.mchange.v2.c3p0.ComboPooledDataSource]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=close]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'httpRequestAdapter': replacing [Generic bean: class [org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:35,997 7698  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'webExpressionVoter': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.SafeWebExpressionVoter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.SafeWebExpressionVoter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,000 7701  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'customPropertyEditorRegistrar': replacing [Generic bean: class [com.infosense.ibilling.client.editor.CustomPropertyEditorRegistrar]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.editor.CustomPropertyEditorRegistrar]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,000 7701  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'staticAuthenticationProcessingFilter': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.StaticAuthenticationFilter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.StaticAuthenticationFilter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,000 7701  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'permissionVoter': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.PermissionVoter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.PermissionVoter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,000 7701  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'passwordEncoder': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.JBillingPasswordEncoder]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.JBillingPasswordEncoder]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,000 7701  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'userDetailsService': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.CompanyUserDetailsService]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.CompanyUserDetailsService]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,000 7701  INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Overriding bean definition for bean 'authenticationProcessingFilter': replacing [Generic bean: class [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Generic bean: class [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null]
+2012-06-27 09:22:36,022 7723  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Refreshing org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4fb3c3d9: startup date [Wed Jun 27 09:22:36 CST 2012]; parent: Root WebApplicationContext
+2012-06-27 09:22:36,457 8158  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'webServicesExceptionAdvice' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,457 8158  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'webServicesExceptionAdvisor' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,552 8253  INFO  [org.hibernate.validator.util.Version] (main:) Hibernate Validator 4.1.0.Final
+2012-06-27 09:22:36,610 8311  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'validator' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,617 8318  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'webServicesValidationAdvice' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,617 8318  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'webServicesValidationAdvisor' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,637 8338  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,637 8338  INFO  [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext] (main:) Bean 'org.springframework.transaction.config.internalTransactionAdvisor' is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2012-06-27 09:22:36,895 8596  INFO  [com.mchange.v2.c3p0.C3P0Registry] (main:) Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2012-06-27 09:22:36,895 8596  INFO  [com.mchange.v2.c3p0.C3P0Registry] (main:) Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]
+2012-06-27 09:22:37,148 8849  INFO  [com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource] (main:) Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 2, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 10000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge4yu8oc2u5sdj8a1gb|5ce04204, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge4yu8oc2u5sdj8a1gb|5ce04204, idleConnectionTestPeriod -> 30, initialPoolSize -> 10, jdbcUrl -> jdbc:postgresql://localhost:5432/jbilling_test, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 10, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> select id from jbilling_table where id = 1, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> true, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2012-06-27 09:22:37,148 8849  INFO  [com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource] (main:) Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 2, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 10000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge4yu8oc2u5sdj8a1gb|5ce04204, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge4yu8oc2u5sdj8a1gb|5ce04204, idleConnectionTestPeriod -> 30, initialPoolSize -> 10, jdbcUrl -> jdbc:postgresql://localhost:5432/jbilling_test, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 10, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> select id from jbilling_table where id = 1, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> true, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]
+2012-06-27 09:22:37,478 9179  INFO  [org.hibernate.annotations.common.Version] (main:) Hibernate Commons Annotations 3.1.0.GA
+2012-06-27 09:22:37,483 9184  INFO  [org.hibernate.cfg.Configuration] (main:) configuring from url: file:/C:/Users/shdev/.grails/1.3.4/projects/jbilling-community-3.0.2/resources/hibernate.cfg.xml
+2012-06-27 09:22:37,558 9259  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.provisioning.db
+2012-06-27 09:22:37,591 9292  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.provisioning.db
+2012-06-27 09:22:37,608 9309  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.report.db
+2012-06-27 09:22:37,611 9312  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.report.db
+2012-06-27 09:22:37,623 9324  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.process.db
+2012-06-27 09:22:37,626 9327  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.process.db
+2012-06-27 09:22:37,656 9357  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.util.audit.db
+2012-06-27 09:22:37,661 9362  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.util.audit.db
+2012-06-27 09:22:37,666 9367  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.util.db
+2012-06-27 09:22:37,668 9369  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.util.db
+2012-06-27 09:22:37,686 9387  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.item.db
+2012-06-27 09:22:37,691 9392  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.item.db
+2012-06-27 09:22:37,701 9402  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.payment.blacklist.db
+2012-06-27 09:22:37,703 9404  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.payment.blacklist.db
+2012-06-27 09:22:37,706 9407  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.payment.db
+2012-06-27 09:22:37,711 9412  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.payment.db
+2012-06-27 09:22:37,723 9424  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.mediation.db
+2012-06-27 09:22:37,728 9429  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.mediation.db
+2012-06-27 09:22:37,736 9437  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.user.permisson.db
+2012-06-27 09:22:37,741 9442  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.user.permisson.db
+2012-06-27 09:22:37,751 9452  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.user.contact.db
+2012-06-27 09:22:37,753 9454  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.user.contact.db
+2012-06-27 09:22:37,763 9464  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.user.db
+2012-06-27 09:22:37,768 9469  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.user.db
+2012-06-27 09:22:37,778 9479  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.invoice.db
+2012-06-27 09:22:37,783 9484  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.invoice.db
+2012-06-27 09:22:37,791 9492  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.notification.db
+2012-06-27 09:22:37,796 9497  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.notification.db
+2012-06-27 09:22:37,806 9507  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.order.db
+2012-06-27 09:22:37,808 9509  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.order.db
+2012-06-27 09:22:37,823 9524  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.user.partner.db
+2012-06-27 09:22:37,826 9527  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.user.partner.db
+2012-06-27 09:22:37,833 9534  INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Mapping package com.infosense.ibilling.server.pluggableTask.admin
+2012-06-27 09:22:37,836 9537  WARN  [org.hibernate.cfg.AnnotationBinder] (main:) Package not found or wo package-info.java: com.infosense.ibilling.server.pluggableTask.admin
+2012-06-27 09:22:37,841 9542  INFO  [org.hibernate.cfg.Configuration] (main:) Configured SessionFactory: null
+2012-06-27 09:22:38,171 9872  INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.AbstractGenericStatus
+2012-06-27 09:22:38,199 9900  INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.AbstractGenericStatus on table generic_status
+2012-06-27 09:22:38,242 9943  INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.provisioning.db.ProvisioningStatusDTO
+2012-06-27 09:22:38,244 9945  INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.ReportDTO
+2012-06-27 09:22:38,244 9945  INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.report.db.ReportDTO on table report
+2012-06-27 09:22:38,302 10003 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.ReportTypeDTO
+2012-06-27 09:22:38,302 10003 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.report.db.ReportTypeDTO on table report_type
+2012-06-27 09:22:38,304 10005 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.ReportParameterDTO
+2012-06-27 09:22:38,304 10005 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.report.db.ReportParameterDTO on table report_parameter
+2012-06-27 09:22:38,307 10008 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.parameter.BooleanReportParameterDTO
+2012-06-27 09:22:38,309 10010 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.parameter.DateReportParameterDTO
+2012-06-27 09:22:38,309 10010 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.parameter.IntegerReportParameterDTO
+2012-06-27 09:22:38,309 10010 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.report.db.parameter.StringReportParameterDTO
+2012-06-27 09:22:38,309 10010 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.BillingProcessConfigurationDTO
+2012-06-27 09:22:38,309 10010 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.BillingProcessConfigurationDTO on table billing_process_configuration
+2012-06-27 09:22:38,314 10015 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.ProcessRunTotalPmDTO
+2012-06-27 09:22:38,314 10015 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.ProcessRunTotalPmDTO on table process_run_total_pm
+2012-06-27 09:22:38,317 10018 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.ProcessRunUserDTO
+2012-06-27 09:22:38,317 10018 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.ProcessRunUserDTO on table process_run_user
+2012-06-27 09:22:38,319 10020 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.ProcessRunTotalDTO
+2012-06-27 09:22:38,319 10020 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.ProcessRunTotalDTO on table process_run_total
+2012-06-27 09:22:38,322 10023 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.AgeingEntityStepDTO
+2012-06-27 09:22:38,322 10023 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.AgeingEntityStepDTO on table ageing_entity_step
+2012-06-27 09:22:38,324 10025 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.PaperInvoiceBatchDTO
+2012-06-27 09:22:38,324 10025 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.PaperInvoiceBatchDTO on table paper_invoice_batch
+2012-06-27 09:22:38,332 10033 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.ProcessRunStatusDTO
+2012-06-27 09:22:38,332 10033 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.PeriodUnitDTO
+2012-06-27 09:22:38,332 10033 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.PeriodUnitDTO on table period_unit
+2012-06-27 09:22:38,337 10038 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.ProcessRunDTO
+2012-06-27 09:22:38,337 10038 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.ProcessRunDTO on table process_run
+2012-06-27 09:22:38,339 10040 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.process.db.BillingProcessDTO
+2012-06-27 09:22:38,339 10040 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.process.db.BillingProcessDTO on table billing_process
+2012-06-27 09:22:38,347 10048 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.audit.db.EventLogMessageDTO
+2012-06-27 09:22:38,347 10048 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.audit.db.EventLogMessageDTO on table event_log_message
+2012-06-27 09:22:38,349 10050 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.audit.db.EventLogDTO
+2012-06-27 09:22:38,349 10050 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.audit.db.EventLogDTO on table event_log
+2012-06-27 09:22:38,352 10053 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.audit.db.EventLogModuleDTO
+2012-06-27 09:22:38,354 10055 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.audit.db.EventLogModuleDTO on table event_log_module
+2012-06-27 09:22:38,354 10055 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.LanguageDTO
+2012-06-27 09:22:38,354 10055 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.LanguageDTO on table language
+2012-06-27 09:22:38,359 10060 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.PreferenceTypeDTO
+2012-06-27 09:22:38,359 10060 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.PreferenceTypeDTO on table preference_type
+2012-06-27 09:22:38,362 10063 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.PreferenceDTO
+2012-06-27 09:22:38,362 10063 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.PreferenceDTO on table preference
+2012-06-27 09:22:38,364 10065 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.CountryDTO
+2012-06-27 09:22:38,364 10065 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.CountryDTO on table country
+2012-06-27 09:22:38,364 10065 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.CurrencyExchangeDTO
+2012-06-27 09:22:38,364 10065 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.CurrencyExchangeDTO on table currency_exchange
+2012-06-27 09:22:38,367 10068 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.CurrencyDTO
+2012-06-27 09:22:38,367 10068 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.CurrencyDTO on table currency
+2012-06-27 09:22:38,377 10078 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.InternationalDescriptionDTO
+2012-06-27 09:22:38,377 10078 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.InternationalDescriptionDTO on table international_description
+2012-06-27 09:22:38,384 10085 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.InternationalDescription
+2012-06-27 09:22:38,384 10085 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.InternationalDescription on table international_description
+2012-06-27 09:22:38,387 10088 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.JbillingTable
+2012-06-27 09:22:38,387 10088 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.JbillingTable on table jbilling_table
+2012-06-27 09:22:38,389 10090 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.util.db.NotificationCategoryDTO
+2012-06-27 09:22:38,389 10090 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.util.db.NotificationCategoryDTO on table notification_category
+2012-06-27 09:22:38,392 10093 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.item.db.ItemDTO
+2012-06-27 09:22:38,392 10093 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.item.db.ItemDTO on table item
+2012-06-27 09:22:38,399 10100 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.item.db.ItemTypeDTO
+2012-06-27 09:22:38,399 10100 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.item.db.ItemTypeDTO on table item_type
+2012-06-27 09:22:38,404 10105 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.item.db.ItemPriceDTO
+2012-06-27 09:22:38,404 10105 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.item.db.ItemPriceDTO on table item_price
+2012-06-27 09:22:38,407 10108 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.blacklist.db.BlacklistDTO
+2012-06-27 09:22:38,407 10108 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.blacklist.db.BlacklistDTO on table blacklist
+2012-06-27 09:22:38,409 10110 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.db.PaymentInvoiceMapDTO
+2012-06-27 09:22:38,409 10110 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.db.PaymentInvoiceMapDTO on table payment_invoice
+2012-06-27 09:22:38,412 10113 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.db.PaymentDTO
+2012-06-27 09:22:38,412 10113 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.db.PaymentDTO on table payment
+2012-06-27 09:22:38,422 10123 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.db.PaymentAuthorizationDTO
+2012-06-27 09:22:38,422 10123 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.db.PaymentAuthorizationDTO on table payment_authorization
+2012-06-27 09:22:38,427 10128 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.db.PaymentResultDTO
+2012-06-27 09:22:38,427 10128 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.db.PaymentResultDTO on table payment_result
+2012-06-27 09:22:38,429 10130 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.db.PaymentMethodDTO
+2012-06-27 09:22:38,429 10130 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.db.PaymentMethodDTO on table payment_method
+2012-06-27 09:22:38,432 10133 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.payment.db.PaymentInfoChequeDTO
+2012-06-27 09:22:38,432 10133 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.payment.db.PaymentInfoChequeDTO on table payment_info_cheque
+2012-06-27 09:22:38,434 10135 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.mediation.db.MediationRecordLineDTO
+2012-06-27 09:22:38,434 10135 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.mediation.db.MediationRecordLineDTO on table mediation_record_line
+2012-06-27 09:22:38,437 10138 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.mediation.db.MediationRecordStatusDTO
+2012-06-27 09:22:38,437 10138 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.mediation.db.MediationRecordDTO
+2012-06-27 09:22:38,437 10138 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.mediation.db.MediationRecordDTO on table mediation_record
+2012-06-27 09:22:38,439 10140 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.mediation.db.MediationOrderMap
+2012-06-27 09:22:38,439 10140 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.mediation.db.MediationOrderMap on table mediation_order_map
+2012-06-27 09:22:38,442 10143 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.mediation.db.MediationProcess
+2012-06-27 09:22:38,442 10143 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.mediation.db.MediationProcess on table mediation_process
+2012-06-27 09:22:38,447 10148 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.mediation.db.MediationConfiguration
+2012-06-27 09:22:38,447 10148 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.mediation.db.MediationConfiguration on table mediation_cfg
+2012-06-27 09:22:38,449 10150 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO
+2012-06-27 09:22:38,449 10150 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO on table permission_type
+2012-06-27 09:22:38,452 10153 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.permisson.db.PermissionUserDTO
+2012-06-27 09:22:38,452 10153 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.permisson.db.PermissionUserDTO on table permission_user
+2012-06-27 09:22:38,452 10153 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.permisson.db.PermissionDTO
+2012-06-27 09:22:38,454 10155 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.permisson.db.PermissionDTO on table permission
+2012-06-27 09:22:38,457 10158 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.permisson.db.RoleDTO
+2012-06-27 09:22:38,457 10158 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.permisson.db.RoleDTO on table role
+2012-06-27 09:22:38,459 10160 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.contact.db.ContactTypeDTO
+2012-06-27 09:22:38,459 10160 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.contact.db.ContactTypeDTO on table contact_type
+2012-06-27 09:22:38,462 10163 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO
+2012-06-27 09:22:38,462 10163 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO on table contact_field_type
+2012-06-27 09:22:38,464 10165 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.contact.db.ContactMapDTO
+2012-06-27 09:22:38,467 10168 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.contact.db.ContactMapDTO on table contact_map
+2012-06-27 09:22:38,467 10168 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.contact.db.ContactDTO
+2012-06-27 09:22:38,467 10168 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.contact.db.ContactDTO on table contact
+2012-06-27 09:22:38,474 10175 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.contact.db.ContactFieldDTO
+2012-06-27 09:22:38,474 10175 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.contact.db.ContactFieldDTO on table contact_field
+2012-06-27 09:22:38,477 10178 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.UserStatusDTO
+2012-06-27 09:22:38,479 10180 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.CreditCardDTO
+2012-06-27 09:22:38,479 10180 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.db.CreditCardDTO on table credit_card
+2012-06-27 09:22:38,484 10185 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.AchDTO
+2012-06-27 09:22:38,484 10185 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.db.AchDTO on table ach
+2012-06-27 09:22:38,489 10190 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.SubscriberStatusDTO
+2012-06-27 09:22:38,492 10193 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.CompanyDTO
+2012-06-27 09:22:38,492 10193 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.db.CompanyDTO on table entity
+2012-06-27 09:22:38,507 10208 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.UserDTO
+2012-06-27 09:22:38,509 10210 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.db.UserDTO on table base_user
+2012-06-27 09:22:38,522 10223 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.db.CustomerDTO
+2012-06-27 09:22:38,522 10223 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.db.CustomerDTO on table customer
+2012-06-27 09:22:38,527 10228 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.invoice.db.InvoiceLineDTO
+2012-06-27 09:22:38,527 10228 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.invoice.db.InvoiceLineDTO on table invoice_line
+2012-06-27 09:22:38,532 10233 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO
+2012-06-27 09:22:38,532 10233 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO on table invoice_delivery_method
+2012-06-27 09:22:38,534 10235 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.invoice.db.InvoiceStatusDTO
+2012-06-27 09:22:38,534 10235 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.invoice.db.InvoiceLineTypeDTO
+2012-06-27 09:22:38,534 10235 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.invoice.db.InvoiceLineTypeDTO on table invoice_line_type
+2012-06-27 09:22:38,537 10238 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.invoice.db.InvoiceDTO
+2012-06-27 09:22:38,537 10238 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.invoice.db.InvoiceDTO on table invoice
+2012-06-27 09:22:38,544 10245 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.notification.db.NotificationMessageSectionDTO
+2012-06-27 09:22:38,544 10245 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.notification.db.NotificationMessageSectionDTO on table notification_message_section
+2012-06-27 09:22:38,547 10248 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.notification.db.NotificationMessageLineDTO
+2012-06-27 09:22:38,547 10248 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.notification.db.NotificationMessageLineDTO on table notification_message_line
+2012-06-27 09:22:38,549 10250 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO
+2012-06-27 09:22:38,549 10250 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO on table notification_message_type
+2012-06-27 09:22:38,552 10253 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.notification.db.NotificationMessageArchLineDTO
+2012-06-27 09:22:38,552 10253 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.notification.db.NotificationMessageArchLineDTO on table notification_message_arch_line
+2012-06-27 09:22:38,554 10255 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.notification.db.NotificationMessageDTO
+2012-06-27 09:22:38,554 10255 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.notification.db.NotificationMessageDTO on table notification_message
+2012-06-27 09:22:38,557 10258 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.notification.db.NotificationMessageArchDTO
+2012-06-27 09:22:38,557 10258 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.notification.db.NotificationMessageArchDTO on table notification_message_arch
+2012-06-27 09:22:38,559 10260 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderBillingTypeDTO
+2012-06-27 09:22:38,559 10260 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.order.db.OrderBillingTypeDTO on table order_billing_type
+2012-06-27 09:22:38,562 10263 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderLineDTO
+2012-06-27 09:22:38,562 10263 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.order.db.OrderLineDTO on table order_line
+2012-06-27 09:22:38,567 10268 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderProcessDTO
+2012-06-27 09:22:38,567 10268 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.order.db.OrderProcessDTO on table order_process
+2012-06-27 09:22:38,569 10270 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderLineTypeDTO
+2012-06-27 09:22:38,569 10270 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.order.db.OrderLineTypeDTO on table order_line_type
+2012-06-27 09:22:38,572 10273 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderPeriodDTO
+2012-06-27 09:22:38,572 10273 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.order.db.OrderPeriodDTO on table order_period
+2012-06-27 09:22:38,574 10275 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderDTO
+2012-06-27 09:22:38,574 10275 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.order.db.OrderDTO on table purchase_order
+2012-06-27 09:22:38,587 10288 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.order.db.OrderStatusDTO
+2012-06-27 09:22:38,587 10288 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.partner.db.Partner
+2012-06-27 09:22:38,589 10290 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.partner.db.Partner on table partner
+2012-06-27 09:22:38,594 10295 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.partner.db.PartnerRange
+2012-06-27 09:22:38,594 10295 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.partner.db.PartnerRange on table partner_range
+2012-06-27 09:22:38,597 10298 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.user.partner.db.PartnerPayout
+2012-06-27 09:22:38,597 10298 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.user.partner.db.PartnerPayout on table partner_payout
+2012-06-27 09:22:38,599 10300 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO
+2012-06-27 09:22:38,599 10300 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO on table pluggable_task
+2012-06-27 09:22:38,602 10303 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskParameterDTO
+2012-06-27 09:22:38,602 10303 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskParameterDTO on table pluggable_task_parameter
+2012-06-27 09:22:38,604 10305 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO
+2012-06-27 09:22:38,604 10305 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO on table pluggable_task_type_category
+2012-06-27 09:22:38,604 10305 INFO  [org.hibernate.cfg.AnnotationBinder] (main:) Binding entity from annotated class: com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO
+2012-06-27 09:22:38,604 10305 INFO  [org.hibernate.cfg.annotations.EntityBinder] (main:) Bind entity com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO on table pluggable_task_type
+2012-06-27 09:22:38,617 10318 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.mediation.db.MediationProcess.orderMap -> mediation_order_map
+2012-06-27 09:22:38,617 10318 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.report.db.ReportDTO.parameters -> report_parameter
+2012-06-27 09:22:38,617 10318 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.report.db.ReportTypeDTO.reports -> report
+2012-06-27 09:22:38,617 10318 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.ProcessRunTotalDTO.totalsPaymentMethod -> process_run_total_pm
+2012-06-27 09:22:38,617 10318 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.PaperInvoiceBatchDTO.invoices -> invoice
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.PeriodUnitDTO.billingProcessConfigurations -> billing_process_configuration
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.PeriodUnitDTO.billingProcesses -> billing_process
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.PeriodUnitDTO.orderPeriods -> order_period
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.PeriodUnitDTO.partners -> partner
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.ProcessRunDTO.processRunTotals -> process_run_total
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.BillingProcessDTO.invoices -> invoice
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.BillingProcessDTO.orderProcesses -> order_process
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.process.db.BillingProcessDTO.processRuns -> process_run
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.audit.db.EventLogMessageDTO.eventLogs -> event_log
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.audit.db.EventLogModuleDTO.eventLogs -> event_log
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.LanguageDTO.baseUsers -> base_user
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.LanguageDTO.entities -> entity
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.LanguageDTO.notificationMessages -> notification_message
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.PreferenceTypeDTO.preferences -> preference
+2012-06-27 09:22:38,622 10323 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.baseUsers -> base_user
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.currencyExchanges -> currency_exchange
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.entities -> entity
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.invoices -> invoice
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.partners -> partner
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.payments -> payment
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.processRunTotals -> process_run_total
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.CurrencyDTO.purchaseOrders -> purchase_order
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.JbillingTable.contactMaps -> contact_map
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.JbillingTable.eventLogs -> event_log
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.JbillingTable.preferences -> preference
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.util.db.NotificationCategoryDTO.messageTypes -> notification_message_type
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.item.db.ItemDTO.invoiceLines -> invoice_line
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.item.db.ItemDTO.itemPrices -> item_price
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.item.db.ItemDTO.orderLines -> order_line
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentDTO.invoicesMap -> payment_invoice
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentDTO.partnerPayouts -> partner_payout
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentDTO.paymentAuthorizations -> payment_authorization
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentDTO.payments -> payment
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentResultDTO.payments -> payment
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentMethodDTO.payments -> payment
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.payment.db.PaymentMethodDTO.processRunTotalPms -> process_run_total_pm
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.mediation.db.MediationRecordDTO.lines -> mediation_record_line
+2012-06-27 09:22:38,624 10325 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.mediation.db.MediationProcess.records -> mediation_record
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO.permissions -> permission
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.permisson.db.PermissionDTO.permissionUsers -> permission_user
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.contact.db.ContactTypeDTO.contactMaps -> contact_map
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO.contactFields -> contact_field
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.contact.db.ContactDTO.fields -> contact_field
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserStatusDTO.ageingEntitySteps -> ageing_entity_step
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserStatusDTO.baseUsers -> base_user
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CreditCardDTO.payments -> payment
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.AchDTO.payments -> payment
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.SubscriberStatusDTO.baseUsers -> base_user
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.ageingEntitySteps -> ageing_entity_step
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.baseUsers -> base_user
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.billingProcessConfigurations -> billing_process_configuration
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.billingProcesses -> billing_process
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.contactFieldTypes -> contact_field_type
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.contactTypes -> contact_type
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.eventLogs -> event_log
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.itemTypes -> item_type
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.items -> item
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.notificationMessages -> notification_message
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CompanyDTO.orderPeriods -> order_period
+2012-06-27 09:22:38,627 10328 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.achs -> ach
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.eventLogs -> event_log
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.invoices -> invoice
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.notificationMessageArchs -> notification_message_arch
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.orders -> purchase_order
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.partnersForRelatedClerk -> partner
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.payments -> payment
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.permissions -> permission_user
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.UserDTO.purchaseOrdersForCreatedBy -> purchase_order
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.db.CustomerDTO.children -> customer
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO.customers -> customer
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.invoice.db.InvoiceLineTypeDTO.invoiceLines -> invoice_line
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.invoice.db.InvoiceDTO.invoiceLines -> invoice_line
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.invoice.db.InvoiceDTO.invoices -> invoice
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.invoice.db.InvoiceDTO.orderProcesses -> order_process
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.invoice.db.InvoiceDTO.paymentMap -> payment_invoice
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.notification.db.NotificationMessageSectionDTO.notificationMessageLines -> notification_message_line
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO.notificationMessages -> notification_message
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.notification.db.NotificationMessageDTO.notificationMessageSections -> notification_message_section
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.notification.db.NotificationMessageArchDTO.notificationMessageArchLines -> notification_message_arch_line
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderBillingTypeDTO.purchaseOrders -> purchase_order
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderLineDTO.events -> mediation_record_line
+2012-06-27 09:22:38,629 10330 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderLineTypeDTO.orderLines -> order_line
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderPeriodDTO.purchaseOrders -> purchase_order
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderDTO.lines -> order_line
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderDTO.orderProcesses -> order_process
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.order.db.OrderStatusDTO.purchaseOrders -> purchase_order
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.partner.db.Partner.customers -> customer
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.partner.db.Partner.partnerPayouts -> partner_payout
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.user.partner.db.Partner.ranges -> partner_range
+2012-06-27 09:22:38,632 10333 INFO  [org.hibernate.cfg.annotations.CollectionBinder] (main:) Mapping collection: com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO.parameters -> pluggable_task_parameter
+2012-06-27 09:22:38,639 10340 INFO  [org.hibernate.cfg.AnnotationConfiguration] (main:) Hibernate Validator not found: ignoring
+2012-06-27 09:22:38,639 10340 INFO  [org.codehaus.groovy.grails.orm.hibernate.ConfigurableLocalSessionFactoryBean] (main:) Building new Hibernate SessionFactory
+2012-06-27 09:22:38,652 10353 INFO  [org.hibernate.cfg.search.HibernateSearchEventListenerRegister] (main:) Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+2012-06-27 09:22:38,719 10420 WARN  [org.hibernate.mapping.RootClass] (main:) composite-id class does not override equals(): com.infosense.ibilling.server.mediation.db.MapPK
+2012-06-27 09:22:38,719 10420 WARN  [org.hibernate.mapping.RootClass] (main:) composite-id class does not override hashCode(): com.infosense.ibilling.server.mediation.db.MapPK
+2012-06-27 09:22:38,752 10453 INFO  [org.hibernate.connection.ConnectionProviderFactory] (main:) Initializing connection provider: org.springframework.orm.hibernate3.LocalDataSourceConnectionProvider
+2012-06-27 09:22:38,754 10455 INFO  [org.hibernate.cfg.SettingsFactory] (main:) RDBMS: PostgreSQL, version: 9.1.4
+2012-06-27 09:22:38,757 10458 INFO  [org.hibernate.cfg.SettingsFactory] (main:) JDBC driver: PostgreSQL Native Driver, version: PostgreSQL 8.4 JDBC4 (build 702)
+2012-06-27 09:22:38,772 10473 INFO  [org.hibernate.dialect.Dialect] (main:) Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2012-06-27 09:22:38,777 10478 INFO  [org.hibernate.transaction.TransactionFactoryFactory] (main:) Transaction strategy: org.springframework.orm.hibernate3.SpringTransactionFactory
+2012-06-27 09:22:38,779 10480 INFO  [org.hibernate.transaction.TransactionManagerLookupFactory] (main:) No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+2012-06-27 09:22:38,779 10480 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Automatic flush during beforeCompletion(): disabled
+2012-06-27 09:22:38,779 10480 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Automatic session close at end of transaction: disabled
+2012-06-27 09:22:38,779 10480 INFO  [org.hibernate.cfg.SettingsFactory] (main:) JDBC batch size: 100
+2012-06-27 09:22:38,779 10480 INFO  [org.hibernate.cfg.SettingsFactory] (main:) JDBC batch updates for versioned data: disabled
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Scrollable result sets: enabled
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) JDBC3 getGeneratedKeys(): enabled
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Connection release mode: after_transaction
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Default batch fetch size: 1
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Generate SQL with comments: enabled
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Order SQL updates by primary key: disabled
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Order SQL inserts for batching: disabled
+2012-06-27 09:22:38,782 10483 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+2012-06-27 09:22:38,784 10485 INFO  [org.hibernate.hql.ast.ASTQueryTranslatorFactory] (main:) Using ASTQueryTranslatorFactory
+2012-06-27 09:22:38,784 10485 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Query language substitutions: {}
+2012-06-27 09:22:38,784 10485 INFO  [org.hibernate.cfg.SettingsFactory] (main:) JPA-QL strict compliance: disabled
+2012-06-27 09:22:38,784 10485 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Second-level cache: enabled
+2012-06-27 09:22:38,784 10485 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Query cache: enabled
+2012-06-27 09:22:38,789 10490 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Cache region factory : org.hibernate.cache.impl.bridge.RegionFactoryCacheProviderBridge
+2012-06-27 09:22:38,789 10490 INFO  [org.hibernate.cache.impl.bridge.RegionFactoryCacheProviderBridge] (main:) Cache provider: net.sf.ehcache.hibernate.EhCacheProvider
+2012-06-27 09:22:38,794 10495 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Optimize cache for minimal puts: disabled
+2012-06-27 09:22:38,794 10495 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Structured second-level cache entries: disabled
+2012-06-27 09:22:38,794 10495 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Query cache factory: org.hibernate.cache.StandardQueryCacheFactory
+2012-06-27 09:22:38,804 10505 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Statistics: disabled
+2012-06-27 09:22:38,804 10505 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Deleted entity synthetic identifier rollback: disabled
+2012-06-27 09:22:38,804 10505 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Default entity-mode: pojo
+2012-06-27 09:22:38,804 10505 INFO  [org.hibernate.cfg.SettingsFactory] (main:) Named query checking : enabled
+2012-06-27 09:22:38,847 10548 INFO  [org.hibernate.impl.SessionFactoryImpl] (main:) building session factory
+2012-06-27 09:22:39,144 10845 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.payment.db.PaymentResultDTO]; using defaults.
+2012-06-27 09:22:39,144 10845 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.payment.db.PaymentResultDTO]
+2012-06-27 09:22:39,152 10853 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.PaperInvoiceBatchDTO]; using defaults.
+2012-06-27 09:22:39,162 10863 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.util.db.AbstractGenericStatus]
+2012-06-27 09:22:39,172 10873 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.order.db.OrderLineTypeDTO]
+2012-06-27 09:22:39,198 10899 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.report.db.ReportParameterDTO]; using defaults.
+2012-06-27 09:22:39,198 10899 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.report.db.ReportParameterDTO]
+2012-06-27 09:22:39,203 10904 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.report.db.ReportTypeDTO]; using defaults.
+2012-06-27 09:22:39,203 10904 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.report.db.ReportTypeDTO]
+2012-06-27 09:22:39,208 10909 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.util.db.CountryDTO]; using defaults.
+2012-06-27 09:22:39,208 10909 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.util.db.CountryDTO]
+2012-06-27 09:22:39,213 10914 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO]
+2012-06-27 09:22:39,233 10934 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.invoice.db.InvoiceDTO]; using defaults.
+2012-06-27 09:22:39,248 10949 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.ProcessRunTotalDTO]; using defaults.
+2012-06-27 09:22:39,270 10971 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.util.db.PreferenceTypeDTO]
+2012-06-27 09:22:39,275 10976 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.ProcessRunTotalPmDTO]; using defaults.
+2012-06-27 09:22:39,293 10994 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.user.contact.db.ContactFieldDTO]; using defaults.
+2012-06-27 09:22:39,295 10996 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO]
+2012-06-27 09:22:39,315 11016 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.report.db.ReportDTO]; using defaults.
+2012-06-27 09:22:39,315 11016 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.report.db.ReportDTO]
+2012-06-27 09:22:39,330 11031 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.order.db.OrderBillingTypeDTO]
+2012-06-27 09:22:39,335 11036 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.BillingProcessDTO]; using defaults.
+2012-06-27 09:22:39,485 11186 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.payment.db.PaymentMethodDTO]; using defaults.
+2012-06-27 09:22:39,485 11186 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.payment.db.PaymentMethodDTO]
+2012-06-27 09:22:39,490 11191 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.util.db.LanguageDTO]
+2012-06-27 09:22:39,528 11229 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.user.contact.db.ContactDTO]; using defaults.
+2012-06-27 09:22:39,553 11254 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.payment.db.PaymentDTO]; using defaults.
+2012-06-27 09:22:39,563 11264 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO]
+2012-06-27 09:22:39,615 11316 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.payment.db.PaymentInfoChequeDTO]; using defaults.
+2012-06-27 09:22:39,630 11331 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.payment.db.PaymentInvoiceMapDTO]; using defaults.
+2012-06-27 09:22:39,633 11334 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.invoice.db.InvoiceLineDTO]; using defaults.
+2012-06-27 09:22:39,643 11344 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO]; using defaults.
+2012-06-27 09:22:39,643 11344 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO]
+2012-06-27 09:22:39,660 11361 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.user.contact.db.ContactMapDTO]; using defaults.
+2012-06-27 09:22:39,665 11366 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.util.db.NotificationCategoryDTO]; using defaults.
+2012-06-27 09:22:39,665 11366 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.util.db.NotificationCategoryDTO]
+2012-06-27 09:22:39,673 11374 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.ProcessRunDTO]; using defaults.
+2012-06-27 09:22:39,683 11384 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.PeriodUnitDTO]; using defaults.
+2012-06-27 09:22:39,683 11384 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.process.db.PeriodUnitDTO]
+2012-06-27 09:22:39,690 11391 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.user.permisson.db.PermissionDTO]
+2012-06-27 09:22:39,695 11396 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.invoice.db.InvoiceLineTypeDTO]; using defaults.
+2012-06-27 09:22:39,698 11399 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.invoice.db.InvoiceLineTypeDTO]
+2012-06-27 09:22:39,740 11441 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO]
+2012-06-27 09:22:39,770 11471 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.util.db.JbillingTable]; using defaults.
+2012-06-27 09:22:39,770 11471 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter] (main:) read-only cache configured for mutable entity [com.infosense.ibilling.server.util.db.JbillingTable]
+2012-06-27 09:22:39,783 11484 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.AgeingEntityStepDTO]; using defaults.
+2012-06-27 09:22:39,805 11506 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.payment.db.PaymentAuthorizationDTO]; using defaults.
+2012-06-27 09:22:39,840 11541 WARN  [net.sf.ehcache.hibernate.EhCacheProvider] (main:) Could not find a specific ehcache configuration for cache named [com.infosense.ibilling.server.process.db.BillingProcessDTO.invoices]; using defaults.
+2012-06-27 09:22:40,028 11729 INFO  [org.hibernate.impl.SessionFactoryObjectFactory] (main:) Factory name: org.codehaus.groovy.grails.orm.hibernate.ConfigurableLocalSessionFactoryBean
+2012-06-27 09:22:40,030 11731 INFO  [org.hibernate.util.NamingHelper] (main:) JNDI InitialContext properties:{}
+2012-06-27 09:22:40,035 11736 INFO  [org.hibernate.impl.SessionFactoryObjectFactory] (main:) Bound factory to JNDI name: org.codehaus.groovy.grails.orm.hibernate.ConfigurableLocalSessionFactoryBean
+2012-06-27 09:22:40,038 11739 WARN  [org.hibernate.impl.SessionFactoryObjectFactory] (main:) InitialContext did not implement EventContext
+2012-06-27 09:22:40,040 11741 INFO  [org.hibernate.cache.UpdateTimestampsCache] (main:) starting update timestamps cache at region: org.hibernate.cache.UpdateTimestampsCache
+2012-06-27 09:22:40,043 11744 INFO  [org.hibernate.cache.StandardQueryCache] (main:) starting query cache at region: org.hibernate.cache.StandardQueryCache
+2012-06-27 09:22:41,908 13609 INFO  [org.codehaus.groovy.grails.orm.hibernate.GrailsHibernateTransactionManager] (main:) Using DataSource [com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 2, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 10000, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, dataSourceName -> 1hge4yu8oc2u5sdj8a1gb|5ce04204, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> org.postgresql.Driver, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 1hge4yu8oc2u5sdj8a1gb|5ce04204, idleConnectionTestPeriod -> 30, initialPoolSize -> 10, jdbcUrl -> jdbc:postgresql://localhost:5432/jbilling_test, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 300, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 50, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 10, numHelperThreads -> 3, numThreadsAwaitingCheckoutDefaultUser -> 0, preferredTestQuery -> select id from jbilling_table where id = 1, properties -> {user=******, password=******}, propertyCycle -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> true, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false ]] of Hibernate SessionFactory for HibernateTransactionManager
+2012-06-27 09:22:41,964 13665 INFO  [org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory] (main:) Pre-instantiating singletons in org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory@17df01a0: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalPersistenceAnnotationProcessor,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,viewNameTranslator,jbilling.ContactFieldConfigController,jbilling.BreadcrumbServiceServiceClass,authenticationUserDetailsService,grailsApplicationPostProcessor,jbilling.MessagesTagLib,jbilling.ConfigController,jbilling.ShortcutPersistentClass,rememberMeAuthenticationProvider,jbilling.SignupController,org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib,jbilling.FilterSetValidator,webExpressionVoter,xmlParsingParameterCreationListener,flowExecutionSnapshotFactory,jbilling.ShortcutDomainClass,jbilling.ProductServiceServiceClass,org.codehaus.groovy.grails.plugins.web.taglib.FormatTagLib,jbilling.MediationConfigController,portResolver,MessagesController,controllerHandlerMappings,flowExecutor,grailsUrlMappingsHolderBean,jbilling.BreadcrumbDomainClass,convertersConfigurationInitializer,authenticatedVoter,transactionManagerPostProcessor,executionListenerLoader,org.codehaus.groovy.grails.plugins.web.taglib.CountryTagLib,jbilling.FilterSetPersistentClass,remotingUrlHandlerMapping,IncludeTagLib,groovyPageResourceLoader,portMapper,jbilling.RecentItemServiceServiceClass,flushingRedirectEventListener,exceptionHandler,jbilling.FilterValidator,org.codehaus.groovy.grails.web.filters.JavascriptLibraryFiltersClass,requestCache,controllerToScaffoldedDomainClassMap,gspTagLibraryLookup,authenticationDetailsSource,basicAuthenticationFilter,logoutSuccessHandler,springSecurityService,daoAuthenticationProvider,flowBuilderServices,jbilling.FilterServiceServiceClass,userCache,jbilling.JBillingDisplayTagLib,urlMappingsTargetSource,eventTriggeringInterceptor,xmlErrorsMarshaller,jspViewResolver,jbilling.BillingconfigurationController,jbilling.OrderPeriodController,com.intelligrape.util.RemotePaginationTagLib,persistenceInterceptor,flowRegistry,authenticationFailureHandler,basicAuthenticationEntryPoint,classLoader,jbilling.BreadcrumbController,roleVoter,saltSource,exceptionTranslationFilter,jbilling.CustomerController,jbilling.FilterSetDomainClass,authenticationProcessingFilter,roleHierarchy,jbilling.RecentItem,jbilling.MediationController,JQueryTagLib,httpRequestHandlerAdapter,transactionManager,grails.plugins.springsecurity.SecurityTagLib,org.codehaus.groovy.grails.plugins.web.taglib.JavascriptTagLib,jbilling.FilterSet,jbilling.CustomerInspectorController,jbilling.FilterController,authenticationEventPublisher,recentItemService,dataSource,jbilling.FilterDomainClass,scaffoldedActionMap,customEditors,flowExecutionFactory,SortableTagLib,com.studentuniverse.grails.plugins.cookie.taglib.CookieTagLib,dataSourceUnproxied,PreferencesTagLib,filterInvocationInterceptor,jbilling.BillingController,jsonParsingParameterCreationListener,viewFactoryCreator,accessDeniedHandler,multipartResolver,flowExecutionRepository,flowScopeRegistrar,org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib,securitySession,flowHandlerMapping,org.springframework.aop.config.internalAutoProxyCreator,customPropertyEditorRegistrar,breadcrumbService,authenticationTrustResolver,accessDecisionManager,hibernateEventListeners,securityContextLogoutHandler,viewUtils,basicAccessDeniedHandler,filterInterceptor,jbilling.OrderController,redirectStrategy,authenticationEntryPoint,basicExceptionTranslationFilter,jbilling.ProductController,jbilling.BlacklistController,mainFlowController,localeChangeInterceptor,jbilling.RecentItemValidator,permissionVoter,HomeController,jbilling.ShortcutController,anonymousAuthenticationProvider,rememberMeAuthenticationFilter,groovyPagesUriService,jbilling.NotificationsController,jbilling.PlanController,jbilling.RecentItemController,jspTagLibraryResolver,jbilling.Breadcrumb,grailsUrlMappingsHolder,localeResolver,jbilling.PluginController,jbilling.ContactTypeConfigController,org.grails.plugins.log4jxml.Log4jController,proxyHandler,cookieService,hibernateProperties,messageSource,authenticationManager,jbilling.RecentItemDomainClass,annotationHandlerMapping,userDetailsService,filterService,org.codehaus.groovy.grails.web.filters.JavascriptLibraryFilters,jbilling.BreadcrumbValidator,tokenRepository,jbilling.BreadcrumbPersistentClass,pluginManagerPostProcessor,jbilling.InvoiceController,springSecurityFilterChain,SelectionTagLib,securityContextHolderAwareRequestFilter,httpRequestAdapter,VersionController,authenticationSuccessHandler,webExpressionHandler,nativeJdbcExtractor,mainSimpleController,org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib,jbilling.PaymentController,jbilling.ShortcutValidator,logoutHandlers,errorsXmlMarshallerRegisterer,JQueryServiceServiceClass,jbilling.FilterPersistentClass,securityContextPersistenceFilter,staticAuthenticationProcessingFilter,grails.plugins.springsecurity.SpringSecurityServiceServiceClass,jQueryConfig,webInvocationPrivilegeEvaluator,jbilling.OrderBuilderController,openSessionInViewInterceptor,rememberMeServices,entityInterceptor,org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib,jbilling.UserController,LoginController,JQueryService,jbilling.RecentItemPersistentClass,runAsManager,com.grailsrocks.jqueryui.JqueryUiTagLib,sessionFactory,sessionAuthenticationStrategy,jbilling.SearchController,simpleControllerHandlerAdapter,annotationHandlerAdapter,org.codehaus.groovy.grails.plugins.web.taglib.PluginTagLib,groovyPagesTemplateEngine,objectDefinitionSource,LogoutController,jbilling.ReportController,jsonErrorsMarshaller,conversationManager,anonymousAuthenticationFilter,shutdownHook,scaffoldingTemplateGenerator,passwordEncoder,jbilling.Filter,jbilling.Shortcut,productService,lobHandlerDetector,com.studentuniverse.grails.plugins.cookie.services.CookieServiceServiceClass,jbilling.AuditLogController,logoutFilter,JQueryResourceTagLib,org.codehaus.groovy.grails.plugins.web.taglib.SitemeshTagLib,hibernateConversationListener,paymentSession,testExternalProvisioningMDB,jmsConnectionFactory,pluggableTaskDAS,velocityEngine,validator,orderSession,internalEventsRulesTaskConfig,processPaymentMDB,provisioningCommandsMDB,cacheModelPTDTO,webServicesSession,mediationSession,cacheModelItemPrice,processorsDestination,org.springframework.jms.listener.DefaultMessageListenerContainer#0,externalProvisioningMDB,userSession,cacheModelReadOnly,provisioningCommandsDestination,webServicesExceptionAdvisor,cacheManager,pluggableTaskSession,cai,invoiceSession,org.springframework.jms.listener.DefaultMessageListenerContainer#2,jbillingTableDAS,org.springframework.jms.listener.DefaultMessageListenerContainer#1,provisioningProcessSession,org.springframework.jms.listener.DefaultMessageListenerContainer#3,jBillingBootstrap,cacheProviderFacade,mmsc,invoiceEvents,customerSession,webServicesValidationAdvice,webServicesExceptionAdvice,flushModelPTDTO,billingProcessSession,notificationSession,flushModelItemPrice,webServicesValidationAdvisor,jmsTemplate,internationalDescriptionDAS,itemSession,scopedTarget.webServicesSession,provisioning,provisioningCommandsReplyDestination]; parent: org.springframework.beans.factory.support.DefaultListableBeanFactory@38f42ac9
+2012-06-27 09:22:42,549 14250 INFO  [org.codehaus.groovy.grails.scaffolding.DefaultGrailsTemplateGenerator] (main:) Scaffolding template generator set to use resource loader org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4fb3c3d9: startup date [Wed Jun 27 09:22:36 CST 2012]; parent: Root WebApplicationContext
+2012-06-27 09:22:42,624 14325 INFO  [org.springframework.beans.factory.config.PropertiesFactoryBean] (main:) Loading properties file from class path resource [gsp/views.properties]
+2012-06-27 09:22:42,626 14327 WARN  [org.springframework.beans.factory.config.PropertiesFactoryBean] (main:) Could not load properties from class path resource [gsp/views.properties]: class path resource [gsp/views.properties] cannot be opened because it does not exist
+2012-06-27 09:22:44,724 16425 INFO  [org.springframework.security.web.access.intercept.FilterSecurityInterceptor] (main:) Validated configuration attributes
+2012-06-27 09:22:46,083 17784 INFO  [org.springframework.cache.ehcache.EhCacheManagerFactoryBean] (main:) Initializing EHCache CacheManager
+2012-06-27 09:22:46,109 17810 WARN  [net.sf.ehcache.CacheManager] (main:) Creating a new instance of CacheManager using the diskStorePath "C:\Users\shdev\AppData\Local\Temp\" which is already used by an existing CacheManager.
+The source of the configuration was classpath.
+The diskStore path for this CacheManager will be set to C:\Users\shdev\AppData\Local\Temp\\ehcache_auto_created_1340760166109.
+To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
+2012-06-27 09:24:05,292 96993 INFO  [org.quartz.simpl.SimpleThreadPool] (main:) Job execution threads will use class loader of thread: main
+2012-06-27 09:24:05,341 97042 INFO  [org.quartz.simpl.RAMJobStore] (main:) RAMJobStore initialized.
+2012-06-27 09:24:05,341 97042 INFO  [org.quartz.impl.StdSchedulerFactory] (main:) Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+2012-06-27 09:24:05,341 97042 INFO  [org.quartz.impl.StdSchedulerFactory] (main:) Quartz scheduler version: 1.4.5
+2012-06-27 13:39:21,675 15413376 INFO  [org.quartz.core.QuartzScheduler] (main:) Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+2012-06-27 13:39:28,558 15420259 INFO  [org.springframework.context.support.DefaultLifecycleProcessor] (main:) Starting beans in phase 2147483647
+2012-06-27 13:39:29,352 15421053 INFO  [org.apache.activemq.broker.jmx.ManagementContext] (JMX connector:) JMX consoles can connect to service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+2012-06-27 13:39:29,454 15421155 INFO  [org.apache.activemq.broker.BrokerService] (main:) Using Persistence Adapter: AMQPersistenceAdapter(activemq-data\localhost)
+2012-06-27 13:39:29,469 15421170 INFO  [org.apache.activemq.store.amq.AMQPersistenceAdapter] (main:) AMQStore starting using directory: activemq-data\localhost
+2012-06-27 13:39:29,527 15421228 INFO  [org.apache.activemq.kaha.impl.KahaStore] (main:) Kaha Store using data directory activemq-data\localhost\kr-store\state
+2012-06-27 13:39:29,617 15421318 INFO  [org.apache.activemq.store.amq.AMQPersistenceAdapter] (main:) Active data files: []
+2012-06-27 13:39:29,625 15421326 WARN  [org.apache.activemq.store.amq.AMQPersistenceAdapter] (main:) The ReferenceStore is not valid - recovering ...
+2012-06-27 13:39:29,633 15421334 INFO  [org.apache.activemq.kaha.impl.KahaStore] (main:) Kaha Store successfully deleted data directory activemq-data\localhost\kr-store\data
+2012-06-27 13:39:29,633 15421334 INFO  [org.apache.activemq.store.amq.AMQPersistenceAdapter] (main:) Journal Recovery Started from: DataManager:(data-)
+2012-06-27 13:39:29,685 15421386 INFO  [org.apache.activemq.kaha.impl.KahaStore] (main:) Kaha Store using data directory activemq-data\localhost\kr-store\data
+2012-06-27 13:39:30,495 15422196 INFO  [org.apache.activemq.store.amq.AMQPersistenceAdapter] (main:) Recovered 3840 operations from redo log in 0.862 seconds.
+2012-06-27 13:39:30,495 15422196 INFO  [org.apache.activemq.store.amq.AMQPersistenceAdapter] (main:) Finished recovering the ReferenceStore
+2012-06-27 13:39:30,500 15422201 INFO  [org.apache.activemq.broker.BrokerService] (main:) ActiveMQ 5.3.2 JMS Message Broker (localhost) is starting
+2012-06-27 13:39:30,500 15422201 INFO  [org.apache.activemq.broker.BrokerService] (main:) For help or more information please see: http://activemq.apache.org/
+2012-06-27 13:39:30,805 15422506 INFO  [org.apache.activemq.broker.BrokerService] (main:) ActiveMQ JMS Message Broker (localhost, ID:shdev-PC-51427-1340775570545-0:0) started
+2012-06-27 13:39:30,819 15422520 INFO  [org.apache.activemq.broker.TransportConnector] (main:) Connector vm://localhost Started
+2012-06-27 13:39:35,921 15427622 INFO  [org.codehaus.groovy.grails.plugins.web.filters.FiltersGrailsPlugin] (main:) reloadFilters
+2012-06-27 13:39:36,565 15428266 INFO  [org.codehaus.groovy.grails.web.context.GrailsConfigUtils] (main:) [GrailsContextLoader] Grails application loaded.
+2012-06-27 13:39:36,612 15428313 INFO  [org.springframework.web.context.ContextLoader] (main:) Root WebApplicationContext: initialization completed in 15425441 ms
+2012-06-27 13:39:37,427 15429128 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Initializing Spring FrameworkServlet 'burlap'
+2012-06-27 13:39:37,427 15429128 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'burlap': initialization started
+2012-06-27 13:39:37,433 15429134 INFO  [org.springframework.web.context.support.StaticWebApplicationContext] (main:) Refreshing WebApplicationContext for namespace 'burlap-servlet': startup date [Wed Jun 27 13:39:37 CST 2012]; parent: org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4fb3c3d9
+2012-06-27 13:39:37,433 15429134 INFO  [org.springframework.beans.factory.support.DefaultListableBeanFactory] (main:) Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@42aa4965: defining beans []; parent: org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory@17df01a0
+2012-06-27 13:39:37,458 15429159 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'burlap': initialization completed in 31 ms
+2012-06-27 13:39:37,461 15429162 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Initializing Spring FrameworkServlet 'grails'
+2012-06-27 13:39:37,461 15429162 INFO  [org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet] (main:) FrameworkServlet 'grails': initialization started
+2012-06-27 13:39:37,483 15429184 INFO  [org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet] (main:) Using MultipartResolver [org.codehaus.groovy.grails.web.multipart.ContentLengthAwareCommonsMultipartResolver@18c9d40b]
+2012-06-27 13:39:37,483 15429184 INFO  [org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet] (main:) FrameworkServlet 'grails': initialization completed in 22 ms
+2012-06-27 13:39:37,496 15429197 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Marking servlet CXFServlet as unavailable
+2012-06-27 13:39:37,496 15429197 ERROR [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Error loading org.grails.tomcat.ParentDelegatingClassLoader@2af7e5d1 org.grails.cxf.GrailsCXFServlet
+java.lang.ClassNotFoundException: org.grails.cxf.GrailsCXFServlet
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:202)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+	at sun.reflect.GeneratedMethodAccessor211.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.grails.tomcat.ParentDelegatingClassLoader.findClass(TomcatServer.groovy:440)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1095)
+	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:993)
+	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4176)
+	at org.apache.catalina.core.StandardContext.start(StandardContext.java:4485)
+	at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1045)
+	at org.apache.catalina.core.StandardHost.start(StandardHost.java:722)
+	at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1045)
+	at org.apache.catalina.core.StandardEngine.start(StandardEngine.java:443)
+	at org.apache.catalina.core.StandardService.start(StandardService.java:515)
+	at org.apache.catalina.core.StandardServer.start(StandardServer.java:708)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:286)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:121)
+	at org.grails.tomcat.TomcatServer.start(TomcatServer.groovy:212)
+	at grails.web.container.EmbeddableServer$start.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:129)
+	at _GrailsRun_groovy$_run_closure5_closure12.doCall(_GrailsRun_groovy:158)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at _GrailsRun_groovy$_run_closure5_closure12.doCall(_GrailsRun_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at _GrailsSettings_groovy$_run_closure10.doCall(_GrailsSettings_groovy:280)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:266)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at _GrailsSettings_groovy$_run_closure10.call(_GrailsSettings_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1104)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1060)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.Script.invokeMethod(Script.java:78)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at _GrailsRun_groovy$_run_closure5.doCall(_GrailsRun_groovy:149)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:266)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at _GrailsRun_groovy$_run_closure5.call(_GrailsRun_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1104)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1060)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at _GrailsRun_groovy.runInline(_GrailsRun_groovy:116)
+	at _GrailsRun_groovy.this$4$runInline(_GrailsRun_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1003)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:163)
+	at _GrailsRun_groovy$_run_closure1.doCall(_GrailsRun_groovy:59)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at sun.reflect.GeneratedMethodAccessor104.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:39)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:54)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy:185)
+	at sun.reflect.GeneratedMethodAccessor129.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy)
+	at sun.reflect.GeneratedMethodAccessor128.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.gant.GantBinding.withTargetEvent(GantBinding.groovy:90)
+	at org.codehaus.gant.GantBinding.this$4$withTargetEvent(GantBinding.groovy)
+	at sun.reflect.GeneratedMethodAccessor122.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1003)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:159)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy:185)
+	at sun.reflect.GeneratedMethodAccessor121.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy)
+	at sun.reflect.GeneratedMethodAccessor120.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1104)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1060)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.Script.invokeMethod(Script.java:78)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:147)
+	at RunApp$_run_closure1.doCall(RunApp.groovy:33)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:39)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:54)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy:185)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.gant.GantBinding.withTargetEvent(GantBinding.groovy:90)
+	at org.codehaus.gant.GantBinding.this$4$withTargetEvent(GantBinding.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1003)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:159)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy:185)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:121)
+	at gant.Gant$_dispatch_closure5.doCall(Gant.groovy:381)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at groovy.lang.Closure$call$0.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at gant.Gant$_dispatch_closure7.doCall(Gant.groovy:415)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at gant.Gant$_dispatch_closure7.doCall(Gant.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:121)
+	at gant.Gant.withBuildListeners(Gant.groovy:427)
+	at gant.Gant.this$2$withBuildListeners(Gant.groovy)
+	at gant.Gant$this$2$withBuildListeners.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at gant.Gant.dispatch(Gant.groovy:415)
+	at gant.Gant.this$2$dispatch(Gant.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:708)
+	at gant.Gant.invokeMethod(Gant.groovy)
+	at groovy.lang.GroovyObject$invokeMethod.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at gant.Gant.executeTargets(Gant.groovy:590)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at gant.Gant.executeTargets(Gant.groovy:589)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.executeWithGantInstance(GrailsScriptRunner.java:656)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.callPluginOrGrailsScript(GrailsScriptRunner.java:522)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.executeCommand(GrailsScriptRunner.java:318)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.main(GrailsScriptRunner.java:135)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.grails.cli.support.GrailsStarter.rootLoader(GrailsStarter.java:234)
+	at org.codehaus.groovy.grails.cli.support.GrailsStarter.main(GrailsStarter.java:262)
+2012-06-27 13:39:37,508 15429209 ERROR [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Servlet /jbilling threw load() exception
+java.lang.ClassNotFoundException: org.grails.cxf.GrailsCXFServlet
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:202)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+	at sun.reflect.GeneratedMethodAccessor211.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.grails.tomcat.ParentDelegatingClassLoader.findClass(TomcatServer.groovy:440)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1095)
+	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:993)
+	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4176)
+	at org.apache.catalina.core.StandardContext.start(StandardContext.java:4485)
+	at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1045)
+	at org.apache.catalina.core.StandardHost.start(StandardHost.java:722)
+	at org.apache.catalina.core.ContainerBase.start(ContainerBase.java:1045)
+	at org.apache.catalina.core.StandardEngine.start(StandardEngine.java:443)
+	at org.apache.catalina.core.StandardService.start(StandardService.java:515)
+	at org.apache.catalina.core.StandardServer.start(StandardServer.java:708)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:286)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:121)
+	at org.grails.tomcat.TomcatServer.start(TomcatServer.groovy:212)
+	at grails.web.container.EmbeddableServer$start.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:129)
+	at _GrailsRun_groovy$_run_closure5_closure12.doCall(_GrailsRun_groovy:158)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at _GrailsRun_groovy$_run_closure5_closure12.doCall(_GrailsRun_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at _GrailsSettings_groovy$_run_closure10.doCall(_GrailsSettings_groovy:280)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:266)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:56)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at _GrailsSettings_groovy$_run_closure10.call(_GrailsSettings_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1104)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1060)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.Script.invokeMethod(Script.java:78)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at _GrailsRun_groovy$_run_closure5.doCall(_GrailsRun_groovy:149)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:266)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at _GrailsRun_groovy$_run_closure5.call(_GrailsRun_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1104)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1060)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at _GrailsRun_groovy.runInline(_GrailsRun_groovy:116)
+	at _GrailsRun_groovy.this$4$runInline(_GrailsRun_groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1003)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:163)
+	at _GrailsRun_groovy$_run_closure1.doCall(_GrailsRun_groovy:59)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at sun.reflect.GeneratedMethodAccessor104.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:39)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:54)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy:185)
+	at sun.reflect.GeneratedMethodAccessor129.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy)
+	at sun.reflect.GeneratedMethodAccessor128.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.gant.GantBinding.withTargetEvent(GantBinding.groovy:90)
+	at org.codehaus.gant.GantBinding.this$4$withTargetEvent(GantBinding.groovy)
+	at sun.reflect.GeneratedMethodAccessor122.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1003)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:159)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy:185)
+	at sun.reflect.GeneratedMethodAccessor121.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy)
+	at sun.reflect.GeneratedMethodAccessor120.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokePropertyOrMissing(MetaClassImpl.java:1104)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1060)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.Script.invokeMethod(Script.java:78)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:147)
+	at RunApp$_run_closure1.doCall(RunApp.groovy:33)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.DelegatingMetaClass.invokeMethod(DelegatingMetaClass.java:149)
+	at org.codehaus.gant.GantMetaClass.invokeMethod(GantMetaClass.java:127)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:39)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:54)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy:185)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16_closure18.doCall(GantBinding.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.gant.GantBinding.withTargetEvent(GantBinding.groovy:90)
+	at org.codehaus.gant.GantBinding.this$4$withTargetEvent(GantBinding.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1003)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:706)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:44)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1123)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1017)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:66)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:159)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy:185)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at org.codehaus.gant.GantBinding$_initializeGantBinding_closure5_closure16.doCall(GantBinding.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:121)
+	at gant.Gant$_dispatch_closure5.doCall(Gant.groovy:381)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:289)
+	at groovy.lang.Closure$call$0.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at gant.Gant$_dispatch_closure7.doCall(Gant.groovy:415)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at gant.Gant$_dispatch_closure7.doCall(Gant.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at groovy.lang.Closure$call.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:121)
+	at gant.Gant.withBuildListeners(Gant.groovy:427)
+	at gant.Gant.this$2$withBuildListeners(Gant.groovy)
+	at gant.Gant$this$2$withBuildListeners.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at gant.Gant.dispatch(Gant.groovy:415)
+	at gant.Gant.this$2$dispatch(Gant.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:708)
+	at gant.Gant.invokeMethod(Gant.groovy)
+	at groovy.lang.GroovyObject$invokeMethod.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at gant.Gant.executeTargets(Gant.groovy:590)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:155)
+	at gant.Gant.executeTargets(Gant.groovy:589)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.executeWithGantInstance(GrailsScriptRunner.java:656)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.callPluginOrGrailsScript(GrailsScriptRunner.java:522)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.executeCommand(GrailsScriptRunner.java:318)
+	at org.codehaus.groovy.grails.cli.GrailsScriptRunner.main(GrailsScriptRunner.java:135)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.grails.cli.support.GrailsStarter.rootLoader(GrailsStarter.java:234)
+	at org.codehaus.groovy.grails.cli.support.GrailsStarter.main(GrailsStarter.java:262)
+2012-06-27 13:39:37,521 15429222 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Initializing Spring FrameworkServlet 'hessian'
+2012-06-27 13:39:37,521 15429222 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'hessian': initialization started
+2012-06-27 13:39:37,523 15429224 INFO  [org.springframework.web.context.support.StaticWebApplicationContext] (main:) Refreshing WebApplicationContext for namespace 'hessian-servlet': startup date [Wed Jun 27 13:39:37 CST 2012]; parent: org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4fb3c3d9
+2012-06-27 13:39:37,523 15429224 INFO  [org.springframework.beans.factory.support.DefaultListableBeanFactory] (main:) Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1929ab02: defining beans []; parent: org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory@17df01a0
+2012-06-27 13:39:37,543 15429244 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'hessian': initialization completed in 22 ms
+2012-06-27 13:39:37,543 15429244 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Initializing Spring FrameworkServlet 'httpinvoker'
+2012-06-27 13:39:37,543 15429244 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'httpinvoker': initialization started
+2012-06-27 13:39:37,546 15429247 INFO  [org.springframework.web.context.support.StaticWebApplicationContext] (main:) Refreshing WebApplicationContext for namespace 'httpinvoker-servlet': startup date [Wed Jun 27 13:39:37 CST 2012]; parent: org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4fb3c3d9
+2012-06-27 13:39:37,546 15429247 INFO  [org.springframework.beans.factory.support.DefaultListableBeanFactory] (main:) Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@2439c364: defining beans []; parent: org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory@17df01a0
+2012-06-27 13:39:37,566 15429267 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'httpinvoker': initialization completed in 23 ms
+2012-06-27 13:39:37,566 15429267 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (main:) Initializing Spring FrameworkServlet 'rmi'
+2012-06-27 13:39:37,566 15429267 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'rmi': initialization started
+2012-06-27 13:39:37,568 15429269 INFO  [org.springframework.web.context.support.StaticWebApplicationContext] (main:) Refreshing WebApplicationContext for namespace 'rmi-servlet': startup date [Wed Jun 27 13:39:37 CST 2012]; parent: org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4fb3c3d9
+2012-06-27 13:39:37,568 15429269 INFO  [org.springframework.beans.factory.support.DefaultListableBeanFactory] (main:) Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4acbe549: defining beans []; parent: org.codehaus.groovy.grails.commons.spring.ReloadAwareAutowireCapableBeanFactory@17df01a0
+2012-06-27 13:39:37,626 15429327 INFO  [org.springframework.web.servlet.DispatcherServlet] (main:) FrameworkServlet 'rmi': initialization completed in 60 ms
+2012-06-27 13:39:37,828 15429529 INFO  [org.apache.coyote.http11.Http11Protocol] (main:) Starting Coyote HTTP/1.1 on http-8080
+2012-06-27 13:39:37,858 15429559 INFO  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (main:) Started to scan for plugin changes in every 5000ms.
+2012-06-27 13:41:44,396 15556097 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (http-8080-1:) Initializing Spring FrameworkServlet 'gsp'
+2012-06-27 13:41:44,396 15556097 INFO  [org.codehaus.groovy.grails.web.pages.GroovyPagesServlet] (http-8080-1:) FrameworkServlet 'gsp': initialization started
+2012-06-27 13:41:44,396 15556097 INFO  [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/jbilling]] (http-8080-1:) GSP servlet initialized
+2012-06-27 13:41:44,399 15556100 INFO  [org.codehaus.groovy.grails.web.pages.GroovyPagesServlet] (http-8080-1:) FrameworkServlet 'gsp': initialization completed in 3 ms
+2012-06-27 16:54:25,624 27117325 WARN  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (Thread-24:) plugin change scanner is still running after the scanning interval. You should set the grails.scan.interval system property to a higher value. The current value is 5000 ms

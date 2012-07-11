@@ -1,0 +1,21 @@
+package cancel_fees
+#imports
+import com.infosense.ibilling.server.user.ContactDTOEx
+import com.infosense.ibilling.server.item.db.ItemDTO
+import com.infosense.ibilling.server.user.UserDTOEx
+import com.infosense.ibilling.server.order.db.OrderLineDTO
+import com.infosense.ibilling.server.order.task.CancellationFeeRulesTask.FeeOrderManager
+import com.infosense.ibilling.server.item.tasks.Subscription
+#globals
+global com.infosense.ibilling.server.order.task.CancellationFeeRulesTask.FeeOrderManager order;
+
+
+
+
+rule 'Cancel Fee - Lemonade - 1 per day monthly pass'
+when
+       OrderLineDTO( itemId == 1, $quantity : quantity )
+then
+       order.applyFee(24, $quantity);
+end
+

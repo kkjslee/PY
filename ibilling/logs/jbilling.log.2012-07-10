@@ -1,0 +1,1291 @@
+2012-07-09 09:48:26,401 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-09 09:48:26,456 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-09 09:48:26,456 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-09 09:48:26,456 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-09 09:48:26,466 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-09 09:48:26,546 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-09 09:48:26,546 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-09 09:48:26,546 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-09 09:48:26,548 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-09 09:48:26,553 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-09 09:48:26,556 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-09 09:48:26,556 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-09 09:48:26,556 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-09 09:48:26,556 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-09 09:48:26,556 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-09 09:48:29,303 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-09 09:48:29,303 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-09 09:48:29,303 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-10 15:34:42,107 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-10 15:34:42,107 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-10 15:35:02,537 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-10 15:35:02,589 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-10 15:35:02,589 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-10 15:35:02,589 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:35:02,599 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:35:02,727 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-10 15:35:02,727 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:35:02,727 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:35:02,727 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:35:02,732 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-10 15:35:02,732 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-10 15:35:02,732 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:35:02,734 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:35:02,734 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-10 15:35:02,734 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:35:05,659 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-10 15:35:05,659 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-10 15:35:05,659 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-10 15:40:25,654 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-10 15:40:25,657 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-10 15:41:11,369 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-10 15:41:11,421 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-10 15:41:11,421 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-10 15:41:11,421 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:41:11,431 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:41:11,519 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-10 15:41:11,519 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:41:11,519 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:41:11,521 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:41:11,524 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-10 15:41:11,524 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-10 15:41:11,524 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:41:11,526 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:41:11,526 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-10 15:41:11,526 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:41:13,469 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-10 15:41:13,469 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-10 15:41:13,469 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-10 15:41:45,948 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-07-10 15:41:46,036 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-07-10 15:41:46,157 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + role
+2012-07-10 15:41:46,232 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-07-10 15:41:46,232 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@2dbdc159: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@380f4: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: BD62AD63C7AA4A0D88758A7EBF38ECDB; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-07-10 15:41:51,329 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + currency
+2012-07-10 15:41:51,352 INFO  [com.infosense.ibilling.common.JNDILookup] Default Context set
+2012-07-10 15:41:51,352 INFO  [com.infosense.ibilling.common.JNDILookup] New EJBFactory created.
+2012-07-10 15:46:51,985 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + user_status
+2012-07-10 15:47:18,566 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + invoice_status
+2012-07-10 15:49:48,971 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-10 15:49:48,971 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-10 15:50:28,420 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-10 15:50:28,472 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-10 15:50:28,472 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-10 15:50:28,472 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:50:28,482 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:50:28,572 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-10 15:50:28,572 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:50:28,572 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:50:28,575 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:50:28,577 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-10 15:50:28,577 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-10 15:50:28,577 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:50:28,580 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:50:28,580 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-10 15:50:28,580 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:50:30,787 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-10 15:50:30,787 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-10 15:50:30,787 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-10 15:54:55,997 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-10 15:54:55,997 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-10 15:55:37,260 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-10 15:55:37,313 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-10 15:55:37,313 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-10 15:55:37,313 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:55:37,323 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 15:55:37,410 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-10 15:55:37,410 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:55:37,410 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:55:37,413 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 15:55:37,418 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-10 15:55:37,418 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-10 15:55:37,418 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:55:37,420 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 15:55:37,420 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-10 15:55:37,420 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 15:55:49,498 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-10 15:55:49,498 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-10 15:55:49,501 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-10 16:06:27,276 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Shutting down the job scheduler
+2012-07-10 16:06:36,534 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-10 16:06:36,534 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-10 16:23:03,333 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-10 16:23:03,336 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-10 16:23:18,342 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-10 16:23:18,395 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-10 16:23:18,395 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-10 16:23:18,395 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 16:23:18,405 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-10 16:23:18,490 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-10 16:23:18,490 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 16:23:18,490 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 16:23:18,492 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-10 16:23:18,495 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-10 16:23:18,495 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-10 16:23:18,495 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 16:23:18,497 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-10 16:23:18,497 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-10 16:23:18,497 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-10 16:23:20,695 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-10 16:23:20,695 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-10 16:23:20,697 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-10 16:24:12,161 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-07-10 16:24:12,243 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-07-10 16:24:12,357 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + role
+2012-07-10 16:24:12,435 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-07-10 16:24:12,435 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@cf375cce: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffd3270: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 00F18E65E53D9C5B2E837D804C043B70; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-07-10 16:24:15,767 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + currency
+2012-07-10 16:24:15,790 INFO  [com.infosense.ibilling.common.JNDILookup] Default Context set
+2012-07-10 16:24:15,790 INFO  [com.infosense.ibilling.common.JNDILookup] New EJBFactory created.
+2012-07-10 16:24:18,807 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + invoice_status
+2012-07-10 16:24:41,783 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + preference_type
+2012-07-10 16:24:44,056 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:24:44,056 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:25:49,835 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + user_status
+2012-07-10 16:26:09,654 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + subscriber_status
+2012-07-10 16:26:09,709 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:26:09,731 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:26:09,764 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 16:26:09,766 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 16:26:09,769 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 16:26:09,771 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 16:26:09,771 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 16:26:09,774 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 16:26:09,971 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:26:09,984 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:26:10,051 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:26:10,051 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:26:12,704 INFO  [grails.app.tagLib.SelectionTagLib] Value of tagName=user.subscriberStatusId is 6
+2012-07-10 16:26:12,704 INFO  [grails.app.tagLib.SelectionTagLib] Value of tagName=user.subscriberStatusId is 6
+2012-07-10 16:26:13,605 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + contact_type
+2012-07-10 16:26:15,795 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + country
+2012-07-10 16:26:17,252 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + contact_field_type
+2012-07-10 16:26:17,820 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + period_unit
+2012-07-10 16:27:13,006 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + payment_method
+2012-07-10 16:27:13,078 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + payment_result
+2012-07-10 16:27:37,315 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_line_type
+2012-07-10 16:27:53,747 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + item
+2012-07-10 16:28:03,063 DEBUG [com.infosense.ibilling.server.util.WSExceptionAdvice] No price defined for item 3000
+com.infosense.ibilling.common.SessionInternalError: No price defined for item 3000
+	at com.infosense.ibilling.server.item.ItemBL.getPriceByCurrency(ItemBL.java:321)
+	at com.infosense.ibilling.server.item.ItemBL.getPrice(ItemBL.java:371)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:461)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:404)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean.getItem(WebServicesSessionSpringBean.java:1743)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:50)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:124)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$7b3cb0d.getItem(<generated>)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$4e726e16.getItem(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:133)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy:382)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleAction(SimpleGrailsControllerHelper.java:372)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.executeAction(SimpleGrailsControllerHelper.java:236)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:190)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:129)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsController.handleRequest(SimpleGrailsController.java:73)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:48)
+	at org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet.doDispatch(GrailsDispatcherServlet.java:292)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:549)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:646)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:436)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:374)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:302)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:292)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:260)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:251)
+	at org.codehaus.groovy.grails.web.mapping.filter.UrlMappingsFilter.doFilterInternal(UrlMappingsFilter.java:183)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.obtainContent(GrailsPageFilter.java:245)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.doFilter(GrailsPageFilter.java:134)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:343)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:109)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:97)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:78)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:187)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.codehaus.groovy.grails.plugins.springsecurity.MutableLogoutFilter.doFilter(MutableLogoutFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:149)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.filter.GrailsReloadServletFilter.doFilterInternal(GrailsReloadServletFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:67)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:69)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:662)
+
+2012-07-10 16:28:03,066 ERROR [grails.app.controller.ibilling.ProductController] Could not fetch WS object
+com.infosense.ibilling.common.SessionInternalError: Error calling jBilling API. Method: getItem Cause: No price defined for item 3000
+	at com.infosense.ibilling.server.util.WSExceptionAdvice.afterThrowing(WSExceptionAdvice.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invokeHandlerMethod(ThrowsAdviceInterceptor.java:144)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:129)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$7b3cb0d.getItem(<generated>)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$4e726e16.getItem(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:133)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy:382)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleAction(SimpleGrailsControllerHelper.java:372)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.executeAction(SimpleGrailsControllerHelper.java:236)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:190)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:129)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsController.handleRequest(SimpleGrailsController.java:73)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:48)
+	at org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet.doDispatch(GrailsDispatcherServlet.java:292)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:549)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:646)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:436)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:374)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:302)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:292)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:260)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:251)
+	at org.codehaus.groovy.grails.web.mapping.filter.UrlMappingsFilter.doFilterInternal(UrlMappingsFilter.java:183)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.obtainContent(GrailsPageFilter.java:245)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.doFilter(GrailsPageFilter.java:134)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:343)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:109)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:97)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:78)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:187)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.codehaus.groovy.grails.plugins.springsecurity.MutableLogoutFilter.doFilter(MutableLogoutFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:149)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.filter.GrailsReloadServletFilter.doFilterInternal(GrailsReloadServletFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:67)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:69)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: com.infosense.ibilling.common.SessionInternalError: No price defined for item 3000
+	at com.infosense.ibilling.server.item.ItemBL.getPriceByCurrency(ItemBL.java:321)
+	at com.infosense.ibilling.server.item.ItemBL.getPrice(ItemBL.java:371)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:461)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:404)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean.getItem(WebServicesSessionSpringBean.java:1743)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:50)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:124)
+	... 137 more
+2012-07-10 16:28:03,066 ERROR [grails.app.controller.ibilling.ProductController] Could not fetch WS object
+com.infosense.ibilling.common.SessionInternalError: Error calling jBilling API. Method: getItem Cause: No price defined for item 3000
+	at com.infosense.ibilling.server.util.WSExceptionAdvice.afterThrowing(WSExceptionAdvice.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invokeHandlerMethod(ThrowsAdviceInterceptor.java:144)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:129)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$7b3cb0d.getItem(<generated>)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$4e726e16.getItem(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:40)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:133)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy:382)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:44)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:143)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleAction(SimpleGrailsControllerHelper.java:372)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.executeAction(SimpleGrailsControllerHelper.java:236)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:190)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:129)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsController.handleRequest(SimpleGrailsController.java:73)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:48)
+	at org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet.doDispatch(GrailsDispatcherServlet.java:292)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:549)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:646)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:436)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:374)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:302)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:292)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:260)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:251)
+	at org.codehaus.groovy.grails.web.mapping.filter.UrlMappingsFilter.doFilterInternal(UrlMappingsFilter.java:183)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.obtainContent(GrailsPageFilter.java:245)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.doFilter(GrailsPageFilter.java:134)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:343)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:109)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:97)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:78)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:187)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.codehaus.groovy.grails.plugins.springsecurity.MutableLogoutFilter.doFilter(MutableLogoutFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:149)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.filter.GrailsReloadServletFilter.doFilterInternal(GrailsReloadServletFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:67)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:69)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: com.infosense.ibilling.common.SessionInternalError: No price defined for item 3000
+	at com.infosense.ibilling.server.item.ItemBL.getPriceByCurrency(ItemBL.java:321)
+	at com.infosense.ibilling.server.item.ItemBL.getPrice(ItemBL.java:371)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:461)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:404)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean.getItem(WebServicesSessionSpringBean.java:1743)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:50)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:124)
+	... 137 more
+2012-07-10 16:28:18,207 DEBUG [com.infosense.ibilling.server.util.WSExceptionAdvice] No price defined for item 3000
+com.infosense.ibilling.common.SessionInternalError: No price defined for item 3000
+	at com.infosense.ibilling.server.item.ItemBL.getPriceByCurrency(ItemBL.java:321)
+	at com.infosense.ibilling.server.item.ItemBL.getPrice(ItemBL.java:371)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:461)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:404)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean.getItem(WebServicesSessionSpringBean.java:1743)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:50)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:124)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$7b3cb0d.getItem(<generated>)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$4e726e16.getItem(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:133)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy:382)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleAction(SimpleGrailsControllerHelper.java:372)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.executeAction(SimpleGrailsControllerHelper.java:236)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:190)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:129)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsController.handleRequest(SimpleGrailsController.java:73)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:48)
+	at org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet.doDispatch(GrailsDispatcherServlet.java:292)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:549)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:646)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:436)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:374)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:302)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:292)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:260)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:251)
+	at org.codehaus.groovy.grails.web.mapping.filter.UrlMappingsFilter.doFilterInternal(UrlMappingsFilter.java:183)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.obtainContent(GrailsPageFilter.java:245)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.doFilter(GrailsPageFilter.java:134)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:343)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:109)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:97)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:78)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:187)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.codehaus.groovy.grails.plugins.springsecurity.MutableLogoutFilter.doFilter(MutableLogoutFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:149)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.filter.GrailsReloadServletFilter.doFilterInternal(GrailsReloadServletFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:67)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:69)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:662)
+
+2012-07-10 16:28:18,207 ERROR [grails.app.controller.ibilling.ProductController] Could not fetch WS object
+com.infosense.ibilling.common.SessionInternalError: Error calling jBilling API. Method: getItem Cause: No price defined for item 3000
+	at com.infosense.ibilling.server.util.WSExceptionAdvice.afterThrowing(WSExceptionAdvice.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invokeHandlerMethod(ThrowsAdviceInterceptor.java:144)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:129)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$7b3cb0d.getItem(<generated>)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$4e726e16.getItem(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:133)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy:382)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleAction(SimpleGrailsControllerHelper.java:372)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.executeAction(SimpleGrailsControllerHelper.java:236)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:190)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:129)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsController.handleRequest(SimpleGrailsController.java:73)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:48)
+	at org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet.doDispatch(GrailsDispatcherServlet.java:292)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:549)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:646)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:436)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:374)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:302)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:292)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:260)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:251)
+	at org.codehaus.groovy.grails.web.mapping.filter.UrlMappingsFilter.doFilterInternal(UrlMappingsFilter.java:183)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.obtainContent(GrailsPageFilter.java:245)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.doFilter(GrailsPageFilter.java:134)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:343)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:109)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:97)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:78)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:187)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.codehaus.groovy.grails.plugins.springsecurity.MutableLogoutFilter.doFilter(MutableLogoutFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:149)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.filter.GrailsReloadServletFilter.doFilterInternal(GrailsReloadServletFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:67)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:69)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: com.infosense.ibilling.common.SessionInternalError: No price defined for item 3000
+	at com.infosense.ibilling.server.item.ItemBL.getPriceByCurrency(ItemBL.java:321)
+	at com.infosense.ibilling.server.item.ItemBL.getPrice(ItemBL.java:371)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:461)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:404)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean.getItem(WebServicesSessionSpringBean.java:1743)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:50)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:124)
+	... 133 more
+2012-07-10 16:28:18,207 ERROR [grails.app.controller.ibilling.ProductController] Could not fetch WS object
+com.infosense.ibilling.common.SessionInternalError: Error calling jBilling API. Method: getItem Cause: No price defined for item 3000
+	at com.infosense.ibilling.server.util.WSExceptionAdvice.afterThrowing(WSExceptionAdvice.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invokeHandlerMethod(ThrowsAdviceInterceptor.java:144)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:129)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$7b3cb0d.getItem(<generated>)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.doProceed(DelegatingIntroductionInterceptor.java:131)
+	at org.springframework.aop.support.DelegatingIntroductionInterceptor.invoke(DelegatingIntroductionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:621)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$EnhancerByCGLIB$$4e726e16.getItem(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:229)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:52)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:133)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy:382)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSite.invoke(PogoMetaMethodSite.java:225)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:51)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:151)
+	at ibilling.ProductController$_closure12.doCall(ProductController.groovy)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:88)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:233)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1058)
+	at groovy.lang.ExpandoMetaClass.invokeMethod(ExpandoMetaClass.java:1070)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:886)
+	at groovy.lang.Closure.call(Closure.java:276)
+	at groovy.lang.Closure.call(Closure.java:271)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleAction(SimpleGrailsControllerHelper.java:372)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.executeAction(SimpleGrailsControllerHelper.java:236)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:190)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsControllerHelper.handleURI(SimpleGrailsControllerHelper.java:129)
+	at org.codehaus.groovy.grails.web.servlet.mvc.SimpleGrailsController.handleRequest(SimpleGrailsController.java:73)
+	at org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter.handle(SimpleControllerHandlerAdapter.java:48)
+	at org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet.doDispatch(GrailsDispatcherServlet.java:292)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:719)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:644)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:549)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:70)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:646)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:436)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:374)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:302)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:292)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:260)
+	at org.codehaus.groovy.grails.web.util.WebUtils.forwardRequestForUrlMappingInfo(WebUtils.java:251)
+	at org.codehaus.groovy.grails.web.mapping.filter.UrlMappingsFilter.doFilterInternal(UrlMappingsFilter.java:183)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.obtainContent(GrailsPageFilter.java:245)
+	at org.codehaus.groovy.grails.web.sitemesh.GrailsPageFilter.doFilter(GrailsPageFilter.java:134)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:343)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:109)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:97)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:78)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:187)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.codehaus.groovy.grails.plugins.springsecurity.MutableLogoutFilter.doFilter(MutableLogoutFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:79)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:355)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:149)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.filter.GrailsReloadServletFilter.doFilterInternal(GrailsReloadServletFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequestFilter.doFilterInternal(GrailsWebRequestFilter.java:67)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.codehaus.groovy.grails.web.filters.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:69)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:237)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:167)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:128)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:293)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:849)
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:583)
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:454)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: com.infosense.ibilling.common.SessionInternalError: No price defined for item 3000
+	at com.infosense.ibilling.server.item.ItemBL.getPriceByCurrency(ItemBL.java:321)
+	at com.infosense.ibilling.server.item.ItemBL.getPrice(ItemBL.java:371)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:461)
+	at com.infosense.ibilling.server.item.ItemBL.getDTO(ItemBL.java:404)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean.getItem(WebServicesSessionSpringBean.java:1743)
+	at com.infosense.ibilling.server.util.WebServicesSessionSpringBean$$FastClassByCGLIB$$ec470a63.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invoke(MethodProxy.java:149)
+	at org.springframework.aop.framework.Cglib2AopProxy$CglibMethodInvocation.invokeJoinpoint(Cglib2AopProxy.java:688)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:50)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.adapter.ThrowsAdviceInterceptor.invoke(ThrowsAdviceInterceptor.java:124)
+	... 133 more
+2012-07-10 16:29:35,982 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 1
+2012-07-10 16:29:35,982 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.item.tasks.RulesPricingTask2
+2012-07-10 16:29:35,985 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.item.tasks.RulesPricingTask2
+2012-07-10 16:29:36,915 DEBUG [com.infosense.ibilling.server.util.DTOFactory] getting the user 1
+2012-07-10 16:29:36,952 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:29:36,960 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:29:36,975 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 16:29:36,978 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 16:29:36,978 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 16:29:36,978 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 16:29:36,978 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 16:29:36,978 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 16:29:37,098 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:29:37,103 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:29:37,945 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=PricingResult:itemId=2800 userId=1 currencyId=1 price=null pricing fields result id=0 id=-9223372036854775808 done=false 
+2012-07-10 16:29:37,945 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=UserDTO{id=1, userName='admin'}
+2012-07-10 16:29:37,945 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context= id 2 organizationName Prancing Pony address1 1234 Great East Road address2  city Bree stateProvince Middle Earth postalCode 54321 countryCode CA lastName Strator firstName Admin initial null title null phoneCountryCode null phoneAreaCode 123 phoneNumber 321-1234 faxCountryCode null faxAreaCode null faxNumber null email admin@prancingpony.me createDate 2007-03-18 00:00:00.0 deleted 0 include 1 userId null contactMap = null null versionNum 0
+2012-07-10 16:29:37,945 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@4ffecba5
+2012-07-10 16:29:37,945 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@60ebe6aa
+2012-07-10 16:29:37,945 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@1f74d49c
+2012-07-10 16:29:38,025 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Using MVEL thread accessor optimizer: org.mvel2.optimizers.impl.refl.ReflectiveAccessorOptimizer@1c73ebd7
+2012-07-10 16:29:38,028 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Using MVEL accessor compiler: org.mvel2.optimizers.impl.refl.ReflectiveAccessorOptimizer@7e807ed8
+2012-07-10 16:29:38,225 DEBUG [com.infosense.ibilling.server.pluggableTask.PluggableTask] processing parameter file value PricingRules.pkg RateCard.pkg
+2012-07-10 16:29:38,225 DEBUG [com.infosense.ibilling.server.pluggableTask.PluggableTask] adding parameter PricingRules.pkg
+2012-07-10 16:29:38,225 DEBUG [com.infosense.ibilling.server.pluggableTask.PluggableTask] adding parameter RateCard.pkg
+2012-07-10 16:29:39,381 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Plan: added subscription for item 2701 user 1
+2012-07-10 16:29:39,388 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Plan: added subscription for item 2702 user 1
+2012-07-10 16:29:39,396 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Plan: added subscription for item 2700 user 1
+2012-07-10 16:29:39,396 DEBUG [com.infosense.ibilling.server.item.tasks.PricingResult] Setting price. Result fields id 0 item 2800 price 0E-10
+2012-07-10 16:29:39,403 DEBUG [com.infosense.ibilling.server.item.ItemBL] Got item: 2800, price: 0E-10
+2012-07-10 16:31:21,927 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 1
+2012-07-10 16:31:21,927 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.item.tasks.RulesPricingTask2
+2012-07-10 16:31:21,927 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.item.tasks.RulesPricingTask2
+2012-07-10 16:31:22,745 DEBUG [com.infosense.ibilling.server.util.DTOFactory] getting the user 1
+2012-07-10 16:31:22,785 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:31:22,790 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:31:22,805 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 16:31:22,805 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 16:31:22,805 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 16:31:22,805 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 16:31:22,805 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 16:31:22,805 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 16:31:24,230 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:31:24,235 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=PricingResult:itemId=250 userId=1 currencyId=1 price=null pricing fields result id=0 id=-9223372036854775804 done=false 
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=UserDTO{id=1, userName='admin'}
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context= id 2 organizationName Prancing Pony address1 1234 Great East Road address2  city Bree stateProvince Middle Earth postalCode 54321 countryCode CA lastName Strator firstName Admin initial null title null phoneCountryCode null phoneAreaCode 123 phoneNumber 321-1234 faxCountryCode null faxAreaCode null faxNumber null email admin@prancingpony.me createDate 2007-03-18 00:00:00.0 deleted 0 include 1 userId null contactMap = null null versionNum 0
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@601edd39
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@a4dfa7c
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@577e82d
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Using MVEL thread accessor optimizer: org.mvel2.optimizers.impl.refl.ReflectiveAccessorOptimizer@32be529
+2012-07-10 16:33:00,726 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Using MVEL accessor compiler: org.mvel2.optimizers.impl.refl.ReflectiveAccessorOptimizer@36d1e85f
+2012-07-10 16:33:00,741 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Plan: added subscription for item 2701 user 1
+2012-07-10 16:33:00,746 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Plan: added subscription for item 2702 user 1
+2012-07-10 16:33:00,754 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Plan: added subscription for item 2700 user 1
+2012-07-10 16:33:00,754 DEBUG [com.infosense.ibilling.server.item.tasks.PricingResult] Setting price. Result fields id 0 item 250 price 0E-10
+2012-07-10 16:33:00,759 DEBUG [com.infosense.ibilling.server.item.ItemBL] Got item: 250, price: 0E-10
+2012-07-10 16:34:49,242 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:34:49,242 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:34:55,637 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:34:55,637 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:51:56,344 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:51:56,344 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:52:19,127 DEBUG [com.infosense.ibilling.server.util.WebServicesSessionSpringBean]  CompanyDTO: 1
+2012-07-10 16:52:22,689 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:52:22,689 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:52:35,674 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 19, for entity 1 and table 'entity'
+2012-07-10 16:52:35,687 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 18, for entity 1 and table 'entity'
+2012-07-10 16:52:36,840 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:52:36,840 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:52:57,507 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:52:57,515 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:52:57,532 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 16:52:57,532 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 16:52:57,532 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 16:52:57,532 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 16:52:57,532 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 16:52:57,532 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 16:52:57,662 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:52:57,667 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:52:57,693 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:52:57,694 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:52:58,128 INFO  [grails.app.tagLib.SelectionTagLib] Value of tagName=user.subscriberStatusId is 6
+2012-07-10 16:52:58,128 INFO  [grails.app.tagLib.SelectionTagLib] Value of tagName=user.subscriberStatusId is 6
+2012-07-10 16:53:26,669 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:53:26,669 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:53:29,765 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:53:29,765 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:53:55,260 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:53:55,260 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:54:03,287 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:54:03,287 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:54:42,646 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:54:42,646 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:55:00,271 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_period
+2012-07-10 16:55:00,591 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:55:00,591 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:55:02,636 DEBUG [grails.app.controller.ibilling.NotificationsController] masterList.size=19
+2012-07-10 16:55:02,636 DEBUG [grails.app.controller.ibilling.NotificationsController] masterList.size=19
+2012-07-10 16:55:02,646 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 13
+2012-07-10 16:55:02,646 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 13
+2012-07-10 16:55:02,646 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 14
+2012-07-10 16:55:02,646 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 14
+2012-07-10 16:55:02,681 DEBUG [grails.app.controller.ibilling.NotificationsController] masterList.size=19
+2012-07-10 16:55:02,681 DEBUG [grails.app.controller.ibilling.NotificationsController] masterList.size=19
+2012-07-10 16:55:02,684 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 13
+2012-07-10 16:55:02,684 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 13
+2012-07-10 16:55:02,684 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 14
+2012-07-10 16:55:02,684 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 14
+2012-07-10 16:55:02,699 DEBUG [grails.app.controller.ibilling.NotificationsController] Categories found= 4
+2012-07-10 16:55:02,699 DEBUG [grails.app.controller.ibilling.NotificationsController] Categories found= 4
+2012-07-10 16:55:03,391 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + notification_category
+2012-07-10 16:55:03,564 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:55:03,564 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] masterList.size=19
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] masterList.size=19
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 13
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 13
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 14
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] Adding dto: 14
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] METHOD: list
+Id=1 selectedId= null
+2012-07-10 16:55:05,592 DEBUG [grails.app.controller.ibilling.NotificationsController] METHOD: list
+Id=1 selectedId= null
+2012-07-10 16:55:05,647 DEBUG [grails.app.controller.ibilling.NotificationsController] size of messages=3 of total 20
+2012-07-10 16:55:05,647 DEBUG [grails.app.controller.ibilling.NotificationsController] size of messages=3 of total 20
+2012-07-10 16:55:06,072 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + notification_message_type
+2012-07-10 16:55:45,894 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:55:45,894 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:59:36,670 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:59:36,670 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:59:46,539 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:59:46,539 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 16:59:57,823 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:59:57,825 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 16:59:57,838 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 16:59:57,838 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 16:59:57,838 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 16:59:57,838 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 16:59:57,838 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 16:59:57,838 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 16:59:58,185 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:59:58,193 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 16:59:58,193 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 37, for entity 1 and table 'entity'
+2012-07-10 16:59:58,215 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 16:59:58,215 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 17:00:13,179 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 17:00:13,179 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 17:00:25,991 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 17:00:25,996 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 17:00:26,003 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 17:00:26,003 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 17:00:26,003 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 17:00:26,003 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 17:00:26,003 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 17:00:26,003 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 17:00:26,098 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 17:00:26,103 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 17:00:26,118 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 17:00:26,121 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 17:04:38,723 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 17:04:38,723 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 17:04:45,669 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 17:04:45,669 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-07-10 17:05:34,920 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 17:05:34,923 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 17:05:34,938 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 17:05:34,938 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 17:05:34,938 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 17:05:34,938 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 17:05:34,938 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 17:05:34,938 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 17:05:35,068 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 17:05:35,073 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 17:05:35,085 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 17:05:35,088 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-07-10 17:05:35,418 INFO  [grails.app.tagLib.SelectionTagLib] Value of tagName=user.subscriberStatusId is 6
+2012-07-10 17:05:35,418 INFO  [grails.app.tagLib.SelectionTagLib] Value of tagName=user.subscriberStatusId is 6
+2012-07-10 17:14:51,033 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_status
+2012-07-10 17:14:51,043 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_billing_type
+2012-07-10 17:14:51,078 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_line_provisioning_status
+2012-07-10 17:14:51,085 DEBUG [com.infosense.ibilling.server.invoice.InvoiceBL] converstion 0
+2012-07-10 17:14:51,153 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 17:14:51,160 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-07-10 17:14:51,180 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-07-10 17:14:51,180 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-07-10 17:14:51,180 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-07-10 17:14:51,180 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-07-10 17:14:51,180 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-07-10 17:14:51,180 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-07-10 17:14:51,380 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-07-10 17:14:51,385 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields

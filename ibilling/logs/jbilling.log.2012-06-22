@@ -1,0 +1,184 @@
+2012-06-22 06:42:25,374 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-06-22 06:42:25,374 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-06-22 06:42:31,586 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-06-22 06:42:31,633 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-06-22 06:42:31,633 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-06-22 06:42:31,633 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-06-22 06:42:31,648 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-06-22 06:42:31,726 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-06-22 06:49:07,847 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-22 06:49:07,956 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + role
+2012-06-22 06:49:08,050 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-22 06:51:35,849 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + currency
+2012-06-22 06:51:35,870 INFO  [com.infosense.ibilling.common.JNDILookup] Default Context set
+2012-06-22 06:51:35,870 INFO  [com.infosense.ibilling.common.JNDILookup] New EJBFactory created.
+2012-06-22 06:51:38,394 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_line_type
+2012-06-22 06:51:40,157 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + item
+2012-06-22 06:55:05,656 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-06-22 06:55:05,658 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-06-22 06:55:12,094 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-06-22 06:55:12,147 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-06-22 06:55:12,147 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-06-22 06:55:12,147 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-06-22 06:55:12,157 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-06-22 06:55:12,234 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-06-22 06:55:12,235 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-06-22 06:55:12,235 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-06-22 06:55:12,236 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-06-22 06:55:12,238 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-06-22 06:55:12,238 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-06-22 06:55:12,238 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-06-22 06:55:12,240 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-06-22 06:55:12,240 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-06-22 06:55:12,240 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-06-22 06:55:12,244 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-06-22 06:55:12,244 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-06-22 06:55:12,244 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-06-22 07:25:11,331 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-22 07:25:11,487 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-22 07:25:11,596 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + role
+2012-06-22 07:25:11,674 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-22 07:25:11,674 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@53d76520: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@0: RemoteIpAddress: 192.168.20.217; SessionId: 9CFA168A21BFEF65CE35D0C001B28CE6; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-22 07:25:14,514 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-22 07:25:14,576 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-22 07:25:14,670 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-22 07:25:14,670 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@5fc617dd: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@0: RemoteIpAddress: 192.168.20.217; SessionId: 9CFA168A21BFEF65CE35D0C001B28CE6; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-22 07:25:23,437 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + currency
+2012-06-22 07:25:23,484 INFO  [com.infosense.ibilling.common.JNDILookup] Default Context set
+2012-06-22 07:25:23,484 INFO  [com.infosense.ibilling.common.JNDILookup] New EJBFactory created.
+2012-06-22 07:25:25,340 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_line_type
+2012-06-22 07:25:26,838 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + item
+2012-06-22 07:26:08,006 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + user_status
+2012-06-22 07:50:27,531 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + preference_type
+2012-06-22 07:50:30,089 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:50:30,089 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:50:44,566 INFO  [grails.app.controller.jbilling.PluginController] Categories found= 24
+2012-06-22 07:50:44,566 INFO  [grails.app.controller.jbilling.PluginController] Categories found= 24
+2012-06-22 07:50:45,503 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:50:45,503 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:51:06,407 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + period_unit
+2012-06-22 07:51:07,203 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:51:07,203 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:53:18,118 INFO  [grails.app.controller.jbilling.PluginController] Categories found= 24
+2012-06-22 07:53:18,118 INFO  [grails.app.controller.jbilling.PluginController] Categories found= 24
+2012-06-22 07:53:18,369 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:53:18,369 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:53:41,800 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:41,800 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:41,800 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:41,800 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:41,800 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:41,800 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:41,848 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:41,848 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:42,300 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type
+2012-06-22 07:53:44,063 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:44,063 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:44,063 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:44,063 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:44,063 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:44,063 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:44,078 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:44,078 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:48,042 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:48,042 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:48,042 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:48,042 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:48,042 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:48,042 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:48,073 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:48,073 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:48,261 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:48,261 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:53:48,261 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:48,261 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:53:48,261 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:48,261 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:53:48,293 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:53:48,293 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:54:42,269 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:54:42,269 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:54:42,269 INFO  [grails.app.controller.jbilling.PluginController] selected 1
+2012-06-22 07:54:42,269 INFO  [grails.app.controller.jbilling.PluginController] selected 1
+2012-06-22 07:54:42,269 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=1
+2012-06-22 07:54:42,269 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=1
+2012-06-22 07:54:42,316 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=2
+2012-06-22 07:54:42,316 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=2
+2012-06-22 07:54:48,915 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:54:48,915 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:54:48,915 INFO  [grails.app.controller.jbilling.PluginController] selected 3
+2012-06-22 07:54:48,915 INFO  [grails.app.controller.jbilling.PluginController] selected 3
+2012-06-22 07:54:48,915 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=3
+2012-06-22 07:54:48,915 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=3
+2012-06-22 07:54:48,963 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=1
+2012-06-22 07:54:48,963 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=1
+2012-06-22 07:54:49,119 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:54:49,119 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:54:49,119 INFO  [grails.app.controller.jbilling.PluginController] selected 3
+2012-06-22 07:54:49,119 INFO  [grails.app.controller.jbilling.PluginController] selected 3
+2012-06-22 07:54:49,119 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=3
+2012-06-22 07:54:49,119 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=3
+2012-06-22 07:54:49,135 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=1
+2012-06-22 07:54:49,135 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=1
+2012-06-22 07:56:38,881 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:38,881 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:38,881 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:38,881 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:38,881 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:38,881 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:38,929 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:38,929 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:39,506 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:39,506 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:39,506 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:39,506 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:39,506 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:39,506 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:39,584 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:39,584 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:39,740 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:39,740 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:39,740 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:39,740 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:39,740 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:39,740 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:39,755 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:39,755 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:40,301 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:40,301 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:40,301 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:40,301 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:40,301 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:40,301 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:40,317 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:40,317 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:40,474 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:40,474 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:56:40,474 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:40,474 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:56:40,474 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:40,474 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:56:40,490 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:56:40,490 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:57:10,910 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:57:10,910 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-22 07:57:10,910 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:57:10,910 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-22 07:57:10,910 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:57:10,910 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-22 07:57:11,004 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:57:11,004 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-22 07:57:11,316 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-22 07:57:11,316 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]

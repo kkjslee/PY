@@ -1,0 +1,15 @@
+2012-06-24 19:48:48,633 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-24 19:48:48,711 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-24 19:48:48,805 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-24 19:48:48,805 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@7beb7a83: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 345A3D274F6E1890A6C5F6BCEA3D38D7; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-24 19:49:03,030 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-24 19:49:03,030 INFO  [grails.app.controller.jbilling.PluginController] entityId=1
+2012-06-24 19:49:03,030 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-24 19:49:03,030 INFO  [grails.app.controller.jbilling.PluginController] selected 22
+2012-06-24 19:49:03,032 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-24 19:49:03,032 INFO  [grails.app.controller.jbilling.PluginController] Category Id selected=22
+2012-06-24 19:49:03,126 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-24 19:49:03,126 INFO  [grails.app.controller.jbilling.PluginController] number of plug-ins=3
+2012-06-24 19:49:05,138 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-24 19:49:05,138 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-24 20:02:08,798 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_period

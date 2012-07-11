@@ -1,0 +1,22 @@
+2012-07-06 14:32:45,566 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-06 14:32:45,569 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-07-06 16:28:17,265 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-07-06 16:28:17,333 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-07-06 16:28:17,333 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-07-06 16:28:17,333 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-06 16:28:17,343 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-07-06 16:28:17,443 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-07-06 16:28:17,445 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-06 16:28:17,445 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-06 16:28:17,445 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-07-06 16:28:17,453 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-07-06 16:28:17,453 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-07-06 16:28:17,453 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-06 16:28:17,455 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-07-06 16:28:17,455 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-07-06 16:28:17,455 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-07-06 16:28:20,740 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-07-06 16:28:20,740 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-07-06 16:28:20,743 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-07-06 16:29:22,619 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-07-06 16:29:22,619 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\

@@ -1,0 +1,129 @@
+<!DOCTYPE hibernate-configuration SYSTEM
+  "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- connection settings -->
+        <property name="hibernate.connection.release_mode">after_transaction</property>
+
+        <!-- This should be equal to Constants.HIBERNATE_BATCH_SIZE -->
+        <property name="hibernate.jdbc.batch_size">100</property>
+
+        <!--  Debugger helpers -->
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.use_sql_comments">true</property>
+
+        <!-- Mappings, only needed to help GROM, otherwise all the mappings are done with annotations -->
+        <mapping package="com.infosense.ibilling.server.provisioning.db" />
+        <mapping class="com.infosense.ibilling.server.provisioning.db.ProvisioningStatusDTO" />
+        <mapping package="com.infosense.ibilling.server.report.db"/>
+        <mapping class="com.infosense.ibilling.server.report.db.ReportDTO"/>
+        <mapping class="com.infosense.ibilling.server.report.db.ReportTypeDTO"/>
+        <mapping class="com.infosense.ibilling.server.report.db.ReportParameterDTO"/>
+        <mapping class="com.infosense.ibilling.server.report.db.parameter.BooleanReportParameterDTO"/>
+        <mapping class="com.infosense.ibilling.server.report.db.parameter.DateReportParameterDTO"/>
+        <mapping class="com.infosense.ibilling.server.report.db.parameter.IntegerReportParameterDTO"/>
+        <mapping class="com.infosense.ibilling.server.report.db.parameter.StringReportParameterDTO"/>
+        <mapping package="com.infosense.ibilling.server.process.db" />
+        <mapping class="com.infosense.ibilling.server.process.db.BillingProcessConfigurationDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.ProcessRunTotalPmDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.ProcessRunUserDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.ProcessRunTotalDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.AgeingEntityStepDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.PaperInvoiceBatchDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.ProcessRunStatusDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.PeriodUnitDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.ProcessRunDTO" />
+        <mapping class="com.infosense.ibilling.server.process.db.BillingProcessDTO" />
+        <mapping package="com.infosense.ibilling.server.util.audit.db" />
+        <mapping class="com.infosense.ibilling.server.util.audit.db.EventLogMessageDTO" />
+        <mapping class="com.infosense.ibilling.server.util.audit.db.EventLogDTO" />
+        <mapping class="com.infosense.ibilling.server.util.audit.db.EventLogModuleDTO" />
+        <mapping package="com.infosense.ibilling.server.util.db" />
+        <mapping class="com.infosense.ibilling.server.util.db.LanguageDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.PreferenceTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.PreferenceDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.CountryDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.CurrencyExchangeDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.CurrencyDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.InternationalDescriptionDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.InternationalDescriptionId" />
+        <mapping class="com.infosense.ibilling.server.util.db.AbstractGenericStatus" />
+        <mapping class="com.infosense.ibilling.server.util.db.InternationalDescription" />
+        <mapping class="com.infosense.ibilling.server.util.db.JbillingTable" />
+        <mapping class="com.infosense.ibilling.server.util.db.NotificationCategoryDTO" />
+        <mapping package="com.infosense.ibilling.server.item.db" />
+        <mapping class="com.infosense.ibilling.server.item.db.ItemDTO" />
+        <mapping class="com.infosense.ibilling.server.item.db.ItemTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.item.db.ItemPriceDTO" />
+        <mapping package="com.infosense.ibilling.server.payment.blacklist.db" />
+        <mapping class="com.infosense.ibilling.server.payment.blacklist.db.BlacklistDTO" />
+        <mapping package="com.infosense.ibilling.server.payment.db" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentInvoiceId" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentInvoiceMapDTO" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentDTO" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentAuthorizationDTO" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentResultDTO" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentMethodDTO" />
+        <mapping class="com.infosense.ibilling.server.payment.db.PaymentInfoChequeDTO" />
+        <mapping package="com.infosense.ibilling.server.mediation.db" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MediationRecordLineDTO" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MediationRecordStatusDTO" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MediationRecordDTO" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MediationOrderMap" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MediationProcess" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MediationConfiguration" />
+        <mapping class="com.infosense.ibilling.server.mediation.db.MapPK" />
+        <mapping package="com.infosense.ibilling.server.user.permisson.db" />
+        <mapping class="com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.user.permisson.db.PermissionUserDTO" />
+        <mapping class="com.infosense.ibilling.server.user.permisson.db.PermissionDTO" />
+        <mapping class="com.infosense.ibilling.server.user.permisson.db.RoleDTO" />
+        <mapping package="com.infosense.ibilling.server.user.contact.db" />
+        <mapping class="com.infosense.ibilling.server.user.contact.db.ContactTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.user.contact.db.ContactMapDTO" />
+        <mapping class="com.infosense.ibilling.server.user.contact.db.ContactDTO" />
+        <mapping class="com.infosense.ibilling.server.user.contact.db.ContactFieldDTO" />
+        <mapping package="com.infosense.ibilling.server.user.db" />
+        <mapping class="com.infosense.ibilling.server.user.db.UserStatusDTO" />
+        <mapping class="com.infosense.ibilling.server.user.db.CreditCardDTO" />
+        <mapping class="com.infosense.ibilling.server.user.db.AchDTO" />
+        <mapping class="com.infosense.ibilling.server.user.db.SubscriberStatusDTO" />
+        <mapping class="com.infosense.ibilling.server.user.db.CompanyDTO" />
+        <mapping class="com.infosense.ibilling.server.user.db.UserDTO" />
+        <mapping class="com.infosense.ibilling.server.user.db.CustomerDTO" />
+        <mapping package="com.infosense.ibilling.server.invoice.db" />
+        <mapping class="com.infosense.ibilling.server.invoice.db.InvoiceLineDTO" />
+        <mapping class="com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO" />
+        <mapping class="com.infosense.ibilling.server.invoice.db.InvoiceStatusDTO" />
+        <mapping class="com.infosense.ibilling.server.invoice.db.InvoiceLineTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.invoice.db.InvoiceDTO" />
+        <mapping package="com.infosense.ibilling.server.notification.db" />
+        <mapping class="com.infosense.ibilling.server.notification.db.NotificationMessageSectionDTO" />
+        <mapping class="com.infosense.ibilling.server.notification.db.NotificationMessageLineDTO" />
+        <mapping class="com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.notification.db.NotificationMessageArchLineDTO" />
+        <mapping class="com.infosense.ibilling.server.notification.db.NotificationMessageDTO" />
+        <mapping class="com.infosense.ibilling.server.notification.db.NotificationMessageArchDTO" />
+        <mapping package="com.infosense.ibilling.server.order.db" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderBillingTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderLineDTO" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderProcessDTO" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderLineTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderPeriodDTO" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderDTO" />
+        <mapping class="com.infosense.ibilling.server.order.db.OrderStatusDTO" />
+        <mapping package="com.infosense.ibilling.server.user.partner.db" />
+        <mapping class="com.infosense.ibilling.server.user.partner.db.Partner" />
+        <mapping class="com.infosense.ibilling.server.user.partner.db.PartnerRange" />
+        <mapping class="com.infosense.ibilling.server.user.partner.db.PartnerPayout" />
+        <mapping package="com.infosense.ibilling.server.pluggableTask.admin" />
+        <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO" />
+        <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskParameterDTO" />
+        <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO" />
+        <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO" />
+
+
+    </session-factory>
+</hibernate-configuration>

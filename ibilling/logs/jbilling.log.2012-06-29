@@ -1,0 +1,168 @@
+2012-06-29 11:16:52,107 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-29 11:16:52,147 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-29 11:16:52,245 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-29 11:16:52,245 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@bf75b6e8: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffde5d4: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 991461E7CFA9C9B246A135EDCF5314CC; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-29 11:17:03,445 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 11:17:03,445 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 13:54:24,237 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-29 13:54:24,282 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-29 13:54:24,377 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-29 13:54:24,377 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@a268a284: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffd3270: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 7B82BECE26FCA4FCC42E77A84306C190; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-29 13:54:24,855 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 9, Category: 7
+2012-06-29 13:54:24,855 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 9, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 7, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 7, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 18, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 18, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 16, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 16, Category: 7
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 19, Category: 10
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 19, Category: 10
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 20, Category: 6
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 20, Category: 6
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 21, Category: 6
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 21, Category: 6
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 22, Category: 6
+2012-06-29 13:54:24,860 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 22, Category: 6
+2012-06-29 13:54:24,870 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 421, Category: 15
+2012-06-29 13:54:24,870 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 421, Category: 15
+2012-06-29 13:54:24,870 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 450, Category: 17
+2012-06-29 13:54:24,870 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 450, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 430, Category: 1
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 430, Category: 1
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 1, Category: 13
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 1, Category: 13
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 460, Category: 6
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 460, Category: 6
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 490, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 490, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 23, Category: 11
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 23, Category: 11
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 510, Category: 18
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 510, Category: 18
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 520, Category: 6
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 520, Category: 6
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 530, Category: 18
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 530, Category: 18
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 540, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 540, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 560, Category: 19
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 560, Category: 19
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 570, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 570, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 580, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 580, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 410, Category: 14
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 410, Category: 14
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 420, Category: 16
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 420, Category: 16
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 572, Category: 21
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 572, Category: 21
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6020, Category: 15
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6020, Category: 15
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6040, Category: 23
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6040, Category: 23
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6050, Category: 22
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6050, Category: 22
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 550, Category: 19
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 550, Category: 19
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 541, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 541, Category: 17
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 11, Category: 4
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 11, Category: 4
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 17, Category: 8
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 17, Category: 8
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 31, Category: 12
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 31, Category: 12
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 12, Category: 4
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 12, Category: 4
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 10, Category: 1
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 10, Category: 1
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 2, Category: 4
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 2, Category: 4
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 480, Category: 15
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 480, Category: 15
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 15, Category: 5
+2012-06-29 13:54:24,872 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 15, Category: 5
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 590, Category: 6
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 590, Category: 6
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 500, Category: 18
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 500, Category: 18
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 13, Category: 2
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 13, Category: 2
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6030, Category: 22
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6030, Category: 22
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 5, Category: 3
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 5, Category: 3
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 600, Category: 17
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 600, Category: 17
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 440, Category: 17
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 440, Category: 17
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 8, Category: 8
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 8, Category: 8
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 470, Category: 17
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 470, Category: 17
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 571, Category: 21
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 571, Category: 21
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6060, Category: 24
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6060, Category: 24
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6, Category: 5
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6, Category: 5
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 4, Category: 2
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 4, Category: 2
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 3, Category: 4
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 3, Category: 4
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 431, Category: 1
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 431, Category: 1
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 14, Category: 3
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 14, Category: 3
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6061, Category: 22
+2012-06-29 13:54:24,875 DEBUG [grails.app.controller.jbilling.MediationConfigController] Pluggable Task 6061, Category: 22
+2012-06-29 13:54:25,895 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type
+2012-06-29 13:54:27,052 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 13:54:27,052 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 13:54:56,523 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_period
+2012-06-29 13:54:56,881 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 13:54:56,881 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 13:55:09,871 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 13:55:09,871 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-29 15:48:28,313 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-29 15:48:28,353 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-29 15:48:28,471 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-29 15:48:28,471 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@5fcbaa6d: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@43458: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 4247CEB6475DF8E12C540B98E9B70B54; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-29 15:48:59,411 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + user_status
+2012-06-29 15:51:43,986 DEBUG [grails.app.service.jbilling.ProductService] getting item types
+2012-06-29 15:51:43,986 DEBUG [grails.app.service.jbilling.ProductService] getting item types
+2012-06-29 15:51:45,341 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_billing_type
+2012-06-29 15:51:48,018 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_status
+2012-06-29 15:51:48,298 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 42, for entity 1 and table 'entity'
+2012-06-29 15:51:48,433 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 27, for entity 1 and table 'entity'
+2012-06-29 15:51:48,876 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 41, for entity 1 and table 'entity'
+2012-06-29 15:52:15,029 DEBUG [com.infosense.ibilling.server.util.WebServicesSessionSpringBean] Processing order lines
+2012-06-29 15:52:15,031 DEBUG [com.infosense.ibilling.server.util.WebServicesSessionSpringBean] Processing line OrderLine:[id=0 orderLineType=1 item=2800 order id=null amount=null quantity=1 price=null createDatetime=null deleted=0 useItem=true description=null versionNum=null provisioningStatus=null provisionningRequestId=null editable=null]
+2012-06-29 15:52:29,882 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 1
+2012-06-29 15:52:29,882 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.item.tasks.RulesPricingTask2
+2012-06-29 15:52:29,887 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.item.tasks.RulesPricingTask2
+2012-06-29 15:55:36,928 DEBUG [com.infosense.ibilling.server.util.DTOFactory] getting the user 10790
+2012-06-29 15:55:36,973 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + subscriber_status
+2012-06-29 15:55:37,303 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-06-29 15:55:37,415 DEBUG [com.infosense.ibilling.server.util.PreferenceBL] Looking for preference 43, for entity 1 and table 'entity'
+2012-06-29 15:55:37,633 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] UserIdFilter enabled
+2012-06-29 15:55:37,638 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] NameFilter enabled
+2012-06-29 15:55:37,643 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] CreditCardFilter enabled
+2012-06-29 15:55:37,648 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] AddressFilter enabled
+2012-06-29 15:55:37,655 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] IpAddressFilter enabled
+2012-06-29 15:55:37,660 DEBUG [com.infosense.ibilling.server.payment.tasks.PaymentFilterTask] PhoneFilter enabled
+2012-06-29 15:55:52,738 DEBUG [com.infosense.ibilling.server.user.ContactBL] ContactDTO: getting custom fields
+2012-06-29 15:55:52,825 DEBUG [com.infosense.ibilling.server.user.ContactBL] Returning dto with 3 fields
+2012-06-29 15:56:10,313 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=PricingResult:itemId=2800 userId=10790 currencyId=1 price=null pricing fields result id=0 id=-9223372036854775808 done=false 
+2012-06-29 15:56:13,411 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=UserDTO{id=10790, userName='ageing-test-01'}
+2012-06-29 15:56:14,531 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context= id 113100 organizationName  address1  address2  city  stateProvince  postalCode  countryCode CA lastName  firstName  initial null title null phoneCountryCode null phoneAreaCode null phoneNumber  faxCountryCode null faxAreaCode null faxNumber null email test@test.com createDate 2011-06-01 10:36:25.546 deleted 0 include 0 userId null contactMap = null null versionNum 0
+2012-06-29 15:56:41,714 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@294f96ee
+2012-06-29 15:56:43,124 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@283df872
+2012-06-29 15:56:43,921 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] in memory context=com.infosense.ibilling.server.user.contact.db.ContactFieldDTO@7c821901
+2012-06-29 15:56:48,504 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Using MVEL thread accessor optimizer: org.mvel2.optimizers.impl.refl.ReflectiveAccessorOptimizer@3cbd7064
+2012-06-29 15:56:49,201 DEBUG [com.infosense.ibilling.server.item.tasks.RulesPricingTask2] Using MVEL accessor compiler: org.mvel2.optimizers.impl.refl.ReflectiveAccessorOptimizer@73539603
+2012-06-29 15:59:26,536 DEBUG [com.infosense.ibilling.server.pluggableTask.PluggableTask] processing parameter file value PricingRules.pkg RateCard.pkg
+2012-06-29 15:59:26,536 DEBUG [com.infosense.ibilling.server.pluggableTask.PluggableTask] adding parameter PricingRules.pkg
+2012-06-29 15:59:26,536 DEBUG [com.infosense.ibilling.server.pluggableTask.PluggableTask] adding parameter RateCard.pkg

@@ -1,0 +1,36 @@
+2012-06-27 09:22:39,318 DEBUG [com.infosense.ibilling.common.SystemProperties] System properties loaded from: C:\Users\shdev\.grails\1.3.4\projects\jbilling-community-3.0.2\resources\jbilling.properties
+2012-06-27 09:22:39,320 DEBUG [com.infosense.ibilling.common.SystemProperties] Resolved jbilling resources directory to: D:\jbilling-community-3.0.2-src\jbilling-community-3.0.2\resources\
+2012-06-27 09:35:18,076 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + pluggable_task_type_category
+2012-06-27 13:29:17,157 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 3
+2012-06-27 13:29:55,858 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 3 scheduled tasks for entity 1
+2012-06-27 13:30:18,436 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-06-27 13:30:18,523 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.mediation.task.MediationProcessTask
+2012-06-27 13:35:55,089 DEBUG [com.infosense.ibilling.server.mediation.task.MediationProcessTask] Scheduling mediation process from jbilling.properties ...
+2012-06-27 13:35:58,552 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [mediation process: start: , end: null, repeat: infinite, interval: 720 mins]
+2012-06-27 13:36:03,224 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-06-27 13:36:03,244 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.billing.task.BillingProcessTask
+2012-06-27 13:37:51,436 DEBUG [com.infosense.ibilling.server.billing.task.BillingProcessTask] Scheduling billing process using plug-in parameters ...
+2012-06-27 13:37:51,436 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [billing process: start: Wed Jul 28 00:00:00 CST 2010, end: null, repeat: infinite, interval: 24 hrs]
+2012-06-27 13:37:51,436 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Applying task com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-06-27 13:37:51,438 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] Creating a new instance of com.infosense.ibilling.server.process.task.AgeingProcessTask
+2012-06-27 13:37:51,438 DEBUG [com.infosense.ibilling.server.process.task.AgeingProcessTask] Scheduling ageing process from jbilling.properties ...
+2012-06-27 13:37:51,438 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Scheduled: [ageing process: entity 1, start: , end: null, repeat: infinite, interval: 720 mins]
+2012-06-27 13:38:34,539 DEBUG [com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager] total classes = 0
+2012-06-27 13:38:38,034 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Processing 0 scheduled tasks for entity 2
+2012-06-27 13:38:44,724 DEBUG [com.infosense.ibilling.server.util.Bootstrap] Starting the job scheduler
+2012-06-27 13:43:09,199 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Request is to process authentication
+2012-06-27 13:43:09,259 DEBUG [com.infosense.ibilling.server.user.UserBL] Reading permisions for user 1
+2012-06-27 13:43:09,362 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + role
+2012-06-27 13:43:09,440 DEBUG [com.infosense.ibilling.client.authentication.util.SecuritySession] Setting locale for Spring contexts: en_CA
+2012-06-27 13:43:09,440 DEBUG [com.infosense.ibilling.client.authentication.CompanyUserAuthenticationFilter] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@e27707db: Principal: CompanyUserDetails{id=1, username='admin;1', mainRoleId=2, companyId=1, currencyId=1, languageId=1, enabled=true, accountExpired=false, credentialsExpired=false, accountLocked=false}; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@ffff4c9c: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: 99D323E6B411F5EE9FD71C478BCD52B7; Granted Authorities: API_120, BILLING_80, CUSTOMER_10, CUSTOMER_11, CUSTOMER_12, CUSTOMER_13, CUSTOMER_14, CUSTOMER_15, CUSTOMER_16, INVOICE_70, INVOICE_71, INVOICE_72, INVOICE_73, INVOICE_74, MENU_90, MENU_91, MENU_92, MENU_93, MENU_94, MENU_95, MENU_96, MENU_97, MENU_98, MENU_99, ORDER_20, ORDER_21, ORDER_22, ORDER_23, ORDER_24, ORDER_25, ORDER_26, ORDER_27, ORDER_28, PAYMENT_30, PAYMENT_31, PAYMENT_32, PAYMENT_33, PAYMENT_34, PAYMENT_35, PAYMENT_36, PLAN_60, PLAN_61, PLAN_62, PLAN_63, PRODUCT_40, PRODUCT_41, PRODUCT_42, PRODUCT_43, PRODUCT_44, PRODUCT_CATEGORY_50, PRODUCT_CATEGORY_51, PRODUCT_CATEGORY_52, ROLE_SUPER_USER
+2012-06-27 13:43:14,737 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + currency
+2012-06-27 13:43:14,760 INFO  [com.infosense.ibilling.common.JNDILookup] Default Context set
+2012-06-27 13:43:14,760 INFO  [com.infosense.ibilling.common.JNDILookup] New EJBFactory created.
+2012-06-27 13:43:16,497 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + order_line_type
+2012-06-27 13:43:18,155 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + item
+2012-06-27 13:43:45,383 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + preference_type
+2012-06-27 13:43:47,633 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-27 13:43:47,633 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-27 13:43:57,693 DEBUG [com.infosense.ibilling.server.util.db.JbillingTableDAS] Looking for table + period_unit
+2012-06-27 13:43:58,563 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]
+2012-06-27 13:43:58,563 DEBUG [grails.app.tagLib.IncludeTagLib] Matched URI [/shortcut/index] to URL mapping [/(*)/(*)?/(*)?], included [/grails/shortcut/index.dispatch] with response [class org.grails.include.ImportResponseWrapper]

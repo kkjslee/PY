@@ -23,7 +23,7 @@
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-<title><g:layoutTitle default="云计费" /></title>
+<title><g:message code='label.system.name'/></title>
 
 <link rel="shortcut icon" href="${resource(dir:'images', file:'favicon.ico')}" type="image/x-icon" />
 

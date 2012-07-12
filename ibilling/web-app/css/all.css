@@ -924,6 +924,7 @@ td.tiny, th.tiny { width: 50px; }
 }
 .table-box tbody tr.active,.table-box tbody tr:hover{
     background: #bbb url(../images/bg-gradient2.gif) repeat-x;
+    cursor:pointer;
 }
 
 .table-box tbody tr.isReview {

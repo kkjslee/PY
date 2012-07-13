@@ -949,6 +949,7 @@ td.tiny, th.tiny { width: 50px; }
 }
 .table-box td a {
 	color:#383838;
+	display:block;
 }
 .table-box td a.cell {
     overflow:hidden;

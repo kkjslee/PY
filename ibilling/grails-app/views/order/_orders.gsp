@@ -58,7 +58,7 @@
                             </g:remoteLink>
                         </td>
                         <td>
-                            <g:remoteLink breadcrumb="id" class="double cell" action="show" id="${ordr.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
+                            <g:remoteLink breadcrumb="id" class="cell" action="show" id="${ordr.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
                                 <strong>
                                     <g:if test="${contact?.firstName || contact?.lastName}">
                                         ${contact.firstName} &nbsp;${contact.lastName}

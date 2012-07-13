@@ -58,12 +58,12 @@
                             </g:remoteLink>
                         </td>
 						<td>
-							<g:remoteLink breadcrumb="id" class="cell" action="show" id="${proc.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
+							<g:remoteLink breadcrumb="id" class="cell  double" action="show" id="${proc.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
                                 <g:formatDate date="${proc.startDatetime}" formatName="date.timeSecsAMPM.format"/>
                             </g:remoteLink>
 						</td>
                         <td>
-                            <g:remoteLink breadcrumb="id" class="cell" action="show" id="${proc.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
+                            <g:remoteLink breadcrumb="id" class="cell  double" action="show" id="${proc.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
                                 <g:formatDate date="${proc.endDatetime}" formatName="date.timeSecsAMPM.format"/>
                             </g:remoteLink>
                         </td>

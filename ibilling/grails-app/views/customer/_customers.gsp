@@ -59,7 +59,7 @@
 
             <tr id="user-${user.id}" class="${selected?.id == user.id ? 'active' : ''}">
                 <td>
-                    <g:remoteLink class="cell double" action="show" id="${user.id}" before="register(this);" onSuccess="render(data, next);">
+                    <g:remoteLink class="cell" action="show" id="${user.id}" before="register(this);" onSuccess="render(data, next);">
                         <strong>
                             <g:if test="${contact?.firstName || contact?.lastName}">
                                 ${contact.firstName} ${contact.lastName}

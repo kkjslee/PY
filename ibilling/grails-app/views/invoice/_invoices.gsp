@@ -90,13 +90,13 @@
                 
 				<tr id="invoice-${inv.id}" class="${invoice?.id == inv.id ? 'active' : ''}">
 					<td class="medium">
-						<g:remoteLink breadcrumb="id" class="cell" action="show" id="${inv.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
+						<g:remoteLink breadcrumb="id" class="cell  double" action="show" id="${inv.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
                             <strong>${inv.publicNumber}</strong>
                             <em><g:message code="table.id.format" args="[inv.id as String]"/></em>
 						</g:remoteLink>
 					</td>
                     <td>
-                        <g:remoteLink breadcrumb="id" class="cell double" action="show" id="${inv.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
+                        <g:remoteLink breadcrumb="id" class="cell" action="show" id="${inv.id}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">
                             <strong>
                                 <g:if test="${contact?.firstName || contact?.lastName}">
                                     ${contact.firstName} &nbsp;${contact.lastName}

@@ -134,9 +134,20 @@ class UserController {
      */
     def save = {
         def user = new UserWS()
-        user.mainRoleId= Constants.TYPE_ROOT
+		
+		if(params.user.userId){
+			def userId = params.int("user.userId")
+			if(userId != 0){
+				user.mainRoleId= new UserBL(userId).getMainRole()
+			}
+		}
+		
+		if(!user.mainRoleId){
+			user.mainRoleId= Constants.TYPE_CLERK
+		}
+		
         UserHelper.bindUser(user, params)
-
+		
         def contacts = []
 
 		def company = CompanyDTO.createCriteria().get{

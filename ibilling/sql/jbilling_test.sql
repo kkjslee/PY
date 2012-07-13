@@ -2542,8 +2542,8 @@ process_run_status
 --
 
 COPY international_description (table_id, foreign_id, psudo_column, language_id, content) FROM stdin;
-4	1	description	1	United States Dollar
-4	2	description	1	Canadian Dollar
+4	1	description	1	人民币
+4	2	description	1	美元
 4	3	description	1	Euro
 4	4	description	1	Yen
 4	5	description	1	Pound Sterling

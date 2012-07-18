@@ -130,6 +130,7 @@ import com.infosense.ibilling.server.user.CreateResponseWS;
 import com.infosense.ibilling.server.user.CreditCardBL;
 import com.infosense.ibilling.server.user.EntityBL;
 import com.infosense.ibilling.server.user.IUserSessionBean;
+import com.infosense.ibilling.server.user.RoleBL;
 import com.infosense.ibilling.server.user.UserBL;
 import com.infosense.ibilling.server.user.UserDTOEx;
 import com.infosense.ibilling.server.user.UserTransitionResponseWS;
@@ -153,6 +154,10 @@ import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.user.partner.PartnerBL;
 import com.infosense.ibilling.server.user.partner.PartnerWS;
 import com.infosense.ibilling.server.user.partner.db.Partner;
+import com.infosense.ibilling.server.user.permisson.db.PermissionDAS;
+import com.infosense.ibilling.server.user.permisson.db.RoleDAS;
+import com.infosense.ibilling.server.user.permisson.db.RoleDTO;
+import com.infosense.ibilling.server.user.permisson.db.RoleDTOEx;
 import com.infosense.ibilling.server.util.api.WebServicesConstants;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
@@ -176,6 +181,7 @@ import grails.plugins.springsecurity.SpringSecurityService;
 
 
 
+import javax.management.relation.Role;
 import javax.naming.NamingException;
 
 @Transactional( propagation = Propagation.REQUIRED )
@@ -640,6 +646,60 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         bl.set(userId);
         bl.delete(executorId);
     }
+    
+    public Integer createRole(RoleDTOEx roleEx, List<Integer> permissions){
+    	RoleDTO role = new RoleDTO();
+    	Integer entityId = getCallerCompanyId();
+    	CompanyDTO company = new CompanyDAS().find(entityId);
+    	role.setCompany(company);
+    	
+    	RoleBL bl = new RoleBL();
+    	Integer roleId = bl.create(role);
+    	
+    	RoleDTO newRole = new RoleDAS().find(roleId);
+    	newRole.setRoleTypeId(roleId);
+    	newRole.setDescription(roleEx.getDescription(), getCallerLanguageId());
+    	newRole.setTitle(roleEx.getTitle(), getCallerLanguageId());
+    	
+    	if(permissions!=null && permissions.size()>0){
+    		for(Integer p : permissions){
+    			if(p==null) continue;
+    			
+    			newRole.getPermissions().add(
+    					new PermissionDAS().find(p)
+    			);
+    		}
+    	}
+    	
+    	return roleId;
+    }
+    
+    public void updateRole(RoleDTOEx roleEx, List<Integer> permissions){
+    	RoleDTO role = new RoleDTO(roleEx.getId());
+
+    	if(permissions!=null && permissions.size()>0){
+    		for(Integer p : permissions){
+    			if(p==null) continue;
+    			
+    			role.getPermissions().add(
+    					new PermissionDAS().find(p)
+    			);
+    		}
+    	}
+    	
+    	RoleBL bl = new RoleBL(roleEx.getId());
+    	bl.update(role);
+    	
+    	RoleDTO newRole = bl.getEntity();
+    	
+    	newRole.setDescription(roleEx.getDescription(), getCallerLanguageId());
+    	newRole.setTitle(roleEx.getTitle(), getCallerLanguageId());
+    }
+    
+    public void deleteRole(Integer roleId) {
+    	RoleBL bl = new RoleBL(roleId);
+    	bl.delete();
+    }
 
     /**
      * Fetches the ContactTypeWS for the given contact type ID. The returned WS object
@@ -746,7 +806,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         UserBL bl = new UserBL(userId);
         return bl.getUserWS();
     }
-
+    
     /**
      * Retrieves all the contacts of a user
      * @param userId

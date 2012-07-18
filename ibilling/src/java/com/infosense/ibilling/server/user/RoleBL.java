@@ -16,6 +16,7 @@
 
 package com.infosense.ibilling.server.user;
 
+import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.user.permisson.db.PermissionDTO;
 import com.infosense.ibilling.server.user.permisson.db.RoleDAS;
@@ -81,7 +82,7 @@ public class RoleBL {
         LOG.error("Cannot save a null RoleDTO!");
         return null;
     }
-
+    
     /**
      * Updates this role's permissions with those of the given role. This method does not
      * update the description or title of a permission. Use {@link #setDescription(Integer, String)} and
@@ -110,7 +111,7 @@ public class RoleBL {
             LOG.error("Cannot update, RoleDTO not found or not set!");
         }
     }
-
+    
     /**
      * Deletes this role.
      *

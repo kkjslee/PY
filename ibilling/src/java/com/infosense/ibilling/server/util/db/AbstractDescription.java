@@ -30,8 +30,13 @@ public abstract class AbstractDescription implements Serializable {
     abstract public int getId();
     abstract protected String getTable();
 
+    
+    protected int getDescId(){
+    	return getId();
+    }
     /**
-     * Returns the InternationalDescriptionDTO for the given language and label for this entity.
+     * Returns the InternationalDescriptionDTO 
+     * for the given language and label for this entity.
      *
      * @param languageId language id
      * @param label psudo column label
@@ -41,13 +46,13 @@ public abstract class AbstractDescription implements Serializable {
         if (label == null || languageId == null)
             throw new SessionInternalError("Cannot find translation without label or language " + label + ":" + languageId);
 
-        if (getId() == 0)
+        if (getDescId() == 0)
             return null;
 
         JbillingTableDAS tableDas = Context.getBean(Context.Name.JBILLING_TABLE_DAS);
         JbillingTable table = tableDas.findByName(getTable());
 
-        InternationalDescriptionId id = new InternationalDescriptionId(table.getId(), getId(), label, languageId);
+        InternationalDescriptionId id = new InternationalDescriptionId(table.getId(), getDescId(), label, languageId);
         return new DescriptionDAS().findNow(id);
     }
 
@@ -130,7 +135,7 @@ public abstract class AbstractDescription implements Serializable {
         JbillingTableDAS tableDas = Context.getBean(Context.Name.JBILLING_TABLE_DAS);
         JbillingTable table = tableDas.findByName(getTable());
 
-        InternationalDescriptionId id = new InternationalDescriptionId(table.getId(), getId(), label, languageId);
+        InternationalDescriptionId id = new InternationalDescriptionId(table.getId(), getDescId(), label, languageId);
         InternationalDescriptionDTO desc = new InternationalDescriptionDTO(id, content);
 
         new DescriptionDAS().save(desc);

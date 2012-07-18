@@ -48,6 +48,18 @@
     </table>
 </div>
 
+<div class="pager-box">
+    <div class="row">
+        <div class="results">
+            <g:render template="/layouts/includes/pagerShowResults" model="[steps: [10, 20, 50], update: 'column1']"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <util:remotePaginate controller="role" action="list" params="${sortableParams(params: [partial: true])}" total="${roles?.totalCount ?: 0}" update="column1"/>
+    </div>
+</div>
+
 <div class="btn-box">
     <g:link action="edit" class="submit add">
         <span><g:message code="button.create"/></span>

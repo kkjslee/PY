@@ -129,10 +129,21 @@ public class RoleDTO extends AbstractDescription implements Serializable, Initia
     protected String getTable() {
         return Constants.TABLE_ROLE;
     }
+    
+    @Transient
+    @Override
+    protected int getDescId(){
+    	Integer ret = getRoleTypeId();
+    	return ret==null? 0 : ret;
+    }
 
     @Transient
     public String getTitle(Integer languageId) {
         return getDescription(languageId, "title");
+    }
+    
+    public void setTitle(String content, Integer languageId) {
+        setDescription("title", languageId, content);
     }
 
     /**

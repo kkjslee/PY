@@ -691,17 +691,33 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
     	}
     	
     	RoleBL bl = new RoleBL(roleEx.getId());
-    	bl.update(role);
-    	
-    	RoleDTO newRole = bl.getEntity();
-    	
-    	newRole.setDescription(roleEx.getDescription(), getCallerLanguageId());
-    	newRole.setTitle(roleEx.getTitle(), getCallerLanguageId());
+    	if(isRoleEditable(bl.getEntity())){
+    		bl.update(role);
+        	
+        	RoleDTO newRole = bl.getEntity();
+        	
+        	newRole.setDescription(roleEx.getDescription(), getCallerLanguageId());
+        	newRole.setTitle(roleEx.getTitle(), getCallerLanguageId());
+    	}
     }
     
     public void deleteRole(Integer roleId) {
     	RoleBL bl = new RoleBL(roleId);
-    	bl.delete();
+    	if(isRoleEditable(bl.getEntity())){
+    		bl.delete();
+    	}
+    }
+    
+    private boolean isRoleEditable(RoleDTO role){
+    	return isRoleEditable(role.getRoleTypeId());
+    }
+    
+    private boolean isRoleEditable(Integer roleTypeId){
+    	if(roleTypeId==null || roleTypeId>CommonConstants.TYPE_CUSTOMER){
+    		return true;
+    	}
+    	
+    	return false;
     }
     
     public void updateUserPermission(UserDTO user, Set<Integer> permissions){
@@ -727,7 +743,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
     	Set<RoleDTO> userRoles = new HashSet<RoleDTO>();
     	if(roles!=null && roles.size()>0){
     		for(Integer r : roles){
-    			if(r==null || r<=CommonConstants.TYPE_CUSTOMER) continue;
+    			if(r==null || !isRoleEditable(r)) continue;
     			
     			userRoles.add(
     					new RoleDTO(r)

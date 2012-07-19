@@ -1,5 +1,7 @@
 package ibilling
 
+import grails.plugins.springsecurity.Secured;
+
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap;
 
 import com.infosense.ibilling.common.CommonConstants;
@@ -12,6 +14,7 @@ import com.infosense.ibilling.server.user.permisson.db.RoleDTO;
 import com.infosense.ibilling.server.user.permisson.db.RoleDTOEx;
 import com.infosense.ibilling.server.util.IWebServicesSessionBean;
 
+@Secured(["MENU_99"])
 class RoleController {
 	
 	static pagination = [ max: 10, offset: 0 ]
@@ -107,7 +110,7 @@ class RoleController {
 		def role = new RoleDTOEx()
 		bindData(role, params, "role")
 		
-		def permissions = []
+		def permissions = [] as Set
 		params.permission.each{
 			log.debug(it.key + "  "+it.value) 
 			if(it.value == "on"){

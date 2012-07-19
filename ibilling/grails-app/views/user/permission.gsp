@@ -32,43 +32,7 @@
             <fieldset>
 
                 <!-- user information -->
-                <div class="form-columns">
-                    <div class="column">
-                        <g:applyLayout name="form/text">
-                            <content tag="label"><g:message code="prompt.customer.number"/></content>
-                            ${user.userId}
-                            <g:hiddenField name="id" value="${user.userId}"/>
-                        </g:applyLayout>
-
-                        <g:applyLayout name="form/text">
-                            <content tag="label"><g:message code="prompt.login.name"/></content>
-                            ${user?.userName}
-                        </g:applyLayout>
-
-                        <g:applyLayout name="form/text">
-                            <content tag="label"><g:message code="prompt.user.role"/></content>
-                            <g:if test="${role}">
-                                ${role.getTitle(session['language_id'])}
-                            </g:if>
-                            <g:else>
-                                 -
-                            </g:else>
-                        </g:applyLayout>
-                    </div>
-
-                    <div class="column">
-
-                        <g:applyLayout name="form/text">
-                            <content tag="label"><g:message code="prompt.organization.name"/></content>
-                            ${contact?.organizationName}
-                        </g:applyLayout>
-
-                        <g:applyLayout name="form/text">
-                            <content tag="label"><g:message code="prompt.user.name"/></content>
-                            ${contact?.firstName} ${contact?.lastName}
-                        </g:applyLayout>
-                    </div>
-                </div>
+            	<g:render template="user" />
 
                 <!-- user permissions -->
                 <g:each var="permissionType" status="n" in="${permissionTypes}">
@@ -79,7 +43,7 @@
                         <div class="column">
                             <g:each var="permission" status="i" in="${permissionType.permissions}">
                                 <g:set var="userPermission" value="${permissions.find{ it.id == permission.id }}"/>
-                                <g:set var="rolePermission" value="${role?.permissions?.find{ it.id == permission.id }}"/>
+                                <g:set var="rolePermission" value="${rolePermissions?.find{ it.id == permission.id }}"/>
 
                                 <g:if test="${i % 2 == 0}">
 
@@ -90,10 +54,9 @@
                                     <g:applyLayout name="form/checkbox">
                                         <content tag="group.label">
                                             ${permission.id}
-                                            <em>(<g:formatBoolean boolean="${userPermission != null}" true="${message(code: 'boolean.on')}" false="${message(code: 'boolean.off')}"/>)</em>:
                                         </content>
                                         <content tag="label">
-                                            <g:if test="${(userPermission && !rolePermission) || (!userPermission && rolePermission)}">
+                                            <g:if test="${rolePermission}">
                                                 <strong>
                                                     ${permission.getDescription(session['language_id']) ?: permission.authority}
                                                 </strong>
@@ -114,7 +77,7 @@
                         <div class="column">
                             <g:each var="permission" status="i" in="${permissionType.permissions}">
                                 <g:set var="userPermission" value="${permissions.find{ it.id == permission.id }}"/>
-                                <g:set var="rolePermission" value="${role?.permissions?.find{ it.id == permission.id }}"/>
+                                <g:set var="rolePermission" value="${rolePermissions?.find{ it.id == permission.id }}"/>
 
                                 <g:if test="${i % 2 == 1}">
 
@@ -125,10 +88,9 @@
                                     <g:applyLayout name="form/checkbox">
                                         <content tag="group.label">
                                             ${permission.id}
-                                            <em>(<g:formatBoolean boolean="${userPermission != null}" true="${message(code: 'boolean.on')}" false="${message(code: 'boolean.off')}"/>)</em>:
                                         </content>
                                         <content tag="label">
-                                            <g:if test="${(userPermission && !rolePermission) || (!userPermission && rolePermission)}">
+                                            <g:if test="${rolePermission}">
                                                 <strong>
                                                     ${permission.getDescription(session['language_id']) ?: permission.authority}
                                                 </strong>

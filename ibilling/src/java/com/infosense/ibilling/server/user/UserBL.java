@@ -577,6 +577,28 @@ public class UserBL extends ResultList implements UserSQL {
 
         this.user = das.save(user);
     }
+    
+    public void setUserPermissions(Set<PermissionDTO> grantedPermissions) {
+	      Set<PermissionUserDTO> userPermissions = new HashSet<PermissionUserDTO>();
+	      
+	      for (PermissionDTO permission : grantedPermissions) {
+	    	  userPermissions.add(new PermissionUserDTO(user, permission, (short) 1));
+	      }
+	
+	      LOG.debug("Saving " + userPermissions.size() + " overridden permissions for user " + user.getId());
+	
+	      user.getPermissions().clear();
+	      user.getPermissions().addAll(userPermissions);
+	
+	      this.user = das.save(user);
+    }
+    
+    public void setUserRoles(Set<RoleDTO> userRoles) {
+    	user = das.find(user.getId());
+    	
+    	userRoles.add(new RoleDTO(getMainRole()));
+    	this.updateRoles(userRoles, null);
+    }
 
     public UserWS getUserWS() throws SessionInternalError {
         UserDTOEx dto = DTOFactory.getUserDTOEx(user);

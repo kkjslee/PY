@@ -119,6 +119,10 @@
             <g:link action="edit" id="${selected.id}" class="submit edit"><span><g:message code="button.edit"/></span></g:link>
             <a onclick="showConfirm('delete-${selected.id}');" class="submit delete"><span><g:message code="button.delete"/></span></a>
         </div>
+        <div class="row">
+            <g:link action="role" id="${selected.id}" class="submit edit"><span><g:message code="button.editRole"/></span></g:link>
+            <g:link action="permission" id="${selected.id}" class="submit edit"><span><g:message code="button.editPermission"/></span></g:link>
+        </div>
     </div>
 
     <g:render template="/confirm"

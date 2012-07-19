@@ -18,6 +18,7 @@ package ibilling
 
 import com.infosense.ibilling.client.ViewUtils
 import com.infosense.ibilling.client.user.UserHelper
+import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.SessionInternalError
 import com.infosense.ibilling.server.user.UserBL
 import com.infosense.ibilling.server.user.UserWS
@@ -62,7 +63,10 @@ class UserController {
                 or {
                     isEmpty('roles')
                     roles {
-                        ne('roleTypeId', Constants.TYPE_CUSTOMER)
+						or{
+							eq('roleTypeId', Constants.TYPE_ROOT)
+							eq('roleTypeId', Constants.TYPE_CLERK)
+						}
                     }
                 }
 
@@ -213,5 +217,105 @@ class UserController {
         params.applyFilter = true
         list()
     }
-    
+	
+	def permission = {
+		def bl = new UserBL(params.int('id'))
+		
+		def user
+		try{
+			user = bl.getEntity()
+		} catch (SessionInternalError e) {
+            log.error("Could not find user", e)
+
+            flash.error = 'user.not.found'
+            flash.args = [ params.id as String ]
+
+            redirect controller: 'user', action: 'list'
+            return
+        }
+		
+		def contact = user ? ContactDTO.findByUserId(user.id) : null
+		def roles = user? user.roles : []
+		
+		def rolePermissions = new HashSet()
+		roles.each {
+			rolePermissions.addAll(it.permissions)
+		}
+		
+		def userPermission = user? user.permissions : []
+		def permissions = new HashSet();
+		userPermission.each{
+			permissions.add(it.permission)
+		}
+		
+		def permissionTypes = PermissionTypeDTO.createCriteria().list(){
+			order('id', 'asc')
+		}
+
+		[ user: user , userRoles: roles , contact : contact , permissions : permissions , rolePermissions: rolePermissions, permissionTypes : permissionTypes]
+	}
+	
+	def savePermissions = {
+		def user = UserDTO.get(params.int("id"))
+		
+		def permissions = [] as Set
+		params.permission.each{
+			log.debug(it.key + "  "+it.value)
+			if(it.value == "on"){
+				permissions.add(it.key.toInteger())
+			}
+		}
+		
+		webServicesSession.updateUserPermission(user, permissions)
+		
+		chain action: 'list', params: [ id: user.userId ]
+	}
+	
+	def role = {
+		def bl = new UserBL(params.int('id'))
+		
+		def user
+		try{
+			user = bl.getEntity()
+		} catch (SessionInternalError e) {
+			log.error("Could not find user", e)
+
+			flash.error = 'user.not.found'
+			flash.args = [ params.id as String ]
+
+			redirect controller: 'user', action: 'list'
+			return
+		}
+		
+		def contact = user ? ContactDTO.findByUserId(user.id) : null
+		def userRoles =  user ? user.roles : []
+		
+		def roles = RoleDTO.createCriteria().list{
+			and {
+				eq('company', new CompanyDTO(session['company_id']))
+				gt('roleTypeId', CommonConstants.TYPE_CUSTOMER)
+			}
+			order('id', 'desc')
+		}
+		
+		[ user: user , contact : contact , userRoles : userRoles, roles : roles]
+	}
+	
+	
+	def saveRoles = {
+		def user = UserDTO.get(params.int("id"))
+		
+		def roles = [] as Set
+		params.role.each{
+			log.debug(it.key + "  "+it.value)
+			if(it.value == "on"){
+				roles.add(it.key.toInteger())
+			}
+		}
+		
+		webServicesSession.updateUserRole(user, roles)
+		
+		chain action: 'list', params: [ id: user.userId ]
+	}
+	
 }

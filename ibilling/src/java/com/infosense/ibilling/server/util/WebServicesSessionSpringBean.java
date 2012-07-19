@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +39,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.infosense.ibilling.client.authentication.CompanyUserDetails;
+import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.InvalidArgumentException;
 import com.infosense.ibilling.common.JBCrypto;
 import com.infosense.ibilling.common.SessionInternalError;
@@ -155,6 +157,7 @@ import com.infosense.ibilling.server.user.partner.PartnerBL;
 import com.infosense.ibilling.server.user.partner.PartnerWS;
 import com.infosense.ibilling.server.user.partner.db.Partner;
 import com.infosense.ibilling.server.user.permisson.db.PermissionDAS;
+import com.infosense.ibilling.server.user.permisson.db.PermissionDTO;
 import com.infosense.ibilling.server.user.permisson.db.RoleDAS;
 import com.infosense.ibilling.server.user.permisson.db.RoleDTO;
 import com.infosense.ibilling.server.user.permisson.db.RoleDTOEx;
@@ -647,7 +650,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         bl.delete(executorId);
     }
     
-    public Integer createRole(RoleDTOEx roleEx, List<Integer> permissions){
+    public Integer createRole(RoleDTOEx roleEx, Set<Integer> permissions){
     	RoleDTO role = new RoleDTO();
     	Integer entityId = getCallerCompanyId();
     	CompanyDTO company = new CompanyDAS().find(entityId);
@@ -674,7 +677,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
     	return roleId;
     }
     
-    public void updateRole(RoleDTOEx roleEx, List<Integer> permissions){
+    public void updateRole(RoleDTOEx roleEx, Set<Integer> permissions){
     	RoleDTO role = new RoleDTO(roleEx.getId());
 
     	if(permissions!=null && permissions.size()>0){
@@ -699,6 +702,40 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
     public void deleteRole(Integer roleId) {
     	RoleBL bl = new RoleBL(roleId);
     	bl.delete();
+    }
+    
+    public void updateUserPermission(UserDTO user, Set<Integer> permissions){
+    	UserBL bl = new UserBL(user.getId());
+    	
+    	Set<PermissionDTO> grantedPermissions = new HashSet<PermissionDTO>();
+    	if(permissions!=null && permissions.size()>0){
+    		for(Integer p : permissions){
+    			if(p==null) continue;
+    			
+    			grantedPermissions.add(
+    					new PermissionDAS().find(p)
+    			);
+    		}
+    	}
+    	
+    	bl.setUserPermissions(grantedPermissions);
+    }
+    
+    public void updateUserRole(UserDTO user, Set<Integer> roles){
+    	UserBL bl = new UserBL(user.getId());
+    	
+    	Set<RoleDTO> userRoles = new HashSet<RoleDTO>();
+    	if(roles!=null && roles.size()>0){
+    		for(Integer r : roles){
+    			if(r==null || r<=CommonConstants.TYPE_CUSTOMER) continue;
+    			
+    			userRoles.add(
+    					new RoleDTO(r)
+    			);
+    		}
+    	}
+    	
+    	bl.setUserRoles(userRoles);
     }
 
     /**

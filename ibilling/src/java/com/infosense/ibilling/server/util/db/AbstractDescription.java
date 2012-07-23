@@ -49,8 +49,8 @@ public abstract class AbstractDescription implements Serializable {
         if (getDescId() == 0)
             return null;
 
-        JbillingTableDAS tableDas = Context.getBean(Context.Name.JBILLING_TABLE_DAS);
-        JbillingTable table = tableDas.findByName(getTable());
+        IbillingTableDAS tableDas = Context.getBean(Context.Name.JBILLING_TABLE_DAS);
+        IbillingTable table = tableDas.findByName(getTable());
 
         InternationalDescriptionId id = new InternationalDescriptionId(table.getId(), getDescId(), label, languageId);
         return new DescriptionDAS().findNow(id);
@@ -132,8 +132,8 @@ public abstract class AbstractDescription implements Serializable {
      * @param content text description
      */
     public void setDescription(String label, Integer languageId, String content) {
-        JbillingTableDAS tableDas = Context.getBean(Context.Name.JBILLING_TABLE_DAS);
-        JbillingTable table = tableDas.findByName(getTable());
+        IbillingTableDAS tableDas = Context.getBean(Context.Name.JBILLING_TABLE_DAS);
+        IbillingTable table = tableDas.findByName(getTable());
 
         InternationalDescriptionId id = new InternationalDescriptionId(table.getId(), getDescId(), label, languageId);
         InternationalDescriptionDTO desc = new InternationalDescriptionDTO(id, content);

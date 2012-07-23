@@ -30,7 +30,7 @@ import com.infosense.ibilling.server.user.permisson.db.RoleDAS
 import com.infosense.ibilling.server.user.RoleBL
 import com.infosense.ibilling.server.user.contact.db.ContactTypeDTO
 import com.infosense.ibilling.server.user.contact.db.ContactMapDTO
-import com.infosense.ibilling.server.util.db.JbillingTable
+import com.infosense.ibilling.server.util.db.IbillingTable
 import com.infosense.ibilling.client.EntityDefaults
 import javax.validation.constraints.NotNull
 import com.infosense.ibilling.common.SessionInternalError
@@ -245,7 +245,7 @@ class SignupController {
         // map contact to the user table
         // map contact to the primary contact type
         new ContactMapDTO(
-                jbillingTable: JbillingTable.findByName(Constants.TABLE_BASE_USER),
+                ibillingTable: IbillingTable.findByName(Constants.TABLE_BASE_USER),
                 contactType: primaryContactType,
                 contact: userContact,
                 foreignId: user.id
@@ -270,7 +270,7 @@ class SignupController {
         // map contact to the entity table
         // map contact to the base entity contact type
         new ContactMapDTO(
-                jbillingTable: JbillingTable.findByName(Constants.TABLE_ENTITY),
+                ibillingTable: IbillingTable.findByName(Constants.TABLE_ENTITY),
                 contactType: ContactTypeDTO.get(Constants.ENTITY_CONTACT_TYPE),
                 contact: entityContact,
                 foreignId: company.id

@@ -25,9 +25,9 @@ public class ContactDAS extends AbstractDAS<ContactDTO> {
 
     public static final String FIND_PRIMARY_CONTACT_HQL =
         "SELECT contact " +
-        "  FROM ContactDTO contact, JbillingTable table " +
+        "  FROM ContactDTO contact, IbillingTable table " +
         " WHERE table.name = :tableName " +
-        "   AND contact.contactMap.jbillingTable.id = table.id " +
+        "   AND contact.contactMap.ibillingTable.id = table.id " +
         "   AND contact.contactMap.contactType.isPrimary = 1 " +
         "   AND contact.contactMap.foreignId = :userId ";
 
@@ -42,8 +42,8 @@ public class ContactDAS extends AbstractDAS<ContactDTO> {
 
     public static final String FIND_CONTACT_HQL =
         "SELECT c " +
-        "  FROM ContactDTO c, JbillingTable d " +
-        " WHERE c.contactMap.jbillingTable.id = d.id " +
+        "  FROM ContactDTO c, IbillingTable d " +
+        " WHERE c.contactMap.ibillingTable.id = d.id " +
         "   AND d.name = :tableName " +
         "   AND c.contactMap.contactType.id = :typeId " +
         "   AND c.contactMap.foreignId = :userId ";
@@ -59,8 +59,8 @@ public class ContactDAS extends AbstractDAS<ContactDTO> {
 
     public static final String FIND_SIMPLE_CONTACT_HQL =
         "SELECT c " +
-        "  FROM ContactDTO c, JbillingTable d " +
-        " WHERE c.contactMap.jbillingTable.id = d.id " +
+        "  FROM ContactDTO c, IbillingTable d " +
+        " WHERE c.contactMap.ibillingTable.id = d.id " +
         "   AND d.name = :tableName " +
         "   AND c.contactMap.foreignId = :id ";
 

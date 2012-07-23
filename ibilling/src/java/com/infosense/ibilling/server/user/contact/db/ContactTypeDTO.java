@@ -44,7 +44,7 @@ import com.infosense.ibilling.server.util.db.AbstractDescription;
 @Entity
 @TableGenerator(
         name = "contact_type_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "contact_type",

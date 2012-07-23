@@ -36,7 +36,7 @@ public interface EntitySQL {
     // are replaced by JPAs
     static final String getTables = 
         "select name, id " +
-        "  from jbilling_table";
+        "  from ibilling_table";
  
     static final String findRoot = 
         "select id " +

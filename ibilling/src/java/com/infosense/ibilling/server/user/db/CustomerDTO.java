@@ -47,7 +47,7 @@ import java.util.Set;
 @Entity
 @TableGenerator(
         name="customer_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="customer",

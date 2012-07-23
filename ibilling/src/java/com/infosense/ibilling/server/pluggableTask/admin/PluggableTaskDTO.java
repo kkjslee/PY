@@ -44,7 +44,7 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @TableGenerator(
         name="pluggable_task_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="pluggable_task",

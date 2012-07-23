@@ -32,12 +32,12 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.infosense.ibilling.server.util.db.JbillingTable;
+import com.infosense.ibilling.server.util.db.IbillingTable;
 
 @Entity
 @TableGenerator(
         name="contact_map_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="contact_map",
@@ -51,7 +51,7 @@ public class ContactMapDTO  implements java.io.Serializable {
 
 
      private int id;
-     private JbillingTable jbillingTable;
+     private IbillingTable ibillingTable;
      private ContactTypeDTO contactType;
      private ContactDTO contact;
      private int foreignId;
@@ -61,15 +61,15 @@ public class ContactMapDTO  implements java.io.Serializable {
     }
 
     
-    public ContactMapDTO(int id, JbillingTable jbillingTable, ContactTypeDTO contactType, int foreignId) {
+    public ContactMapDTO(int id, IbillingTable ibillingTable, ContactTypeDTO contactType, int foreignId) {
         this.id = id;
-        this.jbillingTable = jbillingTable;
+        this.ibillingTable = ibillingTable;
         this.contactType = contactType;
         this.foreignId = foreignId;
     }
-    public ContactMapDTO(int id, JbillingTable jbillingTable, ContactTypeDTO contactType, ContactDTO contact, int foreignId) {
+    public ContactMapDTO(int id, IbillingTable ibillingTable, ContactTypeDTO contactType, ContactDTO contact, int foreignId) {
        this.id = id;
-       this.jbillingTable = jbillingTable;
+       this.ibillingTable = ibillingTable;
        this.contactType = contactType;
        this.contact = contact;
        this.foreignId = foreignId;
@@ -86,12 +86,12 @@ public class ContactMapDTO  implements java.io.Serializable {
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="table_id", nullable=false)
-    public JbillingTable getJbillingTable() {
-        return this.jbillingTable;
+    public IbillingTable getIbillingTable() {
+        return this.ibillingTable;
     }
     
-    public void setJbillingTable(JbillingTable jbillingTable) {
-        this.jbillingTable = jbillingTable;
+    public void setIbillingTable(IbillingTable ibillingTable) {
+        this.ibillingTable = ibillingTable;
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="type_id", nullable=false)

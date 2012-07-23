@@ -36,7 +36,7 @@ public class UserDAS extends AbstractDAS<UserDTO> {
         "  FROM UserDTO a, ContactMap cm " +
         " WHERE a.company.id = :entity " +
         "   AND a.id = cm.foreignId " +
-        "   AND cm.jbillingTable.id = 10 " +
+        "   AND cm.ibillingTable.id = 10 " +
         "   AND cm.contactType.isPrimary = 1 " +
         "   AND cm.contact.contactFields.contactFieldType.id = :type " +
         "   AND cm.contact.contactFields.contactFieldType.content = :content " +

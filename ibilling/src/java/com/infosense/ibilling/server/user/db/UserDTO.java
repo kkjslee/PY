@@ -58,7 +58,7 @@ import org.hibernate.annotations.Cascade;
 @Entity
 @TableGenerator(
         name="base_user_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="base_user",

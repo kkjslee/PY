@@ -26,7 +26,7 @@ public interface PaymentSQL {
         "       p.amount, p.create_datetime, i.content, i2.content " +
         "  from payment p, base_user u, international_description i, " + 
         "       international_description i2, payment_method pm, " +
-        "       jbilling_table bt, jbilling_table bt2, currency c, contact co, " + 
+        "       ibilling_table bt, ibilling_table bt2, currency c, contact co, " + 
         "       payment_result pr " +
         " where p.user_id = u.id " +
         "   and p.is_refund = ?" +
@@ -54,7 +54,7 @@ public interface PaymentSQL {
         "select p.id, p.id, u.user_name, co.organization_name, c.symbol, " +
         "       p.amount, p.create_datetime, i.content " +
         "  from payment p, base_user u, international_description i, " +
-        "       payment_method pm, jbilling_table bt, partner pa, " +
+        "       payment_method pm, ibilling_table bt, partner pa, " +
         "       customer cu, currency c, contact co " +
         " where p.user_id = u.id " +
         "   and p.is_refund = ?" +
@@ -80,7 +80,7 @@ public interface PaymentSQL {
         "       p.amount, p.create_datetime, i.content, i2.content " +
         "  from payment p, base_user u, international_description i, " +
         "       international_description i2, payment_method pm, " +
-        "       jbilling_table bt, jbilling_table bt2, currency c, contact co, " +  
+        "       ibilling_table bt, ibilling_table bt2, currency c, contact co, " +  
         "       payment_result pr " +
         " where p.user_id = u.id " +
         "   and p.is_refund = ?" +
@@ -110,8 +110,8 @@ public interface PaymentSQL {
         "select p.id, p.id, u.user_name, c.symbol, p.amount, " +
         "       p.create_datetime, i.content, i2.content " +
         "  from payment p, base_user u, international_description i, " +
-        "       payment_method pm, jbilling_table bt, currency c," +
-        "       international_description i2, jbilling_table bt2, " +
+        "       payment_method pm, ibilling_table bt, currency c," +
+        "       international_description i2, ibilling_table bt2, " +
         "       payment_result pr " +
         " where p.user_id = u.id " +
         "   and p.is_refund = ?" +

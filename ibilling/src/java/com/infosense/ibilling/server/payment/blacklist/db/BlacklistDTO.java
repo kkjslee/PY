@@ -41,7 +41,7 @@ import com.infosense.ibilling.server.user.db.UserDTO;
 @Entity
 @TableGenerator(
         name="blacklist_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="blacklist",

@@ -38,7 +38,7 @@ import com.infosense.ibilling.common.JBCrypto;
 import com.infosense.ibilling.server.payment.db.PaymentDTO;
 
 @Entity
-@TableGenerator(name = "ach_GEN", table = "jbilling_seqs", pkColumnName = "name", valueColumnName = "next_id", pkColumnValue = "ach", allocationSize = 100)
+@TableGenerator(name = "ach_GEN", table = "ibilling_seqs", pkColumnName = "name", valueColumnName = "next_id", pkColumnValue = "ach", allocationSize = 100)
 @Table(name = "ach")
 public class AchDTO implements Serializable {
 

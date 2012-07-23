@@ -26,7 +26,7 @@ import java.util.Date;
 @Entity
 @TableGenerator(
         name = "process_run_user_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "process_run_user",

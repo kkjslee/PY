@@ -40,7 +40,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @TableGenerator(name = "ageing_entity_step_GEN",
-               table = "jbilling_seqs",
+               table = "ibilling_seqs",
                pkColumnName = "name",
                valueColumnName = "next_id",
                pkColumnValue = "ageing_entity_step",

@@ -48,7 +48,7 @@ import java.util.Set;
 @Table(name = "report_type")
 @TableGenerator(
     name = "report_type_GEN",
-    table = "jbilling_seqs",
+    table = "ibilling_seqs",
     pkColumnName = "name",
     valueColumnName = "next_id",
     pkColumnValue = "report_type",

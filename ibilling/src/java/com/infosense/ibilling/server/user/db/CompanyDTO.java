@@ -66,7 +66,7 @@ import org.hibernate.annotations.OrderBy;
 @Table(name = "entity")
 @TableGenerator(
     name = "entity_GEN",
-    table = "jbilling_seqs",
+    table = "ibilling_seqs",
     pkColumnName = "name",
     valueColumnName = "next_id",
     pkColumnValue = "entity",

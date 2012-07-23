@@ -40,7 +40,7 @@ import com.infosense.ibilling.server.user.event.NewContactEvent;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.audit.EventLogger;
-import com.infosense.ibilling.server.util.db.JbillingTableDAS;
+import com.infosense.ibilling.server.util.db.IbillingTableDAS;
 
 import org.apache.log4j.Logger;
 
@@ -57,7 +57,7 @@ public class ContactBL {
     private ContactFieldDAS contactFieldDas = null;
     private ContactDTO contact = null;
     private Integer entityId = null;
-    private JbillingTableDAS jbDAS = null;
+    private IbillingTableDAS jbDAS = null;
     private EventLogger eLogger = null;
     
     public ContactBL(Integer contactId)
@@ -220,7 +220,7 @@ public class ContactBL {
     private void init() {
         contactDas = new ContactDAS();
         contactFieldDas = new ContactFieldDAS();
-        jbDAS = (JbillingTableDAS) Context.getBean(Context.Name.JBILLING_TABLE_DAS);
+        jbDAS = (IbillingTableDAS) Context.getBean(Context.Name.JBILLING_TABLE_DAS);
         eLogger = EventLogger.getInstance();
     }
     
@@ -289,7 +289,7 @@ public class ContactBL {
             Integer foreignId, Integer typeId) {
         // first thing is to create the map to the user
         ContactMapDTO map = new ContactMapDTO();
-        map.setJbillingTable(jbDAS.findByName(table));
+        map.setIbillingTable(jbDAS.findByName(table));
         map.setContactType(new ContactTypeDAS().find(typeId));
         map.setForeignId(foreignId);
         map = new ContactMapDAS().save(map);

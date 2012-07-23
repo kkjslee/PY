@@ -45,7 +45,7 @@ import java.io.Serializable;
 @Table(name = "report_parameter")
 @TableGenerator(
     name = "report_parameter_GEN",
-    table = "jbilling_seqs",
+    table = "ibilling_seqs",
     pkColumnName = "name",
     valueColumnName = "next_id",
     pkColumnValue = "report_parameter",

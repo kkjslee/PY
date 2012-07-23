@@ -31,14 +31,14 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.infosense.ibilling.server.util.db.JbillingTable;
+import com.infosense.ibilling.server.util.db.IbillingTable;
 
 import java.math.BigDecimal;
 
 @Entity
 @TableGenerator(
         name="preference_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="preference",
@@ -49,7 +49,7 @@ import java.math.BigDecimal;
 public class PreferenceDTO implements java.io.Serializable {
 
     private int id;
-    private JbillingTable jbillingTable;
+    private IbillingTable ibillingTable;
     private PreferenceTypeDTO preferenceType;
     private int foreignId;
     private String value;
@@ -57,15 +57,15 @@ public class PreferenceDTO implements java.io.Serializable {
     public PreferenceDTO() {
     }
 
-    public PreferenceDTO(int id, JbillingTable jbillingTable, int foreignId) {
+    public PreferenceDTO(int id, IbillingTable ibillingTable, int foreignId) {
         this.id = id;
-        this.jbillingTable = jbillingTable;
+        this.ibillingTable = ibillingTable;
         this.foreignId = foreignId;
     }
 
-    public PreferenceDTO(int id, JbillingTable jbillingTable, PreferenceTypeDTO preferenceType, int foreignId, String value) {
+    public PreferenceDTO(int id, IbillingTable ibillingTable, PreferenceTypeDTO preferenceType, int foreignId, String value) {
         this.id = id;
-        this.jbillingTable = jbillingTable;
+        this.ibillingTable = ibillingTable;
         this.preferenceType = preferenceType;
         this.foreignId = foreignId;
         this.value = value;
@@ -84,12 +84,12 @@ public class PreferenceDTO implements java.io.Serializable {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="table_id", nullable=false)
-    public JbillingTable getJbillingTable() {
-        return this.jbillingTable;
+    public IbillingTable getIbillingTable() {
+        return this.ibillingTable;
     }
 
-    public void setJbillingTable(JbillingTable jbillingTable) {
-        this.jbillingTable = jbillingTable;
+    public void setIbillingTable(IbillingTable ibillingTable) {
+        this.ibillingTable = ibillingTable;
     }
 
     @ManyToOne(fetch=FetchType.LAZY)

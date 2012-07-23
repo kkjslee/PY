@@ -35,11 +35,11 @@ import com.infosense.ibilling.server.user.contact.db.ContactMapDTO;
 import com.infosense.ibilling.server.util.audit.db.EventLogDTO;
 
 @Entity
-@Table(name="jbilling_table"
+@Table(name="ibilling_table"
     , uniqueConstraints = @UniqueConstraint(columnNames="name") 
 )
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class JbillingTable  implements java.io.Serializable {
+public class IbillingTable  implements java.io.Serializable {
 
 
      private int id;
@@ -48,15 +48,15 @@ public class JbillingTable  implements java.io.Serializable {
      private Set<PreferenceDTO> preferences = new HashSet<PreferenceDTO>(0);
      private Set<EventLogDTO> eventLogs = new HashSet<EventLogDTO>(0);
 
-    public JbillingTable() {
+    public IbillingTable() {
     }
 
     
-    public JbillingTable(int id, String name, int nextId) {
+    public IbillingTable(int id, String name, int nextId) {
         this.id = id;
         this.name = name;
     }
-    public JbillingTable(int id, String name, int nextId, Set<ContactMapDTO> contactMaps, Set<PreferenceDTO> preferences, Set<EventLogDTO> eventLogs) {
+    public IbillingTable(int id, String name, int nextId, Set<ContactMapDTO> contactMaps, Set<PreferenceDTO> preferences, Set<EventLogDTO> eventLogs) {
        this.id = id;
        this.name = name;
        this.contactMaps = contactMaps;
@@ -83,7 +83,7 @@ public class JbillingTable  implements java.io.Serializable {
         this.name = name;
     }
     
-@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="jbillingTable")
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="ibillingTable")
     public Set<ContactMapDTO> getContactMaps() {
         return this.contactMaps;
     }
@@ -92,7 +92,7 @@ public class JbillingTable  implements java.io.Serializable {
         this.contactMaps = contactMaps;
     }
     
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="jbillingTable")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="ibillingTable")
     public Set<PreferenceDTO> getPreferences() {
         return this.preferences;
     }
@@ -101,7 +101,7 @@ public class JbillingTable  implements java.io.Serializable {
         this.preferences = preferences;
     }
     
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="jbillingTable")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="ibillingTable")
     public Set<EventLogDTO> getEventLogs() {
         return this.eventLogs;
     }

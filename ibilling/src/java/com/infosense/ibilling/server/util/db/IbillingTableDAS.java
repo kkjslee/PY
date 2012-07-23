@@ -23,27 +23,27 @@ import org.apache.log4j.Logger;
 import org.springmodules.cache.provider.CacheProviderFacade;
 import org.springmodules.cache.CachingModel;
 
-public class JbillingTableDAS extends AbstractDAS<JbillingTable> {
+public class IbillingTableDAS extends AbstractDAS<IbillingTable> {
 
     private CacheProviderFacade cache;
     private CachingModel cacheModel;
 
-    private static final Logger LOG = Logger.getLogger(JbillingTableDAS.class);
+    private static final Logger LOG = Logger.getLogger(IbillingTableDAS.class);
 
-    protected JbillingTableDAS() {
+    protected IbillingTableDAS() {
         super();
     }
 
     // can not cache directly, CGLib can not proxy extenders of <> classes
-    public JbillingTable findByName(String name) {
-        JbillingTable table = (JbillingTable) cache.getFromCache("JbillingTable" + name, cacheModel);
+    public IbillingTable findByName(String name) {
+        IbillingTable table = (IbillingTable) cache.getFromCache("IbillingTable" + name, cacheModel);
         if (table == null) {
             LOG.debug("Looking for table + " + name);
             table = findByCriteriaSingle(Restrictions.eq("name", name));
             if (table == null) {
                 throw new SessionInternalError("Can not find table " + name);
             } else {
-                cache.putInCache("JbillingTable" + name, cacheModel, table);
+                cache.putInCache("IbillingTable" + name, cacheModel, table);
 
             }
         }
@@ -58,7 +58,7 @@ public class JbillingTableDAS extends AbstractDAS<JbillingTable> {
         cacheModel = model;
     }
 
-    public static JbillingTableDAS getInstance() {
-        return new JbillingTableDAS();
+    public static IbillingTableDAS getInstance() {
+        return new IbillingTableDAS();
     }
 }

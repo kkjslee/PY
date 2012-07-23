@@ -23,7 +23,7 @@ public class PreferenceDAS extends AbstractDAS<PreferenceDTO> {
         "  FROM PreferenceDTO a " + 
         " WHERE a.preferenceType.id = :typeId " +
         "   AND a.foreignId = :foreignId " +
-        "   AND a.jbillingTable.name = :tableName ";
+        "   AND a.ibillingTable.name = :tableName ";
 
     public PreferenceDTO findByType_Row(Integer typeId,Integer foreignId,String tableName) {
         Query query = getSession().createQuery(findByType_Row);

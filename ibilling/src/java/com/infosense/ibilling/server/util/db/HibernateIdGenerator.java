@@ -62,7 +62,7 @@ public class HibernateIdGenerator {
             of Hibernate may change the underlying implementation which will break this code.
          */
         Properties configuration = new Properties();
-        configuration.setProperty(TableGenerator.TABLE_PARAM, "jbilling_seqs");
+        configuration.setProperty(TableGenerator.TABLE_PARAM, "ibilling_seqs");
         configuration.setProperty(TableGenerator.SEGMENT_COLUMN_PARAM, "name");
         configuration.setProperty(TableGenerator.SEGMENT_VALUE_PARAM, segmentValue);
         configuration.setProperty(TableGenerator.VALUE_COLUMN_PARAM, "next_id");

@@ -27,14 +27,14 @@ import org.hibernate.Query;
  */
 public class InternationalDescriptionDAS extends AbstractDAS<InternationalDescriptionDTO> {
 
-    private JbillingTableDAS jtDAS; // injected by Spring
+    private IbillingTableDAS jtDAS; // injected by Spring
 
     // should only be created from Spring
     protected InternationalDescriptionDAS() {
         super();
     }
 
-    public void setJbDAS(JbillingTableDAS util) {
+    public void setJbDAS(IbillingTableDAS util) {
         this.jtDAS = util;
     }
 
@@ -68,7 +68,7 @@ public class InternationalDescriptionDAS extends AbstractDAS<InternationalDescri
 
     public Collection<InternationalDescriptionDTO> findByTable_Row(String table, Integer foreignId) {
         final String QUERY = "SELECT a " +
-            "FROM InternationalDescriptionDTO a, JbillingTable b " +
+            "FROM InternationalDescriptionDTO a, IbillingTable b " +
             "WHERE a.id.tableId = b.id " +
             "AND b.name = :table " +
             "AND a.id.foreignId = :foreing ";

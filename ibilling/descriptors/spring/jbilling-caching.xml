@@ -39,9 +39,9 @@
 		class="com.infosense.ibilling.server.mediation.task.StatelessJDBCReader">
 		<property name="parameters">
 			<map>
-				<entry key="url" value="jdbc:postgresql://localhost:5432/jbilling_test" />
+				<entry key="url" value="jdbc:postgresql://localhost:5432/ibilling_test" />
 				<entry key="driver" value="org.postgresql.Driver" />
-				<entry key="username" value="jbilling" />
+				<entry key="username" value="ibilling" />
 				<entry key="password" value="" />
 				<entry key="table_name" value="cdr" />
 			    <entry key="batch_size" value="100" />
@@ -79,7 +79,7 @@
           lazy-init="true">
 		<property name="parameters">
 			<map>
-                <entry key="url" value="jdbc:mysql://localhost:3306/jbilling_test"/>
+                <entry key="url" value="jdbc:mysql://localhost:3306/ibilling_test"/>
 				<entry key="driver" value="com.mysql.jdbc.Driver"/>
                 <entry key="username" value="jbilling"/>
 				<entry key="password" value="password"/>

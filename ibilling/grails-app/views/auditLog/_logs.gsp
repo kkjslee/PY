@@ -54,7 +54,7 @@
                     </td>
                     <td class="small">
                         <g:remoteLink class="cell" action="show" id="${log.id}" before="register(this);" onSuccess="render(data, next);">
-                            <span>${log.jbillingTable.name}</span>
+                            <span>${log.ibillingTable.name}</span>
                         </g:remoteLink>
                     </td>
                     <td class="small">

@@ -48,32 +48,32 @@
                 </tr>
                 <tr>
                     <td><g:message code="log.table"/></td>
-                    <td class="value">${selected.jbillingTable.name}</td>
+                    <td class="value">${selected.ibillingTable.name}</td>
                 </tr>
                 <tr>
                     <td><g:message code="log.foreign_id"/></td>
                     <td class="value">
-                        <g:if test="${selected.jbillingTable.name == 'base_user'}">
+                        <g:if test="${selected.ibillingTable.name == 'base_user'}">
                             <g:remoteLink controller="customer" action="show" id="${selected.foreignId}" before="register(this);" onSuccess="render(data, next);">
                                  ${selected.foreignId}
                             </g:remoteLink>
                         </g:if>
-                        <g:elseif test="${selected.jbillingTable.name == 'purchase_order'}">
+                        <g:elseif test="${selected.ibillingTable.name == 'purchase_order'}">
                             <g:remoteLink controller="order" action="show" id="${selected.foreignId}" before="register(this);" onSuccess="render(data, next);">
                                  ${selected.foreignId}
                             </g:remoteLink>
                         </g:elseif>
-                        <g:elseif test="${selected.jbillingTable.name == 'payment'}">
+                        <g:elseif test="${selected.ibillingTable.name == 'payment'}">
                             <g:remoteLink controller="payment" action="show" id="${selected.foreignId}" before="register(this);" onSuccess="render(data, next);">
                                  ${selected.foreignId}
                             </g:remoteLink>
                         </g:elseif>
-                        <g:elseif test="${selected.jbillingTable.name == 'invoice'}">
+                        <g:elseif test="${selected.ibillingTable.name == 'invoice'}">
                             <g:remoteLink controller="invoice" action="show" id="${selected.foreignId}" before="register(this);" onSuccess="render(data, next);">
                                  ${selected.foreignId}
                             </g:remoteLink>
                         </g:elseif>
-                        <g:elseif test="${selected.jbillingTable.name == 'pluggable_task'}">
+                        <g:elseif test="${selected.ibillingTable.name == 'pluggable_task'}">
                             <g:remoteLink controller="plugin" action="show" params="template:show" id="${selected.foreignId}" before="register(this);" onSuccess="render(data, next);">
                                  ${selected.foreignId}
                             </g:remoteLink>

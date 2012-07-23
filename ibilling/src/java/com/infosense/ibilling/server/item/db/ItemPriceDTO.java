@@ -43,7 +43,7 @@ import java.math.BigDecimal;
 @Entity
 @TableGenerator(
         name="item_price_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="item_price",

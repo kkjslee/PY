@@ -40,7 +40,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @TableGenerator(
         name = "mediation_cfg_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "mediation_cfg",

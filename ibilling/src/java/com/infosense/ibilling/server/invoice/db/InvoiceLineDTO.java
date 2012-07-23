@@ -39,7 +39,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @TableGenerator(
         name = "invoice_line_GEN", 
-        table = "jbilling_seqs", 
+        table = "ibilling_seqs", 
         pkColumnName = "name", 
         valueColumnName = "next_id", 
         pkColumnValue = "invoice_line", 

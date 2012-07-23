@@ -38,7 +38,7 @@ import javax.persistence.Version;
 
 @TableGenerator(
         name = "mediation_record_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "mediation_record", 

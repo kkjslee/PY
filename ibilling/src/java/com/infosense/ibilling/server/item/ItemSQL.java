@@ -26,7 +26,7 @@ public interface ItemSQL {
     // the logged user has a differenct language
     static final String list = 
         "select a.id, a.id, a.internal_number, b.content " +
-        "  from item a, international_description b, jbilling_table c," +
+        "  from item a, international_description b, ibilling_table c," +
         "       entity e " +
         " where a.entity_id = e.id " +
         "   and e.id = ? " +
@@ -45,7 +45,7 @@ public interface ItemSQL {
 
     static final String listUserPrice = 
         "select d.id, a.id, a.internal_number, b.content, d.price " +
-        "  from item a, international_description b, jbilling_table c, " + 
+        "  from item a, international_description b, ibilling_table c, " + 
         "       item_user_price d " +
         " where a.entity_id = ? " +
         "   and d.user_id = ? " +
@@ -60,7 +60,7 @@ public interface ItemSQL {
 
     static final String listPromotion = 
         "select b.id, b.code, b.since, b.until, b.once, c.content" +
-        "  from item a, promotion b, international_description c, jbilling_table d  " +
+        "  from item a, promotion b, international_description c, ibilling_table d  " +
         " where a.entity_id = ? " +
         "   and a.deleted = 0 " +
         "   and c.table_id = d.id " +

@@ -46,7 +46,7 @@ import com.infosense.ibilling.server.util.db.AbstractDescription;
 @Entity
 @TableGenerator(
         name = "item_type_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "item_type",

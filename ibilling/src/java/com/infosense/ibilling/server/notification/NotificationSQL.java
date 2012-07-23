@@ -26,7 +26,7 @@ public interface NotificationSQL {
     static final String listTypes = 
         "select nmt.id, i.content " +
         "  from notification_message_type nmt, international_description i, " +
-        "       jbilling_table bt " + 
+        "       ibilling_table bt " + 
         " where i.table_id = bt.id " +
         "   and bt.name = 'notification_message_type' " + 
         "   and i.foreign_id = nmt.id " + 
@@ -35,7 +35,7 @@ public interface NotificationSQL {
 
     static final String allEmails = 
         "select c.email " +
-        "  from base_user a, contact_map b, contact c, jbilling_table d, " +
+        "  from base_user a, contact_map b, contact c, ibilling_table d, " +
         "       contact_type ct, user_role_map urm " +
         " where a.id = b.foreign_id " +
         "   and b.type_id = ct.id " +

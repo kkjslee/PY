@@ -48,7 +48,7 @@ import com.infosense.ibilling.server.order.db.OrderLineDTO;
 @Entity
 @TableGenerator(
         name="mediation_record_line_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="mediation_record_line",

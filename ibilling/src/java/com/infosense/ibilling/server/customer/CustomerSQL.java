@@ -27,7 +27,7 @@ public interface CustomerSQL {
     static final String listRoot = 
         "select c.id, c.id, a.organization_name, a.last_name, a.first_name, " +
         "       c.user_name " +
-        "from contact a, contact_map b, base_user c, jbilling_table d, " +
+        "from contact a, contact_map b, base_user c, ibilling_table d, " +
         "     contact_type ct, user_role_map urm " +
         "where a.id = b.contact_id" +
         "  and b.foreign_id = c.id" +
@@ -47,7 +47,7 @@ public interface CustomerSQL {
     static final String listClerk = 
         "select c.id, c.id, a.organization_name, a.last_name, a.first_name, " +
         "       c.user_name " +
-        "from contact a, contact_map b, base_user c, jbilling_table d, " +
+        "from contact a, contact_map b, base_user c, ibilling_table d, " +
         "     contact_type ct, user_role_map urm  " +
         "where a.id = b.contact_id" +
         "  and b.foreign_id = c.id" +
@@ -66,7 +66,7 @@ public interface CustomerSQL {
     static final String listPartner = 
         "select c.id, c.id, a.organization_name, a.last_name, a.first_name, " +
         "       c.user_name " +
-        "from contact a, contact_map b, base_user c, jbilling_table d, " +
+        "from contact a, contact_map b, base_user c, ibilling_table d, " +
         "     customer cu, partner pa, " +
         "     contact_type ct " +
         "where a.id = b.contact_id" +
@@ -87,7 +87,7 @@ public interface CustomerSQL {
     static final String listCustomers = 
         "select c.id, c.id, a.organization_name, a.last_name, a.first_name, " +
         "       c.user_name " +
-        "from contact a, contact_map b, base_user c, jbilling_table d, " +
+        "from contact a, contact_map b, base_user c, ibilling_table d, " +
         "     user_role_map urm, customer cu, " +
         "     contact_type ct " +
         "where a.id = b.contact_id" +
@@ -117,7 +117,7 @@ public interface CustomerSQL {
     static final String listSubaccounts = 
         "select c.id, c.id, a.organization_name, a.last_name, a.first_name, " +
         "       c.user_name " +
-        "from contact a, contact_map b, base_user c, jbilling_table d, " +
+        "from contact a, contact_map b, base_user c, ibilling_table d, " +
         "     user_role_map urm, customer cu, " +
         "     contact_type ct " +
         "where a.id = b.contact_id" +

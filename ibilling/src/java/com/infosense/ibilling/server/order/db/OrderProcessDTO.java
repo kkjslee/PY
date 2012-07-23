@@ -39,7 +39,7 @@ import com.infosense.ibilling.server.process.db.BillingProcessDTO;
 @Entity
 @TableGenerator(
         name="order_process_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="order_process",

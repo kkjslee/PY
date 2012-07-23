@@ -39,7 +39,7 @@ import java.util.Date;
 @Entity
 @TableGenerator(
         name = "mediation_process_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "mediation_process",

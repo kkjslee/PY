@@ -45,7 +45,7 @@ import com.infosense.ibilling.server.util.db.LanguageDTO;
 @Entity
 @TableGenerator(
         name = "notification_message_GEN", 
-        table = "jbilling_seqs", 
+        table = "ibilling_seqs", 
         pkColumnName = "name", 
         valueColumnName = "next_id", 
         pkColumnValue = "notification_message", 

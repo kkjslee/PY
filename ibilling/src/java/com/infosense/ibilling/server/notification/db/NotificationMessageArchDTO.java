@@ -39,7 +39,7 @@ import com.infosense.ibilling.server.user.db.UserDTO;
 @Entity
 @TableGenerator(
         name = "notification_message_arch_GEN", 
-        table = "jbilling_seqs", 
+        table = "ibilling_seqs", 
         pkColumnName = "name", 
         valueColumnName = "next_id", 
         pkColumnValue = "notification_message_arch", 

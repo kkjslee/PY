@@ -55,7 +55,7 @@ import java.util.ArrayList;
 @Entity
 @TableGenerator(
         name="order_line_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="order_line",

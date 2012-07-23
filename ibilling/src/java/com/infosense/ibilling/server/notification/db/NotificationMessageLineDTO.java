@@ -34,7 +34,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @TableGenerator(
         name = "notification_message_line_GEN", 
-        table = "jbilling_seqs", 
+        table = "ibilling_seqs", 
         pkColumnName = "name", 
         valueColumnName = "next_id", 
         pkColumnValue = "notification_message_line", 

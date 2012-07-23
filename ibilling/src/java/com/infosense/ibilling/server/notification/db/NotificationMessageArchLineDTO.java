@@ -32,7 +32,7 @@ import javax.persistence.Version;
 @Entity
 @TableGenerator(
         name = "notification_message_arch_line_GEN", 
-        table = "jbilling_seqs", 
+        table = "ibilling_seqs", 
         pkColumnName = "name", 
         valueColumnName = "next_id", 
         pkColumnValue = "notification_message_arch_line", 

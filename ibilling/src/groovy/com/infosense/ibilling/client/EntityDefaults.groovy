@@ -25,7 +25,7 @@ import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO
 import com.infosense.ibilling.server.payment.db.PaymentMethodDTO
 import com.infosense.ibilling.server.util.db.PreferenceDTO
-import com.infosense.ibilling.server.util.db.JbillingTable
+import com.infosense.ibilling.server.util.db.IbillingTable
 import com.infosense.ibilling.server.util.db.PreferenceTypeDTO
 import com.infosense.ibilling.server.user.db.UserDTO
 import com.infosense.ibilling.server.process.db.BillingProcessConfigurationDTO
@@ -56,7 +56,7 @@ class EntityDefaults {
     def UserDTO rootUser
     def CompanyDTO company
     def LanguageDTO language
-    def JbillingTable entityTable
+    def IbillingTable entityTable
     def Locale locale
 
     def ReloadableResourceBundleMessageSource messageSource
@@ -65,7 +65,7 @@ class EntityDefaults {
         this.company = company
         this.rootUser = rootUser
         this.language = language
-        this.entityTable = JbillingTable.findByName(Constants.TABLE_ENTITY)
+        this.entityTable = IbillingTable.findByName(Constants.TABLE_ENTITY)
         this.locale = UserBL.getLocale(rootUser)
         this.messageSource = messageSource
     }
@@ -180,8 +180,8 @@ class EntityDefaults {
         /*
             Preferences
          */
-        new PreferenceDTO(jbillingTable: entityTable, foreignId: company.id, preferenceType: new PreferenceTypeDTO(Constants.PREFERENCE_GRACE_PERIOD), value: 5).save()
-        new PreferenceDTO(jbillingTable: entityTable, foreignId: company.id, preferenceType: new PreferenceTypeDTO(Constants.PREFERENCE_SHOW_NOTE_IN_INVOICE), value: 1).save()
+        new PreferenceDTO(ibillingTable: entityTable, foreignId: company.id, preferenceType: new PreferenceTypeDTO(Constants.PREFERENCE_GRACE_PERIOD), value: 5).save()
+        new PreferenceDTO(ibillingTable: entityTable, foreignId: company.id, preferenceType: new PreferenceTypeDTO(Constants.PREFERENCE_SHOW_NOTE_IN_INVOICE), value: 1).save()
 
 
         /*

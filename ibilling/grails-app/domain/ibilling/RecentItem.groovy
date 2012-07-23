@@ -27,7 +27,7 @@ class RecentItem implements Serializable {
     static mapping = {
         id generator: 'org.hibernate.id.enhanced.TableGenerator',
            params: [
-           table_name: 'jbilling_seqs',
+           table_name: 'ibilling_seqs',
            segment_column_name: 'name',
            value_column_name: 'next_id',
            segment_value: 'recent_item'

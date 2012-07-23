@@ -42,7 +42,7 @@ import java.io.Serializable;
 @Table(name = "permission_user")
 @TableGenerator(
         name="permission_user_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="permission_user",

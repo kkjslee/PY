@@ -26,8 +26,8 @@ target(prepareTestDb: "Import the test postgresql database.") {
     // optionally accept database name and user name arguments
     parseArguments();
     def cleanDb = argsMap.cleanDb;
-    def username = argsMap.user ? argsMap.user : "jbilling"
-    def database = argsMap.db ? argsMap.db : "jbilling_test"
+    def username = argsMap.user ? argsMap.user : "ibilling"
+    def database = argsMap.db ? argsMap.db : "ibilling"
 
     if (cleanDb) {
         println "Dropping a database: ${database}..."

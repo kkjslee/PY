@@ -58,7 +58,7 @@ class AuditLogController {
                 offset: params.offset
         ) {
             createAlias('affectedUser', 'u', Criteria.LEFT_JOIN)
-            createAlias('jbillingTable', 'table', Criteria.LEFT_JOIN)
+            createAlias('ibillingTable', 'table', Criteria.LEFT_JOIN)
 
             and {
                 filters.each { filter ->

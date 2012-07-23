@@ -50,7 +50,7 @@ beans = {
          */
         testConnectionOnCheckout = true
         idleConnectionTestPeriod = 30
-        preferredTestQuery = "select id from jbilling_table where id = 1"
+        preferredTestQuery = "select id from ibilling_table where id = 1"
 
         /*
            Destroy un-returned connections after a period of time (in seconds) and throw an exception

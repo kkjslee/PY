@@ -40,14 +40,29 @@
     <bean id="webServicesSession" class="com.infosense.ibilling.server.util.WebServicesSessionSpringBean">
         <aop:scoped-proxy/>
     </bean>
-
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	    <!-- does not necessarily have to be the same name as the bean to be exported -->
+	    <property name="serviceName" value="ApiService"/>
+	    <property name="service" ref="webServicesSession"/>
+	    <property name="serviceInterface" value="com.infosense.ibilling.server.util.IWebServicesSessionBean"/>
+	    <!-- defaults to 1099 -->
+	    <property name="registryPort" value="1199"/>
+	</bean>
+	
+	<bean name="hessian.IBillingService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	    <property name="service" ref="webServicesSession"/>
+	    <property name="serviceInterface" value="com.infosense.ibilling.server.util.IWebServicesSessionBean"/>
+	</bean>
+	
+    
     <!-- Data Access Service beans -->
     <bean id="internationalDescriptionDAS" class="com.infosense.ibilling.server.util.db.InternationalDescriptionDAS"
           factory-method="getInstance" scope="prototype">
-        <property name="jbDAS" ref="jbillingTableDAS"/>
+        <property name="jbDAS" ref="ibillingTableDAS"/>
     </bean>
 
-    <bean id="jbillingTableDAS" class="com.infosense.ibilling.server.util.db.JbillingTableDAS"
+    <bean id="ibillingTableDAS" class="com.infosense.ibilling.server.util.db.IbillingTableDAS"
           factory-method="getInstance" scope="prototype">
         <property name="cache" ref="cacheProviderFacade"/>
         <property name="cacheModel" ref="cacheModelReadOnly"/>

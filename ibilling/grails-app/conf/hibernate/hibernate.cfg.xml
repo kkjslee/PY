@@ -50,7 +50,7 @@
         <mapping class="com.infosense.ibilling.server.util.db.InternationalDescriptionId" />
         <mapping class="com.infosense.ibilling.server.util.db.AbstractGenericStatus" />
         <mapping class="com.infosense.ibilling.server.util.db.InternationalDescription" />
-        <mapping class="com.infosense.ibilling.server.util.db.JbillingTable" />
+        <mapping class="com.infosense.ibilling.server.util.db.IbillingTable" />
         <mapping class="com.infosense.ibilling.server.util.db.NotificationCategoryDTO" />
         <mapping package="com.infosense.ibilling.server.item.db" />
         <mapping class="com.infosense.ibilling.server.item.db.ItemDTO" />

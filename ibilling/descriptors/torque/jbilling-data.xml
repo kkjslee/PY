@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no" ?>
 <!--
-    jBilling - The Enterprise Open Source Billing System
-    Copyright (C) 2003-2009 Enterprise jBilling Software Ltd. and Emiliano Conde
+    ibilling - The Enterprise Open Source Billing System
+    Copyright (C) 2003-2009 Enterprise ibilling Software Ltd. and Emiliano Conde
 
-    This file is part of jbilling.
+    This file is part of ibilling.
 
-    jbilling is free software: you can redistribute it and/or modify
+    ibilling is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    jbilling is distributed in the hope that it will be useful,
+    ibilling is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Affero General Public License for more details.
 
     You should have received a copy of the GNU Affero General Public License
-    along with jbilling.  If not, see <http://www.gnu.org/licenses/>.
+    along with ibilling.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!DOCTYPE dataset SYSTEM "file://jbilling-data.dtd">
+<!DOCTYPE dataset SYSTEM "file://ibilling-data.dtd">
 <dataset name="all">
 
     <ContactType Id="1" Optlock="0"/>
@@ -1135,7 +1135,7 @@
     <InternationalDescription TableId="24" ForeignId=" 12" PsudoColumn="title" LanguageId="1" Content="PDF invoice notification"/>
     <InternationalDescription TableId="24" ForeignId=" 12" PsudoColumn="description" LanguageId="1" Content="Will generate a PDF version of an invoice."/>
     <InternationalDescription TableId="24" ForeignId=" 14" PsudoColumn="title" LanguageId="1" Content="No invoice carry over"/>
-    <InternationalDescription TableId="24" ForeignId=" 14" PsudoColumn="description" LanguageId="1" Content="Returns always false, which makes jBilling to never carry over an invoice into another newer invoice."/>
+    <InternationalDescription TableId="24" ForeignId=" 14" PsudoColumn="description" LanguageId="1" Content="Returns always false, which makes ibilling to never carry over an invoice into another newer invoice."/>
     <InternationalDescription TableId="24" ForeignId=" 15" PsudoColumn="title" LanguageId="1" Content="Default interest task"/>
     <InternationalDescription TableId="24" ForeignId=" 15" PsudoColumn="description" LanguageId="1" Content="Will create a new order with a penalty item. The item is taken as a parameter to the task."/>
     <InternationalDescription TableId="24" ForeignId=" 16" PsudoColumn="title" LanguageId="1" Content="Anticipated order filter"/>
@@ -1147,7 +1147,7 @@
     <InternationalDescription TableId="24" ForeignId=" 20" PsudoColumn="title" LanguageId="1" Content="Payment gateway down alarm"/>
     <InternationalDescription TableId="24" ForeignId=" 20" PsudoColumn="description" LanguageId="1" Content="Sends an email to the billing administrator as an alarm when a payment gateway is down."/>
     <InternationalDescription TableId="24" ForeignId=" 21" PsudoColumn="title" LanguageId="1" Content="Test payment processor"/>
-    <InternationalDescription TableId="24" ForeignId=" 21" PsudoColumn="description" LanguageId="1" Content="A test payment processor implementation to be able to test jBillings functions without using a real payment gateway."/>
+    <InternationalDescription TableId="24" ForeignId=" 21" PsudoColumn="description" LanguageId="1" Content="A test payment processor implementation to be able to test ibillings functions without using a real payment gateway."/>
     <InternationalDescription TableId="24" ForeignId=" 22" PsudoColumn="title" LanguageId="1" Content="Router payment processor based on Custom Fields"/>
     <InternationalDescription TableId="24" ForeignId=" 22" PsudoColumn="description" LanguageId="1" Content="Allows a customer to be assigned a specific payment gateway. It checks a custom contact field to identify the gateway and then delegates the actual payment processing to another plugin."/>
     <InternationalDescription TableId="24" ForeignId=" 23" PsudoColumn="title" LanguageId="1" Content="Default subscription status manager"/>
@@ -1219,13 +1219,13 @@
     <InternationalDescription TableId="24" ForeignId=" 57" PsudoColumn="title" LanguageId="1" Content="Payment processor for Payments Gateway."/>
     <InternationalDescription TableId="24" ForeignId=" 57" PsudoColumn="description" LanguageId="1" Content="Integration with the Payments Gateway payment processor."/>
     <InternationalDescription TableId="24" ForeignId=" 58" PsudoColumn="title" LanguageId="1" Content="Credit cards are stored externally."/>
-    <InternationalDescription TableId="24" ForeignId=" 58" PsudoColumn="description" LanguageId="1" Content="Saves the credit card information in the payment gateway, rather than the jBilling DB."/>
+    <InternationalDescription TableId="24" ForeignId=" 58" PsudoColumn="description" LanguageId="1" Content="Saves the credit card information in the payment gateway, rather than the ibilling DB."/>
     <InternationalDescription TableId="24" ForeignId=" 59" PsudoColumn="title" LanguageId="1" Content="Rules Item Manager 2"/>
-    <InternationalDescription TableId="24" ForeignId=" 59" PsudoColumn="description" LanguageId="1" Content="This is a rules-based plug-in compatible with the mediation module of jBilling 2.2.x. It will do what the basic item manager does (actually calling it); but then it will execute external rules as well. These external rules have full control on changing the order that is getting new items."/>
+    <InternationalDescription TableId="24" ForeignId=" 59" PsudoColumn="description" LanguageId="1" Content="This is a rules-based plug-in compatible with the mediation module of ibilling 2.2.x. It will do what the basic item manager does (actually calling it); but then it will execute external rules as well. These external rules have full control on changing the order that is getting new items."/>
     <InternationalDescription TableId="24" ForeignId=" 60" PsudoColumn="title" LanguageId="1" Content="Rules Line Total - 2"/>
-    <InternationalDescription TableId="24" ForeignId=" 60" PsudoColumn="description" LanguageId="1" Content="This is a rules-based plug-in, compatible with the mediation process of jBilling 2.2.x and later. It calculates the total for an order line (typically this is the price multiplied by the quantity); allowing for the execution of external rules."/>
+    <InternationalDescription TableId="24" ForeignId=" 60" PsudoColumn="description" LanguageId="1" Content="This is a rules-based plug-in, compatible with the mediation process of ibilling 2.2.x and later. It calculates the total for an order line (typically this is the price multiplied by the quantity); allowing for the execution of external rules."/>
     <InternationalDescription TableId="24" ForeignId=" 61" PsudoColumn="title" LanguageId="1" Content="Rules Pricing 2"/>
-    <InternationalDescription TableId="24" ForeignId=" 61" PsudoColumn="description" LanguageId="1" Content="This is a rules-based plug-in compatible with the mediation module of jBilling 2.2.x. It gives a price to an item by executing external rules. You can then add logic externally for pricing. It is also integrated with the mediation process by having access to the mediation pricing data."/>
+    <InternationalDescription TableId="24" ForeignId=" 61" PsudoColumn="description" LanguageId="1" Content="This is a rules-based plug-in compatible with the mediation module of ibilling 2.2.x. It gives a price to an item by executing external rules. You can then add logic externally for pricing. It is also integrated with the mediation process by having access to the mediation pricing data."/>
     <InternationalDescription TableId="24" ForeignId=" 63" PsudoColumn="title" LanguageId="1" Content="Test payment processor for external storage."/>
     <InternationalDescription TableId="24" ForeignId=" 63" PsudoColumn="description" LanguageId="1" Content="A fake plug-in to test payments that would be stored externally."/>
     <InternationalDescription TableId="24" ForeignId=" 64" PsudoColumn="title" LanguageId="1" Content="WorldPay integration"/>
@@ -1335,7 +1335,7 @@
     <InternationalDescription TableId="50" ForeignId="10" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to enable batch payment payouts using the billing process and the configured payment processor. See the Partner section of the documentation."/>
     <InternationalDescription TableId="50" ForeignId="11" PsudoColumn="instruction" LanguageId="1" Content="Partner default assigned clerk id. See the Partner section of the documentation."/>
     <InternationalDescription TableId="50" ForeignId="12" PsudoColumn="instruction" LanguageId="1" Content="Currency ID to use when paying partners. See the Partner section of the documentation."/>
-    <InternationalDescription TableId="50" ForeignId="13" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to e-mail invoices as the billing company. '0' to deliver invoices as jBilling."/>
+    <InternationalDescription TableId="50" ForeignId="13" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to e-mail invoices as the billing company. '0' to deliver invoices as ibilling."/>
     <InternationalDescription TableId="50" ForeignId="14" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to show notes in invoices, '0' to disable."/>
     <InternationalDescription TableId="50" ForeignId="15" PsudoColumn="instruction" LanguageId="1" Content="Days before the orders 'active until' date to send the 1st notification. Leave blank to disable."/>
     <InternationalDescription TableId="50" ForeignId="16" PsudoColumn="instruction" LanguageId="1" Content="Days before the orders 'active until' date to send the 2nd notification. Leave blank to disable."/>
@@ -1357,7 +1357,7 @@
     <InternationalDescription TableId="50" ForeignId="36" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to allow customers to edit their own contact information. '0' to disable."/>
     <InternationalDescription TableId="50" ForeignId="37" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to mask all credit card numbers. '0' to disable. When set, numbers are masked to all users, even administrators, and in all log files."/>
     <InternationalDescription TableId="50" ForeignId="38" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to change the subscription status of a user when the user ages. '0' to disable."/>
-    <InternationalDescription TableId="50" ForeignId="39" PsudoColumn="instruction" LanguageId="1" Content="The number of retries to allow before locking the user account. A locked user account will have their password changed to the value of lockout_password in the jbilling.properties configuration file."/>
+    <InternationalDescription TableId="50" ForeignId="39" PsudoColumn="instruction" LanguageId="1" Content="The number of retries to allow before locking the user account. A locked user account will have their password changed to the value of lockout_password in the ibilling.properties configuration file."/>
     <InternationalDescription TableId="50" ForeignId="40" PsudoColumn="instruction" LanguageId="1" Content="If greater than zero, it represents the number of days that a password is valid. After those days, the password is expired and the user is forced to change it."/>
     <InternationalDescription TableId="50" ForeignId="41" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to allow the usage of the 'main subscription' flag for orders This flag is read only by the mediation process when determining where to place charges coming from external events."/>
     <InternationalDescription TableId="50" ForeignId="42" PsudoColumn="instruction" LanguageId="1" Content="Set to '1' to allow the use of pro-rating to invoice fractions of a period. Shows the 'cycle' attribute of an order. Note that you need to configure the corresponding plug-ins for this feature to be fully functional."/>
@@ -1437,182 +1437,182 @@
     <InvoiceLineType Id="5" Description="sub account" OrderPosition="5"/>
     <InvoiceLineType Id="6" Description="item one-time" OrderPosition="3"/>
 
-    <JbillingTable Id="8" Name="entity_delivery_method_map"/>
-    <JbillingTable Id="99" Name="contact_field_type"/>
-    <JbillingTable Id="62" Name="user_role_map"/>
-    <JbillingTable Id="36" Name="entity_payment_method_map"/>
-    <JbillingTable Id="68" Name="currency_entity_map"/>
-    <JbillingTable Id="45" Name="user_credit_card_map"/>
-    <JbillingTable Id="61" Name="permission_role_map"/>
-    <JbillingTable Id="29" Name="contact_map"/>
-    <JbillingTable Id="58" Name="permission_type"/>
-    <JbillingTable Id="6" Name="period_unit"/>
-    <JbillingTable Id="7" Name="invoice_delivery_method"/>
-    <JbillingTable Id="9" Name="user_status"/>
-    <JbillingTable Id="18" Name="order_line_type"/>
-    <JbillingTable Id="19" Name="order_billing_type"/>
-    <JbillingTable Id="20" Name="order_status"/>
-    <JbillingTable Id="23" Name="pluggable_task_type_category"/>
-    <JbillingTable Id="24" Name="pluggable_task_type"/>
-    <JbillingTable Id="30" Name="invoice_line_type"/>
-    <JbillingTable Id="4" Name="currency"/>
-    <JbillingTable Id="35" Name="payment_method"/>
-    <JbillingTable Id="41" Name="payment_result"/>
-    <JbillingTable Id="46" Name="event_log_module"/>
-    <JbillingTable Id="47" Name="event_log_message"/>
-    <JbillingTable Id="50" Name="preference_type"/>
-    <JbillingTable Id="52" Name="notification_message_type"/>
-    <JbillingTable Id="60" Name="role"/>
-    <JbillingTable Id="64" Name="country"/>
-    <JbillingTable Id="59" Name="permission"/>
-    <JbillingTable Id="67" Name="currency_exchange"/>
-    <JbillingTable Id="26" Name="pluggable_task_parameter"/>
-    <JbillingTable Id="34" Name="billing_process_configuration"/>
-    <JbillingTable Id="17" Name="order_period"/>
-    <JbillingTable Id="79" Name="partner_range"/>
-    <JbillingTable Id="15" Name="item_price"/>
-    <JbillingTable Id="11" Name="partner"/>
-    <JbillingTable Id="5" Name="entity"/>
-    <JbillingTable Id="28" Name="contact_type"/>
-    <JbillingTable Id="65" Name="promotion"/>
-    <JbillingTable Id="25" Name="pluggable_task"/>
-    <JbillingTable Id="75" Name="ach"/>
-    <JbillingTable Id="43" Name="payment_info_cheque"/>
-    <JbillingTable Id="70" Name="partner_payout"/>
-    <JbillingTable Id="38" Name="process_run_total_pm"/>
-    <JbillingTable Id="66" Name="payment_authorization"/>
-    <JbillingTable Id="32" Name="billing_process"/>
-    <JbillingTable Id="33" Name="process_run"/>
-    <JbillingTable Id="37" Name="process_run_total"/>
-    <JbillingTable Id="31" Name="paper_invoice_batch"/>
-    <JbillingTable Id="51" Name="preference"/>
-    <JbillingTable Id="53" Name="notification_message"/>
-    <JbillingTable Id="54" Name="notification_message_section"/>
-    <JbillingTable Id="55" Name="notification_message_line"/>
-    <JbillingTable Id="69" Name="ageing_entity_step"/>
-    <JbillingTable Id="13" Name="item_type"/>
-    <JbillingTable Id="14" Name="item"/>
-    <JbillingTable Id="48" Name="event_log"/>
-    <JbillingTable Id="21" Name="purchase_order"/>
-    <JbillingTable Id="22" Name="order_line"/>
-    <JbillingTable Id="39" Name="invoice"/>
-    <JbillingTable Id="40" Name="invoice_line"/>
-    <JbillingTable Id="49" Name="order_process"/>
-    <JbillingTable Id="42" Name="payment"/>
-    <JbillingTable Id="56" Name="notification_message_arch"/>
-    <JbillingTable Id="57" Name="notification_message_arch_line"/>
-    <JbillingTable Id="10" Name="base_user"/>
-    <JbillingTable Id="12" Name="customer"/>
-    <JbillingTable Id="27" Name="contact"/>
-    <JbillingTable Id="76" Name="contact_field"/>
-    <JbillingTable Id="44" Name="credit_card"/>
-    <JbillingTable Id="3" Name="language"/>
-    <JbillingTable Id="80" Name="payment_invoice"/>
-    <JbillingTable Id="81" Name="subscriber_status"/>
-    <JbillingTable Id="82" Name="mediation_cfg"/>
-    <JbillingTable Id="83" Name="mediation_process"/>
-    <JbillingTable Id="85" Name="blacklist"/>
-    <JbillingTable Id="86" Name="mediation_record_line"/>
-    <JbillingTable Id="87" Name="generic_status"/>
-    <JbillingTable Id="88" Name="order_line_provisioning_status"/>
-    <JbillingTable Id="89" Name="balance_type"/>
-    <JbillingTable Id="90" Name="invoice_status"/>
-    <JbillingTable Id="91" Name="mediation_record_status"/>
-    <JbillingTable Id="92" Name="process_run_status"/>
-    <JbillingTable Id="100" Name="report"/>
-    <JbillingTable Id="101" Name="report_type"/>
-    <JbillingTable Id="102" Name="report_parameter"/>
-    <JbillingTable Id="104" Name="notification_category"/>
+    <ibillingTable Id="8" Name="entity_delivery_method_map"/>
+    <ibillingTable Id="99" Name="contact_field_type"/>
+    <ibillingTable Id="62" Name="user_role_map"/>
+    <ibillingTable Id="36" Name="entity_payment_method_map"/>
+    <ibillingTable Id="68" Name="currency_entity_map"/>
+    <ibillingTable Id="45" Name="user_credit_card_map"/>
+    <ibillingTable Id="61" Name="permission_role_map"/>
+    <ibillingTable Id="29" Name="contact_map"/>
+    <ibillingTable Id="58" Name="permission_type"/>
+    <ibillingTable Id="6" Name="period_unit"/>
+    <ibillingTable Id="7" Name="invoice_delivery_method"/>
+    <ibillingTable Id="9" Name="user_status"/>
+    <ibillingTable Id="18" Name="order_line_type"/>
+    <ibillingTable Id="19" Name="order_billing_type"/>
+    <ibillingTable Id="20" Name="order_status"/>
+    <ibillingTable Id="23" Name="pluggable_task_type_category"/>
+    <ibillingTable Id="24" Name="pluggable_task_type"/>
+    <ibillingTable Id="30" Name="invoice_line_type"/>
+    <ibillingTable Id="4" Name="currency"/>
+    <ibillingTable Id="35" Name="payment_method"/>
+    <ibillingTable Id="41" Name="payment_result"/>
+    <ibillingTable Id="46" Name="event_log_module"/>
+    <ibillingTable Id="47" Name="event_log_message"/>
+    <ibillingTable Id="50" Name="preference_type"/>
+    <ibillingTable Id="52" Name="notification_message_type"/>
+    <ibillingTable Id="60" Name="role"/>
+    <ibillingTable Id="64" Name="country"/>
+    <ibillingTable Id="59" Name="permission"/>
+    <ibillingTable Id="67" Name="currency_exchange"/>
+    <ibillingTable Id="26" Name="pluggable_task_parameter"/>
+    <ibillingTable Id="34" Name="billing_process_configuration"/>
+    <ibillingTable Id="17" Name="order_period"/>
+    <ibillingTable Id="79" Name="partner_range"/>
+    <ibillingTable Id="15" Name="item_price"/>
+    <ibillingTable Id="11" Name="partner"/>
+    <ibillingTable Id="5" Name="entity"/>
+    <ibillingTable Id="28" Name="contact_type"/>
+    <ibillingTable Id="65" Name="promotion"/>
+    <ibillingTable Id="25" Name="pluggable_task"/>
+    <ibillingTable Id="75" Name="ach"/>
+    <ibillingTable Id="43" Name="payment_info_cheque"/>
+    <ibillingTable Id="70" Name="partner_payout"/>
+    <ibillingTable Id="38" Name="process_run_total_pm"/>
+    <ibillingTable Id="66" Name="payment_authorization"/>
+    <ibillingTable Id="32" Name="billing_process"/>
+    <ibillingTable Id="33" Name="process_run"/>
+    <ibillingTable Id="37" Name="process_run_total"/>
+    <ibillingTable Id="31" Name="paper_invoice_batch"/>
+    <ibillingTable Id="51" Name="preference"/>
+    <ibillingTable Id="53" Name="notification_message"/>
+    <ibillingTable Id="54" Name="notification_message_section"/>
+    <ibillingTable Id="55" Name="notification_message_line"/>
+    <ibillingTable Id="69" Name="ageing_entity_step"/>
+    <ibillingTable Id="13" Name="item_type"/>
+    <ibillingTable Id="14" Name="item"/>
+    <ibillingTable Id="48" Name="event_log"/>
+    <ibillingTable Id="21" Name="purchase_order"/>
+    <ibillingTable Id="22" Name="order_line"/>
+    <ibillingTable Id="39" Name="invoice"/>
+    <ibillingTable Id="40" Name="invoice_line"/>
+    <ibillingTable Id="49" Name="order_process"/>
+    <ibillingTable Id="42" Name="payment"/>
+    <ibillingTable Id="56" Name="notification_message_arch"/>
+    <ibillingTable Id="57" Name="notification_message_arch_line"/>
+    <ibillingTable Id="10" Name="base_user"/>
+    <ibillingTable Id="12" Name="customer"/>
+    <ibillingTable Id="27" Name="contact"/>
+    <ibillingTable Id="76" Name="contact_field"/>
+    <ibillingTable Id="44" Name="credit_card"/>
+    <ibillingTable Id="3" Name="language"/>
+    <ibillingTable Id="80" Name="payment_invoice"/>
+    <ibillingTable Id="81" Name="subscriber_status"/>
+    <ibillingTable Id="82" Name="mediation_cfg"/>
+    <ibillingTable Id="83" Name="mediation_process"/>
+    <ibillingTable Id="85" Name="blacklist"/>
+    <ibillingTable Id="86" Name="mediation_record_line"/>
+    <ibillingTable Id="87" Name="generic_status"/>
+    <ibillingTable Id="88" Name="order_line_provisioning_status"/>
+    <ibillingTable Id="89" Name="balance_type"/>
+    <ibillingTable Id="90" Name="invoice_status"/>
+    <ibillingTable Id="91" Name="mediation_record_status"/>
+    <ibillingTable Id="92" Name="process_run_status"/>
+    <ibillingTable Id="100" Name="report"/>
+    <ibillingTable Id="101" Name="report_type"/>
+    <ibillingTable Id="102" Name="report_parameter"/>
+    <ibillingTable Id="104" Name="notification_category"/>
 
-    <JbillingSeqs Name="entity_delivery_method_map" NextId="4"/>
-    <JbillingSeqs Name="contact_field_type" NextId="10"/>
-    <JbillingSeqs Name="user_role_map" NextId="13"/>
-    <JbillingSeqs Name="entity_payment_method_map" NextId="26"/>
-    <JbillingSeqs Name="currency_entity_map" NextId="10"/>
-    <JbillingSeqs Name="user_credit_card_map" NextId="5"/>
-    <JbillingSeqs Name="permission_role_map" NextId="1"/>
-    <JbillingSeqs Name="permission_user" NextId="1"/>
-    <JbillingSeqs Name="contact_map" NextId="6780"/>
-    <JbillingSeqs Name="permission_type" NextId="9"/>
-    <JbillingSeqs Name="period_unit" NextId="5"/>
-    <JbillingSeqs Name="invoice_delivery_method" NextId="4"/>
-    <JbillingSeqs Name="user_status" NextId="9"/>
-    <JbillingSeqs Name="order_line_type" NextId="4"/>
-    <JbillingSeqs Name="order_billing_type" NextId="3"/>
-    <JbillingSeqs Name="order_status" NextId="5"/>
-    <JbillingSeqs Name="pluggable_task_type_category" NextId="22"/>
-    <JbillingSeqs Name="pluggable_task_type" NextId="91"/>
-    <JbillingSeqs Name="invoice_line_type" NextId="6"/>
-    <JbillingSeqs Name="currency" NextId="11"/>
-    <JbillingSeqs Name="payment_method" NextId="9"/>
-    <JbillingSeqs Name="payment_result" NextId="5"/>
-    <JbillingSeqs Name="event_log_module" NextId="10"/>
-    <JbillingSeqs Name="event_log_message" NextId="17"/>
-    <JbillingSeqs Name="preference_type" NextId="37"/>
-    <JbillingSeqs Name="notification_message_type" NextId="20"/>
-    <JbillingSeqs Name="role" NextId="6"/>
-    <JbillingSeqs Name="country" NextId="238"/>
-    <JbillingSeqs Name="permission" NextId="120"/>
-    <JbillingSeqs Name="currency_exchange" NextId="25"/>
-    <JbillingSeqs Name="pluggable_task_parameter" NextId="1"/>
-    <JbillingSeqs Name="billing_process_configuration" NextId="1"/>
-    <JbillingSeqs Name="order_period" NextId="2"/>
-    <JbillingSeqs Name="partner_range" NextId="1"/>
-    <JbillingSeqs Name="item_price" NextId="1"/>
-    <JbillingSeqs Name="partner" NextId="1"/>
-    <JbillingSeqs Name="entity" NextId="1"/>
-    <JbillingSeqs Name="contact_type" NextId="2"/>
-    <JbillingSeqs Name="promotion" NextId="1"/>
-    <JbillingSeqs Name="pluggable_task" NextId="1"/>
-    <JbillingSeqs Name="ach" NextId="1"/>
-    <JbillingSeqs Name="payment_info_cheque" NextId="1"/>
-    <JbillingSeqs Name="partner_payout" NextId="1"/>
-    <JbillingSeqs Name="process_run_total_pm" NextId="1"/>
-    <JbillingSeqs Name="payment_authorization" NextId="1"/>
-    <JbillingSeqs Name="billing_process" NextId="1"/>
-    <JbillingSeqs Name="process_run" NextId="1"/>
-    <JbillingSeqs Name="process_run_total" NextId="1"/>
-    <JbillingSeqs Name="paper_invoice_batch" NextId="1"/>
-    <JbillingSeqs Name="preference" NextId="1"/>
-    <JbillingSeqs Name="notification_message" NextId="1"/>
-    <JbillingSeqs Name="notification_message_section" NextId="1"/>
-    <JbillingSeqs Name="notification_message_line" NextId="1"/>
-    <JbillingSeqs Name="ageing_entity_step" NextId="1"/>
-    <JbillingSeqs Name="item_type" NextId="1"/>
-    <JbillingSeqs Name="item" NextId="1"/>
-    <JbillingSeqs Name="event_log" NextId="1"/>
-    <JbillingSeqs Name="purchase_order" NextId="1"/>
-    <JbillingSeqs Name="order_line" NextId="1"/>
-    <JbillingSeqs Name="invoice" NextId="1"/>
-    <JbillingSeqs Name="invoice_line" NextId="1"/>
-    <JbillingSeqs Name="order_process" NextId="1"/>
-    <JbillingSeqs Name="payment" NextId="1"/>
-    <JbillingSeqs Name="notification_message_arch" NextId="1"/>
-    <JbillingSeqs Name="notification_message_arch_line" NextId="1"/>
-    <JbillingSeqs Name="base_user" NextId="1"/>
-    <JbillingSeqs Name="customer" NextId="1"/>
-    <JbillingSeqs Name="contact" NextId="1"/>
-    <JbillingSeqs Name="contact_field" NextId="1"/>
-    <JbillingSeqs Name="credit_card" NextId="1"/>
-    <JbillingSeqs Name="language" NextId="2"/>
-    <JbillingSeqs Name="payment_invoice" NextId="1"/>
-    <JbillingSeqs Name="subscriber_status" NextId="7"/>
-    <JbillingSeqs Name="mediation_cfg" NextId="1"/>
-    <JbillingSeqs Name="mediation_process" NextId="1"/>
-    <JbillingSeqs Name="blacklist" NextId="1"/>
-    <JbillingSeqs Name="mediation_record_line" NextId="1"/>
-    <JbillingSeqs Name="generic_status" NextId="26"/>
-    <JbillingSeqs Name="order_line_provisioning_status" NextId="1"/>
-    <JbillingSeqs Name="balance_type" NextId="0"/>
-    <JbillingSeqs Name="mediation_record" NextId="0"/>
-    <JbillingSeqs Name="filter" NextId="0"/>
-    <JbillingSeqs Name="filter_set" NextId="0"/>
-    <JbillingSeqs Name="recent_item" NextId="0"/>
-    <JbillingSeqs Name="breadcrumb" NextId="0"/>
-    <JbillingSeqs Name="shortcut" NextId="0"/>
-    <JbillingSeqs Name="report" NextId="0"/>
-    <JbillingSeqs Name="report_type" NextId="0"/>
-    <JbillingSeqs Name="report_parameter" NextId="0"/>
+    <ibillingSeqs Name="entity_delivery_method_map" NextId="4"/>
+    <ibillingSeqs Name="contact_field_type" NextId="10"/>
+    <ibillingSeqs Name="user_role_map" NextId="13"/>
+    <ibillingSeqs Name="entity_payment_method_map" NextId="26"/>
+    <ibillingSeqs Name="currency_entity_map" NextId="10"/>
+    <ibillingSeqs Name="user_credit_card_map" NextId="5"/>
+    <ibillingSeqs Name="permission_role_map" NextId="1"/>
+    <ibillingSeqs Name="permission_user" NextId="1"/>
+    <ibillingSeqs Name="contact_map" NextId="6780"/>
+    <ibillingSeqs Name="permission_type" NextId="9"/>
+    <ibillingSeqs Name="period_unit" NextId="5"/>
+    <ibillingSeqs Name="invoice_delivery_method" NextId="4"/>
+    <ibillingSeqs Name="user_status" NextId="9"/>
+    <ibillingSeqs Name="order_line_type" NextId="4"/>
+    <ibillingSeqs Name="order_billing_type" NextId="3"/>
+    <ibillingSeqs Name="order_status" NextId="5"/>
+    <ibillingSeqs Name="pluggable_task_type_category" NextId="22"/>
+    <ibillingSeqs Name="pluggable_task_type" NextId="91"/>
+    <ibillingSeqs Name="invoice_line_type" NextId="6"/>
+    <ibillingSeqs Name="currency" NextId="11"/>
+    <ibillingSeqs Name="payment_method" NextId="9"/>
+    <ibillingSeqs Name="payment_result" NextId="5"/>
+    <ibillingSeqs Name="event_log_module" NextId="10"/>
+    <ibillingSeqs Name="event_log_message" NextId="17"/>
+    <ibillingSeqs Name="preference_type" NextId="37"/>
+    <ibillingSeqs Name="notification_message_type" NextId="20"/>
+    <ibillingSeqs Name="role" NextId="6"/>
+    <ibillingSeqs Name="country" NextId="238"/>
+    <ibillingSeqs Name="permission" NextId="120"/>
+    <ibillingSeqs Name="currency_exchange" NextId="25"/>
+    <ibillingSeqs Name="pluggable_task_parameter" NextId="1"/>
+    <ibillingSeqs Name="billing_process_configuration" NextId="1"/>
+    <ibillingSeqs Name="order_period" NextId="2"/>
+    <ibillingSeqs Name="partner_range" NextId="1"/>
+    <ibillingSeqs Name="item_price" NextId="1"/>
+    <ibillingSeqs Name="partner" NextId="1"/>
+    <ibillingSeqs Name="entity" NextId="1"/>
+    <ibillingSeqs Name="contact_type" NextId="2"/>
+    <ibillingSeqs Name="promotion" NextId="1"/>
+    <ibillingSeqs Name="pluggable_task" NextId="1"/>
+    <ibillingSeqs Name="ach" NextId="1"/>
+    <ibillingSeqs Name="payment_info_cheque" NextId="1"/>
+    <ibillingSeqs Name="partner_payout" NextId="1"/>
+    <ibillingSeqs Name="process_run_total_pm" NextId="1"/>
+    <ibillingSeqs Name="payment_authorization" NextId="1"/>
+    <ibillingSeqs Name="billing_process" NextId="1"/>
+    <ibillingSeqs Name="process_run" NextId="1"/>
+    <ibillingSeqs Name="process_run_total" NextId="1"/>
+    <ibillingSeqs Name="paper_invoice_batch" NextId="1"/>
+    <ibillingSeqs Name="preference" NextId="1"/>
+    <ibillingSeqs Name="notification_message" NextId="1"/>
+    <ibillingSeqs Name="notification_message_section" NextId="1"/>
+    <ibillingSeqs Name="notification_message_line" NextId="1"/>
+    <ibillingSeqs Name="ageing_entity_step" NextId="1"/>
+    <ibillingSeqs Name="item_type" NextId="1"/>
+    <ibillingSeqs Name="item" NextId="1"/>
+    <ibillingSeqs Name="event_log" NextId="1"/>
+    <ibillingSeqs Name="purchase_order" NextId="1"/>
+    <ibillingSeqs Name="order_line" NextId="1"/>
+    <ibillingSeqs Name="invoice" NextId="1"/>
+    <ibillingSeqs Name="invoice_line" NextId="1"/>
+    <ibillingSeqs Name="order_process" NextId="1"/>
+    <ibillingSeqs Name="payment" NextId="1"/>
+    <ibillingSeqs Name="notification_message_arch" NextId="1"/>
+    <ibillingSeqs Name="notification_message_arch_line" NextId="1"/>
+    <ibillingSeqs Name="base_user" NextId="1"/>
+    <ibillingSeqs Name="customer" NextId="1"/>
+    <ibillingSeqs Name="contact" NextId="1"/>
+    <ibillingSeqs Name="contact_field" NextId="1"/>
+    <ibillingSeqs Name="credit_card" NextId="1"/>
+    <ibillingSeqs Name="language" NextId="2"/>
+    <ibillingSeqs Name="payment_invoice" NextId="1"/>
+    <ibillingSeqs Name="subscriber_status" NextId="7"/>
+    <ibillingSeqs Name="mediation_cfg" NextId="1"/>
+    <ibillingSeqs Name="mediation_process" NextId="1"/>
+    <ibillingSeqs Name="blacklist" NextId="1"/>
+    <ibillingSeqs Name="mediation_record_line" NextId="1"/>
+    <ibillingSeqs Name="generic_status" NextId="26"/>
+    <ibillingSeqs Name="order_line_provisioning_status" NextId="1"/>
+    <ibillingSeqs Name="balance_type" NextId="0"/>
+    <ibillingSeqs Name="mediation_record" NextId="0"/>
+    <ibillingSeqs Name="filter" NextId="0"/>
+    <ibillingSeqs Name="filter_set" NextId="0"/>
+    <ibillingSeqs Name="recent_item" NextId="0"/>
+    <ibillingSeqs Name="breadcrumb" NextId="0"/>
+    <ibillingSeqs Name="shortcut" NextId="0"/>
+    <ibillingSeqs Name="report" NextId="0"/>
+    <ibillingSeqs Name="report_type" NextId="0"/>
+    <ibillingSeqs Name="report_parameter" NextId="0"/>
 
     <Language Id="1" Code="en" Description="English"/>
     <Language Id="2" Code="pt" Description="Português"/>

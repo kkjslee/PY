@@ -309,7 +309,7 @@
             <index-column name="foreign_id"/>
             <index-column name="type_id"/>
         </index>
-        <foreign-key foreignTable="jbilling_table">
+        <foreign-key foreignTable="ibilling_table">
             <reference foreign="id" local="table_id"/>
         </foreign-key>
         <foreign-key foreignTable="contact_type">
@@ -484,7 +484,7 @@
         <foreign-key foreignTable="base_user">
             <reference foreign="id" local="affected_user_id"/>
         </foreign-key>
-        <foreign-key foreignTable="jbilling_table">
+        <foreign-key foreignTable="ibilling_table">
             <reference foreign="id" local="table_id"/>
         </foreign-key>
         <foreign-key foreignTable="event_log_message">
@@ -541,7 +541,7 @@
         <foreign-key foreignTable="language">
             <reference foreign="id" local="language_id"/>
         </foreign-key>
-        <foreign-key foreignTable="jbilling_table">
+        <foreign-key foreignTable="ibilling_table">
             <reference foreign="id" local="table_id"/>
         </foreign-key>
     </table>
@@ -707,11 +707,11 @@
             <reference foreign="id" local="type_id"/>
         </foreign-key>
     </table>
-    <table name="jbilling_table">
+    <table name="ibilling_table">
         <column name="id" primaryKey="true" required="true" type="INTEGER"/>
         <column name="name" required="true" size="50" type="VARCHAR"/>
     </table>
-    <table name="jbilling_seqs">
+    <table name="ibilling_seqs">
         <column name="name" required="true" size="50" type="VARCHAR"/>
         <column default="0" name="next_id" required="true" type="INTEGER"/>
     </table>
@@ -1144,7 +1144,7 @@
         <foreign-key foreignTable="preference_type">
             <reference foreign="id" local="type_id"/>
         </foreign-key>
-        <foreign-key foreignTable="jbilling_table">
+        <foreign-key foreignTable="ibilling_table">
             <reference foreign="id" local="table_id"/>
         </foreign-key>
     </table>

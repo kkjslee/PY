@@ -34,8 +34,8 @@
     ItemType|
     ItemTypeMap|
     ItemUserPrice|
-    JbillingTable|
-    JbillingSeqs|
+    ibillingTable|
+    ibillingSeqs|
     Language|
     List|
     ListEntity|
@@ -459,8 +459,8 @@
     CurrencyId CDATA #REQUIRED
 >
 
-<!ELEMENT JbillingTable EMPTY>
-<!ATTLIST JbillingTable
+<!ELEMENT IbillingTable EMPTY>
+<!ATTLIST IbillingTable
     Id CDATA #REQUIRED
     Name CDATA #REQUIRED
 >

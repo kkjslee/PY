@@ -14,7 +14,7 @@
   is strictly forbidden.
   --}%
 
-<%@ page import="com.infosense.ibilling.server.util.db.JbillingTableDAS" %>
+<%@ page import="com.infosense.ibilling.server.util.db.IbillingTableDAS" %>
 
 <%--
   @author Emiliano Conde - Hong Kong Airoport :)
@@ -31,7 +31,7 @@
                 <div class="select-bg">
                     <g:select name="filters.${filter.name}.stringValue"
                             value="${filter.stringValue}"
-                            from="${new JbillingTableDAS().findAll().sort{it.name}}"
+                            from="${new IbillingTableDAS().findAll().sort{it.name}}"
                             optionKey="name" 
                             optionValue="name"
                             noSelection="['': '']" />

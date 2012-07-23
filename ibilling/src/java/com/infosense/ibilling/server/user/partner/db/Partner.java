@@ -47,7 +47,7 @@ import com.infosense.ibilling.server.util.db.CurrencyDTO;
 @Entity
 @TableGenerator(
         name = "partner_GEN",
-        table = "jbilling_seqs",
+        table = "ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue = "partner",

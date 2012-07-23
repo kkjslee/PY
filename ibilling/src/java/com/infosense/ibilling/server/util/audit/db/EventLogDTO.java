@@ -35,13 +35,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.infosense.ibilling.server.user.db.CompanyDTO;
 import com.infosense.ibilling.server.user.db.UserDTO;
-import com.infosense.ibilling.server.util.db.JbillingTable;
+import com.infosense.ibilling.server.util.db.IbillingTable;
 
 @Entity
 @org.hibernate.annotations.Entity(mutable = false)
 @TableGenerator(
         name="event_log_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="event_log",
@@ -57,7 +57,7 @@ public class EventLogDTO  implements java.io.Serializable {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="table_id")
-    private JbillingTable jbillingTable;
+    private IbillingTable ibillingTable;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
@@ -106,13 +106,13 @@ public class EventLogDTO  implements java.io.Serializable {
     }
 
     
-    public EventLogDTO(Integer id, JbillingTable jbillingTable, 
+    public EventLogDTO(Integer id, IbillingTable ibillingTable, 
             UserDTO baseUser, UserDTO affectedUser, 
             EventLogMessageDTO eventLogMessage, 
             EventLogModuleDTO eventLogModule, CompanyDTO entity, int foreignId,
             int levelField, Integer oldNum, String oldStr, Date oldDate) {
        this.id = id;
-       this.jbillingTable = jbillingTable;
+       this.ibillingTable = ibillingTable;
        this.baseUser = baseUser;
        this.affectedUser = affectedUser;
        this.eventLogMessage = eventLogMessage;
@@ -130,8 +130,8 @@ public class EventLogDTO  implements java.io.Serializable {
         return id;
     }
     
-    public JbillingTable getJbillingTable() {
-        return this.jbillingTable;
+    public IbillingTable getIbillingTable() {
+        return this.ibillingTable;
     }
     
     public UserDTO getBaseUser() {
@@ -181,7 +181,7 @@ public class EventLogDTO  implements java.io.Serializable {
     protected int getVersionNum() { return versionNum; }
 
     public void touch() {
-        getJbillingTable().getName();
+        getIbillingTable().getName();
         if (getBaseUser() != null) {
             getBaseUser().getUserName();
         }

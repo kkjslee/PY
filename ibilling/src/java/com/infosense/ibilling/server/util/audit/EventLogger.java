@@ -26,7 +26,7 @@ import com.infosense.ibilling.server.util.audit.db.EventLogDAS;
 import com.infosense.ibilling.server.util.audit.db.EventLogDTO;
 import com.infosense.ibilling.server.util.audit.db.EventLogMessageDAS;
 import com.infosense.ibilling.server.util.audit.db.EventLogModuleDAS;
-import com.infosense.ibilling.server.util.db.JbillingTableDAS;
+import com.infosense.ibilling.server.util.db.IbillingTableDAS;
 
 public class EventLogger {
 
@@ -105,7 +105,7 @@ public class EventLogger {
     private EventLogDAS eventLogDAS = null;
     private EventLogMessageDAS eventLogMessageDAS = null;
     private EventLogModuleDAS eventLogModuleDAS = null;
-    private JbillingTableDAS jbDAS = null;
+    private IbillingTableDAS jbDAS = null;
 
     //private static final Logger LOG = Logger.getLogger(EventLogger.class);
 
@@ -113,7 +113,7 @@ public class EventLogger {
         eventLogDAS = new EventLogDAS();
         eventLogMessageDAS = new EventLogMessageDAS();
         eventLogModuleDAS = new EventLogModuleDAS();
-        jbDAS = (JbillingTableDAS) Context.getBean(Context.Name.JBILLING_TABLE_DAS);
+        jbDAS = (IbillingTableDAS) Context.getBean(Context.Name.JBILLING_TABLE_DAS);
     }
 
     public static EventLogger getInstance() {

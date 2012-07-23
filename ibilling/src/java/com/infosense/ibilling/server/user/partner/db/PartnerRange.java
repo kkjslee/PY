@@ -32,7 +32,7 @@ import javax.persistence.Version;
 @Entity
 @TableGenerator(
         name="partner_range_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="partner_range",

@@ -37,7 +37,7 @@ import com.infosense.ibilling.server.payment.db.PaymentDTO;
 @Entity
 @TableGenerator(
         name="partner_payout_GEN",
-        table="jbilling_seqs",
+        table="ibilling_seqs",
         pkColumnName = "name",
         valueColumnName = "next_id",
         pkColumnValue="partner_payout",

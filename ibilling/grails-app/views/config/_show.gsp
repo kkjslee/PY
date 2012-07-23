@@ -41,7 +41,7 @@
                 <g:set var="hasPreference" value="${false}"/>
 
                 <g:each var="preference" status="index" in="${selected.preferences}">
-                    <g:if test="${preference.jbillingTable.name == Constants.TABLE_ENTITY}">
+                    <g:if test="${preference.ibillingTable.name == Constants.TABLE_ENTITY}">
                         <g:if test="${preference.foreignId == session['company_id']}">
                             <g:set var="hasPreference" value="${true}"/>
                             <g:render template="preference" model="[ preference: preference, type: selected]"/>

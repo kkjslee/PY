@@ -48,7 +48,7 @@
                             <g:if test="${type.preferences}">
                                 %{
                                     def preference = type.preferences.find{
-                                                        it.jbillingTable.name == Constants.TABLE_ENTITY && it.foreignId == session['company_id']
+                                                        it.ibillingTable.name == Constants.TABLE_ENTITY && it.foreignId == session['company_id']
                                                     } ?: type.preferences.asList().first()
                                 }%
 

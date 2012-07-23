@@ -42,7 +42,7 @@ public class PreferenceWS implements Serializable {
     public PreferenceWS(PreferenceDTO dto) {
         this.id = dto.getId();
         this.preferenceType = dto.getPreferenceType() != null ? new PreferenceTypeWS(dto.getPreferenceType()) : null;
-        this.tableId = dto.getJbillingTable() != null ? dto.getJbillingTable().getId() : null;
+        this.tableId = dto.getIbillingTable() != null ? dto.getIbillingTable().getId() : null;
         this.foreignId = dto.getForeignId();
         this.value = dto.getValue();
     }

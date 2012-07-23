@@ -44,10 +44,10 @@ public class Context {
 
         // jbilling data access service beans
         DESCRIPTION_DAS     ("internationalDescriptionDAS"),
-        JBILLING_TABLE_DAS  ("jbillingTableDAS"),
+        JBILLING_TABLE_DAS  ("ibillingTableDAS"),
         PLUGGABLE_TASK_DAS  ("pluggableTaskDAS"),
 
-        // jbilling beans
+        // ibilling beans
         PROVISIONING                        ("provisioning"),
         INTERNAL_EVENTS_RULES_TASK_CONFIG   ("internalEventsRulesTaskConfig"),
 

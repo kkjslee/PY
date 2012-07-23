@@ -16,7 +16,7 @@
 
 package com.infosense.ibilling.server.util;
 
-import com.infosense.ibilling.server.util.db.JbillingTableDAS;
+import com.infosense.ibilling.server.util.db.IbillingTableDAS;
 import com.infosense.ibilling.server.util.db.PreferenceDAS;
 import com.infosense.ibilling.server.util.db.PreferenceDTO;
 import com.infosense.ibilling.server.util.db.PreferenceTypeDAS;
@@ -35,7 +35,7 @@ public class PreferenceBL {
     private PreferenceTypeDAS typeDas = null;
     private PreferenceDTO preference = null;
     private PreferenceTypeDTO type = null;
-    private JbillingTableDAS jbDAS = null;
+    private IbillingTableDAS jbDAS = null;
 
     public PreferenceBL() {
         init();
@@ -54,7 +54,7 @@ public class PreferenceBL {
     private void init() {
         preferenceDas = new PreferenceDAS();
         typeDas = new PreferenceTypeDAS();
-        jbDAS = (JbillingTableDAS) Context.getBean(Context.Name.JBILLING_TABLE_DAS);
+        jbDAS = (IbillingTableDAS) Context.getBean(Context.Name.JBILLING_TABLE_DAS);
     }
 
     public void set(Integer entityId, Integer typeId) throws EmptyResultDataAccessException {
@@ -94,7 +94,7 @@ public class PreferenceBL {
             preference = new PreferenceDTO();
             preference.setValue(value);
             preference.setForeignId(entityId);
-            preference.setJbillingTable(jbDAS.findByName(Constants.TABLE_ENTITY));
+            preference.setIbillingTable(jbDAS.findByName(Constants.TABLE_ENTITY));
             preference.setPreferenceType(new PreferenceTypeDAS().find(preferenceId));
             preference = preferenceDas.save(preference);
         }

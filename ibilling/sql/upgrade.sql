@@ -1,4 +1,4 @@
---- this script will upgrade a database schema from the latest jbilling release to the code currently at the tip of the trunk.
+--- this script will upgrade a database schema from the latest ibilling release to the code currently at the tip of the trunk.
 -- It is tested on postgreSQL, but it is meant to be ANSI SQL
 --
 -- MySQL does not support many of the ANSI SQL statements used in this file to upgrade the
@@ -43,7 +43,7 @@ insert into notification_category (id) values (2);
 insert into notification_category (id) values (3);
 insert into notification_category (id) values (4);
 
-insert into jbilling_table (id, name) values (104, 'notification_category');
+insert into ibilling_table (id, name) values (104, 'notification_category');
 
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (104, 1, 'description',1, 'Invoices');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (104, 2, 'description',1, 'Orders');
@@ -131,7 +131,7 @@ insert into international_description (table_id, foreign_id, psudo_column, langu
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  12, 'title',1, 'PDF invoice notification');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  12, 'description',1, 'Will generate a PDF version of an invoice.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  14, 'title',1, 'No invoice carry over');
-insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  14, 'description',1, 'Returns always false, which makes jBilling to never carry over an invoice into another newer invoice.');
+insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  14, 'description',1, 'Returns always false, which makes ibilling to never carry over an invoice into another newer invoice.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  15, 'title',1, 'Default interest task');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  15, 'description',1, 'Will create a new order with a penalty item. The item is taken as a parameter to the task.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  16, 'title',1, 'Anticipated order filter');
@@ -143,7 +143,7 @@ insert into international_description (table_id, foreign_id, psudo_column, langu
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  20, 'title',1, 'Payment gateway down alarm');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  20, 'description',1, 'Sends an email to the billing administrator as an alarm when a payment gateway is down.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  21, 'title',1, 'Test payment processor');
-insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  21, 'description',1, 'A test payment processor implementation to be able to test jBillings functions without using a real payment gateway.');
+insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  21, 'description',1, 'A test payment processor implementation to be able to test ibillings functions without using a real payment gateway.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  22, 'title',1, 'Router payment processor based on Custom Fields');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  22, 'description',1, 'Allows a customer to be assigned a specific payment gateway. It checks a custom contact field to identify the gateway and then delegates the actual payment processing to another plugin.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  23, 'title',1, 'Default subscription status manager');
@@ -215,13 +215,13 @@ insert into international_description (table_id, foreign_id, psudo_column, langu
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  57, 'title',1, 'Payment processor for Payments Gateway.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  57, 'description',1, 'Integration with the Payments Gateway payment processor.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  58, 'title',1, 'Credit cards are stored externally.');
-insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  58, 'description',1, 'Saves the credit card information in the payment gateway, rather than the jBilling DB.');
+insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  58, 'description',1, 'Saves the credit card information in the payment gateway, rather than the ibilling DB.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  59, 'title',1, 'Rules Item Manager 2');
-insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  59, 'description',1, 'This is a rules-based plug-in compatible with the mediation module of jBilling 2.2.x. It will do what the basic item manager does (actually calling it); but then it will execute external rules as well. These external rules have full control on changing the order that is getting new items.');
+insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  59, 'description',1, 'This is a rules-based plug-in compatible with the mediation module of ibilling 2.2.x. It will do what the basic item manager does (actually calling it); but then it will execute external rules as well. These external rules have full control on changing the order that is getting new items.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  60, 'title',1, 'Rules Line Total - 2');
-insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  60, 'description',1, 'This is a rules-based plug-in, compatible with the mediation process of jBilling 2.2.x and later. It calculates the total for an order line (typically this is the price multiplied by the quantity); allowing for the execution of external rules.');
+insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  60, 'description',1, 'This is a rules-based plug-in, compatible with the mediation process of ibilling 2.2.x and later. It calculates the total for an order line (typically this is the price multiplied by the quantity); allowing for the execution of external rules.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  61, 'title',1, 'Rules Pricing 2');
-insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  61, 'description',1, 'This is a rules-based plug-in compatible with the mediation module of jBilling 2.2.x. It gives a price to an item by executing external rules. You can then add logic externally for pricing. It is also integrated with the mediation process by having access to the mediation pricing data.');
+insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  61, 'description',1, 'This is a rules-based plug-in compatible with the mediation module of ibilling 2.2.x. It gives a price to an item by executing external rules. You can then add logic externally for pricing. It is also integrated with the mediation process by having access to the mediation pricing data.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  63, 'title',1, 'Test payment processor for external storage.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  63, 'description',1, 'A fake plug-in to test payments that would be stored externally.');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (24,  64, 'title',1, 'WorldPay integration');
@@ -282,8 +282,8 @@ create table filter_set (
     primary key (id)
 );
 
-insert into jbilling_seqs (name, next_id) values ('filter', 1);
-insert into jbilling_seqs (name, next_id) values ('filter_set', 1);
+insert into ibilling_seqs (name, next_id) values ('filter', 1);
+insert into ibilling_seqs (name, next_id) values ('filter_set', 1);
 
 -- recent item tables
 drop table if exists recent_item;
@@ -296,7 +296,7 @@ create table recent_item (
   primary key (id)
 );
 
-insert into jbilling_seqs (name, next_id) values ('recent_item', 1);
+insert into ibilling_seqs (name, next_id) values ('recent_item', 1);
 
 -- breadcrumb tables
 drop table if exists breadcrumb;
@@ -311,7 +311,7 @@ create table breadcrumb (
     primary key (id)
 );
 
-insert into jbilling_seqs (name, next_id) values ('breadcrumb', 1);
+insert into ibilling_seqs (name, next_id) values ('breadcrumb', 1);
 
 -- contact type optlock
 alter table contact_type add column OPTLOCK int null;
@@ -323,10 +323,10 @@ update purchase_order set active_since = create_datetime where active_since is n
 
 -- custom contact fields
 -- table id entry
-INSERT INTO jbilling_table(name, id) VALUES ('contact_field_type', 99);
+INSERT INTO ibilling_table(name, id) VALUES ('contact_field_type', 99);
 
 -- table id generator
-INSERT INTO jbilling_seqs(name, next_id) VALUES ('contact_field_type', 10);
+INSERT INTO ibilling_seqs(name, next_id) VALUES ('contact_field_type', 10);
 
 -- optlock column
 alter table contact_field_type  add column OPTLOCK int null;
@@ -339,7 +339,7 @@ alter table contact_field_type alter column OPTLOCK set not null;
 --    1. 'content' value comes from the property value in the language properties file
 --    2. 'foreign_id' is the row id of the contact_field_type' table
 --    3. 'language_id' is the id column value of the language table for the corresponding language
---	   4. 'table_id' is the id columne value of the jbilling_table table where name = 'contact_field_type'
+--	   4. 'table_id' is the id columne value of the ibilling_table table where name = 'contact_field_type'
 
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (99, 1, 'description', 1, 'Referral Fee');
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content) values (99, 2, 'description', 1, 'Payment Processor');
@@ -400,7 +400,7 @@ CREATE TABLE shortcut (
   PRIMARY KEY (id)
 );
 
-insert into jbilling_seqs values ('shortcut', 1);
+insert into ibilling_seqs values ('shortcut', 1);
 
 -- gl code new field in item table
 alter table item add column gl_code character varying (50);
@@ -413,11 +413,11 @@ drop table report_user;
 drop table report_entity_map;
 drop table report;
 
-delete from jbilling_seqs where name in ('report_field', 'report_type_map', 'report_type', 'report_user', 'report_entity_map', 'report');
+delete from ibilling_seqs where name in ('report_field', 'report_type_map', 'report_type', 'report_user', 'report_entity_map', 'report');
 delete from international_description where table_id in (
-  select id from jbilling_table where name in ('report_field', 'report_type_map', 'report_type', 'report_user', 'report_entity_map', 'report')
+  select id from ibilling_table where name in ('report_field', 'report_type_map', 'report_type', 'report_user', 'report_entity_map', 'report')
 );
-delete from jbilling_table where name in ('report_field', 'report_type_map', 'report_type', 'report_user', 'report_entity_map', 'report');
+delete from ibilling_table where name in ('report_field', 'report_type_map', 'report_type', 'report_user', 'report_entity_map', 'report');
 
 -- new reports tables
 drop table if exists report;
@@ -458,13 +458,13 @@ create table entity_report_map (
 alter table entity_report_map add constraint report_map_report_id_FK foreign key (report_id) references report (id);
 alter table entity_report_map add constraint report_map_entity_id_FK foreign key (entity_id) references entity (id);
 
-insert into jbilling_table (id, name) values (100, 'report');
-insert into jbilling_table (id, name) values (101, 'report_type');
-insert into jbilling_table (id, name) values (102, 'report_parameter');
+insert into ibilling_table (id, name) values (100, 'report');
+insert into ibilling_table (id, name) values (101, 'report_type');
+insert into ibilling_table (id, name) values (102, 'report_parameter');
 
-insert into jbilling_seqs (name, next_id) values ('report', 1);
-insert into jbilling_seqs (name, next_id) values ('report_type', 1);
-insert into jbilling_seqs (name, next_id) values ('report_parameter', 1);
+insert into ibilling_seqs (name, next_id) values ('report', 1);
+insert into ibilling_seqs (name, next_id) values ('report_type', 1);
+insert into ibilling_seqs (name, next_id) values ('report_parameter', 1);
 
 -- new report types
 insert into report_type (id, name, optlock) values (1, 'invoice', 0);
@@ -674,7 +674,7 @@ insert into international_description (table_id, foreign_id, psudo_column, langu
 values (50, 12, 'instruction', 1, 'Currency ID to use when paying partners. See the Partner section of the documentation.');
 
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content)
-values (50, 13, 'instruction', 1, 'Set to ''1'' to e-mail invoices as the billing company. ''0'' to deliver invoices as jBilling.');
+values (50, 13, 'instruction', 1, 'Set to ''1'' to e-mail invoices as the billing company. ''0'' to deliver invoices as ibilling.');
 
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content)
 values (50, 14, 'instruction', 1, 'Set to ''1'' to show notes in invoices, ''0'' to disable.');
@@ -743,7 +743,7 @@ insert into international_description (table_id, foreign_id, psudo_column, langu
 values (50, 38, 'instruction', 1, 'Set to ''1'' to change the subscription status of a user when the user ages. ''0'' to disable.');
 
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content)
-values (50, 39, 'instruction', 1, 'The number of retries to allow before locking the user account. A locked user account will have their password changed to the value of lockout_password in the jbilling.properties configuration file.');
+values (50, 39, 'instruction', 1, 'The number of retries to allow before locking the user account. A locked user account will have their password changed to the value of lockout_password in the ibilling.properties configuration file.');
 
 insert into international_description (table_id, foreign_id, psudo_column, language_id, content)
 values (50, 40, 'instruction', 1, 'If greater than zero, it represents the number of days that a password is valid. After those days, the password is expired and the user is forced to change it.');
@@ -779,8 +779,8 @@ values (50, 49, 'instruction', 1, 'The threshold value for automatic payments. P
 alter table currency add column OPTLOCK int;
 update currency set OPTLOCK = 0;
 
-insert into jbilling_seqs (name, next_id) values ('currency', 2); -- if does not exist
--- update jbilling_seqs set next_id = (select (max(id)/10)+1 from currency) where name = 'currency'; -- if already exists
+insert into ibilling_seqs (name, next_id) values ('currency', 2); -- if does not exist
+-- update ibilling_seqs set next_id = (select (max(id)/10)+1 from currency) where name = 'currency'; -- if already exists
 
 -- breadcrumb descriptions
 alter table breadcrumb add column description varchar(255);
@@ -801,8 +801,8 @@ delete from international_description where table_id = 63; -- menu_option
 delete from international_description where table_id = 77; -- list_entity
 delete from international_description where table_id = 78; -- list_field_entity
 
-delete from jbilling_table where name in ('list', 'list_entity', 'list_field', 'list_field_entity', 'menu_option');
-delete from jbilling_seqs where name in ('list', 'list_entity', 'list_field', 'list_field_entity', 'menu_option');
+delete from ibilling_table where name in ('list', 'list_entity', 'list_field', 'list_field_entity', 'menu_option');
+delete from ibilling_seqs where name in ('list', 'list_entity', 'list_field', 'list_field_entity', 'menu_option');
 
 -- shorter description for carried invoice status
 update international_description set content = 'Carried' where table_id = 90 and foreign_id = 3 and psudo_column = 'description' and language_id = 1;
@@ -834,7 +834,7 @@ update pluggable_task set processing_order=3 where id=480;
 -- Redmine Issue: #576
 -- Description: User permissions and role screens
 -- editable user permissions
-insert into jbilling_seqs (name, next_id) values ('permission_user', 1);
+insert into ibilling_seqs (name, next_id) values ('permission_user', 1);
 
 -- delete all old permissions and permission types
 delete from international_description where table_id = 59;
@@ -1153,4 +1153,4 @@ CREATE TEMPORARY TABLE temp_role
 --	  primary key (id)
 --); -- mysql
 
-insert into temp_role (select e.id as entity_id, r.id as role_type_id from entity e, role r where e.id > (select max(entity_id) from role) group by e.id, r.id);insert into role (select tr.id + (select max(id) from role), tr.entity_id, tr.role_type_id from temp_role tr order by tr.id);insert into permission_role_map (select p.permission_id, r.id from permission_role_map p, role r where p.role_id = r.role_type_id and r.entity_id >= (select min(entity_id) from temp_role));insert into international_description (select i.table_id, r.id, i.psudo_column, i.language_id, i.content from international_description i, role r  where i.table_id=60 and r.entity_id >= (select min(entity_id) from temp_role) and i.foreign_id=r.role_type_id); insert into user_role_map (select u.user_id, r.id from user_role_map u, base_user b, role r where b.id=u.user_id and b.entity_id=r.entity_id and r.entity_id > (select min(id) from entity) and u.role_id=r.role_type_id);delete from user_role_map where exists (select * from base_user, rolewhere base_user.id = user_role_map.user_id and user_role_map.role_id = role.id and base_user.entity_id > (select min(id) from entity) and role.entity_id = (select min(id) from entity));update jbilling_seqs set next_id = coalesce((select round(max(id)/100)+1 from role), 1) where name = 'role';drop table temp_role;
+insert into temp_role (select e.id as entity_id, r.id as role_type_id from entity e, role r where e.id > (select max(entity_id) from role) group by e.id, r.id);insert into role (select tr.id + (select max(id) from role), tr.entity_id, tr.role_type_id from temp_role tr order by tr.id);insert into permission_role_map (select p.permission_id, r.id from permission_role_map p, role r where p.role_id = r.role_type_id and r.entity_id >= (select min(entity_id) from temp_role));insert into international_description (select i.table_id, r.id, i.psudo_column, i.language_id, i.content from international_description i, role r  where i.table_id=60 and r.entity_id >= (select min(entity_id) from temp_role) and i.foreign_id=r.role_type_id); insert into user_role_map (select u.user_id, r.id from user_role_map u, base_user b, role r where b.id=u.user_id and b.entity_id=r.entity_id and r.entity_id > (select min(id) from entity) and u.role_id=r.role_type_id);delete from user_role_map where exists (select * from base_user, rolewhere base_user.id = user_role_map.user_id and user_role_map.role_id = role.id and base_user.entity_id > (select min(id) from entity) and role.entity_id = (select min(id) from entity));update ibilling_seqs set next_id = coalesce((select round(max(id)/100)+1 from role), 1) where name = 'role';drop table temp_role;

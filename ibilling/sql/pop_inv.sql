@@ -1,4 +1,4 @@
--- Query used to upgrade jbilling database to use historic
+-- Query used to upgrade ibilling database to use historic
 -- contact info for invoice
 -- This is for PostgreSQL only (very simlar for Oracle)
 

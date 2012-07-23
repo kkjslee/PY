@@ -158,10 +158,10 @@ iselect sum(p.amount), method_id
 
 #create the init.sql file
 #first: remove all the entities using the first script in this file
-pg_dump -d jbilling -U jbilling_user -D -C -f init.sql
+pg_dump -d ibilling -U ibilling_user -D -C -f init.sql
 # add this to the script
-create user jbilling_user password 'jbilling';
-grant all on database jbilling to jbilling_user;
+create user ibilling_user password 'ibilling';
+grant all on database ibilling to ibilling_user;
 
 #use the script to initialize a fresh postgres install
 psql -d template1 -h maximus -f src/sql/init.sql -U postgres
@@ -169,7 +169,7 @@ psql -d template1 -h maximus -f src/sql/init.sql -U postgres
 # delete unused international_description for a particuar table
 delete from international_description where oid in (
 select i.oid
-from international_description i, jbilling_table t
+from international_description i, ibilling_table t
 where t.id = i.table_id
 and t.name = 'report_type'
 and not exists (
@@ -181,14 +181,14 @@ and not exists (
 select
 'delete from international_description where oid in (
 select i.oid
-from international_description i, jbilling_table t
+from international_description i, ibilling_table t
 where t.id = i.table_id
 and t.name = ''' || name || 
 '''and not exists (
   select 1
     from ' || name ||
 '   where id = i.foreign_id))\;'
-from jbilling_table 
+from ibilling_table 
 where exists (
   select 1
     from international_description
@@ -401,14 +401,14 @@ select p.billing_date, p.retries_to_do, r.*, finished - started
  where p.id = r.process_id
  order by p.billing_date desc, started desc;
 
--- update an entry of  jbilling_seqs
-update jbilling_seqs
+-- update an entry of  ibilling_seqs
+update ibilling_seqs
 set next_id = ( select (max(id)/10)+1 from base_user )
 where name = 'base_user';
 
 -- list the statuses for a generic table. Just replace 'process_run_status'
 select gs.id, gs.status_value, content
-from international_description id, jbilling_table jt, generic_status gs
+from international_description id, ibilling_table jt, generic_status gs
 where jt.name = gs.dtype
   and id.table_id = jt.id
   and gs.dtype = 'process_run_status'

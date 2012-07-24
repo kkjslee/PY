@@ -19,7 +19,7 @@ includeTargets << grailsScript("Init")
 target(prepareTestDb: "Import the test postgresql database.") {
 
     // load the client reference DB if it exists
-    def testDb = new File("${basedir}/sql/jbilling_test.sql")
+    def testDb = new File("${basedir}/sql/ibilling_test.sql")
     def referenceDb = new File("${basedir}/data.sql")
     def file = referenceDb.exists() ? referenceDb : testDb
 

@@ -1,6 +1,0 @@
-2012-06-24 15:19:06,531 203051279 WARN  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (Thread-25:) plugin change scanner is still running after the scanning interval. You should set the grails.scan.interval system property to a higher value. The current value is 5000 ms
-2012-06-24 19:48:04,531 219189279 WARN  [org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager] (Thread-25:) plugin change scanner is still running after the scanning interval. You should set the grails.scan.interval system property to a higher value. The current value is 5000 ms
-2012-06-24 19:49:03,030 219247778 INFO  [grails.app.controller.jbilling.PluginController] (http-8080-4:) entityId=1
-2012-06-24 19:49:03,030 219247778 INFO  [grails.app.controller.jbilling.PluginController] (http-8080-4:) selected 22
-2012-06-24 19:49:03,032 219247780 INFO  [grails.app.controller.jbilling.PluginController] (http-8080-4:) Category Id selected=22
-2012-06-24 19:49:03,126 219247874 INFO  [grails.app.controller.jbilling.PluginController] (http-8080-4:) number of plug-ins=3

@@ -106,7 +106,7 @@
           $("#typeId option:selected").each(function () {
               typeSelected = $(this).val();
           });
-    	  $.post('/jbilling/plugin/getTypeParametersDescriptions', 
+    	  $.post('${createLink(action: "getTypeParametersDescriptions")}', 
     	    	  {typeId: typeSelected},
     	    	  function(msg){
     	    	      $("#plugin-parameters").html(msg)

@@ -27,14 +27,15 @@
 	</g:applyLayout>
 </g:if>
 <g:else>
- 	<div class="row">
-        <label for="${descriptionEntityName}.description"><g:message code="${descriptionEntityName}.label.description"/></label>
-        <g:textArea class="field" style="float: left; height: 64px; width: 192px;" name="${descriptionEntityName}.descriptions.1" value="${descriptionEntity?.getDescription(1)}"/>
-        
+ 	<g:applyLayout name="form/textarea">
+		<content tag="label"><g:message code="${descriptionEntityName}.label.description"/></content>
+		<content tag="label.for">${descriptionEntityName}.description</content>
+		
+        <g:textArea class="field" style="width: 192px; " name="${descriptionEntityName}.descriptions.1" value="${descriptionEntity?.getDescription(1)}"/>
         <a onclick="showDescriptionsDialog()" style="width:16px; height:64px; float: right;
 	                    background:url(/ibilling/images/add.png) no-repeat;
 	                    background-position:center;"></a>
-    </div>
+    </g:applyLayout>
 </g:else>
 
 <%

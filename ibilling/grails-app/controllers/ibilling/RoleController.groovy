@@ -4,6 +4,7 @@ import grails.plugins.springsecurity.Secured;
 
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap;
 
+import com.infosense.ibilling.client.i18n.DescriptionHelper;
 import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.server.user.UserBL
 import com.infosense.ibilling.server.user.db.CompanyDTO
@@ -108,7 +109,7 @@ class RoleController {
 	
 	def save = {
 		def role = new RoleDTOEx()
-		bindData(role, params, "role")
+		DescriptionHelper.bindDataAndDescriptions(role, params, "role")
 		
 		def permissions = [] as Set
 		params.permission.each{

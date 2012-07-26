@@ -17,15 +17,19 @@
 package com.infosense.ibilling.server.util.db;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.types.Description;
 
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.util.Context;
 
 public abstract class AbstractDescription implements Serializable {
 
-    private String description = null;
+    private Map<Integer, String> descriptions = null;
+    
+	private static final int DEFAULT_LANGUAGE = 1;
 
     abstract public int getId();
     abstract protected String getTable();
@@ -34,6 +38,13 @@ public abstract class AbstractDescription implements Serializable {
     protected int getDescId(){
     	return getId();
     }
+    
+    public Map<Integer, String> getDescriptions() {
+		return descriptions;
+	}
+	public void setDescriptions(Map<Integer, String> descriptions) {
+		this.descriptions = descriptions;
+	}
     /**
      * Returns the InternationalDescriptionDTO 
      * for the given language and label for this entity.
@@ -74,10 +85,10 @@ public abstract class AbstractDescription implements Serializable {
      * @return english description string
      */
     public String getDescription() {
-        if (description == null) {
-            return getDescription(1);
+        if (descriptions == null || !descriptions.containsKey(DEFAULT_LANGUAGE)) {
+            return getDescription(DEFAULT_LANGUAGE);
         } else {
-            return description;
+            return descriptions.get(DEFAULT_LANGUAGE);
         }
     }
 
@@ -104,6 +115,17 @@ public abstract class AbstractDescription implements Serializable {
         return description != null ? description.getContent() : null;
         
     }
+    
+    public void saveDescriptions(Map<Integer, String> descriptions){
+    	if(descriptions!=null){
+    		for(Integer k : descriptions.keySet()){
+    			String v = descriptions.get(k);
+    			if(k!=null && v!=null){
+    				setDescription(v, k);
+    			}
+    		}
+    	}
+    }
 
     /**
      * Sets the cached description to the given text. This does not update the database.
@@ -111,7 +133,7 @@ public abstract class AbstractDescription implements Serializable {
      * @param text description
      */
     public void setDescription(String text) {
-        description = text;
+    	descriptions.put(DEFAULT_LANGUAGE, text);
     }
 
     /**

@@ -53,18 +53,14 @@
 
                             <g:hiddenField name="role.id" value="${role?.id}"/>
                         </g:applyLayout>
-
+                        
                         <g:applyLayout name="form/input">
                             <content tag="label"><g:message code="role.label.name"/></content>
                             <content tag="label.for">role.title</content>
                             <g:textField class="field" name="role.title" value="${role?.getTitle(session['language_id'])}"/>
                         </g:applyLayout>
 
-                        <g:applyLayout name="form/input">
-                            <content tag="label"><g:message code="role.label.description"/></content>
-                            <content tag="label.for">role.description</content>
-                            <g:textField class="field" name="role.description" value="${role?.getDescription(session['language_id'])}"/>
-                        </g:applyLayout>
+                        <g:render template="/description" model="['descriptionEntityName': 'role' , 'descriptionEntity' : role]"/>
                     </div>
                 </div>
 

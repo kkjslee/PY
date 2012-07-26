@@ -661,7 +661,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
     	
     	RoleDTO newRole = new RoleDAS().find(roleId);
     	newRole.setRoleTypeId(roleId);
-    	newRole.setDescription(roleEx.getDescription(), getCallerLanguageId());
+    	newRole.saveDescriptions(roleEx.getDescriptions());
     	newRole.setTitle(roleEx.getTitle(), getCallerLanguageId());
     	
     	if(permissions!=null && permissions.size()>0){
@@ -696,7 +696,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         	
         	RoleDTO newRole = bl.getEntity();
         	
-        	newRole.setDescription(roleEx.getDescription(), getCallerLanguageId());
+        	newRole.saveDescriptions(roleEx.getDescriptions());
         	newRole.setTitle(roleEx.getTitle(), getCallerLanguageId());
     	}
     }

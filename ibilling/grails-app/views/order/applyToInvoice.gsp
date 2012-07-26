@@ -28,7 +28,7 @@
 
         function onInvoiceChange(invId) {
             $.ajax({
-                url: "/jbilling/invoice/snapshot/" + invId,
+                url: "/ibilling/invoice/snapshot/" + invId,
                 global: false,
                 success: function(data) { $("#invoice-details").replaceWith(data) }
             });
@@ -40,7 +40,7 @@
             $(':input[type=radio][name=invoiceId]').change(function() {
                 //alert('Selected Invoice ID ' + $(this).val());
                 $.ajax({
-                    url: "/jbilling/invoice/snapshot/" + $(this).val(),
+                    url: "/ibilling/invoice/snapshot/" + $(this).val(),
                     global: false,
                     success: function(data) { $("#invoice-details").replaceWith(data) }
                 });

@@ -15,15 +15,27 @@
   --}%
 
 <%@page import="com.infosense.ibilling.server.util.db.LanguageDTO"%>
-<g:applyLayout name="form/input">
-	<content tag="label"><g:message code="${descriptionEntityName}.label.description"/></content>
-	<content tag="label.for">${descriptionEntityName}.description</content>
-	
-	<g:textField class="field" style="width: 192px" name="${descriptionEntityName}.descriptions.1" value="${descriptionEntity?.getDescription(1)}"/>
-	<a onclick="showDescriptionsDialog()" style="width:16px; height:16px; float: right;
-                    background:url(/ibilling/images/add.png) no-repeat;
-                    background-position:center;"></a>
-</g:applyLayout>
+<g:if test="${textFieldMode}">
+	<g:applyLayout name="form/input">
+		<content tag="label"><g:message code="${descriptionEntityName}.label.description"/></content>
+		<content tag="label.for">${descriptionEntityName}.description</content>
+		
+	 	<g:textField class="field" style="width: 192px" name="${descriptionEntityName}.descriptions.1" value="${descriptionEntity?.getDescription(1)}"/>
+		<a onclick="showDescriptionsDialog()" style="width:16px; height:16px; float: right;
+	                    background:url(/ibilling/images/add.png) no-repeat;
+	                    background-position:center;"></a>
+	</g:applyLayout>
+</g:if>
+<g:else>
+ 	<div class="row">
+        <label for="${descriptionEntityName}.description"><g:message code="${descriptionEntityName}.label.description"/></label>
+        <g:textArea class="field" style="float: left; height: 64px; width: 192px;" name="${descriptionEntityName}.descriptions.1" value="${descriptionEntity?.getDescription(1)}"/>
+        
+        <a onclick="showDescriptionsDialog()" style="width:16px; height:64px; float: right;
+	                    background:url(/ibilling/images/add.png) no-repeat;
+	                    background-position:center;"></a>
+    </div>
+</g:else>
 
 <%
 	languanges = languanges?:LanguageDTO.list()
@@ -45,7 +57,7 @@
 	     </td><td>
 		     <div class="buttons" style="border: none;">
 		         <ul>
-		             <li>
+		             <li style="list-style: none outside none;">
 		                 <a onclick="addDescriptionItem()" class="submit add"><span><g:message code="button.add"/></span></a>
 		             </li>
 		         </ul>
@@ -54,15 +66,15 @@
 	</table>
 	
 	<div style="height: 300px; scroll: auto;">
-	    <table id="${descriptionEntityName}-description-table" class="innerTable" style="width: 100%;">
-	    	<thead class="innerHeader"><tr>
-	            <td valign="middle" align="center" width="150px">
+	    <table id="${descriptionEntityName}-description-table" class="innerTable" style="width: 100%; border-collapse: separate;" >
+	    	<thead><tr>
+	            <td class="innerHeader" valign="middle" align="center" width="150px">
 	            	<g:message code="popup.language.label" />
 	            </td>
-	            <td valign="middle" align="center" width="212px">
+	            <td class="innerHeader" valign="middle" align="center" width="212px">
 	            	<g:message code="popup.description.label" />
 	            </td>
-	            <td width="30">
+	            <td class="innerHeader" width="30">
 	            </td>
 	        </tr></thead>
 	        <tbody>
@@ -119,13 +131,25 @@
 					
 					cell1.innerHTML = data.language
 					var input_id = "${descriptionEntityName}.descriptions." + data.languageId
-					cell2.innerHTML = "<input type='text' style='width: 100%' name='"
+					
+					if(${textFieldMode}){
+						cell2.innerHTML = "<input type='text' style='width: 100%' name='"
 									+ input_id
 									+ "' value='"
 									+ (data.content? data.content : "")
 									+ "' id='"
 									+ input_id
 									+ "'>"
+					}else{
+						cell2.innerHTML = "<textarea style='width: 100%; height: 64px; resize: none;' name='"
+									+ input_id
+									+ "' id='"
+									+ input_id
+									+ "'>"
+									+ (data.content? data.content : "")
+									+ "</textarea>"
+					}
+					
 					cell3.innerHTML = "<a onclick='removeThisRow(this)' style='margin: 0 0 0 10px;'>X</a>"
 				},
 				fail : function(data){

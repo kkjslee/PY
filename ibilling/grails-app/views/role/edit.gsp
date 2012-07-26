@@ -60,7 +60,9 @@
                             <g:textField class="field" name="role.title" value="${role?.getTitle(session['language_id'])}"/>
                         </g:applyLayout>
 
-                        <g:render template="/description" model="['descriptionEntityName': 'role' , 'descriptionEntity' : role]"/>
+                        <g:render template="/description" model="['descriptionEntityName': 'role' , 
+                        											'descriptionEntity' : role, 
+                        											'textFieldMode' : false]"/>
                     </div>
                 </div>
 

@@ -21,7 +21,7 @@
 	
 	<g:textField class="field" style="width: 192px" name="${descriptionEntityName}.descriptions.1" value="${descriptionEntity?.getDescription(1)}"/>
 	<a onclick="showDescriptionsDialog()" style="width:16px; height:16px; float: right;
-                    background:url(../images/add.png) no-repeat;
+                    background:url(/ibilling/images/add.png) no-repeat;
                     background-position:center;"></a>
 </g:applyLayout>
 

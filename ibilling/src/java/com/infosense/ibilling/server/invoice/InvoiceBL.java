@@ -741,7 +741,11 @@ public class InvoiceBL extends ResultList implements Serializable, InvoiceSQL {
             Integer nextReminderPeriod = pref.getInt();
             
             if (useInvoiceReminder!=null && useInvoiceReminder == 1 && firstReminder!=null) {
-                prepareStatement(InvoiceSQL.toRemind);
+            	if(nextReminderPeriod!=null){
+            		prepareStatement(InvoiceSQL.toRemind);
+            	}else{
+            		prepareStatement(InvoiceSQL.toRemindWithoutPeriod);
+            	}
 
                 cachedResults.setDate(1, new java.sql.Date(today.getTime()));
                 cal.setTime(today);
@@ -751,11 +755,10 @@ public class InvoiceBL extends ResultList implements Serializable, InvoiceSQL {
                 	cal.setTime(today);
                     cal.add(GregorianCalendar.DAY_OF_MONTH, -nextReminderPeriod);
                     cachedResults.setDate(3, new java.sql.Date(cal.getTimeInMillis()));
+                    cachedResults.setInt(4, entityId.intValue());
                 }else{
-                	cachedResults.setDate(3, new java.sql.Date(0));
+                	cachedResults.setInt(3, entityId.intValue());
                 }
-
-                cachedResults.setInt(4, entityId.intValue());
 
                 execute();
                 while (cachedResults.next()) {

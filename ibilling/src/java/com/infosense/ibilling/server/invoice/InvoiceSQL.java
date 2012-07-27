@@ -176,6 +176,19 @@ public interface InvoiceSQL {
     "        i.last_reminder <= ?)" +
     "   and b.entity_id = ?";
     
+    static final String toRemindWithoutPeriod  = 
+        "select i.id " +
+        "  from invoice i, base_user b " +
+        " where i.user_id = b.id " +
+        "   and b.deleted = 0 " +
+        "   and i.deleted = 0 " +
+        "   and i.is_review = 0 " +
+        "   and i.status_id = 27 " +
+        "   and i.due_date > ? " +
+        "   and i.create_datetime <= ? " +
+        "   and i.last_reminder is null " +
+        "   and b.entity_id = ?";
+    
     // Invoice in ageing: any invoices that make this user applicable 
     // to the ageing process (then what happends depends on the ageing config)
     static final String getOverdueForAgeing =

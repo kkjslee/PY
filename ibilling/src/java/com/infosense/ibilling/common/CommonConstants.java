@@ -109,7 +109,7 @@ public interface CommonConstants {
     public static Integer PREFERENCE_INVOICE_DELETE = new Integer(20);
     public static Integer PREFERENCE_USE_INVOICE_REMINDERS = new Integer(21);
     public static Integer PREFERENCE_FIRST_REMINDER = new Integer(22);
-    public static Integer PREFERENCE_NEXT_REMINDER = new Integer(23);
+    public static Integer PREFERENCE_NEXT_REMINDER_PERIOD = new Integer(23);
     public static Integer PREFERENCE_USE_DF_FM = new Integer(24);
     public static Integer PREFERENCE_USE_OVERDUE_PENALTY = new Integer(25);
     public static Integer PREFERENCE_PAGE_SIZE = new Integer(26);

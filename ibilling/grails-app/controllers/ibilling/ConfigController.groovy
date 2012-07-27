@@ -310,7 +310,7 @@ class ConfigController {
         def daysForNotification3 = webServicesSession.getPreference(Constants.PREFERENCE_DAYS_ORDER_NOTIFICATION_S3)
         def useInvoiceReminders = webServicesSession.getPreference(Constants.PREFERENCE_USE_INVOICE_REMINDERS)
         def firstReminder = webServicesSession.getPreference(Constants.PREFERENCE_FIRST_REMINDER)
-        def nextReminder = webServicesSession.getPreference(Constants.PREFERENCE_NEXT_REMINDER)
+        def nextReminder = webServicesSession.getPreference(Constants.PREFERENCE_NEXT_REMINDER_PERIOD)
 
         [
                 selfDeliver: selfDeliver,

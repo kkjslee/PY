@@ -712,14 +712,12 @@ public class InvoiceBL extends ResultList implements Serializable, InvoiceSQL {
 
         return retValue;
     }
-
     
-
     public void sendReminders(Date today) throws SQLException,
             SessionInternalError {
         GregorianCalendar cal = new GregorianCalendar();
 
-        for (Iterator it = new CompanyDAS().findEntities().iterator(); it.hasNext();) {
+        for (Iterator<?> it = new CompanyDAS().findEntities().iterator(); it.hasNext();) {
             CompanyDTO thisEntity = (CompanyDTO) it.next();
             Integer entityId = thisEntity.getId();
             PreferenceBL pref = new PreferenceBL();
@@ -728,18 +726,34 @@ public class InvoiceBL extends ResultList implements Serializable, InvoiceSQL {
             } catch (EmptyResultDataAccessException e1) {
             // let it use the defaults
             }
-            if (pref.getInt() == 1) {
+            Integer useInvoiceReminder = pref.getInt();
+            
+            try {
+            	 pref.set(entityId, Constants.PREFERENCE_FIRST_REMINDER);
+            } catch (EmptyResultDataAccessException e1) {
+            }
+            Integer firstReminder = pref.getInt();
+            
+            try {
+            	 pref.set(entityId, Constants.PREFERENCE_NEXT_REMINDER_PERIOD);
+            } catch (EmptyResultDataAccessException e1) {
+            }
+            Integer nextReminderPeriod = pref.getInt();
+            
+            if (useInvoiceReminder!=null && useInvoiceReminder == 1 && firstReminder!=null) {
                 prepareStatement(InvoiceSQL.toRemind);
 
                 cachedResults.setDate(1, new java.sql.Date(today.getTime()));
                 cal.setTime(today);
-                pref.set(entityId, Constants.PREFERENCE_FIRST_REMINDER);
-                cal.add(GregorianCalendar.DAY_OF_MONTH, -pref.getInt());
+                cal.add(GregorianCalendar.DAY_OF_MONTH, -firstReminder);
                 cachedResults.setDate(2, new java.sql.Date(cal.getTimeInMillis()));
-                cal.setTime(today);
-                pref.set(entityId, Constants.PREFERENCE_NEXT_REMINDER);
-                cal.add(GregorianCalendar.DAY_OF_MONTH, -pref.getInt());
-                cachedResults.setDate(3, new java.sql.Date(cal.getTimeInMillis()));
+                if(nextReminderPeriod!=null){
+                	cal.setTime(today);
+                    cal.add(GregorianCalendar.DAY_OF_MONTH, -nextReminderPeriod);
+                    cachedResults.setDate(3, new java.sql.Date(cal.getTimeInMillis()));
+                }else{
+                	cachedResults.setDate(3, new java.sql.Date(0));
+                }
 
                 cachedResults.setInt(4, entityId.intValue());
 

@@ -85,11 +85,13 @@
                             <g:message code="configuration.menu.company"/>
                         </g:link>
                     </li>
+                    <!--
                     <li class="${pageProperty(name: 'page.menu.item') == 'currency' ? 'active' : ''}">
                         <g:link controller="config" action="currency">
                             <g:message code="configuration.menu.currencies"/>
                         </g:link>
                     </li>
+                    -->
                     <li class="${pageProperty(name: 'page.menu.item') == 'email' ? 'active' : ''}">
                         <g:link controller="config" action="email">
                             <g:message code="configuration.menu.email"/>

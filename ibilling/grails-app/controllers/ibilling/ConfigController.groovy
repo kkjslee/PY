@@ -217,6 +217,7 @@ class ConfigController {
         Currencies
      */
 
+	@Secured("99999")
     def currency = {
         def currency = new CurrencyBL()
 
@@ -227,6 +228,7 @@ class ConfigController {
         [ entityCurrency: entityCurrency, currencies: currencies ]
     }
 
+	@Secured("99999")
     def saveCurrencies = {
         def defaultCurrencyId = params.int('defaultCurrencyId')
 
@@ -255,12 +257,14 @@ class ConfigController {
         redirect action: 'currency'
     }
 
+	@Secured("99999")
     def editCurrency = {
         // only shows edit template to create new currencies.
         // currencies can be edited from the main currency config form
         render template: 'currency/edit', model: [ currency: null ]
     }
 
+	@Secured("99999")
     def saveCurrency = {
         def currency = new CurrencyWS()
         bindData(currency, removeBlankParams(params))

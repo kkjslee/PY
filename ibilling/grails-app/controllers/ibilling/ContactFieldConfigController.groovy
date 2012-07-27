@@ -33,7 +33,7 @@ import com.infosense.ibilling.common.SessionInternalError
  */
 
 
-@Secured(["MENU_99"])
+@Secured(["MENU_99_9999"])
 class ContactFieldConfigController {
 	
 	def webServicesSession

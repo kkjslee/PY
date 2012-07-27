@@ -24,7 +24,7 @@ import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.user.UserBL
 import grails.plugins.springsecurity.Secured
 
-@Secured(["CUSTOMER_14"])
+@Secured(["CUSTOMER_14_9999"])
 class BlacklistController {
 
     def index = {

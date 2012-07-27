@@ -73,11 +73,13 @@
                             <g:message code="configuration.menu.billing"/>
                         </g:link>
                     </li>
+                    <!-- 
                     <li class="${pageProperty(name: 'page.menu.item') == 'blacklist' ? 'active' : ''}">
                         <g:link controller="blacklist" action="list">
                             <g:message code="configuration.menu.blacklist"/>
                         </g:link>
                     </li>
+                     -->
                     <li class="${pageProperty(name: 'page.menu.item') == 'company' ? 'active' : ''}">
                         <g:link controller="config" action="company">
                             <g:message code="configuration.menu.company"/>
@@ -134,11 +136,13 @@
                             <g:message code="configuration.menu.contactType"/>
                         </g:link>
                     </li>
+                    <!-- 
                     <li class="${pageProperty(name: 'page.menu.item') == 'customContactField' ? 'active' : ''}">
                         <g:link controller="contactFieldConfig">
                             <g:message code="configuration.menu.customContactField"/>
                         </g:link>
                     </li>
+                     -->
                 </ul>
             </div>
 

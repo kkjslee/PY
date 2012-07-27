@@ -1,12 +1,14 @@
 package ibilling
 
 import grails.converters.JSON;
+import grails.plugins.springsecurity.Secured;
 
 import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.db.InternationalDescriptionDTO;
 import com.infosense.ibilling.server.util.db.LanguageDAS
 import com.infosense.ibilling.server.util.db.LanguageDTO;
 
+@Secured("isAuthenticated()")
 class DescriptionController {
 	
 	def getContent = {

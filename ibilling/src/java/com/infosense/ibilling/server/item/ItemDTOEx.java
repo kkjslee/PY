@@ -22,7 +22,7 @@ package com.infosense.ibilling.server.item;
 
 import com.infosense.ibilling.server.item.validator.ItemPrices;
 import com.infosense.ibilling.server.item.validator.ItemTypes;
-import com.infosense.ibilling.server.security.WSSecured;
+import com.infosense.ibilling.server.ws.WSSecured;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

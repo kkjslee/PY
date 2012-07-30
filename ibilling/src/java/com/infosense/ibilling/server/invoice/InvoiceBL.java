@@ -66,6 +66,7 @@ import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.PreferenceBL;
 import com.infosense.ibilling.server.util.Util;
 import com.infosense.ibilling.server.util.audit.EventLogger;
+import com.infosense.ibilling.server.ws.InvoiceWS;
 
 import java.util.ArrayList;
 import org.springframework.dao.EmptyResultDataAccessException;

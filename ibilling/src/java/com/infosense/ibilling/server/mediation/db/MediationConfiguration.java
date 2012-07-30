@@ -30,8 +30,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Version;
 
-import com.infosense.ibilling.server.mediation.MediationConfigurationWS;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO;
+import com.infosense.ibilling.server.ws.MediationConfigurationWS;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

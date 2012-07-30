@@ -30,6 +30,7 @@ import com.infosense.ibilling.server.user.db.AchDTO;
 import com.infosense.ibilling.server.user.db.CreditCardDTO;
 import com.infosense.ibilling.server.user.db.UserDAS;
 import com.infosense.ibilling.server.util.db.CurrencyDTO;
+import com.infosense.ibilling.server.ws.PaymentWS;
 
 import java.util.ArrayList;
 

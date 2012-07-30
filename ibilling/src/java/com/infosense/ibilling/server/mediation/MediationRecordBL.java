@@ -18,6 +18,8 @@ package com.infosense.ibilling.server.mediation;
 
 import com.infosense.ibilling.server.mediation.db.MediationRecordDTO;
 import com.infosense.ibilling.server.mediation.db.MediationRecordLineDTO;
+import com.infosense.ibilling.server.ws.MediationRecordLineWS;
+import com.infosense.ibilling.server.ws.MediationRecordWS;
 
 import java.util.ArrayList;
 import java.util.Collection;

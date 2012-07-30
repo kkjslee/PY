@@ -32,8 +32,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Version;
 
-import com.infosense.ibilling.server.mediation.MediationRecordLineWS;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
+import com.infosense.ibilling.server.ws.MediationRecordLineWS;
 
 /**
  * This table links a mediation record (CDR) to one or more order lines. It specified how much each

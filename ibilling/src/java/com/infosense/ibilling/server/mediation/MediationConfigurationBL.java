@@ -21,6 +21,7 @@ import com.infosense.ibilling.server.mediation.db.MediationConfiguration;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDAS;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO;
 import com.infosense.ibilling.server.util.Context;
+import com.infosense.ibilling.server.ws.MediationConfigurationWS;
 
 import java.util.ArrayList;
 import java.util.List;

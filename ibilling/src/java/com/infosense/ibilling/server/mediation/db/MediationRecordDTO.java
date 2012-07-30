@@ -15,7 +15,7 @@
  */
 package com.infosense.ibilling.server.mediation.db;
 
-import com.infosense.ibilling.server.mediation.MediationRecordWS;
+import com.infosense.ibilling.server.ws.MediationRecordWS;
 
 import java.io.Serializable;
 import java.util.ArrayList;

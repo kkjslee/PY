@@ -54,6 +54,7 @@ import com.infosense.ibilling.server.user.partner.db.PartnerPayout;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.audit.EventLogger;
+import com.infosense.ibilling.server.ws.PaymentWS;
 
 import org.apache.log4j.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;

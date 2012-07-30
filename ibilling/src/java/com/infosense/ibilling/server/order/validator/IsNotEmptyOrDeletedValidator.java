@@ -16,8 +16,8 @@
 
 package com.infosense.ibilling.server.order.validator;
 
-import com.infosense.ibilling.server.order.OrderLineWS;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
+import com.infosense.ibilling.server.ws.OrderLineWS;
 
 import org.apache.log4j.Logger;
 

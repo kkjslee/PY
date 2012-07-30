@@ -14,9 +14,10 @@
  * is strictly forbidden.
  */
 
-package com.sapienter.jbilling.server.process.task;
+package com.infosense.ibilling.server.process.task;
 
-import com.sapienter.jbilling.common.Util;
+import com.infosense.ibilling.common.Util;
+
 import junit.framework.TestCase;
 
 import java.io.File;

@@ -14,13 +14,14 @@
  * is strictly forbidden.
  */
 
-package com.sapienter.jbilling.server.pluggableTask;
+package com.infosense.ibilling.server.pluggableTask;
 
-import com.sapienter.jbilling.server.order.db.OrderDTO;
-import com.sapienter.jbilling.server.order.db.OrderPeriodDTO;
-import com.sapienter.jbilling.server.process.PeriodOfTime;
-import com.sapienter.jbilling.server.user.db.CompanyDTO;
-import com.sapienter.jbilling.server.user.db.UserDTO;
+import com.infosense.ibilling.server.order.db.OrderDTO;
+import com.infosense.ibilling.server.order.db.OrderPeriodDTO;
+import com.infosense.ibilling.server.process.PeriodOfTime;
+import com.infosense.ibilling.server.user.db.CompanyDTO;
+import com.infosense.ibilling.server.user.db.UserDTO;
+
 import junit.framework.TestCase;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;

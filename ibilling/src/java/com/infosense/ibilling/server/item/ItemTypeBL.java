@@ -24,6 +24,7 @@ import com.infosense.ibilling.server.item.db.ItemTypeDTO;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.DescriptionBL;
 import com.infosense.ibilling.server.util.audit.EventLogger;
+import com.infosense.ibilling.server.ws.ItemTypeWS;
 
 import java.util.List;
 

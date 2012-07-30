@@ -14,29 +14,28 @@
  * is strictly forbidden.
  */
 
-import com.infosense.ibilling.server.entity.CreditCardDTO;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
-import com.infosense.ibilling.server.mediation.MediationConfigurationWS;
-import com.infosense.ibilling.server.mediation.MediationProcessWS;
-import com.infosense.ibilling.server.mediation.MediationRecordWS;
-import com.infosense.ibilling.server.mediation.RecordCountWS;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.process.BillingProcessConfigurationWS;
-import com.infosense.ibilling.server.process.BillingProcessDTOEx;
-import com.infosense.ibilling.server.process.BillingProcessWS;
-import com.infosense.ibilling.server.user.ContactWS;
-import com.infosense.ibilling.server.user.UserDTOEx;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.IWebServicesSessionBean;
-import com.infosense.ibilling.server.util.RemoteContext;
-import junit.framework.TestCase;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
+
+import junit.framework.TestCase;
+
+import com.infosense.ibilling.server.entity.CreditCardDTO;
+import com.infosense.ibilling.server.user.UserDTOEx;
+import com.infosense.ibilling.server.util.Constants;
+import com.infosense.ibilling.server.util.IWebServicesSessionBean;
+import com.infosense.ibilling.server.util.RemoteContext;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
+import com.infosense.ibilling.server.ws.BillingProcessWS;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.MediationConfigurationWS;
+import com.infosense.ibilling.server.ws.MediationProcessWS;
+import com.infosense.ibilling.server.ws.MediationRecordWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.RecordCountWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 
 /**

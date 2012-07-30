@@ -1,25 +1,7 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
-/*
- * Created on Jan 27, 2005
- * One session bean to expose as a single web service, thus, one wsdl
- */
 package com.infosense.ibilling.server.util;
 
+
+import grails.plugins.springsecurity.SpringSecurityService;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -32,20 +14,29 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.naming.NamingException;
+import javax.sql.rowset.CachedRowSet;
+
+import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.infosense.ibilling.client.authentication.CompanyUserDetails;
 import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.InvalidArgumentException;
-import com.infosense.ibilling.common.JBCrypto;
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.invoice.IInvoiceSessionBean;
 import com.infosense.ibilling.server.invoice.InvoiceBL;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
 import com.infosense.ibilling.server.invoice.db.InvoiceDAS;
 import com.infosense.ibilling.server.invoice.db.InvoiceDTO;
 import com.infosense.ibilling.server.item.CurrencyBL;
@@ -53,19 +44,13 @@ import com.infosense.ibilling.server.item.IItemSessionBean;
 import com.infosense.ibilling.server.item.ItemBL;
 import com.infosense.ibilling.server.item.ItemDTOEx;
 import com.infosense.ibilling.server.item.ItemTypeBL;
-import com.infosense.ibilling.server.item.ItemTypeWS;
 import com.infosense.ibilling.server.item.PricingField;
 import com.infosense.ibilling.server.item.db.ItemDTO;
 import com.infosense.ibilling.server.item.db.ItemTypeDTO;
 import com.infosense.ibilling.server.mediation.IMediationSessionBean;
 import com.infosense.ibilling.server.mediation.MediationConfigurationBL;
-import com.infosense.ibilling.server.mediation.MediationConfigurationWS;
-import com.infosense.ibilling.server.mediation.MediationProcessWS;
 import com.infosense.ibilling.server.mediation.MediationRecordBL;
-import com.infosense.ibilling.server.mediation.MediationRecordLineWS;
-import com.infosense.ibilling.server.mediation.MediationRecordWS;
 import com.infosense.ibilling.server.mediation.Record;
-import com.infosense.ibilling.server.mediation.RecordCountWS;
 import com.infosense.ibilling.server.mediation.db.MediationConfiguration;
 import com.infosense.ibilling.server.mediation.db.MediationProcess;
 import com.infosense.ibilling.server.mediation.db.MediationRecordDAS;
@@ -83,38 +68,33 @@ import com.infosense.ibilling.server.order.IOrderSessionBean;
 import com.infosense.ibilling.server.order.OrderBL;
 import com.infosense.ibilling.server.order.OrderHelper;
 import com.infosense.ibilling.server.order.OrderLineBL;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderPeriodWS;
-import com.infosense.ibilling.server.order.OrderProcessWS;
-import com.infosense.ibilling.server.order.OrderWS;
 import com.infosense.ibilling.server.order.db.OrderDAS;
 import com.infosense.ibilling.server.order.db.OrderDTO;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
 import com.infosense.ibilling.server.order.db.OrderPeriodDAS;
 import com.infosense.ibilling.server.order.db.OrderPeriodDTO;
 import com.infosense.ibilling.server.order.db.OrderProcessDTO;
+import com.infosense.ibilling.server.order.task.PlanOrderTask;
 import com.infosense.ibilling.server.payment.IPaymentSessionBean;
 import com.infosense.ibilling.server.payment.PaymentAuthorizationDTOEx;
 import com.infosense.ibilling.server.payment.PaymentBL;
 import com.infosense.ibilling.server.payment.PaymentDTOEx;
-import com.infosense.ibilling.server.payment.PaymentWS;
 import com.infosense.ibilling.server.payment.db.PaymentDAS;
 import com.infosense.ibilling.server.payment.db.PaymentDTO;
 import com.infosense.ibilling.server.payment.db.PaymentMethodDAS;
 import com.infosense.ibilling.server.payment.db.PaymentMethodDTO;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskBL;
+import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDAS;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager;
-import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskWS;
+import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDAS;
+import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO;
 import com.infosense.ibilling.server.process.AgeingBL;
 import com.infosense.ibilling.server.process.AgeingDTOEx;
-import com.infosense.ibilling.server.process.AgeingWS;
 import com.infosense.ibilling.server.process.BillingProcessBL;
-import com.infosense.ibilling.server.process.BillingProcessConfigurationWS;
 import com.infosense.ibilling.server.process.BillingProcessDTOEx;
-import com.infosense.ibilling.server.process.BillingProcessWS;
 import com.infosense.ibilling.server.process.ConfigurationBL;
 import com.infosense.ibilling.server.process.IBillingProcessSessionBean;
 import com.infosense.ibilling.server.process.db.BillingProcessConfigurationDAS;
@@ -123,23 +103,14 @@ import com.infosense.ibilling.server.process.db.BillingProcessDTO;
 import com.infosense.ibilling.server.provisioning.IProvisioningProcessSessionBean;
 import com.infosense.ibilling.server.rule.task.IRulesGenerator;
 import com.infosense.ibilling.server.user.AchBL;
-import com.infosense.ibilling.server.user.CompanyWS;
 import com.infosense.ibilling.server.user.ContactBL;
 import com.infosense.ibilling.server.user.ContactDTOEx;
-import com.infosense.ibilling.server.user.ContactTypeWS;
-import com.infosense.ibilling.server.user.ContactWS;
-import com.infosense.ibilling.server.user.CreateResponseWS;
 import com.infosense.ibilling.server.user.CreditCardBL;
 import com.infosense.ibilling.server.user.EntityBL;
 import com.infosense.ibilling.server.user.IUserSessionBean;
 import com.infosense.ibilling.server.user.RoleBL;
 import com.infosense.ibilling.server.user.UserBL;
 import com.infosense.ibilling.server.user.UserDTOEx;
-import com.infosense.ibilling.server.user.UserTransitionResponseWS;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.user.ValidatePurchaseWS;
-import com.infosense.ibilling.server.user.contact.ContactFieldTypeWS;
-import com.infosense.ibilling.server.user.contact.db.ContactDTO;
 import com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDAS;
 import com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO;
 import com.infosense.ibilling.server.user.contact.db.ContactTypeDAS;
@@ -154,38 +125,50 @@ import com.infosense.ibilling.server.user.db.CustomerDTO;
 import com.infosense.ibilling.server.user.db.UserDAS;
 import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.user.partner.PartnerBL;
-import com.infosense.ibilling.server.user.partner.PartnerWS;
 import com.infosense.ibilling.server.user.partner.db.Partner;
 import com.infosense.ibilling.server.user.permisson.db.PermissionDAS;
 import com.infosense.ibilling.server.user.permisson.db.PermissionDTO;
 import com.infosense.ibilling.server.user.permisson.db.RoleDAS;
 import com.infosense.ibilling.server.user.permisson.db.RoleDTO;
 import com.infosense.ibilling.server.user.permisson.db.RoleDTOEx;
-import com.infosense.ibilling.server.util.api.WebServicesConstants;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
 import com.infosense.ibilling.server.util.db.CurrencyDTO;
+import com.infosense.ibilling.server.util.db.IbillingConstant;
+import com.infosense.ibilling.server.util.db.IbillingConstantDAS;
 import com.infosense.ibilling.server.util.db.LanguageDAS;
 import com.infosense.ibilling.server.util.db.LanguageDTO;
 import com.infosense.ibilling.server.util.db.PreferenceDTO;
 import com.infosense.ibilling.server.util.db.PreferenceTypeDAS;
 import com.infosense.ibilling.server.util.db.PreferenceTypeDTO;
-
-import org.apache.log4j.Logger;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.sql.rowset.CachedRowSet;
-
-import grails.plugins.springsecurity.SpringSecurityService;
-
-
-
-
-import javax.management.relation.Role;
-import javax.naming.NamingException;
+import com.infosense.ibilling.server.ws.AgeingWS;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
+import com.infosense.ibilling.server.ws.BillingProcessWS;
+import com.infosense.ibilling.server.ws.CompanyWS;
+import com.infosense.ibilling.server.ws.ContactFieldTypeWS;
+import com.infosense.ibilling.server.ws.ContactTypeWS;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.CreateResponseWS;
+import com.infosense.ibilling.server.ws.CurrencyWS;
+import com.infosense.ibilling.server.ws.InternationalDescriptionWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.ItemTypeWS;
+import com.infosense.ibilling.server.ws.MediationConfigurationWS;
+import com.infosense.ibilling.server.ws.MediationProcessWS;
+import com.infosense.ibilling.server.ws.MediationRecordLineWS;
+import com.infosense.ibilling.server.ws.MediationRecordWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderPeriodWS;
+import com.infosense.ibilling.server.ws.OrderProcessWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.PartnerWS;
+import com.infosense.ibilling.server.ws.PaymentWS;
+import com.infosense.ibilling.server.ws.PluggableTaskWS;
+import com.infosense.ibilling.server.ws.PreferenceWS;
+import com.infosense.ibilling.server.ws.RecordCountWS;
+import com.infosense.ibilling.server.ws.UserTransitionResponseWS;
+import com.infosense.ibilling.server.ws.UserWS;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
 
 @Transactional( propagation = Propagation.REQUIRED )
 public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
@@ -3029,4 +3012,66 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         }
         return retVal;
     }
+
+	@Override
+	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory) {
+		return this.createPlan(newPlan, cpu, memory, null);
+	}
+	
+	@Override
+	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory, Map<String, Integer> properties) {
+		ItemBL itemBL = new ItemBL();
+        ItemDTO dto = itemBL.getDTO(newPlan);
+        
+        // get the info from the caller
+        Integer languageId = getCallerLanguageId();
+        Integer entityId = getCallerCompanyId(); 
+        dto.setEntity(new CompanyDTO(entityId));
+
+        // call the creation
+        Integer planId = itemBL.create(dto, languageId);
+        
+        this.addComponentToPlan(planId, entityId, Constants.KEY_ID_CPU_GENERIC, cpu);
+        this.addComponentToPlan(planId, entityId, Constants.KEY_ID_MEMORY_GENERIC, memory);
+        
+        if (properties != null && properties.isEmpty()) {
+        	Iterator<Entry<String, Integer>> it = properties.entrySet().iterator();
+            while (it.hasNext()) {
+            	Entry<String, Integer> entry = it.next();
+            	this.addComponentToPlan(planId, entityId, entry.getKey(), entry.getValue());
+            }
+        }
+
+        return planId;
+	}
+	
+	private void addComponentToPlan(Integer planId, Integer entityId, String component, Integer quality) {
+		if (quality.intValue() > 0) {
+			PluggableTaskTypeDTO type = new PluggableTaskTypeDAS().findByCategoryAndClz(Constants.PLUGGABLE_TASK_PROCESSING_ORDERS, PlanOrderTask.class);
+	        IbillingConstant ruleLocation = IbillingConstantDAS.getInstance().findByName(Constants.KEY_RULE_PLAN);
+	        if (type != null && ruleLocation != null) {
+	        	String location = ruleLocation.getContent();
+	        	IbillingConstant constant = IbillingConstantDAS.getInstance().findByName(component);
+	        	if (constant != null) {
+	        		List<PluggableTaskDTO> list = PluggableTaskDAS.getInstance().findByEntityCategory(entityId, Constants.PLUGGABLE_TASK_PROCESSING_ORDERS);
+	        		int lastOrder = list.get(list.size() - 1).getProcessingOrder().intValue();
+	        		
+	        		PluggableTaskWS newTask = new PluggableTaskWS();
+	        		newTask.setTypeId(type.getId());
+	        		newTask.setVersionNumber(0);
+	        		newTask.setProcessingOrder(lastOrder + 1);
+	        		
+	        		Hashtable<String, String> parameters = new Hashtable<String, String>();
+	        		parameters.put("url", location);
+	        		parameters.put("Plan", planId.toString());
+	        		parameters.put("Item", constant.getContent());
+	        		parameters.put("Quality", quality.toString());
+	        		
+	        		this.createPlugin(newTask);
+	        		PluggableTaskDAS.getInstance().invalidateCache();
+	        	}
+	        }
+		}
+	}
+	
 }

@@ -1,19 +1,3 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
 package com.infosense.ibilling.server.util;
 
 import java.math.BigDecimal;
@@ -25,34 +9,36 @@ import javax.jws.WebService;
 
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.entity.AchDTO;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
 import com.infosense.ibilling.server.item.ItemDTOEx;
-import com.infosense.ibilling.server.item.ItemTypeWS;
-import com.infosense.ibilling.server.mediation.MediationConfigurationWS;
-import com.infosense.ibilling.server.mediation.MediationProcessWS;
-import com.infosense.ibilling.server.mediation.MediationRecordLineWS;
-import com.infosense.ibilling.server.mediation.MediationRecordWS;
-import com.infosense.ibilling.server.mediation.RecordCountWS;
 import com.infosense.ibilling.server.notification.MessageDTO;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderPeriodWS;
-import com.infosense.ibilling.server.order.OrderProcessWS;
-import com.infosense.ibilling.server.order.OrderWS;
 import com.infosense.ibilling.server.payment.PaymentAuthorizationDTOEx;
-import com.infosense.ibilling.server.payment.PaymentWS;
-import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskWS;
-import com.infosense.ibilling.server.process.AgeingWS;
-import com.infosense.ibilling.server.process.BillingProcessConfigurationWS;
-import com.infosense.ibilling.server.process.BillingProcessWS;
-import com.infosense.ibilling.server.user.CompanyWS;
-import com.infosense.ibilling.server.user.ContactTypeWS;
-import com.infosense.ibilling.server.user.ContactWS;
-import com.infosense.ibilling.server.user.CreateResponseWS;
-import com.infosense.ibilling.server.user.UserTransitionResponseWS;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.user.ValidatePurchaseWS;
-import com.infosense.ibilling.server.user.contact.ContactFieldTypeWS;
-import com.infosense.ibilling.server.user.partner.PartnerWS;
+import com.infosense.ibilling.server.ws.AgeingWS;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
+import com.infosense.ibilling.server.ws.BillingProcessWS;
+import com.infosense.ibilling.server.ws.CompanyWS;
+import com.infosense.ibilling.server.ws.ContactFieldTypeWS;
+import com.infosense.ibilling.server.ws.ContactTypeWS;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.CreateResponseWS;
+import com.infosense.ibilling.server.ws.CurrencyWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.ItemTypeWS;
+import com.infosense.ibilling.server.ws.MediationConfigurationWS;
+import com.infosense.ibilling.server.ws.MediationProcessWS;
+import com.infosense.ibilling.server.ws.MediationRecordLineWS;
+import com.infosense.ibilling.server.ws.MediationRecordWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderPeriodWS;
+import com.infosense.ibilling.server.ws.OrderProcessWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.PartnerWS;
+import com.infosense.ibilling.server.ws.PaymentWS;
+import com.infosense.ibilling.server.ws.PluggableTaskWS;
+import com.infosense.ibilling.server.ws.PreferenceWS;
+import com.infosense.ibilling.server.ws.RecordCountWS;
+import com.infosense.ibilling.server.ws.UserTransitionResponseWS;
+import com.infosense.ibilling.server.ws.UserWS;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
 
 /**
  * Web service bean interface. 
@@ -321,4 +307,12 @@ public interface IWebServicesSessionBean {
 
     public boolean validateCreditCard(com.infosense.ibilling.server.entity.CreditCardDTO creditCard, ContactWS contact, int level) 
     throws SessionInternalError;
+    
+    /*
+     * Plans
+     */
+    
+    public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory);
+	
+	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory, Map<String, Integer> properties);
 }

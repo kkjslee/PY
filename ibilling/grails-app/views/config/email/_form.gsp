@@ -25,12 +25,15 @@
             <fieldset>
                 <div class="form-columns">
                     <div class="column single">
-
-                        <g:applyLayout name="form/checkbox">
-                            <content tag="label"><g:message code="email.config.label.self.deliver"/></content>
-                            <content tag="label.for">selfDeliver</content>
-                            <g:checkBox class="cb" name="selfDeliver" checked="${selfDeliver.value == '1'}"/>
-                        </g:applyLayout>
+                    
+						<span style="display: none">
+	                        <g:applyLayout name="form/checkbox">
+	                            <content tag="label"><g:message code="email.config.label.self.deliver"/></content>
+	                            <content tag="label.for">selfDeliver</content>
+	                            <!--  <g:checkBox class="cb" name="selfDeliver" checked="${selfDeliver.value == '1'}"/> -->
+	                             <g:checkBox class="cb" name="selfDeliver" checked="true"/>
+	                        </g:applyLayout>
+                        </span>
 
                         <g:applyLayout name="form/checkbox">
                             <content tag="label"><g:message code="email.config.label.customer.notes"/></content>

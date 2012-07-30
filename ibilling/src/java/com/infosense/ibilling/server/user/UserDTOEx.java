@@ -34,6 +34,7 @@ import com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
 import com.infosense.ibilling.server.util.db.CurrencyDTO;
 import com.infosense.ibilling.server.util.db.LanguageDAS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

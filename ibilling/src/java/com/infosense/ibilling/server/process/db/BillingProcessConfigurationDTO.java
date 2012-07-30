@@ -31,8 +31,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import com.infosense.ibilling.server.process.BillingProcessConfigurationWS;
 import com.infosense.ibilling.server.user.db.CompanyDTO;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
 
 @Entity
 @TableGenerator(

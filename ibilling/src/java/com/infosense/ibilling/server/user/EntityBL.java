@@ -36,6 +36,8 @@ import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.LanguageDAS;
 import com.infosense.ibilling.server.util.db.LanguageDTO;
+import com.infosense.ibilling.server.ws.CompanyWS;
+import com.infosense.ibilling.server.ws.ContactWS;
 
 import java.util.ArrayList;
 

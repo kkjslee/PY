@@ -63,6 +63,7 @@ import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.MapPeriodToCalendar;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
+import com.infosense.ibilling.server.ws.PartnerWS;
 
 import java.util.ArrayList;
 import javax.sql.DataSource;

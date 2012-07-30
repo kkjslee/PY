@@ -16,6 +16,8 @@
 
 package com.infosense.ibilling.server.util;
 
+import java.util.HashMap;
+
 import com.infosense.ibilling.common.CommonConstants;
 
 /**
@@ -227,5 +229,10 @@ public final class Constants implements CommonConstants {
     public static final Integer ENTITY_CONTACT_TYPE = new Integer(1);
 
     //Jbilling Table Ids
-    public static final Integer ENTITY_TABLE_ID = new Integer(5);
+    public static final Integer ENTITY_TABLE_ID = new Integer(5);    
+    
+    public static final String KEY_ID_CPU_GENERIC = "cpu.generic";
+    public static final String KEY_ID_MEMORY_GENERIC = "memory.generic";
+    public static final String KEY_RULE_PLAN = "rule.plan";
+
 }

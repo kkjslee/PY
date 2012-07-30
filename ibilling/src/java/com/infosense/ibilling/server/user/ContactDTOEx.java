@@ -27,6 +27,7 @@ import java.util.Hashtable;
 import com.infosense.ibilling.server.user.contact.db.ContactDTO;
 import com.infosense.ibilling.server.user.contact.db.ContactFieldDTO;
 import com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO;
+import com.infosense.ibilling.server.ws.ContactWS;
 
 /**
  * @author Emil

@@ -25,17 +25,22 @@ import com.infosense.ibilling.common.Util;
 import com.infosense.ibilling.server.entity.AchDTO;
 import com.infosense.ibilling.server.entity.CreditCardDTO;
 import com.infosense.ibilling.server.entity.PaymentInfoChequeDTO;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
 import com.infosense.ibilling.server.item.PricingField;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.payment.PaymentWS;
-import com.infosense.ibilling.server.user.UserWS;
 import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIException;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIException;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
 import com.infosense.ibilling.server.util.api.WebServicesConstants;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.CreateResponseWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.PaymentWS;
+import com.infosense.ibilling.server.ws.UserTransitionResponseWS;
+import com.infosense.ibilling.server.ws.UserWS;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
+
 import junit.framework.TestCase;
 
 import java.io.IOException;
@@ -55,7 +60,7 @@ public class WSTest extends TestCase {
       
     public void testGetUser() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             System.out.println("Getting user 2");
             UserWS ret = api.getUserWS(new Integer(2));
@@ -92,7 +97,7 @@ public class WSTest extends TestCase {
 
     public void testCreateUpdateDeleteUser() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // check that the validation works
             UserWS badUser = createUser(true, null, null, false);
@@ -362,7 +367,7 @@ public class WSTest extends TestCase {
     }
 
     public void testCreditCardUpdates() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         /*  Note, a more direct test would be to write a unit test for the CreditCardDTO class itself,
             but our current testing framework doesn't support this style. Instead, test CreditCardBL
@@ -430,7 +435,7 @@ public class WSTest extends TestCase {
 
     public void testLanguageId() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             UserWS newUser = new UserWS();
             newUser.setUserName("language-test");
@@ -465,7 +470,7 @@ public class WSTest extends TestCase {
 
     public void testUserTransitions() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             System.out.println("Getting complete list of user transitions");
             UserTransitionResponseWS[] ret = api.getUserTransitions(null, null);
@@ -543,7 +548,7 @@ Ch8: no applicable orders
      */
     public void testParentChild() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
             /*
              * Create - This passes the password validation routine.
              */
@@ -864,12 +869,12 @@ Ch8: no applicable orders
     }
     */
     
-    public static UserWS createUser(boolean goodCC, Integer parentId, Integer currencyId) throws JbillingAPIException, IOException {
+    public static UserWS createUser(boolean goodCC, Integer parentId, Integer currencyId) throws IbillingAPIException, IOException {
     	return createUser(goodCC, parentId, currencyId, true);
     }
     
-    public static UserWS createUser(boolean goodCC, Integer parentId, Integer currencyId, boolean doCreate) throws JbillingAPIException, IOException {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+    public static UserWS createUser(boolean goodCC, Integer parentId, Integer currencyId, boolean doCreate) throws IbillingAPIException, IOException {
+            IbillingAPI api = IbillingAPIFactory.getAPI();
             
             /*
              * Create - This passes the password validation routine.
@@ -923,8 +928,8 @@ Ch8: no applicable orders
 
     public static Integer createMainSubscriptionOrder(Integer userId, 
         Integer itemId) 
-            throws JbillingAPIException, IOException {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+            throws IbillingAPIException, IOException {
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create an order for this user
         OrderWS order = new OrderWS();
@@ -1001,7 +1006,7 @@ Ch8: no applicable orders
     
     public void testPendingUnsubscription() {
     	try {
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
     		OrderWS order = api.getLatestOrder(1055);
     		order.setActiveUntil(new Date(2008 - 1900, 11 - 1, 1)); // sorry 
     		api.updateOrder(order);
@@ -1015,7 +1020,7 @@ Ch8: no applicable orders
 
     public void testCurrency() {
      	try {
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
             UserWS myUser = createUser(true, null, 11);
             Integer myId = myUser.getUserId();
             System.out.println("Checking currency of new user");
@@ -1038,7 +1043,7 @@ Ch8: no applicable orders
 
     public void testPrePaidBalance() {
         try {
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
             UserWS myUser = createUser(true, null, null);
             Integer myId = myUser.getUserId();
 
@@ -1196,7 +1201,7 @@ Ch8: no applicable orders
 
      public void testCreditLimit() {
         try {
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
             UserWS myUser = createUser(true, null, null);
             Integer myId = myUser.getUserId();
 
@@ -1298,7 +1303,7 @@ Ch8: no applicable orders
         try {
             // see ValidatePurchaseRules.drl
 
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // create user
             UserWS user = createUser(true, null, null);
@@ -1389,7 +1394,7 @@ Ch8: no applicable orders
 
     public void testUserBalancePurchaseTaskHierarchical() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // create 2 users, child and parent
             UserWS newUser = new UserWS();
@@ -1462,7 +1467,7 @@ Ch8: no applicable orders
 
     public void testValidateMultiPurchase() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
             UserWS myUser = createUser(true, null, null);
             Integer myId = myUser.getUserId();
 
@@ -1513,7 +1518,7 @@ Ch8: no applicable orders
     }
 
     public void testPenaltyTaskOrder() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final Integer USER_ID = 53;
         final Integer ORDER_ID = 35;
@@ -1551,7 +1556,7 @@ Ch8: no applicable orders
     public void testAutoRecharge() throws Exception {
         System.out.println("Starting auto-recharge test.");
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         UserWS user = createUser(true, null, null);
 
@@ -1608,7 +1613,7 @@ Ch8: no applicable orders
 
     public void testUpdateCurrentOrderNewQuantityEvents() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // create user
             UserWS user = createUser(true, null, null);
@@ -1673,7 +1678,7 @@ Ch8: no applicable orders
     
     public void testUserACHCreation() throws Exception {
     	
-    	JbillingAPI api = JbillingAPIFactory.getAPI();
+    	IbillingAPI api = IbillingAPIFactory.getAPI();
         UserWS newUser = new UserWS();
         newUser.setUserName("testUserName-" + Calendar.getInstance().getTimeInMillis());
         newUser.setPassword("asdfasdf1");
@@ -1764,7 +1769,7 @@ Ch8: no applicable orders
     
     //test to ensure if the Invoice If Child field gets updated successfully via API.
     public void testUpdateInvoiceChild() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         System.out.println("Parent user parent(43)");
         UserWS user = createUser(true, 43, null);

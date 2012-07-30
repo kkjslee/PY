@@ -28,11 +28,12 @@ import com.infosense.ibilling.common.SessionInternalError;
 import junit.framework.TestCase;
 
 import com.infosense.ibilling.server.item.ItemDTOEx;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
 import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.ItemTypeWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
 
 /**
  * @author Emil
@@ -42,7 +43,7 @@ public class WSTest  extends TestCase {
 
     public void testCreate() {
         try {
-        	JbillingAPI api = JbillingAPIFactory.getAPI();
+        	IbillingAPI api = IbillingAPIFactory.getAPI();
             /*
              * Create
              */
@@ -71,7 +72,7 @@ public class WSTest  extends TestCase {
     	
     	try {
     		System.out.println("Testing Pricing Rules");
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
     		
     		// Tests item pricing for user "gandalf" (id 2)
     		PricingField pf = new PricingField("newPrice", new BigDecimal("50.0"));
@@ -141,7 +142,7 @@ public class WSTest  extends TestCase {
     	
     	try {
     		System.out.println("Testing Order Rating");
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
     		
     		// Tests item pricing for user "gandalf" (id 2)
     		PricingField add = new PricingField("add", new BigDecimal("10.0"));
@@ -201,7 +202,7 @@ public class WSTest  extends TestCase {
 
     public void testGetAllItems() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
         
             /*
              * Get all items
@@ -270,7 +271,7 @@ public class WSTest  extends TestCase {
     public void testUpdateItem() {
     
     	try {
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
 	    	
     		System.out.println("Getting item");
 	    	ItemDTOEx item = api.getItem(new Integer(1), new Integer(2), new PricingField[] {} );
@@ -311,7 +312,7 @@ public class WSTest  extends TestCase {
 
     public void testCurrencyConvert() {
     	try {
-    		JbillingAPI api = JbillingAPIFactory.getAPI();
+    		IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // item 240 "DP-4" has price in AUD - fetch item using a USD customer
             ItemDTOEx item = api.getItem(new Integer(240), new Integer(2), new PricingField[] {} );
@@ -332,7 +333,7 @@ public class WSTest  extends TestCase {
 
 
     public void testGetAllItemCategories() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         ItemTypeWS[] types = api.getAllItemCategories();
 
@@ -348,7 +349,7 @@ public class WSTest  extends TestCase {
             String description = "Ice creams (WS test)";
 
             System.out.println("Getting API...");
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             ItemTypeWS itemType = new ItemTypeWS();
             itemType.setDescription(description);
@@ -396,7 +397,7 @@ public class WSTest  extends TestCase {
             String description = "Drink passes (WS test)";
 
             System.out.println("Getting API...");
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             System.out.println("Getting all item categories...");
             ItemTypeWS[] types = api.getAllItemCategories();
@@ -444,7 +445,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testGetItemsByCategory() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final Integer DRINK_ITEM_CATEGORY_ID = 2;
 

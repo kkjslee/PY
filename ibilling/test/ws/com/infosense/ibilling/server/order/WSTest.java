@@ -22,18 +22,19 @@ package com.infosense.ibilling.server.order;
 
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.entity.InvoiceLineDTO;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
 import com.infosense.ibilling.server.item.ItemDTOEx;
 import com.infosense.ibilling.server.item.PricingField;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
 import com.infosense.ibilling.server.payment.PaymentAuthorizationDTOEx;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.user.ValidatePurchaseWS;
 import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.UserWS;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
+
 import junit.framework.TestCase;
 import org.joda.time.DateMidnight;
 
@@ -57,7 +58,7 @@ public class WSTest  extends TestCase {
     private static final Integer GANDALF_USER_ID = 2;
 
     public void testCreateUpdateDelete() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
         int i;
 
         /*
@@ -371,7 +372,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testcreateOrderAndInvoiceAutoCreatesAnInvoice() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final int USER_ID = GANDALF_USER_ID;
 
@@ -410,7 +411,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testCreateNotActiveOrderDoesNotCreateInvoices() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final int USER_ID = GANDALF_USER_ID;
         InvoiceWS before = callGetLatestInvoice(USER_ID);
@@ -434,7 +435,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testCreatedOrderIsCorrect() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final int USER_ID = GANDALF_USER_ID;
         final int LINES = 2;
@@ -474,7 +475,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testAutoCreatedInvoiceIsCorrect() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final int USER_ID = GANDALF_USER_ID;
         final int LINES = 2;
@@ -505,7 +506,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testAutoCreatedInvoiceIsPayable() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final int USER_ID = GANDALF_USER_ID;
 
@@ -539,7 +540,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testUpdateLines() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         Integer orderId = new Integer(15);
         OrderWS order = api.getOrder(orderId);
@@ -590,7 +591,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testRecreate() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // the the latest
         OrderWS order = api.getLatestOrder(GANDALF_USER_ID);
@@ -607,7 +608,7 @@ public class WSTest  extends TestCase {
         final Integer USER_ID = 1000;
 
         // create an order an order for testing
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         OrderWS newOrder = new OrderWS();
         newOrder.setUserId(USER_ID);
@@ -741,7 +742,7 @@ public class WSTest  extends TestCase {
         final Integer USER_ID = 1000;
 
         // create an order for testing
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create a main subscription (current) order
         OrderWS mainOrder = createMockOrder(USER_ID, 1, new BigDecimal("10.00"));
@@ -802,7 +803,7 @@ public class WSTest  extends TestCase {
         final Integer USER_ID = 1000;
 
         // create an order for testing
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create an order with the plan item
         OrderWS mainOrder = createMockOrder(USER_ID, 1, new BigDecimal("10.00"));
@@ -837,7 +838,7 @@ public class WSTest  extends TestCase {
     public void testInternalEventsRulesTask() throws Exception {
         final Integer USER_ID = 1010;
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create order with 2 lines (item ids 1 & 2) and invoice
         OrderWS order = createMockOrder(USER_ID, 2, new BigDecimal("5.00"));
@@ -870,7 +871,7 @@ public class WSTest  extends TestCase {
         final Integer USER_ID = GANDALF_USER_ID;
         final Integer NO_MAIN_SUB_USER_ID = 1010;
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
 
         //
@@ -1047,7 +1048,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testIsUserSubscribedTo() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // Test a non-existing user first, result should be 0
         String result = api.isUserSubscribedTo(999, 999);
@@ -1063,7 +1064,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testGetUserItemsByCategory() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // Test a non-existing user first, result should be 0
         Integer[] result = api.getUserItemsByCategory(Integer.valueOf(999), Integer.valueOf(999));
@@ -1085,7 +1086,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testMainOrder() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // note: for some reason, calling api.getUsersByCreditCard("1152") returns three users
         // but after calling updateUser, it reutrns 4 because Gandalf is included.
@@ -1130,7 +1131,7 @@ public class WSTest  extends TestCase {
     public void testOrderLineDescriptionLanguage() throws Exception {
         final Integer USER_ID = 10750; // french speaker
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create order
         OrderWS order = new OrderWS();
@@ -1167,7 +1168,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testItemSwappingRules() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // add items to a user subscribed to 1
         System.out.println("Testing item swapping - included in plan");
@@ -1203,7 +1204,7 @@ public class WSTest  extends TestCase {
     }
 
     public void testRateCard() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         System.out.println("Testing Rate Card");
 
@@ -1334,7 +1335,7 @@ public class WSTest  extends TestCase {
     public void testVelocityRulesGeneratorTaskTest() throws Exception{
         final Integer USER_ID = 1010;
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // updates rules
         String xml =
@@ -1424,7 +1425,7 @@ public class WSTest  extends TestCase {
     }
 
     private InvoiceWS callGetLatestInvoice(int userId) throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
         return api.getLatestInvoice(userId);
     }
 
@@ -1437,7 +1438,7 @@ public class WSTest  extends TestCase {
      * @throws Exception possible API exception
      */
     private Integer callcreateOrderAndInvoice(OrderWS order) throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         Integer invoiceId = api.createOrderAndInvoice(order);
         InvoiceWS invoice = api.getInvoiceWS(invoiceId);

@@ -16,8 +16,9 @@
 
 package com.infosense.ibilling.server.pricing;
 
-import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskWS;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.ws.PluggableTaskWS;
+
 import junit.framework.TestCase;
 
 import java.math.BigDecimal;
@@ -49,14 +50,14 @@ public class PricingTestCase extends TestCase {
         Enable/disable the PricingModelPricingTask plug-in.
      */
 
-    public void enablePricingPlugin(JbillingAPI api) {
+    public void enablePricingPlugin(IbillingAPI api) {
         PluggableTaskWS plugin = api.getPluginWS(PRICING_PLUGIN_ID);
         plugin.setTypeId(MODEL_PRICING_PLUGIN_TYPE_ID);
 
         api.updatePlugin(plugin);
     }
 
-    public void disablePricingPlugin(JbillingAPI api) {
+    public void disablePricingPlugin(IbillingAPI api) {
         PluggableTaskWS plugin = api.getPluginWS(PRICING_PLUGIN_ID);
         plugin.setTypeId(RULES_PRICING_PLUGIN_TYPE_ID);
 

@@ -22,11 +22,13 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.order.OrderLineWS;
 import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +40,7 @@ public class WSTest extends TestCase {
 
     public void testGet() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // get
             // try getting one that doesn't belong to us
@@ -124,7 +126,7 @@ public class WSTest extends TestCase {
 
     public void testDelete() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
             Integer invoiceId = new Integer(1);
             assertNotNull(api.getInvoiceWS(invoiceId));
             api.deleteInvoice(invoiceId);
@@ -153,7 +155,7 @@ public class WSTest extends TestCase {
     public void testCreateInvoice() {
         try {
             final Integer USER_ID = 10730; // user has no orders
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // setup order
             OrderWS order = new OrderWS();
@@ -253,7 +255,7 @@ public class WSTest extends TestCase {
     }
 
     public void testCreateInvoiceFromOrder() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final Integer USER_ID = 10730; // user has no orders
 
@@ -313,7 +315,7 @@ public class WSTest extends TestCase {
 
     public void testCreateInvoiceSecurity() {
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
             try {
                 api.createInvoice(13, false);
                 fail("User 13 belongs to entity 2");
@@ -339,7 +341,7 @@ public class WSTest extends TestCase {
         final Integer USER_ID = 10743;          // user has one past-due invoice to be carried forward
         final Integer OVERDUE_INVOICE_ID = 70;  // holds a $20 balance
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // new order witha  single line item
         OrderWS order = new OrderWS();
@@ -392,7 +394,7 @@ public class WSTest extends TestCase {
     public void testGetUserInvoicesByDate() {
         try {
             final Integer USER_ID = 2; // user has some invoices
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // invoice dates: 2006-07-26
             // select the week
@@ -433,10 +435,10 @@ public class WSTest extends TestCase {
     public void testGetTotalAsDecimal() {
         List<Integer> invoiceIds = new ArrayList<Integer>();
         List<Integer> orderIds = new ArrayList<Integer>();
-        JbillingAPI api = null;
+        IbillingAPI api = null;
         try {
             final Integer USER_ID = 10730; // user has no orders
-            api = JbillingAPIFactory.getAPI();
+            api = IbillingAPIFactory.getAPI();
 
             // test BigDecimal behavior
             assertFalse(new BigDecimal("1.1").equals(new BigDecimal("1.10")));
@@ -474,7 +476,7 @@ public class WSTest extends TestCase {
     public void testGetPaperInvoicePDF() throws Exception {
         final Integer USER_ID = 2; // user has invoices
 
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         Integer[] invoiceIds = api.getLastInvoices(USER_ID, 1);
         assertEquals("Invoice found for user", 1, invoiceIds.length);

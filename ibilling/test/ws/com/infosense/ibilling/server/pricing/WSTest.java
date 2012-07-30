@@ -16,27 +16,18 @@
 
 package com.infosense.ibilling.server.pricing;
 
-import com.infosense.ibilling.common.SessionInternalError;
-import com.infosense.ibilling.server.item.PlanItemBundleWS;
-import com.infosense.ibilling.server.item.PlanItemWS;
-import com.infosense.ibilling.server.item.PlanWS;
-import com.infosense.ibilling.server.order.OrderLineBL;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskWS;
-import com.infosense.ibilling.server.pricing.db.PriceModelStrategy;
-import com.infosense.ibilling.server.user.ContactWS;
-import com.infosense.ibilling.server.user.UserDTOEx;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
-import junit.framework.TestCase;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Date;
-import java.util.HashMap;
+
+import com.infosense.ibilling.common.SessionInternalError;
+import com.infosense.ibilling.server.user.UserDTOEx;
+import com.infosense.ibilling.server.util.Constants;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 /**
  * @author Brian Cowdery
@@ -73,7 +64,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testCreateDeleteOrder() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         UserWS user = new UserWS();
         user.setUserName("plan-test-01-" + new Date().getTime());
@@ -138,7 +129,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testUpdateOrderSubscribe() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create user
         UserWS user = new UserWS();
@@ -214,7 +205,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testUpdateOrderUnsubscribe() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         // create user
         UserWS user = new UserWS();
@@ -294,7 +285,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testGetPlanBySubscriptionItem() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         Integer[] planIds = api.getPlansBySubscriptionItem(PLAN_ITEM_ID);
         assertEquals("Should only be 1 plan.", 1, planIds.length);
@@ -307,7 +298,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testGetPlansByAffectedItem() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         Integer[] planIds = api.getPlansByAffectedItem(PLAN_AFFECTED_ITEM_ID);
         assertEquals("Should only be 1 plan.", 1, planIds.length);
@@ -320,7 +311,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testCreateUpdateDeletePlan() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final Integer LONG_DISTANCE_PLAN_ITEM = 2700;       // long distance plan A - fixed rate
         final Integer LONG_DISTANCE_CALL = 2800;            // long distance call
@@ -392,7 +383,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testUnsubscribePlanDelete() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final Integer LONG_DISTANCE_PLAN_ITEM = 2701;       // long distance plan B - fixed rate
         final Integer LONG_DISTANCE_CALL = 2800;            // long distance call
@@ -471,7 +462,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testRateOrder() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
         enablePricingPlugin(api);
 
         UserWS user = new UserWS();
@@ -551,7 +542,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception
      */
     public void testBundledQuantity() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
         enablePricingPlugin(api);
 
         final Integer LONG_DISTANCE_PLAN_ITEM = 2700;       // long distance plan A - fixed rate
@@ -661,7 +652,7 @@ public class WSTest extends PricingTestCase {
      * @throws Exception possible api exception.
      */
     public void testWSSecurity() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
         final Integer BAD_ITEM_ID = 4;        // item belonging to entity 2
         final Integer BAD_USER_ID = 13;       // user belonging to entity 2

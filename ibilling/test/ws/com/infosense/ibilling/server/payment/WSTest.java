@@ -27,15 +27,16 @@ import junit.framework.TestCase;
 import com.infosense.ibilling.server.entity.AchDTO;
 import com.infosense.ibilling.server.entity.CreditCardDTO;
 import com.infosense.ibilling.server.entity.PaymentInfoChequeDTO;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.user.ContactWS;
 import com.infosense.ibilling.server.user.UserDTOEx;
-import com.infosense.ibilling.server.user.UserWS;
 import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.PaymentWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 /**
  * @author Emil
@@ -46,7 +47,7 @@ public class WSTest extends TestCase {
     public void testApplyGet() {
         try {
 
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             /*
              * apply payment
@@ -175,7 +176,7 @@ public class WSTest extends TestCase {
                     "Credit card number is blacklisted.",
                     "IP address is blacklisted." };
 
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             /*
              * Loop through users 1000-1005, which should fail on a respective
@@ -237,7 +238,7 @@ public class WSTest extends TestCase {
     }
 
     public void testRemoveOnCCChange() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
         final Integer userId = 868; // this is a user with a good CC
 
         // put a pre-auth record on this user
@@ -289,7 +290,7 @@ public class WSTest extends TestCase {
             messages[4] = "IP address is blacklisted.";
             messages[5] = "Phone number is blacklisted.";
 
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // check that a user isn't blacklisted
             UserWS user = api.getUserWS(USER_ID);
@@ -329,7 +330,7 @@ public class WSTest extends TestCase {
             final Integer USER_USD = 10730;
             final Integer USER_AUD = 10731;
 
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             // create a new order
             OrderWS order = new OrderWS();
@@ -395,7 +396,7 @@ public class WSTest extends TestCase {
         try {
             final Integer USER = 1072;
 
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
 
             System.out.println("Getting an invoice paid, and validating the payment.");
             OrderWS order = com.infosense.ibilling.server.order.WSTest.createMockOrder(USER, 3, new BigDecimal("3.45"));
@@ -417,7 +418,7 @@ public class WSTest extends TestCase {
 
     public void testProcessPayment(){
         try {
-            JbillingAPI api = JbillingAPIFactory.getAPI();
+            IbillingAPI api = IbillingAPIFactory.getAPI();
             final Integer USER_ID = new Integer(1071);
 
             // first, create two unpaid invoices
@@ -601,7 +602,7 @@ public class WSTest extends TestCase {
 
     public void testAchFakePayments() throws Exception {
 
-		JbillingAPI api = JbillingAPIFactory.getAPI();
+		IbillingAPI api = IbillingAPIFactory.getAPI();
 		UserWS newUser = createUser();
 		newUser.setCreditCard(null);
 

@@ -19,9 +19,9 @@ package com.infosense.ibilling.server.user.db;
 import com.infosense.ibilling.common.Constants;
 import com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDAS;
 import com.infosense.ibilling.server.invoice.db.InvoiceDeliveryMethodDTO;
-import com.infosense.ibilling.server.user.UserWS;
 import com.infosense.ibilling.server.user.partner.db.Partner;
 import com.infosense.ibilling.server.user.partner.db.PartnerDAS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 import org.apache.log4j.Logger;
 

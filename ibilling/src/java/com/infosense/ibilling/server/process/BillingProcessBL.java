@@ -69,6 +69,7 @@ import com.infosense.ibilling.server.util.PreferenceBL;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
 import com.infosense.ibilling.server.util.db.CurrencyDTO;
+import com.infosense.ibilling.server.ws.BillingProcessWS;
 
 import org.apache.log4j.Logger;
 

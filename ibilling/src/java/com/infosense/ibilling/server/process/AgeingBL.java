@@ -34,6 +34,7 @@ import com.infosense.ibilling.server.user.db.UserStatusDAS;
 import com.infosense.ibilling.server.user.db.UserStatusDTO;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.audit.EventLogger;
+import com.infosense.ibilling.server.ws.AgeingWS;
 
 import org.apache.log4j.Logger;
 

@@ -34,6 +34,7 @@ import com.infosense.ibilling.server.user.db.CompanyDAS;
 import com.infosense.ibilling.server.user.db.CompanyDTO;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.audit.EventLogger;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
 
 public class ConfigurationBL {
     private BillingProcessConfigurationDAS configurationDas = null;

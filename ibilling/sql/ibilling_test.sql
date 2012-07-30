@@ -331,6 +331,7 @@ DROP TABLE public.mediation_order_map;
 DROP TABLE public.mediation_errors;
 DROP TABLE public.mediation_cfg;
 DROP TABLE public.language;
+DROP TABLE public.ibilling_constant;
 DROP TABLE public.ibilling_table;
 DROP TABLE public.ibilling_seqs;
 DROP TABLE public.item_type_map;
@@ -1229,6 +1230,21 @@ CREATE TABLE item_type_map (
 
 
 ALTER TABLE public.item_type_map OWNER TO ibilling;
+
+--
+-- TOC entry 238 (class 1259 OID 21247)
+-- Dependencies: 6
+-- Name: ibilling_constant; Type: TABLE; Schema: public; Owner: ibilling; Tablespace: 
+--
+
+CREATE TABLE ibilling_constant (
+    id integer NOT NULL,
+    name character(30) NOT NULL,
+    content character(100) NOT NULL
+);
+
+
+ALTER TABLE public.ibilling_constant OWNER TO ibilling;
 
 --
 -- TOC entry 202 (class 1259 OID 34857)
@@ -3541,6 +3557,8 @@ COPY international_description (table_id, foreign_id, psudo_column, language_id,
 24	79	description	1	A scheduled task to execute the Mediation Process.
 24	80	title	1	Billing Process Task
 24	80	description	1	A scheduled task to execute the Billing Process.
+24	90	title	1	Plan Task
+24	90	description	1	A task to build plan.
 99	1	description	1	Referral Fee
 99	2	description	1	Payment Processor
 99	3	description	1	IP Address
@@ -3968,6 +3986,17 @@ COPY item_type_map (item_id, type_id) FROM stdin;
 2400	2305
 \.
 
+-- TOC entry 2082 (class 0 OID 21247)
+-- Dependencies: 238
+-- Data for Name: ibilling_constant; Type: TABLE DATA; Schema: public; Owner: ibilling
+--
+
+COPY ibilling_constant (id, name, content) FROM stdin;
+3	os.win2003.32                 	2316                                                                                                
+1	cpu.generic                   	2317                                                                                                
+2	memory.generic                	2320                                                                                                
+4	rule.plan                     	http://localhost:8000/drools-guvnor/org.drools.guvnor.Guvnor/package/ItemManagement/LATEST          
+\.
 
 --
 -- TOC entry 2672 (class 0 OID 34857)
@@ -4934,6 +4963,7 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 87	24	com.infosense.ibilling.server.process.task.BasicAgeingTask	0
 88	22	com.infosense.ibilling.server.process.task.AgeingProcessTask	0
 89	24	com.infosense.ibilling.server.process.task.BusinessDayAgeingTask	0
+90	1	com.infosense.ibilling.server.order.task.PlanOrderTask	0
 \.
 
 
@@ -5504,7 +5534,15 @@ ALTER TABLE ONLY generic_status
 ALTER TABLE ONLY generic_status_type
     ADD CONSTRAINT generic_status_type_pkey PRIMARY KEY (id);
 
+--
+-- TOC entry 2081 (class 2606 OID 21253)
+-- Dependencies: 238 238
+-- Name: ibilling_constant_pkey; Type: CONSTRAINT; Schema: public; Owner: ibilling; Tablespace: 
+--
 
+ALTER TABLE ONLY ibilling_constant
+    ADD CONSTRAINT ibilling_constant_pkey PRIMARY KEY (id);
+    
 --
 -- TOC entry 2356 (class 2606 OID 35118)
 -- Dependencies: 192 192 192 192 192

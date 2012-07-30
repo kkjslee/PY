@@ -17,17 +17,17 @@
 package com.infosense.ibilling.client.user
 
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
-import com.infosense.ibilling.server.user.UserWS
 import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 import com.infosense.ibilling.server.entity.CreditCardDTO
 import com.infosense.ibilling.server.user.CreditCardBL
 import com.infosense.ibilling.common.Constants
-import com.infosense.ibilling.server.user.ContactWS
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.entity.AchDTO
 import org.apache.log4j.Logger
 import org.springframework.security.authentication.encoding.PasswordEncoder
 import com.infosense.ibilling.server.util.Context
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 /**
  * UserHelper 

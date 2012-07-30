@@ -16,20 +16,23 @@
 
 package com.infosense.ibilling.server.process;
 
-import com.infosense.ibilling.server.invoice.InvoiceWS;
-import com.infosense.ibilling.server.order.OrderLineWS;
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.user.UserDTOEx;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
-import junit.framework.TestCase;
-import org.joda.time.DateMidnight;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import junit.framework.TestCase;
+
+import org.joda.time.DateMidnight;
+
+import com.infosense.ibilling.server.user.UserDTOEx;
+import com.infosense.ibilling.server.util.Constants;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 /**
  * AgeingTest
@@ -72,7 +75,7 @@ public class AgeingTest extends TestCase {
      * @throws Exception unhandled exception from API
      */
     public void testAgeing() throws Exception {
-        JbillingAPI api = JbillingAPIFactory.getAPI();
+        IbillingAPI api = IbillingAPIFactory.getAPI();
 
 
         // configure billing so that the generated invoices due date will be 1 month after the invoice

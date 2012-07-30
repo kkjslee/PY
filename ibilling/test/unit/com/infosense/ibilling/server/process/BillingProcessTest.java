@@ -16,21 +16,6 @@
 
 package com.infosense.ibilling.server.process;
 
-import com.infosense.ibilling.common.Util;
-import com.infosense.ibilling.server.invoice.InvoiceWS;
-import com.infosense.ibilling.server.order.OrderProcessWS;
-import com.infosense.ibilling.server.order.OrderWS;
-import com.infosense.ibilling.server.process.BillingProcessConfigurationWS;
-import com.infosense.ibilling.server.user.UserDTOEx;
-import com.infosense.ibilling.server.user.UserWS;
-import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.api.JbillingAPI;
-import com.infosense.ibilling.server.util.api.JbillingAPIException;
-import com.infosense.ibilling.server.util.api.JbillingAPIFactory;
-import junit.framework.TestCase;
-import org.hibernate.ObjectNotFoundException;
-import org.joda.time.DateMidnight;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -38,6 +23,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import junit.framework.TestCase;
+
+import org.joda.time.DateMidnight;
+
+import com.infosense.ibilling.common.Util;
+import com.infosense.ibilling.server.user.UserDTOEx;
+import com.infosense.ibilling.server.util.Constants;
+import com.infosense.ibilling.server.util.api.IbillingAPI;
+import com.infosense.ibilling.server.util.api.IbillingAPIException;
+import com.infosense.ibilling.server.util.api.IbillingAPIFactory;
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
+import com.infosense.ibilling.server.ws.BillingProcessWS;
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.OrderProcessWS;
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.ProcessRunTotalWS;
+import com.infosense.ibilling.server.ws.ProcessRunWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 
 /**
@@ -49,7 +53,7 @@ import java.util.List;
  */
 public class BillingProcessTest extends TestCase {
 
-    private JbillingAPI api;
+    private IbillingAPI api;
 
     GregorianCalendar cal;
     Date processDate = null;
@@ -65,7 +69,7 @@ public class BillingProcessTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        api = JbillingAPIFactory.getAPI();
+        api = IbillingAPIFactory.getAPI();
 
         languageId = new Integer(1);
         cal = new GregorianCalendar();
@@ -615,7 +619,7 @@ public class BillingProcessTest extends TestCase {
 	                             orderTotal, invoiceTotal);
 	            }
 	        }
-        }catch (JbillingAPIException e) {
+        }catch (IbillingAPIException e) {
 		// TODO Auto-generated catch block
         	e.printStackTrace();
         }
@@ -915,7 +919,7 @@ public class BillingProcessTest extends TestCase {
 				 if (invoice != null && invoice.getIsReview() == 1)
 		                return invoice;
 				 
-			} catch (JbillingAPIException e) {
+			} catch (IbillingAPIException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -932,7 +936,7 @@ public class BillingProcessTest extends TestCase {
 				if (invoice != null && invoice.getIsReview() == 0)
 	                return invoice;
 				
-			} catch (JbillingAPIException e) {
+			} catch (IbillingAPIException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

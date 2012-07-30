@@ -24,7 +24,7 @@ import com.infosense.ibilling.server.user.db.CompanyDTO;
 import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.user.partner.db.Partner;
 import com.infosense.ibilling.server.util.Constants;
-import com.infosense.ibilling.server.util.CurrencyWS;
+import com.infosense.ibilling.server.ws.CurrencyWS;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.Cache;

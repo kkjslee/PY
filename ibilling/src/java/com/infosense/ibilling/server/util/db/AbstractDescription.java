@@ -17,17 +17,15 @@
 package com.infosense.ibilling.server.util.db;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.apache.tools.ant.types.Description;
 
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.util.Context;
 
 public abstract class AbstractDescription implements Serializable {
 
-	private Map<Integer, String> descriptions = null;
+	private Map<Integer, String> descriptions = new HashMap<Integer, String>();
 
 	private static final int DEFAULT_LANGUAGE = 1;
 

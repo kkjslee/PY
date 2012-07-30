@@ -32,6 +32,13 @@ public class PluggableTaskTypeDAS extends AbstractDAS<PluggableTaskTypeDTO> {
 	        "  FROM PluggableTaskTypeDTO b " + 
 	        " WHERE b.category.id = :category" +
 	        " ORDER BY b.id";
+    
+    private static final String findByCategoryAndClzSQL =
+	        "SELECT b " +
+	        "  FROM PluggableTaskTypeDTO b " + 
+	        " WHERE b.category.id = :category" +
+	        " AND b.class_name = :classname" +
+	        " ORDER BY b.id";
 
 	public List<PluggableTaskTypeDTO> findAllByCategory(Integer categoryId) {
 		LOG.debug("finding types for category " + categoryId);
@@ -42,6 +49,16 @@ public class PluggableTaskTypeDAS extends AbstractDAS<PluggableTaskTypeDTO> {
 		LOG.debug("found " + ret.size());
 
         return ret;
+	}
+	
+	public PluggableTaskTypeDTO findByCategoryAndClz(Integer categoryId, Class<?> clz) {
+		LOG.debug("finding types for category " + categoryId);
+		Query query = getSession().createQuery(findByCategoryAndClzSQL);
+        query.setParameter("category", categoryId);
+        query.setParameter("classname", clz.getName());
+        query.setComment("PluggableTaskTypeDAS.findByCategoryAndClz");
+        PluggableTaskTypeDTO ret = (PluggableTaskTypeDTO) query.uniqueResult();
+		return ret;
 	}
 
 }

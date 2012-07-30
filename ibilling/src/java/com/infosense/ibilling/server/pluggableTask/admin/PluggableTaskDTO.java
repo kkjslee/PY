@@ -18,7 +18,6 @@ package com.infosense.ibilling.server.pluggableTask.admin;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,6 +38,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import com.infosense.ibilling.server.ws.PluggableTaskWS;
 
 
 @Entity
@@ -156,7 +157,7 @@ public class PluggableTaskDTO implements java.io.Serializable {
         this.type = type;
     }
 
-    protected int getVersionNum() { return versionNum; }
+    public int getVersionNum() { return versionNum; }
 
     public void populateParamValues() {
         if (parameters != null) {

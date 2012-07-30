@@ -22,10 +22,10 @@ import grails.plugins.springsecurity.Secured
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.db.LanguageDTO
 import com.infosense.ibilling.server.util.db.InternationalDescription
-import com.infosense.ibilling.server.util.InternationalDescriptionWS
+import com.infosense.ibilling.server.ws.InternationalDescriptionWS;
+import com.infosense.ibilling.server.ws.OrderPeriodWS;
 import com.infosense.ibilling.common.SessionInternalError
 import com.infosense.ibilling.server.order.db.OrderPeriodDTO
-import com.infosense.ibilling.server.order.OrderPeriodWS
 
 import com.infosense.ibilling.server.payment.tasks.PaymentSageTask.Params;
 import com.infosense.ibilling.server.process.db.PeriodUnitDTO

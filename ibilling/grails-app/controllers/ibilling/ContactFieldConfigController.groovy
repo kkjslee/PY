@@ -20,9 +20,9 @@ import grails.plugins.springsecurity.Secured
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.db.LanguageDTO
 import com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDTO
-import com.infosense.ibilling.server.user.contact.ContactFieldTypeWS
 import com.infosense.ibilling.server.util.db.InternationalDescription
-import com.infosense.ibilling.server.util.InternationalDescriptionWS
+import com.infosense.ibilling.server.ws.ContactFieldTypeWS;
+import com.infosense.ibilling.server.ws.InternationalDescriptionWS;
 import com.infosense.ibilling.common.SessionInternalError
 
 /**

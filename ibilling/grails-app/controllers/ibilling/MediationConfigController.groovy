@@ -19,10 +19,10 @@ package ibilling
 import grails.plugins.springsecurity.Secured
 
 import com.infosense.ibilling.common.SessionInternalError
-import com.infosense.ibilling.server.mediation.MediationConfigurationWS
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDAS
 import com.infosense.ibilling.server.util.Constants
+import com.infosense.ibilling.server.ws.MediationConfigurationWS;
 
 /**
 * MediationConfigController

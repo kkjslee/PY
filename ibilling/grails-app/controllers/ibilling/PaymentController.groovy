@@ -24,20 +24,20 @@ import com.infosense.ibilling.server.payment.db.PaymentDTO
 import com.infosense.ibilling.server.user.db.CompanyDTO
 
 import org.hibernate.Criteria
-import com.infosense.ibilling.server.payment.PaymentWS
 import com.infosense.ibilling.server.entity.CreditCardDTO
 import com.infosense.ibilling.server.user.CreditCardBL
 import com.infosense.ibilling.server.entity.AchDTO
 import com.infosense.ibilling.server.entity.PaymentInfoChequeDTO
 import com.infosense.ibilling.common.SessionInternalError
 import com.infosense.ibilling.server.item.CurrencyBL
-import com.infosense.ibilling.server.invoice.InvoiceWS
 
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import com.infosense.ibilling.common.Util
 import com.infosense.ibilling.common.Constants
 import com.infosense.ibilling.server.util.csv.CsvExporter
 import com.infosense.ibilling.server.util.csv.Exporter
+import com.infosense.ibilling.server.ws.InvoiceWS;
+import com.infosense.ibilling.server.ws.PaymentWS;
 import com.infosense.ibilling.client.util.DownloadHelper
 import com.infosense.ibilling.client.util.SortableCriteria
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils

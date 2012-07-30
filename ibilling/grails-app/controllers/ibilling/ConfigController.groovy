@@ -17,22 +17,23 @@
 package ibilling
 
 import com.infosense.ibilling.common.SessionInternalError
-import com.infosense.ibilling.server.process.AgeingWS
 import com.infosense.ibilling.server.user.contact.db.ContactDTO
 import com.infosense.ibilling.server.user.contact.db.ContactMapDTO
 import com.infosense.ibilling.server.user.contact.db.ContactTypeDTO
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.Constants
-import com.infosense.ibilling.server.util.PreferenceTypeWS
-import com.infosense.ibilling.server.util.PreferenceWS
 import com.infosense.ibilling.server.util.db.PreferenceTypeDTO
 import com.infosense.ibilling.common.Util
 import grails.plugins.springsecurity.Secured
 import com.infosense.ibilling.server.util.db.CurrencyDTO
 import com.infosense.ibilling.server.item.CurrencyBL
-import com.infosense.ibilling.server.util.CurrencyWS
-import com.infosense.ibilling.server.user.ContactWS
-import com.infosense.ibilling.server.user.CompanyWS
+import com.infosense.ibilling.server.ws.AgeingWS;
+import com.infosense.ibilling.server.ws.CompanyWS;
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.CurrencyWS;
+import com.infosense.ibilling.server.ws.PreferenceTypeWS;
+import com.infosense.ibilling.server.ws.PreferenceWS;
+
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
 /**

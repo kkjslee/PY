@@ -23,11 +23,12 @@ import com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO
 
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.Constants
-import com.infosense.ibilling.server.util.PreferenceTypeWS
-import com.infosense.ibilling.server.util.PreferenceWS
 import com.infosense.ibilling.server.util.db.LanguageDTO
 import com.infosense.ibilling.server.util.db.NotificationCategoryDTO
 import com.infosense.ibilling.server.util.db.PreferenceDTO
+import com.infosense.ibilling.server.ws.PreferenceTypeWS;
+import com.infosense.ibilling.server.ws.PreferenceWS;
+
 import grails.plugins.springsecurity.Secured
 import com.infosense.ibilling.common.SessionInternalError;
 

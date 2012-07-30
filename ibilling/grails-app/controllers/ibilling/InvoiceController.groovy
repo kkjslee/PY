@@ -23,13 +23,14 @@ import ibilling.RecentItemType;
 import com.infosense.ibilling.client.util.DownloadHelper
 import com.infosense.ibilling.client.util.SortableCriteria
 import com.infosense.ibilling.common.SessionInternalError
-import com.infosense.ibilling.server.invoice.InvoiceWS
 import com.infosense.ibilling.server.invoice.db.InvoiceDTO
 import com.infosense.ibilling.server.invoice.db.InvoiceStatusDAS
 import com.infosense.ibilling.server.item.CurrencyBL
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.csv.CsvExporter
 import com.infosense.ibilling.server.util.csv.Exporter
+import com.infosense.ibilling.server.ws.InvoiceWS;
+
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap

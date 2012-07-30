@@ -17,7 +17,8 @@
 package ibilling
 
 import grails.plugins.springsecurity.Secured;
-import com.infosense.ibilling.server.process.BillingProcessConfigurationWS;
+
+import com.infosense.ibilling.server.ws.BillingProcessConfigurationWS;
 import com.infosense.ibilling.common.SessionInternalError;
 import java.text.SimpleDateFormat;
 import java.util.Date;

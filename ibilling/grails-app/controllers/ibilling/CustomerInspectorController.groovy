@@ -20,10 +20,10 @@ import com.infosense.ibilling.server.invoice.db.InvoiceDTO
 import com.infosense.ibilling.server.item.CurrencyBL
 import com.infosense.ibilling.server.order.db.OrderDAS
 import com.infosense.ibilling.server.payment.db.PaymentDTO
-import com.infosense.ibilling.server.user.ContactWS
 import com.infosense.ibilling.server.user.contact.db.ContactTypeDAS
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.user.db.UserDTO
+import com.infosense.ibilling.server.ws.ContactWS;
 import com.infosense.ibilling.server.payment.blacklist.BlacklistBL
 import grails.plugins.springsecurity.Secured
 

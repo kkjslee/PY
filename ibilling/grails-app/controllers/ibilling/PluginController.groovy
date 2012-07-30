@@ -30,9 +30,9 @@ import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCatego
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDAS 
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO;
-import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskWS;
 import com.infosense.ibilling.server.user.UserBL 
 import com.infosense.ibilling.server.util.WebServicesSessionSpringBean;
+import com.infosense.ibilling.server.ws.PluggableTaskWS;
 import com.infosense.ibilling.common.SessionInternalError;
 
 import org.springframework.context.support.ReloadableResourceBundleMessageSource 

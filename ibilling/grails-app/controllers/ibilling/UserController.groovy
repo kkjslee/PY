@@ -21,7 +21,6 @@ import com.infosense.ibilling.client.user.UserHelper
 import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.SessionInternalError
 import com.infosense.ibilling.server.user.UserBL
-import com.infosense.ibilling.server.user.UserWS
 import com.infosense.ibilling.server.user.contact.db.ContactDTO
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.user.db.UserDTO
@@ -30,6 +29,8 @@ import com.infosense.ibilling.server.user.permisson.db.PermissionTypeDTO
 import com.infosense.ibilling.server.user.permisson.db.RoleDTO
 import com.infosense.ibilling.server.util.Constants
 import com.infosense.ibilling.server.util.IWebServicesSessionBean
+import com.infosense.ibilling.server.ws.UserWS;
+
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.hibernate.FetchMode as FM

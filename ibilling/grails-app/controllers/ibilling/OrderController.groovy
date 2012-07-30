@@ -29,12 +29,10 @@ import com.infosense.ibilling.server.invoice.InvoiceBL
 import com.infosense.ibilling.server.invoice.db.InvoiceDAS
 import com.infosense.ibilling.server.item.CurrencyBL
 import com.infosense.ibilling.server.order.OrderBL
-import com.infosense.ibilling.server.order.OrderWS
 import com.infosense.ibilling.server.order.db.OrderDAS
 import com.infosense.ibilling.server.order.db.OrderDTO
 import com.infosense.ibilling.server.order.db.OrderPeriodDAS
 import com.infosense.ibilling.server.order.db.OrderStatusDAS
-import com.infosense.ibilling.server.user.UserWS
 import com.infosense.ibilling.server.user.db.CustomerDTO
 import com.infosense.ibilling.server.user.db.UserDAS
 import com.infosense.ibilling.server.user.db.UserDTO
@@ -43,6 +41,9 @@ import com.infosense.ibilling.server.util.csv.Exporter
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import com.infosense.ibilling.server.user.db.CompanyDTO
+import com.infosense.ibilling.server.ws.OrderWS;
+import com.infosense.ibilling.server.ws.UserWS;
+
 import org.hibernate.FetchMode
 import org.hibernate.criterion.Restrictions
 import org.hibernate.criterion.Criterion

@@ -35,8 +35,9 @@ import com.infosense.ibilling.client.EntityDefaults
 import javax.validation.constraints.NotNull
 import com.infosense.ibilling.common.SessionInternalError
 import com.infosense.ibilling.server.util.api.validation.EntitySignupValidationGroup
-import com.infosense.ibilling.server.user.ContactWS
-import com.infosense.ibilling.server.user.UserWS
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.UserWS;
+
 import javax.validation.groups.Default
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 

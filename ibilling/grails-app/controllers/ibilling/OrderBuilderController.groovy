@@ -23,14 +23,14 @@ package ibilling
 import grails.plugins.springsecurity.Secured
 import com.infosense.ibilling.server.item.db.ItemDTO
 import com.infosense.ibilling.server.user.db.CompanyDTO
-import com.infosense.ibilling.server.order.OrderWS
 import com.infosense.ibilling.server.user.db.UserDTO
 
 import com.infosense.ibilling.server.order.db.OrderPeriodDTO
 import com.infosense.ibilling.server.order.db.OrderBillingTypeDTO
 import com.infosense.ibilling.server.util.Constants
 import com.infosense.ibilling.server.user.contact.db.ContactDTO
-import com.infosense.ibilling.server.order.OrderLineWS
+import com.infosense.ibilling.server.ws.OrderLineWS;
+import com.infosense.ibilling.server.ws.OrderWS;
 import com.infosense.ibilling.common.SessionInternalError
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 

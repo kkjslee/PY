@@ -26,7 +26,6 @@ import com.infosense.ibilling.common.SessionInternalError
 
 import com.infosense.ibilling.server.item.CurrencyBL
 
-import com.infosense.ibilling.server.user.UserWS
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.user.db.UserDTO
 import com.infosense.ibilling.server.user.db.UserStatusDAS
@@ -52,12 +51,13 @@ import org.hibernate.criterion.Subqueries
 import org.hibernate.criterion.Restrictions
 import org.hibernate.criterion.Criterion
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-import com.infosense.ibilling.server.user.ContactWS
 import com.infosense.ibilling.server.user.contact.db.ContactDAS
 
 import com.infosense.ibilling.server.process.db.PeriodUnitDTO
 import org.apache.commons.lang.StringUtils
 import com.infosense.ibilling.server.user.contact.db.ContactFieldTypeDAS
+import com.infosense.ibilling.server.ws.ContactWS;
+import com.infosense.ibilling.server.ws.UserWS;
 
 @Secured(["MENU_90"])
 class CustomerController {

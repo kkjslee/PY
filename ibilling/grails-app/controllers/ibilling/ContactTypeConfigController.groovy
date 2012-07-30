@@ -21,9 +21,9 @@ import com.infosense.ibilling.server.user.contact.db.ContactTypeDTO
 import com.infosense.ibilling.server.user.contact.db.ContactDTO
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.db.LanguageDTO
-import com.infosense.ibilling.server.user.ContactTypeWS
 import com.infosense.ibilling.server.util.db.InternationalDescription
-import com.infosense.ibilling.server.util.InternationalDescriptionWS
+import com.infosense.ibilling.server.ws.ContactTypeWS;
+import com.infosense.ibilling.server.ws.InternationalDescriptionWS;
 import com.infosense.ibilling.common.SessionInternalError
 
 /**

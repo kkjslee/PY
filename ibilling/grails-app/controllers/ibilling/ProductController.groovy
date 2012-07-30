@@ -24,12 +24,13 @@ import com.infosense.ibilling.common.SessionInternalError
 import com.infosense.ibilling.server.item.CurrencyBL
 import com.infosense.ibilling.server.item.ItemDTOEx
 import com.infosense.ibilling.server.item.ItemPriceDTOEx
-import com.infosense.ibilling.server.item.ItemTypeWS
 import com.infosense.ibilling.server.item.db.ItemDTO
 import com.infosense.ibilling.server.item.db.ItemTypeDTO
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.csv.CsvExporter
 import com.infosense.ibilling.server.util.csv.Exporter
+import com.infosense.ibilling.server.ws.ItemTypeWS;
+
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils

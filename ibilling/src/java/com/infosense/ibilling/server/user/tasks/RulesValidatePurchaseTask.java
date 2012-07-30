@@ -36,9 +36,9 @@ import com.infosense.ibilling.server.pluggableTask.PluggableTask;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
 import com.infosense.ibilling.server.user.ContactBL;
 import com.infosense.ibilling.server.user.ContactDTOEx;
-import com.infosense.ibilling.server.user.ValidatePurchaseWS;
 import com.infosense.ibilling.server.user.contact.db.ContactFieldDTO;
 import com.infosense.ibilling.server.user.db.CustomerDTO;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
 
 import java.util.ArrayList;
 

@@ -23,8 +23,8 @@ import java.util.List;
 import com.infosense.ibilling.server.item.PricingField;
 import com.infosense.ibilling.server.item.db.ItemDTO;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
-import com.infosense.ibilling.server.user.ValidatePurchaseWS;
 import com.infosense.ibilling.server.user.db.CustomerDTO;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
 
 /**
  * Pluggable task type category for validatePurchase API method.

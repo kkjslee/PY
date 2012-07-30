@@ -24,13 +24,13 @@ import com.infosense.ibilling.server.item.PricingField;
 import com.infosense.ibilling.server.item.db.ItemDTO;
 import com.infosense.ibilling.server.pluggableTask.PluggableTask;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
-import com.infosense.ibilling.server.user.ValidatePurchaseWS;
 import com.infosense.ibilling.server.user.balance.IUserBalanceValidation;
 import com.infosense.ibilling.server.user.balance.ValidatorCreditLimit;
 import com.infosense.ibilling.server.user.balance.ValidatorNone;
 import com.infosense.ibilling.server.user.balance.ValidatorPrePaid;
 import com.infosense.ibilling.server.user.db.CustomerDTO;
 import com.infosense.ibilling.server.util.Constants;
+import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
 
 /**
  * Pluggable task determines result for validatePurchase API method 

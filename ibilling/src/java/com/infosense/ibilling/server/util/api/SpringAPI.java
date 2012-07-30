@@ -25,6 +25,11 @@ import com.infosense.ibilling.server.ws.UserTransitionResponseWS;
 import com.infosense.ibilling.server.ws.UserWS;
 import com.infosense.ibilling.server.ws.ValidatePurchaseWS;
 
+/**
+ * The implementation of IbillingAPI
+ * @see com.infosense.ibilling.server.util.api.IbillingAPI 
+ *
+ */
 public class SpringAPI implements IbillingAPI {
 
     private IWebServicesSessionBean session = null;

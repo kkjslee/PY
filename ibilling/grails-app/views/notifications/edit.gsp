@@ -88,14 +88,14 @@
             $(popUpRef).dialog('close');
             $('#askPreference').val('saveFirst');
             glFlag=false;
-            document.forms["notifications"].action='/jbilling/notifications/saveAndCancel/' + $('#_id').val();
+            document.forms["notifications"].action='/ibilling/notifications/saveAndCancel/' + $('#_id').val();
             document.forms["notifications"].submit();
         }
 
         function cancelNoSave(popUpRef) {
             $(popUpRef).dialog('close');
             glFlag=false;
-            document.forms["notifications"].action='/jbilling/notifications/cancelEdit/' + $('#_id').val();
+            document.forms["notifications"].action='/ibilling/notifications/cancelEdit/' + $('#_id').val();
             document.forms["notifications"].submit();
         }
 		

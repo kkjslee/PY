@@ -211,8 +211,23 @@ public class NotificationBL extends ResultList implements NotificationSQL {
                 .toArray()[0]);
         PersistentSet nm = (PersistentSet) nnnn.getNotificationMessageLines();
         messageDas.save(messageRow);
+        
+        //if the default notification's useflag is set to false, set all the other languages' to false
+        if(dto.getLanguageId()==AbstractDescription.DEFAULT_LANGUAGE && messageRow.getUseFlag()==0){
+        	updateUseFlage(dto.getTypeId(), entityId, messageRow.getUseFlag());
+        }
 
         return messageRow.getId();
+    }
+    
+    private void updateUseFlage(Integer typeId, Integer entityId, short useFlag){
+    	List<NotificationMessageDTO> nmDtoLst = messageDas.findList(typeId, entityId);
+    	if(nmDtoLst==null) return;
+    	
+    	for(NotificationMessageDTO nmDto : nmDtoLst){
+    		nmDto.setUseFlag(useFlag);
+    		messageDas.save(nmDto);
+    	}
     }
 
     /*

@@ -101,11 +101,11 @@ class NotificationsController {
 		}
 		
 		if (!params.get('language.id')) {
-			if(defulatDto == null){
+			if(defulatDto == null || defulatDto.useFlag==0){
 				dto = defulatDto
 				_languageId = AbstractDescription.DEFAULT_LANGUAGE
 			}else{
-				if(dto==null){
+				if(dto==null || dto.useFlag==0){
 					dto = defulatDto
 					_languageId = AbstractDescription.DEFAULT_LANGUAGE
 				}
@@ -280,15 +280,40 @@ class NotificationsController {
 		}
 		Integer entityId = webServicesSession.getCallerCompanyId()?.toInteger()
 
-		log.debug  "Language Id Set to ${_languageId}, Entity ${entityId}, askPreference= ${askPreference}"
+		log.debug  "Language Id Set to ${_languageId}, Entity ${entityId}, askPreference= $askPreference}"
 
 		NotificationMessageTypeDTO typeDto= NotificationMessageTypeDTO.findById(messageTypeId)
 		NotificationMessageDTO dto=null
+		NotificationMessageDTO defulatDto=null
 		for (NotificationMessageDTO messageDTO: typeDto.getNotificationMessages()) {
-			if (messageDTO?.getEntity()?.getId().equals(entityId)
-			&& messageDTO.getLanguage().getId().equals(_languageId)) {
+			if (messageDTO?.getEntity()?.getId()?.equals(entityId)
+				&& messageDTO.getLanguage().getId().equals(_languageId)) {
 				dto= messageDTO;
-				break;
+			}
+				
+			if (messageDTO?.getEntity()?.getId()?.equals(entityId)
+				&& messageDTO.getLanguage().getId().equals(AbstractDescription.DEFAULT_LANGUAGE)) {
+				defulatDto= messageDTO;
+			}
+			
+			if(dto!=null && defulatDto!=null){
+				break
+			}
+		}
+		
+		if (params.get('language.id')) {
+			if(defulatDto == null || defulatDto.useFlag==0){
+				if(_languageId != AbstractDescription.DEFAULT_LANGUAGE){
+					flash.error = 'notification.edit.default.first'
+				}
+				
+				dto = defulatDto
+				_languageId = AbstractDescription.DEFAULT_LANGUAGE
+			}
+		}else{
+			if(defulatDto == null || defulatDto.useFlag==0){
+				dto = defulatDto
+				_languageId = AbstractDescription.DEFAULT_LANGUAGE
 			}
 		}
 		breadcrumbService.addBreadcrumb(controllerName, actionName, null, messageTypeId)

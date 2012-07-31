@@ -15,6 +15,7 @@
  */
 package com.infosense.ibilling.server.notification.db;
 
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -32,6 +33,23 @@ import com.infosense.ibilling.server.util.db.LanguageDTO;
  * 
  */
 public class NotificationMessageDAS extends AbstractDAS<NotificationMessageDTO> {
+	
+	public List<NotificationMessageDTO> findList(Integer typeId, Integer entityId) {
+
+        /*
+         * query="SELECT OBJECT(a) FROM notification_message a WHERE a.type.id =
+         * ?1 AND a.entityId = ?2"
+         * result-type-mapping="Local"
+         */
+        Criteria criteria = getSession().createCriteria(
+                NotificationMessageDTO.class);
+        criteria.createAlias("entity", "e").add(
+                Restrictions.eq("e.id", entityId.intValue()));
+        criteria.createAlias("notificationMessageType", "nmt").add(
+                Restrictions.eq("nmt.id", typeId.intValue()));
+
+        return (List<NotificationMessageDTO>)criteria.list();
+    }
 
     public NotificationMessageDTO findIt(Integer typeId, Integer entityId,
             Integer languageId) {

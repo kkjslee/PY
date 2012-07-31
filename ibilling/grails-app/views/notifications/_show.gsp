@@ -15,11 +15,12 @@
   --}%
 
 <%@ page import="com.infosense.ibilling.server.util.db.LanguageDTO"%>
+
 <div class="column-hold">
 	
 	<div class="heading">
 		<strong style="width: 100%">
-			${dto?.notificationMessageType?.getDescription(languageDto.id)}
+			${dto?.notificationMessageType?.getDescription(session['language_id'])}
 			<!-- <g:message code="prompt.edit.notification"/> -->
 		</strong>
 	</div>
@@ -116,7 +117,7 @@
 	</div>
 	
 	<div class="btn-box">
-	    <a href="${createLink(action: 'edit', params: [id:messageTypeId])}" class="submit edit">
+	    <a href="${createLink(action: 'edit', params: [id:messageTypeId, 'language.id': languageDto.id])}" class="submit edit">
 	    	<span><g:message code="button.edit"/></span></a>
 	</div>
 </div>

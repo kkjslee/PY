@@ -92,6 +92,7 @@ import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.PreferenceBL;
 import com.infosense.ibilling.server.util.Util;
+import com.infosense.ibilling.server.util.db.AbstractDescription;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -146,6 +147,9 @@ public class NotificationBL extends ResultList implements NotificationSQL {
     public void set(Integer type, Integer languageId, Integer entityId) {
         messageRow = messageDas.findIt(type, entityId, languageId);
         
+        if(messageRow==null){
+        	messageRow = messageDas.findIt(type, entityId, AbstractDescription.DEFAULT_LANGUAGE);
+        }
     }
 
     public MessageDTO getDTO() throws SessionInternalError {

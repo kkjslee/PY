@@ -27,7 +27,7 @@ public abstract class AbstractDescription implements Serializable {
 
 	private Map<Integer, String> descriptions = new HashMap<Integer, String>();
 
-	private static final int DEFAULT_LANGUAGE = 1;
+	public static final int DEFAULT_LANGUAGE = 1;
 
 	abstract public int getId();
 

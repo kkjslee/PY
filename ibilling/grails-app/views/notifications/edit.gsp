@@ -62,7 +62,7 @@
 			checkCookieValue();
 			$('#askPreference').val('saveFirst');
 			glFlag=false;
-			document.forms["notifications"].action='/jbilling/notifications/saveAndRedirect/' + $('#_id').val();
+			document.forms["notifications"].action='/ibilling/notifications/saveAndRedirect/' + $('#_id').val();
             document.forms["notifications"].submit();
 		}
 		
@@ -70,7 +70,7 @@
 			glFlag= false;
 			$('#askPreference').val('justGo');
 			//alert (document.getElementById('language.id').value);
-		    document.forms["notifications"].action='/jbilling/notifications/edit/' + $('#_id').val();
+		    document.forms["notifications"].action='/ibilling/notifications/edit/' + $('#_id').val();
 		    document.forms["notifications"].submit();	
 		}
 

@@ -13,6 +13,7 @@
   Dissemination of this information or reproduction of this material
   is strictly forbidden.
   --}%
+<%@page import="com.infosense.ibilling.server.util.db.AbstractDescription;"%>
 
 <g:set var="languageId" value="${session['language_id'] as Integer}"/>
 <g:set var="entityId" value="${session['company_id'] as Integer}"/>
@@ -29,11 +30,12 @@
     			<td><g:remoteLink breadcrumb="id" class="cell" action="show" id="${dto.id}" params="['template': 'show']"
     	                   before="register(this);" onSuccess="render(data, next);">
     				    <strong>${dto.getDescription(languageId)}</strong></g:remoteLink></td>
-                <td>
+                <td><g:remoteLink breadcrumb="id" class="cell" action="show" id="${dto.id}" params="['template': 'show']"
+    	                   before="register(this);" onSuccess="render(data, next);">
     				<g:set var="flag" value="${true}"/> 
     				<g:each status="iter" var="var" in="${dto.getNotificationMessages()}">
     					<g:if test="${flag}">
-    						<g:if test="${languageId == var.language.id 
+    						<g:if test="${AbstractDescription.DEFAULT_LANGUAGE == var.language.id 
     							&& var.entity.id == entityId && var.useFlag > 0}">
     								<g:set var="flag" value="${false}"/>
     						</g:if>
@@ -49,7 +51,7 @@
         					</g:else>
     					</span>
     				</span>
-    			</td>
+    			</g:remoteLink></td>
             </tr>
 		</g:each>
 	</tbody>

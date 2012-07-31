@@ -23,6 +23,7 @@ import com.infosense.ibilling.server.notification.db.NotificationMessageTypeDTO
 
 import com.infosense.ibilling.server.user.db.CompanyDTO
 import com.infosense.ibilling.server.util.Constants
+import com.infosense.ibilling.server.util.db.AbstractDescription;
 import com.infosense.ibilling.server.util.db.LanguageDTO
 import com.infosense.ibilling.server.util.db.NotificationCategoryDTO
 import com.infosense.ibilling.server.util.db.PreferenceDTO
@@ -68,11 +69,9 @@ class NotificationsController {
 			render (view: 'listCategories', model: [selected: categoryId, lst: NotificationCategoryDTO.list(), lstByCategory: lstByCateg])
 	}
 
-	def show = {
-        log.debug  "METHOD: show"
-		log.debug  "Id is=" + params.id
+	def getShowModel () {
 		Integer messageTypeId= params.id.toInteger()
-
+		
 		Integer _languageId= session['language_id']
 		if (params.get('language.id')) {
 			log.debug  "params.language.id is not null= " + params.get('language.id')
@@ -84,15 +83,43 @@ class NotificationsController {
 		
 		NotificationMessageTypeDTO typeDto= NotificationMessageTypeDTO.findById(messageTypeId)
 		NotificationMessageDTO dto=null
+		NotificationMessageDTO defulatDto=null
 		for (NotificationMessageDTO messageDTO: typeDto.getNotificationMessages()) {
 			if (messageDTO?.getEntity()?.getId()?.equals(entityId) 
 				&& messageDTO.getLanguage().getId().equals(_languageId)) {
 				dto= messageDTO;
-				break;
+			}
+				
+			if (messageDTO?.getEntity()?.getId()?.equals(entityId)
+				&& messageDTO.getLanguage().getId().equals(AbstractDescription.DEFAULT_LANGUAGE)) {
+				defulatDto= messageDTO;
+			}
+			
+			if(dto!=null && defulatDto!=null){
+				break
 			}
 		}
 		
-		render template:"show", model:[dto:dto, messageTypeId:messageTypeId, languageDto: LanguageDTO.findById(_languageId), entityId:entityId]
+		if (!params.get('language.id')) {
+			if(defulatDto == null){
+				dto = defulatDto
+				_languageId = AbstractDescription.DEFAULT_LANGUAGE
+			}else{
+				if(dto==null){
+					dto = defulatDto
+					_languageId = AbstractDescription.DEFAULT_LANGUAGE
+				}
+			}
+		}
+		
+		return [dto:dto, messageTypeId:messageTypeId, languageDto: LanguageDTO.findById(_languageId), entityId:entityId]
+	}
+	
+	def show = {
+		log.debug  "METHOD: show"
+		log.debug  "Id is=" + params.id
+		
+		render template:"show", model: getShowModel()
 	}
 	
 	private getPreferenceMapByTypeId () {
@@ -387,22 +414,14 @@ class NotificationsController {
     
 	def cancelEdit = {
 		log.debug  "METHOD: cancelEdit\nid=${params.id}"
-		NotificationMessageTypeDTO typeDto= NotificationMessageTypeDTO.findById( Integer.parseInt (params["id"]) )
-		Integer entityId= webServicesSession.getCallerCompanyId()
-		NotificationMessageDTO dto=null
-		Integer languageId= session['language_id']
-		for (NotificationMessageDTO messageDTO: typeDto.getNotificationMessages()) {
-			if (messageDTO?.getEntity()?.getId().equals(entityId)
-			&& messageDTO.getLanguage().getId().equals(languageId)) {
-				dto= messageDTO;
-				break;
-			}
-		}
-
+		
+		def model = getShowModel()
+		NotificationMessageTypeDTO typeDto= NotificationMessageTypeDTO.findById(model.messageTypeId)
 		def lstByCateg= NotificationMessageTypeDTO.findAllByCategory(new NotificationCategoryDTO(typeDto.getCategory().getId()))
-
-		[lstByCategory:lstByCateg, entityId:entityId, dto:dto, messageTypeId:typeDto.getId(), languageDto: LanguageDTO.findById(languageId)]
-
+		
+		model.put('lstByCategory', lstByCateg)
+		
+		return model
 	}
 
 }

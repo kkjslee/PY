@@ -50,6 +50,7 @@
         <mapping class="com.infosense.ibilling.server.util.db.InternationalDescriptionId" />
         <mapping class="com.infosense.ibilling.server.util.db.AbstractGenericStatus" />
         <mapping class="com.infosense.ibilling.server.util.db.InternationalDescription" />
+        <mapping class="com.infosense.ibilling.server.util.db.IbillingConstant" />
         <mapping class="com.infosense.ibilling.server.util.db.IbillingTable" />
         <mapping class="com.infosense.ibilling.server.util.db.NotificationCategoryDTO" />
         <mapping package="com.infosense.ibilling.server.item.db" />
@@ -123,6 +124,7 @@
         <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskParameterDTO" />
         <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO" />
         <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO" />
+        <mapping class="com.infosense.ibilling.server.util.db.IbillingConstant" />
 
 
     </session-factory>

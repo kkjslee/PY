@@ -67,6 +67,12 @@
         <property name="cache" ref="cacheProviderFacade"/>
         <property name="cacheModel" ref="cacheModelReadOnly"/>
     </bean>
+    
+    <bean id="ibillingConstantDAS" class="com.infosense.ibilling.server.util.db.IbillingConstantDAS"
+          factory-method="getInstance" scope="prototype">
+        <property name="cache" ref="cacheProviderFacade"/>
+        <property name="cacheModel" ref="cacheModelReadOnly"/>
+    </bean>
 
     <bean id="pluggableTaskDAS" class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDAS"
           factory-method="getInstance" scope="prototype">

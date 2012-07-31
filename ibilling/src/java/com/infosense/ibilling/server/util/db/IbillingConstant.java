@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -23,7 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name="ibilling_constant"
     , uniqueConstraints = @UniqueConstraint(columnNames="name") 
 )
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class IbillingConstant implements Serializable {
 
 	/**
@@ -45,6 +47,7 @@ public class IbillingConstant implements Serializable {
 	}
 	
 	@Id 
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "ibilling_constant_GEN")
     @Column(name="id", unique=true, nullable=false)
 	public int getId() {
 		return id;

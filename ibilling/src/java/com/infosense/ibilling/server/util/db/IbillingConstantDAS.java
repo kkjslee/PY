@@ -24,7 +24,7 @@ public class IbillingConstantDAS extends AbstractDAS<IbillingConstant> {
             LOG.debug("Looking for constant + " + name);
             table = findByCriteriaSingle(Restrictions.eq("name", name));
             if (table == null) {
-                throw new SessionInternalError("Can not find constant " + name);
+               // throw new SessionInternalError("Can not find constant " + name);
             } else {
                 cache.putInCache("IbillingConstant" + name, cacheModel, table);
 

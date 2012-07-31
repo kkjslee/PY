@@ -6,12 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
+@TableGenerator(
+        name = "ibilling_constant_GEN", 
+        table = "ibilling_seqs", 
+        pkColumnName = "name", 
+        valueColumnName = "next_id", 
+        pkColumnValue = "ibilling_constant", 
+        allocationSize = 100)
 @Table(name="ibilling_constant"
     , uniqueConstraints = @UniqueConstraint(columnNames="name") 
 )

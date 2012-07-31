@@ -43,6 +43,7 @@ public class LanguageDTO  implements java.io.Serializable {
      private int id;
      private String code;
      private String description;
+     private String countryCode;
      private Set<NotificationMessageDTO> notificationMessages = new HashSet<NotificationMessageDTO>(0);
      private Set<CompanyDTO> entities = new HashSet<CompanyDTO>(0);
      private Set<UserDTO> baseUsers = new HashSet<UserDTO>(0);
@@ -120,6 +121,16 @@ public class LanguageDTO  implements java.io.Serializable {
     public void setBaseUsers(Set<UserDTO> baseUsers) {
         this.baseUsers = baseUsers;
     }
+
+    @Column(name="country_code", nullable=false, length=2)
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+    
 }
 
 

@@ -1,19 +1,3 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
 package com.infosense.ibilling.server.user;
 
 import java.sql.SQLException;
@@ -77,24 +61,13 @@ public class EntityBL extends ResultList
     }
     
     public Locale getLocale()  {
-        Locale retValue = null;
         // get the language first
         Integer languageId = entity.getLanguageId();
         LanguageDTO language = new LanguageDAS().find(languageId);
         String languageCode = language.getCode();
+        String countryCode = language.getCountryCode();
         
-        // now the country
-        ContactBL contact = new ContactBL();
-        contact.setEntity(entity.getId());
-        String countryCode = contact.getEntity().getCountryCode();
-        
-        if (countryCode != null) {
-            retValue = new Locale(languageCode, countryCode);
-        } else {
-            retValue = new Locale(languageCode);
-        }
-
-        return retValue;
+        return new Locale(languageCode, countryCode);
     }
 
     public ContactDTO getContact() {

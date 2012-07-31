@@ -1283,7 +1283,8 @@ ALTER TABLE public.ibilling_table OWNER TO ibilling;
 CREATE TABLE language (
     id integer NOT NULL,
     code character varying(2) NOT NULL,
-    description character varying(50) NOT NULL
+    description character varying(50) NOT NULL,
+    country_code character varying(2) NOT NULL
 );
 
 
@@ -4201,9 +4202,9 @@ COPY ibilling_table (id, name) FROM stdin;
 -- Data for Name: language; Type: TABLE DATA; Schema: public; Owner: ibilling
 --
 
-COPY language (id, code, description) FROM stdin;
-1	zh	Chinese
-2	en	English
+COPY language (id, code,description, country_code) FROM stdin;
+1	en	English	US
+2	zh	Chinese	CN
 \.
 
 

@@ -21,7 +21,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
         pkColumnName = "name", 
         valueColumnName = "next_id", 
         pkColumnValue = "ibilling_constant", 
-        allocationSize = 100)
+        allocationSize = 1)
 @Table(name="ibilling_constant"
     , uniqueConstraints = @UniqueConstraint(columnNames="name") 
 )

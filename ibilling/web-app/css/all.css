@@ -1414,18 +1414,6 @@ ul#review-lines {
 	border:1px solid #bbb;
 	background:#f5f5f5;
 }
-.form-columns .textarea textarea.field {
-	float:left;
-	width:212px;
-	height:80px;
-	padding:0;
-	margin:0;
-	color:#383838;
-	outline:none;
-	font:bold 12px/16px Arial, Helvetica, sans-serif;
-	background:none;
-	resize: none;
-}
 .form-columns .inp-bg input.field {
 	float:left;
 	width:212px;
@@ -1851,4 +1839,20 @@ table.blacklist tr.odd {
     overflow:hidden;
 	height:15px;
 	padding-top:5px;
+}
+.plans .ope a{
+	display:inline;
+	color:#FFF
+}
+.plans .submit2 span{
+	padding:0;
+}
+.plans .ope{
+	width:135px;
+}
+.plans .editp{
+	margin-right:5px;	
+}
+.plans .hidden{
+	display:none;
 }

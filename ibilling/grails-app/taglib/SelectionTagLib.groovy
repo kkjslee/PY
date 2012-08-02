@@ -129,4 +129,25 @@ class SelectionTagLib {
 		out << render(template:"/selectTag", model:[name:name, list:list, value:value])
 	}
 	
+	
+	def planDesc = { attrs, body ->
+		String idDesc = attrs.mapKey
+		if(idDesc == null)
+			out << ""
+		def index= idDesc.indexOf("#")
+		
+		if(attrs.containsKey("key")){
+			if(attrs.key =="id"){
+				out << idDesc.substring(0, index)
+			}else if(attrs.key == "desc"){
+				out << idDesc.substring(index+1)
+			}
+		}
+	}
+	def nameFilter = { attrs, body ->
+		String name = attrs.name
+		if(name == "file" || name== "url" || name =="dir"){
+			out << "disabled='true'"
+		}
+	}
 }

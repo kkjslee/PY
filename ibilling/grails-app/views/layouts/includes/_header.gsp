@@ -141,6 +141,11 @@
                     <g:link controller="plan"><span><g:message code="menu.link.plans"/></span><em></em></g:link>
                 </li>
             </sec:access>
+             <sec:access url="/plans/list">
+                <li class="${controllerName == 'plans' ? 'active' : ''}">
+                    <g:link controller="plans"><span><g:message code="menu.link.plans"/></span><em></em></g:link>
+                </li>
+            </sec:access>
             <sec:ifAllGranted roles="MENU_99">
                 %{
                     def isConfiguration = controllerName == 'config' ||

@@ -3993,10 +3993,10 @@ COPY item_type_map (item_id, type_id) FROM stdin;
 --
 
 COPY ibilling_constant (id, name, content) FROM stdin;
-3	os.win2003.32                 	2316                                                                                                
-1	cpu.generic                   	2317                                                                                                
-2	memory.generic                	2320                                                                                                
-4	rule.plan                     	http://localhost:8000/drools-guvnor/org.drools.guvnor.Guvnor/package/ItemManagement/LATEST          
+3	os.win2003.32	2316
+1	cpu.generic	2317
+2	memory.generic	2320
+4	rule.plan	http://localhost:8000/drools-guvnor/org.drools.guvnor.Guvnor/package/ItemManagement/LATEST
 \.
 
 --

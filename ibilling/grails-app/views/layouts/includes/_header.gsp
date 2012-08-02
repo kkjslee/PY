@@ -136,12 +136,14 @@
                     <g:link controller="product"><span><g:message code="menu.link.products"/></span><em></em></g:link>
                 </li>
             </sec:access>
+            <!-- 
             <sec:access url="/plan/list">
                 <li class="${controllerName == 'plan' ? 'active' : ''}">
                     <g:link controller="plan"><span><g:message code="menu.link.plans"/></span><em></em></g:link>
                 </li>
             </sec:access>
-             <sec:access url="/plans/list">
+            -->
+            <sec:access url="/plans/list">
                 <li class="${controllerName == 'plans' ? 'active' : ''}">
                     <g:link controller="plans"><span><g:message code="menu.link.plans"/></span><em></em></g:link>
                 </li>

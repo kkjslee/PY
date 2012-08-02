@@ -18,7 +18,7 @@ import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCatego
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDAS
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO
 import com.infosense.ibilling.server.ws.PluggableTaskWS
-
+import com.infosense.ibilling.server.util.Constants
 @Secured(["MENU_98"])
 class PlansController {
 	
@@ -28,6 +28,7 @@ class PlansController {
 	def breadcrumbService
 	def recentItemService
 	def viewUtils
+	def ibillingConstantDAS
 	
 	String selectedTypeName = "Plan"
 	Integer selectedTypeId = 90
@@ -76,11 +77,13 @@ class PlansController {
 		Integer maxOrderId = pluggableTaskDAS.findMaxOrderByEntityAndTypeId(entityId, categoryId)
 		Random random = new Random()
 		Integer nextOrderId = (maxOrderId?:0) + random.nextInt(5)+1
-		
+		//find url rule which configured in dbconstants
+		def constant = ibillingConstantDAS.findByName(Constants.KEY_RULE_PLAN)
+		def urlvalue = constant?.content?:null
 		// show the form with the description
 		render (view:"form", model:
 				[description:category.getDescription(session.language_id),
-				 type:type, nextOrderId:nextOrderId,
+				 type:type, nextOrderId:nextOrderId,urlvalue:urlvalue,aname:actionName,
 				 parametersDesc : getDescriptions(selectedTypeId)])
 	}
 	
@@ -143,7 +146,7 @@ class PlansController {
 			render (view:"form", model:
 				[description: category.getDescription(session.language_id),
 				 type: type,
-				 pluginws: new PluggableTaskWS(dto),
+				 pluginws: new PluggableTaskWS(dto),aname:actionName,
 				 parametersDesc : getDescriptions(dto.getType().getId())])
 		} else {
 			flash.error="plugins.error.invalid_id";

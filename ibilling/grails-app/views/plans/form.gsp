@@ -68,7 +68,7 @@
                                          <g:message code="plugins.create.parameters"/>
                                     </span>
                                 </div>
-                                <g:render template="formParameters" model="[parametersDesc:parametersDesc]"/>
+                                <g:render template="formParameters" model="[parametersDesc:parametersDesc,aname:aname]"/>
                             </div>
                             <!-- box text -->
                             <div class="box-text">

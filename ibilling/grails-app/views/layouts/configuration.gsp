@@ -138,6 +138,11 @@
                             <g:message code="configuration.menu.contactType"/>
                         </g:link>
                     </li>
+                     <li class="${pageProperty(name: 'page.menu.item') == 'dbconstant' ? 'active' : ''}">
+                        <g:link controller="DBConstant">
+                            <g:message code="configuration.menu.dbConstant"/>
+                        </g:link>
+                    </li>
                     <!-- 
                     <li class="${pageProperty(name: 'page.menu.item') == 'customContactField' ? 'active' : ''}">
                         <g:link controller="contactFieldConfig">

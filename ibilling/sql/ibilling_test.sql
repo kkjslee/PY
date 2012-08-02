@@ -4097,7 +4097,7 @@ contact_map	7912
 contact	1133
 recent_item	17
 breadcrumb	95
-ibilling_constant 5
+ibilling_constant	5
 \.
 
 
@@ -4194,7 +4194,7 @@ COPY ibilling_table (id, name) FROM stdin;
 101	report_type
 102	report_parameter
 104	notification_category
-106 ibilling_constant
+106	ibilling_constant
 \.
 
 

@@ -67,9 +67,15 @@ public class OrderWS implements WSSecured, Serializable {
     // optlock (not necessary)
     private Integer versionNum;
 
+    /**
+     * Default constructor
+     */
     public OrderWS() {
     }
 
+    /**
+     * Constructor using fields
+     */
     public OrderWS(Integer id, Integer billingTypeId, Integer notify, Date activeSince, Date activeUntil,
                    Date createDate, Date nextBillableDay, Integer createdBy, Integer statusId, Integer deleted,
                    Integer currencyId, Date lastNotified, Integer notifStep, Integer dueDateUnitId, Integer dueDateValue,
@@ -102,22 +108,42 @@ public class OrderWS implements WSSecured, Serializable {
         setCycleStarts(cycleStarts);
     }
 
+    /**
+     * Retrieves the generated invoices
+     * @return the array of invoice objects
+     */
     public InvoiceWS[] getGeneratedInvoices() {
 		return generatedInvoices;
 	}
 
+    /**
+     * @see com.infosense.ibilling.server.ws.OrderWS#getGeneratedInvoices()
+     * @param generatedInvoices
+     */
 	public void setGeneratedInvoices(InvoiceWS[] generatedInvoices) {
 		this.generatedInvoices = generatedInvoices;
 	}
 
+	/**
+	 * Retrieves the id of order in iBilling
+	 * @return
+	 */
 	public Integer getId() {
         return id;
     }
 
+	/**
+	 * @see com.infosense.ibilling.server.ws.OrderWS#getId()
+	 * @param id
+	 */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Retrieves the status of order
+     * @return
+     */
     public Integer getStatusId() {
         return statusId;
     }

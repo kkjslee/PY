@@ -15,16 +15,17 @@
  */
 package com.infosense.ibilling.server.pluggableTask.admin;
 
+import java.util.HashMap;
 import java.util.List;
-
-import org.hibernate.Query;
-
-import com.infosense.ibilling.server.util.db.AbstractDAS;
+import java.lang.Integer;
 
 import org.apache.log4j.Logger;
-import org.springmodules.cache.provider.CacheProviderFacade;
+import org.hibernate.Query;
 import org.springmodules.cache.CachingModel;
 import org.springmodules.cache.FlushingModel;
+import org.springmodules.cache.provider.CacheProviderFacade;
+
+import com.infosense.ibilling.server.util.db.AbstractDAS;
 
 
 public class PluggableTaskDAS extends AbstractDAS<PluggableTaskDTO> {
@@ -56,7 +57,31 @@ public class PluggableTaskDAS extends AbstractDAS<PluggableTaskDTO> {
         " WHERE b.entityId = :entity " +
         "   AND b.type.category.id = :category" +
         " ORDER BY b.processingOrder";
-
+    
+    
+    private static final String findAllByEntityAndTypeIdSQL =
+            "SELECT b " +
+            "  FROM PluggableTaskDTO b " + 
+            " WHERE b.entityId = :entity and b.type.pk = :typeId";
+    
+    private static final String findAllTaskParamWithGroup = 
+    		"SELECT count(*),p.strValue " +
+    		"FROM PluggableTaskParameterDTO p left join PluggableTaskDTO t on t.id=p.task.id " +
+    		"where t.entityId=:entity and t.type.pk= :tId and p.name= :pName " +
+    		"group by p.strValue";
+    
+    private static final String findTaskParamsUnderGroup = 
+    		"SELECT p " +
+    		"FROM PluggableTaskParameterDTO p left join PluggableTaskDTO t on t.id=p.task.id " +
+    		"where t.entityId=:entity and t.type.pk= :tId and p.name= :pName " +
+    		"and p.strValue=: sVal ";
+    
+    private static final String findMaxOrderByEntityAndTypeIdSQL = 
+    		 "SELECT MAX(b.processingOrder) " +
+	        "  FROM PluggableTaskDTO b " + 
+	        " WHERE b.entityId = :entity " +
+	        "   AND b.type.category.id = :category" ;
+    
     // END OF QUERIES
    
     private PluggableTaskDAS() {
@@ -68,6 +93,62 @@ public class PluggableTaskDAS extends AbstractDAS<PluggableTaskDTO> {
         query.setParameter("entity", entityId);
         query.setCacheable(true);
         query.setComment("PluggableTaskDAS.findAllByEntity");
+        return query.list();
+    }
+    
+    @Deprecated
+    public List<PluggableTaskParameterDTO> findAllTaskParamsUnderGroup(Integer entityId, Integer typeId, String paramName, String paramValue) {
+        Query query = getSession().createQuery(findTaskParamsUnderGroup);
+        query.setParameter("entity", entityId);
+        query.setParameter("tId", typeId);
+        query.setParameter("pName", paramName);
+        query.setParameter("sVal", paramValue);
+        query.setCacheable(true);
+        return query.list();
+    }
+    /**
+     * 
+     * @param entityId
+     * @return [value,count]
+     */
+    @Deprecated
+    public HashMap<String,String> findAllTaskParamWithGroup(Integer entityId, Integer typeId, String paramName) {
+		Query query = getSession().createQuery(findAllTaskParamWithGroup);
+	    query.setParameter("entity", entityId);
+	    query.setParameter("tId", typeId);
+	    query.setParameter("pName", paramName);
+	    query.setCacheable(true);
+	    List list = query.list();
+    	HashMap<String,String> taskParamGroup = new HashMap<String, String>();
+    	String paramValuetKey = null;
+    	String paramCount = null;
+    	for(int i = 0 ; i <list.size();i++){
+    		Object ob[] = (Object[]) list.get(i);
+    		paramValuetKey = ob[0].toString();
+    		paramCount = ob[1].toString();
+    		taskParamGroup.put(paramValuetKey, paramCount);
+    	}
+    	
+    	return taskParamGroup;
+    }
+    
+    public Integer findMaxOrderByEntityAndTypeId(Integer entityId, Integer typeId){
+    	Integer orderMaxId = -1;
+    	Query query = getSession().createQuery(findMaxOrderByEntityAndTypeIdSQL);
+        query.setParameter("entity", entityId);
+        query.setParameter("category", typeId);
+        query.setCacheable(false);
+        List list =  query.list();
+        orderMaxId = (Integer) list.get(0);
+        return orderMaxId;
+    }
+    
+    public List<PluggableTaskDTO> findAllByEntityAndTypeId(Integer entityId, Integer typeId) {
+        Query query = getSession().createQuery(findAllByEntityAndTypeIdSQL);
+        query.setParameter("entity", entityId);
+        query.setParameter("typeId", typeId);
+        query.setCacheable(true);
+        query.setComment("PluggableTaskDAS.findAllByEntityAndTypeIdSQL");
         return query.list();
     }
     

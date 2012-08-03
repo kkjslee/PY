@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.server.item.CurrencyBL;
 import com.infosense.ibilling.server.user.UserBL;
+import com.infosense.ibilling.server.util.db.AbstractDescription;
 import com.infosense.ibilling.server.util.db.InternationalDescriptionDAS;
 import com.infosense.ibilling.server.util.db.InternationalDescriptionDTO;
 
@@ -183,8 +184,11 @@ public class Util {
                    " " + language);
            return null;   
        }
-
-        return inter.getContent();
+       try {
+    	   return inter.getContent();
+       } catch (org.hibernate.ObjectNotFoundException e) {
+    	   return getPeriodUnitStr(id, AbstractDescription.DEFAULT_LANGUAGE);
+       } 
     }
     
     public static double round(double val, int places) {

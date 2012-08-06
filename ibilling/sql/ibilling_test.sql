@@ -1557,7 +1557,8 @@ CREATE TABLE order_line (
     provisioning_status integer,
     provisioning_request_id character varying(50),
     optlock integer NOT NULL,
-    use_item boolean NOT NULL
+    use_item boolean NOT NULL,
+    group_id character(36)
 );
 
 

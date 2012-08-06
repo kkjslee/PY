@@ -124,7 +124,6 @@
         <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskParameterDTO" />
         <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeCategoryDTO" />
         <mapping class="com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO" />
-        <mapping class="com.infosense.ibilling.server.util.db.IbillingConstant" />
 
 
     </session-factory>

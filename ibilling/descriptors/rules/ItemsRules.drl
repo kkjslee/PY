@@ -104,7 +104,7 @@ when
     $line : OrderLineDTO(itemId == 2900, $quantity : quantity ) from $order.lines      # Generic Long Distance Call
 then
     $order.getLines().remove($line); # remove generic item
-    OrderLineBL.addItem($order, 2801, $quantity, false); # add as included
+    OrderLineBL.addItem($order, 2801, "", $quantity, false); # add as included
     update( $order );
     LOG.debug("Plan: included calls: " + $order);
 end

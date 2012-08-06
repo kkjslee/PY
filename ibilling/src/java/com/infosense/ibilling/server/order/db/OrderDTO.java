@@ -228,7 +228,7 @@ public class OrderDTO implements Serializable, Exportable {
     public void setBaseUserByCreatedBy(UserDTO baseUserByCreatedBy) {
         this.baseUserByCreatedBy = baseUserByCreatedBy;
     }
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="currency_id", nullable=false)
     public CurrencyDTO getCurrency() {
         return this.currencyDTO;
@@ -237,7 +237,7 @@ public class OrderDTO implements Serializable, Exportable {
     public void setCurrency(CurrencyDTO currencyDTO) {
         this.currencyDTO = currencyDTO;
     }
-@ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="status_id", nullable=false)
     public OrderStatusDTO getOrderStatus() {
         return this.orderStatusDTO;

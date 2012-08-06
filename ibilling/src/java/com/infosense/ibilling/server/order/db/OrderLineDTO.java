@@ -17,7 +17,8 @@ package com.infosense.ibilling.server.order.db;
 
 
 import java.io.Serializable;
-import java.math.RoundingMode;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,20 +38,15 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.apache.log4j.Logger;
+import org.hibernate.annotations.Cascade;
+
 import com.infosense.ibilling.common.Constants;
 import com.infosense.ibilling.server.item.db.ItemDAS;
 import com.infosense.ibilling.server.item.db.ItemDTO;
 import com.infosense.ibilling.server.mediation.db.MediationRecordLineDTO;
 import com.infosense.ibilling.server.provisioning.db.ProvisioningStatusDAS;
 import com.infosense.ibilling.server.provisioning.db.ProvisioningStatusDTO;
-
-import org.apache.log4j.Logger;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
 
 @Entity
 @TableGenerator(
@@ -71,6 +67,7 @@ public class OrderLineDTO implements Serializable, Comparable {
     private OrderLineTypeDTO orderLineTypeDTO;
     private ItemDTO item;
     private OrderDTO orderDTO;
+    private String group_id;
     private BigDecimal amount;
     private BigDecimal quantity;
     private BigDecimal price;
@@ -99,6 +96,7 @@ public class OrderLineDTO implements Serializable, Comparable {
         this.id = other.id;
         this.orderLineTypeDTO = other.getOrderLineType();
         this.item = other.getItem();
+        this.group_id = other.getGroupId();
         this.amount = other.getAmount();
         this.quantity = other.getQuantity();
         this.price = other.getPrice();
@@ -117,13 +115,14 @@ public class OrderLineDTO implements Serializable, Comparable {
         this.deleted = deleted;
     }
 
-    public OrderLineDTO(int id, OrderLineTypeDTO orderLineTypeDTO, ItemDTO item, OrderDTO orderDTO, BigDecimal amount,
+    public OrderLineDTO(int id, OrderLineTypeDTO orderLineTypeDTO, ItemDTO item, OrderDTO orderDTO, String groupId, BigDecimal amount,
             BigDecimal quantity, BigDecimal price, Date createDatetime, Integer deleted,
             String description, ProvisioningStatusDTO provisioningStatus, String provisioningRequestId) {
        this.id = id;
        this.orderLineTypeDTO = orderLineTypeDTO;
        this.item = item;
        this.orderDTO = orderDTO;
+       this.group_id = groupId;
        this.amount = amount;
        this.quantity = quantity;
        this.price = price;
@@ -169,6 +168,15 @@ public class OrderLineDTO implements Serializable, Comparable {
     
     public void setPurchaseOrder(OrderDTO orderDTO) {
         this.orderDTO = orderDTO;
+    }
+    
+    @Column(name="group_id", length=36)
+    public String getGroupId() {
+    	return this.group_id;
+    }
+    
+    public void setGroupId(String groupId) {
+    	this.group_id = groupId;
     }
 
     /**

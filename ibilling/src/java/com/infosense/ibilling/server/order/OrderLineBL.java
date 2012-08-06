@@ -99,7 +99,7 @@ public class OrderLineBL {
         }
 
         addItem(line.getItemId(), line.getQuantity(), user.getLanguage(), order.getUserId(),
-                user.getEntity().getEntity().getId(), order.getCurrencyId(), order, line, persist);
+                user.getEntity().getEntity().getId(), order.getCurrencyId(), order, line, "", persist);
 
         if (persist) {
             // generate NewQuantityEvent
@@ -138,7 +138,7 @@ public class OrderLineBL {
      * @param persist save changes immediately if true
      */
     public static void addItem(OrderDTO order, Integer itemId, boolean persist) {
-        addItem(order, itemId, new BigDecimal(1), persist);
+        addItem(order, itemId, "", new BigDecimal(1), persist);
     }
 
     /**
@@ -151,7 +151,20 @@ public class OrderLineBL {
      * @param quantity quantity to add
      */
     public static void addItem(OrderDTO order, Integer itemId, Integer quantity) {
-        addItem(order, itemId, quantity, false);
+        addItem(order, itemId, "", quantity, false);
+    }
+    
+    /**
+     * Adds a quantity of items to the given order for the given item id.
+     * This method will not force persistence of the added item, instead changes will
+     * be persisted when the transaction ends.
+     *
+     * @param order order to add item to
+     * @param itemId id of item to add
+     * @param quantity quantity to add
+     */
+    public static void addItem(OrderDTO order, Integer itemId, String groupId, Integer quantity) {
+        addItem(order, itemId, groupId, quantity, false);
     }
 
     /**
@@ -169,7 +182,7 @@ public class OrderLineBL {
         line.setQuantity(quantity);
         line.setPrice(price);
         addItem(itemId, new BigDecimal(quantity), user.getLanguage(), order.getUserId(), user.getEntity().getEntity().getId(),
-                order.getCurrencyId(), order, line, false);
+                order.getCurrencyId(), order, line, "", false);
     }
 
     /**
@@ -180,8 +193,8 @@ public class OrderLineBL {
      * @param quantity quantity to add
      * @param persist save changes immediately if true
      */
-    public static void addItem(OrderDTO order, Integer itemId, Integer quantity, boolean persist) {
-        addItem(order, itemId, new BigDecimal(quantity), persist);
+    public static void addItem(OrderDTO order, Integer itemId, String groupId, Integer quantity, boolean persist) {
+        addItem(order, itemId, groupId, new BigDecimal(quantity), persist);
     }
 
     /**
@@ -194,7 +207,20 @@ public class OrderLineBL {
      * @param quantity quantity to add
      */
     public static void addItem(OrderDTO order, Integer itemId, BigDecimal quantity) {
-        addItem(order, itemId, quantity, false);
+        addItem(order, itemId, "", quantity, false);
+    }
+    
+    /**
+     * Adds a quantity of items to the given order for the given item id.
+     * This method will not force persistence of the added item, instead changes will
+     * be persisted when the transaction ends.
+     *
+     * @param order order to add item to
+     * @param itemId id of item to add
+     * @param quantity quantity to add
+     */
+    public static void addItem(OrderDTO order, Integer itemId, String groupId, BigDecimal quantity) {
+        addItem(order, itemId, groupId, quantity, false);
     }
 
     /**
@@ -205,14 +231,14 @@ public class OrderLineBL {
      * @param quantity quantity to add
      * @param persist save changes immediately if true
      */
-    public static void addItem(OrderDTO order, Integer itemId, BigDecimal quantity, boolean persist) {
+    public static void addItem(OrderDTO order, Integer itemId, String groupId, BigDecimal quantity, boolean persist) {
         UserBL user = new UserBL(order.getUserId());
         addItem(itemId, quantity, user.getLanguage(), order.getUserId(), user.getEntity().getEntity().getId(),
-                order.getCurrencyId(), order, null, persist);
+                order.getCurrencyId(), order, null, groupId, persist);
     }
 
     public static void addItem(Integer itemID, BigDecimal quantity, Integer language, Integer userId, Integer entityId,
-                               Integer currencyId, OrderDTO newOrder, OrderLineDTO myLine, boolean persist) {
+                               Integer currencyId, OrderDTO newOrder, OrderLineDTO myLine, String groupId, boolean persist) {
 
         if (persist) throw new IllegalArgumentException("persist is oboleted"); // TODO remove the argument
         // check if the item is already in the order

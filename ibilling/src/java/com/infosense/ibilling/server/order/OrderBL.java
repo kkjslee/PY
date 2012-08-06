@@ -1201,7 +1201,7 @@ public class OrderBL extends ResultList
             LOG.warn("Order line " + id + " not found");
             return null;
         }
-        OrderLineWS retValue = new OrderLineWS(line.getId(), line.getItem().getId(), line.getDescription(),
+        OrderLineWS retValue = new OrderLineWS(line.getId(), line.getItem().getId(), line.getGroupId(), line.getDescription(),
                                                line.getAmount(), line.getQuantity(), line.getPrice() == null ? null : line.getPrice(), line.getCreateDatetime(),
                                                line.getDeleted(), line.getOrderLineType().getId(), line.getEditable(),
                                                line.getPurchaseOrder().getId(), line.getUseItem(), line.getVersionNum(), line.getProvisioningStatusId(), line.getProvisioningRequestId());

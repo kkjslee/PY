@@ -315,4 +315,6 @@ public interface IWebServicesSessionBean {
     public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory);
 	
 	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory, Map<String, Integer> properties);
+	
+	public InvoiceWS getLatestInvoiceByOrder(Integer orderId);
 }

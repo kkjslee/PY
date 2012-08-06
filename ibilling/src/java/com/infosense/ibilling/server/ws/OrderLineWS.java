@@ -15,6 +15,7 @@ public class OrderLineWS implements Serializable {
 
     private int id;
     private Integer orderId;
+    private String groupId;
     private String amount; // use strings instead of BigDecimal for WS compatibility
     @NotNull(message = "validation.error.null.quantity")
     private String quantity;
@@ -40,13 +41,14 @@ public class OrderLineWS implements Serializable {
     public OrderLineWS() {
     }
 
-    public OrderLineWS(Integer id, Integer itemId, String description, BigDecimal amount, BigDecimal quantity,
+    public OrderLineWS(Integer id, Integer itemId, String groupId, String description, BigDecimal amount, BigDecimal quantity,
                        BigDecimal price,
                        Date create, Integer deleted, Integer newTypeId, Boolean editable, Integer orderId,
                        Boolean useItem, Integer version, Integer provisioningStatusId, String provisioningRequestId) {
         setId(id);
         setItemId(itemId);
         setDescription(description);
+        setGroupId(groupId);
         setAmount(amount);
         setQuantity(quantity);
         setPrice(price);
@@ -86,7 +88,15 @@ public class OrderLineWS implements Serializable {
         this.itemId = itemId;
     }
 
-    public String getAmount() {
+    public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getAmount() {
         return amount;
     }
 
@@ -249,6 +259,7 @@ public class OrderLineWS implements Serializable {
     @Override public String toString() {
         return "OrderLineWS{"
                + "id=" + id
+               + ", groupId" + groupId + '\''
                + ", amount='" + amount + '\''
                + ", quantity='" + quantity + '\''
                + ", price='" + price + '\''

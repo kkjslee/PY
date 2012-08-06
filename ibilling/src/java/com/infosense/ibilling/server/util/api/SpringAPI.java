@@ -725,5 +725,10 @@ public class SpringAPI implements IbillingAPI {
 	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory, Map<String, Integer> properties) {
 		return session.createPlan(newPlan, cpu, memory, properties);
 	}
+
+	@Override
+	public InvoiceWS getLatestInvoiceByOrder(Integer orderId) {
+		return session.getLatestInvoiceByOrder(orderId);
+	}
 	
 }

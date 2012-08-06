@@ -604,4 +604,6 @@ public interface IbillingAPI {
      * @return the id of generated item 
      */
 	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory, Map<String, Integer> properties);
+	
+	public InvoiceWS getLatestInvoiceByOrder(Integer orderId);
 }

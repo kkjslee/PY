@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.naming.NamingException;
 import javax.sql.rowset.CachedRowSet;
@@ -2160,12 +2162,14 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
             OrderLineDTO line = (OrderLineDTO) it.next();
 
             if (line.getDeleted() == 0) {
-                OrderLineWS lineWS = new OrderLineWS(line.getId(), line.getItem().getId(), line.getDescription(),
+                OrderLineWS lineWS = new OrderLineWS(line.getId(), line.getItem().getId(), line.getGroupId(), line.getDescription(),
                         line.getAmount(), line.getQuantity(), line.getPrice(),
                         line.getCreateDatetime(), line.getDeleted(), line.getOrderLineType().getId(),
                         line.getEditable(), (line.getPurchaseOrder() != null ? line.getPurchaseOrder().getId() : null),
                         line.getUseItem(), line.getVersionNum(),line.getProvisioningStatusId(),line.getProvisioningRequestId());
-
+                if (lineWS.getGroupId() == null || lineWS.getGroupId().isEmpty()) {
+                	lineWS.setGroupId(UUID.randomUUID().toString());
+                }
                 lines.add(lineWS);
             }
         }
@@ -3043,6 +3047,35 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         }
 
         return planId;
+	}
+	
+	@Override
+	public InvoiceWS getLatestInvoiceByOrder(Integer orderId) {
+		InvoiceWS invoiceWS = null;
+		OrderDAS das = new OrderDAS();
+        OrderDTO order = das.findNow(orderId);
+        if (order != null) {
+        	ArrayList<InvoiceDTO> invoices = new ArrayList<InvoiceDTO>(order.getInvoices());
+        	if (!invoices.isEmpty()) {
+        		Collections.sort(invoices, new Comparator<InvoiceDTO>() {
+    				@Override
+    				public int compare(InvoiceDTO arg0, InvoiceDTO arg1) {
+    					Date date0 = arg0.getDueDate();
+    					Date date1 = arg1.getDueDate();
+    					if (date0.equals(date1)) {
+    						return 0;
+    					} else if (date0.after(date1)) {
+    						return -1;
+    					} else {
+    						return 1;
+    					}
+    				}        		
+            	});
+        		InvoiceDTO last = invoices.get(0);
+        		invoiceWS = InvoiceBL.getWS(last);
+        	}
+        }
+		return invoiceWS;
 	}
 	
 	private void addComponentToPlan(Integer planId, Integer entityId, String component, Integer quality) {

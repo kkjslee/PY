@@ -3997,6 +3997,7 @@ COPY ibilling_constant (id, name, content) FROM stdin;
 1	cpu.generic	2317
 2	memory.generic	2320
 4	rule.plan	http://localhost:8000/drools-guvnor/org.drools.guvnor.Guvnor/package/ItemManagement/LATEST
+5	order.merge	false
 \.
 
 --
@@ -4097,7 +4098,7 @@ contact_map	7912
 contact	1133
 recent_item	17
 breadcrumb	95
-ibilling_constant	5
+ibilling_constant	6
 \.
 
 

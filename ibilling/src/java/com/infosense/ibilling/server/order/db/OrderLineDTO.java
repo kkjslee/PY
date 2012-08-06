@@ -433,6 +433,7 @@ public class OrderLineDTO implements Serializable, Comparable {
         " orderLineType=" + ((orderLineTypeDTO == null) ? "null" : orderLineTypeDTO.getId()) +
         " item=" +  item.getId() +
         " order id=" + ((orderDTO == null) ? "null" : orderDTO.getId()) +
+        " group id=" + (group_id != null ? group_id : "null") +
         " amount=" +  amount +
         " quantity=" +  quantity +
         " price=" +  price +

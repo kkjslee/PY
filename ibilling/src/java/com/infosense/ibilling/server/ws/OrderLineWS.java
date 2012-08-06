@@ -259,7 +259,7 @@ public class OrderLineWS implements Serializable {
     @Override public String toString() {
         return "OrderLineWS{"
                + "id=" + id
-               + ", groupId" + groupId + '\''
+               + ", groupId='" + groupId + '\''
                + ", amount='" + amount + '\''
                + ", quantity='" + quantity + '\''
                + ", price='" + price + '\''

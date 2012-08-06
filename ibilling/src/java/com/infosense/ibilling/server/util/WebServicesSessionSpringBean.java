@@ -1204,6 +1204,9 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
                 line.setDescription(item.getDescription());
                 line.setTypeId(item.getOrderLineTypeId());
             }
+            if (line.getGroupId() == null || line.getGroupId().isEmpty()) {
+            	line.setGroupId(UUID.randomUUID().toString());
+            }
         }
 
         OrderHelper.desynchronizeOrderLines(order);
@@ -1979,6 +1982,9 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
             line.setUseItem(false);
             }
             line.setItemId(zero2null(line.getItemId()));
+            if (line.getGroupId() == null || line.getGroupId().isEmpty()) {
+            	line.setGroupId(UUID.randomUUID().toString());
+            }
             String error = "";
             // if use the item, I need the item id
             if (line.getUseItem()) {

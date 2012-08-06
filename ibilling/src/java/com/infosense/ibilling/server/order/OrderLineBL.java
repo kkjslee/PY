@@ -16,6 +16,14 @@
 
 package com.infosense.ibilling.server.order;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.server.item.ItemBL;
 import com.infosense.ibilling.server.item.db.ItemDTO;
@@ -23,15 +31,9 @@ import com.infosense.ibilling.server.order.db.OrderDAS;
 import com.infosense.ibilling.server.order.db.OrderDTO;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
 import com.infosense.ibilling.server.user.UserBL;
-
-import org.apache.log4j.Logger;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import com.infosense.ibilling.server.util.Constants;
+import com.infosense.ibilling.server.util.db.IbillingConstant;
+import com.infosense.ibilling.server.util.db.IbillingConstantDAS;
 
 /**
  *
@@ -182,7 +184,7 @@ public class OrderLineBL {
         line.setQuantity(quantity);
         line.setPrice(price);
         addItem(itemId, new BigDecimal(quantity), user.getLanguage(), order.getUserId(), user.getEntity().getEntity().getId(),
-                order.getCurrencyId(), order, line, "", false);
+                order.getCurrencyId(), order, line, null, false);
     }
 
     /**
@@ -249,12 +251,15 @@ public class OrderLineBL {
             ItemDTO item = new ItemDTO();
             item.setId(itemID);
             myLine.setItem(item);
+            myLine.setGroupId(groupId);
             myLine.setQuantity(quantity);
         }
         populateWithSimplePrice(language, userId, entityId, currencyId, itemID, myLine, CommonConstants.BIGDECIMAL_SCALE);
         myLine.setDefaults();
 
-        if (line == null) { // not yet there
+        IbillingConstant merge = IbillingConstantDAS.getInstance().findByName(Constants.KEY_ORDER_MERGE);
+        //boolean merge = constant.getContent().equalsIgnoreCase("true");        
+        if (line == null || (merge != null && merge.getContent().equals("false"))) { // not yet there
             OrderLineDTO newLine = new OrderLineDTO(myLine);
             newOrder.getLines().add(newLine);
             newLine.setPurchaseOrder(newOrder);

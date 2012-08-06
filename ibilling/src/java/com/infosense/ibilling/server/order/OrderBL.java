@@ -1219,6 +1219,7 @@ public class OrderBL extends ResultList
     public OrderLineDTO getOrderLine(OrderLineWS ws) {
         OrderLineDTO dto = new OrderLineDTO();
         dto.setId(ws.getId());
+        dto.setGroupId(ws.getGroupId());
         dto.setAmount(ws.getAmountAsDecimal());
         dto.setCreateDatetime(ws.getCreateDatetime());
         dto.setDeleted(ws.getDeleted());

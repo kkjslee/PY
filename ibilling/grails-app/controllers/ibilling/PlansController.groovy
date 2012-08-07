@@ -33,10 +33,10 @@ class PlansController {
 	String selectedTypeName = "Plan"
 	Integer selectedTypeId = 90
 	//display order depends on the add order
-	Set<String> paraNames = new HashSet<String>(){{
+	List<String> paraNames = new ArrayList<String>(){{
+			add("Plan")
 			add("Item")
 			add("Quality")
-			add("Plan")
 		}}
 	Integer categoryId = 1
 	
@@ -268,19 +268,28 @@ class PlansController {
 	}
 	
 	/**
-	 * ([name:val,name2:val2,name3:val3],...)
+	 * ([name:id#title,name:id#title],...)
 	 */
 	def formatMapWithTaskList(List<PluggableTaskDTO> taskList){
 		HashMap<String, String> paramMap
 		List mapList = new ArrayList()
+		ItemDAS itemDAS = new ItemDAS()
+		String paramValue = ""
+		Integer languageId = session.language_id;
+		String desc = null
 		for(PluggableTaskDTO dto : taskList){
 			Collection<PluggableTaskParameterDTO> parameters = dto.getParameters()
 			paramMap = new HashMap<String, String>()
 			for(PluggableTaskParameterDTO param:parameters){
-				/*if(!paraNames.contains(name)){
-					paraNames.add(param.getName())
-				}*/
-				paramMap.put(param.getName(), param.getStrValue())
+				paramValue = param.getStrValue()
+				if(!paramValue.isInteger()){
+					continue;
+				}
+				ItemDTO item = itemDAS.findNow(Integer.parseInt(paramValue))
+				desc = item?.getDescription(languageId, "title")
+				desc = desc ?: item?.getDescription(languageId, "description")
+				paramValue = paramValue + "#" + (desc?:"")
+				paramMap.put(param.getName(), paramValue)
 			}
 			paramMap.put("tId", dto.getId())
 			mapList.add(paramMap)

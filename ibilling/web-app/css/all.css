@@ -922,10 +922,12 @@ td.tiny, th.tiny { width: 50px; }
     vertical-align: middle;
     background: #bbb url(../images/bg-gradient.gif) repeat-x;
 }
-.table-box tbody tr.active,.table-box tbody tr:hover{
+.table-box tbody tr.active,.table-box tbody tr:hover,{
     background: #bbb url(../images/bg-gradient2.gif) repeat-x;
 }
-
+.even{
+	background:#EAF9C5;	
+}
 .table-box tbody tr.isReview {
     font-style: italic;
     text-shadow: 1px 1px 4px #383838;

@@ -20,6 +20,7 @@ package com.infosense.ibilling.common;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 
@@ -144,7 +145,11 @@ public class SystemProperties {
         } else {
             // properties file from classpath
             URL url = SystemProperties.class.getResource("/" + PROPERTIES_FILE);
-            return new File(url.getFile());
+            try {
+				return new File(url.toURI());
+			} catch (URISyntaxException e) {
+				throw new RuntimeException("Property file not found.");
+			}
         }
     }
 

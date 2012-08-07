@@ -514,7 +514,7 @@ public class BillingProcessBL extends ResultList
 
         // get the orders that might be processable for this user
         OrderDAS orderDas = new OrderDAS();
-        ScrollableResults orders = orderDas.findByUser_Status(userId, Constants.ORDER_STATUS_ACTIVE);
+        ScrollableResults orders = orderDas.findForBillingProcess(userId, Constants.ORDER_STATUS_ACTIVE);
 
         // go through each of them, and update the DTO if it applies
         while (orders.next()) {

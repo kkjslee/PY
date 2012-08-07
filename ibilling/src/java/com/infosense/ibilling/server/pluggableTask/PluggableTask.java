@@ -21,6 +21,7 @@
 package com.infosense.ibilling.server.pluggableTask;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -280,7 +281,7 @@ public abstract class PluggableTask {
                             prefix = defaultDir + File.separator;
                         }
                         LOG.debug("adding parameter " + file);
-                        appendResource(str, "file:" + prefix + file, "PKG");
+                        appendResource(str, "file:" + getFileURI(prefix + file), "PKG");
                     }
 
                 } else if (key.equals("dir")) {
@@ -293,7 +294,7 @@ public abstract class PluggableTask {
                             prefix = defaultDir + File.separator;
                         }
                         LOG.debug("adding parameter " + dir);
-                        appendResource(str, "file:" + prefix + dir, "PKG");
+                        appendResource(str, "file:" + getFileURI(prefix + dir), "PKG");
                     }
 
                 } else if (key.equals("url")) {
@@ -311,13 +312,21 @@ public abstract class PluggableTask {
             }
         }
         if (parameters.isEmpty()) {
-            appendResource(str, "file:" + defaultDir, "PKG");
+            appendResource(str, "file:" + getFileURI(defaultDir), "PKG");
             LOG.debug("No task parameters, using directory default:" + defaultDir);
         }
 
         str.append("</add>");
         str.append("</change-set>");
         return str.toString();
+    }
+    
+    private String getFileURI(String file){
+    	try {
+			return new File(file).toURI().toURL().getFile();
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(file);
+		}
     }
 
     private void appendResource(StringBuilder builder, String source, String type) {

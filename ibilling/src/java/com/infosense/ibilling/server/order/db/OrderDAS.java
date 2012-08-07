@@ -126,6 +126,19 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
         
         return criteria.scroll();
     }
+    
+    public ScrollableResults findForBillingProcess(Integer userId,Integer statusId) {
+        // I need to access an association, so I can't use the parent helper class
+        Criteria criteria = getSession().createCriteria(OrderDTO.class)
+                .add(Restrictions.eq("deleted", 0))
+                .add(Restrictions.eq("excludeFromBp", 0))
+                .createAlias("baseUserByUserId", "u")
+                    .add(Restrictions.eq("u.id", userId))
+                .createAlias("orderStatus", "s")
+                    .add(Restrictions.eq("s.id", statusId));
+        
+        return criteria.scroll();
+    }
 
     // used for the web services call to get the latest X orders
     public List<Integer> findIdsByUserLatestFirst(Integer userId, int maxResults) {

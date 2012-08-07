@@ -159,7 +159,7 @@ public class OrderBL extends ResultList
                                        order.getNotify(), order.getActiveSince(), order.getActiveUntil(),
                                        order.getCreateDate(), order.getNextBillableDay(),
                                        order.getCreatedBy(), order.getStatusId(), order.getDeleted(),
-                                       order.getCurrencyId(), order.getLastNotified(),
+                                       order.getExcludeFromBp(), order.getCurrencyId(), order.getLastNotified(),
                                        order.getNotificationStep(), order.getDueDateUnitId(),
                                        order.getDueDateValue(), order.getAnticipatePeriods(),
                                        order.getDfFm(), order.getIsCurrent(), order.getNotes(),
@@ -1423,6 +1423,7 @@ public class OrderBL extends ResultList
         }
 
         retValue.setIsCurrent(other.getIsCurrent());
+        retValue.setExcludeFromBp(other.getExcludeFromBp());
         retValue.setCycleStarts(other.getCycleStarts());
         retValue.setVersionNum(other.getVersionNum());
 

@@ -90,6 +90,7 @@ public class OrderDTO implements Serializable, Exportable {
      private Date createDate;
      private Date nextBillableDay;
      private int deleted;
+     private int excludeFromBp;
      private Integer notify;
      private Date lastNotified;
      private Integer notificationStep;
@@ -137,6 +138,7 @@ public class OrderDTO implements Serializable, Exportable {
         this.createDate = other.getCreateDate();
         this.nextBillableDay = other.getNextBillableDay();
         this.deleted = other.getDeleted();
+        this.excludeFromBp = other.getExcludeFromBp();
         this.notify = other.getNotify();
         this.lastNotified = other.getLastNotified();
         this.notificationStep = other.getNotificationStep();
@@ -169,7 +171,7 @@ public class OrderDTO implements Serializable, Exportable {
     public OrderDTO(int id, UserDTO baseUserByUserId, UserDTO baseUserByCreatedBy, CurrencyDTO currencyDTO, 
             OrderStatusDTO orderStatusDTO, OrderPeriodDTO orderPeriodDTO, 
             OrderBillingTypeDTO orderBillingTypeDTO, Date activeSince, Date activeUntil, Date createDatetime, 
-            Date nextBillableDay, Integer deleted, Integer notify, Date lastNotified, Integer notificationStep, 
+            Date nextBillableDay, Integer deleted, Integer excludeFromBp, Integer notify, Date lastNotified, Integer notificationStep, 
             Integer dueDateUnitId, Integer dueDateValue, Integer dfFm, Integer anticipatePeriods, 
             Integer ownInvoice, String notes, Integer notesInInvoice, Set<OrderProcessDTO> orderProcesses, 
             List<OrderLineDTO> orderLineDTOs, Integer isCurrent) {
@@ -185,6 +187,7 @@ public class OrderDTO implements Serializable, Exportable {
        this.createDate = createDatetime;
        this.nextBillableDay = nextBillableDay;
        this.deleted = deleted;
+       this.excludeFromBp = excludeFromBp;
        this.notify = notify;
        this.lastNotified = lastNotified;
        this.notificationStep = notificationStep;
@@ -325,7 +328,16 @@ public class OrderDTO implements Serializable, Exportable {
         this.deleted = deleted;
     }
     
-    @Column(name="notify")
+    @Column(name="excludeFromBp", nullable=false)
+    public int getExcludeFromBp() {
+		return excludeFromBp;
+	}
+
+	public void setExcludeFromBp(int excludeFromBp) {
+		this.excludeFromBp = excludeFromBp;
+	}
+
+	@Column(name="notify")
     public Integer getNotify() {
         return this.notify;
     }

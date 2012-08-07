@@ -2150,7 +2150,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
                 order.getNotify(), order.getActiveSince(), order.getActiveUntil(),
                 order.getCreateDate(), order.getNextBillableDay(),
                 order.getCreatedBy(), order.getStatusId(), order.getDeleted(),
-                order.getCurrencyId(), order.getLastNotified(),
+                order.getExcludeFromBp(), order.getCurrencyId(), order.getLastNotified(),
                 order.getNotificationStep(), order.getDueDateUnitId(),
                 order.getDueDateValue(), order.getAnticipatePeriods(),
                 order.getDfFm(), order.getIsCurrent(), order.getNotes(),

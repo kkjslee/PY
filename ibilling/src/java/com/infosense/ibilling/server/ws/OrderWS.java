@@ -39,6 +39,7 @@ public class OrderWS implements WSSecured, Serializable {
     private Date cycleStarts;
     private Date nextBillableDay;
     private int deleted;
+    private int excludeFromBp;
     private Integer notify;
     private Date lastNotified;
     private Integer notificationStep;
@@ -78,8 +79,8 @@ public class OrderWS implements WSSecured, Serializable {
      */
     public OrderWS(Integer id, Integer billingTypeId, Integer notify, Date activeSince, Date activeUntil,
                    Date createDate, Date nextBillableDay, Integer createdBy, Integer statusId, Integer deleted,
-                   Integer currencyId, Date lastNotified, Integer notifStep, Integer dueDateUnitId, Integer dueDateValue,
-                   Integer anticipatePeriods, Integer dfFm, Integer isCurrent, String notes, Integer notesInInvoice,
+                   Integer excludeFromBp, Integer currencyId, Date lastNotified, Integer notifStep, Integer dueDateUnitId, 
+                   Integer dueDateValue, Integer anticipatePeriods, Integer dfFm, Integer isCurrent, String notes, Integer notesInInvoice,
                    Integer ownInvoice, Integer period, Integer userId, Integer version, Date cycleStarts) {
         setId(id);
         setBillingTypeId(billingTypeId);
@@ -92,6 +93,7 @@ public class OrderWS implements WSSecured, Serializable {
         setCreatedBy(createdBy);
         setStatusId(statusId);
         setDeleted(deleted.shortValue());
+        setExcludeFromBp(excludeFromBp);
         setCurrencyId(currencyId);
         setLastNotified(lastNotified);
         setNotificationStep(notifStep);
@@ -247,8 +249,16 @@ public class OrderWS implements WSSecured, Serializable {
     public void setDeleted(int deleted) {
         this.deleted = deleted;
     }
+    
+    public int getExcludeFromBp() {
+		return excludeFromBp;
+	}
 
-    public Integer getNotify() {
+	public void setExcludeFromBp(int excludeFromBp) {
+		this.excludeFromBp = excludeFromBp;
+	}
+
+	public Integer getNotify() {
         return notify;
     }
 
@@ -423,6 +433,7 @@ public class OrderWS implements WSSecured, Serializable {
         sb.append(", activeUntil=").append(activeUntil);
         sb.append(", activeSince=").append(activeSince);
         sb.append(", isCurrent=").append(isCurrent);
+        sb.append(", excludeFromBp=").append(excludeFromBp);
         sb.append(", statusStr='").append(statusStr).append('\'');
         sb.append(", periodStr='").append(periodStr).append('\'');
         sb.append(", periodId=").append(period);

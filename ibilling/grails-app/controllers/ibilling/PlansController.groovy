@@ -78,7 +78,7 @@ class PlansController {
 		Random random = new Random()
 		Integer nextOrderId = (maxOrderId?:0) + random.nextInt(5)+1
 		//find url rule which configured in dbconstants
-		def constant = ibillingConstantDAS.findByName(Constants.KEY_RULE_PLAN)
+		def constant = ibillingConstantDAS.findByName(Constants.KEY_RULE_PLAN_LOCATION)
 		def urlvalue = constant?.content?:null
 		// show the form with the description
 		render (view:"form", model:

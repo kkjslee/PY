@@ -3994,11 +3994,12 @@ COPY item_type_map (item_id, type_id) FROM stdin;
 --
 
 COPY ibilling_constant (id, name, content) FROM stdin;
-3	os.win2003.32	2316
 1	cpu.generic	2317
 2	memory.generic	2320
-4	rule.plan	http://localhost:8000/drools-guvnor/org.drools.guvnor.Guvnor/package/ItemManagement/LATEST
-5	order.merge	false
+3	os.win2003.32	2316
+4	rule.plan.type	url
+5	rule.plan.location	http://localhost:8000/drools-guvnor/org.drools.guvnor.Guvnor/package/ItemManagement/LATEST
+6	order.merge	false
 \.
 
 --
@@ -4099,7 +4100,7 @@ contact_map	7912
 contact	1133
 recent_item	17
 breadcrumb	95
-ibilling_constant	6
+ibilling_constant	7
 \.
 
 

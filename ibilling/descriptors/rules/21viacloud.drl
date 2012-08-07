@@ -15,23 +15,6 @@ import org.apache.log4j.Logger
 
 global org.apache.log4j.Logger LOG
 
-rule '祥云A 包月'
-
-dialect 'mvel'
-
-when	
-    $order : OrderDTO( )
-    OrderLineDTO( itemId == 2333 ) from $order.lines 	
-    not( OrderLineDTO( itemId == 2317 ) from $order.lines) 
-then
-    # add account maintenance fee
-    OrderLineBL.addItem($order, 2317)
-    OrderLineBL.addItem($order, 2320)
-    update($order)	
-    LOG.debug("祥云A包月")
-    
-end
-
 rule '祥云A 包年'
 
 dialect 'mvel'

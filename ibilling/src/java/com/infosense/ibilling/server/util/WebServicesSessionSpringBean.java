@@ -3087,9 +3087,9 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 	private void addComponentToPlan(Integer planId, Integer entityId, String component, Integer quality) {
 		if (quality.intValue() > 0) {
 			PluggableTaskTypeDTO type = new PluggableTaskTypeDAS().findByCategoryAndClz(Constants.PLUGGABLE_TASK_PROCESSING_ORDERS, PlanOrderTask.class);
-	        IbillingConstant ruleLocation = IbillingConstantDAS.getInstance().findByName(Constants.KEY_RULE_PLAN);
-	        if (type != null && ruleLocation != null) {
-	        	String location = ruleLocation.getContent();
+	        IbillingConstant ruleType = IbillingConstantDAS.getInstance().findByName(Constants.KEY_RULE_PLAN_TYPE);
+	        IbillingConstant ruleLocation = IbillingConstantDAS.getInstance().findByName(Constants.KEY_RULE_PLAN_LOCATION);
+	        if (type != null && ruleType != null && ruleLocation != null) {
 	        	IbillingConstant constant = IbillingConstantDAS.getInstance().findByName(component);
 	        	if (constant != null) {
 	        		List<PluggableTaskDTO> list = PluggableTaskDAS.getInstance().findByEntityCategory(entityId, Constants.PLUGGABLE_TASK_PROCESSING_ORDERS);
@@ -3101,7 +3101,7 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 	        		newTask.setProcessingOrder(lastOrder + 1);
 	        		
 	        		Hashtable<String, String> parameters = new Hashtable<String, String>();
-	        		parameters.put("url", location);
+	        		parameters.put(ruleType.getContent(), ruleLocation.getContent());
 	        		parameters.put("Plan", planId.toString());
 	        		parameters.put("Item", constant.getContent());
 	        		parameters.put("Quality", quality.toString());

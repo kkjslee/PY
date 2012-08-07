@@ -231,7 +231,8 @@ public final class Constants implements CommonConstants {
     
     public static final String KEY_ID_CPU_GENERIC = "cpu.generic";
     public static final String KEY_ID_MEMORY_GENERIC = "memory.generic";
-    public static final String KEY_RULE_PLAN = "rule.plan";
+    public static final String KEY_RULE_PLAN_TYPE = "rule.plan.type";
+    public static final String KEY_RULE_PLAN_LOCATION = "rule.plan.location";
     public static final String KEY_ORDER_MERGE = "order.merge";
 
 }

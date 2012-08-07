@@ -16,6 +16,8 @@
 
 package ibilling
 
+import java.util.Iterator;
+
 import ibilling.Filter;
 import ibilling.FilterConstraint;
 import ibilling.FilterType;
@@ -31,6 +33,7 @@ import com.infosense.ibilling.server.item.CurrencyBL
 import com.infosense.ibilling.server.order.OrderBL
 import com.infosense.ibilling.server.order.db.OrderDAS
 import com.infosense.ibilling.server.order.db.OrderDTO
+import com.infosense.ibilling.server.order.db.OrderLineDTO;
 import com.infosense.ibilling.server.order.db.OrderPeriodDAS
 import com.infosense.ibilling.server.order.db.OrderStatusDAS
 import com.infosense.ibilling.server.user.db.CustomerDTO
@@ -41,6 +44,7 @@ import com.infosense.ibilling.server.util.csv.Exporter
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import com.infosense.ibilling.server.user.db.CompanyDTO
+import com.infosense.ibilling.server.ws.OrderLineWS
 import com.infosense.ibilling.server.ws.OrderWS;
 import com.infosense.ibilling.server.ws.UserWS;
 
@@ -121,13 +125,18 @@ class OrderController {
 
         def selected = params.id ? webServicesSession.getOrder(params.int("id")) : null
         def user = selected ? webServicesSession.getUserWS(selected.userId) : null
-
+		
+		Map<String , String> groupMap = new HashMap<String,String>()
+		if(selected!=null){
+			groupMap = formatOrderLinesWithGroupId(selected)
+		}
+		
         breadcrumbService.addBreadcrumb(controllerName, 'list', null, selected?.id)
 
         if (params.applyFilter || params.partial) {
             render template: 'orders', model: [ orders: orders, order: selected, user: user, currencies: currencies, filters: filters ]
         } else {
-            [ orders: orders, order: selected, user: user, currencies: currencies, filters: filters ]
+            [ orders: orders, order: selected, user: user, currencies: currencies, filters: filters, groupMap: groupMap ]
         }
     }
 
@@ -135,13 +144,30 @@ class OrderController {
     def show = {
         OrderWS order = webServicesSession.getOrder(params.int('id'))
         UserWS user = webServicesSession.getUserWS(order.getUserId())
-
+		Map<String , String> groupMap = formatOrderLinesWithGroupId(order)
         breadcrumbService.addBreadcrumb(controllerName, 'list', null, order.id)
         recentItemService.addRecentItem(order.id, RecentItemType.ORDER)
-
-        render template:'show', model: [order: order, user: user, currencies: currencies]
+		
+        render template:'show', model: [order: order, user: user, currencies: currencies, groupMap:groupMap]
     }
-
+	
+	def formatOrderLinesWithGroupId(OrderWS order){
+		Map<String , String> groupMap = new HashMap<String, String>()
+		String classType = "odd"
+		String groupId = null
+		for (Iterator it = order.getOrderLines().iterator(); it.hasNext();) {
+			OrderLineWS line = (OrderLineWS) it.next()
+			groupId = line.getGroupId()
+			if(groupId == null || groupId == ""){
+					continue
+			}
+			if(!groupMap.containsKey(groupId)){
+				groupMap.put(groupId,classType)
+				classType = classType == "odd"	? "even" : "odd"
+			}
+		}
+		return groupMap
+	}
     /**
      * Applies the set filters to the order list, and exports it as a CSV for download.
      */

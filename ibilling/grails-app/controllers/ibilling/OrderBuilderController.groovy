@@ -107,6 +107,7 @@ class OrderBuilderController {
                     order.billingTypeId = Constants.ORDER_BILLING_POST_PAID
                     order.activeSince   = new Date()
                     order.isCurrent     = 0
+					order.excludeFromBp	= 0
                     order.orderLines    = []
                 }
 
@@ -322,6 +323,7 @@ class OrderBuilderController {
 
                 order.isCurrent = params.isCurrent ? 1 : 0
                 order.notify = params.notify ? 1 : 0
+				order.excludeFromBp = params.exclude ? 1 : 0
                 order.notesInInvoice = params.notesInInvoice ? 1 : 0
 
                 // one time orders are ALWAYS post-paid

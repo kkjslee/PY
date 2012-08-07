@@ -2122,6 +2122,7 @@ CREATE TABLE purchase_order (
     status_id integer NOT NULL,
     currency_id integer NOT NULL,
     deleted smallint DEFAULT 0 NOT NULL,
+    excludeFromBp smallint DEFAULT 0 NOT NULL,
     notify smallint,
     last_notified timestamp without time zone,
     notification_step integer,
@@ -5169,7 +5170,7 @@ COPY promotion_user_map (user_id, promotion_id) FROM stdin;
 -- Data for Name: purchase_order; Type: TABLE DATA; Schema: public; Owner: ibilling
 --
 
-COPY purchase_order (id, user_id, period_id, billing_type_id, active_since, active_until, cycle_start, create_datetime, next_billable_day, created_by, status_id, currency_id, deleted, notify, last_notified, notification_step, due_date_unit_id, due_date_value, df_fm, anticipate_periods, own_invoice, notes, notes_in_invoice, is_current, optlock) FROM stdin;
+COPY purchase_order (id, user_id, period_id, billing_type_id, active_since, active_until, cycle_start, create_datetime, next_billable_day, created_by, status_id, currency_id, deleted, excludeFromBp, notify, last_notified, notification_step, due_date_unit_id, due_date_value, df_fm, anticipate_periods, own_invoice, notes, notes_in_invoice, is_current, optlock) FROM stdin;
 \.
 
 

@@ -148,7 +148,8 @@
                  </thead>
                  <tbody>
                      <g:each var="line" in="${order.orderLines}" status="idx">
-                         <tr>
+                     	
+                         <tr class="groups <g:if test='line?.groupId'>${groupMap.get(line?.groupId)}</g:if>">
                             <td class="innerContent">
                                 <sec:access url="/product/show">
                                    <g:remoteLink controller="product" action="show" id="${line?.itemId}" params="['template': 'show']" before="register(this);" onSuccess="render(data, next);">

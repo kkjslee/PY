@@ -17,8 +17,12 @@
 		   <tr class="planrow">
 		   	  <g:hiddenField name="id" value="${pmap.get('tId')}"/>
 		   	  <g:each in="${paraNames}" var="name">
-	                <td class="innerContent" style="text-align:left" >
-	                <a href="${createLink(controller:'plans', action:'edit', id:pmap.get('tId')) }" >${pmap.get(name)}</a></td>
+	                <td class="innerContent double" style="text-align:left" >
+	                 <g:set var="itemId" value="${planDesc(mapKey:pmap.get(name),key:'id')}" scope="page" />
+		 		     <g:set var="itemDesc" value="${planDesc(mapKey:pmap.get(name),key:'desc')}" scope="page" />
+		 		      <strong><a title="${itemDesc}" href="${createLink(controller:'plans', action:'edit', id:pmap.get('tId')) }" >${itemDesc}</a></strong>
+	               	  <em><a title="${itemId}" href="${createLink(controller:'plans', action:'edit', id:pmap.get('tId')) }" >${itemId}</a></em> 
+	                </td>
                </g:each>
                <td class="innerContent ope" >
              	  <div class="hidden">

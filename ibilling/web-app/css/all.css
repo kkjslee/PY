@@ -922,7 +922,7 @@ td.tiny, th.tiny { width: 50px; }
     vertical-align: middle;
     background: #bbb url(../images/bg-gradient.gif) repeat-x;
 }
-.table-box tbody tr.active,.table-box tbody tr:hover,{
+.table-box tbody tr.active,.table-box tbody tr:hover{
     background: #bbb url(../images/bg-gradient2.gif) repeat-x;
 }
 .even{

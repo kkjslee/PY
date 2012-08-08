@@ -103,7 +103,7 @@ class DBConstantController {
 				ibillingConstantDAS.delete(ibillingConstant)
 				flash.message = messageSource.getMessage("dbconstant.delete.done",[ibillingConstant.getName()].toArray(), session.locale);
 			}else{
-			flash.error = messageSource.getMessage("dbconstant.delete.none",[ibillingConstant.getName()].toArray(), session.locale);
+			flash.error = messageSource.getMessage("dbconstant.delete.error",[ibillingConstant.getName()].toArray(), session.locale);
 			}
 			
 		} catch (SessionInternalError e) {

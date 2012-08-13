@@ -148,6 +148,11 @@
                     <g:link controller="plans"><span><g:message code="menu.link.plans"/></span><em></em></g:link>
                 </li>
             </sec:access>
+             <sec:access url="/discount/list">
+                <li class="${controllerName == 'discount' ? 'active' : ''}">
+                    <g:link controller="discount"><span><g:message code="menu.link.discount"/></span><em></em></g:link>
+                </li>
+            </sec:access>
             <sec:ifAllGranted roles="MENU_99">
                 %{
                     def isConfiguration = controllerName == 'config' ||

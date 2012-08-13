@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th class="small"><g:message code="dbconstant.th.name"/></th>
-                <th><g:message code="dbconstant.th.content"/></th>
+                <th class="large2 double"><g:message code="dbconstant.th.content"/></th>
             </tr>
         </thead>
 

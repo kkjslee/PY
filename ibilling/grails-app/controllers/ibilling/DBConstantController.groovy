@@ -49,7 +49,6 @@ class DBConstantController {
     }
 
     def save = {
-        def ibillingConstant = new IbillingConstant()
 		Locale locale = session.locale
 		def tid = params?.id?:''
 		Integer cid = 0
@@ -64,16 +63,19 @@ class DBConstantController {
 			redirect action: list
 			return
 		}
+		//make sure the name is unique
+		def ibillingConstant =ibillingConstantDAS.findByName(name)
 		if(cid == 0 ){
-			def table = ibillingConstantDAS.findByName(name)
-			if(table !=null){
+			if(ibillingConstant !=null){
 				flash.error = messageSource.getMessage("dbconstant.name.unique",[name].toArray(), locale)
 				redirect action: list
 				return
 			}
 			create = true
 		}
-		
+		if(ibillingConstant == null){
+			ibillingConstant = new IbillingConstant()
+		}
 		bindData(ibillingConstant, params)
 		
         try {

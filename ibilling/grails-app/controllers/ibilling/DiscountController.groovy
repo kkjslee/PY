@@ -8,6 +8,7 @@ import java.util.Set;
 import com.infosense.ibilling.server.pluggableTask.PluggableTask
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskParameterDTO
+import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDAS
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDAS
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskTypeDTO
 import com.infosense.ibilling.server.ws.PluggableTaskWS
@@ -50,7 +51,14 @@ class DiscountController {
 		if(task != null){
 			items = new PluggableTaskParameterDAS().findByCriteria(Restrictions.eq("task.id",task.getId()))
 		}
-		render template: "discounts", model:[task:task,items:items,typeid:typeid]
+		PluggableTaskParameterDTO selected = null
+		def  cid = params.cid?:null
+		if(cid !=null ) {
+			selected = new PluggableTaskParameterDAS().find(params.int('cid'))
+			render view: "list", model:[items:items,typeid:typeid,selected:selected]
+			return
+		}
+		render template: "discounts", model:[items:items,typeid:typeid]
 	}
 	
 	def show = {
@@ -85,7 +93,7 @@ class DiscountController {
 			redirect action: list
 			return
 		}
-		def item = new PluggableTaskParameterDAS().findByName(name,taskid)
+		PluggableTaskParameterDTO item = new PluggableTaskParameterDAS().findByName(name,taskid)
 		if(cid == 0 ){
 			if(item !=null){
 				flash.error = messageSource.getMessage("discount.name.unique",[name].toArray(), locale)
@@ -93,12 +101,15 @@ class DiscountController {
 				return
 			}
 			create = true
+		}else{
+			item = new PluggableTaskParameterDAS().find(cid)
 		}
 		if(item == null){
 			item = new PluggableTaskParameterDTO()
-			item.setTask(task)
 		}
-		bindData(item, params)
+		item.setName(name)
+		item.setStrValue(content)
+		item.setTask(task)
 		try {
 			item = new PluggableTaskParameterDAS().save(item)
 			cid = item.getId()
@@ -113,7 +124,7 @@ class DiscountController {
 			viewUtils.resolveException(flash, session.locale, e)
 		}
 
-		redirect action:items, sid:cid
+		redirect (action:items, params:[cid:cid,typeid:typeid])
 	}
 	
 	def delete = {

@@ -33,7 +33,7 @@
              <g:if test="${selected}">
              <li><a class="submit delete" onclick="$('#confirm-dialog-delete-${selected.id}').dialog('open');"><span><g:message code="button.remove"/></span></a></li>
              <g:render template="/confirm" 
-            			  model="['message':'discounts.delete.confirm','controller':'discount','action':'delete','id':selected.id]"/>
+            			  model="['message':'discount.delete.confirm','controller':'discount','action':'delete','id':selected.id]"/>
              </g:if>
         </ul>
     </div>

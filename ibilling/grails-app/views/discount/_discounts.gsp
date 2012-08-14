@@ -1,5 +1,5 @@
 <div class="plans table-box">
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0selected" cellspacing="0">
     <thead>
         <tr>
     	   	 <th class="small"><g:message code="discount.th.name"/></th>
@@ -10,7 +10,7 @@
 
     <tbody>
 		<g:each in="${items}" status="idx" var="item">
-		   <tr class="discountrow">
+		   <tr class="discountrow <g:if test='${selected}'><g:if test='${selected.id == item.id}'>active</g:if></g:if>">
 	                <td class="innerContent small" style="text-align:left">
 	               	 	 <g:remoteLink class="cell" action="show" id="${item.id}"  params="${[taskid:item.taskId,typeid:typeid]}" before="register(this);" onSuccess="render(data, next);">${item.name}</g:remoteLink>
 	                </td>
@@ -27,8 +27,3 @@
         <span><g:message code="button.create"/></span>
     </g:remoteLink>
 </div>
-<script>
-$(".discountrow").hover(function(){
-	$(this).find(".hidden").toggle();
-});
-</script>

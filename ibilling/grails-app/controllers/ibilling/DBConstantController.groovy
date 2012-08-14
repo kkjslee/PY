@@ -72,12 +72,14 @@ class DBConstantController {
 				return
 			}
 			create = true
+		}else{
+			ibillingConstant = ibillingConstantDAS.find(cid)
 		}
 		if(ibillingConstant == null){
 			ibillingConstant = new IbillingConstant()
 		}
-		bindData(ibillingConstant, params)
-		
+		ibillingConstant.setName(name)
+		ibillingConstant.setContent(content)
         try {
             log.debug("creating new constant")
             ibillingConstant = ibillingConstantDAS.save(ibillingConstant)

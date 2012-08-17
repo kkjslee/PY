@@ -67,6 +67,8 @@ public class OrderWS implements WSSecured, Serializable {
 
     // optlock (not necessary)
     private Integer versionNum;
+    
+    private Integer parentOrderId;
 
     /**
      * Default constructor
@@ -81,7 +83,7 @@ public class OrderWS implements WSSecured, Serializable {
                    Date createDate, Date nextBillableDay, Integer createdBy, Integer statusId, Integer deleted,
                    Integer excludeFromBp, Integer currencyId, Date lastNotified, Integer notifStep, Integer dueDateUnitId, 
                    Integer dueDateValue, Integer anticipatePeriods, Integer dfFm, Integer isCurrent, String notes, Integer notesInInvoice,
-                   Integer ownInvoice, Integer period, Integer userId, Integer version, Date cycleStarts) {
+                   Integer ownInvoice, Integer period, Integer userId, Integer version, Date cycleStarts, Integer parentOrderId) {
         setId(id);
         setBillingTypeId(billingTypeId);
         setNotify(notify);
@@ -108,6 +110,7 @@ public class OrderWS implements WSSecured, Serializable {
         setUserId(userId);
         setVersionNum(version);
         setCycleStarts(cycleStarts);
+        setParentOrderId(parentOrderId);
     }
 
     /**
@@ -422,7 +425,15 @@ public class OrderWS implements WSSecured, Serializable {
         return getUserId();
     }
 
-    @Override
+    public Integer getParentOrderId() {
+		return parentOrderId;
+	}
+
+	public void setParentOrderId(Integer parentOrderId) {
+		this.parentOrderId = parentOrderId;
+	}
+
+	@Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
 

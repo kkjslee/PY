@@ -166,7 +166,7 @@ public class OrderBL extends ResultList
                                        order.getNotesInInvoice(), order.getOwnInvoice(),
                                        order.getOrderPeriod().getId(),
                                        order.getBaseUserByUserId().getId(),
-                                       order.getVersionNum(), order.getCycleStarts());
+                                       order.getVersionNum(), order.getCycleStarts(), order.getParentOrderId());
 
         retValue.setTotal(order.getTotal());
 

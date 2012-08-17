@@ -117,6 +117,7 @@ public class OrderDTO implements Serializable, Exportable {
      private String currencyName = null;
      private BigDecimal total = null;
      private List<PricingField> pricingFields = null;
+     private Integer parentOrderId;
 
     public OrderDTO() {
     }
@@ -157,6 +158,7 @@ public class OrderDTO implements Serializable, Exportable {
         this.versionNum = other.getVersionNum();
         this.cycleStarts = other.getCycleStarts();
         this.pricingFields = other.getPricingFields();
+        this.parentOrderId = other.getParentOrderId();
     }
     
     public OrderDTO(int id, UserDTO baseUserByCreatedBy, CurrencyDTO currencyDTO, OrderStatusDTO orderStatusDTO, OrderBillingTypeDTO orderBillingTypeDTO, Date createDatetime, Integer deleted) {
@@ -174,7 +176,7 @@ public class OrderDTO implements Serializable, Exportable {
             Date nextBillableDay, Integer deleted, Integer excludeFromBp, Integer notify, Date lastNotified, Integer notificationStep, 
             Integer dueDateUnitId, Integer dueDateValue, Integer dfFm, Integer anticipatePeriods, 
             Integer ownInvoice, String notes, Integer notesInInvoice, Set<OrderProcessDTO> orderProcesses, 
-            List<OrderLineDTO> orderLineDTOs, Integer isCurrent) {
+            List<OrderLineDTO> orderLineDTOs, Integer isCurrent, Integer parentOrderId) {
        this.id = id;
        this.baseUserByUserId = baseUserByUserId;
        this.baseUserByCreatedBy = baseUserByCreatedBy;
@@ -201,6 +203,7 @@ public class OrderDTO implements Serializable, Exportable {
        this.orderProcesses = orderProcesses;
        this.lines = orderLineDTOs;
        this.isCurrent = isCurrent;
+       this.parentOrderId = parentOrderId;
     }
    
     @Id @GeneratedValue(strategy=GenerationType.TABLE, generator="purchase_order_GEN")
@@ -858,6 +861,15 @@ public class OrderDTO implements Serializable, Exportable {
 
         return values.toArray(new Object[values.size()][]);
     }
+
+    @Column(name="parent_order")
+	public Integer getParentOrderId() {
+		return parentOrderId;
+	}
+
+	public void setParentOrderId(Integer parentOrderId) {
+		this.parentOrderId = parentOrderId;
+	}
 }
 
 

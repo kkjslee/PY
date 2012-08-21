@@ -730,5 +730,10 @@ public class SpringAPI implements IbillingAPI {
 	public InvoiceWS getLatestInvoiceByOrder(Integer orderId) {
 		return session.getLatestInvoiceByOrder(orderId);
 	}
+
+	@Override
+	public List<OrderLineWS> getOrderLineByUUID(String uuid) {
+		return session.getOrderLineByUUID(uuid);
+	}
 	
 }

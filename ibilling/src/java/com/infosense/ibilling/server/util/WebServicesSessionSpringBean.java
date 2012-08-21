@@ -72,6 +72,7 @@ import com.infosense.ibilling.server.order.OrderHelper;
 import com.infosense.ibilling.server.order.OrderLineBL;
 import com.infosense.ibilling.server.order.db.OrderDAS;
 import com.infosense.ibilling.server.order.db.OrderDTO;
+import com.infosense.ibilling.server.order.db.OrderLineDAS;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
 import com.infosense.ibilling.server.order.db.OrderPeriodDAS;
 import com.infosense.ibilling.server.order.db.OrderPeriodDTO;
@@ -3111,6 +3112,21 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
 	        	}
 	        }
 		}
+	}
+
+	@Override
+	public List<OrderLineWS> getOrderLineByUUID(String uuid) {
+		OrderLineDAS das = new OrderLineDAS();
+		List<OrderLineDTO> dtoList = das.findOrderLineByUUID(uuid);
+		List<OrderLineWS> wsList = new ArrayList<OrderLineWS>();
+		for (OrderLineDTO dto : dtoList) {
+	        OrderLineWS ws = new OrderLineWS(dto.getId(), dto.getItem().getId(), dto.getGroupId(), dto.getDescription(),
+	                                               dto.getAmount(), dto.getQuantity(), dto.getPrice() == null ? null : dto.getPrice(), dto.getCreateDatetime(),
+	                                               dto.getDeleted(), dto.getOrderLineType().getId(), dto.getEditable(),
+	                                               dto.getPurchaseOrder().getId(), dto.getUseItem(), dto.getVersionNum(), dto.getProvisioningStatusId(), dto.getProvisioningRequestId());
+	        wsList.add(ws);
+		}
+		return wsList;
 	}
 	
 }

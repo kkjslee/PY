@@ -207,6 +207,23 @@ public class OrderLineDAS extends AbstractDAS<OrderLineDTO> {
 
         return query.list();
     }
+    
+    @SuppressWarnings("unchecked")
+    public List<OrderLineDTO> findOrderLineByUUID(String uuid) {
+        final String hql =
+                "select line "
+                        + "  from OrderLineDTO line "
+                        + "where line.deleted = 0 "
+                        + "  and line.group_id = :uuid "
+                        + "  and line.purchaseOrder.orderStatus.id = :status "
+                        + "  and line.purchaseOrder.deleted = 0 ";
+
+        Query query = getSession().createQuery(hql);
+        query.setParameter("uuid", uuid);
+        query.setParameter("status", Constants.ORDER_STATUS_ACTIVE);
+
+        return query.list();
+    }
 
 
 

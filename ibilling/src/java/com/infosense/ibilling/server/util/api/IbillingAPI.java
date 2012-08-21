@@ -607,4 +607,6 @@ public interface IbillingAPI {
 	
 	public InvoiceWS getLatestInvoiceByOrder(Integer orderId);
 	
+	public List<OrderLineWS> getOrderLineByUUID(String uuid);
+	
 }

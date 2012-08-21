@@ -2135,7 +2135,8 @@ CREATE TABLE purchase_order (
     notes_in_invoice smallint,
     is_current smallint,
     optlock integer NOT NULL,
-    parent_order integer
+    parent_order integer,
+    order_type integer DEFAULT 0
 );
 
 

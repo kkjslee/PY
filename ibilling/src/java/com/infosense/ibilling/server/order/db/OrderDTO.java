@@ -118,8 +118,9 @@ public class OrderDTO implements Serializable, Exportable {
      private BigDecimal total = null;
      private List<PricingField> pricingFields = null;
      private Integer parentOrderId;
+     private Integer orderType;
 
-    public OrderDTO() {
+	public OrderDTO() {
     }
     
     public OrderDTO(OrderDTO other) {
@@ -869,6 +870,15 @@ public class OrderDTO implements Serializable, Exportable {
 
 	public void setParentOrderId(Integer parentOrderId) {
 		this.parentOrderId = parentOrderId;
+	}
+	
+	@Column(name="order_type")
+	public Integer getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(Integer orderType) {
+		this.orderType = orderType;
 	}
 }
 

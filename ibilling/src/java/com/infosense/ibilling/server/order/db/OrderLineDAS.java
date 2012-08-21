@@ -224,7 +224,27 @@ public class OrderLineDAS extends AbstractDAS<OrderLineDTO> {
 
         return query.list();
     }
+    
+    @SuppressWarnings("unchecked")
+	public OrderLineDTO findByVmUUID(String vmUUID){
+    	if(vmUUID==null || vmUUID.length()==0) return null;
+    	
+    	final String hql =
+            "select line "
+                    + "  from OrderLineDTO line "
+                    + "  where line.deleted = 0 "
+                    + "  and line.group_id = :groupId "
+                    + "  and line.purchaseOrder.orderPeriod.id != :period "
+                    + "  and line.purchaseOrder.orderStatus.id = :status "
+                    + "  and line.purchaseOrder.deleted = 0 ";
 
-
+	    Query query = getSession().createQuery(hql);
+	    query.setParameter("groupId", vmUUID);
+	    query.setParameter("period", Constants.ORDER_PERIOD_ONCE);
+	    query.setParameter("status", Constants.ORDER_STATUS_ACTIVE);
+	
+	    List<OrderLineDTO> results = query.list();
+	    return results.isEmpty() ? null : results.get(0);
+    }
 
 }

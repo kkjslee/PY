@@ -79,9 +79,13 @@ public class CurrentOrder {
      * @return order ID of the current order
      */
     public Integer getCurrent() {
+    	return getCurrent(false);
+    }
+    
+    public Integer getCurrent(boolean isMediation) {
 
         // find in the cache
-        String cacheKey = userId.toString() + Util.truncateDate(eventDate);
+        String cacheKey = userId.toString() + Util.truncateDate(eventDate) + (isMediation?1:0);
         Integer retValue = (Integer) cache.getFromCache(cacheKey, cacheModel);
         LOG.debug("Retrieved from cache '" + cacheKey + "', order id: " + retValue);
 
@@ -111,13 +115,11 @@ public class CurrentOrder {
         }
 
         // loop through future periods until we find a usable current order
-        int futurePeriods = 0;
         boolean orderFound = false;
         mainOrder = order.getEntity().getId();
-        do {
             order.set(mainOrder);
-            final Date newOrderDate = calculateDate(futurePeriods);
-            LOG.debug("Calculated one timer date: " + newOrderDate + ", for future periods: " + futurePeriods);
+            final Date newOrderDate = calculateDate(0);
+            LOG.debug("Calculated one timer date: " + newOrderDate );
 
             if (newOrderDate == null) {
                 // this is an error, there isn't a good date give the event date and
@@ -126,47 +128,38 @@ public class CurrentOrder {
                 return null;
             }
 
-            // now that the date is set, let's see if there is a one-time order for that date
-            boolean somePresent = false;
             try {
                 List<OrderDTO> rows = new OrderDAS().findOneTimersByDate(userId, newOrderDate);
                 LOG.debug("Found " + rows.size() + " one-time orders for new order date: " + newOrderDate);
                 for (OrderDTO oneTime : rows) {
-                    somePresent = true;
                     order.set(oneTime.getId());
                     if (order.getEntity().getStatusId().equals(Constants.ORDER_STATUS_FINISHED)) {
                         LOG.debug("Found one timer " + oneTime.getId() + " but status is finished");
                     } else {
-                        orderFound = true;
-                        LOG.debug("Found existing one-time order");
-                        break;
+                    	if(isMediation && oneTime.getOrderType()==1){
+                    		orderFound = true;
+                    	}
+                    	
+                    	if(!isMediation && oneTime.getOrderType()!=1){
+                    		 orderFound = true;
+                    	}
+                    	
+                    	if(orderFound){
+                            LOG.debug("Found existing one-time order");
+                            break;
+                    	}
                     }
                 }
             } catch (Exception e) {
                 throw new SessionInternalError("Error looking for one time orders", CurrentOrder.class, e);
             }
 
-            if (somePresent && !orderFound) {
-                eLogger.auditBySystem(entityId, userId,
-                                      Constants.TABLE_PUCHASE_ORDER,
-                                      order.getEntity().getId(),
-                                      EventLogger.MODULE_MEDIATION,
-                                      EventLogger.CURRENT_ORDER_FINISHED,
-                                      subscriptionId, null, null);
-
-            } else if (!somePresent) {
-                // there aren't any one-time orders for this date at all, create one
-                create(newOrderDate, currencyId, entityId);
-                orderFound = true;
+            if (!orderFound) {
+                // there aren't any one-time mediation orders for this date at all, create one
+                create(newOrderDate, currencyId, entityId, isMediation?1:0);
                 LOG.debug("Created new one-time order");
             }
 
-            // non present -> create new one with correct date
-            // some present & none found -> try next date
-            // some present & found -> use the found one
-            futurePeriods++;
-        } while (!orderFound);  
-        
         // the result is in 'order'
         retValue = order.getEntity().getId();
 
@@ -234,6 +227,10 @@ public class CurrentOrder {
      * @return new order
      */
     public Integer create(Date activeSince, Integer currencyId, Integer entityId) {
+    	return create(activeSince, currencyId, entityId, 0);
+    }
+
+    public Integer create(Date activeSince, Integer currencyId, Integer entityId, Integer orderType) {
         OrderDTO currentOrder = new OrderDTO();
         currentOrder.setCurrency(new CurrencyDTO(currencyId));
 
@@ -255,6 +252,9 @@ public class CurrentOrder {
 
         order.set(currentOrder);
         order.addRelationships(userId, Constants.ORDER_PERIOD_ONCE, currencyId);
+        if(orderType != null){
+        	currentOrder.setOrderType(orderType);
+        }
 
         return order.create(entityId, null, currentOrder);
     }

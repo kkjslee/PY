@@ -1289,7 +1289,7 @@ public class OrderBL extends ResultList
     }
 
     /**
-     * For the mediation process, get or create a current order. The returned
+     * Get or create a current order. The returned
      * order is not attached to the session.
      *
      * @param userId
@@ -1319,6 +1319,38 @@ public class OrderBL extends ResultList
 
         return order;
     }
+    
+    /**
+     * For the mediation process, get or create a current order. The returned
+     * order is not attached to the session.
+     *
+     * @param userId
+     * @param eventDate
+     * @param currencyId
+     * @return
+     */
+    public static OrderDTO getOrCreateCurrentMediationOrder(Integer userId, Date eventDate,
+            Integer currencyId, boolean persist) {
+		CurrentOrder co = new CurrentOrder(userId, eventDate);
+		
+		Integer currentOrderId = co.getCurrent(true);
+		if (currentOrderId == null) {
+			// this is almost an error, put them in a new order?
+			currentOrderId = co.create(eventDate, currencyId, new UserBL().getEntityId(userId), 1);
+			LOG.warn("Created current one-time order for mediation without a suitable main " +
+			"subscription order:" + currentOrderId);
+		}
+		
+		OrderDAS orderDas = new OrderDAS();
+		OrderDTO order = orderDas.find(currentOrderId);
+		
+		if (!persist) {
+			order.touch();
+			orderDas.detach(order);
+		}
+		
+		return order;
+	}
 
     /**
      * The order has to be set and made persitent with an ID

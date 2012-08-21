@@ -2134,7 +2134,8 @@ CREATE TABLE purchase_order (
     notes character varying(200),
     notes_in_invoice smallint,
     is_current smallint,
-    optlock integer NOT NULL
+    optlock integer NOT NULL,
+    parent_order integer
 );
 
 

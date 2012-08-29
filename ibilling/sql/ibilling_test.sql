@@ -1730,7 +1730,8 @@ CREATE TABLE payment (
     balance numeric(22,10),
     optlock integer NOT NULL,
     payment_period integer,
-    payment_notes character varying(500)
+    payment_notes character varying(500),
+    uuid character(36)
 );
 
 

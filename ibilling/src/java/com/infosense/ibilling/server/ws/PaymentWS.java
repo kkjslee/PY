@@ -62,6 +62,7 @@ public class PaymentWS implements WSSecured, Serializable {
     @Size(min = 0, max = 500, message = "validation.error.size,0,500")
     private String paymentNotes = null;
     private Integer paymentPeriod;
+    private String uuid;
     
     public Integer getResultId() {
         return resultId;
@@ -280,7 +281,15 @@ public class PaymentWS implements WSSecured, Serializable {
         return paymentPeriod;
     }
 
-    /**
+    public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
      * Unsupported, web-service security enforced using {@link #getOwningUserId()}
      * @return null
      */

@@ -367,7 +367,7 @@ public class PaymentBL extends ResultList implements PaymentSQL {
 
     public PaymentDTO getDTO() {
         return new PaymentDTO(payment.getId(), payment.getAmount(), payment.getBalance(), payment.getCreateDatetime(), payment.getUpdateDatetime(), payment.getPaymentDate(), payment.getAttempt(), payment.getDeleted(),
-                payment.getPaymentMethod(), payment.getPaymentResult(), payment.getIsRefund(), payment.getIsPreauth(), payment.getCurrency(), payment.getBaseUser());
+                payment.getPaymentMethod(), payment.getPaymentResult(), payment.getIsRefund(), payment.getIsPreauth(), payment.getUuid(), payment.getCurrency(), payment.getBaseUser());
     }
 
     public PaymentDTOEx getDTOEx(Integer language) {

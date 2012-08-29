@@ -88,6 +88,7 @@ public class PaymentDTO implements Serializable, Exportable {
     private int versionNum;
     private Integer paymentPeriod;
     private String paymentNotes;
+    private String uuid;
 
     public PaymentDTO() {
     }
@@ -109,6 +110,7 @@ public class PaymentDTO implements Serializable, Exportable {
         setPaymentMethod(new PaymentMethodDTO(dto.getPaymentMethod().getId()));
         setPaymentDate(dto.getPaymentDate());
         setUpdateDatetime(dto.getUpdateDatetime());
+        setUuid(dto.getUuid());
 
         if (dto.getPaymentResult() != null)
             setPaymentResult(new PaymentResultDTO(dto.getPaymentResult().getId()));
@@ -116,7 +118,7 @@ public class PaymentDTO implements Serializable, Exportable {
 
     public PaymentDTO(int id, CurrencyDTO currencyDTO,
             PaymentMethodDTO paymentMethod, BigDecimal amount, Date createDatetime,
-            int deleted, int isRefund, Integer isPreauth) {
+            int deleted, int isRefund, Integer isPreauth, String uuid) {
         this.id = id;
         this.currencyDTO = currencyDTO;
         this.paymentMethod = paymentMethod;
@@ -125,6 +127,7 @@ public class PaymentDTO implements Serializable, Exportable {
         this.deleted = deleted;
         this.isRefund = isRefund;
         this.isPreauth = isPreauth;
+        this.uuid = uuid;
     }
 
     public PaymentDTO(int id, UserDTO baseUser, CurrencyDTO currencyDTO,
@@ -132,7 +135,7 @@ public class PaymentDTO implements Serializable, Exportable {
             CreditCardDTO creditCard, PaymentResultDTO paymentResult, AchDTO ach,
             Integer attempt, BigDecimal amount, Date createDatetime,
             Date paymentDate, int deleted, int isRefund, PartnerPayout payoutId,
-            BigDecimal balance, Date updateDatetime, int isPreauth,
+            BigDecimal balance, Date updateDatetime, int isPreauth, String uuid, 
             Set<PaymentAuthorizationDTO> paymentAuthorizations,
             Set<PaymentDTO> payments, Set<PartnerPayout> partnerPayouts,
             PaymentInfoChequeDTO paymentInfoCheque) {
@@ -154,6 +157,7 @@ public class PaymentDTO implements Serializable, Exportable {
         this.balance = balance;
         this.updateDatetime = updateDatetime;
         this.isPreauth = isPreauth;
+        this.uuid = uuid;
         this.paymentAuthorizations = paymentAuthorizations;
         this.payments = payments;
         this.partnerPayouts = partnerPayouts;
@@ -163,7 +167,7 @@ public class PaymentDTO implements Serializable, Exportable {
     public PaymentDTO(int id2, BigDecimal amount2, BigDecimal balance2,
             Date createDatetime2, Date updateDatetime2, Date paymentDate2,
             Integer attempt2, int deleted2, PaymentMethodDTO paymentMethod2,
-            PaymentResultDTO paymentResult2, int isRefund2, Integer isPreauth2,
+            PaymentResultDTO paymentResult2, int isRefund2, Integer isPreauth2, String uuid2,
             CurrencyDTO currency, UserDTO baseUser2) {
         
         this.id = id2;
@@ -178,6 +182,7 @@ public class PaymentDTO implements Serializable, Exportable {
         this.paymentResult = paymentResult2;
         this .isRefund = isRefund2;
         this.isPreauth = isPreauth2;
+        this.uuid = uuid2;
         this.currencyDTO = currency;
         this.baseUser = baseUser2;
         
@@ -208,6 +213,7 @@ public class PaymentDTO implements Serializable, Exportable {
         this.paymentInfoCheque = dto.paymentInfoCheque;
         this.paymentNotes = dto.paymentNotes;
         this.paymentPeriod = dto.paymentPeriod;
+        this.uuid = dto.uuid;
     }
 
     @Id
@@ -478,7 +484,16 @@ public class PaymentDTO implements Serializable, Exportable {
         this.paymentNotes = paymentNotes;
     }
     
-    @Column(name = "payment_period", nullable = true)
+    @Column(name = "uuid", nullable = true)
+    public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	@Column(name = "payment_period", nullable = true)
     public Integer getPaymentPeriod(){
         return paymentPeriod;
     }

@@ -358,6 +358,10 @@
                                 <g:render template="tokens/invoiceReminder"/>
                             </g:if>
                             
+                             <g:if test="${dto?.notificationMessageType?.id == Constants.NOTIFICATION_TYPE_INVOICE_NOTIFICATION.intValue()}">
+                                <g:render template="tokens/invoiceNotification"/>
+                            </g:if>
+                            
                             <g:if test="${dto?.notificationMessageType?.id == Constants.NOTIFICATION_TYPE_INVOICE_EMAIL.intValue()}">
                                 <g:render template="tokens/invoiceEmail"/>
                             </g:if>

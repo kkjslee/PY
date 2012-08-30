@@ -55,6 +55,15 @@ public class OrderSessionBean implements IOrderSessionBean {
             throw new SessionInternalError(e);
         }
     }
+    
+    public void beforeInvoiceNotifications(Date today) throws SessionInternalError{
+    	 try {
+             OrderBL order = new OrderBL();
+             order.beforeInvoiceNotifications(today);
+         } catch (Exception e) {
+             throw new SessionInternalError(e);
+         }
+    }
 
     public OrderDTO getOrder(Integer orderId) throws SessionInternalError {
         try {

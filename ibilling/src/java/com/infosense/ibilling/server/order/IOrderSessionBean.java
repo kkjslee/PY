@@ -34,6 +34,8 @@ import com.infosense.ibilling.server.order.db.OrderPeriodDTO;
 public interface IOrderSessionBean {
     
     public void reviewNotifications(Date today) throws SessionInternalError;
+    
+    public void beforeInvoiceNotifications(Date today) throws SessionInternalError;
 
     public OrderDTO getOrder(Integer orderId) throws SessionInternalError;
 

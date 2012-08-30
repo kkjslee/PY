@@ -137,6 +137,8 @@ public interface CommonConstants {
     public static Integer PREFERENCE_USE_PROVISIONING = new Integer(48);
     public static Integer PREFERENCE_AUTO_RECHARGE_THRESHOLD = new Integer(49);
     public static Integer PREFERENCE_INVOICE_DECIMALS = new Integer(50);
+    public static Integer PREFERENCE_USE_INVOICE_NOTIFICATION= new Integer(51);
+    public static Integer PREFERENCE_INVOICE_FIRST_NOTIFICATION = new Integer(52);
 
     // order status, in synch with db
     public static final Integer ORDER_STATUS_ACTIVE = new Integer(1);

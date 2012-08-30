@@ -76,6 +76,18 @@
                             <content tag="label.for">nextReminder</content>
                             <g:textField name="nextReminder" class="field" value="${nextReminder.value}"/>
                         </g:applyLayout>
+                        
+                         <g:applyLayout name="form/checkbox">
+                            <content tag="label"><g:message code="email.config.label.use.invoice.notification"/></content>
+                            <content tag="label.for">useInvoiceNotification</content>
+                            <g:checkBox class="cb" name="useInvoiceNotification" checked="${useInvoiceNotification.value == '1'}"/>
+                        </g:applyLayout>
+                        
+                        <g:applyLayout name="form/input">
+                            <content tag="label"><g:message code="email.config.label.first.invoice.notification"/></content>
+                            <content tag="label.for">firstNotification</content>
+                            <g:textField name="firstNotification" class="field" value="${firstNotification.value}"/>
+                        </g:applyLayout>
 
                         <!-- spacer -->
                         <div>

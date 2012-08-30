@@ -74,6 +74,7 @@ import com.infosense.ibilling.server.notification.db.NotificationMessageLineDAS;
 import com.infosense.ibilling.server.notification.db.NotificationMessageLineDTO;
 import com.infosense.ibilling.server.notification.db.NotificationMessageSectionDAS;
 import com.infosense.ibilling.server.notification.db.NotificationMessageSectionDTO;
+import com.infosense.ibilling.server.order.db.OrderDTO;
 import com.infosense.ibilling.server.payment.PaymentBL;
 import com.infosense.ibilling.server.payment.PaymentDTOEx;
 import com.infosense.ibilling.server.pluggableTask.NotificationTask;
@@ -87,6 +88,7 @@ import com.infosense.ibilling.server.user.UserBL;
 import com.infosense.ibilling.server.user.contact.db.ContactFieldDTO;
 import com.infosense.ibilling.server.user.db.CompanyDAS;
 import com.infosense.ibilling.server.user.db.CreditCardDTO;
+import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.user.partner.PartnerBL;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.Context;
@@ -343,6 +345,32 @@ public class NotificationBL extends ResultList implements NotificationSQL {
 
         return message;
     }
+    
+    public MessageDTO getInvoiceNotificationMessage(Integer entityId,
+    		UserDTO billingUser, OrderDTO order, Integer firstNotification)
+            throws SessionInternalError, NotificationNotFoundException {
+    	
+    	Integer userId = order.getUserId();
+    	
+        UserBL user = null;
+        Integer languageId = null;
+        MessageDTO message = initializeMessage(entityId, userId);
+        message.setTypeId(MessageDTO.TYPE_INVOICE_NOTIFICATION);
+
+        user = new UserBL(userId);
+        languageId = user.getEntity().getLanguageIdField();
+        setContent(message, message.getTypeId(), entityId, languageId);
+        
+        Integer currencyId = order.getCurrencyId();
+        if(currencyId==null) currencyId = billingUser.getCurrencyId();
+        if(currencyId==null) currencyId = billingUser.getCompany().getCurrencyId();
+        
+        message.addParameter("days", firstNotification.toString());
+        message.addParameter("total", Util.formatMoney(order.getTotal(), billingUser.getUserId(), currencyId, true));
+
+        return message;
+    }
+    
 
     public MessageDTO getInvoiceRemainderMessage(Integer entityId,
             Integer userId, Integer days, Date dueDate, String number,

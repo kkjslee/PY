@@ -47,12 +47,16 @@ import com.infosense.ibilling.server.order.event.NewQuantityEvent;
 import com.infosense.ibilling.server.order.event.NewStatusEvent;
 import com.infosense.ibilling.server.order.event.OrderDeletedEvent;
 import com.infosense.ibilling.server.order.event.PeriodCancelledEvent;
+import com.infosense.ibilling.server.pluggableTask.OrderFilterTask;
 import com.infosense.ibilling.server.pluggableTask.OrderProcessingTask;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager;
 import com.infosense.ibilling.server.process.ConfigurationBL;
+import com.infosense.ibilling.server.process.db.BillingProcessConfigurationDTO;
+import com.infosense.ibilling.server.process.db.BillingProcessDTO;
 import com.infosense.ibilling.server.process.db.PeriodUnitDAS;
+import com.infosense.ibilling.server.process.db.PeriodUnitDTO;
 import com.infosense.ibilling.server.provisioning.db.ProvisioningStatusDAS;
 import com.infosense.ibilling.server.provisioning.event.SubscriptionActiveEvent;
 import com.infosense.ibilling.server.system.event.EventManager;
@@ -60,6 +64,7 @@ import com.infosense.ibilling.server.user.ContactBL;
 import com.infosense.ibilling.server.user.UserBL;
 import com.infosense.ibilling.server.user.db.CompanyDAS;
 import com.infosense.ibilling.server.user.db.CompanyDTO;
+import com.infosense.ibilling.server.user.db.CustomerDTO;
 import com.infosense.ibilling.server.user.db.UserDAS;
 import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.util.Constants;
@@ -71,6 +76,7 @@ import com.infosense.ibilling.server.ws.OrderLineWS;
 import com.infosense.ibilling.server.ws.OrderWS;
 
 import org.apache.log4j.Logger;
+import org.hibernate.ScrollableResults;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -90,6 +96,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -896,6 +903,116 @@ public class OrderBL extends ResultList
         }
 
         return retValue;
+    }
+    
+    public void beforeInvoiceNotifications(Date today){
+    	 INotificationSessionBean notificationSess = (INotificationSessionBean) Context.getBean(Context.Name.NOTIFICATION_SESSION);
+    	 for (CompanyDTO ent : new CompanyDAS().findEntities()) {
+             Integer entityId = ent.getId();
+             PreferenceBL pref = new PreferenceBL();
+             try {
+                 pref.set(entityId, Constants.PREFERENCE_USE_INVOICE_NOTIFICATION);
+             } catch (EmptyResultDataAccessException e1) {
+             // let it use the defaults
+             }
+             Integer useInvoiceNotification = pref.getInt();
+             
+             try {
+            	 pref.set(entityId, Constants.PREFERENCE_INVOICE_FIRST_NOTIFICATION);
+            } catch (EmptyResultDataAccessException e1) {
+            }
+            Integer firstNotification = pref.getInt();
+            
+            if (useInvoiceNotification!=null && useInvoiceNotification == 1 && firstNotification!=null) {
+            	
+            	BillingProcessDTO process = getBillingProcess(entityId);
+            	
+            	GregorianCalendar cal = new GregorianCalendar();
+            	cal.setTime(today);
+                cal.add(GregorianCalendar.DAY_OF_MONTH, firstNotification);
+            	
+            	// get the orders that might be notified
+                OrderDAS orderDas = new OrderDAS();
+                ScrollableResults orders = orderDas.findForInvoiceNotification(Constants.ORDER_STATUS_ACTIVE);
+
+                // go through each of them, and update the DTO if it applies
+                while (orders.next()) {
+                    OrderDTO order = (OrderDTO) orders.get()[0];
+                    CustomerDTO custom = order.getUser().getCustomer();
+                    
+                    if(custom != null){
+                    	// apply any order processing filter pluggable task
+                        try {
+                            PluggableTaskManager taskManager = new PluggableTaskManager(
+                                    entityId,
+                                    Constants.PLUGGABLE_TASK_ORDER_FILTER);
+                            OrderFilterTask task = (OrderFilterTask) taskManager.getNextClass();
+                            boolean isProcessable = true;
+                            while (task != null) {
+                                isProcessable = task.isApplicable(order, process);
+                                if (!isProcessable) {
+                                    break; // no need to keep doing more tests
+                                }
+                                task = (OrderFilterTask) taskManager.getNextClass();
+                            }
+
+                            // include this order only if it complies with all the
+                            // rules
+                            if (isProcessable) {
+                                // while this user has a parent and the flag is off, keep looking
+                                while(custom.getParent() != null &&
+                                        (custom.getInvoiceChild() == null ||
+                                        		custom.getInvoiceChild() == 0)) {
+                                    // go up one level
+                                    LOG.debug("finding parent custom for invoicing. Now " + custom.getId());
+                                    custom = custom.getParent();
+                                }
+                                
+                                UserDTO billingUser = custom.getBaseUser();
+                                if(new UserBL(billingUser).canInvoice()){
+                                	try {
+                                        MessageDTO message = new NotificationBL().getInvoiceNotificationMessage(
+                                                entityId, billingUser, order, firstNotification);
+
+                                        notificationSess.notify(billingUser, message);
+                                        
+                                    } catch (NotificationNotFoundException e) {
+                                        LOG.warn("There are invoice to send reminders, but " + "the notification message is missing for " + "entity " + entityId);
+                                    }
+                                }
+                            }
+                            
+                        }catch (PluggableTaskException e) {
+                            LOG.fatal("Problems handling order filter task.", e);
+                            throw new SessionInternalError(
+                                    "Problems handling order filter task.");
+                        } catch (TaskException e) {
+                            LOG.fatal("Problems excecuting order filter task.", e);
+                            throw new SessionInternalError(
+                                    "Problems executing order filter task.");
+                        }
+                    }
+                }  
+            }
+    	 }
+    }
+    
+    private BillingProcessDTO getBillingProcess(Integer entityId){
+    	ConfigurationBL configEntity = new ConfigurationBL(entityId);
+        BillingProcessConfigurationDTO config = configEntity.getDTO();
+        
+        BillingProcessDTO dto = new BillingProcessDTO();
+
+        //I need to find the entity
+        CompanyDAS comDas = new CompanyDAS();
+        CompanyDTO company = comDas.find(entityId);
+        
+        dto.setEntity(company);
+        dto.setBillingDate(Util.truncateDate( config.getNextRunDate()));
+        dto.setPeriodUnit(config.getPeriodUnit());
+        dto.setPeriodValue(config.getPeriodValue());
+        
+        return dto;
     }
 
     public void reviewNotifications(Date today)

@@ -222,6 +222,7 @@ public final class Constants implements CommonConstants {
     public static final Integer NOTIFICATION_TYPE_INVOICE_REMINDER = 18;
     public static final Integer NOTIFICATION_TYPE_CREDIT_CARD_UPDATE = 19;
     public static final Integer NOTIFICATION_TYPE_LOST_PASSWORD = 20;
+    public static final Integer NOTIFICATION_TYPE_INVOICE_NOTIFICATION = 21;
 
     // contact type
     public static final Integer ENTITY_CONTACT_TYPE = new Integer(1);

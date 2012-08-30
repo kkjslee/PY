@@ -204,6 +204,12 @@ public class Trigger implements Job {
                     remoteInvoice.sendReminders(today);
                     LOG.info("Ended invoice reminders at " + Calendar.getInstance().getTime());
                 }
+                if (Util.getSysPropBooleanTrue("process.run_invoice_notification")) {
+                    // the invoice reminders
+                    LOG.info("Starting invoice notifications at " + Calendar.getInstance().getTime());
+                    remoteOrder.beforeInvoiceNotifications(today);
+                    LOG.info("Ended invoice notifications at " + Calendar.getInstance().getTime());
+                }
                 if (Util.getSysPropBooleanTrue("process.run_cc_expire")) {
                     // send credit card expiration emails
                     LOG.info("Starting credit card expiration at " + Calendar.getInstance().getTime());

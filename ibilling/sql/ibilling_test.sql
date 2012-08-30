@@ -3095,6 +3095,7 @@ COPY international_description (table_id, foreign_id, psudo_column, language_id,
 52	18	description	1	Invoice Reminder
 52	19	description	1	Update Credit Card
 52	20	description	1	Lost password
+52	21	description	1	Invoice Notification
 60	1	description	1	An internal user with all the permissions
 60	1	title	1	Internal
 60	2	description	1	The super user of an entity
@@ -4397,6 +4398,7 @@ COPY notification_message_type (id, optlock, category_id) FROM stdin;
 18	1	1
 19	1	4
 20	1	4
+21	1	1
 \.
 
 
@@ -5081,6 +5083,7 @@ COPY preference_type (id, def_value) FROM stdin;
 30	\N
 31	2000-01-01
 49	\N
+52	\N
 19	1
 20	1
 21	0
@@ -5104,6 +5107,7 @@ COPY preference_type (id, def_value) FROM stdin;
 47	0
 48	1
 50	2
+51	0
 \.
 
 

@@ -312,6 +312,8 @@ class ConfigController {
         def useInvoiceReminders = webServicesSession.getPreference(Constants.PREFERENCE_USE_INVOICE_REMINDERS)
         def firstReminder = webServicesSession.getPreference(Constants.PREFERENCE_FIRST_REMINDER)
         def nextReminder = webServicesSession.getPreference(Constants.PREFERENCE_NEXT_REMINDER_PERIOD)
+		def useInvoiceNotification = webServicesSession.getPreference(Constants.PREFERENCE_USE_INVOICE_NOTIFICATION)
+		def firstNotification = webServicesSession.getPreference(Constants.PREFERENCE_INVOICE_FIRST_NOTIFICATION)
 
         [
                 selfDeliver: selfDeliver,
@@ -321,7 +323,9 @@ class ConfigController {
                 daysForNotification3: daysForNotification3,
                 useInvoiceReminders: useInvoiceReminders,
                 firstReminder: firstReminder,
-                nextReminder: nextReminder
+                nextReminder: nextReminder,
+				useInvoiceNotification : useInvoiceNotification,
+				firstNotification : firstNotification
         ]
     }
 
@@ -347,9 +351,11 @@ class ConfigController {
         def useInvoiceReminders = new PreferenceWS(preferenceType: new PreferenceTypeWS(id: Constants.PREFERENCE_USE_INVOICE_REMINDERS), value: params.useInvoiceReminders ? '1' : '0')
         def firstReminder = new PreferenceWS(preferenceType: new PreferenceTypeWS(id: Constants.PREFERENCE_FIRST_REMINDER), value: params.firstReminder)
         def nextReminder = new PreferenceWS(preferenceType: new PreferenceTypeWS(id: Constants.PREFERENCE_NEXT_REMINDER_PERIOD), value: params.nextReminder)
+		def useInvoiceNotification = new PreferenceWS(preferenceType: new PreferenceTypeWS(id: Constants.PREFERENCE_USE_INVOICE_NOTIFICATION), value: params.useInvoiceNotification ? '1' : '0')
+		def firstNotification = new PreferenceWS(preferenceType: new PreferenceTypeWS(id: Constants.PREFERENCE_INVOICE_FIRST_NOTIFICATION), value: params.firstNotification)
 
         try {
-            webServicesSession.updatePreferences((PreferenceWS[]) [ selfDeliver, customerNotes, daysForNotification1, daysForNotification2, daysForNotification3, useInvoiceReminders, firstReminder, nextReminder ])
+            webServicesSession.updatePreferences((PreferenceWS[]) [ selfDeliver, customerNotes, daysForNotification1, daysForNotification2, daysForNotification3, useInvoiceReminders, firstReminder, nextReminder, useInvoiceNotification, firstNotification ])
 
         } catch (SessionInternalError e) {
             viewUtils.resolveException(flash, session.locale, e)
@@ -361,7 +367,9 @@ class ConfigController {
                    daysForNotification3: daysForNotification3,
                    useInvoiceReminders: useInvoiceReminders,
                    firstReminder: firstReminder,
-                   nextReminder: nextReminder
+                   nextReminder: nextReminder,
+				   useInvoiceNotification : useInvoiceNotification,
+				   firstNotification : firstNotification
                    ]
             return
         }

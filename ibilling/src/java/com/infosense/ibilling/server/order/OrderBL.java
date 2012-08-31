@@ -48,11 +48,13 @@ import com.infosense.ibilling.server.order.event.NewStatusEvent;
 import com.infosense.ibilling.server.order.event.OrderDeletedEvent;
 import com.infosense.ibilling.server.order.event.PeriodCancelledEvent;
 import com.infosense.ibilling.server.pluggableTask.OrderFilterTask;
+import com.infosense.ibilling.server.pluggableTask.OrderPeriodTask;
 import com.infosense.ibilling.server.pluggableTask.OrderProcessingTask;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager;
 import com.infosense.ibilling.server.process.ConfigurationBL;
+import com.infosense.ibilling.server.process.PeriodOfTime;
 import com.infosense.ibilling.server.process.db.BillingProcessConfigurationDTO;
 import com.infosense.ibilling.server.process.db.BillingProcessDTO;
 import com.infosense.ibilling.server.process.db.PeriodUnitDAS;
@@ -69,6 +71,7 @@ import com.infosense.ibilling.server.user.db.UserDAS;
 import com.infosense.ibilling.server.user.db.UserDTO;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.Context;
+import com.infosense.ibilling.server.util.MapPeriodToCalendar;
 import com.infosense.ibilling.server.util.PreferenceBL;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
@@ -924,13 +927,20 @@ public class OrderBL extends ResultList
             Integer firstNotification = pref.getInt();
             
             if (useInvoiceNotification!=null && useInvoiceNotification == 1 && firstNotification!=null) {
-            	
-            	BillingProcessDTO process = getBillingProcess(entityId);
-            	
             	GregorianCalendar cal = new GregorianCalendar();
             	cal.setTime(today);
                 cal.add(GregorianCalendar.DAY_OF_MONTH, firstNotification);
-            	
+                Date billingExcepted = cal.getTime();
+                
+                ConfigurationBL configEntity = new ConfigurationBL(entityId);
+                BillingProcessConfigurationDTO config = configEntity.getDTO();
+                BillingProcessDTO process = getBillingProcess(config);
+                
+                //just skip if the next billing date is after expected
+                if(billingExcepted.before(process.getBillingDate())){
+                	continue;
+                }
+                
             	// get the orders that might be notified
                 OrderDAS orderDas = new OrderDAS();
                 ScrollableResults orders = orderDas.findForInvoiceNotification(Constants.ORDER_STATUS_ACTIVE);
@@ -940,25 +950,30 @@ public class OrderBL extends ResultList
                     OrderDTO order = (OrderDTO) orders.get()[0];
                     CustomerDTO custom = order.getUser().getCustomer();
                     
-                    if(custom != null){
-                    	// apply any order processing filter pluggable task
+                    Date lastNodetified = order.getLastNotified();
+                    if(custom != null && today.after(lastNodetified)){
                         try {
-                            PluggableTaskManager taskManager = new PluggableTaskManager(
-                                    entityId,
-                                    Constants.PLUGGABLE_TASK_ORDER_FILTER);
-                            OrderFilterTask task = (OrderFilterTask) taskManager.getNextClass();
-                            boolean isProcessable = true;
-                            while (task != null) {
-                                isProcessable = task.isApplicable(order, process);
-                                if (!isProcessable) {
-                                    break; // no need to keep doing more tests
-                                }
-                                task = (OrderFilterTask) taskManager.getNextClass();
-                            }
 
-                            // include this order only if it complies with all the
-                            // rules
-                            if (isProcessable) {
+                        	// require the calculation of the period dates
+                            PluggableTaskManager taskManager = new PluggableTaskManager(
+                                    entityId, Constants.PLUGGABLE_TASK_ORDER_PERIODS);
+                            OrderPeriodTask optask = (OrderPeriodTask) taskManager.getNextClass();
+
+                            if (optask == null) {
+                                throw new SessionInternalError("There has to be " +
+                                        "one order period pluggable task configured");
+                            }
+                            Date start = optask.calculateStart(order);
+                            optask.calculateEnd(order, process.getBillingDate(), 1, start);
+                            List<PeriodOfTime> periods = optask.getPeriods();
+                            // there isn't anything billable from this order
+                            if (periods.size() == 0) {
+                                continue;
+                            }
+                            
+                        	cal.setTime(lastNodetified);
+                            cal.add(GregorianCalendar.DAY_OF_MONTH, firstNotification);
+                            if (shouldRunNotification(order, periods.get(0), process, billingExcepted, cal.getTime())) {
                                 // while this user has a parent and the flag is off, keep looking
                                 while(custom.getParent() != null &&
                                         (custom.getInvoiceChild() == null ||
@@ -975,6 +990,8 @@ public class OrderBL extends ResultList
                                                 entityId, billingUser, order, firstNotification);
 
                                         notificationSess.notify(billingUser, message);
+                                        
+                                        order.setLastNotified(today);
                                         
                                     } catch (NotificationNotFoundException e) {
                                         LOG.warn("There are invoice to send reminders, but " + "the notification message is missing for " + "entity " + entityId);
@@ -997,17 +1014,73 @@ public class OrderBL extends ResultList
     	 }
     }
     
-    private BillingProcessDTO getBillingProcess(Integer entityId){
-    	ConfigurationBL configEntity = new ConfigurationBL(entityId);
-        BillingProcessConfigurationDTO config = configEntity.getDTO();
+    private boolean shouldRunNotification(OrderDTO order, PeriodOfTime firstPeriod,  BillingProcessDTO process, Date billingExcepted, Date lastBillingExcepted){
+    	Integer billingInterval = MapPeriodToCalendar.periodToDays(process.getPeriodUnit().getId()) * process.getPeriodValue();
+    	Integer orderInterval = MapPeriodToCalendar.periodToDays(order.getPeriodId()) * order.getOrderPeriod().getValue();
+    	
+    	Date start = null;
+    	if(  order.getBillingTypeId().compareTo(Constants.ORDER_BILLING_PRE_PAID) == 0 ){
+    		start = firstPeriod.getStart();
+    	}
+    	
+    	if(  order.getBillingTypeId().compareTo(Constants.ORDER_BILLING_POST_PAID) == 0 ){
+    		start = firstPeriod.getEnd();
+    	}
+    	
+    	if( start != null ){
+    		Date billingDate = process.getBillingDate();
+    		
+    		if(billingExcepted.after(lastBillingExcepted) && !billingExcepted.before(billingDate)){
+    			if(lastBillingExcepted.before(billingDate)){
+        			return true;
+        		}else{
+        			if(inDifferentPeriod(process.getBillingDate(), null, billingInterval, lastBillingExcepted, billingExcepted)
+        					&& inDifferentPeriod(start, order.getActiveUntil(), orderInterval, lastBillingExcepted, billingExcepted)){
+        				return true;
+        			}
+        		}
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    private boolean inDifferentPeriod(Date start, Date end, Integer inteval, Date last, Date current){
+    	if(end != null){
+    		if(current.after(end)){
+    			current = end;
+    		}
+    		
+    		if(last.after(end)){
+    			last = end;
+    		}
+    		
+    		if(current.equals(end)){
+    			return false;
+    		}
+    	}
+    	
+    	long days1 = dayBetween(start, last);
+    	long days2 = dayBetween(start, current);
+    	
+    	long period1 = days1/inteval;
+    	long period2 = days2/inteval;
+    	
+    	if(period1 != period2) return true;
+    	
+    	return false;
+    }
+    
+    private long dayBetween(Date d1, Date d2){
+    	long mils = Math.abs(d1.getTime()-d2.getTime());
+    	return (mils/(1000 * 60 * 60 * 24));
+    }
+    
+    private BillingProcessDTO getBillingProcess(BillingProcessConfigurationDTO config){
         
         BillingProcessDTO dto = new BillingProcessDTO();
 
-        //I need to find the entity
-        CompanyDAS comDas = new CompanyDAS();
-        CompanyDTO company = comDas.find(entityId);
-        
-        dto.setEntity(company);
+        dto.setEntity(config.getEntity());
         dto.setBillingDate(Util.truncateDate( config.getNextRunDate()));
         dto.setPeriodUnit(config.getPeriodUnit());
         dto.setPeriodValue(config.getPeriodValue());
@@ -1138,7 +1211,7 @@ public class OrderBL extends ResultList
                             order.setNotify(new Integer(0));
                         }
                         order.setNotificationStep(new Integer(currentStep));
-                        order.setLastNotified(Calendar.getInstance().getTime());
+//                        order.setLastNotified(Calendar.getInstance().getTime());
                     }
 
                 } catch (NotificationNotFoundException e) {

@@ -361,7 +361,8 @@ public abstract class AbstractJDBCReader extends AbstractReader {
                             break;
                     }
                 }
-
+                
+                processRecord(record);
                 recordRead(record, keyColumnIndexes);
                 records.add(record);
             }
@@ -469,6 +470,10 @@ public abstract class AbstractJDBCReader extends AbstractReader {
         public void remove() {
             throw new UnsupportedOperationException("remove() operation not supported.");
         }
+    }
+    
+    protected void processRecord(Record record){
+    	
     }
 
 

@@ -402,7 +402,7 @@ public class OrderBL extends ResultList
      * Method checkOrderLineQuantities.
      * Creates a NewQuantityEvent for each order line that has had
      * its quantity modified (including those added or deleted).
-     * @return An array with all the events that should be fiered. This
+     * @return An array with all the events that should be fired. This
      * prevents events being fired when the order has not be saved and it is
      * still 'mutating'.
      */
@@ -1526,7 +1526,7 @@ public class OrderBL extends ResultList
 		Integer currentOrderId = co.getCurrent(true);
 		if (currentOrderId == null) {
 			// this is almost an error, put them in a new order?
-			currentOrderId = co.create(eventDate, currencyId, new UserBL().getEntityId(userId), 1);
+			currentOrderId = co.create(eventDate, currencyId, new UserBL().getEntityId(userId), CommonConstants.ORDER_TYPE_MEDIATION);
 			LOG.warn("Created current one-time order for mediation without a suitable main " +
 			"subscription order:" + currentOrderId);
 		}

@@ -4772,13 +4772,12 @@ COPY pluggable_task (id, entity_id, type_id, processing_order, optlock, notes) F
 23	1	23	1	1	\N
 31	1	26	1	1	\N
 420	1	33	1	1	\N
-421	1	32	1	3	\N
 431	1	1	2	1	\N
 440	1	40	1	1	\N
 450	1	41	1	1	\N
 460	1	42	1	1	\N
 470	1	43	1	1	\N
-480	1	44	3	1	\N
+480	1	45	1	1	\N
 490	1	46	1	2	\N
 500	1	47	1	1	\N
 510	1	48	2	1	\N
@@ -4796,7 +4795,6 @@ COPY pluggable_task (id, entity_id, type_id, processing_order, optlock, notes) F
 1	1	59	1	3	\N
 430	1	60	1	1	\N
 572	1	73	2	0	\N
-6020	1	44	2	1	\N
 6030	1	81	1	1	\N
 6040	1	78	1	4	\N
 6050	1	82	2	7	\N
@@ -4833,9 +4831,6 @@ COPY pluggable_task_parameter (id, task_id, name, int_value, str_value, float_va
 38	22	all	\N	yes	\N	1
 39	22	processor_name	\N	second_fake_processor	\N	1
 44	21	FAKE_1	\N	20	\N	1
-540	421	format_file	\N	asterisk.xml	\N	1
-550	421	suffix	\N	csv	\N	1
-551	421	batch_size	\N	100	\N	1
 560	450	file	\N	CancelFees.pkg	\N	1
 610	460	enable_filter_user_id	\N	true	\N	1
 620	460	enable_filter_name	\N	true	\N	1
@@ -4865,13 +4860,6 @@ COPY pluggable_task_parameter (id, task_id, name, int_value, str_value, float_va
 580	420	file	\N	Mediation.pkg ItemsRules.pkg PricingRules.pkg RateCard.pkg	\N	1
 8305	572	url	\N	jdbc:postgresql://localhost:5432/ibilling	\N	1
 8306	572	username	\N	ibilling	\N	1
-830700	6020	table_name	\N	cdrentries	\N	1
-830701	6020	key_column_name	\N	accountcode	\N	1
-830702	6020	driver	\N	org.postgresql.Driver	\N	1
-830703	6020	url	\N	jdbc:postgresql://localhost:5432/ibilling	\N	1
-830704	6020	username	\N	ibilling	\N	1
-830705	6020	password	\N		\N	1
-830706	6020	timestamp_column_name	\N	ts	\N	1
 830707	22	accept-ach	\N	true	\N	0
 830800	6040	config_filename	\N	rules-generator-config.xml	\N	1
 830801	6040	output_filename	\N	InternalEventsRulesTask520.pkg	\N	1
@@ -4922,9 +4910,7 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 29	13	com.infosense.ibilling.server.item.tasks.RulesItemManager	0
 30	1	com.infosense.ibilling.server.order.task.RulesLineTotalTask	0
 31	14	com.infosense.ibilling.server.item.tasks.RulesPricingTask	0
-32	15	com.infosense.ibilling.server.mediation.task.SeparatorFileReader	1
 33	16	com.infosense.ibilling.server.mediation.task.RulesMediationTask	0
-34	15	com.infosense.ibilling.server.mediation.task.FixedFileReader	1
 35	8	com.infosense.ibilling.server.user.tasks.PaymentInfoNoValidateTask	0
 36	7	com.infosense.ibilling.server.notification.task.TestNotificationTask	0
 37	5	com.infosense.ibilling.server.process.task.ProRateOrderPeriodTask	0
@@ -4935,7 +4921,7 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 42	6	com.infosense.ibilling.server.payment.tasks.PaymentFilterTask	0
 43	17	com.infosense.ibilling.server.payment.blacklist.tasks.BlacklistUserStatusTask	0
 44	15	com.infosense.ibilling.server.mediation.task.JDBCReader	0
-45	15	com.infosense.ibilling.server.mediation.task.MySQLReader	0
+45	15	com.infosense.ibilling.server.mediation.task.MySQLReaderFor21	0
 46	17	com.infosense.ibilling.server.provisioning.task.ProvisioningCommandsRulesTask	0
 47	18	com.infosense.ibilling.server.provisioning.task.TestExternalProvisioningTask	0
 22	6	com.infosense.ibilling.server.payment.tasks.PaymentRouterCCFTask	2

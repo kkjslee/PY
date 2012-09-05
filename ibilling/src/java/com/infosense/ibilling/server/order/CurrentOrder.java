@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 
 
+import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.common.Util;
 import com.infosense.ibilling.server.order.db.OrderDAS;
@@ -227,7 +228,7 @@ public class CurrentOrder {
      * @return new order
      */
     public Integer create(Date activeSince, Integer currencyId, Integer entityId) {
-    	return create(activeSince, currencyId, entityId, 0);
+    	return create(activeSince, currencyId, entityId, CommonConstants.ORDER_TYPE_DEFAULT);
     }
 
     public Integer create(Date activeSince, Integer currencyId, Integer entityId, Integer orderType) {

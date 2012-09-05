@@ -54,6 +54,10 @@ public class JDBCReader extends AbstractJDBCReader {
     private static final Logger LOG = Logger.getLogger(JDBCReader.class);
 
     private String timestampUpdateSql = null;
+    
+    protected String getSelectColumns(){
+    	return "*";
+    }
 
     /**
      * Returns an SQL query to read records that have not previously been read.
@@ -69,7 +73,9 @@ public class JDBCReader extends AbstractJDBCReader {
     @Override
     protected String getSqlQueryString() {
         StringBuilder query = new StringBuilder()
-                .append("SELECT * FROM ")
+                .append("SELECT ")
+                .append(getSelectColumns())
+                .append(" FROM ")
                 .append(getTableName())
                 .append(" WHERE ");
 

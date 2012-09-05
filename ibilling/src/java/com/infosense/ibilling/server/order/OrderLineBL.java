@@ -89,6 +89,25 @@ public class OrderLineBL {
         }
         return retValue;
     }
+    
+    public static void addLines(Integer entityId, OrderDTO order, List<OrderLineDTO> lines, boolean persist) {
+        List<OrderLineDTO> oldLines = copy(lines);
+        for(OrderLineDTO line : lines){
+        	addLine(order, line, false);
+        }
+        
+        if (persist) {
+    		new OrderDAS().save(order);
+    		
+			new OrderBL().checkOrderLineQuantities(
+				oldLines,
+				order.getLines(), 
+				entityId, 
+				order.getId(),
+				true
+			);
+    	}
+    }
 
 
     public static void addLine(OrderDTO order, OrderLineDTO line, boolean persist) {

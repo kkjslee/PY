@@ -1,0 +1,206 @@
+package com.infosense.mediation
+
+import com.infosense.ibilling.server.item.PricingField;
+import com.infosense.ibilling.server.mediation.task.MediationResult;
+import com.infosense.ibilling.server.user.db.CompanyDTO;
+import com.infosense.ibilling.server.order.db.OrderLineDAS;
+import com.infosense.ibilling.server.order.db.OrderLineDTO;
+import com.infosense.ibilling.server.order.db.OrderDTO;
+import com.infosense.ibilling.server.order.OrderBL;
+import com.infosense.ibilling.server.order.OrderLineBL;
+import com.infosense.ibilling.server.user.UserBL;
+
+import org.apache.log4j.Logger;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.math.BigDecimal;
+
+function Integer getUserIdFromVmUUID(String vmUUID, Integer entityId) {
+	OrderLineDAS das = new OrderLineDAS();
+	OrderLineDTO dto = das.findByVmUUID(vmUUID);
+	if(dto != null){
+		OrderDTO order = dto.getPurchaseOrder();
+		if(order != null){
+			return order.getUserId();
+		}
+	}
+	return null;
+}
+
+function int getDefaultCurrency(Integer userId) {
+	return new UserBL(userId).getCurrencyId();
+}
+
+function List newLines(String UUID, BigDecimal cpuTime, BigDecimal memory, BigDecimal ioIn, 
+		BigDecimal ioOut, BigDecimal netIn, BigDecimal netOut) {
+	List<OrderLineDTO> lines = new ArrayList<OrderLineDTO>();
+	List<OrderLineDTO> originalLines = new OrderLineDAS().findOrderLineByUUID(UUID);
+	for(OrderLineDTO ol : originalLines){
+		int type = getItemType(ol);
+		
+		OrderLineDTO line = null;
+		if(type==1){
+			line = new OrderLineDTO();
+			line.setQuantity(cpuTime);
+		}else if(type==2){
+			line = new OrderLineDTO();
+			line.setQuantity(memory);
+		}else if(type==3){
+			line = new OrderLineDTO();
+			line.setQuantity(ioIn);
+		}else if(type==4){
+			line = new OrderLineDTO();
+			line.setQuantity(ioOut);
+		}else if(type==4){
+			line = new OrderLineDTO();
+			line.setQuantity(netIn);
+		}else if(type==4){
+			line = new OrderLineDTO();
+			line.setQuantity(netOut);
+		}
+		
+		if(line!=null){
+			line.setItemId(ol.getItemId());
+			line.setDefaults();
+			line.setPrice(ol.getPrice());
+		}
+	}
+	return lines;
+}
+
+function int getItemType(OrderLineDTO line){
+	return 0;
+}
+
+# updates the current order
+function void addLines(MediationResult result, Integer entityId) {
+	result.setOldLines(OrderLineBL.copy(result.getCurrentOrder().getLines()));
+	#if (!result.getLines().isEmpty())
+	#OrderLineBL.addLines(entityId, result.getCurrentOrder(), result.getLines(), false);
+}
+
+rule 'user setting'
+no-loop #because the user might be wrong and the set gets a null
+when
+	$result : MediationResult(step == MediationResult.STEP_1_START, userId == null)
+	$field : PricingField( name == "vmUUID", resultId == $result.id)
+	$company : CompanyDTO( ) # needed to determine a user by its user name
+then
+	modify( $result ) {
+		setUserId( getUserIdFromVmUUID($field.getStrValue(), $company.getId()) );
+	}
+end
+
+rule 'date setter'
+when
+	$result : MediationResult(step == MediationResult.STEP_1_START, eventDate == null)
+	$field : PricingField( name == "logTime", resultId == $result.id)
+then
+	modify( $result ) {
+		setEventDate( $field.getDateValue() );
+	}
+end
+
+rule 'from start to after user'
+when
+	$result : MediationResult(step == MediationResult.STEP_1_START, userId != null,	eventDate != null, currencyId == null)
+	# only one record for a given user at a time
+	not( exists( MediationResult( $result.userId == userId, step > MediationResult.STEP_1_START) ) )
+then
+	modify( $result ) {
+		setStep(MediationResult.STEP_2_AFTER_USER);
+	}
+end
+
+rule 'currency setter'
+when
+	$result : MediationResult(step == MediationResult.STEP_2_AFTER_USER, currencyId == null)
+then
+	modify( $result ) {
+		setCurrencyId( getDefaultCurrency($result.getUserId()) );
+	}
+end
+
+rule "from after user to current order"
+when
+	$result : MediationResult(step == MediationResult.STEP_2_AFTER_USER, currencyId != null, currentOrder == null)
+then
+	modify( $result ) {
+		setStep(MediationResult.STEP_3_CURRENT_ORDER);
+	}
+end
+
+rule 'create current order' #one current order for one user in one mediation period
+when
+	$result : MediationResult(step == MediationResult.STEP_3_CURRENT_ORDER, currentOrder == null)
+then
+	modify( $result ) {
+		setCurrentOrder( OrderBL.getOrCreateCurrentMediationOrder($result.getUserId(),
+			$result.getEventDate(), $result.getCurrencyId(), $result.getPersist()) );
+	}
+end
+
+rule "from current order to resolve item"
+when
+	$result : MediationResult(step == MediationResult.STEP_3_CURRENT_ORDER,	currentOrder != null, done == false )
+then
+	modify( $result ) {
+		setStep(MediationResult.STEP_4_RESOLVE_ITEM);
+	}
+end
+
+rule 'resolve item'
+when
+	$result : MediationResult(step == MediationResult.STEP_4_RESOLVE_ITEM)
+	$uuid : PricingField( name == "vmUUID", resultId == $result.id)
+	$cpuTime : PricingField( name == "totalCPUSeconds", resultId == $result.id)
+	$curMemory : PricingField( name == "memory", resultId == $result.id)
+	$ioIn : PricingField( name == "ioReadTimes", resultId == $result.id)
+	$ioOut : PricingField( name == "ioWriteTimes", resultId == $result.id)
+	$netIn : PricingField( name == "pkReceived", resultId == $result.id)
+	$netOut : PricingField( name == "pkTransmitted", resultId == $result.id)
+then
+	$result.getLines().addAll(newLines($uuid.getStrValue(), $cpuTime.getDecimalValue(), $curMemory.getDecimalValue(),
+			$ioIn.getDecimalValue(), $ioOut.getDecimalValue(), $netIn.getDecimalValue(), $netOut.getDecimalValue()));
+end
+
+rule "from resolve item to line creation"
+salience -10  # has to run after the resolving item rules had a chance of setting the price
+when
+	$result : MediationResult(step == MediationResult.STEP_4_RESOLVE_ITEM)
+then
+	modify( $result ) {
+		#skip 5, because pricing is done in this step
+		setStep(MediationResult.STEP_6_ITEM_MANAGEMENT);
+	}
+end
+
+rule 'line creation'
+when
+	$result : MediationResult(step == MediationResult.STEP_6_ITEM_MANAGEMENT, oldLines == null )
+	$company : CompanyDTO()
+then
+	addLines($result, $company.getId()); # will add the lines to the current order and set oldLines
+	update($result);
+end
+
+rule "from item to diffs"
+salience -10 # let all the item management rules fire first
+when
+	$result : MediationResult(step == MediationResult.STEP_6_ITEM_MANAGEMENT, oldLines != null)
+then
+	modify( $result ) {
+		setStep(MediationResult.STEP_7_DIFF);
+	}
+end
+
+rule 'resolve diff lines'
+when
+	$result : MediationResult( step == MediationResult.STEP_7_DIFF)
+then
+	$result.setDiffLines(OrderLineBL.diffOrderLines(
+		$result.getOldLines(), $result.getCurrentOrder().getLines()));
+	$result.setDone(true);
+	retract($result);
+end

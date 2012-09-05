@@ -145,6 +145,10 @@ public interface CommonConstants {
     public static final Integer ORDER_STATUS_FINISHED = new Integer(2);
     public static final Integer ORDER_STATUS_SUSPENDED = new Integer(3);
     public static final Integer ORDER_STATUS_SUSPENDED_AGEING = new Integer(4);
+    
+    //order type
+    public static final Integer ORDER_TYPE_DEFAULT = new Integer(0);
+    public static final Integer ORDER_TYPE_MEDIATION = new Integer(1);
 
     // invoice status, in synch with db
     public static final Integer INVOICE_STATUS_PAID = new Integer(1);

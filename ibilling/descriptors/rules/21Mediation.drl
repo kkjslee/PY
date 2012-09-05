@@ -76,8 +76,9 @@ function int getItemType(OrderLineDTO line){
 # updates the current order
 function void addLines(MediationResult result, Integer entityId) {
 	result.setOldLines(OrderLineBL.copy(result.getCurrentOrder().getLines()));
-	#if (!result.getLines().isEmpty())
-	#OrderLineBL.addLines(entityId, result.getCurrentOrder(), result.getLines(), false);
+	if (!result.getLines().isEmpty()){
+		OrderLineBL.addLines(entityId, result.getCurrentOrder(), result.getLines(), false);
+	}
 }
 
 rule 'user setting'

@@ -943,7 +943,7 @@ public class OrderBL extends ResultList
                 
             	// get the orders that might be notified
                 OrderDAS orderDas = new OrderDAS();
-                ScrollableResults orders = orderDas.findForInvoiceNotification(Constants.ORDER_STATUS_ACTIVE);
+                ScrollableResults orders = orderDas.findForInvoiceNotification(Constants.ORDER_STATUS_ACTIVE, CommonConstants.ORDER_TYPE_DEFAULT);
 
                 // go through each of them, and update the DTO if it applies
                 while (orders.next()) {

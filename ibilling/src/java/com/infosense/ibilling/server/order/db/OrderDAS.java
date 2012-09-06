@@ -87,8 +87,9 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
             "select distinct(orderObj.id)" +
             " from OrderDTO orderObj" +
             " inner join orderObj.lines line" +
+            " inner join orderObj.orderStatus status" +
             " where orderObj.deleted = 0" +
-            " and orderObj.orderStatus = " + Constants.ORDER_STATUS_ACTIVE +
+            " and status.id = " + Constants.ORDER_STATUS_ACTIVE +
             " and orderObj.orderType = " + CommonConstants.ORDER_TYPE_MEDIATION +
             " and line.group_id = :uuid"+
             " order by orderObj.id desc";
@@ -145,7 +146,7 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
         return criteria.scroll();
     }
     
-    public ScrollableResults findForInvoiceNotification(Integer statusId) {
+    public ScrollableResults findForInvoiceNotification(Integer statusId, Integer orderType) {
         // I need to access an association, so I can't use the parent helper class
         Criteria criteria = getSession().createCriteria(OrderDTO.class)
                 .add(Restrictions.eq("deleted", 0))
@@ -154,6 +155,9 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
             		.add(Restrictions.ne("p.id", Constants.ORDER_PERIOD_ONCE))
                 .createAlias("orderStatus", "s")
                     .add(Restrictions.eq("s.id", statusId));
+        if(orderType != null){
+        	criteria.add(Restrictions.eq("orderType", orderType));
+        }
         
         return criteria.scroll();
     }

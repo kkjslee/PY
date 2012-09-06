@@ -63,11 +63,13 @@
                             <g:message code="configuration.menu.all"/>
                         </g:link>
                     </li>
+                    <!--
                     <li class="${pageProperty(name: 'page.menu.item') == 'aging' ? 'active' : ''}">
                         <g:link controller="config" action="aging">
                             <g:message code="configuration.menu.aging"/>
                         </g:link>
                     </li>
+                    -->
                     <li class="${pageProperty(name: 'page.menu.item') == 'billing' ? 'active' : ''}">
                         <g:link controller="billingconfiguration" action="index">
                             <g:message code="configuration.menu.billing"/>

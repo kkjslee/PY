@@ -4798,8 +4798,6 @@ COPY pluggable_task (id, entity_id, type_id, processing_order, optlock, notes) F
 6030	1	81	1	1	\N
 6040	1	78	1	4	\N
 6050	1	82	2	7	\N
-6060	1	87	1	1	\N
-6061	1	88	3	1	\N
 530	1	50	3	2	\N
 \.
 
@@ -4958,9 +4956,6 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 84	17	com.infosense.ibilling.server.payment.tasks.SaveACHExternallyTask	1
 85	20	com.infosense.ibilling.server.process.task.BillableUserOrdersBillingProcessFilterTask	0
 86	4	com.infosense.ibilling.server.process.task.SimpleTaxCompositionTask	1
-87	24	com.infosense.ibilling.server.process.task.BasicAgeingTask	0
-88	22	com.infosense.ibilling.server.process.task.AgeingProcessTask	0
-89	24	com.infosense.ibilling.server.process.task.BusinessDayAgeingTask	0
 90	1	com.infosense.ibilling.server.order.task.PlanOrderTask	0
 \.
 
@@ -4995,7 +4990,6 @@ COPY pluggable_task_type_category (id, interface_name) FROM stdin;
 21	com.infosense.ibilling.server.mediation.task.IMediationErrorHandler
 22	com.infosense.ibilling.server.process.task.IScheduledTask
 23	com.infosense.ibilling.server.rule.task.IRulesGenerator
-24	com.infosense.ibilling.server.process.task.IAgeingTask
 \.
 
 

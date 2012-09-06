@@ -46,8 +46,6 @@ password_encrypt_all=false
 lockout_password=verySecret
 # if the daily batch includes running the billing process
 process.run_billing=true
-# if the daily batch includes running the ageing process
-process.run_ageing=true
 # if the daily batch includes running the order expiration notification process
 process.run_order_expire=false
 # if the daily batch includes running the create invoice notification

@@ -150,7 +150,6 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
         // I need to access an association, so I can't use the parent helper class
         Criteria criteria = getSession().createCriteria(OrderDTO.class)
                 .add(Restrictions.eq("deleted", 0))
-                .add(Restrictions.eq("excludeFromBp", 0))
                 .createAlias("orderPeriod", "p")
             		.add(Restrictions.ne("p.id", Constants.ORDER_PERIOD_ONCE))
                 .createAlias("orderStatus", "s")

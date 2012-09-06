@@ -4225,9 +4225,7 @@ COPY language (id, code,description, country_code) FROM stdin;
 --
 
 COPY mediation_cfg (id, entity_id, create_datetime, name, order_value, pluggable_task_id, optlock) FROM stdin;
-10	1	2007-11-26 10:41:31.55	Asterisk test	1	421	0
-20	1	2009-01-13 11:16:50.976	JDBCReader test	2	480	0
-30	1	2007-11-26 10:41:31.55	JDBCReader from ibilling	1	6020	1
+20	1	2009-01-13 11:16:50.976	Mediation Reader	2	480	0
 \.
 
 
@@ -4304,14 +4302,6 @@ COPY notification_category (id) FROM stdin;
 --
 
 COPY notification_message (id, type_id, entity_id, language_id, use_flag, optlock) FROM stdin;
-1	1	1	1	1	1
-2	2	1	1	1	1
-3	3	1	1	1	1
-7	18	1	1	1	1
-8	19	1	1	1	1
-17	16	1	1	1	1
-18	17	1	1	1	1
-19	12	1	1	1	1
 \.
 
 
@@ -4342,12 +4332,6 @@ COPY notification_message_arch_line (id, message_archive_id, section, content, o
 --
 
 COPY notification_message_line (id, message_section_id, content, optlock) FROM stdin;
-1	1	Billing Statement from |company_name|	1
-2	2	Some text	1
-3	3	Some text	1
-4	4	Some text	1
-5	5	Some text	1
-6	6	Some text	1
 \.
 
 
@@ -4358,16 +4342,6 @@ COPY notification_message_line (id, message_section_id, content, optlock) FROM s
 --
 
 COPY notification_message_section (id, message_id, section, optlock) FROM stdin;
-1	1	1	1
-2	1	2	1
-3	2	1	1
-4	2	2	1
-5	3	1	1
-6	3	2	1
-13	7	1	1
-14	7	2	1
-15	8	1	1
-16	8	2	1
 \.
 
 
@@ -4379,14 +4353,6 @@ COPY notification_message_section (id, message_id, section, optlock) FROM stdin;
 
 COPY notification_message_type (id, optlock, category_id) FROM stdin;
 1	1	1
-2	1	4
-3	1	4
-4	1	4
-5	1	4
-6	1	4
-7	1	4
-8	1	4
-9	1	4
 10	1	3
 11	1	3
 12	1	1

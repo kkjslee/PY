@@ -24,8 +24,10 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.InvalidArgumentException;
 import com.infosense.ibilling.common.SessionInternalError;
+import com.infosense.ibilling.server.invoice.db.InvoiceDTO;
 import com.infosense.ibilling.server.mediation.db.MediationConfiguration;
 import com.infosense.ibilling.server.mediation.db.MediationConfigurationDAS;
 import com.infosense.ibilling.server.mediation.db.MediationMapDAS;
@@ -42,20 +44,26 @@ import com.infosense.ibilling.server.mediation.task.IMediationErrorHandler;
 import com.infosense.ibilling.server.mediation.task.IMediationProcess;
 import com.infosense.ibilling.server.mediation.task.IMediationReader;
 import com.infosense.ibilling.server.mediation.task.MediationResult;
+import com.infosense.ibilling.server.order.db.OrderDAS;
+import com.infosense.ibilling.server.order.db.OrderDTO;
 import com.infosense.ibilling.server.order.db.OrderLineDAS;
 import com.infosense.ibilling.server.order.db.OrderLineDTO;
+import com.infosense.ibilling.server.payment.event.ProcessPaymentEvent;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskBL;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDAS;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskDTO;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager;
+import com.infosense.ibilling.server.process.BillingProcessBL;
+import com.infosense.ibilling.server.system.event.EventManager;
 import com.infosense.ibilling.server.user.EntityBL;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.Context;
 import com.infosense.ibilling.server.util.audit.EventLogger;
 
 import org.apache.log4j.Logger;
+import org.hibernate.ScrollableResults;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -166,7 +174,45 @@ public class MediationSessionBean implements IMediationSessionBean {
                 }
             }
 
+            //auto payment
+            //get the orders that might be processable for this user
+            OrderDAS orderDas = new OrderDAS();
+            ScrollableResults orders = orderDas.findForBillingProcess(null, Constants.ORDER_STATUS_ACTIVE, CommonConstants.ORDER_TYPE_PAYASUGO);
+
+            Date currentTime = new Date();
+            // go through each of them, and update the DTO if it applies
+            while (orders.next()) {
+                OrderDTO order = (OrderDTO) orders.get()[0];
+                
+                if(order.getLines().size()==0) continue;
+                
+                Date start = calcStart(order);
+                
+                //more than one hour after last billing period
+                if( (currentTime.getTime()-start.getTime()) >= (1000*60*60) ){
+                	
+                	List<Integer> mOrderIds = new OrderDAS().findAllMediationOrdersByUUID(order.getLines().get(0).getGroupId());
+                	
+                	try{
+                		for(Integer mOrderId : mOrderIds){
+                    		InvoiceDTO invoice = new BillingProcessBL().generateInvoice(mOrderId, null);
+                    		
+                    		// post the need of a payment process, it'll be done asynchronusly
+                            ProcessPaymentEvent event = new ProcessPaymentEvent(invoice.getId(), 
+                                    null, null, entityId);
+                            EventManager.process(event);
+                    	}
+                    	
+                    	order.setNextBillableDay(currentTime);
+                    	new OrderDAS().save(order);
+                	}catch(Exception e){
+                		 LOG.error("Error while generating a new invoice", e);
+                	}
+                }
+            }
+            
             // mark process end date
+            //do after payment to prevent new order line add to the order
             local.updateProcessRecord(process, new Date());
             LOG.debug("Configuration '" + cfg.getName() + "' finished at " + process.getEndDatetime());
         }
@@ -184,6 +230,25 @@ public class MediationSessionBean implements IMediationSessionBean {
 
         watch.stop();
         LOG.debug("Mediation process done. Duration (ms):" + watch.getTotalTimeMillis());
+    }
+    
+    private Date calcStart(OrderDTO order){
+    	Date retValue = null;
+    	
+    	if (order.getNextBillableDay() == null) {
+    		if (order.getCycleStarts() == null) {
+    			retValue = order.getActiveSince() == null ? 
+                        order.getCreateDate() :
+                        order.getActiveSince();
+            }else{
+            	retValue = order.getCycleStarts();
+            }
+            
+        } else {
+            retValue = order.getNextBillableDay();
+        }
+    	
+    	return retValue;
     }
 
 

@@ -18,6 +18,7 @@ package com.infosense.ibilling.server.process;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -25,9 +26,16 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
+import javax.sql.rowset.CachedRowSet;
+
+import org.apache.log4j.Logger;
+import org.hibernate.ScrollableResults;
+import org.springframework.dao.EmptyResultDataAccessException;
+
+import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.SessionInternalError;
 import com.infosense.ibilling.common.Util;
 import com.infosense.ibilling.server.invoice.InvoiceBL;
@@ -56,7 +64,12 @@ import com.infosense.ibilling.server.pluggableTask.OrderPeriodTask;
 import com.infosense.ibilling.server.pluggableTask.TaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskException;
 import com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskManager;
-import com.infosense.ibilling.server.process.db.*;
+import com.infosense.ibilling.server.process.db.BillingProcessDAS;
+import com.infosense.ibilling.server.process.db.BillingProcessDTO;
+import com.infosense.ibilling.server.process.db.ProcessRunDAS;
+import com.infosense.ibilling.server.process.db.ProcessRunDTO;
+import com.infosense.ibilling.server.process.db.ProcessRunStatusDAS;
+import com.infosense.ibilling.server.process.db.ProcessRunUserDAS;
 import com.infosense.ibilling.server.process.event.InvoicesGeneratedEvent;
 import com.infosense.ibilling.server.system.event.EventManager;
 import com.infosense.ibilling.server.user.UserBL;
@@ -70,15 +83,6 @@ import com.infosense.ibilling.server.util.audit.EventLogger;
 import com.infosense.ibilling.server.util.db.CurrencyDAS;
 import com.infosense.ibilling.server.util.db.CurrencyDTO;
 import com.infosense.ibilling.server.ws.BillingProcessWS;
-
-import org.apache.log4j.Logger;
-
-import javax.sql.rowset.CachedRowSet;
-
-import java.util.ArrayList;
-
-import org.hibernate.ScrollableResults;
-import org.springframework.dao.EmptyResultDataAccessException;
 
 public class BillingProcessBL extends ResultList
         implements ProcessSQL {
@@ -514,7 +518,7 @@ public class BillingProcessBL extends ResultList
 
         // get the orders that might be processable for this user
         OrderDAS orderDas = new OrderDAS();
-        ScrollableResults orders = orderDas.findForBillingProcess(userId, Constants.ORDER_STATUS_ACTIVE);
+        ScrollableResults orders = orderDas.findForBillingProcess(userId, Constants.ORDER_STATUS_ACTIVE, CommonConstants.ORDER_TYPE_DEFAULT);
 
         // go through each of them, and update the DTO if it applies
         while (orders.next()) {

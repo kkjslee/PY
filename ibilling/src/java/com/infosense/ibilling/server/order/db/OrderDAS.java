@@ -27,6 +27,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.infosense.ibilling.common.CommonConstants;
 import com.infosense.ibilling.common.Util;
 import com.infosense.ibilling.server.util.Constants;
 import com.infosense.ibilling.server.util.db.AbstractDAS;
@@ -79,6 +80,23 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
                     .add(Restrictions.ne("p.id", Constants.ORDER_PERIOD_ONCE));
         
         return criteria.list();
+    }
+    
+    public List<Integer> findAllMediationOrdersByUUID(String uuid){
+    	 String hql = 
+            "select distinct(orderObj.id)" +
+            " from OrderDTO orderObj" +
+            " inner join orderObj.lines line" +
+            " where orderObj.deleted = 0" +
+            " and orderObj.orderStatus = " + Constants.ORDER_STATUS_ACTIVE +
+            " and orderObj.orderType = " + CommonConstants.ORDER_TYPE_MEDIATION +
+            " and line.group_id = :uuid"+
+            " order by orderObj.id desc";
+    	 
+    	return getSession()
+        			.createQuery(hql)
+        			.setParameter("uuid", uuid)
+        			.list();
     }
     
     /**
@@ -140,15 +158,21 @@ public class OrderDAS extends AbstractDAS<OrderDTO> {
         return criteria.scroll();
     }
     
-    public ScrollableResults findForBillingProcess(Integer userId,Integer statusId) {
+    public ScrollableResults findForBillingProcess(Integer userId,Integer statusId, Integer orderType) {
         // I need to access an association, so I can't use the parent helper class
         Criteria criteria = getSession().createCriteria(OrderDTO.class)
-                .add(Restrictions.eq("deleted", 0))
-                .add(Restrictions.eq("excludeFromBp", 0))
-                .createAlias("baseUserByUserId", "u")
-                    .add(Restrictions.eq("u.id", userId))
-                .createAlias("orderStatus", "s")
-                    .add(Restrictions.eq("s.id", statusId));
+                .add(Restrictions.eq("deleted", 0));
+        if(orderType != null){
+        	criteria.add(Restrictions.eq("orderType", orderType));
+        }
+        if(userId != null){
+        	criteria.createAlias("baseUserByUserId", "u")
+             	.add(Restrictions.eq("u.id", userId));
+        }
+        if(statusId != null){
+        	 criteria.createAlias("orderStatus", "s")
+             	.add(Restrictions.eq("s.id", statusId));
+        }
         
         return criteria.scroll();
     }

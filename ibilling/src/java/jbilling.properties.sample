@@ -45,8 +45,6 @@ lockout_password=totalSecret
 process.run_billing=false
 # if the daily batch includes running the ageing process
 process.run_ageing=false
-# if the daily batch includes running the partner process
-process.run_partner=false
 # if the daily batch includes running the order expiration notification process
 process.run_order_expire=false
 # if the daily batch includes running the create invoice notification

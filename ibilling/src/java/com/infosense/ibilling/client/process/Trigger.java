@@ -185,12 +185,12 @@ public class Trigger implements Job {
 
             // now the ageing process
             if (firstOfToday) {
-                if (Util.getSysPropBooleanTrue("process.run_partner")) {
-                    // now the partner payout process
-                    LOG.info("Starting partner process at " + Calendar.getInstance().getTime());
-                    remoteUser.processPayouts(today);
-                    LOG.info("Ended partner process at " + Calendar.getInstance().getTime());
-                }
+//                if (Util.getSysPropBooleanTrue("process.run_partner")) {
+//                    // now the partner payout process
+//                    LOG.info("Starting partner process at " + Calendar.getInstance().getTime());
+//                    remoteUser.processPayouts(today);
+//                    LOG.info("Ended partner process at " + Calendar.getInstance().getTime());
+//                }
 
                 if (Util.getSysPropBooleanTrue("process.run_order_expire")) {
                     // finally the orders about to expire notification

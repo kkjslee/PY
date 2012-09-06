@@ -48,8 +48,6 @@ lockout_password=verySecret
 process.run_billing=true
 # if the daily batch includes running the ageing process
 process.run_ageing=true
-# if the daily batch includes running the partner process
-process.run_partner=false
 # if the daily batch includes running the order expiration notification process
 process.run_order_expire=false
 # if the daily batch includes running the create invoice notification

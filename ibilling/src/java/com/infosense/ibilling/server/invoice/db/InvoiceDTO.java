@@ -275,6 +275,8 @@ public class InvoiceDTO implements Serializable, Exportable {
         this.invoiceStatus = invoiceStatus;
     }
 
+    //TODO if status is INVOICE_STATUS_UNPAID_AND_CARRIED, it is removed from ageing.
+    //But the payment is still need. This should be a bug.
     /**
      * Returns 1 if this invoice is to be processed as part of the current billing
      * cycle. If the invoice has already been paid or it's balance was carried over

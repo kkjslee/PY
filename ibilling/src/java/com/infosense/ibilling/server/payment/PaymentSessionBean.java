@@ -401,6 +401,7 @@ public class PaymentSessionBean implements IPaymentSessionBean {
                     invoice.setToProcess(new Integer(0));
                 }
 
+                //TODO ageing is not used
                 // if the user is in the ageing process, she should be out
                 if (new Integer(invoice.getToProcess()).equals(new Integer(0))) {
                     AgeingBL ageing = new AgeingBL();

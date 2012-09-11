@@ -247,6 +247,7 @@ public class BillingProcessBL extends ResultList
                         EventLogger.MODULE_INVOICE_MAINTENANCE,
                         EventLogger.INVOICE_ORDER_APPLIED,
                         Constants.TABLE_INVOICE);
+                //TODO ageing is not used now
                 // if the invoice is now not payable, take the user
                 // out of ageing
                 if (isUnpaid && retValue.getToProcess() == 0) {
@@ -296,7 +297,7 @@ public class BillingProcessBL extends ResultList
         // this contains the generated invoices, one per due date
         // found in the applicable purchase orders.
         // The key is the object TimePeriod
-        Hashtable<TimePeriod, NewInvoiceDTO> newInvoices = new Hashtable<TimePeriod, NewInvoiceDTO>();
+        Hashtable<String, NewInvoiceDTO> newInvoices = new Hashtable<String, NewInvoiceDTO>();
         InvoiceDTO[] retValue = null;
 
         LOG.debug("In generateInvoice for user " + userId + " process date:" + process.getBillingDate());
@@ -326,106 +327,107 @@ public class BillingProcessBL extends ResultList
         }
 
         if (!isReview) {
-            for (Map.Entry<TimePeriod, NewInvoiceDTO> newInvoiceEntry : newInvoices.entrySet()) {
+            for (Map.Entry<String, NewInvoiceDTO> newInvoiceEntry : newInvoices.entrySet()) {
                 // process events before orders added to invoice
                 processOrderToInvoiceEvents(newInvoiceEntry.getValue(), entityId);
             }
         }
 
-        /*
-         * Include those invoices that should've been paid
-         * (or have negative balance, as credits)
-         */
-        LOG.debug("Considering overdue invoices");
-        // find the invoice home interface
-        InvoiceDAS invoiceDas = new InvoiceDAS();
-        // any of the new invoices being created could hold the overdue invoices
-        NewInvoiceDTO holder = newInvoices.isEmpty() ? null : (NewInvoiceDTO) newInvoices.elements().nextElement();
+//        /*
+//         * Include those invoices that should've been paid
+//         * (or have negative balance, as credits)
+//         */
+//        LOG.debug("Considering overdue invoices");
+//        // find the invoice home interface
+//        InvoiceDAS invoiceDas = new InvoiceDAS();
+//        // any of the new invoices being created could hold the overdue invoices
+//        NewInvoiceDTO holder = newInvoices.isEmpty() ? null : (NewInvoiceDTO) newInvoices.elements().nextElement();
+//
+//        Collection dueInvoices =
+//                invoiceDas.findWithBalanceByUser(user);
+//        LOG.debug("Processing invoices for user " + user.getUserId());
+//        // go through each of them, and update the DTO if it applies
 
-        Collection dueInvoices =
-                invoiceDas.findWithBalanceByUser(user);
-        LOG.debug("Processing invoices for user " + user.getUserId());
-        // go through each of them, and update the DTO if it applies
-
-        for (Iterator it = dueInvoices.iterator(); it.hasNext();) {
-            InvoiceDTO invoice = (InvoiceDTO) it.next();
-            LOG.debug("Processing invoice " + invoice.getId());
-            // apply any invoice processing filter pluggable task
-            try {
-                PluggableTaskManager taskManager
-                    = new PluggableTaskManager(entityId, Constants.PLUGGABLE_TASK_INVOICE_FILTER);
-                InvoiceFilterTask task = (InvoiceFilterTask) taskManager.getNextClass();
-                boolean isProcessable = true;
-                while (task != null) {
-                    isProcessable = task.isApplicable(invoice, process);
-                    if (!isProcessable) {
-                        break; // no need to keep doing more tests
-                    }
-                    task = (InvoiceFilterTask) taskManager.getNextClass();
-                }
-
-                // include this invoice only if it complies with all the rules
-                if (isProcessable) {
-                    // check for an invoice
-                    if (holder == null) {
-                        // Since there are no new invoices (therefore no orders),
-                        // don't let invoices with positive balances generate
-                        // an invoice.
-                        if (BigDecimal.ZERO.compareTo(invoice.getBalance()) < 0) {
-                            continue;
-                        }
-                        
-                        // no invoice/s yet (no applicable orders), so create one
-                        holder = new NewInvoiceDTO();
-                        holder.setDate(process.getBillingDate());
-                        holder.setIsReview(isReview ? new Integer(1) : new Integer(0));
-                        holder.setCarriedBalance(BigDecimal.ZERO);
-                        holder.setInvoiceStatus(new InvoiceStatusDAS().find(Constants.INVOICE_STATUS_UNPAID));
-
-                        // need to set a due date, so use the order default
-                        OrderBL orderBl = new OrderBL();
-                        OrderDTO order = new OrderDTO();
-                        order.setBaseUserByUserId(user);
-                        orderBl.set(order);
-                        TimePeriod dueDatePeriod = orderBl.getDueDate();
-
-                        holder.setDueDatePeriod(dueDatePeriod);
-                        newInvoices.put(dueDatePeriod, holder);
-                    }
-
-                    InvoiceBL ibl = new InvoiceBL(invoice);
-                    holder.addInvoice(ibl.getDTO());
-                    // for those invoices wiht only overdue invoices, the
-                    // currency has to be initialized
-
-                    if (holder.getCurrency() == null) {
-                        holder.setCurrency(invoice.getCurrency());
-                    } else if (holder.getCurrency().getId() != invoice.getCurrency().getId()) {
-                        throw new SessionInternalError("An invoice with different " +
-                                "currency is not supported. " +
-                                "Currency = " + holder.getCurrency().getId() +
-                                "invoice = " + invoice.getId());
-                    }
-                    // update the amount of the new invoice that is due to
-                    // previously unpaid overdue invoices
-
-                    // carry the remaining balance, plus the previously carried balance to the new invoice
-                    BigDecimal balance = (invoice.getBalance() == null) ? BigDecimal.ZERO : invoice.getBalance();
-                    BigDecimal carried = balance.add(holder.getCarriedBalance());
-                    holder.setCarriedBalance(carried);
-                }
-
-                LOG.debug("invoice " + invoice.getId() + " result " + isProcessable);
-
-            } catch (PluggableTaskException e) {
-                LOG.fatal("Problems handling task invoice filter.", e);
-                throw new SessionInternalError("Problems handling task invoice filter.");
-            } catch (TaskException e) {
-                LOG.fatal("Problems excecuting task invoice filter.", e);
-                throw new SessionInternalError("Problems executing task invoice filter.");
-            }
-
-        }
+//        for (Iterator it = dueInvoices.iterator(); it.hasNext();) {
+//            InvoiceDTO invoice = (InvoiceDTO) it.next();
+//            LOG.debug("Processing invoice " + invoice.getId());
+//            // apply any invoice processing filter pluggable task
+//            try {
+//                PluggableTaskManager taskManager
+//                    = new PluggableTaskManager(entityId, Constants.PLUGGABLE_TASK_INVOICE_FILTER);
+//                InvoiceFilterTask task = (InvoiceFilterTask) taskManager.getNextClass();
+//                boolean isProcessable = true;
+//                while (task != null) {
+//                    isProcessable = task.isApplicable(invoice, process);
+//                    if (!isProcessable) {
+//                        break; // no need to keep doing more tests
+//                    }
+//                    task = (InvoiceFilterTask) taskManager.getNextClass();
+//                }
+//
+//                // include this invoice only if it complies with all the rules
+//                if (isProcessable) {
+//                    // check for an invoice
+//                    if (holder == null) {
+//                        // Since there are no new invoices (therefore no orders),
+//                        // don't let invoices with positive balances generate
+//                        // an invoice.
+//                        if (BigDecimal.ZERO.compareTo(invoice.getBalance()) < 0) {
+//                            continue;
+//                        }
+//                        
+//                        // no invoice/s yet (no applicable orders), so create one
+//                        holder = new NewInvoiceDTO();
+//                        holder.setDate(process.getBillingDate());
+//                        holder.setIsReview(isReview ? new Integer(1) : new Integer(0));
+//                        holder.setCarriedBalance(BigDecimal.ZERO);
+//                        holder.setInvoiceStatus(new InvoiceStatusDAS().find(Constants.INVOICE_STATUS_UNPAID));
+//
+//                        // need to set a due date, so use the order default
+//                        OrderBL orderBl = new OrderBL();
+//                        OrderDTO order = new OrderDTO();
+//                        order.setBaseUserByUserId(user);
+//                        orderBl.set(order);
+//                        TimePeriod dueDatePeriod = orderBl.getDueDate();
+//
+//                        holder.setDueDatePeriod(dueDatePeriod);
+//                        //TODO ************************************************************************************
+//                        newInvoices.put(null, holder);
+//                    }
+//
+//                    InvoiceBL ibl = new InvoiceBL(invoice);
+//                    holder.addInvoice(ibl.getDTO());
+//                    // for those invoices wiht only overdue invoices, the
+//                    // currency has to be initialized
+//
+//                    if (holder.getCurrency() == null) {
+//                        holder.setCurrency(invoice.getCurrency());
+//                    } else if (holder.getCurrency().getId() != invoice.getCurrency().getId()) {
+//                        throw new SessionInternalError("An invoice with different " +
+//                                "currency is not supported. " +
+//                                "Currency = " + holder.getCurrency().getId() +
+//                                "invoice = " + invoice.getId());
+//                    }
+//                    // update the amount of the new invoice that is due to
+//                    // previously unpaid overdue invoices
+//
+//                    // carry the remaining balance, plus the previously carried balance to the new invoice
+//                    BigDecimal balance = (invoice.getBalance() == null) ? BigDecimal.ZERO : invoice.getBalance();
+//                    BigDecimal carried = balance.add(holder.getCarriedBalance());
+//                    holder.setCarriedBalance(carried);
+//                }
+//
+//                LOG.debug("invoice " + invoice.getId() + " result " + isProcessable);
+//
+//            } catch (PluggableTaskException e) {
+//                LOG.fatal("Problems handling task invoice filter.", e);
+//                throw new SessionInternalError("Problems handling task invoice filter.");
+//            } catch (TaskException e) {
+//                LOG.fatal("Problems excecuting task invoice filter.", e);
+//                throw new SessionInternalError("Problems executing task invoice filter.");
+//            }
+//
+//        }
 
 
         if (newInvoices.size() == 0) {
@@ -500,7 +502,7 @@ public class BillingProcessBL extends ResultList
 
     private boolean processOrdersForUser(UserDTO user, Integer entityId,BillingProcessDTO process, 
             boolean isReview, boolean onlyRecurring, boolean useProcessDateForInvoice,
-        int maximumPeriods, Hashtable<TimePeriod, NewInvoiceDTO> newInvoices) {
+        int maximumPeriods, Hashtable<String, NewInvoiceDTO> newInvoices) {
         
         boolean includedOrders = false;
         Integer userId = user.getUserId();
@@ -523,7 +525,11 @@ public class BillingProcessBL extends ResultList
         // go through each of them, and update the DTO if it applies
         while (orders.next()) {
             OrderDTO order = (OrderDTO) orders.get()[0];
-
+            
+            if( order.getLines().size() == 0 ) continue;
+            String uuid = order.getLines().get(0).getGroupId();
+            if(uuid==null || uuid.trim().length()==0) continue;
+            
             LOG.debug("Processing order :" + order.getId());
             // apply any order processing filter pluggable task
             try {
@@ -593,7 +599,7 @@ public class BillingProcessBL extends ResultList
                     if (addOrderToInvoice(entityId, order, thisInvoice,
                             process.getBillingDate(), maximumPeriods)) {
                         // add or replace
-                        newInvoices.put(dueDatePeriod, thisInvoice);
+                        newInvoices.put(uuid, thisInvoice);
                     }
                     LOG.debug("After putting period there are " + newInvoices.size() + " periods.");
 

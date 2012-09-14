@@ -1,4 +1,4 @@
-# jbilling enterprise license key
+# ibilling enterprise license key
 licensee=Elephant Outlook
 license_key=QpWkEgeDBSKdv3gql9eNhjTmgbBE01mt2W2lB6B/mZVM+3UE3zzwDeQu3Zo+Vofao6d83rDN9Cv2fCQv5l5zUFgQVSOhUSdTp0/MycXSj+Hv0aLGXaSooHlepJHfW2Nxx2obpYT4cGNJT5BfPlt+dg==
 # email server parameters for emails
@@ -11,19 +11,19 @@ email_from=billing@elephantoutlook.com
 email_from_name=Elephant Outlook
 #this is the super user that can login to any entity.
 #the name has to be unique system wide
-internal_username=jbilling_root
+internal_username=ibilling_root
 #the key has to be present in the request to authorize an internal login
 internal_key=029348oiawduf2093ur2oejdfwer9u2309uwq
 # if this file is present, all session are killed an
 # nobody can login
-login_lock=/home/jbilladmin/process.lock
-# the URL where customers can login to jbilling. Used 
+login_lock=/home/ibilladmin/process.lock
+# the URL where customers can login to ibilling. Used 
 # in the default notification texts
 url=http://bonefish.coloflorida.com
 # redirect all unsecure requests (http port 80) to SSL (https port 443)
 force_https=false
 # Process time configuration
-# These two properties set the frequency of the jbilling batch process
+# These two properties set the frequency of the ibilling batch process
 # The fist property indicates at what time of the day the trigger has to 
 # happen for the very first time. After this first run you will need X minutes 
 # (specified by 'process.frequency') to run the trigger again.

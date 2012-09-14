@@ -108,7 +108,7 @@ beans = {
         springSecurityService = ref("springSecurityService")
     }
 
-    passwordEncoder(com.infosense.ibilling.client.authentication.JBillingPasswordEncoder)
+    passwordEncoder(com.infosense.ibilling.client.authentication.IBillingPasswordEncoder)
 
     permissionVoter(com.infosense.ibilling.client.authentication.PermissionVoter)
 

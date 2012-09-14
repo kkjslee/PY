@@ -1,19 +1,3 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
 package ibilling
 
 import java.text.SimpleDateFormat
@@ -29,12 +13,6 @@ import ibilling.FilterType;
 import com.infosense.ibilling.client.filters.FilterFactory
 import org.codehaus.groovy.grails.web.metaclass.BindDynamicMethod
 
-/**
- * FilterService
- *
- * @author Brian Cowdery
- * @since  30-11-2010
- */
 class FilterService implements Serializable {
 
     private static final String SESSION_CURRENT_FILTER_TYPE = "current_filter_type";

@@ -1,19 +1,3 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
 package ibilling
 
 import javax.servlet.http.HttpSession
@@ -24,12 +8,6 @@ import java.io.Serializable
 import ibilling.RecentItem;
 import ibilling.RecentItemType;
 
-/**
- * RecentItemService
- 
- * @author Brian Cowdery
- * @since  07-12-2010
- */
 class RecentItemService implements InitializingBean, Serializable {
 
     public static final String SESSION_RECENT_ITEMS = "recent_items"

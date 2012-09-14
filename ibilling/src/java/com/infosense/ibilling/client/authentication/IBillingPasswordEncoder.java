@@ -29,9 +29,9 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
  * @author Brian Cowdery
  * @since 07-10-2010
  */
-public class JBillingPasswordEncoder implements PasswordEncoder {
+public class IBillingPasswordEncoder implements PasswordEncoder {
 
-    public JBillingPasswordEncoder() {
+    public IBillingPasswordEncoder() {
     }
 
     /**

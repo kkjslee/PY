@@ -1,19 +1,3 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
 package ibilling
 
 /**
@@ -21,9 +5,6 @@ package ibilling
  *
  * Breadcrumbs represent viewable pages within jBilling. This does not include ajax actions and other
  * requests that cannot be reached by a URI (i.e., breadcrumbs can be bookmarked).
- *
- * @author Brian Cowdery
- * @since 14-Dec-2010
  */
 class Breadcrumb implements Serializable {
 

@@ -1,20 +1,3 @@
-/*
- * JBILLING CONFIDENTIAL
- * _____________________
- *
- * [2003] - [2012] Enterprise jBilling Software Ltd.
- * All Rights Reserved.
- *
- * NOTICE:  All information contained herein is, and remains
- * the property of Enterprise jBilling Software.
- * The intellectual and technical concepts contained
- * herein are proprietary to Enterprise jBilling Software
- * and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden.
- */
-
-
 package com.infosense.ibilling.common;
 
 import java.io.File;
@@ -28,13 +11,13 @@ import org.apache.log4j.Logger;
 
 /**
  * This is a Singleton call that provides the system properties from
- * the jbilling.properties file
+ * the ibilling.properties file
  */
 public class SystemProperties {
     private static final Logger LOG = Logger.getLogger(SystemProperties.class);
 
-    private static final String JBILLING_HOME = "JBILLING_HOME";
-    private static final String PROPERTIES_FILE = "jbilling.properties";
+    private static final String IBILLING_HOME = "IBILLING_HOME";
+    private static final String PROPERTIES_FILE = "ibilling.properties";
     private static final String RESOURCES_DIR = "resources";
     private static final String BASE_DIR_PROPERTY = "base_dir";
 
@@ -58,10 +41,10 @@ public class SystemProperties {
         LOG.debug("System properties loaded from: " + properties.getPath());
         System.out.println("System properties loaded from: " + properties.getPath());
 
-        resourcesDir = getJBillingResourcesDir();
+        resourcesDir = getIBillingResourcesDir();
 
-        LOG.debug("Resolved jbilling resources directory to: " + resourcesDir);
-        System.out.println("Resolved jbilling resources directory to: " + resourcesDir);
+        LOG.debug("Resolved ibilling resources directory to: " + resourcesDir);
+        System.out.println("Resolved ibilling resources directory to: " + resourcesDir);
     }
 
     /**
@@ -77,39 +60,39 @@ public class SystemProperties {
     }
 
     /**
-     * Returns the jBilling home path where resources and configuration files
+     * Returns the ibilling home path where resources and configuration files
      * can be found.
      *
-     * The environment variable JBILLING_HOME and system property JBILLING_HOME are examined
+     * The environment variable IBILLING_HOME and system property IBILLING_HOME are examined
      * for this value, with precedence given to system properties set via command line arguments.
      *
-     * If no jBilling home path is set, properties will be loaded from the classpath.
+     * If no ibilling home path is set, properties will be loaded from the classpath.
      *
-     * @return jbilling home path
+     * @return ibilling home path
      */
-    public static String getJBillingHome() {
-        String jbillingHome = System.getProperty(JBILLING_HOME);
+    public static String getIBillingHome() {
+        String ibillingHome = System.getProperty(IBILLING_HOME);
 
-        if (jbillingHome == null) {
-            jbillingHome = System.getenv(JBILLING_HOME);
+        if (ibillingHome == null) {
+            ibillingHome = System.getenv(IBILLING_HOME);
         }
 
-        return jbillingHome;
+        return ibillingHome;
     }
 
     /**
-     * Returns the path to the jBilling resources directory.
+     * Returns the path to the ibilling resources directory.
      *
-     * The resources directory is always assumed to be located in JBILLING_HOME. If JBILLING_HOME is not
+     * The resources directory is always assumed to be located in IBILLING_HOME. If IBILLING_HOME is not
      * set, this method will return a relative path as the default location for the resources directory.
      *
      * @return path to the resources directory
      */
-    public String getJBillingResourcesDir() {
-        // try JBILLING_HOME
-        String jbillingHome = getJBillingHome();
-        if (jbillingHome != null) {
-            return jbillingHome + File.separator + RESOURCES_DIR + File.separator;
+    public String getIBillingResourcesDir() {
+        // try IBILLING_HOME
+        String ibillingHome = getIBillingHome();
+        if (ibillingHome != null) {
+            return ibillingHome + File.separator + RESOURCES_DIR + File.separator;
         }
 
         try {
@@ -125,22 +108,22 @@ public class SystemProperties {
                 return resources.getCanonicalPath() + File.separator;
             }
         } catch (IOException e) {
-            LOG.warn("IOException when attempting to resolve canonical path to jbilling resources/", e);
+            LOG.warn("IOException when attempting to resolve canonical path to ibilling resources/", e);
         }
 
         return "";
     }
 
     /**
-     * Returns the path to the jbilling.properties file.
+     * Returns the path to the ibilling.properties file.
      *
      * @return properties file
      */
     public static File getPropertiesFile() {
-        String jbillingHome = getJBillingHome();
-        if (jbillingHome != null) {
+        String ibillingHome = getIBillingHome();
+        if (ibillingHome != null) {
             // properties file from filesystem
-            return new File(jbillingHome + File.separator + PROPERTIES_FILE);
+            return new File(ibillingHome + File.separator + PROPERTIES_FILE);
 
         } else {
             // properties file from classpath
@@ -154,13 +137,13 @@ public class SystemProperties {
     }
 
     public String get(String key) throws Exception {
-        // "base_dir" should always resolve to the JBILLING_HOME resources dir
-        // this value is no longer part of jbilling.properties
+        // "base_dir" should always resolve to the IBILLING_HOME resources dir
+        // this value is no longer part of ibilling.properties
         if (BASE_DIR_PROPERTY.equals(key)) {
             return resourcesDir;
         }
 
-        // get value from jbilling.properties
+        // get value from ibilling.properties
         String value = prop.getProperty(key);
 
         if (value == null)

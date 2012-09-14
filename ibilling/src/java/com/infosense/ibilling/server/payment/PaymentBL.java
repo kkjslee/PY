@@ -282,88 +282,88 @@ public class PaymentBL extends ResultList implements PaymentSQL {
      * @return the constant of the result allowing for the caller to attempt it
      *         again with different payment information (like another cc number)
      */
-    public Integer processPayment(Integer entityId, PaymentDTOEx info)
-            throws SessionInternalError {
-        Integer retValue = null;
-        try {
-            PluggableTaskManager taskManager = new PluggableTaskManager(
-                    entityId, Constants.PLUGGABLE_TASK_PAYMENT);
-            PaymentTask task = (PaymentTask) taskManager.getNextClass();
-
-            if (task == null) {
-                // at least there has to be one task configurated !
-                LOG.warn("No payment pluggable" + "tasks configurated for entity " + entityId);
-                return null;
-            }
-
-            create(info);
-            boolean processorUnavailable = true;
-            while (task != null && processorUnavailable) {
-                // see if this user has pre-auths
-                PaymentAuthorizationBL authBL = new PaymentAuthorizationBL();
-                PaymentAuthorizationDTO auth = authBL.getPreAuthorization(info.getUserId());
-                if (auth != null) {
-                    processorUnavailable = task.confirmPreAuth(auth, info);
-                    if (!processorUnavailable) {
-                        if (new Integer(info.getPaymentResult().getId()).equals(Constants.RESULT_FAIL)) {
-                            processorUnavailable = task.process(info);
-                        }
-                        // in any case, don't use this preAuth again
-                        authBL.markAsUsed(info);
-                    }
-                } else {
-                    // get this payment processed
-                    processorUnavailable = task.process(info);
-                }
-
-                // allow the pluggable task to do something if the payment
-                // failed (like notification, suspension, etc ... )
-                if (!processorUnavailable && new Integer(info.getPaymentResult().getId()).equals(Constants.RESULT_FAIL)) {
-                    task.failure(info.getUserId(), info.getAttempt());
-                }
-                // trigger an event
-                AbstractPaymentEvent event = AbstractPaymentEvent.forPaymentResult(entityId, info);
-
-                if (event != null) {
-                    EventManager.process(event);
-                }
-
-                // get the next task
-                LOG.debug("Getting next task, processorUnavailable : " + processorUnavailable);
-                task = (PaymentTask) taskManager.getNextClass();
-            }
-
-            // if after all the tasks, the processor in unavailable,
-            // return that
-            if (processorUnavailable) {
-                retValue = Constants.RESULT_UNAVAILABLE;
-            } else {
-                retValue = info.getPaymentResult().getId();
-            }
-
-            // the balance of the payment depends on the result
-            if (retValue.equals(Constants.RESULT_OK) || retValue.equals(Constants.RESULT_ENTERED)) {
-                payment.setBalance(payment.getAmount());
-            } else {
-                payment.setBalance(BigDecimal.ZERO);
-            }
-        } catch (Exception e) {
-            LOG.fatal("Problems handling payment task.", e);
-            throw new SessionInternalError("Problems handling payment task.");
-        }
-
-        // add a notification to the user if the payment was good or bad
-        if (retValue.equals(Constants.RESULT_OK) || retValue.equals(Constants.RESULT_FAIL)) {
-            sendNotification(info, entityId);
-        }
-
-        // obscure credit cards used for one-time payments
-        if (payment.getCreditCard() != null && payment.getCreditCard().getBaseUsers().isEmpty()) {
-            payment.getCreditCard().obscureNumber();
-        }
-
-        return retValue;
-    }
+//    public Integer processPayment(Integer entityId, PaymentDTOEx info)
+//            throws SessionInternalError {
+//        Integer retValue = null;
+//        try {
+//            PluggableTaskManager taskManager = new PluggableTaskManager(
+//                    entityId, Constants.PLUGGABLE_TASK_PAYMENT);
+//            PaymentTask task = (PaymentTask) taskManager.getNextClass();
+//
+//            if (task == null) {
+//                // at least there has to be one task configurated !
+//                LOG.warn("No payment pluggable" + "tasks configurated for entity " + entityId);
+//                return null;
+//            }
+//
+//            create(info);
+//            boolean processorUnavailable = true;
+//            while (task != null && processorUnavailable) {
+//                // see if this user has pre-auths
+//                PaymentAuthorizationBL authBL = new PaymentAuthorizationBL();
+//                PaymentAuthorizationDTO auth = authBL.getPreAuthorization(info.getUserId());
+//                if (auth != null) {
+//                    processorUnavailable = task.confirmPreAuth(auth, info);
+//                    if (!processorUnavailable) {
+//                        if (new Integer(info.getPaymentResult().getId()).equals(Constants.RESULT_FAIL)) {
+//                            processorUnavailable = task.process(info);
+//                        }
+//                        // in any case, don't use this preAuth again
+//                        authBL.markAsUsed(info);
+//                    }
+//                } else {
+//                    // get this payment processed
+//                    processorUnavailable = task.process(info);
+//                }
+//
+//                // allow the pluggable task to do something if the payment
+//                // failed (like notification, suspension, etc ... )
+//                if (!processorUnavailable && new Integer(info.getPaymentResult().getId()).equals(Constants.RESULT_FAIL)) {
+//                    task.failure(info.getUserId(), info.getAttempt());
+//                }
+//                // trigger an event
+//                AbstractPaymentEvent event = AbstractPaymentEvent.forPaymentResult(entityId, info);
+//
+//                if (event != null) {
+//                    EventManager.process(event);
+//                }
+//
+//                // get the next task
+//                LOG.debug("Getting next task, processorUnavailable : " + processorUnavailable);
+//                task = (PaymentTask) taskManager.getNextClass();
+//            }
+//
+//            // if after all the tasks, the processor in unavailable,
+//            // return that
+//            if (processorUnavailable) {
+//                retValue = Constants.RESULT_UNAVAILABLE;
+//            } else {
+//                retValue = info.getPaymentResult().getId();
+//            }
+//
+//            // the balance of the payment depends on the result
+//            if (retValue.equals(Constants.RESULT_OK) || retValue.equals(Constants.RESULT_ENTERED)) {
+//                payment.setBalance(payment.getAmount());
+//            } else {
+//                payment.setBalance(BigDecimal.ZERO);
+//            }
+//        } catch (Exception e) {
+//            LOG.fatal("Problems handling payment task.", e);
+//            throw new SessionInternalError("Problems handling payment task.");
+//        }
+//
+//        // add a notification to the user if the payment was good or bad
+//        if (retValue.equals(Constants.RESULT_OK) || retValue.equals(Constants.RESULT_FAIL)) {
+//            sendNotification(info, entityId);
+//        }
+//
+//        // obscure credit cards used for one-time payments
+//        if (payment.getCreditCard() != null && payment.getCreditCard().getBaseUsers().isEmpty()) {
+//            payment.getCreditCard().obscureNumber();
+//        }
+//
+//        return retValue;
+//    }
 
     public PaymentDTO getDTO() {
         return new PaymentDTO(payment.getId(), payment.getAmount(), payment.getBalance(), payment.getCreateDatetime(), payment.getUpdateDatetime(), payment.getPaymentDate(), payment.getAttempt(), payment.getDeleted(),
@@ -645,26 +645,26 @@ public class PaymentBL extends ResultList implements PaymentSQL {
         return retValue;
     }
 
-    public static PaymentDTOEx findPaymentInstrument(Integer entityId,
-            Integer userId) throws PluggableTaskException,
-            SessionInternalError, TaskException {
-
-        PluggableTaskManager taskManager = new PluggableTaskManager(entityId,
-                Constants.PLUGGABLE_TASK_PAYMENT_INFO);
-        PaymentInfoTask task = (PaymentInfoTask) taskManager.getNextClass();
-
-        if (task == null) {
-            // at least there has to be one task configurated !
-            Logger.getLogger(PaymentBL.class).fatal(
-                    "No payment info pluggable" + "tasks configurated for entity " + entityId);
-            throw new SessionInternalError("No payment info pluggable" + "tasks configurated for entity " + entityId);
-        }
-
-        // get this payment information. Now we only expect one pl.tsk
-        // to get the info, I don't see how more could help
-        return task.getPaymentInfo(userId);
-
-    }
+//    public static PaymentDTOEx findPaymentInstrument(Integer entityId,
+//            Integer userId) throws PluggableTaskException,
+//            SessionInternalError, TaskException {
+//
+//        PluggableTaskManager taskManager = new PluggableTaskManager(entityId,
+//                Constants.PLUGGABLE_TASK_PAYMENT_INFO);
+//        PaymentInfoTask task = (PaymentInfoTask) taskManager.getNextClass();
+//
+//        if (task == null) {
+//            // at least there has to be one task configurated !
+//            Logger.getLogger(PaymentBL.class).fatal(
+//                    "No payment info pluggable" + "tasks configurated for entity " + entityId);
+//            throw new SessionInternalError("No payment info pluggable" + "tasks configurated for entity " + entityId);
+//        }
+//
+//        // get this payment information. Now we only expect one pl.tsk
+//        // to get the info, I don't see how more could help
+//        return task.getPaymentInfo(userId);
+//
+//    }
 
     public static boolean validate(PaymentWS dto) {
         boolean retValue = true;

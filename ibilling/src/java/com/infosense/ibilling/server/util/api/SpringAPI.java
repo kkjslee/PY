@@ -52,14 +52,14 @@ public class SpringAPI implements IbillingAPI {
     }
     
 
-    public CreateResponseWS create(UserWS user, OrderWS order)
-            throws IbillingAPIException {
-        try {
-            return session.create(user, order);
-        } catch (Exception e) {
-            throw new IbillingAPIException(e);
-        }
-    }
+//    public CreateResponseWS create(UserWS user, OrderWS order)
+//            throws IbillingAPIException {
+//        try {
+//            return session.create(user, order);
+//        } catch (Exception e) {
+//            throw new IbillingAPIException(e);
+//        }
+//    }
 
     public Integer createItem(ItemDTOEx dto) throws IbillingAPIException {
         try {
@@ -85,14 +85,14 @@ public class SpringAPI implements IbillingAPI {
         }
     }
 
-    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order)
-            throws IbillingAPIException {
-        try {
-            return session.createOrderPreAuthorize(order);
-        } catch (Exception e) {
-            throw new IbillingAPIException(e);
-        }
-    }
+//    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order)
+//            throws IbillingAPIException {
+//        try {
+//            return session.createOrderPreAuthorize(order);
+//        } catch (Exception e) {
+//            throw new IbillingAPIException(e);
+//        }
+//    }
 
     public Integer createUser(UserWS newUser) throws IbillingAPIException {
         try {
@@ -383,14 +383,14 @@ public class SpringAPI implements IbillingAPI {
         }
     }
     
-    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId)
-            throws IbillingAPIException {
-        try {
-            return session.payInvoice(invoiceId);
-        } catch (Exception e) {
-            throw new IbillingAPIException(e);
-        }
-    }
+//    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId)
+//            throws IbillingAPIException {
+//        try {
+//            return session.payInvoice(invoiceId);
+//        } catch (Exception e) {
+//            throw new IbillingAPIException(e);
+//        }
+//    }
 
     public void updateCreditCard(Integer userId, CreditCardDTO creditCard)
             throws IbillingAPIException {
@@ -539,16 +539,16 @@ public class SpringAPI implements IbillingAPI {
 
     /*
      * @see com.infosense.ibilling.server.util.api.JbillingAPI#processPayment(com.infosense.ibilling.server.payment.PaymentWS)
-     */
-    @Override
-    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment,Integer invoiceId)
-            throws IbillingAPIException {
-        try {
-            return session.processPayment(payment,invoiceId);
-        } catch (Exception e) {
-            throw new IbillingAPIException(e);
-        }
-    }
+//     */
+//    @Override
+//    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment,Integer invoiceId)
+//            throws IbillingAPIException {
+//        try {
+//            return session.processPayment(payment,invoiceId);
+//        } catch (Exception e) {
+//            throw new IbillingAPIException(e);
+//        }
+//    }
 
     public ValidatePurchaseWS validatePurchase(Integer userId, Integer itemId,
             PricingField[] fields) throws IbillingAPIException {

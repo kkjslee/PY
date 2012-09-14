@@ -85,13 +85,13 @@ public interface IWebServicesSessionBean {
 
     public void saveCustomContactFields(ContactFieldTypeWS[] fields) throws SessionInternalError;
 
-    public void processPartnerPayouts(Date runDate);
+//    public void processPartnerPayouts(Date runDate);
     public PartnerWS getPartner(Integer partnerId) throws SessionInternalError;
 
     public UserTransitionResponseWS[] getUserTransitions(Date from, Date to) throws SessionInternalError;
     public UserTransitionResponseWS[] getUserTransitionsAfterId(Integer id) throws SessionInternalError;
 
-    public CreateResponseWS create(UserWS user, OrderWS order) throws SessionInternalError;
+//    public CreateResponseWS create(UserWS user, OrderWS order) throws SessionInternalError;
 
 
     /*
@@ -155,7 +155,7 @@ public interface IWebServicesSessionBean {
     public boolean updateOrCreateOrderPeriod(OrderPeriodWS orderPeriod) throws SessionInternalError;
     public boolean deleteOrderPeriod(Integer periodId) throws SessionInternalError;
     
-    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order) throws SessionInternalError;
+//    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order) throws SessionInternalError;
 
 
     /*
@@ -189,7 +189,7 @@ public interface IWebServicesSessionBean {
     public Integer[] getLastPayments(Integer userId, Integer number) throws SessionInternalError;
     public BigDecimal getTotalRevenueByUser (Integer userId) throws SessionInternalError;
 
-    public PaymentWS getUserPaymentInstrument(Integer userId) throws SessionInternalError;
+//    public PaymentWS getUserPaymentInstrument(Integer userId) throws SessionInternalError;
 
     public Integer createPayment(PaymentWS payment);
     public void updatePayment(PaymentWS payment);
@@ -198,9 +198,9 @@ public interface IWebServicesSessionBean {
     public void removePaymentLink(Integer invoiceId, Integer paymentId) throws SessionInternalError;
     public void createPaymentLink(Integer invoiceId, Integer paymentId);
 
-    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId) throws SessionInternalError;
+//    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId) throws SessionInternalError;
     public Integer applyPayment(PaymentWS payment, Integer invoiceId) throws SessionInternalError;
-    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment, Integer invoiceId);
+//    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment, Integer invoiceId);
 
     
     /*
@@ -305,8 +305,8 @@ public interface IWebServicesSessionBean {
     public void deletePlugin(Integer plugin);
 
 
-    public boolean validateCreditCard(com.infosense.ibilling.server.entity.CreditCardDTO creditCard, ContactWS contact, int level) 
-    throws SessionInternalError;
+//    public boolean validateCreditCard(com.infosense.ibilling.server.entity.CreditCardDTO creditCard, ContactWS contact, int level) 
+//    throws SessionInternalError;
     
     /*
      * Plans

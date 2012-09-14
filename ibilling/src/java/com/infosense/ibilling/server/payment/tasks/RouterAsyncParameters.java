@@ -29,37 +29,37 @@ import com.infosense.ibilling.server.util.Constants;
 public class RouterAsyncParameters extends PluggableTask implements IAsyncPaymentParameters  {
 
     public void addParameters(MapMessage message) throws TaskException {
-        try {
-            InvoiceBL invoiceBl = new InvoiceBL(message.getInt("invoiceId"));
-            Integer entityId = invoiceBl.getEntity().getBaseUser().getEntity().getId();
-            InvoiceDTO invoice = invoiceBl.getDTO();
-            
-            PluggableTaskManager taskManager = new PluggableTaskManager(entityId, 
-                    Constants.PLUGGABLE_TASK_PAYMENT);
-
-            // search for PaymentRouterTask in the payment chain
-            AbstractPaymentRouterTask router = null;
-            Object task = taskManager.getNextClass();
-            while (task != null) {
-                if (task instanceof AbstractPaymentRouterTask) {
-                    router = (AbstractPaymentRouterTask) task;
-                    break;
-                }
-                task = taskManager.getNextClass();
-            }
-            
-            if (router == null) {
-                throw new TaskException("Can not find router task");
-            }
-
-            Map<String, String> parameters = router.getAsyncParameters(invoice);
-            for(Map.Entry<String, String> parameter : parameters.entrySet()) {
-                message.setStringProperty(parameter.getKey(), 
-                        parameter.getValue());
-            }
-        } catch (Exception e) {
-            throw new TaskException(e);
-        } 
+//        try {
+//            InvoiceBL invoiceBl = new InvoiceBL(message.getInt("invoiceId"));
+//            Integer entityId = invoiceBl.getEntity().getBaseUser().getEntity().getId();
+//            InvoiceDTO invoice = invoiceBl.getDTO();
+//            
+//            PluggableTaskManager taskManager = new PluggableTaskManager(entityId, 
+//                    Constants.PLUGGABLE_TASK_PAYMENT);
+//
+//            // search for PaymentRouterTask in the payment chain
+//            AbstractPaymentRouterTask router = null;
+//            Object task = taskManager.getNextClass();
+//            while (task != null) {
+//                if (task instanceof AbstractPaymentRouterTask) {
+//                    router = (AbstractPaymentRouterTask) task;
+//                    break;
+//                }
+//                task = taskManager.getNextClass();
+//            }
+//            
+//            if (router == null) {
+//                throw new TaskException("Can not find router task");
+//            }
+//
+//            Map<String, String> parameters = router.getAsyncParameters(invoice);
+//            for(Map.Entry<String, String> parameter : parameters.entrySet()) {
+//                message.setStringProperty(parameter.getKey(), 
+//                        parameter.getValue());
+//            }
+//        } catch (Exception e) {
+//            throw new TaskException(e);
+//        } 
     }
 
 }

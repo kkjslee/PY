@@ -349,7 +349,8 @@ public class BillingProcessSessionBean implements IBillingProcessSessionBean {
     public void processPayment(Integer processId, Integer runId, Integer invoiceId) {
         try {
             BillingProcessBL bl = new BillingProcessBL();
-            bl.generatePayment(processId, runId, invoiceId);
+//            bl.generatePayment(processId, runId, invoiceId);
+            bl.automaticPaymentApplication(processId, runId, invoiceId);
         } catch (Exception e) {
             LOG.error("Exception processing a payment ", e);
         }

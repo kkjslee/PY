@@ -1065,16 +1065,26 @@ public class BillingProcessBL extends ResultList
      * @param invoiceId
      * @throws SessionInternalError
      */
-    public void generatePayment(Integer processId, Integer runId, Integer invoiceId) throws SessionInternalError {
-
-        try {
-            InvoiceBL invoiceBL = new InvoiceBL(invoiceId);
-            InvoiceDTO newInvoice = invoiceBL.getEntity();
-            IPaymentSessionBean paymentSess = (IPaymentSessionBean) Context.getBean(Context.Name.PAYMENT_SESSION);
-            paymentSess.generatePayment(newInvoice);
-        } catch (Exception e) {
-            throw new SessionInternalError(e);
-        }
+//    public void generatePayment(Integer processId, Integer runId, Integer invoiceId) throws SessionInternalError {
+//
+//        try {
+//            InvoiceBL invoiceBL = new InvoiceBL(invoiceId);
+//            InvoiceDTO newInvoice = invoiceBL.getEntity();
+//            IPaymentSessionBean paymentSess = (IPaymentSessionBean) Context.getBean(Context.Name.PAYMENT_SESSION);
+//            paymentSess.generatePayment(newInvoice);
+//        } catch (Exception e) {
+//            throw new SessionInternalError(e);
+//        }
+//    }
+    
+    public void automaticPaymentApplication(Integer processId, Integer runId, Integer invoiceId) throws SessionInternalError {
+    	try { 
+	    	InvoiceBL invoiceBL = new InvoiceBL(invoiceId);
+	    	 InvoiceDTO newInvoice = invoiceBL.getEntity();
+	    	 new PaymentBL().automaticPaymentApplication(newInvoice);
+    	 } catch (Exception e) {
+           throw new SessionInternalError(e);
+       } 
     }
 
     public BillingProcessRunTotalDTOEx getTotal(CurrencyDTO currency, List totals) {

@@ -986,52 +986,52 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
      * and tries the invoice to be paid by an online payment
      * This is ... the mega call !!!
      */
-    public CreateResponseWS create(UserWS user, OrderWS order)
-            throws SessionInternalError {
+//    public CreateResponseWS create(UserWS user, OrderWS order)
+//            throws SessionInternalError {
+//
+//        CreateResponseWS retValue = new CreateResponseWS();
+//
+//        // the user first
+//        final Integer userId = createUser(user);
+//        retValue.setUserId(userId);
+//
+//        if (userId == null) {
+//            return retValue;
+//        }
+//
+//        // the order and (if needed) invoice
+//        order.setUserId(userId);
+//
+//        Integer orderId = doCreateOrder(order, true).getId();
+//        InvoiceDTO invoice = doCreateInvoice(orderId);
+//
+//        retValue.setOrderId(orderId);
+//
+//        if (invoice != null) {
+//            retValue.setInvoiceId(invoice.getId());
+//
+//            //the payment, if we have a credit card
+//            if (user.getCreditCard() != null) {
+//                PaymentDTOEx payment = doPayInvoice(invoice, new CreditCardDTO(user.getCreditCard()));
+//                PaymentAuthorizationDTOEx result = null;
+//                if (payment != null) {
+//                    result = new PaymentAuthorizationDTOEx(payment.getAuthorization().getOldDTO());
+//                    result.setResult(new Integer(payment.getPaymentResult().getId()).equals(Constants.RESULT_OK));
+//                }
+//                retValue.setPaymentResult(result);
+//                retValue.setPaymentId(payment.getId());
+//            }
+//        } else {
+//            throw new SessionInternalError("Invoice expected for order: " + orderId);
+//        }
+//
+//        return retValue;
+//    }
 
-        CreateResponseWS retValue = new CreateResponseWS();
-
-        // the user first
-        final Integer userId = createUser(user);
-        retValue.setUserId(userId);
-
-        if (userId == null) {
-            return retValue;
-        }
-
-        // the order and (if needed) invoice
-        order.setUserId(userId);
-
-        Integer orderId = doCreateOrder(order, true).getId();
-        InvoiceDTO invoice = doCreateInvoice(orderId);
-
-        retValue.setOrderId(orderId);
-
-        if (invoice != null) {
-            retValue.setInvoiceId(invoice.getId());
-
-            //the payment, if we have a credit card
-            if (user.getCreditCard() != null) {
-                PaymentDTOEx payment = doPayInvoice(invoice, new CreditCardDTO(user.getCreditCard()));
-                PaymentAuthorizationDTOEx result = null;
-                if (payment != null) {
-                    result = new PaymentAuthorizationDTOEx(payment.getAuthorization().getOldDTO());
-                    result.setResult(new Integer(payment.getPaymentResult().getId()).equals(Constants.RESULT_OK));
-                }
-                retValue.setPaymentResult(result);
-                retValue.setPaymentId(payment.getId());
-            }
-        } else {
-            throw new SessionInternalError("Invoice expected for order: " + orderId);
-        }
-
-        return retValue;
-    }
-
-    public void processPartnerPayouts(Date runDate) {
-        IUserSessionBean userSession = Context.getBean(Context.Name.USER_SESSION);
-        userSession.processPayouts(runDate);
-    }
+//    public void processPartnerPayouts(Date runDate) {
+//        IUserSessionBean userSession = Context.getBean(Context.Name.USER_SESSION);
+//        userSession.processPayouts(runDate);
+//    }
 
     public PartnerWS getPartner(Integer partnerId) throws SessionInternalError {
         IUserSessionBean userSession = Context.getBean(Context.Name.USER_SESSION);
@@ -1049,28 +1049,28 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
      * @return resulting authorization record. The payment itself can be found by
      * calling getLatestPayment
      */
-    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId) throws SessionInternalError {
-
-        if (invoiceId == null) {
-            throw new SessionInternalError("Can not pay null invoice");
-        }
-
-        final InvoiceDTO invoice = findInvoice(invoiceId);
-        CreditCardDTO creditCard = getCreditCard(invoice.getBaseUser().getUserId());
-        if (creditCard == null) {
-            return null;
-        }
-
-        PaymentDTOEx payment = doPayInvoice(invoice, creditCard);
-
-        PaymentAuthorizationDTOEx result = null;
-        if (payment != null) {
-            result = new PaymentAuthorizationDTOEx(payment.getAuthorization().getOldDTO());
-            result.setResult(new Integer(payment.getPaymentResult().getId()).equals(Constants.RESULT_OK));
-        }
-
-        return result;
-    }
+//    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId) throws SessionInternalError {
+//
+//        if (invoiceId == null) {
+//            throw new SessionInternalError("Can not pay null invoice");
+//        }
+//
+//        final InvoiceDTO invoice = findInvoice(invoiceId);
+//        CreditCardDTO creditCard = getCreditCard(invoice.getBaseUser().getUserId());
+//        if (creditCard == null) {
+//            return null;
+//        }
+//
+//        PaymentDTOEx payment = doPayInvoice(invoice, creditCard);
+//
+//        PaymentAuthorizationDTOEx result = null;
+//        if (payment != null) {
+//            result = new PaymentAuthorizationDTOEx(payment.getAuthorization().getOldDTO());
+//            result.setResult(new Integer(payment.getPaymentResult().getId()).equals(Constants.RESULT_OK));
+//        }
+//
+//        return result;
+//    }
 
     /*
      * ORDERS
@@ -1079,30 +1079,30 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
      * @return the information of the payment aurhotization, or NULL if the
      * user does not have a credit card
      */
-    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order)
-            throws SessionInternalError {
-
-        PaymentAuthorizationDTOEx retValue = null;
-        // start by creating the order. It'll do the checks as well
-        Integer orderId = createOrder(order);
-
-        Integer userId = order.getUserId();
-        CreditCardDTO cc = getCreditCard(userId);
-        UserBL user = new UserBL();
-        Integer entityId = user.getEntityId(userId);
-        if (cc != null) {
-            CreditCardBL ccBl = new CreditCardBL();
-            OrderDAS das = new OrderDAS();
-            OrderDTO dbOrder = das.find(orderId);
-
-            try {
-                retValue = ccBl.validatePreAuthorization(entityId, userId, cc, dbOrder.getTotal(), dbOrder.getCurrencyId());
-            } catch (PluggableTaskException e) {
-                throw new SessionInternalError("doing validation", WebServicesSessionSpringBean.class, e);
-            }
-        }
-        return retValue;
-    }
+//    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order)
+//            throws SessionInternalError {
+//
+//        PaymentAuthorizationDTOEx retValue = null;
+//        // start by creating the order. It'll do the checks as well
+//        Integer orderId = createOrder(order);
+//
+//        Integer userId = order.getUserId();
+//        CreditCardDTO cc = getCreditCard(userId);
+//        UserBL user = new UserBL();
+//        Integer entityId = user.getEntityId(userId);
+//        if (cc != null) {
+//            CreditCardBL ccBl = new CreditCardBL();
+//            OrderDAS das = new OrderDAS();
+//            OrderDTO dbOrder = das.find(orderId);
+//
+//            try {
+//                retValue = ccBl.validatePreAuthorization(entityId, userId, cc, dbOrder.getTotal(), dbOrder.getCurrencyId());
+//            } catch (PluggableTaskException e) {
+//                throw new SessionInternalError("doing validation", WebServicesSessionSpringBean.class, e);
+//            }
+//        }
+//        return retValue;
+//    }
 
     public Integer createOrder(OrderWS order)
             throws SessionInternalError {
@@ -1600,63 +1600,63 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
      * @param invoiceId invoice id
      * @return payment authorization from the payment processor
      */
-    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment, Integer invoiceId) {
-        if (payment == null && invoiceId != null)
-            return payInvoice(invoiceId);
-
-        Integer entityId = getCallerCompanyId();
-        PaymentDTOEx dto = new PaymentDTOEx(payment);
-
-        // payment without Credit Card or ACH, fetch the users primary payment instrument for use
-        if (payment.getCreditCard() == null && payment.getAch() == null) {
-            LOG.debug("processPayment() called without payment method, fetching users automatic payment instrument.");
-            PaymentDTO instrument;
-            try {
-                instrument = PaymentBL.findPaymentInstrument(entityId, payment.getUserId());
-
-            } catch (PluggableTaskException e) {
-                throw new SessionInternalError("Exception occurred fetching payment info plug-in.",
-                                               new String[] { "PaymentWS,baseUserId,validation.error.no.payment.instrument" });
-
-            } catch (TaskException e) {
-                throw new SessionInternalError("Exception occurred with plug-in when fetching payment instrument.",
-                                               new String[] { "PaymentWS,baseUserId,validation.error.no.payment.instrument" });
-            }
-
-            if (instrument == null || (instrument.getCreditCard() == null && instrument.getAch() == null)) {
-                throw new SessionInternalError("User " + payment.getUserId() + "does not have a default payment instrument.",
-                                               new String[] { "PaymentWS,baseUserId,validation.error.no.payment.instrument" });
-            }
-
-            dto.setCreditCard(instrument.getCreditCard());
-            dto.setAch(instrument.getAch());
-        }
-
-        // populate payment method based on the payment instrument
-        if (dto.getCreditCard() != null) {    
-            dto.setPaymentMethod(new PaymentMethodDTO(dto.getCreditCard().getCcType()));
-        } else if (dto.getAch() != null) { 
-            dto.setPaymentMethod(new PaymentMethodDTO(Constants.PAYMENT_METHOD_ACH));
-        }
-
-        // process payment
-        IPaymentSessionBean session = (IPaymentSessionBean) Context.getBean(Context.Name.PAYMENT_SESSION);
-        Integer result = session.processAndUpdateInvoice(dto, invoiceId, entityId);
-        LOG.debug("paymentBean.processAndUpdateInvoice() Id=" + result);
-
-        PaymentAuthorizationDTOEx auth = null;
-        if (dto != null && dto.getAuthorization() != null) {
-            LOG.debug("PaymentAuthorizationDTO Id =" + dto.getAuthorization().getId());
-            auth = new PaymentAuthorizationDTOEx(dto.getAuthorization().getOldDTO());
-            LOG.debug("PaymentAuthorizationDTOEx Id =" + auth.getId());
-            auth.setResult(result.equals(Constants.RESULT_OK));
-
-        } else {
-            auth = new PaymentAuthorizationDTOEx();
-            auth.setResult(result.equals(Constants.RESULT_FAIL));
-        }
-        return auth;
-    }
+//    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment, Integer invoiceId) {
+//        if (payment == null && invoiceId != null)
+//            return payInvoice(invoiceId);
+//
+//        Integer entityId = getCallerCompanyId();
+//        PaymentDTOEx dto = new PaymentDTOEx(payment);
+//
+//        // payment without Credit Card or ACH, fetch the users primary payment instrument for use
+//        if (payment.getCreditCard() == null && payment.getAch() == null) {
+//            LOG.debug("processPayment() called without payment method, fetching users automatic payment instrument.");
+//            PaymentDTO instrument;
+//            try {
+//                instrument = PaymentBL.findPaymentInstrument(entityId, payment.getUserId());
+//
+//            } catch (PluggableTaskException e) {
+//                throw new SessionInternalError("Exception occurred fetching payment info plug-in.",
+//                                               new String[] { "PaymentWS,baseUserId,validation.error.no.payment.instrument" });
+//
+//            } catch (TaskException e) {
+//                throw new SessionInternalError("Exception occurred with plug-in when fetching payment instrument.",
+//                                               new String[] { "PaymentWS,baseUserId,validation.error.no.payment.instrument" });
+//            }
+//
+//            if (instrument == null || (instrument.getCreditCard() == null && instrument.getAch() == null)) {
+//                throw new SessionInternalError("User " + payment.getUserId() + "does not have a default payment instrument.",
+//                                               new String[] { "PaymentWS,baseUserId,validation.error.no.payment.instrument" });
+//            }
+//
+//            dto.setCreditCard(instrument.getCreditCard());
+//            dto.setAch(instrument.getAch());
+//        }
+//
+//        // populate payment method based on the payment instrument
+//        if (dto.getCreditCard() != null) {    
+//            dto.setPaymentMethod(new PaymentMethodDTO(dto.getCreditCard().getCcType()));
+//        } else if (dto.getAch() != null) { 
+//            dto.setPaymentMethod(new PaymentMethodDTO(Constants.PAYMENT_METHOD_ACH));
+//        }
+//
+//        // process payment
+//        IPaymentSessionBean session = (IPaymentSessionBean) Context.getBean(Context.Name.PAYMENT_SESSION);
+//        Integer result = session.processAndUpdateInvoice(dto, invoiceId, entityId);
+//        LOG.debug("paymentBean.processAndUpdateInvoice() Id=" + result);
+//
+//        PaymentAuthorizationDTOEx auth = null;
+//        if (dto != null && dto.getAuthorization() != null) {
+//            LOG.debug("PaymentAuthorizationDTO Id =" + dto.getAuthorization().getId());
+//            auth = new PaymentAuthorizationDTOEx(dto.getAuthorization().getOldDTO());
+//            LOG.debug("PaymentAuthorizationDTOEx Id =" + auth.getId());
+//            auth.setResult(result.equals(Constants.RESULT_OK));
+//
+//        } else {
+//            auth = new PaymentAuthorizationDTOEx();
+//            auth.setResult(result.equals(Constants.RESULT_FAIL));
+//        }
+//        return auth;
+//    }
 
     public PaymentWS getPayment(Integer paymentId)
             throws SessionInternalError {
@@ -1691,18 +1691,18 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         return payment.getManyWS(userId, number, languageId);
     }
 
-    public PaymentWS getUserPaymentInstrument(Integer userId) throws SessionInternalError {
-        PaymentDTO instrument;
-        try {
-            instrument = PaymentBL.findPaymentInstrument(getCallerCompanyId(), userId);
-        } catch (PluggableTaskException e) {
-            throw new SessionInternalError("Exception occurred fetching payment info plug-in.", e);
-        } catch (TaskException e) {
-            throw new SessionInternalError("Exception occurred with plug-in when fetching payment instrument.", e);
-        }
-
-        return instrument != null ? PaymentBL.getWS(new PaymentDTOEx(instrument)) : null;
-    }
+//    public PaymentWS getUserPaymentInstrument(Integer userId) throws SessionInternalError {
+//        PaymentDTO instrument;
+//        try {
+//            instrument = PaymentBL.findPaymentInstrument(getCallerCompanyId(), userId);
+//        } catch (PluggableTaskException e) {
+//            throw new SessionInternalError("Exception occurred fetching payment info plug-in.", e);
+//        } catch (TaskException e) {
+//            throw new SessionInternalError("Exception occurred with plug-in when fetching payment instrument.", e);
+//        }
+//
+//        return instrument != null ? PaymentBL.getWS(new PaymentDTOEx(instrument)) : null;
+//    }
 
     public BigDecimal getTotalRevenueByUser (Integer userId) throws SessionInternalError {
     	return new PaymentDAS().findTotalRevenueByUser(userId);
@@ -2024,62 +2024,62 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
         }
     }
 
-    private PaymentDTOEx doPayInvoice(InvoiceDTO invoice, CreditCardDTO creditCard)
-            throws SessionInternalError {
-
-        if (invoice.getBalance() == null || BigDecimal.ZERO.compareTo(invoice.getBalance()) >= 0) {
-            LOG.warn("Can not pay invoice: " + invoice.getId() + ", balance: " + invoice.getBalance());
-            return null;
-        }
-
-        IPaymentSessionBean payment = (IPaymentSessionBean) Context.getBean(
-                Context.Name.PAYMENT_SESSION);
-        PaymentDTOEx paymentDto = new PaymentDTOEx();
-        paymentDto.setIsRefund(0);
-        paymentDto.setAmount(invoice.getBalance());
-        paymentDto.setCreditCard(creditCard);
-        paymentDto.setCurrency(new CurrencyDAS().find(invoice.getCurrency().getId()));
-        paymentDto.setUserId(invoice.getBaseUser().getUserId());
-        paymentDto.setPaymentMethod(new PaymentMethodDAS().find(
-                com.infosense.ibilling.common.Util.getPaymentMethod(
-                creditCard.getNumber())));
-        paymentDto.setPaymentDate(new Date());
-
-        // make the call
-        payment.processAndUpdateInvoice(paymentDto, invoice);
-
-        return paymentDto;
-    }
+//    private PaymentDTOEx doPayInvoice(InvoiceDTO invoice, CreditCardDTO creditCard)
+//            throws SessionInternalError {
+//
+//        if (invoice.getBalance() == null || BigDecimal.ZERO.compareTo(invoice.getBalance()) >= 0) {
+//            LOG.warn("Can not pay invoice: " + invoice.getId() + ", balance: " + invoice.getBalance());
+//            return null;
+//        }
+//
+//        IPaymentSessionBean payment = (IPaymentSessionBean) Context.getBean(
+//                Context.Name.PAYMENT_SESSION);
+//        PaymentDTOEx paymentDto = new PaymentDTOEx();
+//        paymentDto.setIsRefund(0);
+//        paymentDto.setAmount(invoice.getBalance());
+//        paymentDto.setCreditCard(creditCard);
+//        paymentDto.setCurrency(new CurrencyDAS().find(invoice.getCurrency().getId()));
+//        paymentDto.setUserId(invoice.getBaseUser().getUserId());
+//        paymentDto.setPaymentMethod(new PaymentMethodDAS().find(
+//                com.infosense.ibilling.common.Util.getPaymentMethod(
+//                creditCard.getNumber())));
+//        paymentDto.setPaymentDate(new Date());
+//
+//        // make the call
+//        payment.processAndUpdateInvoice(paymentDto, invoice);
+//
+//        return paymentDto;
+//    }
 
     /**
      * Conveniance method to find a credit card
      */
-    private CreditCardDTO getCreditCard(Integer userId) {
-        if (userId == null) {
-            return null;
-        }
-
-        CreditCardDTO result = null;
-        try {
-            UserBL user = new UserBL(userId);
-            Integer entityId = user.getEntityId(userId);
-            if (user.hasCreditCard()) {
-                // find it
-                PaymentDTOEx paymentDto = PaymentBL.findPaymentInstrument(
-                        entityId, userId);
-                // it might have a credit card, but it might not be valid or
-                // just not found by the plug-in
-                if (paymentDto != null) {
-                    result = paymentDto.getCreditCard();
-                }
-            }
-        } catch (Exception e) { // forced by checked exceptions :(
-            LOG.error("WS - finding a credit card", e);
-            throw new SessionInternalError("Error finding a credit card for user: " + userId);
-        }
-
-        return result;
-    }
+//    private CreditCardDTO getCreditCard(Integer userId) {
+//        if (userId == null) {
+//            return null;
+//        }
+//
+//        CreditCardDTO result = null;
+//        try {
+//            UserBL user = new UserBL(userId);
+//            Integer entityId = user.getEntityId(userId);
+//            if (user.hasCreditCard()) {
+//                // find it
+//                PaymentDTOEx paymentDto = PaymentBL.findPaymentInstrument(
+//                        entityId, userId);
+//                // it might have a credit card, but it might not be valid or
+//                // just not found by the plug-in
+//                if (paymentDto != null) {
+//                    result = paymentDto.getCreditCard();
+//                }
+//            }
+//        } catch (Exception e) { // forced by checked exceptions :(
+//            LOG.error("WS - finding a credit card", e);
+//            throw new SessionInternalError("Error finding a credit card for user: " + userId);
+//        }
+//
+//        return result;
+//    }
 
     private OrderWS doCreateOrder(OrderWS order, boolean create)
             throws SessionInternalError {
@@ -2973,56 +2973,56 @@ public class WebServicesSessionSpringBean implements IWebServicesSessionBean {
      * 
      * @see com.infosense.ibilling.server.util.IWebServicesSessionBean#validateCreditCard(com.infosense.ibilling.server.entity.CreditCardDTO creditCard, ContactWS contact, int level)
      */
-    public boolean validateCreditCard(com.infosense.ibilling.server.entity.CreditCardDTO creditCard, ContactWS contact, int level) 
-        throws SessionInternalError {
-        boolean retVal= true;
-        try {
-            
-            //simple level 1 validations
-            if (creditCard.getNumber().trim().length()==0) {
-                throw new Exception("Credit Card number is missing.");
-            }
-            
-            if (creditCard.getName().trim().length()==0) {
-                throw new Exception("Credit Card name is missing.");
-            }
-            
-            
-            //Luhn check - mod10 validation
-            if (!com.infosense.ibilling.common.Util.luhnCheck(creditCard.getNumber())) {
-                throw new Exception("Credit Card Mod10 validation failed.");
-            }
-
-            //level 2 and level 3 validations
-            if (level > 1) {
-                //address validation
-                if (contact.getAddress1().trim().length()==0) {
-                    throw new Exception("Credit Card address is missing.");
-                }
-                //security code validation
-                if (creditCard.getSecurityCode().length()==0 || Integer.parseInt(creditCard.getSecurityCode()) <= 0 ) {
-                    throw new Exception("Credit Card Security Code validation failed.");
-                }
-                //payment gateway pre-authorize validation
-                if (level > 2) {
-                    CreditCardDTO cc= new CreditCardDTO();
-                    cc.setName(creditCard.getName());
-                    cc.setNumber(creditCard.getNumber());
-                    cc.setSecurityCode(creditCard.getSecurityCode());
-                    cc.setExpiry(new Date());
-                    Object auth= new CreditCardBL().validatePreAuthorization(getCallerCompanyId(), getCallerId(), 
-                            cc, new BigDecimal("0.01"), new Integer(1));
-                    if (null == auth) {
-                        retVal=false;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            retVal=false;
-            LOG.debug("validateCreditCard Failed: " + e.getMessage());
-        }
-        return retVal;
-    }
+//    public boolean validateCreditCard(com.infosense.ibilling.server.entity.CreditCardDTO creditCard, ContactWS contact, int level) 
+//        throws SessionInternalError {
+//        boolean retVal= true;
+//        try {
+//            
+//            //simple level 1 validations
+//            if (creditCard.getNumber().trim().length()==0) {
+//                throw new Exception("Credit Card number is missing.");
+//            }
+//            
+//            if (creditCard.getName().trim().length()==0) {
+//                throw new Exception("Credit Card name is missing.");
+//            }
+//            
+//            
+//            //Luhn check - mod10 validation
+//            if (!com.infosense.ibilling.common.Util.luhnCheck(creditCard.getNumber())) {
+//                throw new Exception("Credit Card Mod10 validation failed.");
+//            }
+//
+//            //level 2 and level 3 validations
+//            if (level > 1) {
+//                //address validation
+//                if (contact.getAddress1().trim().length()==0) {
+//                    throw new Exception("Credit Card address is missing.");
+//                }
+//                //security code validation
+//                if (creditCard.getSecurityCode().length()==0 || Integer.parseInt(creditCard.getSecurityCode()) <= 0 ) {
+//                    throw new Exception("Credit Card Security Code validation failed.");
+//                }
+//                //payment gateway pre-authorize validation
+//                if (level > 2) {
+//                    CreditCardDTO cc= new CreditCardDTO();
+//                    cc.setName(creditCard.getName());
+//                    cc.setNumber(creditCard.getNumber());
+//                    cc.setSecurityCode(creditCard.getSecurityCode());
+//                    cc.setExpiry(new Date());
+//                    Object auth= new CreditCardBL().validatePreAuthorization(getCallerCompanyId(), getCallerId(), 
+//                            cc, new BigDecimal("0.01"), new Integer(1));
+//                    if (null == auth) {
+//                        retVal=false;
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            retVal=false;
+//            LOG.debug("validateCreditCard Failed: " + e.getMessage());
+//        }
+//        return retVal;
+//    }
 
 	@Override
 	public Integer createPlan(ItemDTOEx newPlan, Integer cpu, Integer memory) {

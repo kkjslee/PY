@@ -148,76 +148,76 @@ public class PartnerBL extends ResultList implements PartnerSQL {
      * This is called from a new transaction
      * @param partnerId
      */
-    public void processPayout(Integer partnerId) 
-            throws SQLException, SessionInternalError, PluggableTaskException, TaskException, NamingException {
-        boolean notPaid;
-        partner = partnerDAS.find(partnerId);
-        // find out the date ranges for this payout
-        Date startDate, endDate, dates[];
-        dates = calculatePayoutDates();
-        startDate = dates[0];
-        endDate = dates[1];
-       
-        // see if this partner should be paid on-line
-        boolean doProcess = partner.getAutomaticProcess() == 1;
-        
-        // some handy data
-        Integer currencyId = partner.getUser().getCurrencyId();
-        Integer entityId = partner.getUser().getEntity().getId();
-        Integer userId = partner.getUser().getUserId();
-        
-        if (doProcess) {
-            // now creating the row
-            payout = new PartnerPayout();
-            payout.setStartingDate(startDate);
-            payout.setEndingDate(endDate);
-            payout.setBalanceLeft(BigDecimal.ZERO);
-            payout.setPaymentsAmount(BigDecimal.ZERO);
-            payout.setRefundsAmount(BigDecimal.ZERO);
-            payout.setPartner(partner);
-            payout = new PartnerPayoutDAS().save(payout);
-            partner.getPartnerPayouts().add(payout);
-        } else {
-            payout = null; // to avoid confustion
-        }
-        
-        // get the total for this payout
-        PartnerPayout dto = calculatePayout(startDate, endDate, 
-                currencyId);
-        
-        if (doProcess) {
-            PaymentDTOEx payment = PaymentBL.findPaymentInstrument(entityId,
-                    userId);
-            if (payment == null) {
-                // this partner doesn't have a way to get paid
-                eLogger.warning(entityId, userId, partnerId, 
-                        EventLogger.MODULE_USER_MAINTENANCE, 
-                        EventLogger.CANT_PAY_PARTNER, 
-                        Constants.TABLE_PARTNER);
-                notPaid = true;
-            } else {
-                payment.setAmount(dto.getPayment().getAmount());
-                payment.setCurrency(partner.getUser().getCurrency());
-                payment.setUserId(userId);
-                payment.setPaymentDate(partner.getNextPayoutDate());
-                notPaid = !processPayment(payment, entityId, dto, true);
-             }
-        } else {
-            notPaid = true;
-            // just notify to the clerk in charge
-            notifyPayout(entityId, partner.getBaseUserByRelatedClerk().getLanguageIdField(),
-                         dto.getPayment().getAmount(), startDate, endDate, true);
-        }
-        
-        if (notPaid) {
-            // let know that this partner should have been paid.
-            notifyPayout(entityId, partner.getBaseUserByRelatedClerk().getLanguageIdField(),
-                         dto.getPayment().getAmount(), startDate, endDate, true);
-            // set the partner due payout
-            partner.setDuePayout(dto.getPayment().getAmount());
-        }
-
-    }
+//    public void processPayout(Integer partnerId) 
+//            throws SQLException, SessionInternalError, PluggableTaskException, TaskException, NamingException {
+//        boolean notPaid;
+//        partner = partnerDAS.find(partnerId);
+//        // find out the date ranges for this payout
+//        Date startDate, endDate, dates[];
+//        dates = calculatePayoutDates();
+//        startDate = dates[0];
+//        endDate = dates[1];
+//       
+//        // see if this partner should be paid on-line
+//        boolean doProcess = partner.getAutomaticProcess() == 1;
+//        
+//        // some handy data
+//        Integer currencyId = partner.getUser().getCurrencyId();
+//        Integer entityId = partner.getUser().getEntity().getId();
+//        Integer userId = partner.getUser().getUserId();
+//        
+//        if (doProcess) {
+//            // now creating the row
+//            payout = new PartnerPayout();
+//            payout.setStartingDate(startDate);
+//            payout.setEndingDate(endDate);
+//            payout.setBalanceLeft(BigDecimal.ZERO);
+//            payout.setPaymentsAmount(BigDecimal.ZERO);
+//            payout.setRefundsAmount(BigDecimal.ZERO);
+//            payout.setPartner(partner);
+//            payout = new PartnerPayoutDAS().save(payout);
+//            partner.getPartnerPayouts().add(payout);
+//        } else {
+//            payout = null; // to avoid confustion
+//        }
+//        
+//        // get the total for this payout
+//        PartnerPayout dto = calculatePayout(startDate, endDate, 
+//                currencyId);
+//        
+//        if (doProcess) {
+//            PaymentDTOEx payment = PaymentBL.findPaymentInstrument(entityId,
+//                    userId);
+//            if (payment == null) {
+//                // this partner doesn't have a way to get paid
+//                eLogger.warning(entityId, userId, partnerId, 
+//                        EventLogger.MODULE_USER_MAINTENANCE, 
+//                        EventLogger.CANT_PAY_PARTNER, 
+//                        Constants.TABLE_PARTNER);
+//                notPaid = true;
+//            } else {
+//                payment.setAmount(dto.getPayment().getAmount());
+//                payment.setCurrency(partner.getUser().getCurrency());
+//                payment.setUserId(userId);
+//                payment.setPaymentDate(partner.getNextPayoutDate());
+//                notPaid = !processPayment(payment, entityId, dto, true);
+//             }
+//        } else {
+//            notPaid = true;
+//            // just notify to the clerk in charge
+//            notifyPayout(entityId, partner.getBaseUserByRelatedClerk().getLanguageIdField(),
+//                         dto.getPayment().getAmount(), startDate, endDate, true);
+//        }
+//        
+//        if (notPaid) {
+//            // let know that this partner should have been paid.
+//            notifyPayout(entityId, partner.getBaseUserByRelatedClerk().getLanguageIdField(),
+//                         dto.getPayment().getAmount(), startDate, endDate, true);
+//            // set the partner due payout
+//            partner.setDuePayout(dto.getPayment().getAmount());
+//        }
+//
+//    }
     
     /**
      * This is to be called from the client, when creating a manual payout
@@ -227,32 +227,32 @@ public class PartnerBL extends ResultList implements PartnerSQL {
      * @param payment
      * @return
      */
-    public Integer processPayout(Integer partnerId, Date start, Date end,
-            PaymentDTOEx payment, Boolean process) 
-            throws SessionInternalError, SQLException, NamingException {
-        
-        partner = partnerDAS.find(partnerId);
-        payout = new PartnerPayout();
-        payout.setStartingDate(start);
-        payout.setEndingDate(end);
-        payout.setBalanceLeft(BigDecimal.ZERO);
-        payout.setPaymentsAmount(BigDecimal.ZERO);
-        payout.setRefundsAmount(BigDecimal.ZERO);
-        payout.setPartner(partner);
-        payout = new PartnerPayoutDAS().save(payout);
-        partner.getPartnerPayouts().add(payout);
-        
-        // get the total for this payout
-        PartnerPayout dto = calculatePayout(start, end, 
-                payment.getCurrency().getId());
-    
-        // finish the payment
-        payment.setIsRefund(new Integer(1));
-        payment.setAttempt(new Integer(1));
-        processPayment(payment, partner.getUser().getEntity().getId(), dto,
-                process.booleanValue());
-        return payment.getPaymentResult().getId();
-    }
+//    public Integer processPayout(Integer partnerId, Date start, Date end,
+//            PaymentDTOEx payment, Boolean process) 
+//            throws SessionInternalError, SQLException, NamingException {
+//        
+//        partner = partnerDAS.find(partnerId);
+//        payout = new PartnerPayout();
+//        payout.setStartingDate(start);
+//        payout.setEndingDate(end);
+//        payout.setBalanceLeft(BigDecimal.ZERO);
+//        payout.setPaymentsAmount(BigDecimal.ZERO);
+//        payout.setRefundsAmount(BigDecimal.ZERO);
+//        payout.setPartner(partner);
+//        payout = new PartnerPayoutDAS().save(payout);
+//        partner.getPartnerPayouts().add(payout);
+//        
+//        // get the total for this payout
+//        PartnerPayout dto = calculatePayout(start, end, 
+//                payment.getCurrency().getId());
+//    
+//        // finish the payment
+//        payment.setIsRefund(new Integer(1));
+//        payment.setAttempt(new Integer(1));
+//        processPayment(payment, partner.getUser().getEntity().getId(), dto,
+//                process.booleanValue());
+//        return payment.getPaymentResult().getId();
+//    }
     
     public Date[] calculatePayoutDates() throws NamingException, SQLException, SessionInternalError{
         Date retValue[] = new Date[2];        
@@ -279,57 +279,57 @@ public class PartnerBL extends ResultList implements PartnerSQL {
         return retValue;
     }
     
-    private boolean processPayment(PaymentDTOEx payment, Integer entityId,
-            PartnerPayout dto, boolean process) 
-            throws NamingException, SessionInternalError {
-        PaymentBL paymentBL = new PaymentBL();
-        boolean retValue;
-        PaymentDTO createdPayment = null;
-        // isRefund is not null, so having to decide it is better to use refund.
-        payment.setPayoutId(payout.getId());
-        payment.setIsRefund(new Integer(1));
-        payment.setAttempt(new Integer(1));
-        payment.setBalance(BigDecimal.ZERO);
-                
-        // process the payment realtime
-        Integer result = Constants.RESULT_OK;
-        if (process) {
-            result = paymentBL.processPayment(entityId, payment);
-            createdPayment = paymentBL.getEntity();
-            if (result == null) { // means no pluggable task config.
-                result = Constants.RESULT_UNAVAILABLE;
-            }
-        } else {
-            // create the payment row
-            paymentBL.create(payment);
-            createdPayment = paymentBL.getEntity();
-        }
-        // and link it to this payout row
-        payout.setPayment(new PaymentDAS().find(paymentBL.getEntity().getId()));
-                
-        // update this partner fields if the payment went through
-        if (result.equals(Constants.RESULT_OK)) {
-            applyPayout(dto);
-
-            // this partner just got a full payout
-            partner.setDuePayout(BigDecimal.ZERO);
-
-            // if there was something paid, notify
-            if (BigDecimal.ZERO.compareTo(dto.getPayment().getAmount()) < 0) {                
-                LOG.debug("payout notification partner = " + partner.getId()
-                            + " with language = " + partner.getUser().getLanguageIdField());
-                notifyPayout(entityId, partner.getUser().getLanguageIdField(), dto.getPayment().getAmount(),
-                             dto.getStartingDate(), dto.getEndingDate(), false);
-            }
-            retValue = true;
-        } else {
-            retValue = false;
-        }
-        createdPayment.setPaymentResult(new PaymentResultDAS().find(result));
-        payment.setPaymentResult(createdPayment.getPaymentResult());
-
-        return retValue;
-    }
+//    private boolean processPayment(PaymentDTOEx payment, Integer entityId,
+//            PartnerPayout dto, boolean process) 
+//            throws NamingException, SessionInternalError {
+//        PaymentBL paymentBL = new PaymentBL();
+//        boolean retValue;
+//        PaymentDTO createdPayment = null;
+//        // isRefund is not null, so having to decide it is better to use refund.
+//        payment.setPayoutId(payout.getId());
+//        payment.setIsRefund(new Integer(1));
+//        payment.setAttempt(new Integer(1));
+//        payment.setBalance(BigDecimal.ZERO);
+//                
+//        // process the payment realtime
+//        Integer result = Constants.RESULT_OK;
+//        if (process) {
+//            result = paymentBL.processPayment(entityId, payment);
+//            createdPayment = paymentBL.getEntity();
+//            if (result == null) { // means no pluggable task config.
+//                result = Constants.RESULT_UNAVAILABLE;
+//            }
+//        } else {
+//            // create the payment row
+//            paymentBL.create(payment);
+//            createdPayment = paymentBL.getEntity();
+//        }
+//        // and link it to this payout row
+//        payout.setPayment(new PaymentDAS().find(paymentBL.getEntity().getId()));
+//                
+//        // update this partner fields if the payment went through
+//        if (result.equals(Constants.RESULT_OK)) {
+//            applyPayout(dto);
+//
+//            // this partner just got a full payout
+//            partner.setDuePayout(BigDecimal.ZERO);
+//
+//            // if there was something paid, notify
+//            if (BigDecimal.ZERO.compareTo(dto.getPayment().getAmount()) < 0) {                
+//                LOG.debug("payout notification partner = " + partner.getId()
+//                            + " with language = " + partner.getUser().getLanguageIdField());
+//                notifyPayout(entityId, partner.getUser().getLanguageIdField(), dto.getPayment().getAmount(),
+//                             dto.getStartingDate(), dto.getEndingDate(), false);
+//            }
+//            retValue = true;
+//        } else {
+//            retValue = false;
+//        }
+//        createdPayment.setPaymentResult(new PaymentResultDAS().find(result));
+//        payment.setPaymentResult(createdPayment.getPaymentResult());
+//
+//        return retValue;
+//    }
     
     /**
      * Goes over the payments/refunds of the current partner for the

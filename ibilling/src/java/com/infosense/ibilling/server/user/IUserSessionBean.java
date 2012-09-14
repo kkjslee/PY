@@ -235,9 +235,9 @@ public interface IUserSessionBean {
      * process the payout
      * @param today
      */
-    public void processPayouts(Date today) throws SessionInternalError;
+//    public void processPayouts(Date today) throws SessionInternalError;
 
-    public void processPayout(Integer partnerId) throws SessionInternalError;
+//    public void processPayout(Integer partnerId) throws SessionInternalError;
 
     public PartnerPayout calculatePayout(Integer partnerId, Date start, 
             Date end, Integer currencyId) throws SessionInternalError;

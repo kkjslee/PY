@@ -104,13 +104,13 @@ public class Trigger {
             }
 
             // now the partner payout process
-            if (step == null || step.intValue() == 3) {
-                System.out.println("Starting partner process at " + 
-                        Calendar.getInstance().getTime());
-                remoteUser.processPayouts(today);
-                System.out.println("Ended partner process at " + 
-                        Calendar.getInstance().getTime());
-            }
+//            if (step == null || step.intValue() == 3) {
+//                System.out.println("Starting partner process at " + 
+//                        Calendar.getInstance().getTime());
+//                remoteUser.processPayouts(today);
+//                System.out.println("Ended partner process at " + 
+//                        Calendar.getInstance().getTime());
+//            }
             
             // finally the orders about to expire notification
             if (step == null || step.intValue() == 4) {

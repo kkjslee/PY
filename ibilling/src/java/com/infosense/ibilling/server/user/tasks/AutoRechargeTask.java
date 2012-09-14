@@ -66,48 +66,48 @@ public class AutoRechargeTask extends PluggableTask implements IInternalEventsTa
     }
 
     public void process(Event event) throws PluggableTaskException {
-        if (!(event instanceof DynamicBalanceChangeEvent)) {
-            throw new PluggableTaskException("Cannot process event " + event);
-        }
-
-        DynamicBalanceChangeEvent balanceEvent = (DynamicBalanceChangeEvent) event;
-        UserDTO user = new UserBL(balanceEvent.getUserId()).getDto();
-        CustomerDTO customer = user.getCustomer();
-
-        LOG.debug("Processing " + event);
-
-        if (!isEventProcessable(balanceEvent.getNewBalance(), user, customer)) {
-            LOG.debug("Conditions not met, no recharge");
-            return;
-        }
-
-        PaymentDTOEx payment = null;
-        try {
-            payment = PaymentBL.findPaymentInstrument(event.getEntityId(), user.getId());
-        } catch (TaskException e) {
-            throw new PluggableTaskException(e);
-        }
-
-        if (payment != null) {
-            payment.setIsRefund(0);
-            payment.setAttempt(1);
-            payment.setAmount(customer.getAutoRecharge());
-            payment.setCurrency(user.getCurrency());
-            payment.setUserId(user.getId());
-            payment.setPaymentDate(new Date());
-
-            LOG.debug("Making automatic payment of $" + payment.getAmount() + " for user " + payment.getUserId());
-
-            // can't use the managed bean, a new transaction will cause the CustomerDTO to get an
-            // optimistic lock: this transaction and the new payment one both changing the same customer.dynamic_balance
-            IPaymentSessionBean paymentSession = new PaymentSessionBean(); 
-
-            Integer result = paymentSession.processAndUpdateInvoice(payment, null, balanceEvent.getEntityId());
-
-            LOG.debug("Payment created with result: " + result);
-        } else {
-            LOG.debug("No payment instrument, no recharge");
-        }
+//        if (!(event instanceof DynamicBalanceChangeEvent)) {
+//            throw new PluggableTaskException("Cannot process event " + event);
+//        }
+//
+//        DynamicBalanceChangeEvent balanceEvent = (DynamicBalanceChangeEvent) event;
+//        UserDTO user = new UserBL(balanceEvent.getUserId()).getDto();
+//        CustomerDTO customer = user.getCustomer();
+//
+//        LOG.debug("Processing " + event);
+//
+//        if (!isEventProcessable(balanceEvent.getNewBalance(), user, customer)) {
+//            LOG.debug("Conditions not met, no recharge");
+//            return;
+//        }
+//
+//        PaymentDTOEx payment = null;
+//        try {
+//            payment = PaymentBL.findPaymentInstrument(event.getEntityId(), user.getId());
+//        } catch (TaskException e) {
+//            throw new PluggableTaskException(e);
+//        }
+//
+//        if (payment != null) {
+//            payment.setIsRefund(0);
+//            payment.setAttempt(1);
+//            payment.setAmount(customer.getAutoRecharge());
+//            payment.setCurrency(user.getCurrency());
+//            payment.setUserId(user.getId());
+//            payment.setPaymentDate(new Date());
+//
+//            LOG.debug("Making automatic payment of $" + payment.getAmount() + " for user " + payment.getUserId());
+//
+//            // can't use the managed bean, a new transaction will cause the CustomerDTO to get an
+//            // optimistic lock: this transaction and the new payment one both changing the same customer.dynamic_balance
+//            IPaymentSessionBean paymentSession = new PaymentSessionBean(); 
+//
+//            Integer result = paymentSession.processAndUpdateInvoice(payment, null, balanceEvent.getEntityId());
+//
+//            LOG.debug("Payment created with result: " + result);
+//        } else {
+//            LOG.debug("No payment instrument, no recharge");
+//        }
     }
 
     /**

@@ -798,37 +798,37 @@ public class UserSessionBean implements IUserSessionBean, ApplicationContextAwar
      * process the payout
      * @param today
      */
-    public void processPayouts(Date today)
-            throws SessionInternalError {
-        try {
-            JNDILookup jndi = JNDILookup.getFactory();
-            Connection conn = jndi.lookUpDataSource().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(duePayout);
-            stmt.setDate(1, new java.sql.Date(today.getTime()));
-            ResultSet result = stmt.executeQuery();
-            // since esql doesn't support dates, a direct call is necessary
-            while (result.next()) {
-                processPayout(new Integer(result.getInt(1)));
-            }
-            result.close();
-            stmt.close();
-            conn.close();
-        } catch (Exception e) {
-            throw new SessionInternalError(e);
-        }
-    }
+//    public void processPayouts(Date today)
+//            throws SessionInternalError {
+//        try {
+//            JNDILookup jndi = JNDILookup.getFactory();
+//            Connection conn = jndi.lookUpDataSource().getConnection();
+//            PreparedStatement stmt = conn.prepareStatement(duePayout);
+//            stmt.setDate(1, new java.sql.Date(today.getTime()));
+//            ResultSet result = stmt.executeQuery();
+//            // since esql doesn't support dates, a direct call is necessary
+//            while (result.next()) {
+//                processPayout(new Integer(result.getInt(1)));
+//            }
+//            result.close();
+//            stmt.close();
+//            conn.close();
+//        } catch (Exception e) {
+//            throw new SessionInternalError(e);
+//        }
+//    }
 
-    @Transactional( propagation = Propagation.REQUIRES_NEW )
-    public void processPayout(Integer partnerId)
-            throws SessionInternalError {
-        try {
-            LOG.debug("Processing partner " + partnerId);
-            PartnerBL partnerBL = new PartnerBL();
-            partnerBL.processPayout(partnerId);
-        } catch (Exception e) {
-            throw new SessionInternalError(e);
-        }
-    }
+//    @Transactional( propagation = Propagation.REQUIRES_NEW )
+//    public void processPayout(Integer partnerId)
+//            throws SessionInternalError {
+//        try {
+//            LOG.debug("Processing partner " + partnerId);
+//            PartnerBL partnerBL = new PartnerBL();
+//            partnerBL.processPayout(partnerId);
+//        } catch (Exception e) {
+//            throw new SessionInternalError(e);
+//        }
+//    }
 
     public PartnerPayout calculatePayout(Integer partnerId, Date start,
                                          Date end, Integer currencyId)

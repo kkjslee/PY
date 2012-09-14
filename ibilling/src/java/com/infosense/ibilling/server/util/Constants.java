@@ -148,9 +148,9 @@ public final class Constants implements CommonConstants {
     public static final Integer PLUGGABLE_TASK_INVOICE_FILTER = new Integer(3);
     public static final Integer PLUGGABLE_TASK_INVOICE_COMPOSITION = new Integer(4);
     public static final Integer PLUGGABLE_TASK_ORDER_PERIODS = new Integer(5);
-    public static final Integer PLUGGABLE_TASK_PAYMENT = new Integer(6);
+//    public static final Integer PLUGGABLE_TASK_PAYMENT = new Integer(6);
     public static final Integer PLUGGABLE_TASK_NOTIFICATION = new Integer(7);
-    public static final Integer PLUGGABLE_TASK_PAYMENT_INFO = new Integer(8);
+//    public static final Integer PLUGGABLE_TASK_PAYMENT_INFO = new Integer(8);
     public static final Integer PLUGGABLE_TASK_PENALTY = new Integer(9);
     public static final Integer PLUGGABLE_TASK_PROCESSOR_ALARM = new Integer(10);
     public static final Integer PLUGGABLE_TASK_SUBSCRIPTION_STATUS = new Integer(11);

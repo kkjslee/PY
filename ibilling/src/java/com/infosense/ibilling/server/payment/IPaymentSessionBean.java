@@ -56,8 +56,8 @@ public interface IPaymentSessionBean {
     * @return If the payment was not successful for any reason, null, 
     * otherwise the payment method used for the payment
     */
-    public Integer generatePayment(InvoiceDTO invoice) 
-            throws SessionInternalError;
+//    public Integer generatePayment(InvoiceDTO invoice) 
+//            throws SessionInternalError;
     
     /**
      * This method soft deletes a payment
@@ -75,8 +75,8 @@ public interface IPaymentSessionBean {
      * @param invoice
      * @throws SessionInternalError
      */
-    public Integer processAndUpdateInvoice(PaymentDTOEx dto, InvoiceDTO invoice)
-            throws SessionInternalError;
+//    public Integer processAndUpdateInvoice(PaymentDTOEx dto, InvoiceDTO invoice)
+//            throws SessionInternalError;
     
     /**
      * This is called from the client to process real-time a payment, usually
@@ -86,8 +86,8 @@ public interface IPaymentSessionBean {
      * @param invoiceId
      * @throws SessionInternalError
      */
-    public Integer processAndUpdateInvoice(PaymentDTOEx dto, Integer invoiceId,
-            Integer entityId) throws SessionInternalError;
+//    public Integer processAndUpdateInvoice(PaymentDTOEx dto, Integer invoiceId,
+//            Integer entityId) throws SessionInternalError;
 
     /**
      * This is called from the client to apply an existing payment to 
@@ -123,8 +123,8 @@ public interface IPaymentSessionBean {
     public boolean isMethodAccepted(Integer entityId, Integer paymentMethodId) 
             throws SessionInternalError;
     
-    public Integer processPayout(PaymentDTOEx payment, Date start, Date end, 
-            Integer partnerId, Boolean process) throws SessionInternalError;
+//    public Integer processPayout(PaymentDTOEx payment, Date start, Date end, 
+//            Integer partnerId, Boolean process) throws SessionInternalError;
 
     public Boolean processPaypalPayment(Integer invoiceId, String entityEmail,
             BigDecimal amount, String currency, Integer paramUserId, 

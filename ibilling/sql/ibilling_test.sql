@@ -4731,25 +4731,19 @@ COPY pluggable_task (id, entity_id, type_id, processing_order, optlock, notes) F
 5	1	6	1	1	\N
 6	1	37	1	2	\N
 7	1	36	1	1	\N
-8	1	10	1	1	\N
 9	1	12	2	1	\N
 19	1	20	1	1	\N
-21	1	22	2	1	\N
 23	1	23	1	1	\N
 31	1	26	1	1	\N
 420	1	33	1	1	\N
 431	1	1	2	1	\N
 440	1	40	1	1	\N
 450	1	41	1	1	\N
-460	1	42	1	1	\N
 470	1	43	1	1	\N
 480	1	45	1	1	\N
 490	1	46	1	2	\N
 500	1	47	1	1	\N
 510	1	48	2	1	\N
-520	1	49	3	1	\N
-20	1	21	4	1	\N
-22	1	21	5	1	\N
 540	1	53	1	2	\N
 541	1	54	1	1	\N
 550	1	55	1	1	\N
@@ -4788,29 +4782,12 @@ COPY pluggable_task_parameter (id, task_id, name, int_value, str_value, float_va
 20	19	failed_time	10	\N	\N	1
 21	19	time_between_alarms	30	\N	\N	1
 22	19	email_address	\N		\N	1
-24	20	all	\N	yes	\N	1
-35	20	processor_name	\N	first_fake_processor	\N	1
-36	21	custom_field_id	\N	2	\N	1
-37	21	FAKE_2	\N	22	\N	1
-38	22	all	\N	yes	\N	1
-39	22	processor_name	\N	second_fake_processor	\N	1
-44	21	FAKE_1	\N	20	\N	1
 560	450	file	\N	CancelFees.pkg	\N	1
-610	460	enable_filter_user_id	\N	true	\N	1
-620	460	enable_filter_name	\N	true	\N	1
-630	460	enable_filter_cc_number	\N	true	\N	1
-640	460	enable_filter_address	\N	true	\N	1
-650	460	enable_filter_ip_address	\N	true	\N	1
-660	460	enable_filter_phone_number	\N	true	\N	1
-670	460	ip_address_ccf_id	3	\N	\N	1
 680	490	file	\N	provisioning_commands.pkg	\N	1
 690	23	item_type_id	\N	1	\N	1
 700	510	username	\N	test-username	\N	1
 710	510	password	\N	test-password	\N	1
 720	510	remove	\N	VOID	\N	1
-730	520	USD	\N	20	\N	1
-740	520	AUD	\N	22	\N	1
-750	21	CURRENCY_ROUTER	\N	520	\N	1
 760	530	loginUser	\N	test-username	\N	1
 770	530	loginPassword	\N	test-password	\N	1
 780	530	portalId	\N	test-portalId	\N	1
@@ -4824,7 +4801,6 @@ COPY pluggable_task_parameter (id, task_id, name, int_value, str_value, float_va
 580	420	file	\N	Mediation.pkg ItemsRules.pkg PricingRules.pkg RateCard.pkg	\N	1
 8305	572	url	\N	jdbc:postgresql://localhost:5432/ibilling	\N	1
 8306	572	username	\N	ibilling	\N	1
-830707	22	accept-ach	\N	true	\N	0
 830800	6040	config_filename	\N	rules-generator-config.xml	\N	1
 830801	6040	output_filename	\N	InternalEventsRulesTask520.pkg	\N	1
 830802	6040	template_filename	\N	rules-generator-template-integration-test.vm	\N	1
@@ -4852,9 +4828,7 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 5	2	com.infosense.ibilling.server.pluggableTask.BasicOrderFilterTask	0
 6	3	com.infosense.ibilling.server.pluggableTask.BasicInvoiceFilterTask	0
 7	5	com.infosense.ibilling.server.pluggableTask.BasicOrderPeriodTask	0
-8	6	com.infosense.ibilling.server.pluggableTask.PaymentAuthorizeNetTask	2
 9	7	com.infosense.ibilling.server.pluggableTask.BasicEmailNotificationTask	6
-10	8	com.infosense.ibilling.server.pluggableTask.BasicPaymentInfoTask	0
 11	6	com.infosense.ibilling.server.pluggableTask.PaymentPartnerTestTask	0
 12	7	com.infosense.ibilling.server.pluggableTask.PaperInvoiceNotificationTask	1
 13	4	com.infosense.ibilling.server.pluggableTask.CalculateDueDateDfFm	0
@@ -4862,12 +4836,8 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 15	17	com.infosense.ibilling.server.pluggableTask.BasicPenaltyTask	2
 16	2	com.infosense.ibilling.server.pluggableTask.OrderFilterAnticipatedTask	0
 17	5	com.infosense.ibilling.server.pluggableTask.OrderPeriodAnticipateTask	0
-18	6	com.infosense.ibilling.server.pluggableTask.PaymentBitMoversTask	0
-19	6	com.infosense.ibilling.server.pluggableTask.PaymentEmailAuthorizeNetTask	1
 20	10	com.infosense.ibilling.server.pluggableTask.ProcessorEmailAlarmTask	3
-21	6	com.infosense.ibilling.server.pluggableTask.PaymentFakeTask	0
 23	11	com.infosense.ibilling.server.user.tasks.BasicSubscriptionStatusManagerTask	0
-24	6	com.infosense.ibilling.server.user.tasks.PaymentACHCommerceTask	5
 25	12	com.infosense.ibilling.server.payment.tasks.NoAsyncParameters	0
 26	12	com.infosense.ibilling.server.payment.tasks.RouterAsyncParameters	0
 28	13	com.infosense.ibilling.server.item.tasks.BasicItemManager	0
@@ -4875,22 +4845,17 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 30	1	com.infosense.ibilling.server.order.task.RulesLineTotalTask	0
 31	14	com.infosense.ibilling.server.item.tasks.RulesPricingTask	0
 33	16	com.infosense.ibilling.server.mediation.task.RulesMediationTask	0
-35	8	com.infosense.ibilling.server.user.tasks.PaymentInfoNoValidateTask	0
 36	7	com.infosense.ibilling.server.notification.task.TestNotificationTask	0
 37	5	com.infosense.ibilling.server.process.task.ProRateOrderPeriodTask	0
 38	4	com.infosense.ibilling.server.process.task.DailyProRateCompositionTask	0
-39	6	com.infosense.ibilling.server.payment.tasks.PaymentAtlasTask	2
 40	17	com.infosense.ibilling.server.order.task.RefundOnCancelTask	0
 41	17	com.infosense.ibilling.server.order.task.CancellationFeeRulesTask	0
-42	6	com.infosense.ibilling.server.payment.tasks.PaymentFilterTask	0
 43	17	com.infosense.ibilling.server.payment.blacklist.tasks.BlacklistUserStatusTask	0
 44	15	com.infosense.ibilling.server.mediation.task.JDBCReader	0
 45	15	com.infosense.ibilling.server.mediation.task.MySQLReaderFor21	0
 46	17	com.infosense.ibilling.server.provisioning.task.ProvisioningCommandsRulesTask	0
 47	18	com.infosense.ibilling.server.provisioning.task.TestExternalProvisioningTask	0
-22	6	com.infosense.ibilling.server.payment.tasks.PaymentRouterCCFTask	2
 48	18	com.infosense.ibilling.server.provisioning.task.CAIProvisioningTask	2
-49	6	com.infosense.ibilling.server.payment.tasks.PaymentRouterCurrencyTask	2
 50	18	com.infosense.ibilling.server.provisioning.task.MMSCProvisioningTask	5
 51	3	com.infosense.ibilling.server.invoice.task.NegativeBalanceInvoiceFilterTask	0
 52	17	com.infosense.ibilling.server.invoice.task.FileInvoiceExportTask	1
@@ -4898,24 +4863,15 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 54	17	com.infosense.ibilling.server.user.balance.DynamicBalanceManagerTask	0
 55	19	com.infosense.ibilling.server.user.tasks.UserBalanceValidatePurchaseTask	0
 56	19	com.infosense.ibilling.server.user.tasks.RulesValidatePurchaseTask	0
-57	6	com.infosense.ibilling.server.payment.tasks.PaymentsGatewayTask	4
 58	17	com.infosense.ibilling.server.payment.tasks.SaveCreditCardExternallyTask	1
 59	13	com.infosense.ibilling.server.order.task.RulesItemManager2	0
 60	1	com.infosense.ibilling.server.order.task.RulesLineTotalTask2	0
 61	14	com.infosense.ibilling.server.item.tasks.RulesPricingTask2	0
-63	6	com.infosense.ibilling.server.pluggableTask.PaymentFakeExternalStorage	0
-64	6	com.infosense.ibilling.server.payment.tasks.PaymentWorldPayTask	3
-65	6	com.infosense.ibilling.server.payment.tasks.PaymentWorldPayExternalTask	3
 66	17	com.infosense.ibilling.server.user.tasks.AutoRechargeTask	0
-67	6	com.infosense.ibilling.server.payment.tasks.PaymentBeanstreamTask	3
-68	6	com.infosense.ibilling.server.payment.tasks.PaymentSageTask	2
 69	20	com.infosense.ibilling.server.process.task.BasicBillingProcessFilterTask	0
 70	20	com.infosense.ibilling.server.process.task.BillableUsersBillingProcessFilterTask	0
 71	21	com.infosense.ibilling.server.mediation.task.SaveToFileMediationErrorHandler	0
 73	21	com.infosense.ibilling.server.mediation.task.SaveToJDBCMediationErrorHandler	1
-75	6	com.infosense.ibilling.server.payment.tasks.PaymentPaypalExternalTask	3
-76	6	com.infosense.ibilling.server.payment.tasks.PaymentAuthorizeNetCIMTask	2
-77	6	com.infosense.ibilling.server.payment.tasks.PaymentMethodRouterTask	4
 78	23	com.infosense.ibilling.server.rule.task.VelocityRulesGeneratorTask	2
 81	22	com.infosense.ibilling.server.mediation.task.MediationProcessTask	0
 82	22	com.infosense.ibilling.server.billing.task.BillingProcessTask	1
@@ -4938,9 +4894,7 @@ COPY pluggable_task_type_category (id, interface_name) FROM stdin;
 3	com.infosense.ibilling.server.pluggableTask.InvoiceFilterTask
 4	com.infosense.ibilling.server.pluggableTask.InvoiceCompositionTask
 5	com.infosense.ibilling.server.pluggableTask.OrderPeriodTask
-6	com.infosense.ibilling.server.pluggableTask.PaymentTask
 7	com.infosense.ibilling.server.pluggableTask.NotificationTask
-8	com.infosense.ibilling.server.pluggableTask.PaymentInfoTask
 9	com.infosense.ibilling.server.pluggableTask.PenaltyTask
 10	com.infosense.ibilling.server.pluggableTask.ProcessorAlarm
 11	com.infosense.ibilling.server.user.tasks.ISubscriptionStatusManager

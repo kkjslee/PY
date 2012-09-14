@@ -205,8 +205,8 @@ public interface IbillingAPI {
      * Creates a user, then an order for it, an invoice out the order
      * and tries the invoice to be paid by an online payment
      */
-    public CreateResponseWS create(UserWS user, OrderWS order)
-            throws IbillingAPIException;
+//    public CreateResponseWS create(UserWS user, OrderWS order)
+//            throws IbillingAPIException;
 
     /**
      * Pays given invoice, using the first credit card available for invoice'd
@@ -217,8 +217,8 @@ public interface IbillingAPI {
      * @return resulting authorization record. The payment itself can be found by
      * calling getLatestPayment
      */
-    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId)
-            throws IbillingAPIException;
+//    public PaymentAuthorizationDTOEx payInvoice(Integer invoiceId)
+//            throws IbillingAPIException;
 
     /**
      * Updates a users stored credit card to the given details. If the given credit card is
@@ -245,8 +245,8 @@ public interface IbillingAPI {
      * @return the information of the payment authorization, or NULL if the
      * user does not have a credit card
      */
-    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order)
-            throws IbillingAPIException;
+//    public PaymentAuthorizationDTOEx createOrderPreAuthorize(OrderWS order)
+//            throws IbillingAPIException;
 
     /**
      * Create the given order in iBilling.
@@ -530,7 +530,7 @@ public interface IbillingAPI {
      * @param invoiceId invoice id
      * @return payment authorization from the payment processor
      */
-    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment,Integer invoiceId) throws IbillingAPIException;
+//    public PaymentAuthorizationDTOEx processPayment(PaymentWS payment,Integer invoiceId) throws IbillingAPIException;
 
     /**
      * Validate purchase

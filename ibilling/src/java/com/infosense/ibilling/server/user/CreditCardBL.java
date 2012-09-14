@@ -338,60 +338,60 @@ public class CreditCardBL extends ResultList
      * @return
      * @throws com.infosense.ibilling.server.pluggableTask.admin.PluggableTaskException
      */
-    public PaymentAuthorizationDTOEx validatePreAuthorization(Integer entityId, Integer userId, CreditCardDTO cc,
-                                                              BigDecimal amount, Integer currencyId) throws PluggableTaskException {
-
-        // create a new payment record
-        PaymentDTOEx paymentDto = new PaymentDTOEx();
-        paymentDto.setAmount(amount);
-        paymentDto.setCurrency(new CurrencyDAS().find(currencyId));
-        paymentDto.setCreditCard(cc);
-        paymentDto.setUserId(userId);
-        paymentDto.setIsPreauth(1);
-
-        // filler fields, required
-        paymentDto.setIsRefund(0);
-        paymentDto.setPaymentMethod(new PaymentMethodDAS().find(Util.getPaymentMethod(cc.getNumber())));
-        paymentDto.setAttempt(1);
-        paymentDto.setPaymentResult(new PaymentResultDAS().find(Constants.RESULT_ENTERED)); // to be updated later
-        paymentDto.setPaymentDate(Calendar.getInstance().getTime());
-        paymentDto.setBalance(amount);
-
-        PaymentBL payment = new PaymentBL();
-        payment.create(paymentDto); // this updates the id
-
-        // use the payment processor configured 
-        PluggableTaskManager taskManager = new PluggableTaskManager(entityId, Constants.PLUGGABLE_TASK_PAYMENT);
-        PaymentTask task = (PaymentTask) taskManager.getNextClass();
-
-        boolean processNext = true;
-        while (task != null && processNext) {
-            processNext = task.preAuth(paymentDto);
-            // get the next task
-            task = (PaymentTask) taskManager.getNextClass();
-
-            // at the time, a pre-auth acts just like a normal payment for events
-            AbstractPaymentEvent event = AbstractPaymentEvent.forPaymentResult(entityId, paymentDto);
-            if (event != null) {
-                EventManager.process(event);
-            }
-        }
-
-        // update the result
-        payment.getEntity().setPaymentResult(paymentDto.getPaymentResult());
-
-        //create the return value
-        PaymentAuthorizationDTOEx retValue = new PaymentAuthorizationDTOEx(paymentDto.getAuthorization().getOldDTO());
-        if (paymentDto.getPaymentResult().getId() != Constants.RESULT_OK) {
-            // if it was not successfull, it should not have balance
-            payment.getEntity().setBalance(BigDecimal.ZERO);
-            retValue.setResult(false);
-        } else {
-            retValue.setResult(true);
-        }
-
-        return retValue;
-    }
+//    public PaymentAuthorizationDTOEx validatePreAuthorization(Integer entityId, Integer userId, CreditCardDTO cc,
+//                                                              BigDecimal amount, Integer currencyId) throws PluggableTaskException {
+//
+//        // create a new payment record
+//        PaymentDTOEx paymentDto = new PaymentDTOEx();
+//        paymentDto.setAmount(amount);
+//        paymentDto.setCurrency(new CurrencyDAS().find(currencyId));
+//        paymentDto.setCreditCard(cc);
+//        paymentDto.setUserId(userId);
+//        paymentDto.setIsPreauth(1);
+//
+//        // filler fields, required
+//        paymentDto.setIsRefund(0);
+//        paymentDto.setPaymentMethod(new PaymentMethodDAS().find(Util.getPaymentMethod(cc.getNumber())));
+//        paymentDto.setAttempt(1);
+//        paymentDto.setPaymentResult(new PaymentResultDAS().find(Constants.RESULT_ENTERED)); // to be updated later
+//        paymentDto.setPaymentDate(Calendar.getInstance().getTime());
+//        paymentDto.setBalance(amount);
+//
+//        PaymentBL payment = new PaymentBL();
+//        payment.create(paymentDto); // this updates the id
+//
+//        // use the payment processor configured 
+//        PluggableTaskManager taskManager = new PluggableTaskManager(entityId, Constants.PLUGGABLE_TASK_PAYMENT);
+//        PaymentTask task = (PaymentTask) taskManager.getNextClass();
+//
+//        boolean processNext = true;
+//        while (task != null && processNext) {
+//            processNext = task.preAuth(paymentDto);
+//            // get the next task
+//            task = (PaymentTask) taskManager.getNextClass();
+//
+//            // at the time, a pre-auth acts just like a normal payment for events
+//            AbstractPaymentEvent event = AbstractPaymentEvent.forPaymentResult(entityId, paymentDto);
+//            if (event != null) {
+//                EventManager.process(event);
+//            }
+//        }
+//
+//        // update the result
+//        payment.getEntity().setPaymentResult(paymentDto.getPaymentResult());
+//
+//        //create the return value
+//        PaymentAuthorizationDTOEx retValue = new PaymentAuthorizationDTOEx(paymentDto.getAuthorization().getOldDTO());
+//        if (paymentDto.getPaymentResult().getId() != Constants.RESULT_OK) {
+//            // if it was not successfull, it should not have balance
+//            payment.getEntity().setBalance(BigDecimal.ZERO);
+//            retValue.setResult(false);
+//        } else {
+//            retValue.setResult(true);
+//        }
+//
+//        return retValue;
+//    }
 
     public static String get4digitExpiry(CreditCardDTO cc) {
         String expiry = null;

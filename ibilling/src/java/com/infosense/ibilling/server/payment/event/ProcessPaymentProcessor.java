@@ -60,9 +60,9 @@ public class ProcessPaymentProcessor extends AsynchronousEventProcessor<IAsyncPa
             message.setStringProperty("type", "payment");
             
             // add additional fields from the associated plug-in
-            IAsyncPaymentParameters task = getPluggableTask(entityId, 
-                    Constants.PLUGGABLE_TASK_ASYNC_PAYMENT_PARAMS);
-            task.addParameters(message);
+//            IAsyncPaymentParameters task = getPluggableTask(entityId, 
+//                    Constants.PLUGGABLE_TASK_ASYNC_PAYMENT_PARAMS);
+//            task.addParameters(message);
         } catch (Exception e) {
             throw new SessionInternalError("Error transforming message ", 
                     this.getClass(), e);

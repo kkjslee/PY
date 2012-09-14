@@ -4728,18 +4728,15 @@ COPY pluggable_task (id, entity_id, type_id, processing_order, optlock, notes) F
 2	1	3	1	1	\N
 3	1	38	2	2	\N
 4	1	5	1	1	\N
-5	1	6	1	1	\N
 6	1	37	1	2	\N
 7	1	36	1	1	\N
 9	1	12	2	1	\N
-19	1	20	1	1	\N
 23	1	23	1	1	\N
 31	1	26	1	1	\N
 420	1	33	1	1	\N
 431	1	1	2	1	\N
 440	1	40	1	1	\N
 450	1	41	1	1	\N
-470	1	43	1	1	\N
 480	1	45	1	1	\N
 490	1	46	1	2	\N
 500	1	47	1	1	\N
@@ -4748,7 +4745,6 @@ COPY pluggable_task (id, entity_id, type_id, processing_order, optlock, notes) F
 541	1	54	1	1	\N
 550	1	55	1	1	\N
 560	1	56	2	3	\N
-570	1	15	1	1	\N
 571	1	71	1	1	\N
 410	1	61	1	1	\N
 600	1	66	1	1	\N
@@ -4778,10 +4774,6 @@ COPY pluggable_task_parameter (id, task_id, name, int_value, str_value, float_va
 7	7	reply_to	\N		\N	1
 8	7	bcc_to	\N		\N	1
 9	7	from_name	\N	Prancing Pony	\N	1
-19	19	failed_limit	10	\N	\N	1
-20	19	failed_time	10	\N	\N	1
-21	19	time_between_alarms	30	\N	\N	1
-22	19	email_address	\N		\N	1
 560	450	file	\N	CancelFees.pkg	\N	1
 680	490	file	\N	provisioning_commands.pkg	\N	1
 690	23	item_type_id	\N	1	\N	1
@@ -4795,8 +4787,6 @@ COPY pluggable_task_parameter (id, task_id, name, int_value, str_value, float_va
 800	530	bnet	\N	test-bnet	\N	1
 8100	540	file	\N	InternalEventsRulesTask520.pkg	\N	1
 8200	560	file	\N	ValidatePurchaseRules.pkg	\N	1
-8301	570	item	270	\N	\N	1
-8302	570	ageing_step	6	\N	\N	1
 590	410	file	\N	PricingRules.pkg RateCard.pkg	\N	2
 580	420	file	\N	Mediation.pkg ItemsRules.pkg PricingRules.pkg RateCard.pkg	\N	1
 8305	572	url	\N	jdbc:postgresql://localhost:5432/ibilling	\N	1
@@ -4826,17 +4816,13 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 3	4	com.infosense.ibilling.server.pluggableTask.CalculateDueDate	0
 4	4	com.infosense.ibilling.server.pluggableTask.BasicCompositionTask	0
 5	2	com.infosense.ibilling.server.pluggableTask.BasicOrderFilterTask	0
-6	3	com.infosense.ibilling.server.pluggableTask.BasicInvoiceFilterTask	0
 7	5	com.infosense.ibilling.server.pluggableTask.BasicOrderPeriodTask	0
 9	7	com.infosense.ibilling.server.pluggableTask.BasicEmailNotificationTask	6
 11	6	com.infosense.ibilling.server.pluggableTask.PaymentPartnerTestTask	0
 12	7	com.infosense.ibilling.server.pluggableTask.PaperInvoiceNotificationTask	1
 13	4	com.infosense.ibilling.server.pluggableTask.CalculateDueDateDfFm	0
-14	3	com.infosense.ibilling.server.pluggableTask.NoInvoiceFilterTask	0
-15	17	com.infosense.ibilling.server.pluggableTask.BasicPenaltyTask	2
 16	2	com.infosense.ibilling.server.pluggableTask.OrderFilterAnticipatedTask	0
 17	5	com.infosense.ibilling.server.pluggableTask.OrderPeriodAnticipateTask	0
-20	10	com.infosense.ibilling.server.pluggableTask.ProcessorEmailAlarmTask	3
 23	11	com.infosense.ibilling.server.user.tasks.BasicSubscriptionStatusManagerTask	0
 25	12	com.infosense.ibilling.server.payment.tasks.NoAsyncParameters	0
 26	12	com.infosense.ibilling.server.payment.tasks.RouterAsyncParameters	0
@@ -4850,14 +4836,12 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 38	4	com.infosense.ibilling.server.process.task.DailyProRateCompositionTask	0
 40	17	com.infosense.ibilling.server.order.task.RefundOnCancelTask	0
 41	17	com.infosense.ibilling.server.order.task.CancellationFeeRulesTask	0
-43	17	com.infosense.ibilling.server.payment.blacklist.tasks.BlacklistUserStatusTask	0
 44	15	com.infosense.ibilling.server.mediation.task.JDBCReader	0
 45	15	com.infosense.ibilling.server.mediation.task.MySQLReaderFor21	0
 46	17	com.infosense.ibilling.server.provisioning.task.ProvisioningCommandsRulesTask	0
 47	18	com.infosense.ibilling.server.provisioning.task.TestExternalProvisioningTask	0
 48	18	com.infosense.ibilling.server.provisioning.task.CAIProvisioningTask	2
 50	18	com.infosense.ibilling.server.provisioning.task.MMSCProvisioningTask	5
-51	3	com.infosense.ibilling.server.invoice.task.NegativeBalanceInvoiceFilterTask	0
 52	17	com.infosense.ibilling.server.invoice.task.FileInvoiceExportTask	1
 53	17	com.infosense.ibilling.server.system.event.task.InternalEventsRulesTask	0
 54	17	com.infosense.ibilling.server.user.balance.DynamicBalanceManagerTask	0
@@ -4891,12 +4875,9 @@ COPY pluggable_task_type (id, category_id, class_name, min_parameters) FROM stdi
 COPY pluggable_task_type_category (id, interface_name) FROM stdin;
 1	com.infosense.ibilling.server.pluggableTask.OrderProcessingTask
 2	com.infosense.ibilling.server.pluggableTask.OrderFilterTask
-3	com.infosense.ibilling.server.pluggableTask.InvoiceFilterTask
 4	com.infosense.ibilling.server.pluggableTask.InvoiceCompositionTask
 5	com.infosense.ibilling.server.pluggableTask.OrderPeriodTask
 7	com.infosense.ibilling.server.pluggableTask.NotificationTask
-9	com.infosense.ibilling.server.pluggableTask.PenaltyTask
-10	com.infosense.ibilling.server.pluggableTask.ProcessorAlarm
 11	com.infosense.ibilling.server.user.tasks.ISubscriptionStatusManager
 12	com.infosense.ibilling.server.payment.tasks.IAsyncPaymentParameters
 13	com.infosense.ibilling.server.item.tasks.IItemPurchaseManager

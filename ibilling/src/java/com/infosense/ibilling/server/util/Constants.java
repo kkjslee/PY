@@ -145,16 +145,16 @@ public final class Constants implements CommonConstants {
     // pluggable tasks categories
     public static final Integer PLUGGABLE_TASK_PROCESSING_ORDERS = new Integer(1);
     public static final Integer PLUGGABLE_TASK_ORDER_FILTER = new Integer(2);
-    public static final Integer PLUGGABLE_TASK_INVOICE_FILTER = new Integer(3);
+//    public static final Integer PLUGGABLE_TASK_INVOICE_FILTER = new Integer(3);
     public static final Integer PLUGGABLE_TASK_INVOICE_COMPOSITION = new Integer(4);
     public static final Integer PLUGGABLE_TASK_ORDER_PERIODS = new Integer(5);
 //    public static final Integer PLUGGABLE_TASK_PAYMENT = new Integer(6);
     public static final Integer PLUGGABLE_TASK_NOTIFICATION = new Integer(7);
 //    public static final Integer PLUGGABLE_TASK_PAYMENT_INFO = new Integer(8);
-    public static final Integer PLUGGABLE_TASK_PENALTY = new Integer(9);
-    public static final Integer PLUGGABLE_TASK_PROCESSOR_ALARM = new Integer(10);
+//    public static final Integer PLUGGABLE_TASK_PENALTY = new Integer(9);
+//    public static final Integer PLUGGABLE_TASK_PROCESSOR_ALARM = new Integer(10);
     public static final Integer PLUGGABLE_TASK_SUBSCRIPTION_STATUS = new Integer(11);
-    public static final Integer PLUGGABLE_TASK_ASYNC_PAYMENT_PARAMS = new Integer(12);
+//    public static final Integer PLUGGABLE_TASK_ASYNC_PAYMENT_PARAMS = new Integer(12);
     public static final Integer PLUGGABLE_TASK_ITEM_MANAGER = new Integer(13);
     public static final Integer PLUGGABLE_TASK_ITEM_PRICING = new Integer(14);
     public static final Integer PLUGGABLE_TASK_MEDIATION_READER = new Integer(15);

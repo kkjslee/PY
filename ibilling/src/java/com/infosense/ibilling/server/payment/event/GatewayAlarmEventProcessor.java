@@ -27,41 +27,41 @@ public class GatewayAlarmEventProcessor extends EventProcessor<ProcessorAlarm> {
     
     @Override
     public void process(Event event) {
-        if (false == event instanceof AbstractPaymentEvent){
-            return;
-        }
-        
-        // the alarm does not care about entered payments. Filter them out
-        if (event instanceof PaymentSuccessfulEvent) {
-            PaymentSuccessfulEvent success = (PaymentSuccessfulEvent) event;
-            if (new Integer(success.getPayment().getPaymentResult().getId()).equals(Constants.RESULT_ENTERED)) {
-                return;
-            }
-        }
-        
-        AbstractPaymentEvent paymentEvent = (AbstractPaymentEvent)event;
-        ProcessorAlarm alarm = getPluggableTask(event.getEntityId(), 
-                Constants.PLUGGABLE_TASK_PROCESSOR_ALARM);
-        
-        if (alarm == null){
-            // it is OK not to have an alarm configured
-            LOG.info("Alarm not present for entity " + event.getEntityId());
-            return;
-        }
-        
-        String paymentProcessor = paymentEvent.getPaymentProcessor();
-        if (paymentProcessor == null){
-            LOG.warn("Payment event without payment processor id : " + event);
-            return;
-        }
-        alarm.init(paymentProcessor, event.getEntityId());
-        if (event instanceof PaymentFailedEvent){
-            alarm.fail();
-        } else if (event instanceof PaymentProcessorUnavailableEvent){
-            alarm.unavailable();
-        } else if (event instanceof PaymentSuccessfulEvent){
-            alarm.successful();
-        }
+//        if (false == event instanceof AbstractPaymentEvent){
+//            return;
+//        }
+//        
+//        // the alarm does not care about entered payments. Filter them out
+//        if (event instanceof PaymentSuccessfulEvent) {
+//            PaymentSuccessfulEvent success = (PaymentSuccessfulEvent) event;
+//            if (new Integer(success.getPayment().getPaymentResult().getId()).equals(Constants.RESULT_ENTERED)) {
+//                return;
+//            }
+//        }
+//        
+//        AbstractPaymentEvent paymentEvent = (AbstractPaymentEvent)event;
+//        ProcessorAlarm alarm = getPluggableTask(event.getEntityId(), 
+//                Constants.PLUGGABLE_TASK_PROCESSOR_ALARM);
+//        
+//        if (alarm == null){
+//            // it is OK not to have an alarm configured
+//            LOG.info("Alarm not present for entity " + event.getEntityId());
+//            return;
+//        }
+//        
+//        String paymentProcessor = paymentEvent.getPaymentProcessor();
+//        if (paymentProcessor == null){
+//            LOG.warn("Payment event without payment processor id : " + event);
+//            return;
+//        }
+//        alarm.init(paymentProcessor, event.getEntityId());
+//        if (event instanceof PaymentFailedEvent){
+//            alarm.fail();
+//        } else if (event instanceof PaymentProcessorUnavailableEvent){
+//            alarm.unavailable();
+//        } else if (event instanceof PaymentSuccessfulEvent){
+//            alarm.successful();
+//        }
     }
     
     

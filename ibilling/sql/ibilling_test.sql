@@ -3730,6 +3730,10 @@ COPY international_description (table_id, foreign_id, psudo_column, language_id,
 59	74	description	1	View all customers
 50	50	description	1	Invoice decimal rounding.
 50	50	instruction	1	The number of decimal places to be shown on the invoice. Defaults to 2.
+50	51	description	1	Use invoice notification.
+50	51	instruction	1	Set to '1' to allow invoice notifications, '0' to disable.
+50	52	description	1	First invoice notification.
+50	52	instruction	1	Number of days before the invoice generation for the first reminder.
 60	6	description	1	A customer that will query his/her account
 60	6	title	1	Customer
 60	7	description	1	The super user of an entity

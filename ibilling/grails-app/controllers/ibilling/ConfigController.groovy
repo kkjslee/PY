@@ -49,6 +49,8 @@ class ConfigController {
 	def webServicesSession
 	def viewUtils
 	def userSession
+	
+	def configablePreferences = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 31, 32, 33, 35, 41, 42, 46, 47, 50, 51, 52]
 
     /*
         Show/edit all preferences
@@ -56,6 +58,8 @@ class ConfigController {
 
     def index = {
         def preferenceTypes = PreferenceTypeDTO.list()
+		
+		preferenceTypes = preferenceTypes.findAll { configablePreferences.contains(it.id) }
 
         // show preference if given id
         def preferenceId = params.int('id')

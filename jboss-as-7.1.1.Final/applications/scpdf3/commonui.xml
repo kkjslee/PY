@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:uiComponents 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="urn:voyagersoft:ui ui.xsd" 
+        xmlns:ui="urn:voyagersoft:ui">
+        <ui:dialogBoxes>
+	        <!--ui:dialogBox title="Support Info: $applicationname" id="supportinfo"-->
+		<ui:dialogBox title="" id="supportinfo">
+                        <!-- mainer frame -->
+                        <ui:hContainer align="top"> 
+                                <ui:bitmap id="pane" path="panel.png"/>
+                                <!-- main frame -->
+                                <ui:vContainer align="right">   
+                                        <!-- content frame -->
+                                        <ui:vContainer align="left">  
+                                                <!-- top content frame -->
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <!-- name frame -->
+                                                        <ui:hContainer widthPeer="3" align="top">
+                                                                <ui:static stringid="SupportDialogStatic" maxWidth="300" />
+                                                        </ui:hContainer>
+                                                        <ui:vContainer widthPeer="3" align="left">
+                                                            <ui:edit   value="" id="info" minWidth="300" minHeight="12"/>
+                                                        </ui:vContainer>
+                                                </ui:vContainer>
+                                                <ui:divider   widthPeer="4"/>
+                                        </ui:vContainer>
+                                        <!-- button frame -->
+                                        <ui:hContainer align="top">
+                                            <ui:button stringid="EMail" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="1" />
+                                            <!--ui:button stringid="Close" widthPeer="2" heightPeer="2" id="cancel" tabStop="2" /-->
+                                    	</ui:hContainer>
+                                </ui:vContainer>
+                        </ui:hContainer>
+                </ui:dialogBox>
+
+	        <!--ui:dialogBox title="Licence Info: $applicationname" id="licenceinfo"-->
+		<ui:dialogBox title="" id="licenceinfo">
+                        <!-- main frame -->
+                        <ui:hContainer align="top"> 
+                                <ui:bitmap id="pane" path="panel.png"/>
+				<ui:vContainer align="right">   
+	                        	<ui:vContainer align="left">   
+						<ui:vContainer align="left" widthPeer="4">   
+	       			        		<!-- name frame -->
+							<ui:hContainer widthPeer="3" align="top">            		        	
+	        	   					<ui:static stringid="LicenceDialogStatic" maxWidth="300" /> 
+							</ui:hContainer>
+							<ui:vContainer widthPeer="3" align="left">                     			
+						               	<ui:rich   value="" id="licence" minWidth="300" minHeight="10" readOnly="1" />
+							</ui:vContainer>
+						</ui:vContainer>				
+				                <ui:divider   widthPeer="4"/> 			
+	                        		<ui:hContainer align="">
+							<ui:vContainer align="left">					
+       				      				<ui:edit   value="" id="statistic" minWidth="200" minHeight="3" readOnly="1"/>
+							</ui:vContainer>                       		                    		
+							<ui:button stringid="Edit" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="1" />					
+						</ui:hContainer>             		           
+					</ui:vContainer>
+ 	            		</ui:vContainer>                       		                    		
+               	       	</ui:hContainer>
+        	</ui:dialogBox>
+
+	        <!--ui:dialogBox title="Services Info: $applicationname" id="services"-->
+	        <ui:dialogBox title="" id="services">
+                        <!-- main frame -->
+                        <ui:hContainer align="top"> 
+                                <ui:bitmap id="pane" path="panel.png"/>
+				<ui:vContainer align="">   
+		                        <ui:vContainer align="left">
+						<ui:vContainer align="left">
+							<!--ui:hContainer widthPeer="3" align="top">
+								<ui:static stringid="PrinterDescription" maxWidth="300" />
+                                        	        </ui:hContainer>        
+							<ui:hContainer align="top" widthPeer="3">					
+								<ui:button stringid="ReinstallPrinter" widthPeer="4" heightPeer="2" id="reinstallprinter" tabStop="1" />								
+        			        	       	</ui:hContainer>
+							<ui:divider   widthPeer="3"/-->
+							<ui:hContainer widthPeer="3" align="top">   
+								<ui:static stringid="PerUserPluginDescription" maxWidth="300" />
+	        	                                </ui:hContainer>
+							<ui:vContainer widthPeer="3" align="left">
+								<ui:checkbox stringid="WordPluginOpen" id="word_plugin_open" tabStop="2" checked="false" widthPeer="1" />
+								<ui:checkbox stringid="WordPluginCreate" id="word_plugin_create" tabStop="3" checked="false" widthPeer="1" />
+                                                	</ui:vContainer>
+	        	                	        <ui:divider   widthPeer="3"/> 
+        						<ui:hContainer widthPeer="3" align="top">
+								<ui:static stringid="ProductInstallModeJustMe" id="ProductInstallMode" maxWidth="300" />
+                        	                        </ui:hContainer>
+							<ui:vContainer widthPeer="3" align="left">
+								<ui:checkbox stringid="ExcelPlugin" id="excel_plugin" tabStop="5" checked="false" widthPeer="1" />
+								<ui:checkbox stringid="PowerPointPlugin" id="powerpoint_plugin" tabStop="6" checked="false" widthPeer="1" />
+								<ui:checkbox stringid="ExplorerPlugin" id="explorer_plugin" tabStop="7" checked="false" widthPeer="1" />
+        	                                        </ui:vContainer>
+	        	                	        <ui:divider   widthPeer="3"/> 
+        						<ui:hContainer widthPeer="3" align="top">
+								<ui:static stringid="AdminPluginDescription" maxWidth="300" />
+                        	                        </ui:hContainer>
+							<ui:vContainer widthPeer="3" align="left">
+								<ui:checkbox stringid="AcrobatPlugin" id="acrobat_plugin" tabStop="4" checked="false" widthPeer="1" />
+        	                                        </ui:vContainer>
+
+                		                        <ui:divider   widthPeer="3"/> 
+						</ui:vContainer>                                                               
+					</ui:vContainer>                        					
+					<ui:button stringid="Configure" widthPeer="4" heightPeer="2" id="configure" tabStop="8" />
+				</ui:vContainer>                        
+              	       	</ui:hContainer>
+        	</ui:dialogBox>
+
+	        <ui:dialogBox title="" id="printer">
+                        <!-- main frame -->
+                        <ui:hContainer align="top"> 
+                                <ui:bitmap id="pane" path="panel.png"/>
+				<ui:vContainer align="left">   
+		                        <ui:vContainer align="left">
+						<!--ui:static stringid="WarningsSetDescription" /-->
+						<ui:checkbox stringid="EmbeddedFontWarning" id="font_warning" tabStop="4" />
+						<ui:vContainer align="">
+							<ui:hContainer widthPeer="3" align="">
+								<ui:static stringid="PrinterDescription" maxWidth="500" />
+                                        	        </ui:hContainer>
+							<ui:divider   widthPeer="3"/>
+							<ui:button stringid="ReinstallPrinter" id="reinstallprinter" tabStop="1" />        			        	       								
+						</ui:vContainer>                                                               
+					</ui:vContainer>                        					
+				</ui:vContainer>                        
+              	       	</ui:hContainer>
+        	</ui:dialogBox>
+
+		<ui:dialogBox title="" id="addinupdateerrordialog">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="">   
+	                        <!-- content frame -->
+                                <ui:rich   value="" id="listbox" minWidth="300" minHeight="8" readonly="1"/>
+                                <ui:hContainer align="top">
+         	                       <ui:button stringid="Ok" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="1" />
+                          	</ui:hContainer>
+                        </ui:vContainer>
+                </ui:dialogBox>
+
+
+                <ui:dialogBox title="WarningDlg_Title" id="warning_dlg">
+                    <!-- main frame -->
+                    <ui:vContainer align="right">   
+                            <!-- content frame -->
+                            <ui:vContainer align="left">  
+                                <ui:hContainer widthPeer="3" align="top" >  
+                                    <ui:static stringid="WarningTextDescr" id="info" maxWidth="250"/>
+                                </ui:hContainer>
+                                <ui:vContainer widthPeer="3" align="left">
+                                    <ui:checkbox   stringid="dont_show_the_warning_again" id="DoNotShowState" tabStop="1" checked="false" />
+                                </ui:vContainer>
+                            </ui:vContainer>
+                            <!-- button frame -->
+                            <ui:hContainer align="top">
+                                <ui:button stringid="Close" widthPeer="2" heightPeer="2" id="ok" tabStop="2" />
+                            </ui:hContainer>
+                    </ui:vContainer>
+                </ui:dialogBox>
+                <ui:dialogBox title="Unlock $applicationname" id="unlock">
+                        <ui:hContainer align="bottom"> 
+                                <ui:bitmap id="pane" path="panel.png"/>
+                                <ui:vContainer align="right">   
+                                        <ui:vContainer align="left">  
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <ui:hContainer align="top">
+                                                                <ui:static stringid="Name" widthPeer="1" singleLine="true" />
+                                                                <ui:edit   widthPeer="3" minWidth="150" id="name" tabStop="1" />
+                                                        </ui:hContainer>
+                                                        <ui:hContainer align="top">
+                                                                <ui:static stringid="EMail" widthPeer="1" singleLine="true" />
+                                                                <ui:edit   widthPeer="3" minWidth="150" id="email" tabStop="2" />
+                                                        </ui:hContainer>
+                                                        <ui:hContainer align="top">
+                                                                <ui:static stringid="Organization" widthPeer="1" singleLine="true" />
+                                                                <ui:edit   widthPeer="3" minWidth="150" id="organization" tabStop="3" />
+                                                        </ui:hContainer>
+                                                </ui:vContainer>
+                                                <ui:divider   widthPeer="4"/>
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <ui:hContainer align="top">
+                                                                <ui:static stringid="Unlock Code" id="code_descr" widthPeer="1" heightPeer="2" minWidth="80" singleLine="true" /> 
+                                                                <ui:edit   minWidth="50" id="code" tabStop="4" />
+                                                        </ui:hContainer>
+                                                </ui:vContainer>
+                                                <ui:hyperlink stringid="Click here to purchase an unlock code!" heightPeer="2" id="buynow" linkid="{applicationpurchaseurl}"/>
+                                        </ui:vContainer>
+                                        <ui:hContainer align="top">
+                                                <ui:button stringid="OK" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="5" />
+                                                <ui:button stringid="Cancel" widthPeer="2" heightPeer="2" id="cancel" tabStop="6" />
+                                    </ui:hContainer>
+                                </ui:vContainer>
+                        </ui:hContainer>
+                </ui:dialogBox>
+                
+                <ui:dialogBox title="About $applicationname" id="about">
+                        <!-- mainer frame -->
+                        <ui:hContainer align="top"> 
+                                <ui:bitmap id="pane" path="panel.png"/>
+                                <!-- main frame -->
+                                <ui:vContainer align="right">   
+                                        <ui:vContainer align="right">
+                                                <ui:hContainer align="top"> 
+                                                        <ui:static stringid="Register your copy of $applicationname" id="buynowtxt" widthPeer="3" singleLine="true" maxWidth="250"/>
+                                                        <ui:button stringid="Buy Now" widthPeer="2" heightPeer="2" id="buynow" def="true" tabStop="1" />
+                                                </ui:hContainer> 
+                                        </ui:vContainer>
+                                        <ui:vContainer align="left">  
+                                                <!-- top content frame -->
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <!-- name frame -->
+                                                        <ui:vContainer align="left">
+                                                                <ui:static stringid="$applicationname    Version: $version" maxWidth="80" singleLine="true" />
+                                                                <ui:hyperlink id="home" stringid="{applicationurl_name}" linkid="{applicationurl_link}" />
+                                                        </ui:vContainer>
+                                                </ui:vContainer>
+                                                <ui:divider   widthPeer="4"/>
+                                        </ui:vContainer>
+                                        <!-- button frame -->
+                                        <ui:vContainer align="right">
+                                                <ui:hContainer align="top"> 
+                                                        <ui:static stringid="$applicationname HTML documentation:" widthPeer="3" singleLine="true" maxWidth="250"/>
+                                                        <ui:button stringid="Documentation" widthPeer="2" heightPeer="2" id="help" def="true" tabStop="2" />
+                                                </ui:hContainer> 
+                                                <ui:hContainer align="top"> 
+                                                        <ui:static stringid="System information and email support:" widthPeer="3" singleLine="true" maxWidth="250"/>
+                                                        <ui:button stringid="Support" widthPeer="2" heightPeer="2" id="ok" tabStop="3" />
+                                                </ui:hContainer> 
+                                                <ui:hContainer align="top"> 
+                                                        <ui:static stringid="Acknowledgement of open source efforts:" widthPeer="3" singleLine="true" maxWidth="250"/>
+                                                        <ui:button stringid="Credits" widthPeer="2" heightPeer="2" id="prev" tabStop="4" />
+                                                </ui:hContainer> 
+                                                <ui:hContainer align="top"> 
+                                                        <ui:button stringid="Close" widthPeer="2" heightPeer="2" id="cancel" tabStop="5" />
+                                                </ui:hContainer> 
+                                    </ui:vContainer>
+                                </ui:vContainer>
+                        </ui:hContainer>
+                </ui:dialogBox>
+                
+                <ui:dialogBox title="{applicationname}" id="splash" mode="splash" color="white">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="center"> 
+                                <ui:bitmap id="splash" path="splash.png"/>
+                                <!-- main frame -->
+                                <ui:vContainer align="right">   
+                                        <!-- content frame -->
+                                        <ui:vContainer align="left">  
+                                                <ui:divider   widthPeer="4"/>
+                                                <!-- top content frame -->
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <!-- name frame -->
+                                                        <ui:hContainer align="left">
+                                                                <ui:static stringid="$applicationname    Version: $version" maxWidth="80" singleLine="true" />
+                                                                <ui:hyperlink id="home" stringid="{applicationurl_name}" linkid="{applicationurl_link}" />
+                                                        </ui:hContainer>
+                                                </ui:vContainer>
+                                        </ui:vContainer>
+                                </ui:vContainer>
+                        </ui:vContainer>
+                </ui:dialogBox>
+                
+                <ui:dialogBox title="{applicationname}" id="nag" mode="splash" color="white">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="center"> 
+                        	<ui:vContainer align="center"> 
+                                	<ui:bitmap id="splash" path="splash.png"/>
+                        	</ui:vContainer> 
+                                <!-- main frame -->
+                                <ui:vContainer align="right" >   
+                                        <!-- content frame -->
+                                        <ui:vContainer align="left">  
+                                                <!-- top content frame -->
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <!-- name frame -->
+                                                        <ui:hContainer align="left">
+                                                                <ui:static stringid="$applicationname    Version: $version" maxWidth="80" singleLine="true" />
+                                                                <ui:hyperlink id="home" stringid="{applicationurl_name}" linkid="{applicationurl_link}" />
+                                                        </ui:hContainer>
+                                                </ui:vContainer>
+                                                <ui:divider   widthPeer="4"/>
+                                        </ui:vContainer>
+                                        <!-- button frame -->
+                                        <ui:hContainer align="top">
+                                                <ui:vContainer align="left">
+                                                        <ui:static id="statusstring" stringid="TrialStatusString" maxWidth="250"/>
+                                                        <ui:radiobutton stringid="I wish to evaluate $applicationname ({1} {2} remaining for evaluation)" widthPeer="3" heightPeer="3" id="evaluate" value="1" tabStop="1" />
+                                                        <ui:radiobutton stringid="I already have a license code and would like to unlock $applicationname" widthPeer="3" heightPeer="3" id="unlock" value="0" tabStop="2" />
+                                                        <ui:radiobutton stringid="I wish to purchase a license code for $applicationname" widthPeer="3" heightPeer="3" id="purchase" value="0" tabStop="3" />
+                                                </ui:vContainer>
+                                                <ui:vContainer align="right">
+                                                        <ui:button stringid="Purchase" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="4" />
+                                                        <ui:button stringid="Cancel"   widthPeer="2" heightPeer="2" id="cancel" tabStop="5" />
+                                                </ui:vContainer>
+                                    </ui:hContainer>
+                                </ui:vContainer>
+                        </ui:vContainer>
+                </ui:dialogBox>
+
+                <ui:dialogBox title="{applicationname}" id="nag_" mode="tooltips">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="right"> 
+                                <ui:tips  maxWidth="470" maxHeight="261" id="tips" />
+                                <!-- main frame -->
+                                <ui:vContainer align="right">   
+                                        <!-- content frame -->
+                                        <ui:vContainer align="left">  
+                                                <!-- top content frame -->
+                                                <ui:vContainer align="left" widthPeer="4">  
+                                                        <!-- name frame -->
+                                                        <ui:hContainer align="left">
+                                                                <ui:static stringid="$applicationname    Version: $version" maxWidth="80" singleLine="true" />
+                                                                <ui:hyperlink id="home" stringid="{applicationurl_name}" linkid="{applicationurl_link}" />
+                                                        </ui:hContainer>
+                                                </ui:vContainer>
+                                                <ui:divider   widthPeer="4"/>
+                                        </ui:vContainer>
+                                        <!-- button frame -->
+                                        <ui:hContainer align="top">
+                                                <ui:vContainer align="left">
+                                                        <ui:static id="statusstring" stringid="TrialStatusString" maxWidth="250"/>
+                                                        <ui:radiobutton stringid="I wish to evaluate $applicationname ({1} {2} remaining for evaluation)" widthPeer="3" heightPeer="3" id="evaluate" value="1" tabStop="1" />
+                                                        <ui:radiobutton stringid="I already have a license code and would like to unlock $applicationname" widthPeer="3" heightPeer="3" id="unlock" value="0" tabStop="2" />
+                                                        <ui:radiobutton stringid="I wish to purchase a license code for $applicationname" widthPeer="3" heightPeer="3" id="purchase" value="0" tabStop="3" />
+                                                </ui:vContainer>
+                                                <ui:vContainer align="right">
+                                                        <ui:button stringid="Purchase" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="4" />
+                                                        <ui:button stringid="Cancel"   widthPeer="2" heightPeer="2" id="cancel" tabStop="5" />
+                                                </ui:vContainer>
+                                    </ui:hContainer>
+                                </ui:vContainer>
+                        </ui:vContainer>
+                </ui:dialogBox>
+        
+                <ui:dialogBox title="{applicationname}" id="PromptForPassword">
+                    <!-- main frame -->
+                    <ui:vContainer align="right"> 
+                        <ui:vContainer align="left"> 
+                            <ui:hContainer align="bottom" widthPeer="5">
+                                <ui:static   stringid="Password:" id="passwordprompt1" widthPeer="3" maxWidth="160" align="left"/>
+                                <ui:password id="password1"   widthPeer="4" minWidth="100" align="left" tabStop="1"/>
+                            </ui:hContainer>
+                            <ui:hContainer align="bottom" widthPeer="5">
+                                <ui:static   stringid="Repeat_Password:" id="passwordprompt2" widthPeer="3" maxWidth="160" align="left"/>
+                                <ui:password id="password2" widthPeer="4" minWidth="100" align="left" tabStop="2"/>
+                            </ui:hContainer>
+                            <ui:divider widthPeer="5"/>
+                            <!-- button frame -->
+                        </ui:vContainer>
+                        <ui:hContainer align="bottom" >
+                            <ui:button stringid="OK" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="3" />
+                            <ui:button stringid="Cancel" widthPeer="2" heightPeer="2" id="cancel"  tabStop="4" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:dialogBox>
+
+                
+
+		<!-- PDF EXPORT DIALOGS -->
+
+		<ui:dialogBox title="_PDFSavePageDlg" id="PDFSavePageDlg">
+			<!-- main frame -->
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+<!--			<ui:static stringid="Main_PDF_Save_Description" id="MainDescription" widthPeer="4" minWidth="100" align="center"/> -->
+				<ui:GroupBox align="left" groupText="_Folder" widthPeer="5">
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Path" id="PathStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button5" minWidth="200" minHeight="1" widthPeer="3" align="right" tabStop="1"/>
+	                		</ui:hContainer>
+				</ui:GroupBox>
+				<ui:GroupBox align="left" groupText="Default_Document_information" widthPeer="5">
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Title" id="TitleStatic" widthPeer="1" minWidth="100" align="right"/>
+        	       				<ui:edit value="" id="button1" minWidth="120" align="right" widthPeer="3" tabStop="2"/>
+	               			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Subject" id="SubjectStatic" widthPeer="1" minWidth="100" align="right"/>
+        	       				<ui:edit value="" id="button2" minWidth="120" align="right" widthPeer="3" tabStop="3"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Author" id="AuthorStatic" widthPeer="1" minWidth="100" align="right"/>
+        		       			<ui:edit value="" id="button3" minWidth="120" align="right" widthPeer="3" tabStop="4"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Keywords" id="KeywordsStatic" widthPeer="1" minWidth="100" align="right"/>
+	        	       			<ui:edit value="" id="button4" minWidth="120" align="right" widthPeer="3" tabStop="5"/>
+        	        		</ui:hContainer>
+				</ui:GroupBox>
+				<ui:checkbox stringid="Close_Progress" id="button6" checked="false" widthPeer="5" align="center" tabStop="6"/>
+               		</ui:vContainer>
+               		</ui:vContainer>
+               		</ui:vContainer>
+               		</ui:vContainer>
+               		</ui:vContainer>
+               		</ui:vContainer>
+               		</ui:vContainer>
+               		</ui:vContainer>
+                </ui:dialogBox>
+
+                <ui:dialogBox title="_PDFCompressionDlg" id="PDFCompressionDlg">
+			<!-- main frame -->
+			<ui:vContainer align="left"> 
+<!--				<ui:static stringid="Main_PDF_Images_Description" id="MainDescription" widthPeer="5" minWidth="100" align="center"/> -->
+				<ui:GroupBox align="left" groupText="Color_Images" widthPeer="5">
+					<ui:checkbox stringid="Color_Images_to_Grayscale" id="button1" tabStop="1" checked="false" widthPeer="4" align="left"/>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="CImages_Downsample" id="CImagesDownsampleStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button5" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="2"/>
+	                		</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="CImages_Compression" id="CImagesCompressionStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button3" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="3"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="CImages_Quality" id="CImagesQualityStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button6" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="4"/>
+                			</ui:hContainer>
+				</ui:GroupBox>
+				<ui:GroupBox align="left" groupText="Grayscale_Images" widthPeer="5">
+					<ui:checkbox stringid="Grayscale_Images_to_Monochrome" id="button2" tabStop="5" checked="false" widthPeer="4" align="left"/>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="GImages_Downsample" id="GImagesDownsampleStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button7" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="6"/>
+	                		</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="GImages_Compression" id="GImagesCompressionStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button4" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="7"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="GImages_Quality" id="GImagesQualityStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button8" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="8"/>
+                			</ui:hContainer>
+				</ui:GroupBox>
+				<ui:GroupBox align="left" groupText="Monochrome_Images" widthPeer="5">
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="MImages_Downsample" id="MImagesDownsampleStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button9" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="9"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="MImages_Compression" id="MImagesCompressionStatic" widthPeer="1" minWidth="100" align="right"/>
+						<ui:combo  value="" id="button10" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="10"/>
+                			</ui:hContainer>
+				</ui:GroupBox>
+			</ui:vContainer>
+                </ui:dialogBox>
+
+		<ui:dialogBox title="_PDFAdvancedPageDlg" id="PDFAdvancedPageDlg">
+			<!-- main frame -->
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+<!--				<ui:static stringid="Main_PDF_Advanced_Description" id="MainDescription" widthPeer="1" minWidth="100" align="center"/> -->
+				<ui:hContainer align="top" widthPeer="1"> 
+	                                <ui:bitmap id="HighBitmap" path="advanced_0.bmp" widthPeer="2"/>
+					<ui:vContainer align="left" widthPeer="3"> 
+						<ui:radiobutton stringid="_None"  id="button1" value="0" align="left" widthPeer="3" tabStop="1"/>
+						<ui:static stringid="Descr_None" id="HighDescription" align="left" widthPeer="3" maxWidth="150"/>
+		               	        </ui:vContainer>
+	               	        </ui:hContainer>
+				<ui:hContainer align="top" widthPeer="1"> 
+	                                <ui:bitmap id="MediumBitmap" path="advanced_1.bmp" widthPeer="2"/>
+					<ui:vContainer align="left" widthPeer="3"> 
+						<ui:radiobutton stringid="_Web"  id="button2" value="1" align="left" widthPeer="3" tabStop="2"/>
+						<ui:static stringid="Descr_Web" id="MediumDescription" align="left" widthPeer="3" maxWidth="150"/>
+		               	        </ui:vContainer>
+	               	        </ui:hContainer>
+				<ui:hContainer align="top" widthPeer="1"> 
+	                                <ui:bitmap id="LowBitmap" path="advanced_2.bmp" widthPeer="2"/>
+					<ui:vContainer align="left" widthPeer="3"> 
+						<ui:radiobutton stringid="_Draftquality"  id="button3" value="1" align="left" widthPeer="3" tabStop="3"/>
+						<ui:static stringid="Descr_Draftquality" id="LowDescription" align="left" widthPeer="3" maxWidth="150"/>
+		               	        </ui:vContainer>
+	               	        </ui:hContainer>
+				<ui:hContainer align="top" widthPeer="1"> 
+	                                <ui:bitmap id="TheLowestBitmap" path="advanced_3.bmp" widthPeer="2"/>
+					<ui:vContainer align="left" widthPeer="3"> 
+						<ui:radiobutton stringid="_Professional"  id="button4" value="1" align="left" widthPeer="3" tabStop="4"/>
+						<ui:static stringid="Descr_Professional" id="TheLowestDescription" align="left" widthPeer="3" maxWidth="150"/>
+		               	        </ui:vContainer>
+	               	        </ui:hContainer>
+				<ui:hContainer align="top" widthPeer="1"> 
+	                                <ui:bitmap id="CustomBitmap" path="advanced_4.bmp" widthPeer="2"/>
+					<ui:hContainer align="top" widthPeer="3"> 
+						<ui:vContainer align="left"> 
+							<ui:radiobutton stringid="_Custom"  id="button5" value="1" align="left" tabStop="5"/>
+							<ui:static stringid="Descr_Custom2" id="CustomDescription" align="left" maxWidth="150"/>
+		        	       	        </ui:vContainer>
+						<ui:button stringid="_Settings" id="button6" tabStop="6"/>
+		               	        </ui:hContainer>
+	               	        </ui:hContainer>
+				<ui:checkbox stringid="_Grayscale" id="button7" tabStop="7" checked="false" />
+			</ui:vContainer>
+			</ui:vContainer>
+			</ui:vContainer>
+			</ui:vContainer>
+			</ui:vContainer>
+			</ui:vContainer>
+			</ui:vContainer>
+			</ui:vContainer>
+                </ui:dialogBox>
+                
+
+		<!-- SOLID PRINTER DIALOGS -->
+
+                <ui:dialogBox title="_SolidPrinterImagesDlg" id="SolidPrinterImagesDlg">
+			<!-- main frame -->
+			<ui:vContainer align="left"> 
+<!--				<ui:static stringid="Main_Images_Description" id="MainDescription" widthPeer="4" minWidth="100" align="center"/> -->
+				<ui:GroupBox align="left" groupText="_DPI_" widthPeer="5" padding="true">
+					<ui:checkbox stringid="Use_original" id="button1" tabStop="1" checked="false" />
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_DPI" id="DpiStatic" widthPeer="3" align="left"/>
+               	        		        <ui:combo  id="button4" minWidth="150" minHeight="1" tabStop="2"/>
+					</ui:hContainer>
+				</ui:GroupBox>
+				<ui:GroupBox align="left" groupText="_Conversion" widthPeer="5">
+					<ui:checkbox stringid="_Monochrome" id="button2" tabStop="3" checked="false" widthPeer="4"/>
+					<ui:hContainer align="top"> 
+						<ui:static stringid="Destination_image_format" id="FonrmatStatic" widthPeer="3" align="left"/>
+						<ui:combo  id="button3" minWidth="150" minHeight="1" tabStop="4"/>
+					</ui:hContainer>
+				</ui:GroupBox>
+			</ui:vContainer>
+                </ui:dialogBox>
+
+
+		<!-- PROGRESS DIALOG -->
+
+                <ui:dialogBox title="{applicationname}" id="ProgressDlg">
+			<!-- main frame -->
+			<ui:vContainer align="left"> 
+				<ui:bitmap   id="pane" path="Info" widthPeer="1" />
+				<ui:static   stringid="_message"  id="Message"  widthPeer="1" minWidth="10" maxWidth="200" minHeight="10" maxHeight="100" align="left"/>
+				 
+				<ui:hContainer align="top"  > 
+				
+					<ui:progress stringid="_progress" id="Progress" heightPeer="2" minWidth="10" maxWidth="250" minHeight="10" maxHeight="15"  align="right"/>
+					<ui:button stringid="Cancel" heightPeer="2" id="cancel" tabStop="1" align="right"/>
+					
+				</ui:hContainer>
+				
+				<ui:static   stringid="."  id="bottomtext"  widthPeer="1" minWidth="10" maxWidth="200" minHeight="10" maxHeight="100" align="left"/>
+			</ui:vContainer>
+                </ui:dialogBox>
+
+
+		<!-- ENCRYPTION DIALOG AND PROPERTY PAGE -->
+
+
+		<ui:dialogBox title="{applicationname}" id="PdfEncryptDialog">
+        	<!-- main frame -->
+		<ui:vContainer align="right"> 
+			<ui:vContainer align="left"> 
+<!--                   		<ui:static stringid="Main_PDF_Encryption_Description" id="MainDescription" widthPeer="5" maxWidth="160" align="center"/> -->
+			    	<ui:GroupBox align="left" groupText="Encryption_Level" widthPeer="9">
+                		    	<ui:hContainer align="bottom" widthPeer="5">
+	                        		<ui:static stringid="Encrypt_Level_Static" id="EncryptLevelStatic" widthPeer="3" maxWidth="160" align="right"/>
+			                	<ui:combo  id="button5" widthPeer="4" minWidth="150" minHeight="1" tabStop="1"/>
+        		            	</ui:hContainer>
+				</ui:GroupBox>
+			    	<ui:GroupBox align="left" groupText="User_Options" widthPeer="9">
+		                    	<ui:checkbox   stringid="Require_User_Password" id="button6" tabStop="2" checked="false" widthPeer="5" maxWidth="240"/>
+        		            	<ui:hContainer align="bottom" widthPeer="5">
+                		        	<ui:static   stringid="User_Password:" id="passwordprompt1" widthPeer="3" maxWidth="160" align="right"/>
+                        			<ui:password id="button1"   widthPeer="4" minWidth="100" align="left" tabStop="3"/>
+		                    	</ui:hContainer>
+        		            	<ui:hContainer align="bottom" widthPeer="5">
+                		        	<ui:static   stringid="Repeat_User_Password:" id="passwordprompt2" widthPeer="3" maxWidth="160" align="right"/>
+                        			<ui:password id="button2" widthPeer="4" minWidth="100" align="left" tabStop="4"/>
+		                    	</ui:hContainer>
+				</ui:GroupBox>
+			    	<ui:GroupBox align="left" groupText="Owner_Options" widthPeer="9">
+	                	    	<ui:checkbox   stringid="Use_Owner_Password" id="button7" tabStop="5" checked="false" widthPeer="5" maxWidth="240"/>
+		                    	<ui:hContainer align="bottom" widthPeer="5">
+        		                	<ui:static   stringid="Owner_Password:" id="passwordprompt3" widthPeer="3" maxWidth="160" align="right"/>
+                		        	<ui:password id="button3"   widthPeer="4" minWidth="100" align="left" tabStop="6"/>
+		                    	</ui:hContainer>
+        		            	<ui:hContainer align="bottom" widthPeer="5">
+                		        	<ui:static   stringid="Repeat_Owner_Password:"  id="passwordprompt4" widthPeer="3" maxWidth="160" align="right"/>
+                        			<ui:password id="button4" widthPeer="4" minWidth="100" align="left" tabStop="7"/>
+		                    	</ui:hContainer>
+        		            	<ui:vContainer align="right" widthPeer="5">
+                		        	<ui:checkbox stringid="AllowPrinting" id="button8" tabStop="8" checked="false" widthPeer="6" />
+                        			<ui:checkbox stringid="AllowChangingLong" id="button9" tabStop="9" checked="false" widthPeer="6" />
+	                        		<ui:checkbox stringid="AllowCopyingLong" id="button10" tabStop="10" checked="false" widthPeer="6" />
+	        	                	<ui:checkbox stringid="AllowChangingCommentsLong" id="button11" tabStop="11" checked="false" widthPeer="6" />
+        	        	    	</ui:vContainer>
+				</ui:GroupBox>
+               		</ui:vContainer>
+       	            	<!-- button frame -->
+               		<ui:hContainer align="bottom" >
+            			<ui:button stringid="OK" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="12" />
+       	    			<ui:button stringid="Cancel" widthPeer="2" heightPeer="2" id="cancel"  tabStop="13" />
+               		</ui:hContainer>
+    		</ui:vContainer>
+	        </ui:dialogBox>
+
+	        <ui:dialogBox title="Pdf_Encrypt_Dialog" id="PdfEncryptPropPage">
+        		<!-- main frame -->
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+			<ui:vContainer align="left"> 
+<!--                   	    	<ui:static stringid="Main_PDF_Encryption_Description" id="MainDescription" widthPeer="5" maxWidth="160" align="center"/> -->
+			    	<ui:GroupBox align="left" groupText="Encryption_Level" widthPeer="9">
+                		    	<ui:hContainer align="bottom" widthPeer="5">
+                	        		<ui:static stringid="Encrypt_Level_Static" id="EncryptLevelStatic" widthPeer="3" maxWidth="160" align="right"/>
+			                	<ui:combo  id="button5" widthPeer="4" minWidth="150" minHeight="1" tabStop="1"/>
+	        	            	</ui:hContainer>
+				</ui:GroupBox>
+			    	<ui:GroupBox align="left" groupText="User_Options" widthPeer="9">
+		                    	<ui:checkbox   stringid="Require_User_Password" id="button6" tabStop="2" checked="false" widthPeer="5" maxWidth="240"/>
+        		            	<ui:hContainer align="bottom" widthPeer="5">
+                		        	<ui:static   stringid="User_Password:" id="passwordprompt1" widthPeer="3" maxWidth="160" align="right"/>
+                        			<ui:password id="button1"   widthPeer="4" minWidth="100" align="left" tabStop="3"/>
+		                    	</ui:hContainer>
+        		            	<ui:hContainer align="bottom" widthPeer="5">
+                		        	<ui:static   stringid="Repeat_User_Password:" id="passwordprompt2" widthPeer="3" maxWidth="160" align="right"/>
+                        			<ui:password id="button2" widthPeer="4" minWidth="100" align="left" tabStop="4"/>
+	                    		</ui:hContainer>
+				</ui:GroupBox>
+			    	<ui:GroupBox align="left" groupText="Owner_Options" widthPeer="9">
+	                	    	<ui:checkbox   stringid="Use_Owner_Password" id="button7" tabStop="5" checked="false" widthPeer="5" maxWidth="240"/>
+		                    	<ui:hContainer align="bottom" widthPeer="5">
+        		                	<ui:static   stringid="Owner_Password:" id="passwordprompt3" widthPeer="3" maxWidth="160" align="right"/>
+                		        	<ui:password id="button3"   widthPeer="4" minWidth="100" align="left" tabStop="6"/>
+		                    	</ui:hContainer>
+        		            	<ui:hContainer align="bottom" widthPeer="5">
+                		        	<ui:static   stringid="Repeat_Owner_Password:"  id="passwordprompt4" widthPeer="3" maxWidth="160" align="right"/>
+                        			<ui:password id="button4" widthPeer="4" minWidth="100" align="left" tabStop="7"/>
+		                    	</ui:hContainer>
+        		            	<ui:vContainer align="right" widthPeer="5">
+                		        	<ui:checkbox stringid="AllowPrinting" id="button8" tabStop="8" checked="false" widthPeer="6" />
+                        			<ui:checkbox stringid="AllowChangingLong" id="button9" tabStop="9" checked="false" widthPeer="6" />
+	                        		<ui:checkbox stringid="AllowCopyingLong" id="button10" tabStop="10" checked="false" widthPeer="6" />
+        	                		<ui:checkbox stringid="AllowChangingCommentsLong" id="button11" tabStop="11" checked="false" widthPeer="6" />
+	                	    	</ui:vContainer>
+				</ui:GroupBox>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+        	    	</ui:vContainer>
+	        </ui:dialogBox>
+	        
+	<!-- PREPRINT DIALOG -->
+
+
+	        <ui:dialogBox title="{applicationname}" id="PreprintDialog">
+	            <ui:vContainer align="left"> 
+        	        <!-- <ui:vContainer align="left">  -->
+                	    <ui:hContainer align="bottom" widthPeer="5">
+                        	<ui:static stringid="Attach_PDF_document_to_email" id="Action_Static" widthPeer="0" maxWidth="160" align="left"/>
+        	            </ui:hContainer>
+                	    <ui:divider widthPeer="5"/>
+                	    <ui:static stringid="Sheet_Range" id="Range_Static" widthPeer="0" maxWidth="160" align="left"/>
+                	    <ui:hContainer align="bottom" widthPeer="5">
+                			<ui:radiobutton stringid="_All" widthPeer="0" heightPeer="0" id="All_Radio" value="1" tabStop="1" />
+                			<ui:radiobutton stringid="_Selected" widthPeer="0" heightPeer="0" id="Selected_Radio" value="0" tabStop="2" />
+                	    </ui:hContainer>
+                	    <ui:hContainer align="bottom" widthPeer="5">
+                			<ui:radiobutton stringid="_Odd" widthPeer="0" heightPeer="0" id="Odd_Radio" value="0" tabStop="3" />
+                			<ui:radiobutton stringid="_Even" widthPeer="0" heightPeer="0" id="Even_Radio" value="0" tabStop="4" />
+                	    </ui:hContainer>
+                	    <ui:hContainer align="bottom" widthPeer="5">
+                			<ui:radiobutton stringid="_Custom" widthPeer="0" heightPeer="0" id="Custom_Radio" value="0" tabStop="5" />
+                			<ui:edit   value="" id="Custom_Edit" minWidth="100" />
+                	    </ui:hContainer>
+                	    <ui:hContainer align="bottom" widthPeer="5">
+                			<ui:radiobutton stringid="_Custom" widthPeer="0" heightPeer="0" id="Blank_Radio" value="0"  />
+                			<ui:static stringid="Example_Range" id="Example_Static" widthPeer="0" maxWidth="160" align="left"/>
+                	    </ui:hContainer>
+                	    <ui:divider widthPeer="5"/>
+                	    <ui:hContainer align="bottom" widthPeer="5">
+                			<ui:static stringid="_Copies" id="Copies_Static" widthPeer="0" maxWidth="160" align="left"/>
+                			<ui:edit   value="" id="Copies_Edit" minWidth="100" />
+                	    </ui:hContainer>
+                	    <ui:divider widthPeer="5"/>
+                	    <ui:vContainer align=""> 
+                			<ui:hContainer align="bottom" widthPeer="5">
+                				<ui:button stringid="_Save" widthPeer="2" heightPeer="0" id="ok" def="true" tabStop="6" />
+                				<ui:button stringid="_Cancel" widthPeer="0" heightPeer="0" id="cancel" def="false" tabStop="7" />
+                				<ui:checkbox   stringid="_Keep_job_open" id="KeepJob" tabStop="8" checked="false" />
+                			</ui:hContainer>
+                		</ui:vContainer>
+                	<!-- </ui:vContainer> -->
+        	    </ui:vContainer>
+	        </ui:dialogBox>
+
+        <ui:dialogBox title="{applicationname}" id="replacesingle">
+            <!-- main frame -->
+            <ui:vContainer align="center"> 
+                <ui:pathmsg stringid="ReplaceFile" id="filename" widthPeer="3" maxWidth="400" align="center"/>
+                <!-- button frame -->
+                <ui:hContainer align="bottom" widthPeer="3">
+                    <ui:button stringid="Yes" widthPeer="2" heightPeer="2" id="yes" def="true" tabStop="1" />
+                    <ui:button stringid="No" widthPeer="2" heightPeer="2" id="no"  tabStop="2" />
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+
+        <ui:dialogBox title="{applicationname}" id="replacemultiple">
+            <!-- main frame -->
+            <ui:vContainer align="center"> 
+                <ui:pathmsg stringid="ReplaceFile" id="filename" widthPeer="33" maxWidth="400" align="center"/>
+                <!-- button frame -->
+                <ui:hContainer align="bottom" widthPeer="3">
+                    <ui:button stringid="Yes" widthPeer="2" heightPeer="2" id="yes" def="true" tabStop="1" />
+                    <ui:button stringid="Yes to All" widthPeer="2" heightPeer="2" id="yesall"  tabStop="2" />
+                    <ui:button stringid="No" widthPeer="2" heightPeer="2" id="cancel" tabStop="3" />
+                    <ui:button stringid="Close" widthPeer="2" heightPeer="2" id="noall"  tabStop="4" />
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+
+
+	<!-- IMAGE EXPORT DIALOGS -->
+
+	<ui:dialogBox title="_ImageSavePageDlg" id="ImageSavePageDlg">
+		<!-- main frame -->
+		<ui:vContainer align="left"> 
+<!--			<ui:static stringid="Main_Image_Save_Description" id="MainDescription" widthPeer="4" minWidth="100" align="center"/> -->
+			<ui:divider widthPeer="4"/>
+			<ui:hContainer align="top" widthPeer="4"> 
+				<ui:static stringid="_Path" id="PathStatic" widthPeer="1" minWidth="100" align="right"/>
+				<ui:combo  value="" id="button5" minWidth="120" minHeight="1" widthPeer="3" align="right" tabStop="1"/>
+               		</ui:hContainer>
+  		</ui:vContainer>
+	</ui:dialogBox>
+
+	<!-- FONT EXPORT OPTION DIALOGS -->
+
+	<ui:dialogBox title="_PDFFontsDlg" id="PDFFontsDlg">
+		<!-- main frame -->
+		<ui:vContainer align="left"> 
+<!--			<ui:static stringid="Main_PDF_Fonts_Description" id="MainDescription" widthPeer="9" minWidth="100" align="center"/> -->
+		    	<ui:GroupBox align="left" groupText="Font_Lists" widthPeer="9">
+				<ui:hContainer align="top" widthPeer="1"> 
+					<ui:vContainer align="left" > 
+						<ui:listctrl stringid="" id="button1" minWidth="100" heightPeer="2" widthPeer="2" align="left" tabStop="1"/>
+					</ui:vContainer>
+					<ui:vContainer align="left"> 
+						<ui:vContainer align="left" heightPeer="2"> 
+							<ui:hContainer align="top" widthPeer="1"> 
+								<ui:vContainer align="left"> 
+									<ui:static stringid="_space" heightPeer="5" widthPeer="3" id="space2" align="left"/>
+									<ui:static stringid="_space" heightPeer="5" widthPeer="3" id="space4" align="left"/>
+			       						<ui:button stringid="Add_Font" widthPeer="3" heightPeer="1" id="button2" align="center" tabStop="2"/>
+									<ui:button stringid="Remove_Font" widthPeer="3" heightPeer="1" id="button3" align="center" tabStop="3"/>
+								</ui:vContainer>
+								<ui:vContainer align="left"> 
+									<ui:checkbox stringid="Embed_Font" heightPeer="5" widthPeer="2" id="button4" tabStop="4"/>
+									<ui:listctrl stringid="" id="button5" minHeight="5" heightPeer="3" widthPeer="2" align="left" tabStop="5"/>
+								</ui:vContainer>
+							</ui:hContainer>
+							<ui:hContainer align="top" widthPeer="1"> 
+								<ui:vContainer align="center"> 
+									<ui:static stringid="_space" heightPeer="5" widthPeer="3" id="space5" align="left"/>
+									<ui:static stringid="_space" heightPeer="5" widthPeer="3" id="space7" align="left"/>
+									<ui:button stringid="Add_Font" widthPeer="3" heightPeer="1" id="button6" align="center" tabStop="6"/>
+									<ui:button stringid="Remove_Font" widthPeer="3" heightPeer="1" id="button7" align="center" tabStop="7"/>
+								</ui:vContainer>
+								<ui:vContainer align="left"> 
+									<ui:checkbox stringid="Never_Font" heightPeer="5" widthPeer="2" id="button8" tabStop="8"/>
+									<ui:listctrl stringid="" id="button9" minHeight="5" heightPeer="3" widthPeer="2" align="left" tabStop="9"/>
+								</ui:vContainer>
+							</ui:hContainer>
+						</ui:vContainer>
+					</ui:vContainer>
+				</ui:hContainer>
+			</ui:GroupBox>
+			<ui:hContainer align="top" widthPeer="9"> 
+				<ui:checkbox stringid="_Subset" id="button10" align="right" tabStop="10"/>
+               			<ui:edit value="" align="left" id="button11" tabStop="11"/>
+				<ui:static stringid="Characters_Persents" id="Percent" align="left"/>
+			</ui:hContainer>
+			<ui:hContainer align="top" widthPeer="9"> 
+				<ui:static stringid="Embed_Fail" id="EmbedFail" align="right"/>
+				<ui:combo  value="" id="button12" align="right" widthPeer="2" tabStop="12"/>
+			</ui:hContainer>
+		</ui:vContainer>
+	</ui:dialogBox>
+
+        </ui:dialogBoxes>
+</ui:uiComponents>

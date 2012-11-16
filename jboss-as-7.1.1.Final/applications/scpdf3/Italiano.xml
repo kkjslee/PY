@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<Root>
+	<!--    <LanguageOptions xmlns="x-schema:LanguageSchema.xml" Name="English"> -->
+	<LanguageOptions Name="English">
+		<!-- Text for Main(File Open)  dialog -->
+		<ItemForTranslation ItemName="DoNoRecoverColumns" ItemTranslation="Non recuperare le colonne"/>
+		<!-- Button tooltips for main toolbar: {1} is replaced by the current hotkey for each -->
+		<ItemForTranslation ItemName="ToolTips1010" ItemTranslation="Opzioni"/>
+		<ItemForTranslation ItemName="ToolTips1011" ItemTranslation="Help"/>
+		<ItemForTranslation ItemName="ToolTips1012" ItemTranslation="Converti"/>
+		<ItemForTranslation ItemName="ToolTips1013" ItemTranslation="Esci"/>
+		<ItemForTranslation ItemName="ToolTips1014" ItemTranslation="Crea un file Pdf"/>
+		<ItemForTranslation ItemName="ToolTips1500" ItemTranslation="Il programma di conversione eventualmente selezionato non individua le colonne. Utile per documenti artistici o tabelle."/>
+		<ItemForTranslation ItemName="ToolTips1501" ItemTranslation="Il programma di conversione eventualmente selezionato individua e conserva il layout delle colonne per mantenere l'ordine logico del testo nel documento."/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="ToolTips1502"                             ItemTranslation="Table detection applies when page layout is recognized using flowing or continuous reconstruction mode."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ToolTips1503" ItemTranslation="Select No to convert all pages or Yes to be prompted to convert a specific page range."/>
+		<ItemForTranslation ItemName="TBOptions" ItemTranslation="Opzioni"/>
+		<ItemForTranslation ItemName="TBHelp" ItemTranslation="Help"/>
+		<ItemForTranslation ItemName="TBConvert " ItemTranslation="Converti"/>
+		<ItemForTranslation ItemName="TBExit" ItemTranslation="Esci"/>
+		<ItemForTranslation ItemName="TBSave" ItemTranslation="Crea"/>
+		<!-- Text for Options dialog -->
+		<ItemForTranslation ItemName="$applicationname Options" ItemTranslation="Opzioni di {applicationname}"/>
+		<ItemForTranslation ItemName="ProgramOptions" ItemTranslation="Opzioni del programma"/>
+		<ItemForTranslation ItemName="LaunchViewer" ItemTranslation="Avvia  Microsoft Word"/>
+		<ItemForTranslation ItemName="ForSingleFile" ItemTranslation="Per file singoli"/>
+		<ItemForTranslation ItemName="ForMultipleFiles" ItemTranslation="Per file multipli"/>
+		<ItemForTranslation ItemName="TargetPath" ItemTranslation="Percorso di output"/>
+		<ItemForTranslation ItemName="TargetFormat" ItemTranslation="Formato del file di output"/>
+		<ItemForTranslation ItemName="Language" ItemTranslation="Lingua Interfaccia utente"/>
+		<ItemForTranslation ItemName="CloseProgressDlg" ItemTranslation="Lascia aperta la finestra andamento"/>
+		<ItemForTranslation ItemName="RestoreDefaults" ItemTranslation="Ripristina i parametri predefiniti"/>
+		<ItemForTranslation ItemName="PromptForPages" ItemTranslation="Prompt selezione pagine"/>
+		<ItemForTranslation ItemName="CharSpacing" ItemTranslation="Mantieni spaziature caratteri"/>
+		<ItemForTranslation ItemName="ShowWizard" ItemTranslation="Usa il Wizard"/>
+		<ItemForTranslation ItemName="ExtractText" ItemTranslation="Extract text"/>
+		<ItemForTranslation ItemName="LineLength" ItemTranslation="Line length"/>
+		<!-- <ItemForTranslation ItemName="Columns Recovery"         ItemTranslation="Columns Recovery"/> -->
+		<ItemForTranslation ItemName="FilterOptions" ItemTranslation=" Configurazione programma di conversione"/>
+		<!--
+                    <ItemForTranslation ItemName="Image Anchoring"          ItemTranslation="Image Anchoring"/>
+                    <ItemForTranslation ItemName="Automatic"                ItemTranslation="Automatic"/>
+                    <ItemForTranslation ItemName="Paragraph"                ItemTranslation="Paragraph"/>
+                    <ItemForTranslation ItemName="Page"                     ItemTranslation="Page"/>
+                -->
+		<!-- Errors -->
+		<!-- Descriptions for Options dialog -->
+		<ItemForTranslation ItemName="ProgramOptionsDescription" ItemTranslation="{applicationname} pu? essere configurato con queste opzioni"/>
+		<ItemForTranslation ItemName="LaunchViewerDescription" ItemTranslation="Apri il file convertito in Microsoft."/>
+		<ItemForTranslation ItemName="CloseWindowDescription" ItemTranslation="Tieni sempre aperta questa finestra per evitare che si chiuda automaticamente dopo avere eseguito una conversione."/>
+		<ItemForTranslation ItemName="TargetPathDescription" ItemTranslation="Selezionare l'ubicazione in cui salvare i file convertiti."/>
+		<ItemForTranslation ItemName="DefaultFilterDescription" ItemTranslation="DOC supporta font incorporati. RTF puň essere aperto con altri programmi e non solo con Microsoft Word. TXT non supporta i dati di formattazione o le immagini."/>
+		<ItemForTranslation ItemName="LanguageDescription" ItemTranslation="Selezionare la lingua d'interfaccia utente."/>
+		<ItemForTranslation ItemName="ShowWizardDescription" ItemTranslation="Selezionare questa opzione per configurare i parametri di conversione con l'ausilio del Wizard di conversione."/>
+		<ItemForTranslation ItemName="FilterOptionsDescription" ItemTranslation="Configurazione selettiva di particolari funzioni di {applicationname}."/>
+		<ItemForTranslation ItemName="PDFFilterDescription" ItemTranslation="Configurazione selettiva di particolari funzioni di {applicationname}."/>
+		<ItemForTranslation ItemName="PDFFilterPromptForPagesDescription" ItemTranslation="Converti tutte le pagine o parte del documento su richiesta dell'utente."/>
+		<ItemForTranslation ItemName="PDFFilterColumnsRecoveryDescription" ItemTranslation="Selezionare questa opzione per scegliere la modalitŕ di elaborazione delle colonne, ovvero se ignorarle o individuarle e presentarle come colonne nel file RTF."/>
+		<ItemForTranslation ItemName="PDFFilterCharSpacingDescription" ItemTranslation="Manteri dimensioni e spaziature caratteri dal file PDF. Nei file PDF la spaziatura puň essere diversa per ogni carattere."/>
+		<ItemForTranslation ItemName="PDFFilterImagesAnchoringDescription" ItemTranslation=" Selezionare Remove Images (Rimuovi immagini) per rimuovere immagini specifiche dal documento. Č anche possibile selezionare Automatic Anchoring (Ancoraggio automatico) per convertire tutte le immagini in ancoraggio in linea, Anchor to Paragraph (Ancora al paragrafo) oppure Anchor to Page (Ancora alla pagina)."/>
+		<ItemForTranslation ItemName="ExtractTextDescription" ItemTranslation="Configure text extraction options."/>
+		<ItemForTranslation ItemName="LineLengthDescription" ItemTranslation="Type the maximum number of characters to display in each line of your output document."/>
+		<!-- Text for Progress dialog -->
+		<ItemForTranslation ItemName="FileName" ItemTranslation="Nome del file"/>
+		<ItemForTranslation ItemName="Source" ItemTranslation="Di partenza"/>
+		<ItemForTranslation ItemName="Destination" ItemTranslation="Di destinazione"/>
+		<ItemForTranslation ItemName="Status" ItemTranslation="Andamento"/>
+		<ItemForTranslation ItemName="Description" ItemTranslation="Descrizione"/>
+		<ItemForTranslation ItemName="ButtonStateClose" ItemTranslation="Chiudi"/>
+		<ItemForTranslation ItemName="StatusStringCompleted" ItemTranslation="Conversione del file conclusa."/>
+		<ItemForTranslation ItemName="StatusStringCanceled" ItemTranslation="Conversione annullata dall'utente."/>
+		<ItemForTranslation ItemName="StatusStringCompletedWithFault" ItemTranslation="Conversione del file non riuscita."/>
+		<ItemForTranslation ItemName="Converting" ItemTranslation="Conversione di...in corso"/>
+		<ItemForTranslation ItemName="General" ItemTranslation="Generale"/>
+		<ItemForTranslation ItemName="Details" ItemTranslation="Dettagli"/>
+		<ItemForTranslation ItemName="Conversion Progress" ItemTranslation="Andamento della conversione"/>
+		<!-- Error codes -->
+		<ItemForTranslation ItemName="InternalError" ItemTranslation="Errore interno."/>
+		<ItemForTranslation ItemName="InternalErrorDesc" ItemTranslation="Errore interno."/>
+		<ItemForTranslation ItemName="Succeed" ItemTranslation="Operazione riuscita."/>
+		<ItemForTranslation ItemName="SucceedDesc" ItemTranslation="Operazione riuscita."/>
+		<ItemForTranslation ItemName="Canceled" ItemTranslation="Annullato."/>
+		<ItemForTranslation ItemName="CanceledDesc" ItemTranslation="Annullato dall'utente."/>
+		<ItemForTranslation ItemName="BadData" ItemTranslation="Dato alterato."/>
+		<ItemForTranslation ItemName="BadDataDesc" ItemTranslation="Contenuto del file non valido"/>
+		<ItemForTranslation ItemName="IOError" ItemTranslation="Errore di input."/>
+		<ItemForTranslation ItemName="IOErrorDesc" ItemTranslation="Apertura del file di partenza non riuscita."/>
+		<ItemForTranslation ItemName="FileHasCopyPtotection" ItemTranslation="File protetto."/>
+		<ItemForTranslation ItemName="FileHasCopyPtotectionDesc" ItemTranslation="Conversione non riuscita. Il file č protetto."/>
+		<ItemForTranslation ItemName="InvalidPagesRange" ItemTranslation="Numerazione pagine non valida."/>
+		<ItemForTranslation ItemName="InvalidPagesRangeDesc" ItemTranslation="La numerazione delle pagine specificata č superiore alle dimensioni del documento."/>
+		<ItemForTranslation ItemName="InvalidArgumentsDesc" ItemTranslation="Argomenti di input o output non validi."/>
+		<ItemForTranslation ItemName="Internal program error" ItemTranslation="Errore interno del programma."/>
+		<!-- messages -->
+		<ItemForTranslation ItemName="OverwriteOptions" ItemTranslation="Confermare la sovrascrittura di tutte le opzioni con i valori predefiniti"/>
+		<ItemForTranslation ItemName="FileNotFound" ItemTranslation="{1} {n}file non trovato{n}. Verificare che il nome del file sia corretto."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="FileCantBeReplaced" ItemTranslation="{n}Output file cannot be overwritten.{n}The file is locked by an application (Open in Word?) or protected from deletion.{n}Please unlock the file or change the target file name."/>
+		<ItemForTranslation ItemName="STR_END_IS_GREAT" ItemTranslation="Il numero della pagina iniziale deve essere inferiore o uguale quello della pagina finale."/>
+		<ItemForTranslation ItemName="STR_INVALID_NUM" ItemTranslation="Il numero della pagina deve essere maggiore di zero."/>
+		<!-- Stop Convert Dlg -->
+		<ItemForTranslation ItemName="CancelConversionMessage" ItemTranslation="Si desidera annullare la conversione in corso?"/>
+		<!-- Progress bar -->
+		<ItemForTranslation ItemName="ConversionLogMessage" ItemTranslation="Registro di conversione."/>
+		<ItemForTranslation ItemName="StartingConversionMessage" ItemTranslation="------- Conversione iniziata: {1} -------"/>
+		<ItemForTranslation ItemName="FileConversionMessage" ItemTranslation="Conversione file in corso: "/>
+		<ItemForTranslation ItemName="ElapsedMessage" ItemTranslation="Conversione conclusa. Tempo trascorso: {1}"/>
+		<ItemForTranslation ItemName="ReportMessage" ItemTranslation="{n}Conversione ultimata delle pagine da {1} a {2}"/>
+		<ItemForTranslation ItemName="ImageNotFound" ItemTranslation="Non ci sono immagini in questo documento."/>
+		<ItemForTranslation ItemName="FailedSaveImage" ItemTranslation="Salvataggio immagine non riuscito {1}"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ConversionFailedMessage" ItemTranslation="Conversion failed on page {1}."/>
+		<ItemForTranslation ItemName="DaysFormat" ItemTranslation="{1} giorni "/>
+		<ItemForTranslation ItemName="HoursFormat" ItemTranslation="{1} ore "/>
+		<ItemForTranslation ItemName="DayFormat" ItemTranslation="{1} giorno "/>
+		<ItemForTranslation ItemName="HourFormat" ItemTranslation="{1} ora "/>
+		<ItemForTranslation ItemName="MinutesFormat" ItemTranslation="{1} min. "/>
+		<ItemForTranslation ItemName="MinuteFormat" ItemTranslation="{1} min. "/>
+		<ItemForTranslation ItemName="SecondsFormat" ItemTranslation="{1} sec."/>
+		<ItemForTranslation ItemName="SecondFormat" ItemTranslation="{1} sec."/>
+		<!-- RTF filter message -->
+		<ItemForTranslation ItemName="OutputPathMessage" ItemTranslation="Dati elaborati salvati su:{1}"/>
+		<ItemForTranslation ItemName="WritingFileMessage" ItemTranslation="Scrittura in corso del file {1}..."/>
+		<!-- PDF filter messsages -->
+		<ItemForTranslation ItemName="PDFPreScanInfoText" ItemTranslation="Scannerizzazione in corso del file {1}..."/>
+		<ItemForTranslation ItemName="PDFLoadingInfoText" ItemTranslation="Caricamento in corso del file {1}..."/>
+		<ItemForTranslation ItemName="FractionalFontSize" ItemTranslation="il file di partenza contiene un font con dimensione frazionale. {n}Il formato selezionato supporta soltanto font con dimensioni multiple di 1/2."/>
+		<ItemForTranslation ItemName="FontHeadMessage" ItemTranslation="Attenzione al font {1}"/>
+		<ItemForTranslation ItemName="FontSubstMessage" ItemTranslation="Nome del font sostituito con {1}."/>
+		<ItemForTranslation ItemName="FontEmbedMessage" ItemTranslation="Dati incorporati nel font {1}"/>
+		<ItemForTranslation ItemName="DifferentLookingWarning" ItemTranslation="I dati elaborati possono risultare diversi da quelli originali perché:"/>
+		<ItemForTranslation ItemName="FontEmbedWarning" ItemTranslation="Il documento contiene font incorporati."/>
+		<ItemForTranslation ItemName="FontNotBuiltInWarning" ItemTranslation="Il documento non contiene font incorporati"/>
+		<ItemForTranslation ItemName="EvaluationInfoMessage" ItemTranslation="Copia di prova: funzionalitŕ limitate."/>
+		<!--
+                Text1 :
+                    Thank you for trying SolidConverter PDF.
+                    The trial version of this product only converts 10% of your document, with a 10 page maximum.
+                    Please register SolidConverter PDF to remove this restriction.
+                 -->
+		<ItemForTranslation ItemName="EvaluationMessage1" ItemTranslation="Si ringrazia l'utente per aver provato {applicationname}.{n}La versione di prova di questo prodotto converte soltanto il 10% di un documento (10 pagine al massimo).{n}Si invita l'utente a registrare {link:applicationpurchaseurl}{applicationname}{/link}per eliminare queste limitazioni."/>
+		<!--
+                Text2 (contain some parts from Text1 ) :
+                    Thank you for trying SolidConverter PDF.{n}
+                    The trial version of this product only converts 10% of your document, with a 10 page maximum.{n}
+                    For this conversion, SolidConverter PDF converted 1 of 1 pages.{n}
+                    Please register SolidConverter PDF at http://www.solidpdf.com to remove this restriction.{n}
+                 -->
+		<ItemForTranslation ItemName="EvaluationMessage2" ItemTranslation="Si ringrazia l'utente per aver provato {applicationname}.{n}La versione di prova di questo prodotto converte soltanto il 10% di un documento (10 pagine al massimo massimo).{n}Per questa conversione {applicationname} ha convertito {1} pagina(e) di {2}.{n}{b}Si invita l'utente a registrare {color}{applicationname}{/color} in {applicationpurchaseurl} per eliminare questa limitazione.{/b}"/>
+		<!-- Promt for password -->
+		<ItemForTranslation ItemName="Enter password" ItemTranslation="Digitare la password"/>
+		<ItemForTranslation ItemName="This file is protected." ItemTranslation="Il file PDF č protetto da una firma digitale. Inserire la password del documento PDF per continuare la conversione."/>
+		<ItemForTranslation ItemName="Password:" ItemTranslation="Password:"/>
+		<ItemForTranslation ItemName="Invalid Password." ItemTranslation="Password non valida."/>
+		<ItemForTranslation ItemName="You don't have permissions for extract operation." ItemTranslation="Operazione di estrazione non consentita."/>
+		<!-- Promt for pages -->
+		<ItemForTranslation ItemName="Convert Pages" ItemTranslation="Converti le pagine"/>
+		<ItemForTranslation ItemName="All %d pages" ItemTranslation="Tutte le {1} pagine"/>
+		<ItemForTranslation ItemName="Pages From:" ItemTranslation="Pagine da:"/>
+		<ItemForTranslation ItemName="To:" ItemTranslation="A:"/>
+		<ItemForTranslation ItemName="The starting page must be less than or the same as the ending page number." ItemTranslation="Il numero della pagina iniziale deve essere inferiore o uguale al numero della pagina finale."/>
+		<ItemForTranslation ItemName="There is no page numbered '{1}' in this document." ItemTranslation="Non c'č nessuna pagina con il numero '{1}' nel documento."/>
+		<!-- Wizard: Page Range -->
+		<ItemForTranslation ItemName="PageRange" ItemTranslation="Selezione pagine"/>
+		<ItemForTranslation ItemName="AllPages" ItemTranslation="Tutte"/>
+		<ItemForTranslation ItemName="Pages" ItemTranslation="Pagine"/>
+		<ItemForTranslation ItemName="From:" ItemTranslation="Da:"/>
+		<ItemForTranslation ItemName="extractpagerange" ItemTranslation="Da quali pagine del documento PDF si desidera estrarre le immagini? Per recuperare tutte le immagini del documento PDF scegliere 'tutte'.{n}{n}Per estrarre solo immagini particolari dal documento PDF, scegliere 'pagine' e digitare le pagine selezionate nei campi 'da' 'a'."/>
+		<ItemForTranslation ItemName="convertpagerange" ItemTranslation="Quali pagine del documento PDF si desidera recuperare? Per recuperare l'intero file PDF, scegliere 'tutte'.{n}{n}Per recuperare solo pagine specifiche nel file PDF, selezionare 'Pagine' e inserire le pagine desiderate nei campi 'Da' e 'a''."/>
+		<!-- V2.1 TEXT
+                 ItemForTranslation     ItemName="SolidConverterPDFUsage" ItemTranslation="Usage: SolidConverterPDF.exe [/h] /i Input [/o Output] [/w argument] [/y | /n] [/c] [/s] [/a argument] [/f argument] [/p xxx[-yyy]] {n}{n}{t}/h  {t}Displays this help. {n}{n}{t}/i  {t}Specifies the file or files to be converted. {n}{n}{t}/o  {t}Specifies the file name or directory for the new file(s). {n}{n}{t}/w  {t}Silent mode (hide progress dialog is default). {n}{n}{t}{t}  argument:  + : Always show progress dialog (/w +). {n}{n}{t}{t}      {t}     x : Automatically close progress dialog if successful (/w x). {n}{n}{t}/y  {t}Force overwriting of existing files (prompt to overwrite is default). {n}{n}{t}/n  {t}Force converter to not overwrite exiting files (no conversion if output file exists). {n}{n}{t}/c  {t}Don't detect columns (detect columns is default). {n}{n}{t}/f  {t}Format options (the default is Flowing.){n}{t}{t}If this parameter exists, /c parameter is ignored. {n}{n}{t}{t}  argument:   tabl : Tables (/f tabl). {n}{n}{t}{t}      {t}     cont : Continuous (/f cont). {n}{n}{t}{t}      {t}      txt : Text (/f txt). {n}{n}{t}{t}      {t}      exact : Exact (/f exact). {n}{n}{t}                /s  {t}Ignore character spacing (keep character spacing is default). {n}{n}{t}                /a  {t}                Image anchoring (the default is automatic). {n}{n}{t}{t}                  argument:   g : page anchoring (/a g). {n}{n}{t}{t}      {t}      p : paragraph anchoring (/a p). {n}{n}{t}{t}      {t}      r : remove images (/a r). {n}{n}{t}{t}      {t}      x : extract images (/a x)                 {n}{n}{t}/p  {t}Page conversion (/p xxx-yyy): {n}{n}{t}{t}  xxx : is starting page number and must be greater than 0. {n}{n}{t}{t}  yyy : is ending page number and must be greater or equal to xxx. {n}"/
+                -->
+		<!-- V2.0 TEXT -->
+		<ItemForTranslation ItemName="help_dlg_title" ItemTranslation="Help di {applicationname}"/>
+		<ItemForTranslation ItemName="SolidConverterPDFUsage" ItemTranslation="Uso di: SolidConverterPDF.exe [/h] /i Input [/o Output] [/w argomento] [/y | /n] [/c] [/s] [/a argomento] [/f argomento] [/p xxx[-yyy]] {n}{n}{t}/h  {t}Mostra aiuto. {n}{n}{t}/i  {t}Specifica il File o i File da convertire. {n}{n}{t}/o  {t}Specifica il nome o la directory per il nuovo file(s). {n}{n}{t}/w  {t}Modalitŕ nascondi (nasconde la finestra di conversione in corso). {n}{n}{t}{t}  argomento:  + : Mostra sempre la finestra di conversione in corso (/w +). {n}{n}{t}{t}      {t}     x : Chiude automaticamente la finestra di conversione in corso dopo l'esecuzione di una conversione (/w x). {n}{n}{t}/y  {t}Obbliga a sovrascrivere files esistenti (il suggerimento e' di default). {n}{n}{t}/n  {t}Obbliga a non sovrascrivere files esistenti (nessuna conversione se esiste un file d'uscita). {n}{n}{t}/c  {t}Non rilevare colonne (rileva colonne e' default). {n}{n}{t}/f  {t}Opzioni di formattazione (default e' Flowing.){n}{t}{t}Se questo parametro esiste, /c parametro ignorato. {n}{n}{t}{t}  argomento:   tabl : Tables (/f tabl). {n}{n}{t}{t}      {t}     cont : Continuo (/f cont). {n}{n}{t}{t}      {t}      txt : Testo (/f txt). {n}{n}{t}{t}      {t}      exact : Exact (/f true). {n}{n}{t}/s  {t}Ignora spaziatura di carattere (mantieni spaziatura di carattere di default). {n}{n}{t}/a  {t}Conversione immagini (Il default e' automatico). {n}{n}{t}{t}  argomento:   g : ancoragio pagina (/a g). {n}{n}{t}{t}      {t}      p : ancoraggio paragrafo (/a p). {n}{n}{t}{t}      {t}      r : rimuovi immagini (/a r). {n}{n}{t}/p  {t}Conversione di pagina (/p xxx-yyy): {n}{n}{t}{t}  xxx : e' il numero iniziale di pagina e deve essere maggiore di zero. {n}{n}{t}{t}  yyy : e' il numero finale di pagina e deve essere maggiore o uguale a xxx."/>
+		<ItemForTranslation ItemName="SolidConverterPDFUsageHead" ItemTranslation="Uso di:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="SolidConverterPDFUsageCmdString" ItemTranslation="[/h] /i Input [/o Output] [/w argument] [/y | /n] [/c argument]{n} [/f argument] [/s] [/a argument] [/p xxx[-yyy]{n}[/pwd [&quot;password&quot;]]]"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="SolidConverterPDFUsageCmdString_lite" ItemTranslation="[/h] /i Input [/o Output] [/w argument] [/y | /n] [/c argument]{n} [/f argument] [/s] [/p xxx[-yyy]]{n}[/pwd [&quot;password&quot;]] "/>
+		<ItemForTranslation ItemName="ArgumentStr" ItemTranslation="Argomenti:"/>
+		<ItemForTranslation ItemName="ParametersStr" ItemTranslation="Parametri:"/>
+		<ItemForTranslation ItemName="hDescription" ItemTranslation="Visualizza questo help."/>
+		<ItemForTranslation ItemName="iDescription" ItemTranslation="Indica il file o i file da convertire."/>
+		<ItemForTranslation ItemName="oDescription" ItemTranslation="Indica il nome e la directory per il nuovo/i nuovi file."/>
+		<ItemForTranslation ItemName="wDescription" ItemTranslation="Modalitŕ' nascondi (l'impostazione predefinta prevede l'occultazione della finestra di dialogo andamento)."/>
+		<ItemForTranslation ItemName="wArguments" ItemTranslation="+ : Visualizza sempre la finestra di dialogo andamento conversione (/w +).{n}x : Chiudi automaticamente la finestra di conversione in corso a conversione eseguita (/w x)."/>
+		<ItemForTranslation ItemName="yDescription" ItemTranslation="Consenti all'editor di sovrascrivere file esistenti (impostazione predefinita)."/>
+		<ItemForTranslation ItemName="nDescription" ItemTranslation="Non consentire all'editor di sovrascrivere file esistenti (non eseguire la conversione se esiste un file di ourput)."/>
+		<ItemForTranslation ItemName="cDescription" ItemTranslation="Opzioni di formattazione (impostazione predefinita: Scorrimento pagina)"/>
+		<ItemForTranslation ItemName="cArguments" ItemTranslation="tabl  : Tabulazioni (/c tabl).{n}cont : Continuo (/c cont).{n}txt    : Testo (/c txt).{n}vero  : Mantieni impaginazione(/c exact).{n}x       : Estrai solo le immagini (/c x)"/>
+		<ItemForTranslation ItemName="cArguments_lite" ItemTranslation="txt    : Testo (/c txt)."/>
+		<ItemForTranslation ItemName="sDescription" ItemTranslation="Ignora spaziatura caratteri (mantieni la spaziatura caratteri predefinita."/>
+		<ItemForTranslation ItemName="aDescription" ItemTranslation="Modalitŕ posizionamento immagine (predefinita: automatico)."/>
+		<ItemForTranslation ItemName="aArguments" ItemTranslation="g : ancoraggio di pagina (/a g).{n}p : ancoraggio di paragrafo (/a p).{n}r  : rimuovi immagini (/a r)."/>
+		<ItemForTranslation ItemName="pDescription" ItemTranslation="Conversione pagina (/p xxx-yyy)"/>
+		<ItemForTranslation ItemName="pArguments" ItemTranslation="xxx :č il numero della prima pagina e deve essere maggiore di zero 0.{n}yyy : č il numero dell'ultima pagina e deve essere maggiore o uguale a  xxx."/>
+		<ItemForTranslation ItemName="dDescription" ItemTranslation="Elaborazione intestazione e pié pagina (impostazione predefinita: trova)."/>
+		<ItemForTranslation ItemName="dArguments" ItemTranslation="r : trova ed elimina (/d r){n}i : ignora ed elabora come testo (/d r)"/>
+		<ItemForTranslation ItemName="tDescription" ItemTranslation="Formato di destinazione (il formato predefinito č indicato nelle opzionii del programma )"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="tArguments" ItemTranslation="rtf    : Rich Text format (/f rtf){n}doc : Microsoft Word format (/f doc){n}wordml: Microsoft Word XML format"/>
+		<ItemForTranslation ItemName="eDescription" ItemTranslation="Elaborazione in corso font incorporati (impostazione predefinita: ignora)"/>
+		<ItemForTranslation ItemName="eArguments" ItemTranslation="s : Installa sul sistema (/e s){n}e : inserisci nel documento di output {n}    (solo per il formato Microsoft Word (/e e)"/>
+		<ItemForTranslation ItemName="pwdDescription" ItemTranslation="Opzione password (l'impostazione predefinita prevede che vengano saltati i file criptati)"/>
+		<ItemForTranslation ItemName="pwdArguments" ItemTranslation="argomento assente : prompt per la password per i file criptati{n}&quot;password&quot;   : stringa fra virgolette. Utilizzare questa password se il file č criptato.{n}I file possono essere criptati con una password vuota - in questo caso, utilizzare solole virgolette(&quot;&quot;)"/>
+		<!-- -->
+		<!-- V1.0 TEXT
+                 ItemTranslation="Usage: SolidConverterPDF.exe [/h] /i Input [/o Output] [/w argument] [/y | /n] [/c] [/s] [/a argument]                         [/p xxx[-yyy]] {n}{n}{t}/h  {t}Displays this help. {n}{n}{t}/i  {t}Specifies the file or files to be converted. {n}{n}{t}/o  {t}Specifies the file name or directory for the new file(s). {n}{n}{t}/w  {t}Silent mode (hide progress dialog is default). {n}{n}{t}{t}  argument:  + : Always show progress dialog (/w +). {n}{n}{t}{t}      {t}     x : Automatically close progress dialog if successful (/w x). {n}{n}{t}/y  {t}Force overwriting of existing files (prompt to overwrite is default). {n}{n}{t}/n  {t}Force converter to not overwrite exiting files (no conversion if output file exists). {n}{n}{t}/c  {t}Don't detect columns (detect columns is default). {n}{n}{t}/s  {t}Ignore character spacing (keep character spacing is default). {n}{n}{t}/a  {t}Image anchoring (the default is automatic). {n}{n}{t}{t}  argument:   g : page anchoring (/a g). {n}{n}{t}{t}      {t}      p : paragraph anchoring (/a p). {n}{n}{t}/p  {t}Page conversion (/p xxx-yyy): {n}{n}{t}{t}  xxx : is starting page number and must be greater than 0. {n}{n}{t}{t}  yyy : is ending page number and must be greater or equal to xxx. {n}"/
+                -->
+		<ItemForTranslation ItemName="Source_File_Type_Filter" ItemTranslation="file PDF (*.pdf)|*.pdf||"/>
+		<ItemForTranslation ItemName="RTF_Files_Filter" ItemTranslation="file RTF  (*.rtf)"/>
+		<ItemForTranslation ItemName="DOC_Files_Filter" ItemTranslation=" File DOC (*.doc)"/>
+		<ItemForTranslation ItemName="TXT_Files_Filter" ItemTranslation=" file TXT (*.txt)"/>
+		<!-- Warnings -->
+		<ItemForTranslation ItemName="Warnings" ItemTranslation="Avvisi"/>
+		<ItemForTranslation ItemName="WarningsSetDescription" ItemTranslation="Selezionare gli avvisi da visualizzare durante la conversione."/>
+		<!-- Options panel. Left column  -->
+		<ItemForTranslation ItemName="VectorGrfWarning" ItemTranslation="Grafici vettoriali"/>
+		<!-- Options panel. Description -->
+		<ItemForTranslation ItemName="VectorGrfWarningDescription" ItemTranslation="Mostra questo avviso in occasione della conversione se il file contiene grafici vettoriali non ancora supportati. Gli elementi grafici vettoriali saranno ignorati."/>
+		<!-- Warning text -->
+		<ItemForTranslation ItemName="VectorGrfWarningText" ItemTranslation="Questo file PDF contiene grafici vettoriali non ancora supportati, che non sono stati quindi convertiti."/>
+		<!-- Options panel. Left column  -->
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="NoTextWarning" ItemTranslation="No text in File"/>
+		<!-- Options panel. Description -->
+		<ItemForTranslation ItemName="NoTextWarningDescription" ItemTranslation="Mostra questo avviso se non c'č testo nel file convertito. E' probabile che si tratti di un documento composto solo da pagine con immagini bitmap."/>
+		<!-- Warning text -->
+		<ItemForTranslation ItemName="NoTextWarningText" ItemTranslation="Questo file non contiene testo. Puň darsi che sia un documento scannerizzato composto solo da pagine con immagini bitmap."/>
+		<!-- Options panel. Left column  -->
+		<ItemForTranslation ItemName="HiddenTextWarning" ItemTranslation="Hidden text in File"/>
+		<!-- Options panel. Description -->
+		<ItemForTranslation ItemName="HiddenTextWarningDescription" ItemTranslation="Show this warning if there is a page with completely hidden(covered with graphics) text in the converted file. The most likely reason is that it is a scanned document which consists entirely of bitmap image pages and recognized text covered with this image (Searchable image)."/>
+		<!-- Warning text -->
+		<ItemForTranslation ItemName="HiddenTextWarningText" ItemTranslation="This file contains text under graphics(image). The most likely reason is that it is a scanned document which consists entirely of bitmap image pages and recognized text covered with this image (Searchable image)."/>
+		<!-- Options panel. Left column  -->
+		<ItemForTranslation ItemName="SymbolicFontWarning" ItemTranslation="Tipi di carattere Symbol "/>
+		<!-- Options panel. Description -->
+		<ItemForTranslation ItemName="SymbolicFontWarningDescription" ItemTranslation="Visualizzare questo errore se il documento contiene codifica non standard, ad esempio tipi di carattere Symbol."/>
+		<!-- Warning text -->
+		<ItemForTranslation ItemName="SymbolicFontWarningText" ItemTranslation="Questo file contiene elementi di codifica non standard e puň darsi che venga elaborato erroneamente."/>
+		<!-- Options panel. Left column  -->
+		<ItemForTranslation ItemName="InsufficientOfficeVersionWarning" ItemTranslation=" Versione di Microsoft Office"/>
+		<!-- Options panel. Description -->
+		<ItemForTranslation ItemName="InsufficientOfficeVersionWarningDescription" ItemTranslation=" Visualizzare questo avviso se la versione di Microsoft Office attualmente installata č precedente a Office XP."/>
+		<!-- Warning text -->
+		<ItemForTranslation ItemName="InsufficientOfficeVersionWarningText" ItemTranslation=" La copia di Microsoft Office di cui si dispone č precedente ad Office XP. Č possibile convertire il file, tuttavia non sarŕ possibile aprirlo su questo computer."/>
+		<ItemForTranslation ItemName="{applicationname} Wizard ({1})" ItemTranslation=" Wizard  di {applicationname} ({1})"/>
+		<ItemForTranslation ItemName="{applicationname} Settings ({1})" ItemTranslation="Parametri di {applicationname} ({1})"/>
+		<!-- v2.0 -->
+		<ItemForTranslation ItemName="FormatingMode" ItemTranslation="Modalita' ricostruzione"/>
+		<ItemForTranslation ItemName="FormatingModeDescription" ItemTranslation="A seconda del tipo di documento e della modalitŕ di ricostruzione, la ricostruzione del documento offre piu' flessibilita' di impaginazione, formattazione e recupero testo."/>
+		<ItemForTranslation ItemName="Do not recover columns" ItemTranslation="tabulazioni"/>
+		<ItemForTranslation ItemName="Detect and preserve columns" ItemTranslation="Scorrimento pagina"/>
+		<ItemForTranslation ItemName="Formatting_and_no_Layout" ItemTranslation="Continuo"/>
+		<ItemForTranslation ItemName="No_Formatting_or_Layout" ItemTranslation="Solo testo"/>
+		<ItemForTranslation ItemName="True_Page" ItemTranslation="Mantieni impaginazione"/>
+		<ItemForTranslation ItemName="FM_FORMAT_LAYOUT_COLUMNS" ItemTranslation="Scorrimento pagina recupera layout, colonne, formattazione, grafici e mantiene inalterata la disposizione del testo"/>
+		<ItemForTranslation ItemName="FM_FORMAT_LAYOUT" ItemTranslation="Tabelle - recupera impaginazione, formattazione, grafici e mantiene inalterata la disposizione del testo ma ignora le colonne."/>
+		<ItemForTranslation ItemName="FM_FORMAT" ItemTranslation="Continuo - trova i dati di impaginazione e le colonne ma recupera solo la formattazione, i grafici e la disposizione del testo."/>
+		<ItemForTranslation ItemName="FM_NONE" ItemTranslation="Solo testo - trova i dati di impaginazione e le colonne ma recupera solo il testo senza formattarlo."/>
+		<ItemForTranslation ItemName="FM_TRUEPAGE" ItemTranslation="Mantieni impaginazione - recupera la pagina esattamente come si presenta usando caselle di testo in Microsoft Word."/>
+		<ItemForTranslation ItemName="WA_CONVERT_WORD" ItemTranslation="Converti documento da PDF a Word"/>
+		<ItemForTranslation ItemName="WA_EXTRACT_IMAGE" ItemTranslation="Estrai immagini da file PDF"/>
+		<!-- ExtractImage Message -->
+		<ItemForTranslation ItemName="ExtractImageMessage" ItemTranslation="{1}L'immagine {2} č stata estratta dalla pagina {3}"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ImagesProcessing" ItemTranslation="Image Handling"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ImagesProcessingDescription" ItemTranslation="Select Remove Images to remove specific images from the document. You can also select Automatic Anchoring to convert all images to inline anchoring, Anchor to Paragraph, or Anchor to Page."/>
+		<ItemForTranslation ItemName="RemoveImage" ItemTranslation="Elimina Immagini"/>
+		<ItemForTranslation ItemName="RemoveImages" ItemTranslation="Elimina Immagini allineate"/>
+		<ItemForTranslation ItemName="Remove_Images" ItemTranslation="Elimina Immagini"/>
+		<ItemForTranslation ItemName="Remove_Inline_Images" ItemTranslation="Elimina Immagini allineate"/>
+		<ItemForTranslation ItemName="RemoveAllImages" ItemTranslation="Elimina tutte le immagini"/>
+		<ItemForTranslation ItemName="RemoveAllImagesExceptInline" ItemTranslation="Elimina tutte le immagini (tranne quelle allineate)"/>
+		<ItemForTranslation ItemName="AnchoringAutomatic" ItemTranslation="Ancoraggio automatico"/>
+		<ItemForTranslation ItemName="AnchoringParagraph" ItemTranslation="Ancoraggio al paragrafo"/>
+		<ItemForTranslation ItemName="AnchoringPage" ItemTranslation="Ancoraggio alla pagina"/>
+		<ItemForTranslation ItemName="RemoveImagePrompt1" ItemTranslation="Quando l'impaginazione viene modificata, si possono recuperare solo immagini allineate.{n}Questa opzione consente anche di eliminare le immagini allineate."/>
+		<ItemForTranslation ItemName="RemoveImagePrompt2" ItemTranslation="Quando l'impaginazione rimane inalterata, le immagini allineate vengono sempre recuperate.{n}Questa opzione consente di eliminare o ancorare immagini non allineate."/>
+		<ItemForTranslation ItemName="SaveEmbededFont" ItemTranslation="Trasferisci font incorporati"/>
+		<ItemForTranslation ItemName="SaveEmbededFontDescription" ItemTranslation="I font incorporati possono essere trasferiti sui file.doc. Si possono trasferire tutti i tipi di font, soltanto i font a codifica non standard o nessuno."/>
+		<ItemForTranslation ItemName="EmbedNone-standardEncoding" ItemTranslation="Incorpora tutti i font TrueType a codifica non-standard"/>
+		<ItemForTranslation ItemName="EmbedAllTrueType" ItemTranslation="Incorpora tutti i font TrueType"/>
+		<ItemForTranslation ItemName="DoNotEmbed" ItemTranslation="Non incorporare i font"/>
+		<ItemForTranslation ItemName="InstallEmbededFont" ItemTranslation="Installa i font incorporati"/>
+		<ItemForTranslation ItemName="InstallEmbededFontDescription" ItemTranslation="Volendo, č possibile installare sul computer i font TrueType e Type 1 incorporati nel file PDF."/>
+		<ItemForTranslation ItemName="HeadersAndFooters" ItemTranslation="Intestazione e pié pagina"/>
+		<ItemForTranslation ItemName="PDFFilterHeadersAndFootersDescription" ItemTranslation="{applicationname} puň recuperare oe aliinare intestazioni e pié pagina."/>
+		<ItemForTranslation ItemName="Detect" ItemTranslation="Trova e recupera"/>
+		<ItemForTranslation ItemName="DetectAndRemove" ItemTranslation="Trova ed elimina"/>
+		<ItemForTranslation ItemName="DoNotDetect" ItemTranslation="Non trovare"/>
+		<ItemForTranslation ItemName="ExtractImageFilter" ItemTranslation="Configurazione di estrazione immagini"/>
+		<ItemForTranslation ItemName="ExtractImageFilterDescription" ItemTranslation="Estrazione immagini č un'altra funzione di {applicationname} disponibile oltre alla conversione dei documenti. Consente di configurare funzioni particolari per estrarre immagini."/>
+		<ItemForTranslation ItemName="ImageTargetType" ItemTranslation="Formattazione immagini"/>
+		<ItemForTranslation ItemName="ImageTargetTypeDescription" ItemTranslation="Durante l'estrazione delle immagini da un documento PDF, č possibile salvarle in un formato diverso da quello originale."/>
+		<ItemForTranslation ItemName="KeepSourceFormat" ItemTranslation="&lt;Mantieni il formato originale&gt;"/>
+		<ItemForTranslation ItemName="bmp" ItemTranslation="BMP"/>
+		<ItemForTranslation ItemName="jpg" ItemTranslation="JPG"/>
+		<ItemForTranslation ItemName="png" ItemTranslation="PNG"/>
+		<ItemForTranslation ItemName="tif" ItemTranslation="TIF"/>
+		<ItemForTranslation ItemName="ImageColorDepth" ItemTranslation="Intensitŕ di colore dell'immagine"/>
+		<ItemForTranslation ItemName="ImageColorDepthDescription" ItemTranslation="Durante l'estrazione delle immagini da un documento PDF, č possibile salvarle in un'intensitŕ di colore diversa da quella originale."/>
+		<ItemForTranslation ItemName="KeepSourceColorDepth" ItemTranslation="&lt;Mantieni l'intensitŕ di colore originale&gt;"/>
+		<ItemForTranslation ItemName="1_bit_per_pixel_Monochrome" ItemTranslation="1 bit per pixel modalitŕ monocromatica"/>
+		<ItemForTranslation ItemName="8_bits_per_pixel_Grayscale" ItemTranslation="8 bit per pixel modalitŕ tonalitŕ di grigio"/>
+		<ItemForTranslation ItemName="8_bits_per_pixel_Color" ItemTranslation="8 bit per pixel modalitŕ colore"/>
+		<ItemForTranslation ItemName="16_bits_per_pixel_Color" ItemTranslation="16 bit per pixel modalitŕ colore"/>
+		<ItemForTranslation ItemName="24_bits_per_pixel_Color" ItemTranslation="24 bit per pixel modalitŕ colore"/>
+		<ItemForTranslation ItemName="Convert_Through_Wizard" ItemTranslation="Converti con il Wizard..."/>
+		<ItemForTranslation ItemName="Save_As_DOC" ItemTranslation="Salva nel formato DOC"/>
+		<ItemForTranslation ItemName="Save_As_RTF" ItemTranslation="Salva nel formato RTF"/>
+		<ItemForTranslation ItemName="Extract_Images" ItemTranslation="Estrai immagini"/>
+		<ItemForTranslation ItemName="Extract_Images_Through_Wizard" ItemTranslation="Estrai immagini con il Wizard..."/>
+		<!-- Wizard: -->
+		<ItemForTranslation ItemName="Browse" ItemTranslation="Sfoglia..."/>
+		<ItemForTranslation ItemName="Next &gt;" ItemTranslation="Prossimo &gt;"/>
+		<ItemForTranslation ItemName="Last &gt;&gt;" ItemTranslation="Ultimo &gt;&gt;"/>
+		<ItemForTranslation ItemName="&lt; Previous" ItemTranslation="&lt; Precedente"/>
+		<!-- Wizard: Layout nd Formatting page-->
+		<ItemForTranslation ItemName="Layout_and_Formatting" ItemTranslation="Impaginazione e formattazione"/>
+		<ItemForTranslation ItemName="Choose_Reconstruction_Mode" ItemTranslation="Scegliere la modalitŕ di ricostruzione piů idoena per questo file PDF:"/>
+		<!-- Wizard: Image Recovery page-->
+		<ItemForTranslation ItemName="Image_Recovery" ItemTranslation=" Gestione immagini"/>
+		<!-- Wizard: Char spacing page-->
+		<ItemForTranslation ItemName="Custom_Character_Spacing" ItemTranslation="Spaziature caratteri PDF personalizzata"/>
+		<ItemForTranslation ItemName="Custom_Character_Spacing_Prompt" ItemTranslation="Quando l'impaginazione rimane inalterata, č possibile mantenere la spaziatura e la dimensione dei caratteri del file PDF. L'opzione č ideale per mantenere l'esatta impaginazione ma non per apportare modifiche di rilievo al testo."/>
+                <!-- Wizard: Detect Tables page-->
+                <!--*** String To Translate ***--><ItemForTranslation ItemName="Custom_DetectTables_Spacing"                  ItemTranslation="Table Detection"/>
+                <!--*** String To Translate ***--><ItemForTranslation ItemName="Custom_Detect_Tables_Prompt"	            ItemTranslation="Table detection applies when page layout is recognized using flowing or continuous reconstruction mode. This option is ideal for text documents but not for brochures."/>
+		<!-- Wizard: Document Format and Output Path page-->
+		<ItemForTranslation ItemName="Document_Format" ItemTranslation="Formattazione documento e percorso di destinazione"/>
+		<ItemForTranslation ItemName="Document_Format_Prompt" ItemTranslation="Scegliere il formato del file di destinazione. Si ricorda che il testo non formattato (.txt) non č supportato per dati di formattazione e impaginazione complessi."/>
+		<ItemForTranslation ItemName="DOC_Format_Choice" ItemTranslation="Formato Microsoft Word binario .doc (supporto funzionalitŕ font incorporati)"/>
+		<ItemForTranslation ItemName="RTF_Format_Choice" ItemTranslation="Formato Rich Text Formato Microsoft Word (.rtf)"/>
+		<ItemForTranslation ItemName="TXT_Format_Choice" ItemTranslation="Testo UTF-8 non formattato (.txt)"/>
+		<ItemForTranslation ItemName="WORDML_Format_Choice" ItemTranslation="Formato Microsoft Word XML(.xml)"/>
+		<ItemForTranslation ItemName="DestinationPrompt" ItemTranslation="{n}Scegliere dove si desidera salvare i file di destinazione e indicare se si desidera aprire il documento in Microsoft Word dopo la conversione."/>
+		<ItemForTranslation ItemName="Save_File_To" ItemTranslation="Salva il file su:"/>
+		<ItemForTranslation ItemName="Open_For_Editing" ItemTranslation="Apri il documento per apportare modifiche dopo la conversione."/>
+		<!-- Wizard: Font Embedding/installing page-->
+		<ItemForTranslation ItemName="Embedding_Installing_Fonts" ItemTranslation="Incorporare e installare i font"/>
+		<ItemForTranslation ItemName="Embed_Font_Prompt" ItemTranslation="I file PDF possono contenere font non installati sul computer. E' possibile incorporare i font desiderati nel documento convertito qualora si abbia scelto il formato Microsoft Word binario doc nella schermata precedente del Wizard.{n}{n}. L'aggiunta di font aumenta le dimensioni del documento."/>
+		<ItemForTranslation ItemName="Install_Fonts_Prompt" ItemTranslation="{n}FI documenti PDF contenegono spesso font Windows non standard. E' possibile installare sul PC qualsiasi font di questo tipo dal file PDF anziché incorporarli nel documento convertito "/>
+		<!-- Wizard: Headers & footers page-->
+		<ItemForTranslation ItemName="HeadersAndFootersPrompt" ItemTranslation="{applicationname} puň recuperare ed eliminarere intestazioni o pié pagina. L'opzione č disponibile solo se si mantiene inalterata l'impaginazione."/>
+		<!-- Wizard: Finish: Convert Document page-->
+		<ItemForTranslation ItemName="FinishPage" ItemTranslation="Fine: Converti documento"/>
+		<ItemForTranslation ItemName="FinishPagePrompt" ItemTranslation="Le opzioni di conversione prescelte sono indicate qui sotto. Premere il pulsante Precedente per apportare modifiche.{n}Premere Fine per convertire."/>
+		<!-- Duplicate -->
+		<ItemForTranslation ItemName="FormatingMode:" ItemTranslation="Modalitŕ ricostruzione:"/>
+		<!-- Duplicate -->
+		<ItemForTranslation ItemName="Image_Recovery:" ItemTranslation="Recupero immagine:"/>
+		<ItemForTranslation ItemName="Character_Spacing:" ItemTranslation="Spaziatura carattere:"/>
+		<ItemForTranslation ItemName="Embed_Fonts:" ItemTranslation="Incorpora font:"/>
+		<ItemForTranslation ItemName="Install_Fonts:" ItemTranslation="Installa font:"/>
+		<ItemForTranslation ItemName="Page_Range" ItemTranslation="Selezione pagine da convertire:"/>
+		<ItemForTranslation ItemName="OutputPath:" ItemTranslation="Percorso di destinazione:"/>
+		<!-- Duplicate -->
+		<!-- New strings -->
+		<ItemForTranslation ItemName="Use_Short_Wizard" ItemTranslation="Visualizza soltanto l'ultima schermata in futuro. E' facile annullare questa opzione."/>
+		<ItemForTranslation ItemName="ShortWizard" ItemTranslation="Parametri di conversione"/>
+		<ItemForTranslation ItemName="ShortWizardPrompt" ItemTranslation="I parametri di conversione prescelti sono indicati qui sotto. Usare il pulsante attivazione Wizard per apportare modifiche oppure premere il pulsante Converti (&lt;enter&gt;) per procedere."/>
+		<ItemForTranslation ItemName="Run_Wizard" ItemTranslation="Attiva Wizard"/>
+		<ItemForTranslation ItemName="Convert" ItemTranslation="Converti"/>
+		<!-- Wizard: Finish -->
+		<ItemForTranslation ItemName="PreserveExactSpacing" ItemTranslation="Conserva l'esatta spaziatura caratteri "/>
+		<ItemForTranslation ItemName="RegularCharacterSpacing" ItemTranslation="Spaziatura caratteri normale."/>
+		<ItemForTranslation ItemName="EmbedNonStandardTrueType" ItemTranslation="Incorpora i font TrueType non-standard da PDF a doc. "/>
+		<ItemForTranslation ItemName="EmbedAllTrueTypeLong" ItemTranslation="Incorpora tutti i font TrueType da PDF a doc."/>
+		<ItemForTranslation ItemName="HeadersAndFooters:" ItemTranslation="Intestazione e pié pagina:"/>
+		<ItemForTranslation ItemName="DetectAndPreserveHF" ItemTranslation="Trova e mantieni inalterata l'intestazione e il pié pagina"/>
+		<ItemForTranslation ItemName="DetectAndRemoveHF" ItemTranslation="Trova ed elimina l'intestazione e il pié pagina"/>
+		<ItemForTranslation ItemName="InstallFontsTTandT1" ItemTranslation="Installa tutti i font TrueType e Type 1 incorporati nel file PDF ."/>
+		<ItemForTranslation ItemName="Frompage{1}topage{2}" ItemTranslation="Da pagina {1} a pagina {2}"/>
+		<!-- ui:dialogBox extractpath -->
+		<ItemForTranslation ItemName="extractpath_Image_Format_Output_Path" ItemTranslation="Formatta immagine e percorso di destinazione"/>
+		<ItemForTranslation ItemName="extractpath_choose_file_format" ItemTranslation="Scegliere il formato del file per le immagini estratte:"/>
+		<ItemForTranslation ItemName="extractpath_same_as_source_images" ItemTranslation="Identico a quello delle immagini di partenza"/>
+		<ItemForTranslation ItemName="extractpath_choose_path" ItemTranslation="{n}Scegliere il percorso in cui si desidera salvare le immagini :"/>
+		<ItemForTranslation ItemName="extractpath_save_to" ItemTranslation="Salva immagini su:"/>
+		<ItemForTranslation ItemName="extractpath_filepath" ItemTranslation="{n}{n}{n}{n}{n}il percorso del file deve essere una stringa vuota abbastanza ampia "/>
+		<!-- ui:dialogBox finishextract -->
+		<ItemForTranslation ItemName="finishextract_finish" ItemTranslation="Fine: Estrai immagini"/>
+		<ItemForTranslation ItemName="finishextract_description" ItemTranslation="Le opzioni di estrazione immagini prescelte sono indicate qui sotto. Premere il pulsante Precedente per apportare modifiche. Premere Fine per estrarre le immagini. "/>
+		<!-- Create Options -->
+		<ItemForTranslation ItemName="CreatePdfTitle" ItemTranslation="Crea PDF"/>
+		<ItemForTranslation ItemName="CreatePdfOptionsSection" ItemTranslation="Crea opzioni PDF"/>
+		<ItemForTranslation ItemName="CreatePdfOptionsSectionDescription" ItemTranslation="Configurazione selettiva delle particolari funzioni di creazione PDF."/>
+		<ItemForTranslation ItemName="EmbedAllFont" ItemTranslation="Incorpora tutti i font"/>
+		<ItemForTranslation ItemName="EmbedAllFontDescription" ItemTranslation="Incorpora tutti i font nel file PDF."/>
+		<ItemForTranslation ItemName="PasswordProtection" ItemTranslation="Passwords e protezione"/>
+		<ItemForTranslation ItemName="PasswordProtectionDescription" ItemTranslation="Configura le limitazioni di sicurezza dei file PDF."/>
+		<!-- Encryption level -->
+		<ItemForTranslation ItemName="EncryptionLevel" ItemTranslation="Livello di codifica"/>
+		<ItemForTranslation ItemName="EncryptionLevelDescription" ItemTranslation="La codifica predefinita sceglie l'opzione piů sicura: 128 bits RC4"/>
+		<ItemForTranslation ItemName="High (128-bit RC4)" ItemTranslation="Alta (128-bit RC4)"/>
+		<ItemForTranslation ItemName="Low (40-bit RC4)" ItemTranslation=" Bassa (40-bit RC4)"/>
+		<ItemForTranslation ItemName="EncryptionNone" ItemTranslation="Nessuna"/>
+		<ItemForTranslation ItemName="&lt;No password&gt;" ItemTranslation="&lt;Nessuna password&gt;"/>
+		<ItemForTranslation ItemName="&lt;PromptWhenSaving&gt;" ItemTranslation="&lt;Chiedi conferma al salvataggio&gt;"/>
+		<ItemForTranslation ItemName="&lt;SetPassword&gt;" ItemTranslation="&lt;Imposta password&gt;"/>
+		<!-- User password strings -->
+		<ItemForTranslation ItemName="PasswodForOpen" ItemTranslation="Password utente"/>
+		<ItemForTranslation ItemName="PasswodForOpenDescription" ItemTranslation=" Impostazione password utente (detta anche 'Password documento aperto') consente agli utenti di aprire il file previa digitazione della password. Per limitare l'accesso alle operazioni di stampa e modifica, utilizzare la password proprietario."/>
+		<ItemForTranslation ItemName="Require_User_Password" ItemTranslation="Richiedi password utente per aprire il documento"/>
+		<ItemForTranslation ItemName="User_Password:" ItemTranslation="Password utente:"/>
+		<ItemForTranslation ItemName="Repeat_User_Password:" ItemTranslation="Ripeti Password utente:"/>
+		<!-- Owner password strings -->
+		<ItemForTranslation ItemName="Permissions" ItemTranslation="Restrizioni di sicurezza PDF"/>
+		<ItemForTranslation ItemName="PermissionsDescription" ItemTranslation="Questi permessi limitano l'uso del file PDF da parte dell'utente."/>
+		<ItemForTranslation ItemName="PermissionsPassword" ItemTranslation="Password proprietario"/>
+		<ItemForTranslation ItemName="PermissionsPasswordDescription" ItemTranslation="Qualora si abbiano impostate limitazioni di sicurezza nel file PDF, č anche prevista la digitazione di una password proprietario (detta anche 'Password permessi'). Per aprire il file PDF, č possibile utilizzare la passoword utene o la password proprietario."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Use_Owner_Password" ItemTranslation="Use owner password to restrict printing, editing and extraction"/>
+		<ItemForTranslation ItemName="Owner_Password:" ItemTranslation="Password proprietario:"/>
+		<ItemForTranslation ItemName="Repeat_Owner_Password:" ItemTranslation="Digitare di nuovo la password titolare:"/>
+		<!-- Permissions modes -->
+		<ItemForTranslation ItemName="AllowPrinting" ItemTranslation="Consenti stampa"/>
+		<ItemForTranslation ItemName="AllowPrintingDescription" ItemTranslation=" Scegliere Sě per consentire a tutti gli utenti di stampare il file PDF, oppure No per consentire la astampa solo agli utenti che sono a conoscenza della password proprietario."/>
+		<ItemForTranslation ItemName="AllowChanging" ItemTranslation="Permetti esecuzione modifiche"/>
+		<ItemForTranslation ItemName="AllowChangingLong" ItemTranslation="Permetti esecuzione modifiche al contenuto"/>
+		<ItemForTranslation ItemName="AllowChangingDescription" ItemTranslation=" Scegliere Sě per consentire a tutti gli utenti di modificare il contenuto del file PDF, oppure No per consentirne la modifica solo agli utenti che sono a conoscenza della password proprietario."/>
+		<ItemForTranslation ItemName="AllowCopying" ItemTranslation="Permetti la copiatura"/>
+		<ItemForTranslation ItemName="AllowCopyingDescription" ItemTranslation=" Scegliere Sě per consentire a tutti gli utenti di copiare o estrarre il contenuto da un file PDF, oppure No per consentirlo solo agli utenti che sono a conoscenza della password proprietario."/>
+		<ItemForTranslation ItemName="AllowChangingComments" ItemTranslation="Permetti la digitazione di commenti"/>
+		<ItemForTranslation ItemName="AllowChangingCommentsLong" ItemTranslation="Permetti l'aggiunga o la modifica dei commenti "/>
+		<ItemForTranslation ItemName="AllowChangingCommentsDescription" ItemTranslation=" Scegliere Sě per consentire a tutti gli utenti di modificare o aggiungere osservazioni e creare campi nel file PDF, oppure No per consentirlo solo aglu utenti che sono a conoscenza della password proprietario. "/>
+		<!-- Acrobat plug-in messages (labels and menu items) -->
+		<ItemForTranslation ItemName="SC_TOOLBAR_TITLE" ItemTranslation="{applicationname}"/>
+		<ItemForTranslation ItemName="SC_BUTTON_LABEL" ItemTranslation="Apri con Word"/>
+		<ItemForTranslation ItemName="SC_BUTTON_TOOLTIP" ItemTranslation="Usa {applicationname} per convertire questo documento e aprirlo in Microsoft Word"/>
+		<ItemForTranslation ItemName="SC_MENUITEM_RUN" ItemTranslation="Apri con Microsoft Word"/>
+		<ItemForTranslation ItemName="SC_MENUITEM_ABOUT" ItemTranslation="Informazioni su {applicationname}..."/>
+		<!-- SolidConverterPDF plug-in messages -->
+		<ItemForTranslation ItemName="UnableAddToolbarToExcel" ItemTranslation=" Impossibile aggiungere i comandi di Solid Converter ad Excel."/>
+		<ItemForTranslation ItemName="UnableAddToolbarToPowerPoint" ItemTranslation=" Impossibile aggiungere i comandi di Solid Converter a PowerPoint."/>
+		<ItemForTranslation ItemName="NoWorkbooksOpen" ItemTranslation="Nessuna cartella di lavoro aperta."/>
+		<ItemForTranslation ItemName="NoPresentationsOpen" ItemTranslation="Nessuna presentazione aperta."/>
+		<ItemForTranslation ItemName="NoDocumentsOpen" ItemTranslation="Nessun documento aperto."/>
+		<ItemForTranslation ItemName="EmptyWorksheet" ItemTranslation="Non č possibile iniziare il processo di creazione PDF poiché {applicationname} non ha trovato nulla da stampare."/>
+		<ItemForTranslation ItemName="PrinterNotFound" ItemTranslation="Nessuna stampante Solid PDF Creator installata. Reinstallare {applicationname}."/>
+		<!-- Explorer Extensions -->
+		<ItemForTranslation ItemName="INFO_LOAD" ItemTranslation="{applicationname} converte file PDF in file Word. Per eseguire questa operazione, occorre prima caricare un file PDF."/>
+		<ItemForTranslation ItemName="TITLE_PROGRESS" ItemTranslation="{applicationname}"/>
+		<ItemForTranslation ItemName="WAIT_DOWNLOAD" ItemTranslation="Download del file PDF in corso..."/>
+		<!-- SpreadsheetML export filter -->
+		<ItemForTranslation ItemName="SpreadsheetML_Files_Filter" ItemTranslation="File Microsoft Excel XML (*.xml)"/>
+		<ItemForTranslation ItemName="Extract_Tables_To_Excel" ItemTranslation="Extract tables to Excel (Office XP or higher)"/>
+		<ItemForTranslation ItemName="TableNotFound" ItemTranslation="Impossibile trovare tabelle..."/>
+		<ItemForTranslation ItemName="NoTablesToExtract" ItemTranslation=" Nessuna tabella."/>
+		<ItemForTranslation ItemName="NoTablesToExtractDesc" ItemTranslation=" File ignorato: non sono state trovate tabelle da estrarre."/>
+		<!-- WordML export filter -->
+		<ItemForTranslation ItemName="WordML_Files_Filter" ItemTranslation="File Microsoft Word XML (*.xml)"/>
+		<ItemForTranslation ItemName="Save_As_WordML" ItemTranslation="Salva come Microsoft Word XML "/>
+		<!-- Solid PDF Creator -->
+		<ItemForTranslation ItemName="ToolTips801" ItemTranslation="Opzioni"/>
+		<ItemForTranslation ItemName="ToolTips802" ItemTranslation="Guida"/>
+		<ItemForTranslation ItemName="ToolTips803" ItemTranslation="Esci"/>
+		<ItemForTranslation ItemName="ToolTips800" ItemTranslation="Crea file PDF"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_1" ItemTranslation="Purchase your copy of {applicationname} now and receive..."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_2" ItemTranslation="- First-class customer support"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_3" ItemTranslation="- Service releases and upgrades"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_4" ItemTranslation="- Special offers and discounts"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_5" ItemTranslation="Click"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_6" ItemTranslation="Purchase"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Splash_7" ItemTranslation="to register {applicationname} today!"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_PROMPT_INFO" ItemTranslation="Prompt for document information"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_ENTER_UNLOCK" ItemTranslation="Enter Unlock Code"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Title" ItemTranslation="Title:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Subject" ItemTranslation="Subject:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Author" ItemTranslation="Author:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Keywords" ItemTranslation="Keywords:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Default_Document_information" ItemTranslation="Default document information"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Override" ItemTranslation="Override"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Skip" ItemTranslation="Skip"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Append" ItemTranslation="Append"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="AskIfExist" ItemTranslation="If file already exist do"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Color_Images" ItemTranslation="Color Images"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Color_Images_to_Grayscale" ItemTranslation="Convert color images to grayscale"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="CImages_Downsample" ItemTranslation="Downsample (DPI):"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="GImages_Downsample" ItemTranslation="Downsample (DPI):"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="MImages_Downsample" ItemTranslation="Downsample (DPI):"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Use_Original_DPI" ItemTranslation="Keep original DPI"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="CImages_Compression" ItemTranslation="Compression:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="GImages_Compression" ItemTranslation="Compression:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="MImages_Compression" ItemTranslation="Compression:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="CImages_Quality" ItemTranslation="Image Quality:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="GImages_Quality" ItemTranslation="Image Quality:"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Grayscale_Images" ItemTranslation="Grayscale Images"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Grayscale_Images_to_Monochrome" ItemTranslation="Convert grayscale images to monochrome"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Monochrome_Images" ItemTranslation="Monochrome Images"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Descr_None" ItemTranslation="No image compression, no image resampling, embedded fonts."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Descr_Web" ItemTranslation="Ideal for screen display. (Lossy compression, image resampling, no embedded fonts.)"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Descr_Draftquality" ItemTranslation="Ideal for drafts or low-resolution print jobs. (No resampling, lossy compression, no embedded fonts.)"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Descr_Professional" ItemTranslation="Ideal for high-quality print jobs. (No resampling, lossless compression, all fonts embedded.)"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Descr_Custom2" ItemTranslation="Select your own optimization settings."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Web" ItemTranslation="Web"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Draftquality" ItemTranslation="Draft quality"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Professional" ItemTranslation="Professional quality"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Settings" ItemTranslation="Settings"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Main_PDF_Advanced_Description" ItemTranslation="Select the optimization method that suits your requirements."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Grayscale" ItemTranslation="Grayscale"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Close_Progress" ItemTranslation="Close progress window when finished"/>
+		<ItemForTranslation ItemName="Font_List" ItemTranslation="Elenco tipi di carattere"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_space" ItemTranslation=" {n}"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Never_Font" ItemTranslation="Embed none"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Never_Font_List" ItemTranslation="Never Embed"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Embed_Font" ItemTranslation="Embed all"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Always_Font_List" ItemTranslation="Always Embed"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Add_Font" ItemTranslation="Add &gt;"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Remove_Font" ItemTranslation="&lt; Remove"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Subset" ItemTranslation="Subset embedded fonts when less than"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Characters_Persents" ItemTranslation="% of characters used"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Embed_Fail" ItemTranslation="If embedding fails:"/>
+		<ItemForTranslation ItemName="PDF_Setup" ItemTranslation="Configurazione PDF"/>
+		<ItemForTranslation ItemName="_Advanced" ItemTranslation="Compressione"/>
+		<!-- ENCRYPTION PDF DIALOAG -->
+		<ItemForTranslation ItemName="Encrypt_Level_Static" ItemTranslation="Livello di crittografia:"/>
+		<ItemForTranslation ItemName="128bit" ItemTranslation="Alta (RC4 a 128 bit) - Acrobat 5.0 e versioni successive"/>
+		<ItemForTranslation ItemName="40bit" ItemTranslation="Bassa (RC4 a 40 bit) - Acrobat 3.0 e versioni successive"/>
+		<ItemForTranslation ItemName="_Prompt" ItemTranslation="Prompt"/>
+		<ItemForTranslation ItemName="OpenPasswordsMustMatch" ItemTranslation="La password utente di conferma non corrisponde."/>
+		<ItemForTranslation ItemName="OpenPasswordMustBePresent" ItemTranslation="Č stata selezionata l'opzione 'Require user password to open the document' (Richiedi password utente per aprire il documento), tuttavia il campo 'User Password' (Password utente) č vuoto. Deselezionare questa opzione oppure immettere una password."/>
+		<ItemForTranslation ItemName="PermissionPasswordsMustMatch" ItemTranslation="La password proprietario di conferma non corrisponde."/>
+		<ItemForTranslation ItemName="PermissionPasswordMustBePresent" ItemTranslation="Č stata selezionata l'opzione 'Use owner password to restrict printing, editing and extraction' (Utilizza password proprietario per limitare la stampa, la modifica e l'estrazione), tuttavia il campo 'Owner Password' (Password proprietario) č vuoto. Deselezionare questa opzione oppure immettere una password."/>
+		<ItemForTranslation ItemName="PasswordMustBePresent" ItemTranslation="Per applicare le impostazioni di sicurezza, impostare una password utente o una password proprietario."/>
+		<ItemForTranslation ItemName="PasswordsMustBeDiffered" ItemTranslation="Le password utente e proprietario non devono coincidere."/>
+		<!--    PDF OPTIONS -->
+		<ItemForTranslation ItemName="_Encryption" ItemTranslation="Sicurezza"/>
+		<ItemForTranslation ItemName="Pdf_Encrypt_Dialog" ItemTranslation="Sicurezza"/>
+		<ItemForTranslation ItemName="_Save" ItemTranslation="Salva"/>
+		<ItemForTranslation ItemName="_PDFSavePageDlg" ItemTranslation="Salva"/>
+		<ItemForTranslation ItemName="_High" ItemTranslation="Alta"/>
+		<ItemForTranslation ItemName="_Medium" ItemTranslation="Media"/>
+		<ItemForTranslation ItemName="_Low" ItemTranslation="Bassa"/>
+		<ItemForTranslation ItemName="The_Lowest" ItemTranslation="La piů bassa"/>
+		<ItemForTranslation ItemName="_Custom" ItemTranslation="Personalizzata"/>
+		<ItemForTranslation ItemName="Ask_Fname" ItemTranslation="Richiedi il nome del file di destinazione"/>
+		<ItemForTranslation ItemName="Predefine_Fname" ItemTranslation="Utilizza il nome di file di destinazione predefinito"/>
+		<ItemForTranslation ItemName="_Path" ItemTranslation="Cartella di destinazione:"/>
+		<ItemForTranslation ItemName="_Browse" ItemTranslation="Sfoglia"/>
+		<ItemForTranslation ItemName="File_Name" ItemTranslation="Nome file:"/>
+		<ItemForTranslation ItemName="_Macro" ItemTranslation="Modifica"/>
+		<ItemForTranslation ItemName="_Example" ItemTranslation="Esempio:"/>
+		<ItemForTranslation ItemName="Append_Pages_to_Existing_File" ItemTranslation="Accoda pagine a file esistente"/>
+		<ItemForTranslation ItemName="Document_Name" ItemTranslation="Nome documento di origine"/>
+		<ItemForTranslation ItemName="_Date" ItemTranslation="Data corrente"/>
+		<ItemForTranslation ItemName="_Time" ItemTranslation="Ora corrente"/>
+		<ItemForTranslation ItemName="_Invalid_Target_Folder" ItemTranslation="Cartella di destinazione non valida"/>
+		<ItemForTranslation ItemName="Source_Document_Name" ItemTranslation="Nome documento di origine"/>
+		<ItemForTranslation ItemName="Current_Date" ItemTranslation="Data corrente"/>
+		<ItemForTranslation ItemName="Current_Time" ItemTranslation="Ora corrente"/>
+		<ItemForTranslation ItemName="_PDFImagesDlg" ItemTranslation="Opzioni immagine per il formato PDF"/>
+		<ItemForTranslation ItemName="Use_original" ItemTranslation="Utilizza DPI originali"/>
+		<ItemForTranslation ItemName="_DPI" ItemTranslation="Utilizza DPI:"/>
+		<ItemForTranslation ItemName="_Monochrome" ItemTranslation="Converti immagini a colore (piů grandi) in immagini monocromatiche (piů piccole)"/>
+		<ItemForTranslation ItemName="Use_Compression_Encode" ItemTranslation="Utilizza compressione:"/>
+		<ItemForTranslation ItemName="_None" ItemTranslation="Nessuna"/>
+		<ItemForTranslation ItemName="_ASCIIHexEncode" ItemTranslation="Codifica ASCII esadecimale "/>
+		<ItemForTranslation ItemName="_LZWEncode" ItemTranslation="Codifica LZW"/>
+		<ItemForTranslation ItemName="_FlateEncode" ItemTranslation="Codifica Flate"/>
+		<ItemForTranslation ItemName="_ASCII85Encode" ItemTranslation="Codifica ASCII 85"/>
+		<ItemForTranslation ItemName="_RunLengthEncode" ItemTranslation="Codifica RLE (Run Length Encode)"/>
+		<ItemForTranslation ItemName="_CCITTFaxEncode" ItemTranslation="Codifica CCITT Fax"/>
+		<ItemForTranslation ItemName="_JBIG2Encode" ItemTranslation="Codifica JBIG2"/>
+		<ItemForTranslation ItemName="_DCTEncode" ItemTranslation="Codifica DCT"/>
+		<ItemForTranslation ItemName="_J2KEncode" ItemTranslation="Codifica J2K"/>
+		<ItemForTranslation ItemName="_PDFFontsDlg" ItemTranslation="Opzioni di tipo di carattere per il formato PDF"/>
+		<ItemForTranslation ItemName="Font_Embedding" ItemTranslation="Utilizza incorporamento dei tipi di carattere"/>
+		<ItemForTranslation ItemName="_Never" ItemTranslation="Non incorporare mai i tipi di carattere"/>
+		<ItemForTranslation ItemName="_SubSet" ItemTranslation="Salva sottoinsieme di tipi di carattere"/>
+		<ItemForTranslation ItemName="_All" ItemTranslation="Tutti"/>
+		<ItemForTranslation ItemName="Never_Embed_Fonts" ItemTranslation="Non incorporare mai i tipi di carattere"/>
+		<ItemForTranslation ItemName="_CMap" ItemTranslation="CMap"/>
+		<ItemForTranslation ItemName="Compression_Select" ItemTranslation="Livello di dettaglio:"/>
+		<ItemForTranslation ItemName="Compression_Description" ItemTranslation="Descrizione livello di dettaglio"/>
+		<ItemForTranslation ItemName="_Fonts" ItemTranslation="Opzioni di tipi di carattere"/>
+		<ItemForTranslation ItemName="_Images" ItemTranslation="Opzioni immagine"/>
+		<ItemForTranslation ItemName="Descr_High" ItemTranslation="Mantiene il modello di colore e la compressione (DPI) dell'immagine originale."/>
+		<ItemForTranslation ItemName="Descr_Medium" ItemTranslation="Modello di colore originale per le immagini. Diminuzione del valore dei punti per pollice (DPI) dell'immagine"/>
+		<ItemForTranslation ItemName="Descr_Low" ItemTranslation="Utilizza un modello di colore monocromatico, tuttavia mantiene la compressione (DPI) dell'immagine originale."/>
+		<ItemForTranslation ItemName="Descr_TheLowest" ItemTranslation="Modello di colore monocromatico per immagini. Diminuzione del valore dei punti per pollice (DPI) dell'immagine"/>
+		<ItemForTranslation ItemName="Descr_Custom" ItemTranslation="Fare clic sul pulsante sottostante per selezionare le opzioni per l'immagine."/>
+		<ItemForTranslation ItemName="_KeepOpen" ItemTranslation="Mantieni aperto"/>
+		<ItemForTranslation ItemName="_Details" ItemTranslation="Mantieni aperto"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_PROMPT_FOR_PASSWORD" ItemTranslation="Prompt for password and security settings"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_OPEN_PDF_FILE" ItemTranslation="Open converted file"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="PrintNotAvailable" ItemTranslation="This functionality is available only in professional version"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="TrialNotFullConvertionDescription" ItemTranslation="Thank you for trying Solid Converter PDF. The trial version of this product only converts 10% of your document, with a 10 page maximum."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="font_cannot_be_embedded" ItemTranslation="font cannot be embedded"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="font_will_be_embedded" ItemTranslation="font will be embedded"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="font_as_rasters" ItemTranslation="font cannot be created{n}All glyphs will be representd as rasters"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="font_conversion_error" ItemTranslation="font cannot be created{n}Job is canceled"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Warn_and_continue" ItemTranslation="Warn and continue"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Ignore" ItemTranslation="Ignore"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Cancel_job" ItemTranslation="Cancel job"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Folder" ItemTranslation="Folder"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Font_Lists" ItemTranslation="Font Lists"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="NoImagesToExtract" ItemTranslation="Image not found"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="NoImagesToExtractDesc" ItemTranslation="File skipped: no image were found to extract"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_CREATE_SUCCESS" ItemTranslation="File conversion successful."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Creating_PDF..." ItemTranslation="Creating PDF..."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="AllowCopyingLong" ItemTranslation="Allow copying and extraction of contents"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Encryption_Level" ItemTranslation="Encryption Level"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="User_Options" ItemTranslation="User Options"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Owner_Options" ItemTranslation="Owner Options"/>
+		<ItemForTranslation ItemName="_PDFAdvancedPageDlg" ItemTranslation="Compressione"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Recent_Folder" ItemTranslation="Recent Folder"/>
+			<!--*** Replace Images Dialog Strings ***-->
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="CompleteReplaceFolder"		ItemTranslation="Completely replace folder content?"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="UseAnotherFolder"		ItemTranslation="Create or select another folder?"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="OverrideFolder" 		ItemTranslation="Override existing images with the same name and add new images to the folder?"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="ReplaceImageOnExtraction"	ItemTranslation="The folder {1} already exists.{n}Do you want to: "/>
+
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="ConversionOptions"	ItemTranslation="Conversion Settings"/>
+
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Form_Name" 				ItemTranslation="Form Name"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Width_x_Height" 			ItemTranslation="Width x Height"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Units" 					ItemTranslation="Units"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_mm" 						ItemTranslation="mm"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Invalid_Form_name" 		ItemTranslation="Invalid Form name"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="_Already_exists" 			ItemTranslation="The form already exists"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="Automatic_Enc" 			ItemTranslation="Automatic"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="CCITTFaxEncode_Group3"		ItemTranslation="CCITTFaxEncode, Group 3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="CCITTFaxEncode_Group4" 		ItemTranslation="CCITTFaxEncode, Group 4"/>
+
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Add"             ItemTranslation="Add"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Edit"            ItemTranslation="Edit"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Remove"          ItemTranslation="Remove"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="Page_Orientation" ItemTranslation="Orientation:"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="Custom_Forms"     ItemTranslation="Custom Forms"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Portrait"        ItemTranslation="Portrait"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="_Landscape"       ItemTranslation="Landscape"/>
+
+
+
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__10x11" ItemTranslation="10x11"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__10x14" ItemTranslation="10x14"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__11 x 17" ItemTranslation="11 x 17"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__12x11" ItemTranslation="12x11"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__15x11" ItemTranslation="15x11"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__6 3/4 Envelope" ItemTranslation="6 3/4 Envelope"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__92 x 92" ItemTranslation="92 x 92"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__9x11" ItemTranslation="9x11"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A0" ItemTranslation="A0"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A1" ItemTranslation="A1"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A2" ItemTranslation="A2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A3" ItemTranslation="A3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A3 Extra" ItemTranslation="A3 Extra"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A3 Rotated" ItemTranslation="A3 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A4" ItemTranslation="A4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A4 Extra" ItemTranslation="A4 Extra"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A4 Plus" ItemTranslation="A4 Plus"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A4 Rotated" ItemTranslation="A4 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A5" ItemTranslation="A5"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A5 Extra" ItemTranslation="A5 Extra"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A5 Rotated" ItemTranslation="A5 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A6" ItemTranslation="A6"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__A6 Rotated" ItemTranslation="A6 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ANSI C" ItemTranslation="ANSI C"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ANSI D" ItemTranslation="ANSI D"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ANSI E" ItemTranslation="ANSI E"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ANSI F" ItemTranslation="ANSI F"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH A" ItemTranslation="ARCH A"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH B" ItemTranslation="ARCH B"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH C" ItemTranslation="ARCH C"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH D" ItemTranslation="ARCH D"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH E" ItemTranslation="ARCH E"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH E1" ItemTranslation="ARCH E1"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH E2" ItemTranslation="ARCH E2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ARCH E3" ItemTranslation="ARCH E3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B4 (ISO)" ItemTranslation="B4 (ISO)"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B4 (JIS)" ItemTranslation="B4 (JIS)"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B4 (JIS) Rotated" ItemTranslation="B4 (JIS) Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B5 (ISO) Extra" ItemTranslation="B5 (ISO) Extra"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B5 (JIS)" ItemTranslation="B5 (JIS)"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B5 (JIS) Rotated" ItemTranslation="B5 (JIS) Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B6 (JIS)" ItemTranslation="B6 (JIS)"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__B6 (JIS) Rotated" ItemTranslation="B6 (JIS) Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__C5" ItemTranslation="C5"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Double Japan Postcard Rotated" ItemTranslation="Double Japan Postcard Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope" ItemTranslation="Envelope"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope #10" ItemTranslation="Envelope #10"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope #11" ItemTranslation="Envelope #11"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope #12" ItemTranslation="Envelope #12"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope #14" ItemTranslation="Envelope #14"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope #9" ItemTranslation="Envelope #9"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope B5" ItemTranslation="Envelope B5"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope B6" ItemTranslation="Envelope B6"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope C3" ItemTranslation="Envelope C3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope C4" ItemTranslation="Envelope C4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope C5" ItemTranslation="Envelope C5"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope C6" ItemTranslation="Envelope C6"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope C65" ItemTranslation="Envelope C65"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope DL" ItemTranslation="Envelope DL"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope Invite" ItemTranslation="Envelope Invite"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Envelope Monarch" ItemTranslation="Envelope Monarch"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Executive" ItemTranslation="Executive"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Folio" ItemTranslation="Folio"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__German Std Fanfold" ItemTranslation="German Std Fanfold"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ISO A1 594 x 841 mm" ItemTranslation="ISO A1 594 x 841 mm"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ISO B1" ItemTranslation="ISO B1"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ISO B2" ItemTranslation="ISO B2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ISO B4" ItemTranslation="ISO B4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__ISO B5" ItemTranslation="ISO B5"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japan Envelope Chou #3 Rotated" ItemTranslation="Japan Envelope Chou #3 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japan Envelope Chou #4 Rotated" ItemTranslation="Japan Envelope Chou #4 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japan Envelope Kaku #2 Rotated" ItemTranslation="Japan Envelope Kaku #2 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japan Envelope Kaku #3 Rotated" ItemTranslation="Japan Envelope Kaku #3 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japan Envelope You #4" ItemTranslation="Japan Envelope You #4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japan Envelope You #4 Rotated" ItemTranslation="Japan Envelope You #4 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Double Postcard" ItemTranslation="Japanese Double Postcard"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Envelope Chou #3" ItemTranslation="Japanese Envelope Chou #3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Envelope Chou #4" ItemTranslation="Japanese Envelope Chou #4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Envelope Kaku #2" ItemTranslation="Japanese Envelope Kaku #2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Envelope Kaku #3" ItemTranslation="Japanese Envelope Kaku #3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Postcard" ItemTranslation="Japanese Postcard"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Japanese Postcard Rotated" ItemTranslation="Japanese Postcard Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__JIS B0" ItemTranslation="JIS B0"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__JIS B1" ItemTranslation="JIS B1"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__JIS B2" ItemTranslation="JIS B2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__JIS B3" ItemTranslation="JIS B3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__JIS B4" ItemTranslation="JIS B4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Ledger" ItemTranslation="Ledger"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Legal" ItemTranslation="Legal"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Legal Extra" ItemTranslation="Legal Extra"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Letter" ItemTranslation="Letter"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Letter Extra" ItemTranslation="Letter Extra"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Letter Plus" ItemTranslation="Letter Plus"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Letter Rotated" ItemTranslation="Letter Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Oversize A0" ItemTranslation="Oversize A0"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Oversize A1" ItemTranslation="Oversize A1"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Oversize A2" ItemTranslation="Oversize A2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC 16K" ItemTranslation="PRC 16K"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC 16K Rotated" ItemTranslation="PRC 16K Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC 32K" ItemTranslation="PRC 32K"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC 32K Rotated" ItemTranslation="PRC 32K Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC 32K(Big)" ItemTranslation="PRC 32K(Big)"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC 32K(Big) Rotated" ItemTranslation="PRC 32K(Big) Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #1" ItemTranslation="PRC Envelope #1"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #1 Rotated" ItemTranslation="PRC Envelope #1 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #10 Rotated" ItemTranslation="PRC Envelope #10 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #2" ItemTranslation="PRC Envelope #2"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #2 Rotated" ItemTranslation="PRC Envelope #2 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #3" ItemTranslation="PRC Envelope #3"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #4" ItemTranslation="PRC Envelope #4"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #4 Rotated" ItemTranslation="PRC Envelope #4 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #5 Rotated" ItemTranslation="PRC Envelope #5 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #6" ItemTranslation="PRC Envelope #6"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #6 Rotated" ItemTranslation="PRC Envelope #6 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #7" ItemTranslation="PRC Envelope #7"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #7 Rotated" ItemTranslation="PRC Envelope #7 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #8" ItemTranslation="PRC Envelope #8"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #8 Rotated" ItemTranslation="PRC Envelope #8 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__PRC Envelope #9 Rotated" ItemTranslation="PRC Envelope #9 Rotated"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Quarto" ItemTranslation="Quarto"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Screen" ItemTranslation="Screen"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Statement" ItemTranslation="Statement"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Super A" ItemTranslation="Super A"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__Super B" ItemTranslation="Super B"/>
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="sp__US Std Fanfold" ItemTranslation="US Std Fanfold"/>
+
+</LanguageOptions>
+</Root>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+	<!--    <LanguageOptions xmlns="x-schema:LanguageSchema.xml" Name="English"> -->
+	<LanguageOptions Name="English">
+		<!-- Generic -->
+		<ItemForTranslation ItemName="OK" ItemTranslation="ОК"/>
+		<ItemForTranslation ItemName="Cancel" ItemTranslation="Отмена"/>
+		<ItemForTranslation ItemName="Yes" ItemTranslation="Да"/>
+		<ItemForTranslation ItemName="Yes to All" ItemTranslation="Да для всех"/>
+        <ItemForTranslation ItemName="No_to_All"         ItemTranslation="Нет для всех"/>
+		<ItemForTranslation ItemName="No" ItemTranslation="Нет"/>
+		<ItemForTranslation ItemName="true" ItemTranslation="true"/>
+		<ItemForTranslation ItemName="false" ItemTranslation="false"/>
+		<ItemForTranslation ItemName="Next &gt;&gt;" ItemTranslation="Дальше &gt;&gt;"/>
+		<ItemForTranslation ItemName="&lt;&lt; Previous" ItemTranslation="&lt;&lt; Назад"/>
+		<ItemForTranslation ItemName="Finish" ItemTranslation="Завершить"/>
+		<ItemForTranslation ItemName="Close" ItemTranslation="Закрыть"/>
+		<ItemForTranslation ItemName="$applicationname Properties" ItemTranslation="{applicationname} Параметры"/>
+		<ItemForTranslation ItemName="Open $applicationname" ItemTranslation="Запустить {applicationname}"/>
+		<ItemForTranslation ItemName="Exit" ItemTranslation="Выйти"/>
+		<ItemForTranslation ItemName="PrnScr" ItemTranslation="Print Screen"/>
+		<ItemForTranslation ItemName="None" ItemTranslation="None"/>
+		<!-- system info strings used for sending email to customer support -->
+		<ItemForTranslation ItemName="Cannot launch your email client." ItemTranslation="Невозможно запустить почтовый клиент."/>
+		<ItemForTranslation ItemName="$applicationname Support Info: " ItemTranslation="{applicationname} Полезная информация: "/>
+		<ItemForTranslation ItemName="&lt;Enter details of the issue here&gt;" ItemTranslation="&lt;Введите данные&gt;"/>
+		<ItemForTranslation ItemName="Product" ItemTranslation="Продукт"/>
+		<ItemForTranslation ItemName="Registered User" ItemTranslation="Имя пользователя"/>
+		<ItemForTranslation ItemName="Registered Email" ItemTranslation="Почтовый адрес"/>
+		<ItemForTranslation ItemName="Registered Org" ItemTranslation="Организация"/>
+		<ItemForTranslation ItemName="Operating System" ItemTranslation="Операционная система"/>
+		<ItemForTranslation ItemName="System Memory" ItemTranslation="Системная Память"/>
+		<ItemForTranslation ItemName="Current Locale" ItemTranslation="Местоположение пользователя"/>
+		<ItemForTranslation ItemName="Current Resolution" ItemTranslation="Текущее Разрешение"/>
+		<ItemForTranslation ItemName="Current Colors" ItemTranslation="Текущие Цвета"/>
+		<ItemForTranslation ItemName="MDAC Version" ItemTranslation="Версия MDAC "/>
+		<ItemForTranslation ItemName="My Documents Folder" ItemTranslation="Мои Документы"/>
+		<ItemForTranslation ItemName="My Pictures Folder" ItemTranslation="Мои Рисунки"/>
+		<ItemForTranslation ItemName="User Temp Folder" ItemTranslation="Временная Папка пользователя"/>
+		<ItemForTranslation ItemName="User App Data Folder" ItemTranslation="Папка Данных пользователя"/>
+		<ItemForTranslation ItemName="$applicationname Data Folder" ItemTranslation="{applicationname} Папка Данных"/>
+		<ItemForTranslation ItemName="$applicationname Folder" ItemTranslation="{applicationname} Папка"/>
+		<ItemForTranslation ItemName="Microsoft Office" ItemTranslation="Microsoft Office"/>
+		<ItemForTranslation ItemName="Adobe Acrobat" ItemTranslation="Adobe Acrobat"/>
+		<!-- strings for the CFileEditCtrl browse to folder control -->
+		<ItemForTranslation ItemName="All Files (*.*)|*.*||" ItemTranslation="Все Файлы (*.*)|*.*||"/>
+		<ItemForTranslation ItemName="Browse" ItemTranslation="Поиск"/>
+		<ItemForTranslation ItemName="Browse for File" ItemTranslation="Поиск файла"/>
+		<ItemForTranslation ItemName="Enter an existing file." ItemTranslation="Введите существующий файл."/>
+		<ItemForTranslation ItemName="%s does not exist." ItemTranslation="{1} не существует."/>
+		<ItemForTranslation ItemName="%s is not a file." ItemTranslation="{1} не файл."/>
+		<ItemForTranslation ItemName="%s is not a folder." ItemTranslation="{1} не папка."/>
+		<!-- product unlock dialogbox -->
+		<ItemForTranslation ItemName="Invalid user name" ItemTranslation="Недопустимое имя пользователя."/>
+		<ItemForTranslation ItemName="Invalid email address" ItemTranslation="Недопустимый почтовый адрес."/>
+		<ItemForTranslation ItemName="Unlock $applicationname" ItemTranslation="Зарегистрировать {applicationname}"/>
+		<ItemForTranslation ItemName="Register $applicationname" ItemTranslation="Зарегистрировать {applicationname}"/>
+		<ItemForTranslation ItemName="Successfully_Unlocked" ItemTranslation="Приложение {applicationname} успешно разблокировано. Спасибо за регистрацию {applicationname}."/>
+		<ItemForTranslation ItemName="Successfully_Registered" ItemTranslation="Приложение {applicationname} успешно зарегистрировано. Спасибо за регистрацию {applicationname}."/>
+		<ItemForTranslation ItemName="Invalid unlock code" ItemTranslation="Неправильный разблокировочный код"/>
+		<ItemForTranslation ItemName="Invalid registration code" ItemTranslation="Неправильный регистрационный код"/>
+		<ItemForTranslation ItemName="day" ItemTranslation="день"/>
+		<ItemForTranslation ItemName="days" ItemTranslation="дней"/>
+		<ItemForTranslation ItemName="Evaluate" ItemTranslation="Посмотреть"/>
+		<ItemForTranslation ItemName="RunRadio" ItemTranslation="Запустить"/>
+		<ItemForTranslation ItemName="EvaluateDescr" ItemTranslation="Я хочу предварительно ознакомиться с {applicationname} (для оценки осталось {1} {2})."/>
+		<ItemForTranslation ItemName="RunUnregisteredDescr" ItemTranslation="Я хочу продолжить работать незарегистрированным (до регистрации осталось {1} {2})"/>
+		<ItemForTranslation ItemName="Unlock" ItemTranslation="Разблокировать"/>
+		<ItemForTranslation ItemName="RegisterRadio" ItemTranslation="Зарегистрировать"/>
+		<ItemForTranslation ItemName="UnlocklDescr" ItemTranslation="У меня уже есть лицензионный код, и я хочу разблокировать {applicationname}."/>
+		<ItemForTranslation ItemName="RegisterDescr" ItemTranslation="У меня уже есть регистрационный код, и я хочу зарегистрировать {applicationname}."/>
+		<ItemForTranslation ItemName="Purchase" ItemTranslation="Приобрести"/>
+		<ItemForTranslation ItemName="FetchCodeRadio" ItemTranslation="Получить код"/>
+		<ItemForTranslation ItemName="PurchaseDescr" ItemTranslation="Я хочу купить лицензионный код для {applicationname}."/>
+		<ItemForTranslation ItemName="GetRegitrationCodeDescr" ItemTranslation="Я хочу посетить {applicationname} интернет страницу чтобы получить регистрационный код."/>
+		<ItemForTranslation ItemName="TrialStatusString" ItemTranslation="Вы запустили пробную версию. Пожалуйста, зарегистируйтесь. "/>
+		<ItemForTranslation ItemName="TrialExpiredStatusString" ItemTranslation="Время работы пробной версии истекло. Пожалуйста, зарегистрируйтесь."/>
+		<ItemForTranslation ItemName="RegistrationStatusString" ItemTranslation="Вы еще не зарегистрировали {applicationname} - пожалуйста зарегистрируйтесь."/>
+		<ItemForTranslation ItemName="RegistrationExpiredStatusString" ItemTranslation="Время незарегистрированной копии истекло. Пожалуйста, зарегистрируйтесь."/>
+		<!-- generic dialogs -->
+		<ItemForTranslation ItemName="EMail" ItemTranslation="Почтовый адрес"/>
+		<ItemForTranslation ItemName="Name" ItemTranslation="Имя"/>
+		<ItemForTranslation ItemName="Organization" ItemTranslation="Организация"/>
+		<ItemForTranslation ItemName="Unlock Code" ItemTranslation="Разблокировочный код"/>
+		<ItemForTranslation ItemName="Registration_Code" ItemTranslation="Регистрационный код"/>
+		<ItemForTranslation ItemName="Click here to purchase an unlock code!" ItemTranslation="Щелкните здесь, чтобы получить разблокировочный код!"/>
+		<ItemForTranslation ItemName="Click_here_to_fetch_a_registration_code!" ItemTranslation=" Щелкните здесь, чтобы получить регистрационный код!"/>
+		<ItemForTranslation ItemName="About $applicationname" ItemTranslation="О {applicationname}"/>
+		<ItemForTranslation ItemName="$applicationname    Version: $version" ItemTranslation="{applicationnameregistered}    Версия: {version}"/>
+		<ItemForTranslation ItemName="$applicationname HTML documentation:" ItemTranslation="{applicationname} HTML Справка:"/>
+		<ItemForTranslation ItemName="Register your copy of $applicationname" ItemTranslation="Зарегистрируйте вашу копию {applicationname}"/>
+		<ItemForTranslation ItemName="Buy Now" ItemTranslation="Купить!"/>
+		
+        <ItemForTranslation ItemName="UpgradeVersionDescr"						ItemTranslation="Обновлять всегда до {applicationname} v2"/>
+		
+        <ItemForTranslation ItemName="UpgradeVersionBtn"							ItemTranslation="Обновить сейчас"/>
+		
+		<ItemForTranslation ItemName="Documentation" ItemTranslation="Документация"/>
+		<ItemForTranslation ItemName="System information and email support:" ItemTranslation="Системная информация и почтовая поддержка:"/>
+		<ItemForTranslation ItemName="Support" ItemTranslation="Поддержка"/>
+		<ItemForTranslation ItemName="Acknowledgement of open source efforts:" ItemTranslation="Отзывы:"/>
+		<ItemForTranslation ItemName="Credits" ItemTranslation="Открытый код"/>
+		<ItemForTranslation ItemName="I wish to evaluate $applicationname ({1} {2} remaining for evaluation)" ItemTranslation="Я хочу предварительно ознакомиться с {applicationname} ({1} {2} )"/>
+		<ItemForTranslation ItemName="I already have a license code and would like to unlock $applicationname" ItemTranslation="У меня уже есть лицензионный код и хочу разблокировать {applicationname}"/>
+		<ItemForTranslation ItemName="I wish to purchase a license code for $applicationname" ItemTranslation="Я хочу заплатить за лицензионный код для  {applicationname}"/>
+		<!-- support dialog -->
+		<ItemForTranslation ItemName="Support Info: $applicationname" ItemTranslation="Информация о поддержкe: {applicationname}"/>
+		<ItemForTranslation ItemName="SupportDialogStatic" ItemTranslation="Эта информация может быть полезной, если у вас есть проблемы с использованием {applicationname}. Щелкните кнопку [Почтовый адрес], чтобы открыть эту информацию в вашем почтовом клиенте и послать ее в службу поддержки, или скопируйте информацию из окна внизу в сообщение."/>
+		<!-- warning dialog -->
+		<ItemForTranslation ItemName="WarningDlg_Title" ItemTranslation="{applicationname} предупреждение"/>
+		<ItemForTranslation ItemName="dont_show_the_warning_again" ItemTranslation="Больше не показывать это предупреждение."/>
+		<!-- password dialog -->
+		<ItemForTranslation ItemName="Password:" ItemTranslation="Пароль:"/>
+		<ItemForTranslation ItemName="Repeat_Password:" ItemTranslation="Повторите Пароль:"/>
+        <ItemForTranslation ItemName="OpenPasswordsMustMatch"   			ItemTranslation="Пароли для открытия должны совпадать."/>
+        <ItemForTranslation ItemName="PermissionPasswordsMustMatch"   		ItemTranslation="Пароли владельца должны совпадать."/>
+        <ItemForTranslation ItemName="PasswordsMustMatch"   				ItemTranslation="Пароли должны совпадать"/>
+		
+		<ItemForTranslation ItemName="&lt;Browse&gt;" ItemTranslation="&lt;Просмотр&gt;"/>
+		<ItemForTranslation ItemName="&lt;SourceFolder&gt;" ItemTranslation="&lt;Исходная Папка&gt;"/>
+		<ItemForTranslation ItemName="&lt;RecentFolder&gt;" ItemTranslation="&lt;Последняя Папка&gt;"/>
+
+		<ItemForTranslation ItemName="IOFileLocked" ItemTranslation="Ошибка вывода."/>
+		<ItemForTranslation ItemName="IOFileLockedDesc" ItemTranslation="Невозможно записать данные в файл."/>
+		<ItemForTranslation ItemName="Open_For_Editing:" ItemTranslation="Открывать документ после преобразования:"/>
+
+        <!-- Language list -->
+        <ItemForTranslation ItemName="en"                   ItemTranslation="English"/>
+        <ItemForTranslation ItemName="ru"                   ItemTranslation="Russian"/>
+        <ItemForTranslation ItemName="de"                   ItemTranslation="German"/>
+        <ItemForTranslation ItemName="ja"                   ItemTranslation="Japanese"/>
+        <ItemForTranslation ItemName="fr"                   ItemTranslation="French"/>
+        <ItemForTranslation ItemName="es"                   ItemTranslation="Spanish"/>
+        <ItemForTranslation ItemName="it"                   ItemTranslation="Italian"/>
+        <ItemForTranslation ItemName="nl"                   ItemTranslation="Dutch"/>
+        <ItemForTranslation ItemName="sv"                   ItemTranslation="Swedish"/>
+        <ItemForTranslation ItemName="zh-chs"               ItemTranslation="Chinese (Simplified)"/>
+        <ItemForTranslation ItemName="zh-cht"               ItemTranslation="Chinese (Traditional)"/>
+        <ItemForTranslation ItemName="ko"                   ItemTranslation="Korean"/>
+        <ItemForTranslation ItemName="no"                   ItemTranslation="Norwegian"/>
+        <ItemForTranslation ItemName="pt"                   ItemTranslation="Portuguese"/>
+        <ItemForTranslation ItemName="pt-br"                ItemTranslation="Portuguese (Brazil)"/>
+        <ItemForTranslation ItemName="da"                   ItemTranslation="Danish"/>
+	<ItemForTranslation ItemName="po"                   ItemTranslation="Polish"/>        
+
+		<ItemForTranslation ItemName="SelectFolder" ItemTranslation="Выбрать папку:"/>        
+		<ItemForTranslation ItemName=".NET_Framework"   					ItemTranslation="Версия .NET Framework"/>
+		<ItemForTranslation ItemName="ReplaceFile" ItemTranslation="{n}Файл '{1}' уже существует. {n}Переписать?{n}"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_millimeters"             ItemTranslation="миллиметры"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_inches"                  ItemTranslation="дюймы"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Custom"                  ItemTranslation="Произвольный размер"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Add_Edit_Custom_Form"    ItemTranslation="Добавление/Изменение размеров "/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Width"                   ItemTranslation="Ширина"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Height"                  ItemTranslation="Высота"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Custom_Form"             ItemTranslation="Custom Form"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Custom_Form_Name"        ItemTranslation="Название"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Custom_Form_Size"        ItemTranslation="Размер Бумаги"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="&lt;ChangeCustomPaperSize&gt;"                  ItemTranslation="&lt;Задать произвольный размер&gt;"/>
+<!--*** String To Translate ***--><ItemForTranslation ItemName="_Printer_Margins" 		ItemTranslation="Printer margins:"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Left" 				ItemTranslation="Left:"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Top" 				ItemTranslation="Top:"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Right" 			ItemTranslation="Right:"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Bottom" 			ItemTranslation="Bottom:"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Custom_Margins" 		ItemTranslation="Custom Margins"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_Page_Size" 			ItemTranslation="Page size:"/>
+        
+
+        <!-- Licence dialog -->
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="Licence Info: $applicationname"   ItemTranslation="License Info: {applicationname}"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="LicenceDialogStatic"              ItemTranslation="Press [Unlock...] to enter or update your unlock details."/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="Edit"				     		  ItemTranslation="Unlock..."/>        
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="UnlockUpgradeCaption"			  ItemTranslation="Register {applicationname}"/>
+        
+        <!-- Services dialog -->
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="PerUserPluginDescription"	ItemTranslation="Select the add-ins you wish to configure for the current user."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="WordPluginOpen"			ItemTranslation="Microsoft Word add-in - open PDF files from within Word"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="WordPluginCreate"		ItemTranslation="Microsoft Word add-in - create PDF files from within Word"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="AdminPluginDescription"		ItemTranslation="Select the add-ins you wish to configure for all users Note: you will need Admin rights to configure add-ins for all users."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="AcrobatPlugin"			ItemTranslation="Acrobat add-in - open PDF files in Word directly from Acrobat"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ExcelPlugin"			ItemTranslation="Microsoft Excel add-in - create PDF files from within Excel"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="PowerPointPlugin"		ItemTranslation="Microsoft PowerPoint add-in - create PDF files from within PowerPoint"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ExplorerPlugin"			ItemTranslation="Explorer add-in - convert PDF files from within Windows Explorer and Internet Explorer"/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="PrinterDescription"		ItemTranslation="Repair PDF Printer service. Note: you will need Admin rights to repair this service."/>
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="ReinstallPrinter"		ItemTranslation="Repair PDF Printer Service"/>		
+		<!--*** String To Translate ***--><ItemForTranslation ItemName="Configure"			ItemTranslation="Update Add-Ins"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_license"			ItemTranslation="License"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_support"			ItemTranslation="Support"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_services"			ItemTranslation="Services"/>
+        
+        <!-- Tab dialog -->
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_tabdialogcaption"		ItemTranslation="Solid Converter Services and Information"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="NeedConfigure"			ItemTranslation="You have made changes to your add-in choices but have not chosen to Update Add-ins. Are you sure you want to close without updating?"/>
+        
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="AddinUnableUpdate"			ItemTranslation="Unable to update {1} add-in."/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="AddinPossibleReason"			ItemTranslation="Possible reason: {1}"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="AddinRegistryReason"			ItemTranslation="locked registry"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="AddinApplicationReason"		ItemTranslation="open applications - {1}"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="AddinUpdateSuccess"			ItemTranslation="Update addin success."/>
+        
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="_printer"			ItemTranslation="Create PDF"/>
+        
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="ProductInstallModeJustMe"			ItemTranslation="{applicationname} is installed for the current user. {1}"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="ProductInstallModeForAll"			ItemTranslation="{applicationname} is installed for all users. {1}"/>
+        <!--*** String To Translate ***--><ItemForTranslation ItemName="Internet Explorer"			ItemTranslation="Internet Explorer"/>		
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="ExcelAndPowerPointNotAvailable"	ItemTranslation="Microsoft Excel and PowerPoint add-ins are available in Professional version only."/>        
+
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="EmbeddedFontWarning"	ItemTranslation="Show the warning if there are fonts that can not be embedded when creating PDF document."/>        
+	<!--*** String To Translate ***--><ItemForTranslation ItemName="EmbeddedFontWarningDescription"	ItemTranslation="This document contains fonts that cannot be embedded in the PDF file. Check the Details tab (Converter Log) for more information"/>        
+	</LanguageOptions>
+</Root>

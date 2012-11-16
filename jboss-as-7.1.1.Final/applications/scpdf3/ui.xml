@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:uiComponents 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="urn:voyagersoft:ui ui.xsd" 
+    xmlns:ui="urn:voyagersoft:ui">
+    <ui:dialogBoxes>
+        <ui:dialogBox title="{applicationname} help" id="help_dlg__"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="top" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <ui:vContainer align="left" padding="false">
+                                <ui:hContainer align="top" padding="false">  
+                                    <ui:static size="1" color="blue" stringid="SolidConverterPDFUsageHead" maxWidth="200"/>
+                                    <ui:static size="1" color="black" stringid="SolidConverterPDF.exe" maxWidth="200"/>
+                                    <ui:static size="1" color="black" stringid="SolidConverterPDFUsageCmdString" maxWidth="250"/>
+                                </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="convertorextract"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600="" />
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:hContainer align="top" padding="false">  
+                            <!-- top content frame -->
+                            <ui:vContainer align="left" padding="false">
+                                    <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Convert to Word or Extract Images" maxWidth="320"/>
+                                    <ui:static stringid="Convert PDF file to Word document or only extract the images from the PDF file:" maxWidth="250"/>
+                                    <ui:radiobutton stringid="WA_CONVERT_WORD" widthPeer="3" heightPeer="3" id="convert" value="1" tabStop="3" />
+                                    <ui:radiobutton stringid="WA_EXTRACT_IMAGE" widthPeer="3" heightPeer="3" id="extractimage" value="0" tabStop="4" />
+                            </ui:vContainer>
+                        </ui:hContainer>
+                        <!-- button frame -->
+                        <ui:divider widthPeer="4"/>
+                        <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="5" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev"  />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                            <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="formattingmode"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                    
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Layout_and_Formatting" maxWidth="300"/>
+                                        <ui:static stringid="Choose_Reconstruction_Mode" maxWidth="300"/>
+                                        <ui:radiobutton stringid="FM_FORMAT_LAYOUT_COLUMNS" widthPeer="3" heightPeer="3" id="flowing" value="1" tabStop="3" />
+                                        <ui:radiobutton stringid="FM_FORMAT" widthPeer="3" heightPeer="3" id="paragraphs" value="0" tabStop="5" />
+                                        <ui:radiobutton stringid="FM_NONE" widthPeer="3" heightPeer="3" id="plaintext" value="0" tabStop="6" />
+                                        <ui:radiobutton stringid="FM_TRUEPAGE" widthPeer="3" heightPeer="3" id="truepage" value="0" tabStop="7" />
+                                        <ui:previewbitmap path="reconstruction_{1}.png" id="preview"/>
+                                </ui:vContainer>
+                            </ui:hContainer>   
+                            
+                            <ui:vContainer align="right" padding="false">
+                                <ui:divider widthPeer="4"/>
+                                <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                                <!-- button frame -->
+                                <ui:hContainer align="top">
+                                    <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="8" />
+                                    <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="9" />
+                                    <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                                    <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                                </ui:hContainer>
+                            </ui:vContainer> 
+                        </ui:vContainer> 
+                        
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="images"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+            <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+            <ui:hContainer align="bottom" padding="false"> 
+                <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                <!-- main frame -->
+                <ui:vContainer align="right" padding="false">   
+                    <!-- content frame -->
+                    <ui:vContainer align="left" padding="false">
+                        <ui:hContainer align="top" padding="false">
+                            <ui:bitmap id="vspace" path="vspace.png"/>
+                            <!-- top content frame -->
+                            <ui:vContainer align="left" padding="false">
+                                    <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Image_Recovery" maxWidth="250" widthPeer="3"/>
+                                    <ui:static stringid="RemoveImagePrompt2" id="prompt" maxWidth="250" widthPeer="3"/>
+                                    <ui:checkbox    stringid="RemoveImages"      id="removeimagescheck" tabStop="3" checked="false" widthPeer="3"/>-->
+                                    <ui:radiobutton stringid="AnchoringAutomatic" widthPeer="3" heightPeer="3" id="anchoring_automatic"   value="1" tabStop="4" />
+                                    <ui:radiobutton stringid="AnchoringParagraph" widthPeer="3" heightPeer="3" id="anchoring_paragraph"   value="0" tabStop="5" />
+                                    <ui:radiobutton stringid="AnchoringPage"      widthPeer="3" heightPeer="3" id="anchoring_page"        value="0" tabStop="6" />
+                                    <!-- Unused? <ui:radiobutton stringid="RemoveImage"       widthPeer="3" heightPeer="3" id="removeimages"          value="0" tabStop="7" /> -->
+                                    <ui:previewbitmap path="imagerecovery_{1}.png" id="preview"/>
+                            </ui:vContainer>
+                        </ui:hContainer>
+                        
+                        <ui:divider widthPeer="4"/>
+                        <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                    </ui:vContainer>
+
+                    <!-- button frame -->
+                    <ui:hContainer align="top">
+                        <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="5" />
+                        <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="6" />
+                        <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                        <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                    </ui:hContainer>
+                </ui:vContainer>
+            </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="spacing"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+            <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+            <ui:hContainer align="bottom" padding="false"> 
+                <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                <!-- main frame -->
+                <ui:vContainer align="right" padding="false">   
+                    <!-- content frame -->
+                    <ui:vContainer align="left" padding="false">
+                        <ui:hContainer align="top" padding="false">
+                            <ui:bitmap id="vspace" path="vspace.png"/>
+                            <ui:vContainer align="left" padding="false">
+                                    <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Custom_Character_Spacing" maxWidth="320" widthPeer="3"/>
+                                    <ui:checkbox stringid="CharSpacing" id="keepspacing" tabStop="3" checked="false" />
+                                    <ui:static stringid="Custom_Character_Spacing_Prompt"  maxWidth="250" widthPeer="3"/>
+                                    <ui:previewbitmap path="characterspacing_{1}.png" id="preview"/>
+                            </ui:vContainer>
+                        </ui:hContainer>
+                        
+                        <ui:divider widthPeer="4"/>
+                        <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                    </ui:vContainer>
+
+                    <!-- button frame -->
+                    <ui:hContainer align="top">
+                        <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="4" />
+                        <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="5" />
+                        <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                        <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                    </ui:hContainer>
+                </ui:vContainer>
+            </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="detecttables"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+            <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+            <ui:hContainer align="bottom" padding="false"> 
+                <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                <!-- main frame -->
+                <ui:vContainer align="right" padding="false">   
+                    <!-- content frame -->
+                    <ui:vContainer align="left" padding="false">
+                        <ui:hContainer align="top" padding="false">
+                            <ui:bitmap id="vspace" path="vspace.png"/>
+                            <ui:vContainer align="left" padding="false">
+                                    <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Custom_DetectTables_Spacing" maxWidth="320" widthPeer="3"/>
+                                    <ui:checkbox stringid="DetectTables" id="detecttable" tabStop="3" checked="true" />
+                                    <ui:static stringid="Custom_Detect_Tables_Prompt"  maxWidth="250" widthPeer="3"/>
+                                    <ui:previewbitmap path="detecttables_{1}.png" id="preview"/>
+                            </ui:vContainer>
+                        </ui:hContainer>
+                        
+                        <ui:divider widthPeer="4"/>
+                        <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                    </ui:vContainer>
+
+                    <!-- button frame -->
+                    <ui:hContainer align="top">
+                        <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="4" />
+                        <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="5" />
+                        <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                        <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                    </ui:hContainer>
+                </ui:vContainer>
+            </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="outputpath"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <!-- top content frame -->
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Document_Format" maxWidth="320" widthPeer="3"/>
+                                        <ui:static stringid="Document_Format_Prompt" maxWidth="250"/>
+                                        <ui:radiobutton stringid="DOC_Format_Choice" widthPeer="3" heightPeer="3" id="doc" value="1" tabStop="3" />
+                                        <ui:radiobutton stringid="RTF_Format_Choice" widthPeer="3" heightPeer="3" id="rtf" value="0" tabStop="4" />
+                                        <ui:radiobutton stringid="WORDML_Format_Choice" widthPeer="3" heightPeer="3" id="wordml" value="0" tabStop="5" />
+                                        <ui:radiobutton stringid="TXT_Format_Choice" widthPeer="3" heightPeer="3" id="txt" value="0" tabStop="6" />
+                                        <ui:divider widthPeer="3"/>
+                                        <ui:static stringid="DestinationPrompt" maxWidth="250" widthPeer="3"/>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Save_File_To" heightPeer="2" maxWidth="100" singleLine="true"/>
+                                            <ui:pathmsg stringid="filepath needs to be reasonably wide dummy string" id="filepath" maxWidth="200"/>
+                                            <ui:button stringid="Browse" widthPeer="2" heightPeer="2" id="browse" tabStop="7" />
+                                        </ui:hContainer>
+                                        <ui:checkbox stringid="Open_For_Editing" widthPeer="3" heightPeer="3" id="launchviewer" value="1" tabStop="8" />
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="4"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="9" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="10" />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                            <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="extractpath"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <!-- top content frame -->
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="extractpath_Image_Format_Output_Path" maxWidth="320" widthPeer="3"/>
+                                        <ui:static stringid="extractpath_choose_file_format" maxWidth="250"/>
+                                        <ui:radiobutton stringid="extractpath_same_as_source_images" widthPeer="3" heightPeer="3" id="source" value="1" tabStop="3" />
+                                        <ui:radiobutton stringid="bmp" widthPeer="3" heightPeer="3" id="bmp" value="0" tabStop="4" />
+                                        <ui:radiobutton stringid="jpg" widthPeer="3" heightPeer="3" id="jpg" value="0" tabStop="5" />
+                                        <ui:radiobutton stringid="png" widthPeer="3" heightPeer="3" id="png" value="0" tabStop="6" />
+                                        <ui:radiobutton stringid="tif" widthPeer="3" heightPeer="3" id="tif" value="0" tabStop="7" />
+                                        <ui:divider widthPeer="3"/>
+                                        <ui:static stringid="extractpath_choose_path" maxWidth="250" widthPeer="3"/>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="extractpath_save_to" heightPeer="2" maxWidth="100" singleLine="true"/>
+                                            <ui:pathmsg stringid="extractpath_filepath" id="filepath" maxWidth="200"/>
+                                            <ui:button stringid="Browse" widthPeer="2" heightPeer="2" id="browse" tabStop="8" />
+                                        </ui:hContainer>
+                                        
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="4"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="9" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="10" />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                            <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="fontoptions"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <!-- top content frame -->
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="Embedding_Installing_Fonts" maxWidth="320" widthPeer="3"/>
+                                        <ui:static stringid="Embed_Font_Prompt" maxWidth="250" widthPeer="3"/>
+                                        <ui:radiobutton stringid="EmbedNone-standardEncoding" widthPeer="3" heightPeer="3" id="embednse" value="1" tabStop="3" />
+                                        <ui:radiobutton stringid="EmbedAllTrueType" widthPeer="3" heightPeer="3" id="embedall" value="0" tabStop="4" />
+                                        <ui:radiobutton stringid="DoNotEmbed" widthPeer="3" heightPeer="3" id="embednone" value="0" tabStop="5" />
+                                        <ui:divider widthPeer="3"/>
+                                        <ui:static stringid="Install_Fonts_Prompt" maxWidth="250" widthPeer="3"/>
+                                        <ui:checkbox stringid="InstallFontsTTandT1" widthPeer="3" heightPeer="3" id="installpdffonts" value="0" tabStop="6" />
+                                        
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="4"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="7" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="8" />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                            <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="headerfooter"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <!-- top content frame -->
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="HeadersAndFooters" maxWidth="250" widthPeer="3"/>
+                                        <ui:static stringid="HeadersAndFootersPrompt" maxWidth="250" widthPeer="3"/>
+                                        <ui:radiobutton stringid="Detect" widthPeer="3" heightPeer="3" id="detectpreserve" value="1" tabStop="3" />
+                                        <ui:radiobutton stringid="DetectAndRemove" widthPeer="3" heightPeer="3" id="detectremove" value="0" tabStop="4" />
+                                        <ui:radiobutton stringid="DoNotDetect" widthPeer="3" heightPeer="3" id="nodetect" value="0" tabStop="5" />
+                                        
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="4"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="6" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="7" />
+
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                            <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="pagerange"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <!-- top content frame -->
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="PageRange" maxWidth="250" widthPeer="3" />
+                                        <ui:static id="pagerangeprompt" stringid="extractpagerange" maxWidth="250" widthPeer="3"/>
+                                        <ui:radiobutton stringid="AllPages" widthPeer="3" id="all" value="1" tabStop="3" />
+                                        <ui:hContainer align="top" widthPeer="3"  padding="false">
+                                            <ui:radiobutton stringid="Pages" id="pages" value="0" tabStop="4" />
+                                            <ui:static stringid="From:" maxWidth="100" id="fromid" singleLine="true"/>
+                                            <ui:edit   widthPeer="5" minWidth="50" id="startpage" tabStop="5" />
+                                            <ui:static stringid="To:" maxWidth="100" id="toid" singleLine="true"/>
+                                            <ui:edit   widthPeer="5" minWidth="50" id="endpage" tabStop="6" />
+                                        </ui:hContainer> 
+                                        <ui:previewbitmap path="pagerange_{1}.png" id="preview"/>
+					<ui:static id="trialtextpagerange" stringid="TrialNotFullConvertionDescription" maxWidth="250" widthPeer="3"/>                                        
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="4"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="7" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="8" />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next" def="true" tabStop="1" />
+                            <ui:button stringid="Last &gt;&gt;"       widthPeer="2" heightPeer="2" id="last" tabStop="2" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="finish"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="FinishPage" id="finishpage" maxWidth="300" widthPeer="3"/>
+                                        <ui:static stringid="FinishPagePrompt" id="finishpageprompt" maxWidth="300" widthPeer="3"/>
+                                        <ui:hContainer align="top"  padding="false">
+                                            <ui:static stringid="FormatingMode:" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="{n}some text{n}{n}" id="formattingmode" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Image_Recovery:" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="some text" id="image_processing" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Detect_Tables:" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="some text" id="detecttable" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+<!--
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Embed_Fonts:" id="embedfontspromt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="{n}some text" id="embedfonts" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Install_Fonts:" id="installfontsprompt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="{n}some text" id="installfonts" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+-->
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Page_Range" id="pagerangeprompt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="some text" id="pagerange" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+<!--
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="HeadersAndFooters:" id="headersfootersprompt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="some text" id="headersfooters" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+-->
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="OutputPath:" id = "OutputPathPrompt" widthPeer="4" maxWidth="150" />
+                                            <ui:pathmsg stringid="reasonable length text to esablish a good default size_____________________" id="outputpath" widthPeer="5" maxWidth="150" />
+
+<!--                                            <ui:pathmsg stringid="{1}" id="outputpath" widthPeer="5" maxWidth="200" />
+-->                                        </ui:hContainer>
+<!-- -->
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Embed_Fonts:" id="embedfontspromt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="{n}some text" id="embedfonts" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Install_Fonts:" id="installfontsprompt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="{n}some text" id="installfonts" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="HeadersAndFooters:" id="headersfootersprompt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="some text" id="headersfooters" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+<!-- -->
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Open_For_Editing:" id="launchviewerprompt" widthPeer="4" maxWidth="150" />
+                                            <ui:static stringid="some text" id="launchviewer" widthPeer="5" maxWidth="150" />
+                                        </ui:hContainer>
+                                        <ui:divider widthPeer="3"/>
+                                        <ui:checkbox   stringid="Use_Short_Wizard" id="hidewizard" tabStop="2" checked="false" />
+                                        
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="6"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="6"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="3" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="4" />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next"  />
+                            <ui:button stringid="Finish"        widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="1" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+
+        <ui:dialogBox title="{applicationname} Wizard ({1})" id="finishextract"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+            <ui:bitmap id="topbanner" path="topbanner.png" path800x600=""/>
+                <ui:hContainer align="bottom" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:vContainer align="left" padding="false">
+                            <ui:hContainer align="top" padding="false">
+                                <ui:bitmap id="vspace" path="vspace.png"/>
+                                <!-- top content frame -->
+                                <ui:vContainer align="left" padding="false">
+                                        <ui:static color="#0066cc" pointsize="14" fontname="Arial" stringid="finishextract_finish" maxWidth="350" widthPeer="3"/>
+                                        <ui:static stringid="finishextract_description" maxWidth="350" widthPeer="3"/>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="Page_Range" id="pagerangeprompt" widthPeer="4" maxWidth="250" />
+                                            <ui:static stringid="some text" id="pagerange" widthPeer="5" maxWidth="250" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="ImageTargetType" widthPeer="4" maxWidth="250" />
+                                            <ui:static stringid="some text" id="imageformat" widthPeer="5" maxWidth="250" />
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">
+                                            <ui:static stringid="OutputPath:" widthPeer="4" maxWidth="250" />
+                                            <ui:pathmsg stringid="{n}{n}{n}{n} reasonable length text to esablish a good default size" id="outputpath" widthPeer="5" maxWidth="250" />
+                                        </ui:hContainer>
+                                        <ui:divider widthPeer="3"/>
+                                        <ui:checkbox   stringid="Use_Short_Wizard" id="hideextractwizard" tabStop="2" checked="false" />
+                                        
+                                </ui:vContainer>
+                            </ui:hContainer>
+                            
+                            <ui:divider widthPeer="6"/>
+                            <ui:bitmap id="hspace" path="hspace.png" widthPeer="6"/>
+                        </ui:vContainer>
+
+                        <!-- button frame -->
+                        <ui:hContainer align="top">
+                            <ui:button stringid="Cancel"        widthPeer="2" heightPeer="2" id="cancel" tabStop="3" />
+                            <ui:button stringid="&lt; Previous" widthPeer="2" heightPeer="2" id="prev" tabStop="4" />
+                            <ui:button stringid="Next &gt;"        widthPeer="2" heightPeer="2" id="next"  />
+                            <ui:button stringid="Finish"        widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="1" />
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+
+        <ui:dialogBox title="{applicationname}" id="passworddialog">
+            <!-- main frame -->
+            <ui:vContainer align="right"> 
+                <ui:vContainer align="left"> 
+                    <ui:checkbox   stringid="Require_User_Password" id="useopen" tabStop="1" checked="false" widthPeer="5" maxWidth="240"/>
+                    <ui:hContainer align="bottom" widthPeer="5">
+                        <ui:static   stringid="User_Password:" id="passwordprompt1" widthPeer="3" maxWidth="160" align="left"/>
+                        <ui:password id="password1"   widthPeer="4" minWidth="100" align="left" tabStop="2"/>
+                    </ui:hContainer>
+                    <ui:hContainer align="bottom" widthPeer="5">
+                        <ui:static   stringid="Repeat_User_Password:" id="passwordprompt2" widthPeer="3" maxWidth="160" align="left"/>
+                        <ui:password id="password2" widthPeer="4" minWidth="100" align="left" tabStop="3"/>
+                    </ui:hContainer>
+                    <ui:divider widthPeer="5"/>
+                    <ui:checkbox   stringid="Use_Owner_Password" id="usepermission" tabStop="4" checked="false" widthPeer="5" maxWidth="240"/>
+                    <ui:hContainer align="bottom" widthPeer="5">
+                        <ui:static   stringid="Owner_Password:" id="passwordprompt3" widthPeer="3" maxWidth="160" align="left"/>
+                        <ui:password id="password3"   widthPeer="4" minWidth="100" align="left" tabStop="5"/>
+                    </ui:hContainer>
+                    <ui:hContainer align="bottom" widthPeer="5">
+                        <ui:static   stringid="Repeat_Owner_Password:"  id="passwordprompt4" widthPeer="3" maxWidth="160" align="left"/>
+                        <ui:password id="password4" widthPeer="4" minWidth="100" align="left" tabStop="6"/>
+                    </ui:hContainer>
+                    <ui:vContainer align="right" widthPeer="5">
+                        <ui:checkbox stringid="AllowPrinting" id="printing" tabStop="7" checked="false" widthPeer="6" />
+                        <ui:checkbox stringid="AllowChangingLong" id="editing" tabStop="8" checked="false" widthPeer="6" />
+                        <ui:checkbox stringid="AllowCopyingLong" id="access" tabStop="9" checked="false" widthPeer="6" />
+                        <ui:checkbox stringid="AllowChangingCommentsLong" id="forms" tabStop="10" checked="false" widthPeer="6" />
+                    </ui:vContainer>
+                    <ui:divider widthPeer="5"/>
+                    <!-- button frame -->
+                </ui:vContainer>
+                <ui:hContainer align="bottom" >
+                    <ui:button stringid="OK" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="11" />
+                    <ui:button stringid="Cancel" widthPeer="2" heightPeer="2" id="cancel"  tabStop="12" />
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+
+        <ui:dialogBox title="help_dlg_title" id="help_dlg"  color="white">
+            <!-- mainer frame -->
+            <ui:vContainer align="left" padding="false">
+                <ui:bitmap id="topbanner" path="topbanner.png" path800x600="" path1152x864=""/>
+                <ui:hContainer align="top" padding="false"> 
+                    <ui:bitmap id="leftbanner" path="leftbanner.png" path800x600="" path1152x864=""/>
+                    <!-- main frame -->
+                    <ui:vContainer align="right" padding="false">   
+                        <!-- content frame -->
+                        <ui:hContainer align="top"  padding="false">  
+                            <!-- top content frame -->
+                            <ui:vContainer align="left" padding="false">
+                                <ui:static size="1" color="white" stringid="___" maxWidth="200" padding="true"/>
+                                <ui:hContainer align="top" padding="false">  
+                                    <ui:static size="1" color="blue" stringid="SolidConverterPDFUsageHead" maxWidth="200"/>
+                                    <ui:static size="1" color="black" stringid="SolidConverterPDF.exe" maxWidth="200"/>
+                                    <ui:static size="1" color="black" stringid="SolidConverterPDFUsageCmdString" maxWidth="250"/>
+                                </ui:hContainer>
+                                <ui:hContainer align="top" padding="false">  
+                                    <!--ui:static size="1" color="white" stringid="_____" maxWidth="100"/-->
+                                    <ui:static size="1" color="blue" stringid="ParametersStr" maxWidth="100"/>
+                                    <ui:vContainer align="left" padding="false">
+                                    
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/h" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="hDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="2" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="hArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                    
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/i" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="iDescription" maxWidth="350" />
+                                        </ui:hContainer>
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="iArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/o" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="oDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="oArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/w" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="wDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="wArguments" maxWidth="250"/>
+                                        </ui:hContainer>
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/y" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="yDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="yArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/n" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="nDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="nArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/c" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="cDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="cArguments" maxWidth="250"/>
+                                        </ui:hContainer>
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/s" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="sDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="sArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/a" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="aDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="aArguments" maxWidth="250"/>
+                                        </ui:hContainer>
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/p" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="pDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="pArguments" maxWidth="250"/>
+                                        </ui:hContainer>
+                                        
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/d" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="dDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="dArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/f" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="tDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="tArguments" maxWidth="250"/>
+                                        </ui:hContainer>
+                                        
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/pwd" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="pwdDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="pwdArguments" maxWidth="250"/>
+                                        </ui:hContainer>
+                                        
+                                        <!--ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="black" stringid="/e" maxWidth="100" widthPeer="15"/>
+                                                <ui:static size="1" color="white" stringid="___" maxWidth="100" />
+                                                <ui:static size="1" color="black" stringid="eDescription" maxWidth="350"/>
+                                        </ui:hContainer>
+                                        <ui:hContainer align="top" padding="false">  
+                                                <ui:static size="1" color="white" stringid="______" maxWidth="100" />
+                                                <ui:static size="1" color="gray" stringid="ArgumentStr" maxWidth="100"/>
+                                                <ui:static size="1" color="gray" stringid="eArguments" maxWidth="250"/>
+                                        </ui:hContainer-->
+                                        
+                                    </ui:vContainer>
+                                </ui:hContainer>
+                            </ui:vContainer>
+                        </ui:hContainer>
+                        <!-- button frame -->
+                        <ui:divider widthPeer="4"/>
+                        <ui:bitmap id="hspace" path="hspace.png" widthPeer="4"/>
+                        <ui:hContainer align="top">
+                            <ui:button stringid="OK"        widthPeer="2" heightPeer="2" id="ok" tabStop="5" padding="false"/>
+                        </ui:hContainer>
+                    </ui:vContainer>
+                </ui:hContainer>
+            </ui:vContainer>
+        </ui:dialogBox>
+        
+		<!-- PROGRESS DIALOG -->
+
+                <ui:dialogBox title="{applicationname}" id="ProgressDlg">
+			<!-- main frame -->
+			<ui:vContainer align=""> 
+				<ui:bitmap   id="pane" path="Info"/>
+				<ui:vContainer align="left"> 
+					<ui:static  stringid="." id="Message"   minWidth="10" maxWidth="200" minHeight="10" maxHeight="100" widthPeer="2"/>
+					<ui:hContainer  align="top"  widthPeer="1"> 
+						<ui:progress stringid="_progress" id="Progress"  minWidth="10" maxWidth="250" minHeight="10" maxHeight="15" widthPeer="2"/>
+						<ui:button stringid="Cancel"  id="cancel" tabStop="1" />
+					</ui:hContainer>
+					<ui:static   stringid="."  id="bottomtext"  widthPeer="1"/>
+					<ui:tabctrl  widthPeer="1" id="progress_tab" minHeight="10"/>
+					<ui:hContainer align="top"> 
+        	                            	<ui:button    stringid="&lt;&lt; Details"      id="prev" tabStop="3" checked="true"/>
+					</ui:hContainer>
+				</ui:vContainer>
+			</ui:vContainer>
+                </ui:dialogBox>
+		<!-- PDF Creator nag screen -->
+
+                <ui:dialogBox title="{applicationname}" id="pdf_creator_nag" mode="splash" color="white">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="left"> 
+                                <ui:bitmap id="splash" path="splash.png"/>                                
+                                <!-- main frame -->
+	                        <ui:vContainer align="left" padding="false"> 
+					<ui:static id="statusstring" stringid="_Splash_1" widthPeer="3" Bold="1"/>  
+                	                <!-- content frame -->
+		                        <ui:hContainer align="middle" padding="false">
+                                		<ui:vContainer align="right" padding="false">
+	                	                        <ui:static stringid="_Splash_2" widthPeer="3" heightPeer="3" Bold="1"/>
+        	                	               	<ui:static stringid="_Splash_3" widthPeer="3" heightPeer="3" Bold="1"/>
+                	                                <ui:static stringid="_Splash_4" widthPeer="3" heightPeer="3" Bold="1"/>	                                        
+                	                	</ui:vContainer>						
+						<ui:vContainer align="right">
+        	        	                     	<ui:button stringid="Purchase" widthPeer="2" heightPeer="2" id="buynow" def="true" tabStop="1" />
+	        	                	        <ui:button stringid="Evaluate" widthPeer="2" heightPeer="2" id="prev"  tabStop="2" />
+        	        	                	<ui:button stringid="Cancel"   widthPeer="2" heightPeer="2" id="cancel" tabStop="3" />
+                	        	        </ui:vContainer>
+					</ui:hContainer>
+	                                <ui:divider   widthPeer="3" color="#FF0000"/>
+			                <ui:hContainer align="middle" widthPeer="3" padding="false">
+						<ui:static stringid="_Splash_5" Italic="1" Bold="1" size="2" color="#ff0000"/>
+	                	                <ui:hyperlink stringid="_Splash_6" linkid="{applicationpurchaseurl}" color="#ff0000" Italic="1" Bold="1" size="2"/>
+						<ui:static stringid="_Splash_7" Italic="1" Bold="1" size="2" color="#ff0000"/>
+				       	</ui:hContainer>
+                                </ui:vContainer>                                  
+                        </ui:vContainer>
+                </ui:dialogBox>
+
+                <ui:dialogBox title="{applicationname}" id="DocumentInformation">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="right"> 
+				<ui:GroupBox align="left" groupText="Default_Document_information" widthPeer="5">
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Title" id="TitleStatic" widthPeer="1" minWidth="100" align="right"/>
+        	       				<ui:edit value="" id="TitleEdit" minWidth="200" align="right" widthPeer="3" tabStop="2"/>
+	               			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Subject" id="SubjectStatic" widthPeer="1" minWidth="100" align="right"/>
+        	       				<ui:edit value="" id="SubjectEdit" minWidth="200" align="right" widthPeer="3" tabStop="3"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Author" id="AuthorStatic" widthPeer="1" minWidth="100" align="right"/>
+        		       			<ui:edit value="" id="AuthorEdit" minWidth="200" align="right" widthPeer="3" tabStop="4"/>
+                			</ui:hContainer>
+					<ui:hContainer align="top" widthPeer="4"> 
+						<ui:static stringid="_Keywords" id="KeywordsStatic" widthPeer="1" minWidth="100" align="right"/>
+	        	       			<ui:edit value="" id="KeywordsEdit" minWidth="200" align="right" widthPeer="3" tabStop="5"/>
+        	        		</ui:hContainer>
+				</ui:GroupBox>
+                		<ui:hContainer align="bottom" >
+		                    <ui:button stringid="OK" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="11" />
+		                    <ui:button stringid="Cancel" widthPeer="2" heightPeer="2" id="cancel"  tabStop="12" />
+		                </ui:hContainer>
+                        </ui:vContainer>
+                </ui:dialogBox>
+
+                <ui:dialogBox title="{applicationname}" id="replace_image_on_extraction">
+                        <!-- mainer frame -->
+                        <ui:vContainer align="center">
+				<ui:vContainer align="left">
+					<ui:static stringid="ReplaceImageOnExtraction" id="replaceimagefolder" widthPeer="1"/> 
+        	                        <!--ui:radiobutton stringid="CompleteReplaceFolder" widthPeer="1" heightPeer="3" id="completefolderreplace" value="1" tabStop="1" /-->
+                	                <ui:radiobutton stringid="UseAnotherFolder" widthPeer="1" heightPeer="3" id="anotherfolder" value="0" tabStop="1" />
+                        	        <ui:radiobutton stringid="OverrideFolder" widthPeer="1" heightPeer="3" id="overridefolder" value="1" tabStop="2" />			
+				</ui:vContainer>
+				<ui:vContainer align="left">
+	                		<ui:hContainer align="bottom">
+			                    <ui:button stringid="OK" widthPeer="2" heightPeer="2" id="ok" def="true" tabStop="3" />
+			                    <ui:button stringid="Cancel" widthPeer="2" heightPeer="2" id="cancel"  tabStop="4" />
+		        	        </ui:hContainer>
+				</ui:vContainer>
+                        </ui:vContainer>
+                </ui:dialogBox>
+    </ui:dialogBoxes>
+</ui:uiComponents>

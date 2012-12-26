@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>License Management</title>
+
+<link href="css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet" type="text/css" />
+<link href="css/debut.css" rel="stylesheet" type="text/css" />
+
+<script language="JavaScript" src="js/server.js"></script>
+<script language="JavaScript" src="js/jquery-1.6.4.js"></script>
+<script language="JavaScript" src="js/jquery-ui-1.8.16.enterprise.min.js"></script>
+<script language="JavaScript" src="js/jquery.tmpl.js"></script>
+
+
+<script language="JavaScript">
+jQuery(window).bind("load", function(){
+	jQuery(window).setup();
+});
+
+(function($){
+	$.fn.setup=setup;
+})(jQuery);
+
+function setup() {
+	
+	$("#submit").bind("click", function(event){
+		var newPrivateKey=$.trim($("#newPrivateKey").val());
+		var newLicense=$.trim($("#newLicense").val());
+		
+		if(""==newPrivateKey || ""==newLicense) {
+			alert("请填写完整的许可证信息");
+		}else{
+			if(confirm("要提交软件许可证吗")) {
+				submit(newPrivateKey, newLicense);
+			}
+		}
+	});
+}
+
+function submit(newPrivateKey, newLicense) {
+	$.ajax({
+		url: Server+"/LicenseManager/LicenseManager",
+		type: "POST",
+		cache: false,
+		data: {
+			methodtype: "updatelicense",
+			privatekey: newPrivateKey,
+			license: newLicense
+		},
+		success: function(data) {
+			if(data.match("true")) {
+				alert("更新成功");
+				window.location.href="index.html";
+			}else if(data.match("false")) {
+				alert("更新失败，请确认输入的许可证是否有效并重新提交");
+			}else {
+				alert("未知返回: "+data);
+			}		
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("页面框架加载失败, 请重试或联系管理员");
+		}
+	});
+}	
+</script>
+</head>
+<body>
+
+<div id="content">
+	<div class="contentBox">
+    <div class="content">
+    	<div class="row"><span class="labelLeft">Private Key</span><span class="labelRight"><input id="newPrivateKey" class="newPrivateKey" type="text" size="45"/></span></div>
+	<div class="row"><span class="labelLeft">License</span><textarea id="newLicense" class="newLicense" rows="6" cols="48" style="resize:none;"></textarea></div>
+    <div class="row"><button id="submit" class="button" ></button></div>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>

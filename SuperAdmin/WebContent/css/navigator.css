@@ -1,0 +1,126 @@
+/*
+<!--#echo var="DOCUMENT_NAME" -->
+
+<!--#config timefmt="%A %B %d, %Y %H:%M:%S" -->
+This file last modified <!--#echo var="LAST_MODIFIED" -->
+
+HTTP_REFERER: <!--#echo var="HTTP_REFERER" -->
+REQUEST_METHOD: <!--#echo var="REQUEST_METHOD" -->
+CONTENT_TYPE: <!--#echo var="CONTENT_TYPE" -->
+UNIQUE_ID: <!--#echo var="UNIQUE_ID" -->
+*/
+* {
+  font-family:'微软雅黑' !important;
+}
+html {height:100%;}
+.mainBody{
+	margin:0;
+	padding:0;
+	background:white;
+	white-space:nowrap;
+	overflow:hidden;
+	height:100%;
+}
+.mainBody table {
+	-webkit-border-vertical-spacing:0;
+	-webkit-border-horizontal-spacing:0;
+	width:100%;
+	height:100%;
+	border:none;
+	border-collapse:collapse;
+}
+.mainBody table td {padding:0;border-spacing: 0;position:relative;}
+.left{
+	min-width:245px;
+	max-width:245px;
+	width:245px;
+	background:url(image_navigator/sidebar.gif) 0 0 repeat-y;
+	height:100%;
+	left:0;
+	top:0px;
+	z-index:5;
+	overflow:hidden;
+	text-align:center;
+}
+.right {
+  background:white;
+  display:block;
+  top:0;
+  left:245px;
+  min-width:800px;
+  min-height:500px;
+  height:100%;
+  padding:0;
+  margin:0;
+  z-index:-1;
+  overflow: hidden;
+}
+.prepare {
+	background:rgba(251, 158, 35, 0.8);
+	display:block;
+	position:absolute;
+	top:0;
+	width:100%;
+	padding:0;
+	margin:0;
+	z-index:3;
+	overflow: auto;
+	-webkit-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	-moz-transition: all 0.5s linear;
+	-ms-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	
+	-webkit-animation-name: "loading";
+	-webkit-animation-duration: 4s;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-iteration-count: infinite;
+}
+.prepare:after {
+	color:white;
+	padding:0 50px;
+	text-align:center;
+	content: "Preparing Module...";
+}
+@-webkit-keyframes 'loading' {
+	from {
+		background: rgba(251, 158, 35, 0.8);
+	}
+	50% {
+		background: none;
+	}
+	to {
+		background: rgba(251, 158, 35, 0.8);
+	}
+}
+.logo{
+	padding:20px;
+}
+.logo img{
+	max-height:120px;
+}
+.selected {
+	 background:url(image_navigator/menu_bg_selected.png) no-repeat !important;
+}
+
+.logout	{ 
+	-webkit-border-bottom-right-radius:40px; 
+	cursor:pointer;display: block; 
+	line-height: 16px; 
+	padding: 8px 12px 8px 12px; 
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,197,120,1)), color-stop(100%,rgba(251,157,35,1))) !important;
+	background-image: -moz-linear-gradient(top, rgba(255,197,120,1) 0%, rgba(251,157,35,1) 100%) !important;
+	background-image: -webkit-linear-gradient(top, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%) !important;
+	background-image: -o-linear-gradient(top, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%) !important;
+	background-image: linear-gradient(top, rgba(255,197,120,1) 0%,rgba(251,157,35,1) 100%) !important;
+} 
+
+.menu			{ padding-top: 5px; width:196px; padding-left:26px; text-align: left;}
+.menu ul		{ font-size: 13px; padding-left:0px;}
+.menu li		{ list-style-type: none;  Padding-top:5px;}
+.menu li a		{ cursor:pointer;display: block; line-height: 16px; padding: 8px 12px 8px 12px; background:url(image_navigator/menu_button.png) top left no-repeat; color: black; text-decoration: none; font-weight: bold; }
+
+.menu ul ul		{ display:none;font-size: 12px; width: 100%; background: url(image_navigator/bck_white_10.png); margin-top: 4px; padding: 6px 0px 8px 0px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; border-radius: 3px 3px 3px 3px; }
+.menu li li		{ padding: 4px 0 0 12px; list-style-type:none; color:#000;  }
+.menu li li a		{ width:170px; height:13px; padding: 5px 0 6px 13px; background:none; font-weight: normal; color: #666; }
+.menu li li a:hover{ background:url(image_navigator/menu_bg.png) no-repeat; }

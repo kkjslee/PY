@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform count="4">
+	<module index="1" role="is_admin">
+		<parent>menu5</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.parameters.global
+		</name>
+		<license></license>
+		<entry>modules/Config</entry>
+	</module>
+	<module index="2" role="is_admin">
+		<parent>menu5</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.parameters.front-end
+		</name>
+		<license></license>
+		<entry>modules/Config/front-end.jsp</entry>
+	</module>
+	<module index="3" role="is_admin">
+		<parent>menu5</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.parameters.announce
+		</name>
+		<license></license>
+		<entry>modules/Config/announce.html</entry>
+	</module>
+	<module index="4" role="is_admin">
+		<parent>menu5</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.parameters.upgrade
+		</name>
+		<license></license>
+		<entry>modules/Config/upgrade.html</entry>
+	</module>
+</platform>

@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+body{
+	margin:0px;
+	background:url(image_navigator/bg.jpg) repeat;
+}
+.labelLeft {
+	vertical-align: top;
+	display:inline-block;
+	padding: 35px 15px 0 0;
+	white-space: nowrap;
+	font-family:Arial;
+	width:120px;
+	text-align:right;
+}
+.labelLeft:after {
+	content: "：";
+}
+.labelRight {
+	display:inline-block;
+	
+	padding-top: 30px;
+}
+.row {
+	font-size:18px;
+	white-space: nowrap;
+	font-family:Arial;
+	color:white;
+}
+
+.register{
+	font-family:'微软雅黑';
+}
+
+.newPrivateKey{
+	background:none;
+	border-bottom:1px solid #aaaaaa;
+	border-top: none;
+	border-left: none;
+	border-right: none;	
+	height:20px;
+	padding:5px;
+	color:white;
+	font-size:18px;
+	font-family:Arial;
+	
+}
+
+.newLicense{
+	background: url(image_navigator/textareaBg.png);
+	border-color:#aaaaaa;
+	padding:5px;
+	color:white;
+	font-size:18px;
+	font-family:Arial;
+	margin-top: 30px;
+}
+
+.contentBox{
+	background: url(image_navigator/contentBox.png);
+	height:508px;
+	width:689px;
+	margin-top:250px;
+	margin-left: 375px;
+	margin-right: 375px;
+}
+
+.content{ 
+	padding: 150px 0 0 65px;
+}
+
+.button{
+	margin-left:415px;
+	display:inline-block;
+	margin-top: 20px;
+	background:url(image_navigator/button.png);
+	height:35px;
+	width:135px;
+	border:none;
+	cursor:pointer;
+}

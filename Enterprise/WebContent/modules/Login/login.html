@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--#include virtual="../../config.shtml" -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="<!--#echo var='login.meta.description' -->" />
+<meta name="keywords" content="<!--#echo var='login.meta.keywords' -->" />
+
+<title><!--#echo var='PageTitle' --></title>
+
+<link rel="icon" type="image/ico" href="../../favicon.ico">
+
+<!-- Setting Theme CSS -->
+<link href="css/theme_enterprise.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/jquery-1.6.4.js"></script>
+<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+<!-- Pre-load the locale module, the module specified locale shoule load before main locale.jsp. -->
+<!--<script type="text/javascript" src="http://127.0.0.1:8484/SuperAdmin/locale.jsp?_module=VMImage"></script>-->
+<!--<script type="text/javascript" src="http://127.0.0.1:8484/SuperAdmin/locale.jsp?_module=UserInfo"></script>-->
+<script type="text/javascript" src="../../locale.jsp"></script>
+<script type="text/javascript" src="../../js/base64.js"></script>
+<script type="text/javascript" src="../../js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="../../js/String.js"></script>
+<script type="text/javascript" src="../../js/account.js"></script>
+
+<script type="text/javascript" src="../../js/server.js"></script>
+<script type="text/javascript" src="js/BootStrap.js"></script>
+
+
+<!-- Setting Theme JS -->
+<script type="text/javascript" src="js/theme_enterprise.js"></script>
+
+</head>
+<body id="splash">
+ <div class="container">
+      <div class="row large-rounded">
+	  <div style="right:15px;top:15px;position:absolute;inline-block;">
+		<select name="language" style="min-width:120px;"
+			<script>
+				var locale="<!--#echo var='Locales' -->";
+				var locales=locale.split(",");
+				for(var i=0; i<locales.length; i++) {
+					var key=locales[i].substring(0, locales[i].indexOf(":"));
+					var value=locales[i].substring(locales[i].indexOf(":")+1);
+					
+					document.write('<option value="'+key+'">'+value+'</option>');
+				}
+			</script>
+		</select>
+	</div>
+        <div id="" class="login ">
+		  <div class="modal-header">
+			<h3>云管理平台</h3><!--#echo var='Title_1' -->
+		  </div>
+		  
+		  <form id="" class="" action="/auth/login/" method="POST"><div style="display:none"><input name="csrfmiddlewaretoken" value="ApfXtDD4MwCJ5uGWY7E0d5EYRRowWM6G" type="hidden"></div>
+			<div class="modal-body clearfix">
+			
+		  <fieldset>
+			
+			
+			
+		  <input name="region" value="http://127.0.0.1:5000/v2.0" id="id_region" type="hidden">
+
+		  <input name="tenant" id="id_tenant" type="hidden">
+
+
+
+		  <div class="control-group form-field clearfix">
+			<label for="id_username">用户名</label>
+			
+			<span class="help-block"></span>
+			<div class="input">
+			  <input name="username" tabindex="1" id="username" type="text" size="20">
+			</div>
+		  </div>
+
+		  <div class="control-group form-field clearfix">
+			<label for="id_password">密码</label>
+			
+			<span class="help-block"></span>
+			<div class="input">
+			  <input name="password" tabindex="2" id="password" type="password" size="20">
+			</div>
+		  </div>
+		 <div id="message" style="font-size:14px;font-family:'微软雅黑'; color:#ddd;position:absolute;top:200px;left:520px;text-align:right;background:white;white-space:nowrap;background:none;"></div>
+  
+		  </fieldset>
+
+			</div>
+			<div class="modal-footer">
+		  <button type="button" id='logBtn'  href="#" tabindex="3" class="logBtn btn btn-primary pull-right">&nbsp;登录&nbsp;</button>  
+		  <button type="button" id='regBtn' href="#"  class="regBtn btn btn-warning pull-right">新用户注册</button>
+		</div>
+		  </form>
+		</div>
+
+      </div>
+    </div>
+</html>

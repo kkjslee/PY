@@ -1,0 +1,79 @@
+<!--
+You are including file config.shtml.
+
+This file is used for locate any common resource. And it's not for directly usage.
+
+Author: Bill, 2012
+
+Declaration:
+value - 3 types in total
+
+1. String
+	eg. value="string"
+	
+2. Pairs (Separated by comma. Blank also makes sense to it. Take care!)
+	eg. value="key:value,key:value"
+	
+3. URI (Base on where the module including this config file lies)
+	eg. value="css/sample/image.png"
+
+-->
+
+<!--#set var="LoginBackground" value="image/theme_enterprise/loginBg.png" -->
+<!--#set var="Logo" value="css/image_navigator/logo.png" -->
+<!--#set var="Locales" value="zh_CN:简体中文,en_GB:English,ja_JP:日本語" -->
+
+<!--** To show account balance or not. -->
+<!--#set var="IsShowBalance" value="false" -->
+
+<!--#set var="PageTitle" value="普云" -->
+<!--#set var="PlatformName" value="珠峰" -->
+<!--#set var="Title_1" value="珠峰云平台" -->
+<!--#set var="Title_2" value="All Rights Reserved 2010~2011" -->
+<!--#set var="Title_3" value="Chomolungma Cloud Gateway" -->
+<!--#set var="Title_4" value="上海普云信息科技有限公司" -->
+<!--#set var="Title_5" value="www.cloudlise.com" -->
+
+
+<!--#set var="login.meta.description" value="普云信息科技有限公司" -->
+<!--#set var="login.meta.keywords" value="Cloud,云,普云,云平台,云科技,珠穆朗玛,珠穆朗玛云,珠峰云,云计算,云存储,Cloud Computing,Cloud Storage" -->
+
+<!--#set var="register.platform.name" value="普云" -->
+
+<!--#set var="backup.max.redundancy.options" value="1:1,2:2,3:3,4:4,5:5" -->
+
+<!--#set var="volume.size.options" value="5:5 GB,10:10 GB,20:20 GB,50:50 GB,100:100 GB" -->
+
+<!--#set var="monitor.frequency.options" value="[5, 10, 15, 30]" -->
+
+
+<!--** enum the length option of datatable entries -->
+<!--#set var="DataTableLength" value="[ 10, 25, 50, 100 ]" -->
+
+<!--** **** Limitation **** -->
+
+<!--** limits the max input length of element "Input" in Instance mod -->
+<!--#set var="MaxLength_Instance" value="8" -->
+
+<!--#set var="MaxLength_Volume" value="10" -->
+
+<!--#set var="MaxLength_OrderTemplateName" value="40" -->
+<!--#set var="MaxLength_OrderTemplateDesc" value="800" -->
+
+<!--** represents the maximum instances per order -->
+<!--#set var="MaxCount_InstancePerOrder" value="9" -->
+
+<!--** represents what the VM name should be in regular expression -->
+<!--#set var="RegExp_Instance" value="^[a-zA-Z_][a-zA-Z0-9_]{0,7}$" -->
+
+<!--** represents what the Volume name should be in regular expression -->
+<!--#set var="RegExp_Volume" value="^[a-zA-Z_][a-zA-Z0-9_]{0,9}$" -->
+
+<!--** represents what the Monitor name should be in regular expression -->
+<!--#set var="RegExp_Monitor" value="^[a-zA-Z_][a-zA-Z0-9_]{0,19}$" -->
+
+
+
+
+
+

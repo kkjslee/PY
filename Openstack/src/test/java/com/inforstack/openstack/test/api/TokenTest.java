@@ -31,7 +31,7 @@ public class TokenTest {
 
 	@Test
 	public void testApplyToken() {
-		Token token = TokenUtils.applyToken("ricky", "pisces", tenant);
+		Token token = TokenUtils.applyToken("admin", "inforstack", tenant);
 		Assert.assertNotNull("Could not apply new token", token);
 	}
 

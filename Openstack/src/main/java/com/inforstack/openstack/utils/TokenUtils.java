@@ -19,7 +19,7 @@ public class TokenUtils {
 	
 	private static String url = "http://192.168.1.145:5000/v2.0/tokens";
 	
-	public static Token getToken(String name, String pass, String tenant) {
+	public static Token getToken(String name, String pass, String tenant, boolean apply) {
 		Token token = null;
 		if (tokens.containsKey(name)) {
 			token = tokens.get(name);
@@ -27,8 +27,8 @@ public class TokenUtils {
 				token = null;
 			}
 		}
-		if (token == null) {
-			applyToken(name, pass, tenant);
+		if (token == null && apply) {
+			token = applyToken(name, pass, tenant);
 		}
 		return token;
 	}
@@ -63,6 +63,9 @@ public class TokenUtils {
 			TokenResponse response = template.postForObject(url, new HttpEntity<TokenRequest>(request, headers), TokenResponse.class);
 			if (response != null) {
 				token = response.getAccess().getToken();
+			}
+			if (token != null) {
+				tokens.put(response.getAccess().getUser().getName(), token);
 			}
 		} catch (Exception e) {
 		}

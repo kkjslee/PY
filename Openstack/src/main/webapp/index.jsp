@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ShootApp - 用户登录</title>
+<title><spring:message code="user.login.page.title"></spring:message> </title>
 <style type="text/css" media="screen">
 * {
 	padding: 0;
@@ -118,7 +119,7 @@ table tr td{
 	<table>
 	<tr>
 		<td class="label">
-			账号:
+			<spring:message code="user.name.lable"></spring:message>
 		</td>
 		<td class="tinput">
 			<input id="j_username" type="text" name="j_username" maxlength="40" autofocus />
@@ -126,7 +127,7 @@ table tr td{
 	</tr>
 	<tr>
 		<td class="label">
-			密码:
+			<spring:message code="user.password.lable"></spring:message>
 		</td>
 		<td class="tinput">
 			<input id="j_password" type="password" name="j_password" maxlength="40" />
@@ -135,13 +136,13 @@ table tr td{
 	<tr>
 		<td class="tinput"></td>
 		<td class="tsubmit">
-			<input class="blue_button_small inforstack_button" type="submit" value="登录"/>
+			<input class="blue_button_small inforstack_button" type="submit" value="<spring:message code="user.login.lable"></spring:message>"/>
 		</td>
 	</tr>
 	</table>
 </form>
 	<c:if test="${not empty param.error && param.error=='true'}">
-		<p class="error">登录失败，请重试</p>
+		<p class="error"><spring:message code="user.login.fail"></spring:message></p>
 	</c:if>
 </body>
 </html>

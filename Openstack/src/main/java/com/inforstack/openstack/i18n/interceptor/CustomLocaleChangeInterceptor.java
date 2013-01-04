@@ -81,6 +81,11 @@ public class CustomLocaleChangeInterceptor extends HandlerInterceptorAdapter {
 		if(language == null){
 			language = languageService.findByCountryAndLanguage(locale.getCountry(), locale.getLanguage());
 		}
+		if(language == null){
+			language = languageService.getDefaultLanguage();
+			locale = OpenstackUtil.getLocale(language);
+			localeResolver.setLocale(request, response, locale);
+		}
 		OpenstackUtil.setI18nResolver(new I18nContext(locale, language));
 		
 		// Proceed in any case.

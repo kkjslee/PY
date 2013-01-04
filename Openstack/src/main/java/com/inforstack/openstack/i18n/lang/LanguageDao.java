@@ -7,4 +7,8 @@ public interface LanguageDao {
 
 	public Language find(String country, String language);
 
+	public Language find(String language);
+
+	public Language getDefault();
+
 }

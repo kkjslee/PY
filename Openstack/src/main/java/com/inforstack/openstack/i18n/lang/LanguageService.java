@@ -7,4 +7,6 @@ public interface LanguageService {
 
 	public Language findByCountryAndLanguage(String country, String language);
 
+	public Language getDefaultLanguage();
+
 }

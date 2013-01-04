@@ -19,10 +19,6 @@
 
 	<mvc:default-servlet-handler />
 	
-	<bean id="localeResolver"
-		class="com.inforstack.openstack.i18n.resolver.CustomSessionLocaleResolver">
-	</bean>
-	
 	<mvc:interceptors>
 		<bean class="com.inforstack.openstack.i18n.interceptor.CustomLocaleChangeInterceptor">
 			<property name="paramName" value="languageCode" />
@@ -30,14 +26,4 @@
 		</bean>
 	</mvc:interceptors>
 	
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>messages</value>
-			</list>
-		</property>
-		<property name="defaultEncoding" value="UTF-8"/>
-        <property name="cacheSeconds" value="5"/>
-	</bean>
 </beans>

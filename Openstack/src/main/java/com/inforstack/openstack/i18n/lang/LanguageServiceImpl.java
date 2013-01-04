@@ -22,6 +22,14 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public Language findByCountryAndLanguage(String country, String language) {
-		return languageDao.find(country, language);
+		Language lang = languageDao.find(country, language);
+		if(lang == null) lang = languageDao.find(language);
+		
+		return lang;
+	}
+
+	@Override
+	public Language getDefaultLanguage() {
+		return languageDao.getDefault();
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 public class ConfigurationDaoImpl implements ConfigurationDao {
 
 	private static final Log log = LogFactory.getLog(ConfigurationDaoImpl.class);
+	
 	@Autowired
 	private EntityManager em;
 	

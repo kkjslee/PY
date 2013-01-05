@@ -1,29 +1,13 @@
 package com.inforstack.openstack.api.host;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
 public class Host {
-	
-	@Id
-	@GeneratedValue
-	private Integer id;
 	
 	private String zone;
 	
-	private String name;
+	private String host_name;
 	
 	private String service;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getZone() {
 		return zone;
@@ -33,12 +17,12 @@ public class Host {
 		this.zone = zone;
 	}
 
-	public String getName() {
-		return name;
+	public String getHost_name() {
+		return host_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setHost_name(String host_name) {
+		this.host_name = host_name;
 	}
 
 	public String getService() {

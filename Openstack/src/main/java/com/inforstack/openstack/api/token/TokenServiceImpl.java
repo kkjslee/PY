@@ -4,14 +4,13 @@ import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
+import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
+import com.inforstack.openstack.utils.RestUtils;
 
 @Service
 @Transactional
@@ -23,7 +22,7 @@ public class TokenServiceImpl implements TokenService {
 	private ConfigurationDao configurationDao;
 	
 	@Override
-	public Access getAccess(String name, String pass, String tenant, boolean apply) {		
+	public Access getAccess(String name, String pass, String tenant, boolean apply) throws OpenstackAPIException {		
 		Access access = null;
 		if (accessMap.containsKey(name)) {
 			access = accessMap.get(name);
@@ -47,11 +46,11 @@ public class TokenServiceImpl implements TokenService {
 	}
 
 	@Override
-	public Access applyAccess(String name, String pass, String tenant) {
+	public Access applyAccess(String name, String pass, String tenant) throws OpenstackAPIException {
 		Access access = null;
 		
-		Configuration configuration = this.configurationDao.findByName(ENDPOINT_TOKEN);
-		if (configuration != null) {
+		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_TOKEN);
+		if (endpoint != null) {
 			Credentials credentials = new Credentials();
 			credentials.setUsername(name);
 			credentials.setPassword(pass);
@@ -62,23 +61,27 @@ public class TokenServiceImpl implements TokenService {
 			TokenRequest request = new TokenRequest();
 			request.setAuth(auth);
 			
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-type", "application/json");
-			headers.add("Accept", "application/json");
-			
-			try {
-				RestTemplate template = new RestTemplate();
-				TokenResponse response = template.postForObject(configuration.getValue(), new HttpEntity<TokenRequest>(request, headers), TokenResponse.class);
-				if (response != null) {
-					access = response.getAccess();
-				}
-				if (access != null) {
-					accessMap.put(response.getAccess().getUser().getName(), access);
-				}
-			} catch (Exception e) {
+			TokenResponse response = RestUtils.post(endpoint.getValue(), request, TokenResponse.class);
+			if (response != null) {
+				access = response.getAccess();
+			}
+			if (access != null) {
+				accessMap.put(response.getAccess().getUser().getName(), access);
 			}
 		}
 		
+		return access;
+	}
+
+	@Override
+	public Access getAdminAccess() throws OpenstackAPIException {
+		Access access = null;
+		Configuration tenant = this.configurationDao.findByName(TENANT_ADMIN_ID);
+		Configuration adminName = this.configurationDao.findByName(USER_ADMIN_NAME);
+		Configuration adminPass = this.configurationDao.findByName(USER_ADMIN_PASS);
+		if (tenant != null && adminName != null && adminPass != null) {
+			access = this.getAccess(adminName.getValue(), adminPass.getValue(), tenant.getValue(), true);
+		}
 		return access;
 	}
 

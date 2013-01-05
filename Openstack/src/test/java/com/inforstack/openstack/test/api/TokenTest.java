@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.token.Access;
 import com.inforstack.openstack.api.token.TokenService;
 import com.inforstack.openstack.configuration.ConfigurationDao;
@@ -42,19 +43,29 @@ public class TokenTest {
 
 	@Test
 	public void testGetToken() {
-		Access access = this.tokenService.getAccess(this.username, this.password, tenant, false);
-		if (access == null) {
-			access = this.tokenService.getAccess(this.username, this.password, tenant, true);
+		try {
+			Access access = this.tokenService.getAccess(this.username, this.password, tenant, false);
+			if (access == null) {
+				access = this.tokenService.getAccess(this.username, this.password, tenant, true);
+			}
+			Assert.assertNotNull("Could not get access");
+			Assert.assertFalse(this.tokenService.isExpired(access));
+		} catch (OpenstackAPIException e) {
+			Assert.fail("Could not get access");
 		}
-		Assert.assertNotNull("Could not get access", access);
-		Assert.assertFalse(this.tokenService.isExpired(access));
+		
 	}
 
 	@Test
 	public void testApplyToken() {
-		Access access = this.tokenService.applyAccess(this.username, this.password, tenant);
-		Assert.assertNotNull("Could not apply new access", access);
-		Assert.assertFalse(this.tokenService.isExpired(access));
+		try {
+			Access access = this.tokenService.applyAccess(this.username, this.password, tenant);
+			Assert.assertNotNull("Could not apply new access");
+			Assert.assertFalse(this.tokenService.isExpired(access));
+		} catch (OpenstackAPIException e) {
+			Assert.fail("Could not apply new access");
+		}
+		
 	}
 
 }

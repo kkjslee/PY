@@ -3,7 +3,10 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 	<persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.inforstack.openstack.domain.Member</class>
+		<class>com.inforstack.openstack.i18n.lang.Language</class>
+		<class>com.inforstack.openstack.configuration.Configuration</class>
+		<class>com.inforstack.openstack.security.resource.Resource</class>
+		<class>com.inforstack.openstack.security.permission.Permission</class>
         <properties>
 	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         	<property name="hibernate.show_sql" value="true" />

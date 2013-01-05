@@ -7,13 +7,32 @@
    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
-	<http pattern="/" security="none"/>
-	<http pattern="/index.jsp" security="none"/>
-	<http pattern="/403.jsp" security="none"/>
-	<http pattern="/resources/**" security="none"/>
-   <security:http auto-config="true" access-denied-page="/403.jsp">
-        <security:form-login login-page="/" authentication-failure-url="/?error=true" default-target-url="/home" />  
-        <security:logout logout-success-url="/" />  
+	<http pattern="/user/login" security="none"/>
+	<http pattern="/admin/login" security="none"/>
+	<http pattern="/agent/login" security="none"/>
+	<http pattern="/*.jsp" security="none"/>
+	<http pattern="/js/**" security="none"/>
+	<http pattern="/css/**" security="none"/>
+	<http pattern="/iamge/**" security="none"/>
+	
+   <security:http pattern="/user/**" auto-config="true" access-denied-page="/user/login" >
+        <security:form-login login-page="/user/login" login-processing-url="/user/doLogin" 
+        		authentication-failure-url="/user/login?error=true" default-target-url="/user"/>  
+        <security:logout logout-url="/user/doLogout" logout-success-url="/user/login" />  
+        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
+   </security:http>
+   
+   <security:http pattern="/admin/**" auto-config="true" access-denied-page="/admin/login" >
+        <security:form-login login-page="/admin/login" login-processing-url="/admin/doLogin" 
+        		authentication-failure-url="/admin/login?error=true" default-target-url="/admin"/>  
+        <security:logout logout-url="/admin/doLogout" logout-success-url="/admin/login" />  
+        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
+   </security:http>
+   
+   <security:http pattern="/agent/**" auto-config="true" access-denied-page="/agent/login" >
+        <security:form-login login-page="/agent/login" login-processing-url="/agent" 
+        		authentication-failure-url="/agent/login?error=true" default-target-url="/agent"/>  
+        <security:logout logout-url="/agent/doLogout" logout-success-url="/agent/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
    </security:http>
    

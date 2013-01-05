@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.inforstack.openstack.security.group.SecurityGroup;
+import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.tenant.Tenant;
 
 
@@ -42,8 +43,9 @@ public class User {
 	
 	private String answer;
 	
-	@Column(name="role_id")
-	private Integer roleId;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
+	@JoinColumn(name="role_id")
+	private Role role;
 	
 	private boolean valid;
 	
@@ -131,12 +133,12 @@ public class User {
 		this.answer = answer;
 	}
 
-	public Integer getRoleId() {
-		return roleId;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public boolean isValid() {

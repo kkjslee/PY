@@ -19,9 +19,7 @@ public class Resource {
 	@GeneratedValue
 	private Integer id;
 	private String url;
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, optional=false)
-	@JoinColumn(name="permission_id")
-	private Permission permission;
+	private String permission;
 	
 	public Integer getId() {
 		return id;
@@ -35,11 +33,10 @@ public class Resource {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Permission getPermission() {
+	public String getPermission() {
 		return permission;
 	}
-	public void setPermission(Permission permission) {
+	public void setPermission(String permission) {
 		this.permission = permission;
 	}
-	
 }

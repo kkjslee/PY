@@ -75,7 +75,7 @@ public class OpenstackUserDetails implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return user.isValid() && user.isDeleted();
+		return user.isValid() && !user.isDeleted();
 	}
 
 	public User getUser() {

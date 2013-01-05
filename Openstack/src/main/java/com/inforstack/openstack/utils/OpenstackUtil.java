@@ -2,9 +2,6 @@ package com.inforstack.openstack.utils;
 
 import java.util.Locale;
 
-
-import org.springframework.web.servlet.LocaleResolver;
-
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.model.I18nContext;
 

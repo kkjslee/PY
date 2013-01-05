@@ -4,11 +4,10 @@ package com.inforstack.openstack.utils;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.inforstack.openstack.security.auth.OpenstackUserDetails;
+import com.inforstack.openstack.security.role.Role;
 
 
 public class SecurityUtils {
-
-	public static final String AUTHENTICATED_USER_ROLE = "-1";
 
 	public static String getUserName() {
 		try{
@@ -22,11 +21,11 @@ public class SecurityUtils {
 		return null;
 	}
 	
-	public static Integer getUserRole() {
+	public static Role getUserRole() {
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				return ((OpenstackUserDetails)o).getUser().getRoleId();
+				return ((OpenstackUserDetails)o).getUser().getRole();
 			}
 		}catch(Exception e){
 		}

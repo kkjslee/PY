@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page import="com.inforstack.openstack.utils.Constants" %> 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,7 +19,6 @@ body {
 }
 form {
 	width: 320px;
-	background: url(<%=request.getContextPath()%>/resources/images/hlogo.png) 2px 2px no-repeat #EDF2F6;
 	padding: 2px 2px 5px;
 	border: 1px solid #85bafb;
 	margin: 80px auto 0;
@@ -47,7 +47,6 @@ p a:hover {
 	text-decoration:underline;
 }
 p.error {
-	background: url(<%=request.getContextPath()%>/resources/images/warning.png) 0 3px no-repeat;
 	color: #c00;
 	min-height: 20px;
 	line-height:20px;
@@ -83,7 +82,6 @@ table tr td{
 	padding-top:3px;
 }
 .inforstack_button{
-	background: url(<%=request.getContextPath()%>/resources/images/inforstack_buttons.png) left top no-repeat;
 	border: none;
 	color: #fff;
 	font-size: 15px;
@@ -114,7 +112,7 @@ table tr td{
 </style>
 </head>
 <body>
-<form method="post" action="<c:url value='j_spring_security_check' />" name="logonForm">
+<form method="post" action="<c:url value='/${enterpoint}/login' />" name="logonForm">
 	<h1></h1>
 	<table>
 	<tr>
@@ -132,7 +130,17 @@ table tr td{
 		<td class="tinput">
 			<input id="j_password" type="password" name="j_password" maxlength="40" />
 		</td>
-		</tr>
+	</tr>
+	<c:if test='${"user".equals(enterpoint) && session[Constants.SESSION_ATTRIBUTE_NAME_AGENT] != null}'>
+		<tr>
+		<td class="label">
+			<spring:message code="user.agent.lable"></spring:message>
+		</td>
+		<td class="tinput">
+			${session[Constants.SESSION_ATTRIBUTE_NAME_AGENT].name}
+		</td>
+	</tr>
+	</c:if>
 	<tr>
 		<td class="tinput"></td>
 		<td class="tsubmit">

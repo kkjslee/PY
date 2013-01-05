@@ -51,7 +51,7 @@ public class OpenstackSecurityMetadataSource implements FilterInvocationSecurity
 							permissionLst = new ArrayList<String>();
 							resourceMap.put(url, permissionLst);
 						}
-						permissionLst.add(resource.getPermission().getName());
+						permissionLst.add(resource.getPermission());
 					}
 				}
 			}
@@ -83,10 +83,6 @@ public class OpenstackSecurityMetadataSource implements FilterInvocationSecurity
         	}
         }
         log.debug(attrs.size()+" ConfigAttribute found");
-        if(attrs.size()==0){
-        	attrs.add(new SecurityConfig(SecurityUtils.AUTHENTICATED_USER_ROLE));
-        	log.debug("Set resource role as 'AUTHENTICATED_USER_ROLE'");
-        }
         return attrs;
 	}
 

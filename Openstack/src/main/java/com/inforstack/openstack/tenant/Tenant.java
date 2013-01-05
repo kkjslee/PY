@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.criteria.CriteriaBuilder.In;
 
+import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.user.User;
 
 
@@ -29,8 +30,9 @@ public class Tenant {
 	
 	private String dipalyName;
 
-	@Column(name="role_id")
-	private Integer roleId;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
+	@JoinColumn(name="role_id")
+	private Role role;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "tanent_user", 
@@ -69,12 +71,12 @@ public class Tenant {
 		this.dipalyName = dipalyName;
 	}
 
-	public Integer getRoleId() {
-		return roleId;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public boolean isDeleted() {

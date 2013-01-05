@@ -4,16 +4,36 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.inforstack.openstack.api.token.Token;
-import com.inforstack.openstack.utils.TokenUtils;
+import com.inforstack.openstack.api.token.Access;
+import com.inforstack.openstack.api.token.TokenService;
+import com.inforstack.openstack.configuration.ConfigurationDao;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/test-context.xml"})
 public class TokenTest {
-	
-	private String tenant = "b7c22b6d6610409e9f7d18ad5761112f";
 
+	@Autowired
+	private TokenService tokenService;
+	
+	@Autowired
+	private ConfigurationDao configurationDao;
+	
+	private String tenant;
+	
+	private String username;
+	
+	private String password;
+	
 	@Before
 	public void setUp() throws Exception {
+		this.tenant = this.configurationDao.findByName(TokenService.TENANT_ADMIN_ID).getValue();
+		this.username = this.configurationDao.findByName(TokenService.USER_ADMIN_NAME).getValue();
+		this.password = this.configurationDao.findByName(TokenService.USER_ADMIN_PASS).getValue();
 	}
 
 	@After
@@ -22,17 +42,19 @@ public class TokenTest {
 
 	@Test
 	public void testGetToken() {
-		Token token = TokenUtils.getToken("demo", "inforstack", tenant, false);
-		if (token == null) {
-			token = TokenUtils.getToken("demo", "inforstack", tenant, true);
+		Access access = this.tokenService.getAccess(this.username, this.password, tenant, false);
+		if (access == null) {
+			access = this.tokenService.getAccess(this.username, this.password, tenant, true);
 		}
-		Assert.assertNotNull("Could not get token", token);
+		Assert.assertNotNull("Could not get access", access);
+		Assert.assertFalse(this.tokenService.isExpired(access));
 	}
 
 	@Test
 	public void testApplyToken() {
-		Token token = TokenUtils.applyToken("admin", "inforstack", tenant);
-		Assert.assertNotNull("Could not apply new token", token);
+		Access access = this.tokenService.applyAccess(this.username, this.password, tenant);
+		Assert.assertNotNull("Could not apply new access", access);
+		Assert.assertFalse(this.tokenService.isExpired(access));
 	}
 
 }

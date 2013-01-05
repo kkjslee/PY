@@ -1,6 +1,6 @@
 package com.inforstack.openstack.api.host;
 
-public class HostResponse {
+public class Hosts {
 
 	private Host[] hosts;
 

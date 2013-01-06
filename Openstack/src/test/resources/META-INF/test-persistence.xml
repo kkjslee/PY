@@ -7,6 +7,12 @@
 		<class>com.inforstack.openstack.configuration.Configuration</class>
 		<class>com.inforstack.openstack.security.resource.Resource</class>
 		<class>com.inforstack.openstack.security.permission.Permission</class>
+		<class>com.inforstack.openstack.security.role.Role</class>
+		<class>com.inforstack.openstack.security.group.SecurityGroup</class>
+		<class>com.inforstack.openstack.i18n.I18nLink</class>
+		<class>com.inforstack.openstack.tenant.Tenant</class>
+		<class>com.inforstack.openstack.tenant.agent.Agent</class>
+		<class>com.inforstack.openstack.user.User</class>
         <properties>
 	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         	<property name="hibernate.show_sql" value="true" />

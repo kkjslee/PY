@@ -31,7 +31,7 @@
    </security:http>
    
    <security:http pattern="/agent/**" auto-config="true" access-denied-page="/agent/login" >
-        <security:form-login login-page="/agent/login" login-processing-url="/agent" 
+        <security:form-login login-page="/agent/login" login-processing-url="/agent/doLogin" 
         		authentication-failure-url="/agent/login?error=true" default-target-url="/agent"/>  
         <security:logout logout-url="/agent/doLogout" logout-success-url="/agent/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>

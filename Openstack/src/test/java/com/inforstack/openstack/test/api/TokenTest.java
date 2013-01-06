@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
-import com.inforstack.openstack.api.token.Access;
-import com.inforstack.openstack.api.token.KeystoneService;
+import com.inforstack.openstack.api.keystone.Access;
+import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)

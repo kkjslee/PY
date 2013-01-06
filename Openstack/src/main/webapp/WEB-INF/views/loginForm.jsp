@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title><spring:message code="user.login.page.title"/></title>
-	<link href="${pageContext.request.contextPath}/resources/css/theme_enterprise.css" rel="stylesheet" type="text/css">
+	<link href="${pageContext.request.contextPath}/resources/common/css/theme_enterprise.css" rel="stylesheet" type="text/css">
 	<script>
 	function changeLocale(language){
 		if(language == -1){

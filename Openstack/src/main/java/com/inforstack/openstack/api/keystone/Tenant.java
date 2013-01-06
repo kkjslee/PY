@@ -1,5 +1,8 @@
 package com.inforstack.openstack.api.keystone;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Tenant {
 	
 	private String id;

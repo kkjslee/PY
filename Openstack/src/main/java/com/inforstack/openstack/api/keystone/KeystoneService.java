@@ -4,7 +4,8 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 
 public interface KeystoneService {
 	
-	public final static String ENDPOINT_TOKEN	= "openstack.endpoint.token";
+	public final static String ENDPOINT_TOKENS	= "openstack.endpoint.tokens";
+	public final static String ENDPOINT_TENANTS	= "openstack.endpoint.tenants";
 	public final static String ENDPOINT_TENANT	= "openstack.endpoint.tenant";
 	public final static String ENDPOINT_USER	= "openstack.endpoint.user";
 	public final static String TENANT_ADMIN_ID	= "openstack.tenant.admin";
@@ -19,6 +20,16 @@ public interface KeystoneService {
 	
 	public Access getAdminAccess() throws OpenstackAPIException;
 	
+	public Tenant[] getTenants() throws OpenstackAPIException;
+	
+	public Tenant addTenant(String name, String description, boolean enable) throws OpenstackAPIException;
+	
+	public Tenant updateTenant(Tenant tenant) throws OpenstackAPIException;
+	
+	public void removeTenant(Tenant tenant) throws OpenstackAPIException;
+	
 	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException;
+	
+	public void removeUserAndTenant(String name) throws OpenstackAPIException;
 	
 }

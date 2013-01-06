@@ -14,6 +14,7 @@
 	<http pattern="/*.jsp" security="none"/>
 	<http pattern="/js/**" security="none"/>
 	<http pattern="/css/**" security="none"/>
+    <http pattern="/resources/**" security="none"/>
 	<http pattern="/image/**" security="none"/>
 	
    <security:http pattern="/user/**" auto-config="true" access-denied-page="/user/login" >

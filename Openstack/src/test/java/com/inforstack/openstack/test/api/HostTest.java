@@ -39,12 +39,13 @@ public class HostTest {
 			Assert.assertTrue(hosts.length > 0);
 			for (Host host : hosts) {
 				System.out.println("#######");
-				System.out.println("Zone:\t\t" + host.getZone());
-				System.out.println("Name:\t\t" + host.getHost_name());
-				System.out.println("Service:\t" + host.getService());
+				System.out.println("Zone:     " + host.getZone());
+				System.out.println("Name:     " + host.getHost_name());
+				System.out.println("Service:  " + host.getService());
 			}
 		} catch (OpenstackAPIException e) {
 			Assert.fail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -68,6 +69,7 @@ public class HostTest {
 			}
 		} catch (OpenstackAPIException e) {
 			Assert.fail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

@@ -16,4 +16,13 @@ public class AgentServiceImpl implements AgentService {
 		return agentDao.findById(agentId);
 	}
 
+	@Override
+	public Agent findAgentTenantByAgentId(String agentId) {
+		Agent agent = agentDao.findById(agentId);
+		if(agent != null){
+			agent.getTenant().getId();
+		}
+		return agent;
+	}
+
 }

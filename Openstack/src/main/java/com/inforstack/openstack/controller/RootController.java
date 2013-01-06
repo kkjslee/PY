@@ -15,7 +15,6 @@ import com.inforstack.openstack.tenant.agent.AgentService;
 import com.inforstack.openstack.utils.Constants;
 
 @Controller
-@RequestMapping(value="/")
 public class RootController {
 	
 	@Autowired
@@ -26,15 +25,15 @@ public class RootController {
 		return "403";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String visitRoot(Model model){
 		return visitUser(model);
 	}
 	
-	@RequestMapping(value="/user/login/{agent_id}", method=RequestMethod.GET)
+	@RequestMapping(value="/user/{agent_id}/login", method=RequestMethod.GET)
 	public String visitUserFromAgent(Model model, HttpServletRequest request, 
 			@PathVariable("agent_id") String agentId){
-		Agent agent = agentService.findAgentById(agentId);
+		Agent agent = agentService.findAgentTenantByAgentId(agentId);
 		if(agent != null){
 			WebUtils.setSessionAttribute(request, Constants.SESSION_ATTRIBUTE_NAME_AGENT, agent);
 		}

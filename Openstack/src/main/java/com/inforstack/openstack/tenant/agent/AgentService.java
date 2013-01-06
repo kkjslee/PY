@@ -4,4 +4,6 @@ public interface AgentService {
 
 	public Agent findAgentById(String agentId);
 
+	public Agent findAgentTenantByAgentId(String agentId);
+
 }

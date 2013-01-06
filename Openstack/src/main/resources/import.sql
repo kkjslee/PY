@@ -15,9 +15,9 @@ insert into Role(id, name) values (1, 'admin')
 insert into Role(id, name) values (2, 'user')
 insert into Role(id, name) values (3, 'agent')
 
-insert into Tenant(id, name, dipalyName, role_id, deleted) values(1, 'admin', 'admin', 1, false)
+insert into Tenant(id, name, dipalyName, role_id, deleted) values (1, 'admin', 'admin', 1, false)
 
-insert into Agent(uuid, commission, tenant_id)('1', 0.1, 1)
+insert into Agent(uuid, commission, tenant_id) values ('1', 0.1, 1)
 
 insert into User(id, name, password, realname, role_id, valid, deleted) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 1, true, false)
 

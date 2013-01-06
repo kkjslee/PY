@@ -112,7 +112,7 @@ table tr td{
 </style>
 </head>
 <body>
-<form method="post" action="<c:url value='/${enterpoint}/login' />" name="logonForm">
+<form method="post" action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm">
 	<h1></h1>
 	<table>
 	<tr>
@@ -131,13 +131,14 @@ table tr td{
 			<input id="j_password" type="password" name="j_password" maxlength="40" />
 		</td>
 	</tr>
-	<c:if test='${"user".equals(enterpoint) && session[Constants.SESSION_ATTRIBUTE_NAME_AGENT] != null}'>
+	<%pageContext.setAttribute("agentKey", Constants.SESSION_ATTRIBUTE_NAME_AGENT); %>
+	<c:if test='${"user" eq enterpoint && sessionScope[agentKey] != null}'>
 		<tr>
 		<td class="label">
 			<spring:message code="user.agent.lable"></spring:message>
 		</td>
 		<td class="tinput">
-			${session[Constants.SESSION_ATTRIBUTE_NAME_AGENT].name}
+			${sessionScope[agentKey].tenant.name}
 		</td>
 	</tr>
 	</c:if>

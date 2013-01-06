@@ -8,12 +8,13 @@
                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
 	<http pattern="/user/login" security="none"/>
+	<http pattern="/user/*/login" security="none"/>
 	<http pattern="/admin/login" security="none"/>
 	<http pattern="/agent/login" security="none"/>
 	<http pattern="/*.jsp" security="none"/>
 	<http pattern="/js/**" security="none"/>
 	<http pattern="/css/**" security="none"/>
-	<http pattern="/iamge/**" security="none"/>
+	<http pattern="/image/**" security="none"/>
 	
    <security:http pattern="/user/**" auto-config="true" access-denied-page="/user/login" >
         <security:form-login login-page="/user/login" login-processing-url="/user/doLogin" 

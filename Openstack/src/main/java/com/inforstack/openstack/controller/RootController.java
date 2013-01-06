@@ -16,45 +16,51 @@ import com.inforstack.openstack.utils.Constants;
 
 @Controller
 public class RootController {
-	
-	@Autowired
-	private AgentService agentService;
-	
-	@RequestMapping(value="/403", method=RequestMethod.GET)
-	public String accessDenied(){
-		return "403";
-	}
-	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String visitRoot(Model model){
-		return visitUser(model);
-	}
-	
-	@RequestMapping(value="/user/{agent_id}/login", method=RequestMethod.GET)
-	public String visitUserFromAgent(Model model, HttpServletRequest request, 
-			@PathVariable("agent_id") String agentId){
-		Agent agent = agentService.findAgentTenantByAgentId(agentId);
-		if(agent != null){
-			WebUtils.setSessionAttribute(request, Constants.SESSION_ATTRIBUTE_NAME_AGENT, agent);
-		}
-		return visitUser(model);
-	}
-	
-	@RequestMapping(value="/user/login", method=RequestMethod.GET)
-	public String visitUser(Model model){
-		model.addAttribute("enterpoint", "user");
-		return "loginForm";
-	}
-	
-	@RequestMapping(value="/admin/login", method=RequestMethod.GET)
-	public String visitAdmin(Model model){
-		model.addAttribute("enterpoint", "admin");
-		return "loginForm";
-	}
-	
-	@RequestMapping(value="/agent/login", method=RequestMethod.GET)
-	public String visitAgent(Model model){
-		model.addAttribute("enterpoint", "agent");
-		return "loginForm";
-	}
+
+  @Autowired
+  private AgentService agentService;
+
+  @RequestMapping(value = "/403", method = RequestMethod.GET)
+  public String accessDenied() {
+    return "403";
+  }
+
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  public String visitRoot(Model model) {
+    return visitUser(model);
+  }
+
+  @RequestMapping(value = "/user/{agent_id}/login", method = RequestMethod.GET)
+  public String visitUserFromAgent(Model model, HttpServletRequest request,
+      @PathVariable("agent_id") String agentId) {
+    Agent agent = agentService.findAgentTenantByAgentId(agentId);
+    if (agent != null) {
+      WebUtils.setSessionAttribute(request, Constants.SESSION_ATTRIBUTE_NAME_AGENT, agent);
+    }
+    return visitUser(model);
+  }
+
+  @RequestMapping(value = "/user/login", method = RequestMethod.GET)
+  public String visitUser(Model model) {
+    model.addAttribute("enterpoint", "user");
+    return "loginForm";
+  }
+
+  @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+  public String visitAdmin(Model model) {
+    model.addAttribute("enterpoint", "admin");
+    return "loginForm";
+  }
+
+  @RequestMapping(value = "/agent/login", method = RequestMethod.GET)
+  public String visitAgent(Model model) {
+    model.addAttribute("enterpoint", "agent");
+    return "loginForm";
+  }
+
+  @RequestMapping(value = "{entry}/modules/{moduleName}", method = RequestMethod.GET)
+  public String redirectModule(Model model, HttpServletRequest request,
+      @PathVariable("entry") String entry, @PathVariable("moduleName") String moduleName) {
+    return entry + "/modules/" + moduleName + "/index";
+  }
 }

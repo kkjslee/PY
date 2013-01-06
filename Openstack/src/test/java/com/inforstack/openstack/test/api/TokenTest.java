@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.token.Access;
-import com.inforstack.openstack.api.token.TokenService;
+import com.inforstack.openstack.api.token.KeystoneService;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,7 +19,7 @@ import com.inforstack.openstack.configuration.ConfigurationDao;
 public class TokenTest {
 
 	@Autowired
-	private TokenService tokenService;
+	private KeystoneService tokenService;
 	
 	@Autowired
 	private ConfigurationDao configurationDao;
@@ -32,9 +32,9 @@ public class TokenTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		this.tenant = this.configurationDao.findByName(TokenService.TENANT_ADMIN_ID).getValue();
-		this.username = this.configurationDao.findByName(TokenService.USER_ADMIN_NAME).getValue();
-		this.password = this.configurationDao.findByName(TokenService.USER_ADMIN_PASS).getValue();
+		this.tenant = this.configurationDao.findByName(KeystoneService.TENANT_ADMIN_ID).getValue();
+		this.username = this.configurationDao.findByName(KeystoneService.USER_ADMIN_NAME).getValue();
+		this.password = this.configurationDao.findByName(KeystoneService.USER_ADMIN_PASS).getValue();
 	}
 
 	@After

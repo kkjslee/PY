@@ -12,7 +12,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
-import com.inforstack.openstack.api.token.Access;
+import com.inforstack.openstack.api.keystone.Access;
 
 public class RestUtils {
 	

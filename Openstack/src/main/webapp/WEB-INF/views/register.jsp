@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title><spring:message code="user.signup"/></title>
-<c:set var="rPath" value="${pageContext.request.contextPath}/resources" scope="page"/>
+<c:set var="rPath" value="${pageContext.request.contextPath}/resources/common" scope="page"/>
 <link rel="stylesheet" href="${rPath}/css/template.css" type="text/css">
 <link rel="stylesheet" href="${rPath}/css/register.css" type="text/css">
 <link type="text/css" href="${rPath}/css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet" />

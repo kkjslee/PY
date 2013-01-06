@@ -1,157 +1,94 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page import="com.inforstack.openstack.utils.Constants" %> 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="com.inforstack.openstack.utils.Constants"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message code="user.login.page.title"></spring:message> </title>
-<style type="text/css" media="screen">
-* {
-	padding: 0;
-	margin: 0;
-}
-body {
-	font: 76%/1.3 tahoma, helvetica, arial, sans-serif;
-	color: #222;
-}
-form {
-	width: 320px;
-	padding: 2px 2px 5px;
-	border: 1px solid #85bafb;
-	margin: 80px auto 0;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
-	-moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-	-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-	box-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-}
-form h1 {
-	height: 85px;
-	text-indent: -99999px;
-}
-p {
-	width: 110px;
-	font-weight: bold;
-	text-align: center;
-	margin: 15px auto;
-}
-p a {
-	color: #00AEEF;
-	text-decoration: none;
-}
-p a:hover {
-	text-decoration:underline;
-}
-p.error {
-	color: #c00;
-	min-height: 20px;
-	line-height:20px;
-	vertical-align:middle;
-	padding-left: 20px;
-}
-table {
-	width: 100%;
-	border-collapse:collapse;
-	border-spacing:0;
-}
-table tr {
-	color: #fff;
-	font-size: 1.1em;
-	font-weight: bold;
-}
-table tr td{
-	line-height:29px;
-}
-.label {
-	width: 88px;
-	text-align:right;
-	padding-right:5px;
-	color:#00AEEF;
-}
-.tinput input {
-	left: 80px;
-	width: 170px;
-	padding: 4px;
-}
-.tsubmit{
-	text-align:left;
-	padding-top:3px;
-}
-.inforstack_button{
-	border: none;
-	color: #fff;
-	font-size: 15px;
-	line-height: 29px;
-	text-align: center;
-	display: inline-block;
-	cursor: pointer;
-	font-weight: bold;
-	text-decoration: none;
-}
-.inforstack_button:hover {
-	text-decoration: none;
-}
-.blue_button_small {
-	background-position: -308px 1px;
-	font-size: 15px;
-	padding: 0;
-	height: 31px;
-	width: 72px;
-}
-.blue_button_small:hover {
-	background-position: -308px -31px;
-	color: #FFF;
-}
-.logo{
-	padding-top:3px;
-}
-</style>
+	<title><spring:message code="user.login.page.title"/></title>
+	<link href="${pageContext.request.contextPath}/resources/css/theme_enterprise.css" rel="stylesheet" type="text/css">
+	<script>
+	function changeLocale(language){
+		if(language == -1){
+            return false;            
+        }
+	    var url = window.location.href;
+	    if(url.indexOf("languageCode=1") >0){
+	            url = url.replace(/languageCode=1/g,"languageCode="+language); 
+	    }else if(url.indexOf("languageCode=2") >0){
+	            url = url.replace(/languageCode=2/g,"languageCode="+language); 
+	    }else if(url.indexOf("languageCode") == -1){
+	            if(url.indexOf("?") >0){
+	                    url = url + "&languageCode="+language;
+	                }else{
+	                    url = url + "?languageCode="+language;
+	                    }
+	        }
+	    window.location.href=url;
+	}
+	</script>
 </head>
-<body>
-<form method="post" action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm">
-	<h1></h1>
-	<table>
-	<tr>
-		<td class="label">
-			<spring:message code="user.name.lable"></spring:message>
-		</td>
-		<td class="tinput">
-			<input id="j_username" type="text" name="j_username" maxlength="40" autofocus />
-		</td>
-	</tr>
-	<tr>
-		<td class="label">
-			<spring:message code="user.password.lable"></spring:message>
-		</td>
-		<td class="tinput">
-			<input id="j_password" type="password" name="j_password" maxlength="40" />
-		</td>
-	</tr>
-	<%pageContext.setAttribute("agentKey", Constants.SESSION_ATTRIBUTE_NAME_AGENT); %>
-	<c:if test='${"user" eq enterpoint && sessionScope[agentKey] != null}'>
-		<tr>
-		<td class="label">
-			<spring:message code="user.agent.lable"></spring:message>
-		</td>
-		<td class="tinput">
-			${sessionScope[agentKey].tenant.name}
-		</td>
-	</tr>
-	</c:if>
-	<tr>
-		<td class="tinput"></td>
-		<td class="tsubmit">
-			<input class="blue_button_small inforstack_button" type="submit" value="<spring:message code="user.login.lable"></spring:message>"/>
-		</td>
-	</tr>
-	</table>
-</form>
-	<c:if test="${not empty param.error && param.error=='true'}">
-		<p class="error"><spring:message code="user.login.fail"></spring:message></p>
-	</c:if>
-</body>
+<body id="splash">
+	<div class="container">
+		<div class="row large-rounded">
+			<div style="right: 15px; top: 15px; position: absolute;">
+				<select name="language" id="language" style="min-width: 120px;" onchange="changeLocale(document.getElementById('language').value)" >
+					<option><spring:message code="user.language.choose"/></option>
+					<option value="2">简体中文</option>
+					<option value="1">English</option>
+					<!-- <option value="ja_JP">日本語</option> -->
+				</select>
+			</div>
+			<div id="" class="login ">
+				<div class="modal-header">
+					<h3>
+						<spring:message code="system.name" />
+					</h3>
+				</div>
+				<form id="" action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm">
+					<div class="modal-body clearfix">
+						<fieldset>
+							<div class="control-group form-field clearfix">
+								<label for="id_username"><spring:message code="user.name.lable" /></label>
+								<span class="help-block"></span>
+								<div class="input">
+									<input id="j_username" class="iwidth" type="text" name="j_username" maxlength="40" autofocus />
+								</div>
+							</div>
+							<div class="control-group form-field clearfix">
+								<label for="id_password"><spring:message code="user.password.lable" /></label>
+								<span class="help-block"></span>
+								<div class="input">
+									<input id="j_password" class="iwidth"  type="password" name="j_password" maxlength="40" />
+								</div>
+							</div>
+							<%
+							  pageContext.setAttribute("agentKey", Constants.SESSION_ATTRIBUTE_NAME_AGENT);
+							%>
+							<c:if test='${"user" eq enterpoint && sessionScope[agentKey] != null}'>
+								<div class="control-group form-field clearfix">
+									<label for="id_password"><spring:message code="user.agent.lable" /> : ${sessionScope[agentKey].tenant.name}</label> 
+									   <span class="help-block"></span>
+								</div>
+							</c:if>
+						</fieldset>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" id="logBtn" href="#" tabindex="3" class="logBtn btn btn-primary pull-right" value='<spring:message code="user.login.lable"/>'/>
+						<c:if test='${"user" eq enterpoint || "agent" eq enterpoint}'>
+						  <a type="button" id="regBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.signup"/></a>
+						 </c:if>
+			       <div id="message" class="msg">
+				       <c:if test="${not empty param.error && param.error=='true'}">
+				            <p class="error"><spring:message code="user.login.fail"></spring:message></p>
+				       </c:if>
+			        </div>  
+              </div> 
+          </form> 
+    </div> 
+   </div> 
+  </div> 
+ </body>
 </html>

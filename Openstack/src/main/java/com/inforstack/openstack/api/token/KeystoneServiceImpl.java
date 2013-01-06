@@ -14,7 +14,7 @@ import com.inforstack.openstack.utils.RestUtils;
 
 @Service
 @Transactional
-public class TokenServiceImpl implements TokenService {
+public class KeystoneServiceImpl implements KeystoneService {
 	
 	private static ConcurrentHashMap<String, Access> accessMap = new ConcurrentHashMap<String, Access>();
 	
@@ -83,6 +83,15 @@ public class TokenServiceImpl implements TokenService {
 			access = this.getAccess(adminName.getValue(), adminPass.getValue(), tenant.getValue(), true);
 		}
 		return access;
+	}
+
+	@Override
+	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException {
+		Configuration endpointTenant = this.configurationDao.findByName(ENDPOINT_TENANT);
+		Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USER);
+		if (endpointTenant != null && endpointUser != null) {
+			
+		}
 	}
 
 }

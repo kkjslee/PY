@@ -10,7 +10,7 @@ import com.inforstack.openstack.api.host.HostDescribes;
 import com.inforstack.openstack.api.host.HostService;
 import com.inforstack.openstack.api.host.Hosts;
 import com.inforstack.openstack.api.token.Access;
-import com.inforstack.openstack.api.token.TokenService;
+import com.inforstack.openstack.api.token.KeystoneService;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 import com.inforstack.openstack.utils.RestUtils;
@@ -23,7 +23,7 @@ public class HostServiceImpl implements HostService {
 	private ConfigurationDao configurationDao;
 	
 	@Autowired
-	private TokenService tokenService;
+	private KeystoneService tokenService;
 	
 	@Override
 	public Host[] getHosts() throws OpenstackAPIException {

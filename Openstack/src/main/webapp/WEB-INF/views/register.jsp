@@ -47,7 +47,7 @@ $(function(){
         return false;
     }); */
     
-    $('#etc_10').attr('checked',"false");
+    $('#etc_10').attr('checked','false');
     // Dialog
     $('#checkDialog').dialog({
         autoOpen: false,
@@ -86,7 +86,7 @@ $(function(){
         resizable: false,
         buttons: {
             "确认": function() { 
-                location.href='../../index.html';
+            	  $(this).dialog("close"); 
             }
         }
     });
@@ -309,7 +309,7 @@ function register_submit() {
                     $('#tips').html(info);
                     $('#checkDialog').dialog('open');
                 }
-            }catch(e){window.console&&window.console.log("Register error: "+e);}
+            }catch(e){}
         }
     );
 };
@@ -338,7 +338,7 @@ $(document).ready(function(){
                         $('#tips_username').html('<span class="ui-icon ui-icon-check"></span>');
                         $('#tips_username_2').html('');
                     }
-                }catch(e){window.console&&window.console.log("Username check: "+e);}
+                }catch(e){}
             }
         );
     });
@@ -365,7 +365,7 @@ $(document).ready(function(){
                         $('#tips_email').html('<span class="ui-icon ui-icon-check"></span>');
                         $('#tips_email_t2').html('');
                     }
-                }catch(e){window.console&&window.console.log("Email check: "+e);}
+                }catch(e){}
             }
         );
     });
@@ -563,7 +563,7 @@ function resend() {
                     $('#tips').html('系统错误（'+result2+'），请与联系管理员。');
                     $('#checkDialog').dialog('open');                       
                 }
-            }catch(e){window.console&&window.console.log("Resend email: "+e);}
+            }catch(e){}
         }
     );  
 }
@@ -811,7 +811,7 @@ function resend() {
 <tr>
     <td colspan="5">
         <div style="text-align:center;">
-            <input type="checkbox" name="etc_10" id="etc_10" />
+            <input type="checkbox" name="etc_10" id="etc_10" unchecked/>
             <label for="etc_10" style="font-weight:bold;line-height:48px;font-size:14px;"><i>我已阅读，并理解和接受<a href="#"><!--#echo var="register.platform.name"-->会员注册条款</a></i></label>
             <br/><label style="font-size:12px;">（用户同意此在线注册条款之效力如同用户亲自签字、盖章的书面条款一样，对用户具有法律约束力）</label>
         </div>

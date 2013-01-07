@@ -73,11 +73,13 @@ public class KeystoneTest {
 	@Test
 	public void testGetTenants() {
 		try {
-			Tenant[] tenants = this.keystoneService.getTenants();
+			Tenant[] tenants = this.keystoneService.listTenants();
 			Assert.assertNotNull(tenants);
 			Assert.assertTrue(tenants.length > 0);
+			System.out.println("\n\n\n");
+			System.out.println("======= Tenants =======");
 			for (Tenant tenant : tenants) {
-				System.out.println("#######");
+				System.out.println("-----------------------");
 				System.out.println("ID:           " + tenant.getId());
 				System.out.println("Name:         " + tenant.getName());
 				System.out.println("Enable:       " + tenant.isEnabled());
@@ -92,7 +94,7 @@ public class KeystoneTest {
 	@Test
 	public void testTenantAction() {
 		try {
-			Tenant[] tenants = this.keystoneService.getTenants();
+			Tenant[] tenants = this.keystoneService.listTenants();
 			int size = tenants.length;
 			Tenant testTenant = this.keystoneService.addTenant("test", "test", true);
 			Assert.assertNotNull(testTenant);
@@ -101,9 +103,9 @@ public class KeystoneTest {
 			testTenant.setName("update");
 			testTenant = this.keystoneService.updateTenant(testTenant);
 			Assert.assertTrue(testTenant.getName().equals("update"));
-			Assert.assertTrue(this.keystoneService.getTenants().length == size + 1);
+			Assert.assertTrue(this.keystoneService.listTenants().length == size + 1);
 			this.keystoneService.removeTenant(testTenant);
-			Assert.assertTrue(this.keystoneService.getTenants().length == size);
+			Assert.assertTrue(this.keystoneService.listTenants().length == size);
 		} catch (OpenstackAPIException e) {
 			Assert.fail();
 			e.printStackTrace();

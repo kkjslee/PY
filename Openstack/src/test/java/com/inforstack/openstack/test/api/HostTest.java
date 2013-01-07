@@ -10,10 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
-import com.inforstack.openstack.api.host.Host;
-import com.inforstack.openstack.api.host.HostDescribe;
-import com.inforstack.openstack.api.host.HostDescribes;
-import com.inforstack.openstack.api.host.HostService;
+import com.inforstack.openstack.api.nova.host.Host;
+import com.inforstack.openstack.api.nova.host.HostDescribe;
+import com.inforstack.openstack.api.nova.host.HostService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/test-context.xml"})
@@ -33,11 +32,13 @@ public class HostTest {
 	@Test
 	public void testGetHosts() {
 		try {
-			Host[] hosts = this.hostService.getHosts();
+			Host[] hosts = this.hostService.listHosts();
 			Assert.assertNotNull(hosts);
 			Assert.assertTrue(hosts.length > 0);
+			System.out.println("\n\n\n");
+			System.out.println("======= Hosts =======");
 			for (Host host : hosts) {
-				System.out.println("#######");
+				System.out.println("---------------------");
 				System.out.println("Zone:     " + host.getZone());
 				System.out.println("Name:     " + host.getName());
 				System.out.println("Service:  " + host.getService());
@@ -51,15 +52,17 @@ public class HostTest {
 	@Test
 	public void testGetHostDescrible() {
 		try {
-			Host[] hosts = this.hostService.getHosts();
+			Host[] hosts = this.hostService.listHosts();
 			if (hosts.length > 0) {
 				Host host = hosts[0];
-				HostDescribes describes = this.hostService.getHostDescribe(host);
+				HostDescribe[] describes = this.hostService.getHostDescribes(host);
 				Assert.assertNotNull(describes);
-				Assert.assertTrue(describes.getHost().length > 0);
-				for (HostDescribe describe : describes.getHost()) {
+				Assert.assertTrue(describes.length > 0);
+				System.out.println("\n\n\n");
+				System.out.println("======= Describes =======");
+				for (HostDescribe describe : describes) {
 					HostDescribe.ProjectResource resource = describe.getResource();
-					System.out.println("#######");
+					System.out.println("-------------------------");
 					System.out.println("Project    :" + resource.getProject());
 					System.out.println("CPU        :" + resource.getCpu());
 					System.out.println("Memory(mb) :" + resource.getMemory());

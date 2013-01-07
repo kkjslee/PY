@@ -6,7 +6,7 @@ insert into Configuration(id, name, value) values(1, 'openstack.endpoint.tokens'
 insert into Configuration(id, name, value) values(2, 'openstack.endpoint.tenants', 'http://192.168.1.145:35357/v2.0/tenants')
 insert into Configuration(id, name, value) values(3, 'openstack.endpoint.tenant', 'http://192.168.1.145:35357/v2.0/tenants/{tenant}')
 insert into Configuration(id, name, value) values(4, 'openstack.endpoint.users', 'http://192.168.1.145:35357/v2.0/users')
-insert into Configuration(id, name, value) values(5, 'openstack.endpoint.user', 'http://192.168.1.145:35357/v2.0/user')
+insert into Configuration(id, name, value) values(5, 'openstack.endpoint.user', 'http://192.168.1.145:35357/v2.0/users/{user}')
 insert into Configuration(id, name, value) values(6, 'openstack.endpoint.hosts', 'http://192.168.1.145:8774/v2/{tenant}/os-hosts')
 insert into Configuration(id, name, value) values(7, 'openstack.endpoint.host.describe', 'http://192.168.1.145:8774/v2/{tenant}/os-hosts/{host}')
 insert into Configuration(id, name, value) values(8, 'openstack.tenant.admin', '8384b45a9ad34a5da3a0a2f8b12b99bb')

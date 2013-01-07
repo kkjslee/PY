@@ -2,6 +2,10 @@ package com.inforstack.openstack.test.api;
 
 import static org.junit.Assert.fail;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -79,6 +83,20 @@ public class NovaTest {
 				System.out.println("Tenant:    " + image.getTenant());
 				System.out.println("User:      " + image.getUser());
 				System.out.println("Status:    " + image.getStatus());
+				System.out.println("Progress:  " + image.getProgress());
+				System.out.println("MinDisk:   " + image.getMinDisk());
+				System.out.println("MinRAM:    " + image.getMinRam());
+				System.out.println("Server:    " + (image.getServer() != null ? image.getServer().getId() : null));
+				System.out.println("Metadata:  [");
+				Map<String, String> metadata = image.getMetadata();
+				if (metadata != null) {
+					Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
+					while (it.hasNext()) {
+						Entry<String, String> entry = it.next();
+						System.out.println(entry.getKey() + ":\t\t" + entry.getValue());
+					}
+				}
+				System.out.println("]");
 			}
 		} catch (OpenstackAPIException e) {
 			fail(e.getMessage());

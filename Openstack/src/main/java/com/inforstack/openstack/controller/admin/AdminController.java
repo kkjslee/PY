@@ -1,4 +1,4 @@
-package com.inforstack.openstack.controller;
+package com.inforstack.openstack.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

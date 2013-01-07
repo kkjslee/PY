@@ -1,4 +1,4 @@
-package com.inforstack.openstack.api.host;
+package com.inforstack.openstack.api.nova.host;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 

@@ -1,16 +1,16 @@
-package com.inforstack.openstack.api.host.impl;
+package com.inforstack.openstack.api.nova.host.impl;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
-import com.inforstack.openstack.api.host.Host;
-import com.inforstack.openstack.api.host.HostDescribes;
-import com.inforstack.openstack.api.host.HostService;
-import com.inforstack.openstack.api.host.Hosts;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.nova.host.Host;
+import com.inforstack.openstack.api.nova.host.HostDescribe;
+import com.inforstack.openstack.api.nova.host.HostService;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 import com.inforstack.openstack.utils.RestUtils;
@@ -25,8 +25,22 @@ public class HostServiceImpl implements HostService {
 	@Autowired
 	private KeystoneService tokenService;
 	
+	public static final class Hosts {
+
+		private Host[] hosts;
+
+		public Host[] getHosts() {
+			return hosts;
+		}
+
+		public void setHosts(Host[] hosts) {
+			this.hosts = hosts;
+		}
+		
+	}
+	
 	@Override
-	public Host[] getHosts() throws OpenstackAPIException {
+	public Host[] listHosts() throws OpenstackAPIException {
 		Host[] hosts = null;
 		
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_HOSTS);
@@ -40,17 +54,32 @@ public class HostServiceImpl implements HostService {
 		return hosts;
 	}
 
+	public static final class HostDescribes {
+
+		@JsonProperty("host")
+		private HostDescribe[] describes;
+
+		public HostDescribe[] getDescribes() {
+			return describes;
+		}
+
+		public void setDescribes(HostDescribe[] describes) {
+			this.describes = describes;
+		}
+		
+	}
+	
 	@Override
-	public HostDescribes getHostDescribe(Host host) throws OpenstackAPIException {
-		HostDescribes describe = null;
+	public HostDescribe[] getHostDescribes(Host host) throws OpenstackAPIException {
+		HostDescribe[] describes = null;
 		if (host != null) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_HOST_DESCRIBE);
 			if (endpoint != null) {
 				Access access = this.tokenService.getAdminAccess();
-				describe = RestUtils.get(endpoint.getValue(), access, HostDescribes.class, access.getToken().getTenant().getId(), host.getName());
+				describes = RestUtils.get(endpoint.getValue(), access, HostDescribes.class, access.getToken().getTenant().getId(), host.getName()).getDescribes();
 			}
 		}
-		return describe;
+		return describes;
 	}
 
 }

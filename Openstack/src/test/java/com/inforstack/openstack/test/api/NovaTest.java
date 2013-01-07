@@ -20,6 +20,8 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
+import com.inforstack.openstack.api.nova.server.Server;
+import com.inforstack.openstack.api.nova.server.ServerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/test-context.xml"})
@@ -30,6 +32,9 @@ public class NovaTest {
 	
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private ServerService serverService;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -89,6 +94,38 @@ public class NovaTest {
 				System.out.println("Server:    " + (image.getServer() != null ? image.getServer().getId() : null));
 				System.out.println("Metadata:  [");
 				Map<String, String> metadata = image.getMetadata();
+				if (metadata != null) {
+					Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
+					while (it.hasNext()) {
+						Entry<String, String> entry = it.next();
+						System.out.println(entry.getKey() + ":\t\t" + entry.getValue());
+					}
+				}
+				System.out.println("]");
+			}
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testListServers() {
+		try {
+			Server[] servers = this.serverService.listServers("8384b45a9ad34a5da3a0a2f8b12b99bb");
+			Assert.assertNotNull(servers);
+			Assert.assertTrue(servers.length > 0);
+			System.out.println("\n\n\n");
+			System.out.println("======= Servers =======");
+			for (Server server : servers) {
+				System.out.println("----------- -----------");
+				System.out.println("ID:        " + server.getId());
+				System.out.println("Name:      " + server.getName());
+				System.out.println("Tenant:    " + server.getTenant());
+				System.out.println("User:      " + server.getUser());
+				System.out.println("Status:    " + server.getStatus());
+				System.out.println("Metadata:  [");
+				Map<String, String> metadata = server.getMetadata();
 				if (metadata != null) {
 					Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
 					while (it.hasNext()) {

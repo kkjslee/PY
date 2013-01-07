@@ -2,14 +2,18 @@ package com.inforstack.openstack.api.keystone;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Access {
 	
 	public static final class Token {
 		
 		private String id;
 		
-		private Date issued_at;
+		@JsonProperty("issued_at")
+		private Date issued;
 		
+		@JsonProperty("expires")
 		private Date expires;
 		
 		private Tenant tenant;
@@ -22,12 +26,12 @@ public class Access {
 			this.id = id;
 		}
 
-		public Date getIssued_at() {
-			return issued_at;
+		public Date getIssued() {
+			return issued;
 		}
 
-		public void setIssued_at(Date issued_at) {
-			this.issued_at = issued_at;
+		public void setIssued(Date issued) {
+			this.issued = issued;
 		}
 
 		public Date getExpires() {
@@ -110,7 +114,8 @@ public class Access {
 		
 		private EndPoint[] endpoints;
 		
-		private String[] endpoints_links;
+		@JsonProperty("endpoints_links")
+		private String[] endpointsLinks;
 
 		public String getName() {
 			return name;
@@ -136,12 +141,12 @@ public class Access {
 			this.endpoints = endpoints;
 		}
 
-		public String[] getEndpoints_links() {
-			return endpoints_links;
+		public String[] getEndpointsLinks() {
+			return endpointsLinks;
 		}
 
-		public void setEndpoints_links(String[] endpoints_links) {
-			this.endpoints_links = endpoints_links;
+		public void setEndpointsLinks(String[] endpointsLinks) {
+			this.endpointsLinks = endpointsLinks;
 		}
 
 	}
@@ -156,7 +161,8 @@ public class Access {
 		
 		private Role[] roles;
 		
-		private String[] roles_links;
+		@JsonProperty("roles_links")
+		private String[] rolesLinks;
 
 		public String getId() {
 			return id;
@@ -190,28 +196,29 @@ public class Access {
 			this.roles = roles;
 		}
 
-		public String[] getRoles_links() {
-			return roles_links;
+		public String[] getRolesLinks() {
+			return rolesLinks;
 		}
 
-		public void setRoles_links(String[] roles_links) {
-			this.roles_links = roles_links;
+		public void setRoles_links(String[] rolesLinks) {
+			this.rolesLinks = rolesLinks;
 		}
 		
 	}
 	
 	public class Metadata {
 		
-		private int is_admin;
+		@JsonProperty("is_admin")
+		private int isAdmin;
 		
 		private String[] roles;
 
-		public int getIs_admin() {
-			return is_admin;
+		public int getIsAdmin() {
+			return isAdmin;
 		}
 
-		public void setIs_admin(int is_admin) {
-			this.is_admin = is_admin;
+		public void setIsAdmin(int isAdmin) {
+			this.isAdmin = isAdmin;
 		}
 
 		public String[] getRoles() {

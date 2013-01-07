@@ -3,6 +3,7 @@ package com.inforstack.openstack.api.keystone;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,82 @@ public class KeystoneServiceImpl implements KeystoneService {
 		}
 		return expired;
 	}
+	
+	public static final class TokenRequest {
+		
+		public static final class Auth {
+			
+			public static final class Credentials {
+				
+				private String username;
+				
+				private String password;
+
+				public String getUsername() {
+					return username;
+				}
+
+				public void setUsername(String username) {
+					this.username = username;
+				}
+
+				public String getPassword() {
+					return password;
+				}
+
+				public void setPassword(String password) {
+					this.password = password;
+				}
+				
+			}
+			
+			private Credentials passwordCredentials;
+			
+			private String tenantId;
+
+			public Credentials getPasswordCredentials() {
+				return passwordCredentials;
+			}
+
+			public void setPasswordCredentials(Credentials passwordCredentials) {
+				this.passwordCredentials = passwordCredentials;
+			}
+
+			public String getTenantId() {
+				return tenantId;
+			}
+
+			public void setTenantId(String tenantId) {
+				this.tenantId = tenantId;
+			}
+			
+		}
+
+		private Auth auth;
+
+		public Auth getAuth() {
+			return auth;
+		}
+
+		public void setAuth(Auth auth) {
+			this.auth = auth;
+		}
+		
+	}
+	
+	public static final class TokenResponse {
+
+		private Access access;
+
+		public Access getAccess() {
+			return access;
+		}
+
+		public void setAccess(Access access) {
+			this.access = access;
+		}
+		
+	}
 
 	@Override
 	public Access applyAccess(String name, String pass, String tenant) throws OpenstackAPIException {
@@ -84,6 +161,31 @@ public class KeystoneServiceImpl implements KeystoneService {
 		}
 		return access;
 	}
+	
+	public static final class TenantsResponse {
+
+		@JsonProperty("tenants_links")
+		private String[] tenantsLinks;
+		
+		private Tenant[] tenants;
+
+		public String[] getTenantsLinks() {
+			return tenantsLinks;
+		}
+
+		public void setTenantsLinks(String[] tenantsLinks) {
+			this.tenantsLinks = tenantsLinks;
+		}
+
+		public Tenant[] getTenants() {
+			return tenants;
+		}
+
+		public void setTenants(Tenant[] tenants) {
+			this.tenants = tenants;
+		}
+		
+	}
 
 	@Override
 	public Tenant[] getTenants() throws OpenstackAPIException {
@@ -99,6 +201,20 @@ public class KeystoneServiceImpl implements KeystoneService {
 			}
 		}
 		return tenants;
+	}
+	
+	private static final class TenantBody {
+		
+		private Tenant tenant;
+
+		public Tenant getTenant() {
+			return tenant;
+		}
+
+		public void setTenant(Tenant tenant) {
+			this.tenant = tenant;
+		}
+
 	}
 	
 	@Override
@@ -150,26 +266,78 @@ public class KeystoneServiceImpl implements KeystoneService {
 		}
 	}
 	
-//	public User addUser(String name, String pass, String email) throws OpenstackAPIException {
-//		User user = null;
-//		Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USERS);
-//		if (endpointUser != null) {
-//			Access adminAccess = this.getAdminAccess();
-//			if (adminAccess != null) {
-//				User newUser = new User();
-//				newUser.setName(name);
-//				newUser.set
-//			}
-//		}
-//		return user;
-//	}
+	private static final class UserBody {
+		
+		private User user;
+
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+		
+	}
+	
+	@Override
+	public User addUser(String name, String pass, String email) throws OpenstackAPIException {
+		User user = null;
+		Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USERS);
+		if (endpointUser != null) {
+			Access adminAccess = this.getAdminAccess();
+			if (adminAccess != null) {
+				User newUser = new User();
+				newUser.setName(name);
+				newUser.setPassword(pass);
+				newUser.setEmail(email);
+				newUser.setEnabled(true);
+				
+				UserBody body = new UserBody();
+				body.setUser(newUser);
+				body = RestUtils.post(endpointUser.getValue(), adminAccess, body, UserBody.class);
+				user = body.getUser();
+				user.setPassword(null);
+			}
+		}
+		return user;
+	}
+	
+	@Override
+	public User updateUser(User user) throws OpenstackAPIException {
+		User newUser = null;
+		Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USER);
+		if (endpointUser != null) {
+			Access adminAccess = this.getAdminAccess();
+			if (adminAccess != null) {
+				UserBody body = new UserBody();
+				body.setUser(user);
+				body = RestUtils.post(endpointUser.getValue(), adminAccess, body, UserBody.class, user.getId());
+				newUser = body.getUser();
+			}
+		}
+		return newUser;
+	}
+	
+	@Override
+	public void removeUser(User user) throws OpenstackAPIException {
+		if (user != null && !user.getId().trim().isEmpty()) {
+			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USER);
+			if (endpointUser != null) {
+				Access adminAccess = this.getAdminAccess();
+				if (adminAccess != null) {
+					RestUtils.delete(endpointUser.getValue(), adminAccess, user.getId());
+				}
+			}
+		}
+	}
 
 	@Override
 	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException {
 		if (name != null && pass != null && email != null && !name.trim().isEmpty() && !pass.trim().isEmpty()) {
-			Tenant tenant = this.addTenant(name, "", true);
+			Tenant tenant = this.addTenant(name, "Tenant for user[" + name + "]", true);
 			if (tenant != null) {
-				
+				this.addUser(name, pass, email);
 			}
 		}
 	}

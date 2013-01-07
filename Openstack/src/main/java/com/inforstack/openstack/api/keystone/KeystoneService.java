@@ -29,7 +29,11 @@ public interface KeystoneService {
 	
 	public void removeTenant(Tenant tenant) throws OpenstackAPIException;
 	
-	//public User addUser(String name, String pass, String email) throws OpenstackAPIException;
+	public User addUser(String name, String pass, String email) throws OpenstackAPIException;
+	
+	public User updateUser(User user) throws OpenstackAPIException;
+	
+	public void removeUser(User user) throws OpenstackAPIException;
 	
 	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException;
 	

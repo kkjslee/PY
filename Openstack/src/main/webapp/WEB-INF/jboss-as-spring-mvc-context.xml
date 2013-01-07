@@ -15,9 +15,7 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
-	<mvc:resources mapping="/js/**" location="/resources/js/" />
-	<mvc:resources mapping="/css/**" location="/resources/css/" />
-	<mvc:resources mapping="/image/**" location="/resources/iamge/" />
+	<mvc:resources mapping="/resource/**" location="/resources/" />
 	
 	<mvc:interceptors>
 		<bean class="com.inforstack.openstack.i18n.interceptor.CustomLocaleChangeInterceptor">

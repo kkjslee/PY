@@ -21,7 +21,7 @@ public interface KeystoneService {
 	
 	public Access getAdminAccess() throws OpenstackAPIException;
 	
-	public Tenant[] getTenants() throws OpenstackAPIException;
+	public Tenant[] listTenants() throws OpenstackAPIException;
 	
 	public Tenant addTenant(String name, String description, boolean enable) throws OpenstackAPIException;
 	

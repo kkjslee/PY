@@ -188,7 +188,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 	}
 
 	@Override
-	public Tenant[] getTenants() throws OpenstackAPIException {
+	public Tenant[] listTenants() throws OpenstackAPIException {
 		Tenant[] tenants = null;
 		Configuration endpointTenant = this.configurationDao.findByName(ENDPOINT_TENANTS);
 		if (endpointTenant != null) {

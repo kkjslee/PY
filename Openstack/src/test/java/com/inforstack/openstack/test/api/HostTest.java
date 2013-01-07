@@ -14,7 +14,6 @@ import com.inforstack.openstack.api.host.Host;
 import com.inforstack.openstack.api.host.HostDescribe;
 import com.inforstack.openstack.api.host.HostDescribes;
 import com.inforstack.openstack.api.host.HostService;
-import com.inforstack.openstack.api.host.ProjectResource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/test-context.xml"})
@@ -40,7 +39,7 @@ public class HostTest {
 			for (Host host : hosts) {
 				System.out.println("#######");
 				System.out.println("Zone:     " + host.getZone());
-				System.out.println("Name:     " + host.getHost_name());
+				System.out.println("Name:     " + host.getName());
 				System.out.println("Service:  " + host.getService());
 			}
 		} catch (OpenstackAPIException e) {
@@ -59,12 +58,12 @@ public class HostTest {
 				Assert.assertNotNull(describes);
 				Assert.assertTrue(describes.getHost().length > 0);
 				for (HostDescribe describe : describes.getHost()) {
-					ProjectResource resource = describe.getResource();
+					HostDescribe.ProjectResource resource = describe.getResource();
 					System.out.println("#######");
 					System.out.println("Project    :" + resource.getProject());
 					System.out.println("CPU        :" + resource.getCpu());
-					System.out.println("Memory(mb) :" + resource.getMemory_mb());
-					System.out.println("Disk(gb)   :" + resource.getDisk_gb());
+					System.out.println("Memory(mb) :" + resource.getMemory());
+					System.out.println("Disk(gb)   :" + resource.getDisk());
 				}
 			}
 		} catch (OpenstackAPIException e) {

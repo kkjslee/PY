@@ -40,7 +40,7 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public Image[] listImages() throws OpenstackAPIException {
 		Image[] images = null;
-		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_IMAGES);
+		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_IMAGES_DETAIL);
 		if (endpoint != null) {
 			Access access = this.tokenService.getAdminAccess();
 			Images response = RestUtils.get(endpoint.getValue(), access, Images.class, access.getToken().getTenant().getId());

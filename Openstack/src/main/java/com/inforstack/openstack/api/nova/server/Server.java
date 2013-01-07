@@ -1,5 +1,7 @@
 package com.inforstack.openstack.api.nova.server;
 
+import java.util.Map;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
@@ -14,6 +16,8 @@ public class Server {
 	private String user;
 	
 	private String tenant;
+	
+	private Map<String, String> metadata;
 
 	public String getId() {
 		return id;
@@ -53,6 +57,14 @@ public class Server {
 
 	public void setTenant(String tenant) {
 		this.tenant = tenant;
+	}
+
+	public Map<String, String> getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(Map<String, String> metadata) {
+		this.metadata = metadata;
 	}
 
 }

@@ -7,6 +7,7 @@ public interface KeystoneService {
 	public final static String ENDPOINT_TOKENS	= "openstack.endpoint.tokens";
 	public final static String ENDPOINT_TENANTS	= "openstack.endpoint.tenants";
 	public final static String ENDPOINT_TENANT	= "openstack.endpoint.tenant";
+	public final static String ENDPOINT_USERS	= "openstack.endpoint.users";
 	public final static String ENDPOINT_USER	= "openstack.endpoint.user";
 	public final static String TENANT_ADMIN_ID	= "openstack.tenant.admin";
 	public final static String USER_ADMIN_NAME	= "openstack.user.admin.name";
@@ -27,6 +28,8 @@ public interface KeystoneService {
 	public Tenant updateTenant(Tenant tenant) throws OpenstackAPIException;
 	
 	public void removeTenant(Tenant tenant) throws OpenstackAPIException;
+	
+	//public User addUser(String name, String pass, String email) throws OpenstackAPIException;
 	
 	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException;
 	

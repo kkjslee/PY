@@ -1,11 +1,14 @@
 package com.inforstack.openstack.api.host;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 
 public class Host {
 	
 	private String zone;
 	
-	private String host_name;
+	@JsonProperty("host_name")
+	private String name;
 	
 	private String service;
 
@@ -17,12 +20,12 @@ public class Host {
 		this.zone = zone;
 	}
 
-	public String getHost_name() {
-		return host_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setHost_name(String host_name) {
-		this.host_name = host_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getService() {

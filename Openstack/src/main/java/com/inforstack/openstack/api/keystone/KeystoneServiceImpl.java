@@ -51,10 +51,10 @@ public class KeystoneServiceImpl implements KeystoneService {
 		
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_TOKENS);
 		if (endpoint != null) {
-			Credentials credentials = new Credentials();
+			TokenRequest.Auth.Credentials credentials = new TokenRequest.Auth.Credentials();
 			credentials.setUsername(name);
 			credentials.setPassword(pass);
-			Auth auth = new Auth();
+			TokenRequest.Auth auth = new TokenRequest.Auth();
 			auth.setPasswordCredentials(credentials);
 			auth.setTenantId(tenant);
 			
@@ -149,6 +149,20 @@ public class KeystoneServiceImpl implements KeystoneService {
 			}
 		}
 	}
+	
+//	public User addUser(String name, String pass, String email) throws OpenstackAPIException {
+//		User user = null;
+//		Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USERS);
+//		if (endpointUser != null) {
+//			Access adminAccess = this.getAdminAccess();
+//			if (adminAccess != null) {
+//				User newUser = new User();
+//				newUser.setName(name);
+//				newUser.set
+//			}
+//		}
+//		return user;
+//	}
 
 	@Override
 	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException {

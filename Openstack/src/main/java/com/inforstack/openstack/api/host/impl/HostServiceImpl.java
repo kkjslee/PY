@@ -47,7 +47,7 @@ public class HostServiceImpl implements HostService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_HOST_DESCRIBE);
 			if (endpoint != null) {
 				Access access = this.tokenService.getAdminAccess();
-				describe = RestUtils.get(endpoint.getValue(), access, HostDescribes.class, access.getToken().getTenant().getId(), host.getHost_name());
+				describe = RestUtils.get(endpoint.getValue(), access, HostDescribes.class, access.getToken().getTenant().getId(), host.getName());
 			}
 		}
 		return describe;

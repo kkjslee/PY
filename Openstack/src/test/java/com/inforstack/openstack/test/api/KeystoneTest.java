@@ -13,6 +13,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.keystone.Tenant;
+import com.inforstack.openstack.api.keystone.User;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -103,6 +104,23 @@ public class KeystoneTest {
 			Assert.assertTrue(this.keystoneService.getTenants().length == size + 1);
 			this.keystoneService.removeTenant(testTenant);
 			Assert.assertTrue(this.keystoneService.getTenants().length == size);
+		} catch (OpenstackAPIException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testUserAction() {
+		try {
+			User testUser = this.keystoneService.addUser("user", "pass", "test@email.com");
+			Assert.assertNotNull(testUser);
+			Assert.assertNotNull(testUser.getId());
+			Assert.assertFalse(testUser.getId().isEmpty());
+//			testUser.setName("update");
+//			testUser = this.keystoneService.updateUser(testUser);
+//			Assert.assertTrue(testUser.getName().equals("update"));
+			this.keystoneService.removeUser(testUser);
 		} catch (OpenstackAPIException e) {
 			Assert.fail();
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package com.inforstack.openstack.api.nova.server;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.keystone.Access;
 
 public interface ServerService {
 	
@@ -8,6 +9,6 @@ public interface ServerService {
 	public final static String ENDPOINT_SERVERS_DETAIL	= "openstack.endpoint.servers.detail";
 	public final static String ENDPOINT_SERVER			= "openstack.endpoint.server";
 	
-	public Server[] listServers(String tenant) throws OpenstackAPIException;
+	public Server[] listServers(Access access) throws OpenstackAPIException;
 
 }

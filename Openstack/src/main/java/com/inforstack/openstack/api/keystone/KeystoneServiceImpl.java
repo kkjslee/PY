@@ -343,11 +343,14 @@ public class KeystoneServiceImpl implements KeystoneService {
 	}
 
 	@Override
-	public void addUserAndTenant(String name, String pass, String email) throws OpenstackAPIException {
-		if (name != null && pass != null && email != null && !name.trim().isEmpty() && !pass.trim().isEmpty()) {
-			Tenant tenant = this.addTenant(name, "Tenant for user[" + name + "]", true);
-			if (tenant != null) {
-				this.addUser(name, pass, email);
+	public void addUserAndTenant(String username, String password, String email, String tenant) throws OpenstackAPIException {
+		if (username != null && password != null && email != null && !username.trim().isEmpty() && !password.trim().isEmpty()) {
+			if (tenant == null || tenant.trim().isEmpty()) {
+				tenant = username;
+			}
+			Tenant newTenant = this.addTenant(tenant, "Tenant for user[" + username + "]", true);
+			if (newTenant != null) {
+				this.addUser(username, password, email);
 			}
 		}
 	}

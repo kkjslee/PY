@@ -1,11 +1,5 @@
 package com.inforstack.openstack.controller.user;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +23,9 @@ public class UserController {
 	private static final String BASE = "user/";
 	
 	@Autowired
+	private RootController rootController;
+	
+	@Autowired
 	private UserService userService;
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
@@ -49,7 +46,7 @@ public class UserController {
 			return register(model);
 		}else{
 			log.debug("Register user successfully");
-			return new RootController().visitUser(model);
+			return rootController.visitUser(model);
 		}
 	}
 

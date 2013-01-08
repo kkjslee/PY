@@ -3,7 +3,9 @@ package com.inforstack.openstack.security.auth;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.WeakHashMap;
 
 
 import org.apache.commons.logging.Log;
@@ -33,18 +35,30 @@ public class OpenstackUserDetails implements UserDetails {
 	@Autowired
 	private UserService userService;
 	
+	private Map<String, Collection<GrantedAuthority>> permissionMap = new WeakHashMap<String, Collection<GrantedAuthority>>();
+	
 	public OpenstackUserDetails(){
+	}
+	
+	public void clearCache(User userId){
+		permissionMap.remove(userId);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		log.debug("Invoke Method - getAuthorities");
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>(); 
+		Collection<GrantedAuthority> grantedAuthorities = permissionMap.get(user.getId());
+		if(grantedAuthorities != null){
+			log.debug("Get permissions in cache");
+			return grantedAuthorities;
+		}
 		
+		grantedAuthorities = new HashSet<GrantedAuthority>(); 
 		List<Permission> permissions = userService.getPermissions(user.getId());
 		for(Permission p : permissions){
 			grantedAuthorities.add(new SimpleGrantedAuthority(p.getName()));
 		}
+		
 		log.debug(grantedAuthorities.size() + " GrantedAuthority found");
         return grantedAuthorities;  
 	}

@@ -10,14 +10,14 @@ public interface UserService {
 	/**
 	 * get all user permissions by user id
 	 * @param userId
-	 * @return
+	 * @return if no permission, an empty list will return
 	 */
 	public List<Permission> getPermissions(Integer userId);
 	
 	/**
 	 * find user by user name
 	 * @param userName
-	 * @return
+	 * @return null if no user found
 	 */
 	public User findByName(String userName);
 	
@@ -25,14 +25,14 @@ public interface UserService {
 	 * register user
 	 * @param user
 	 * @param tenant
-	 * @return
+	 * @return null if create failed
 	 */
 	public User registerUser(User user, Tenant tenant);
 
 	/**
 	 * create user
 	 * @param user
-	 * @return
+	 * @return null if create failed
 	 */
 	public User createUser(User user);
 

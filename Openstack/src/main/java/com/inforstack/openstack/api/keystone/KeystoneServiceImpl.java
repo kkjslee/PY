@@ -228,7 +228,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 	}
 	
 	@Override
-	public Tenant addTenant(String name, String description, boolean enable) throws OpenstackAPIException {
+	public Tenant createTenant(String name, String description, boolean enable) throws OpenstackAPIException {
 		Tenant tenant = null;
 		Configuration endpointTenant = this.configurationDao.findByName(ENDPOINT_TENANTS);
 		if (endpointTenant != null) {
@@ -291,7 +291,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 	}
 	
 	@Override
-	public User addUser(String name, String pass, String email) throws OpenstackAPIException {
+	public User createUser(String name, String pass, String email) throws OpenstackAPIException {
 		User user = null;
 		Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USERS);
 		if (endpointUser != null) {
@@ -348,9 +348,9 @@ public class KeystoneServiceImpl implements KeystoneService {
 			if (tenant == null || tenant.trim().isEmpty()) {
 				tenant = username;
 			}
-			Tenant newTenant = this.addTenant(tenant, "Tenant for user[" + username + "]", true);
+			Tenant newTenant = this.createTenant(tenant, "Tenant for user[" + username + "]", true);
 			if (newTenant != null) {
-				this.addUser(username, password, email);
+				this.createUser(username, password, email);
 			}
 		}
 	}

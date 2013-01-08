@@ -24,13 +24,13 @@ public interface KeystoneService {
 	
 	public Tenant[] listTenants() throws OpenstackAPIException;
 	
-	public Tenant addTenant(String name, String description, boolean enable) throws OpenstackAPIException;
+	public Tenant createTenant(String name, String description, boolean enable) throws OpenstackAPIException;
 	
 	public Tenant updateTenant(Tenant tenant) throws OpenstackAPIException;
 	
 	public void removeTenant(Tenant tenant) throws OpenstackAPIException;
 	
-	public User addUser(String name, String pass, String email) throws OpenstackAPIException;
+	public User createUser(String name, String pass, String email) throws OpenstackAPIException;
 	
 	public User updateUser(User user) throws OpenstackAPIException;
 	

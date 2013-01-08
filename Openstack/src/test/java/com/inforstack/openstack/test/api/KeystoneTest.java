@@ -96,7 +96,7 @@ public class KeystoneTest {
 		try {
 			Tenant[] tenants = this.keystoneService.listTenants();
 			int size = tenants.length;
-			Tenant testTenant = this.keystoneService.addTenant("test", "test", true);
+			Tenant testTenant = this.keystoneService.createTenant("test", "test", true);
 			Assert.assertNotNull(testTenant);
 			Assert.assertNotNull(testTenant.getId());
 			Assert.assertFalse(testTenant.getId().isEmpty());
@@ -115,7 +115,7 @@ public class KeystoneTest {
 	@Test
 	public void testUserAction() {
 		try {
-			User testUser = this.keystoneService.addUser("user", "pass", "test@email.com");
+			User testUser = this.keystoneService.createUser("user", "pass", "test@email.com");
 			Assert.assertNotNull(testUser);
 			Assert.assertNotNull(testUser.getId());
 			Assert.assertFalse(testUser.getId().isEmpty());

@@ -12,6 +12,30 @@ import com.inforstack.openstack.api.nova.image.Image;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Server {
 	
+	public static final class File {
+		
+		private String path;
+		
+		private String contents;
+
+		public String getPath() {
+			return path;
+		}
+
+		public void setPath(String path) {
+			this.path = path;
+		}
+
+		public String getContents() {
+			return contents;
+		}
+
+		public void setContents(String contents) {
+			this.contents = contents;
+		}
+		
+	}
+	
 	private String id;
 	
 	private String name;
@@ -32,9 +56,20 @@ public class Server {
 	@JsonProperty("key_name")
 	private String key;
 	
+	private String imageRef;
+	
 	private Image image;
 	
+	private String flavorRef;
+	
 	private Flavor flavor;
+	
+	private Addresses addresses;
+	
+	@JsonProperty("security_groups")
+	private SecurityGroup[] securityGroups;
+	
+	private File[] personality;
 	
 	private Date updated;
 	
@@ -104,6 +139,14 @@ public class Server {
 		this.key = key;
 	}
 
+	public String getImageRef() {
+		return imageRef;
+	}
+
+	public void setImageRef(String imageRef) {
+		this.imageRef = imageRef;
+	}
+
 	public Image getImage() {
 		return image;
 	}
@@ -112,12 +155,44 @@ public class Server {
 		this.image = image;
 	}
 
+	public String getFlavorRef() {
+		return flavorRef;
+	}
+
+	public void setFlavorRef(String flavorRef) {
+		this.flavorRef = flavorRef;
+	}
+
 	public Flavor getFlavor() {
 		return flavor;
 	}
 
 	public void setFlavor(Flavor flavor) {
 		this.flavor = flavor;
+	}
+
+	public Addresses getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Addresses addresses) {
+		this.addresses = addresses;
+	}
+
+	public SecurityGroup[] getSecurityGroups() {
+		return securityGroups;
+	}
+
+	public void setSecurityGroups(SecurityGroup[] securityGroups) {
+		this.securityGroups = securityGroups;
+	}
+
+	public File[] getPersonality() {
+		return personality;
+	}
+
+	public void setPersonality(File[] personality) {
+		this.personality = personality;
 	}
 
 	public Date getUpdated() {

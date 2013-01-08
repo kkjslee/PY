@@ -2,6 +2,7 @@ package com.inforstack.openstack.test.api;
 
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -22,7 +23,10 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
+import com.inforstack.openstack.api.nova.server.Address;
+import com.inforstack.openstack.api.nova.server.SecurityGroup;
 import com.inforstack.openstack.api.nova.server.Server;
+import com.inforstack.openstack.api.nova.server.Server.File;
 import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 
@@ -45,8 +49,14 @@ public class NovaTest {
 	@Autowired
 	private ConfigurationDao configurationDao;
 	
+	private Access access;
+	
 	@Before
 	public void setUp() throws Exception {
+		String tenant = this.configurationDao.findByName(KeystoneService.TENANT_DEMO_ID).getValue();
+		String username = this.configurationDao.findByName(KeystoneService.USER_ADMIN_NAME).getValue();
+		String password = this.configurationDao.findByName(KeystoneService.USER_ADMIN_PASS).getValue();
+		this.access = this.keystoneService.getAccess(username, password, tenant, true);
 	}
 
 	@After
@@ -121,12 +131,8 @@ public class NovaTest {
 	@Test
 	public void testListServers() {
 		try {
-			String tenant = this.configurationDao.findByName(KeystoneService.TENANT_DEMO_ID).getValue();
-			String username = this.configurationDao.findByName(KeystoneService.USER_ADMIN_NAME).getValue();
-			String password = this.configurationDao.findByName(KeystoneService.USER_ADMIN_PASS).getValue();
-			Access access = this.keystoneService.getAccess(username, password, tenant, true);
-			if (access != null) {
-				Server[] servers = this.serverService.listServers(access);
+			if (this.access != null) {
+				Server[] servers = this.serverService.listServers(this.access);
 				Assert.assertNotNull(servers);
 				Assert.assertTrue(servers.length > 0);
 				System.out.println("\n\n\n");
@@ -143,6 +149,35 @@ public class NovaTest {
 					System.out.println("Key Name  : " + server.getKey());
 					System.out.println("Image     : " + server.getImage().getId());
 					System.out.println("Flavor    : " + server.getFlavor().getId());
+					System.out.println("Addresses : {");
+					if (server.getAddresses().getPrivateList() != null) {
+						System.out.println("        Private : [");
+						for (Address address : server.getAddresses().getPrivateList()) {
+							System.out.println("                {");
+							System.out.println("                        Version  : " + address.getVersion());
+							System.out.println("                        Addr     : " + address.getAddr());
+							System.out.println("                }");
+						}
+						System.out.println("        ]");
+					}
+					if (server.getAddresses().getPublicList() != null) {
+						System.out.println("        public : [");
+						for (Address address : server.getAddresses().getPublicList()) {
+							System.out.println("                {");
+							System.out.println("                Version  : " + address.getVersion());
+							System.out.println("                Addr     : " + address.getAddr());
+							System.out.println("                }");
+						}
+						System.out.println("        ]");
+					}
+					System.out.println("}");
+					System.out.println("Security  : [");
+					for (SecurityGroup securityGroups : server.getSecurityGroups()) {
+						System.out.println("        {");
+						System.out.println("                Name  : " + securityGroups.getName());
+						System.out.println("        }");
+					}
+					System.out.println("]");
 					System.out.println("Updated   : " + server.getUpdated());
 					System.out.println("Metadata  : [");
 					Map<String, String> metadata = server.getMetadata();
@@ -155,6 +190,44 @@ public class NovaTest {
 					}
 					System.out.println("]");
 				}
+			} else {
+				fail("Can not get access");
+			}
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateAndRemoveServer() {
+		try {
+			if (this.access != null) {
+				Server[] servers = this.serverService.listServers(this.access);
+				int size = servers.length;
+				
+				Server newServer = new Server();
+				newServer.setName("Test Create Server");
+				newServer.setImageRef("2295e9f5-3404-4f77-885b-02af4a78802c");
+				newServer.setFlavorRef("1");
+				newServer.setMetadata(new HashMap<String, String>());
+				newServer.getMetadata().put("1", "M1");
+				newServer.getMetadata().put("2", "M2");
+				File[] files = new File[1];
+				files[0] = new File();
+				files[0].setPath("~/test.txt");	
+				files[0].setContents("ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBp dCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5k IGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVs c2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4g QnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRo ZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlv dSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vy c2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6 b25zLiINCg0KLVJpY2hhcmQgQmFjaA==");
+				newServer.setPersonality(files);
+				
+				Server server = this.serverService.createServer(this.access, newServer);
+				Assert.assertNotNull(server);
+				Assert.assertFalse(server.getId().isEmpty());
+				Assert.assertEquals(this.serverService.listServers(this.access).length, size + 1);
+				System.out.println("Create Server : " + server.getId());
+				
+				this.serverService.removeServer(this.access, server);
+				
+				Assert.assertEquals(this.serverService.listServers(this.access).length, size);
 			} else {
 				fail("Can not get access");
 			}

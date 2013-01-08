@@ -38,17 +38,53 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
-	public Server[] listServers(String tenant) throws OpenstackAPIException {
+	public Server[] listServers(Access access) throws OpenstackAPIException {
 		Server[] servers = null;
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS_DETAIL);
 		if (endpoint != null) {
-			Access access = this.tokenService.getAdminAccess();
-			Servers response = RestUtils.get(endpoint.getValue(), access, Servers.class, tenant);
+			Servers response = RestUtils.get(endpoint.getValue(), access, Servers.class, access.getToken().getTenant().getId());
 			if (response != null) {
 				servers = response.getServers();
 			}
 		}
 		return servers;
+	}
+	
+	public static final class ServerBody {
+		
+		private Server server;
+
+		public Server getServer() {
+			return server;
+		}
+
+		public void setServer(Server server) {
+			this.server = server;
+		}
+		
+	}
+
+	@Override
+	public Server createServer(Access access, Server server) throws OpenstackAPIException {
+		Server newServer = null;
+		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS);
+		if (access != null && endpoint != null) {
+			ServerBody request = new ServerBody();
+			request.setServer(server);
+			ServerBody response = RestUtils.post(endpoint.getValue(), access, request, ServerBody.class, access.getToken().getTenant().getId());
+			newServer = response.getServer();
+		}
+		return newServer;
+	}
+
+	@Override
+	public void removeServer(Access access, Server server) throws OpenstackAPIException {
+		if (access != null && server != null && !server.getId().trim().isEmpty()) {
+			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_SERVER);
+			if (endpointUser != null) {
+				RestUtils.delete(endpointUser.getValue(), access, access.getToken().getTenant().getId(), server.getId());
+			}
+		}
 	}
 
 }

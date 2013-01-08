@@ -40,7 +40,14 @@ public class Server {
 	
 	private String name;
 	
+	@JsonProperty("OS-EXT-STS:vm_state")
 	private String status;
+	
+	@JsonProperty("OS-EXT-STS:task_state")
+	private String task;
+	
+	@JsonProperty("OS-EXT-STS:power_state")
+	private int power;
 	
 	@JsonProperty("user_id")
 	private String user;
@@ -97,6 +104,22 @@ public class Server {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getTask() {
+		return task;
+	}
+
+	public void setTask(String task) {
+		this.task = task;
+	}
+
+	public int getPower() {
+		return power;
+	}
+
+	public void setPower(int power) {
+		this.power = power;
 	}
 
 	public String getUser() {

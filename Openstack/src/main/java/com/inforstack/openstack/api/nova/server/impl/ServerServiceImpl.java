@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
+import com.inforstack.openstack.api.nova.server.ServerAction;
 import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
@@ -50,7 +52,7 @@ public class ServerServiceImpl implements ServerService {
 		return servers;
 	}
 	
-	public static final class ServerBody {
+	public static final class ServerBody implements RequestBody {
 		
 		private Server server;
 
@@ -63,16 +65,28 @@ public class ServerServiceImpl implements ServerService {
 		}
 		
 	}
+	
+	@Override
+	public Server getServer(Access access, String id) throws OpenstackAPIException {
+		Server server = null;
+		Configuration endpointServer = this.configurationDao.findByName(ENDPOINT_SERVER);
+		if (access != null && endpointServer != null) {
+			ServerBody response = RestUtils.get(endpointServer.getValue(), access, ServerBody.class, access.getToken().getTenant().getId(), id);
+			server = response.getServer();
+		}
+		return server;
+	}
 
 	@Override
 	public Server createServer(Access access, Server server) throws OpenstackAPIException {
 		Server newServer = null;
-		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS);
-		if (access != null && endpoint != null) {
+		Configuration endpointServers = this.configurationDao.findByName(ENDPOINT_SERVERS);
+		if (access != null && endpointServers != null) {
 			ServerBody request = new ServerBody();
 			request.setServer(server);
-			ServerBody response = RestUtils.post(endpoint.getValue(), access, request, ServerBody.class, access.getToken().getTenant().getId());
+			ServerBody response = RestUtils.postForObject(endpointServers.getValue(), access, request, ServerBody.class, access.getToken().getTenant().getId());
 			newServer = response.getServer();
+			newServer = this.getServer(access, newServer.getId());
 		}
 		return newServer;
 	}
@@ -83,6 +97,16 @@ public class ServerServiceImpl implements ServerService {
 			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_SERVER);
 			if (endpointUser != null) {
 				RestUtils.delete(endpointUser.getValue(), access, access.getToken().getTenant().getId(), server.getId());
+			}
+		}
+	}
+
+	@Override
+	public void doServerAction(Access access, Server server, ServerAction action) throws OpenstackAPIException {
+		if (access != null && server != null && !server.getId().trim().isEmpty()) {
+			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
+			if (endpointUser != null) {
+				RestUtils.postForLocation(endpointUser.getValue(), access, action, access.getToken().getTenant().getId(), server.getId());
 			}
 		}
 	}

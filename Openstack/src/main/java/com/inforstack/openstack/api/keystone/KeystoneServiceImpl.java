@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 import com.inforstack.openstack.utils.RestUtils;
@@ -49,7 +50,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 		return expired;
 	}
 	
-	public static final class TokenRequest {
+	public static final class TokenRequest implements RequestBody {
 		
 		public static final class Auth {
 			
@@ -141,7 +142,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 			TokenRequest request = new TokenRequest();
 			request.setAuth(auth);
 			
-			TokenResponse response = RestUtils.post(endpoint.getValue(), request, TokenResponse.class);
+			TokenResponse response = RestUtils.postForObject(endpoint.getValue(), request, TokenResponse.class);
 			if (response != null) {
 				access = response.getAccess();
 			}
@@ -213,7 +214,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 		return tenants;
 	}
 	
-	private static final class TenantBody {
+	private static final class TenantBody implements RequestBody {
 		
 		private Tenant tenant;
 
@@ -241,7 +242,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 				
 				TenantBody body = new TenantBody();
 				body.setTenant(newTenant);
-				body = RestUtils.post(endpointTenant.getValue(), adminAccess, body, TenantBody.class);
+				body = RestUtils.postForObject(endpointTenant.getValue(), adminAccess, body, TenantBody.class);
 				tenant = body.getTenant();
 			}
 		}
@@ -256,7 +257,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 			if (adminAccess != null) {
 				TenantBody body = new TenantBody();
 				body.setTenant(tenant);
-				body = RestUtils.post(endpointTenant.getValue(), adminAccess, body, TenantBody.class, tenant.getId());
+				body = RestUtils.postForObject(endpointTenant.getValue(), adminAccess, body, TenantBody.class, tenant.getId());
 				newTenant = body.getTenant();
 			}
 		}
@@ -276,7 +277,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 		}
 	}
 	
-	private static final class UserBody {
+	private static final class UserBody implements RequestBody {
 		
 		private User user;
 
@@ -305,7 +306,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 				
 				UserBody body = new UserBody();
 				body.setUser(newUser);
-				body = RestUtils.post(endpointUser.getValue(), adminAccess, body, UserBody.class);
+				body = RestUtils.postForObject(endpointUser.getValue(), adminAccess, body, UserBody.class);
 				user = body.getUser();
 				user.setPassword(null);
 			}
@@ -322,7 +323,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 			if (adminAccess != null) {
 				UserBody body = new UserBody();
 				body.setUser(user);
-				body = RestUtils.post(endpointUser.getValue(), adminAccess, body, UserBody.class, user.getId());
+				body = RestUtils.postForObject(endpointUser.getValue(), adminAccess, body, UserBody.class, user.getId());
 				newUser = body.getUser();
 			}
 		}

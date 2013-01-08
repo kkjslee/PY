@@ -17,6 +17,7 @@ import org.springframework.http.converter.json.MappingJacksonHttpMessageConverte
 import org.springframework.web.client.RestTemplate;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 
 public class RestUtils {
@@ -39,7 +40,7 @@ public class RestUtils {
 		headers.add("Accept", "application/json");
 	}
 	
-	public static <Request, Response> Response post(String url, Request request, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {
+	public static <Request extends RequestBody, Response> Response postForObject(String url, Request request, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {
 		Response response = null;
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -55,7 +56,23 @@ public class RestUtils {
 		return response;
 	}
 	
-	public static <Request, Response> Response post(String url, Access access, Request request, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {
+	public static <Request extends RequestBody> URI postForLocation(String url, Request request, Object... urlVariables) throws OpenstackAPIException {
+		URI uri = null;
+		
+		HttpHeaders headers = new HttpHeaders();
+		addHeader(headers);
+		
+		try {
+			RestTemplate template = getTemplate(new SimpleClientHttpRequestFactory());
+			uri = template.postForLocation(url, new HttpEntity<Request>(request, headers), urlVariables);
+		} catch (Exception e) {
+			throw new OpenstackAPIException("Can not fetch data[POST]:" + url, e);
+		}
+		
+		return uri;
+	}
+	
+	public static <Request extends RequestBody, Response> Response postForObject(String url, Access access, Request request, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {
 		Response response = null;
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -74,6 +91,26 @@ public class RestUtils {
 		}
 		
 		return response;
+	}
+	
+	public static <Request extends RequestBody> URI postForLocation(String url, Access access, Request request, Object... urlVariables) throws OpenstackAPIException {
+		URI uri = null;
+		
+		HttpHeaders headers = new HttpHeaders();
+		addHeader(headers);
+		
+		if (access != null) {
+			headers.add("X-Auth-Token", access.getToken().getId());
+		}
+		
+		try {
+			RestTemplate template = getTemplate(new SimpleClientHttpRequestFactory());
+			uri = template.postForLocation(url, new HttpEntity<Request>(request, headers), urlVariables);
+		} catch (Exception e) {
+			throw new OpenstackAPIException("Can not fetch data[POST]:" + url, e);
+		}
+		
+		return uri;
 	}
 	
 	public static <Request, Response> Response get(String url, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {

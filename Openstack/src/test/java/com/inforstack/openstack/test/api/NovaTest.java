@@ -28,6 +28,8 @@ import com.inforstack.openstack.api.nova.server.SecurityGroup;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.Server.File;
 import com.inforstack.openstack.api.nova.server.ServerService;
+import com.inforstack.openstack.api.nova.server.impl.StartServer;
+import com.inforstack.openstack.api.nova.server.impl.StopServer;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -223,11 +225,165 @@ public class NovaTest {
 				Assert.assertNotNull(server);
 				Assert.assertFalse(server.getId().isEmpty());
 				Assert.assertEquals(this.serverService.listServers(this.access).length, size + 1);
-				System.out.println("Create Server : " + server.getId());
+				
+				System.out.println("\n\n\nCreate new server");
+				System.out.println("New ID    : " + server.getId());
+				System.out.println("");
+				int wait = 0;
+				while (wait < 10) {
+					server = this.serverService.getServer(access, server.getId());
+					if (server.getStatus().equalsIgnoreCase("active") && server.getTask() == null && server.getPower() == 1) {
+						break;
+					} else {
+						System.out.println("--" + server.getStatus() + "|" + (server.getTask() != null ? server.getTask() : "None") + "|" + (server.getPower() == 1 ? "On" : "Off") + "...");
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					wait++;
+				}
+				
+				System.out.println("New ID    : " + server.getId());
+				System.out.println("Name      : " + server.getName());
+				System.out.println("Status    : " + server.getStatus());
+				System.out.println("Tenant    : " + server.getTenant());
+				System.out.println("User      : " + server.getUser());
+				System.out.println("Host ID   : " + server.getHostId());
+				System.out.println("Host Name : " + server.getHostName());
+				System.out.println("Key Name  : " + server.getKey());
+				System.out.println("Image     : " + server.getImage().getId());
+				System.out.println("Flavor    : " + server.getFlavor().getId());
+				System.out.println("Addresses : {");
+				if (server.getAddresses().getPrivateList() != null) {
+					System.out.println("        Private : [");
+					for (Address address : server.getAddresses().getPrivateList()) {
+						System.out.println("                {");
+						System.out.println("                        Version  : " + address.getVersion());
+						System.out.println("                        Addr     : " + address.getAddr());
+						System.out.println("                }");
+					}
+					System.out.println("        ]");
+				}
+				if (server.getAddresses().getPublicList() != null) {
+					System.out.println("        public : [");
+					for (Address address : server.getAddresses().getPublicList()) {
+						System.out.println("                {");
+						System.out.println("                Version  : " + address.getVersion());
+						System.out.println("                Addr     : " + address.getAddr());
+						System.out.println("                }");
+					}
+					System.out.println("        ]");
+				}
+				System.out.println("}");
+				System.out.println("Security  : [");
+				for (SecurityGroup securityGroups : server.getSecurityGroups()) {
+					System.out.println("        {");
+					System.out.println("                Name  : " + securityGroups.getName());
+					System.out.println("        }");
+				}
+				System.out.println("]");
+				System.out.println("Updated   : " + server.getUpdated());
+				System.out.println("Metadata  : [");
+				Map<String, String> metadata = server.getMetadata();
+				if (metadata != null) {
+					Iterator<Entry<String, String>> it = metadata.entrySet().iterator();
+					while (it.hasNext()) {
+						Entry<String, String> entry = it.next();
+						System.out.println(entry.getKey() + ":\t\t" + entry.getValue());
+					}
+				}
+				System.out.println("]");
 				
 				this.serverService.removeServer(this.access, server);
 				
-				Assert.assertEquals(this.serverService.listServers(this.access).length, size);
+				String id = server.getId();
+				wait = 0;
+				while (wait < 10) {
+					server = this.serverService.getServer(access, id);
+					if (server == null) {
+						break;
+					} else {
+						System.out.println("--" + server.getStatus() + "|" + (server.getTask() != null ? server.getTask() : "None") + "|" + (server.getPower() == 1 ? "On" : "Off") + "...");
+						try {
+							Thread.sleep(200);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					wait++;
+				}
+				
+				//Assert.assertEquals(size, this.serverService.listServers(this.access).length);
+			} else {
+				fail("Can not get access");
+			}
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testServerAction() {
+		try {
+			if (this.access != null) {
+				Server server = null;
+				
+				Server[] servers = this.serverService.listServers(this.access);
+				if (servers.length > 0) {
+					for (Server s : servers) {
+						if (s.getStatus().equalsIgnoreCase("active")) {
+							server = s;
+							break;
+						}
+					}
+				}
+				if (server != null) {
+					this.serverService.doServerAction(this.access, server, new StopServer());
+					
+					System.out.println("\n\n\nStopping server");
+					System.out.println("ID    : " + server.getId());
+					System.out.println("");
+					int wait = 0;
+					while (wait < 20) {
+						server = this.serverService.getServer(access, server.getId());
+						if (server.getStatus().equalsIgnoreCase("stopped") && (server.getTask() == null || server.getTask().equalsIgnoreCase("none")) && server.getPower() != 1) {
+							break;
+						} else {
+							System.out.println("--" + server.getStatus() + "|" + (server.getTask() != null ? server.getTask() : "None") + "|" + (server.getPower() == 1 ? "On" : "Off") + "...");
+							try {
+								Thread.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						wait++;
+					}
+					
+					this.serverService.doServerAction(this.access, server, new StartServer());
+					System.out.println("\n\n\nStarting server");
+					System.out.println("ID    : " + server.getId());
+					System.out.println("");
+					wait = 0;
+					while (wait < 20) {
+						server = this.serverService.getServer(access, server.getId());
+						if (server.getStatus().equalsIgnoreCase("active") && (server.getTask() == null || server.getTask().equalsIgnoreCase("none")) && server.getPower() == 1) {
+							break;
+						} else {
+							System.out.println("--" + server.getStatus() + "|" + (server.getTask() != null ? server.getTask() : "None") + "|" + (server.getPower() == 1 ? "On" : "Off") + "...");
+							try {
+								Thread.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						wait++;
+					}
+				} else {
+					fail("No active server");
+				}
 			} else {
 				fail("Can not get access");
 			}

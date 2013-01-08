@@ -22,6 +22,7 @@ insert into Configuration(id, name, value) values(17, 'openstack.endpoint.image'
 insert into Configuration(id, name, value) values(18, 'openstack.endpoint.servers', 'http://192.168.1.145:8774/v2/{tenant}/servers')
 insert into Configuration(id, name, value) values(19, 'openstack.endpoint.servers.detail', 'http://192.168.1.145:8774/v2/{tenant}/servers/detail')
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.server', 'http://192.168.1.145:8774/v2/{tenant}/servers/{server}')
+insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server.action', 'http://192.168.1.145:8774/v2/{tenant}/servers/{server}/action')
 
 insert into Role(id, name) values (1, 'admin')
 insert into Role(id, name) values (2, 'user')

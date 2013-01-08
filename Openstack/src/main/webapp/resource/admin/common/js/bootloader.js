@@ -21,10 +21,8 @@ var BootLoader = {
 		debug: false
 	},
 	log: function(msg) {
-		window.console && window.console.log("[BootLoader](Log): "+msg);
 	},
 	error: function(msg) {
-		window.console && window.console.error("[BootLoader](Err): "+msg);
 	},
 	/*
 	 * Function: prepareScriptSerial

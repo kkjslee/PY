@@ -26,8 +26,13 @@ public class AdminController {
   }
 
   @RequestMapping(value = "/scripts/navinit", method = RequestMethod.GET)
-  public String naviInit(Model model, String script) {
+  public String naviInit(Model model) {
     return "admin/scripts/navinit";
+  }
+
+  @RequestMapping(value = "/scripts/bootloader", method = RequestMethod.GET)
+  public String bootloader(Model model) {
+    return "admin/scripts/bootloader";
   }
 
 }

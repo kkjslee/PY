@@ -17,7 +17,7 @@ import com.inforstack.openstack.utils.RestUtils;
 @Transactional
 public class KeystoneServiceImpl implements KeystoneService {
 	
-	private static ConcurrentHashMap<String, Access> accessMap = new ConcurrentHashMap<String, Access>();
+	private static ConcurrentHashMap<String, ConcurrentHashMap<String, Access>> accessMap = new ConcurrentHashMap<String, ConcurrentHashMap<String, Access>>();
 	
 	@Autowired
 	private ConfigurationDao configurationDao;
@@ -26,9 +26,12 @@ public class KeystoneServiceImpl implements KeystoneService {
 	public Access getAccess(String name, String pass, String tenant, boolean apply) throws OpenstackAPIException {		
 		Access access = null;
 		if (accessMap.containsKey(name)) {
-			access = accessMap.get(name);
-			if (isExpired(access)) {
-				access = null;
+			ConcurrentHashMap<String, Access> map = accessMap.get(name);
+			if (map.containsKey(tenant)) {
+				access = map.get(tenant);
+				if (isExpired(access)) {
+					access = null;
+				}
 			}
 		}
 		if (access == null && apply) {
@@ -143,7 +146,14 @@ public class KeystoneServiceImpl implements KeystoneService {
 				access = response.getAccess();
 			}
 			if (access != null) {
-				accessMap.put(response.getAccess().getUser().getName(), access);
+				ConcurrentHashMap<String, Access> map = null;
+				if (accessMap.containsKey(name)) {
+					map = accessMap.get(name);
+				} else {
+					map = new ConcurrentHashMap<String, Access>();
+					accessMap.put(name, map);
+				}
+				map.put(response.getAccess().getUser().getName(), access);
 			}
 		}
 		

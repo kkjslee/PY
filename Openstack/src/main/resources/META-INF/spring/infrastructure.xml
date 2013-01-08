@@ -28,12 +28,15 @@
 		<property name="basenames">
 			<list>
 				<value>classpath:com/inforstack/openstack/message/messages</value>
+                <value>classpath:com/inforstack/openstack/message/admin/global</value>
+                <value>classpath:com/inforstack/openstack/message/admin/login</value>
+                 <value>classpath:com/inforstack/openstack/message/user/messages</value>
 			</list>
 		</property>
 		<property name="fallbackToSystemLocale" value="false"/>
 		<property name="defaultEncoding" value="UTF-8"/>
         <property name="cacheSeconds" value="5"/>
-	</bean>	
+	</bean>	 
 	
 	<bean id="localeResolver"
 		class="com.inforstack.openstack.i18n.resolver.CustomSessionLocaleResolver">

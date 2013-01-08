@@ -58,9 +58,4 @@ public class RootController {
     return "loginForm";
   }
 
-  @RequestMapping(value = "{entry}/modules/{moduleName}", method = RequestMethod.GET)
-  public String redirectModule(Model model, HttpServletRequest request,
-      @PathVariable("entry") String entry, @PathVariable("moduleName") String moduleName) {
-    return entry + "/modules/" + moduleName + "/index";
-  }
 }

@@ -8,9 +8,11 @@
                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
 	<http pattern="/user/login" security="none"/>
+	<http pattern="/user/reg" security="none"/>
 	<http pattern="/user/*/login" security="none"/>
 	<http pattern="/admin/login" security="none"/>
 	<http pattern="/agent/login" security="none"/>
+	<http pattern="/agent/reg" security="none"/>
 	<http pattern="/*.jsp" security="none"/>
     <http pattern="/resource/**" security="none"/>
 	
@@ -39,6 +41,7 @@
         <beans:property name="authenticationManager" ref="authenticationManager" />
         <beans:property name="accessDecisionManager" ref="accessDecisionManager" />
         <beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+        <beans:property name="rejectPublicInvocations" value="true" />
     </beans:bean>
    
 	<security:authentication-manager alias="authenticationManager">

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,8 +17,6 @@ import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.tenant.Tenant;
 
-
-
 @Entity
 public class User {
 	
@@ -31,13 +28,25 @@ public class User {
 	
 	private String password;
 	
-	private String realName;
+	private String firstName;
+	
+	private String lastName;
 	
 	private String phone;
 	
+	private String mobile;
+	
 	private String email;
 	
+	private String country;
+	
+	private String province;
+	
+	private String city;
+	
 	private String address;
+	
+	private String postcode;
 	
 	private String question;
 	
@@ -47,9 +56,9 @@ public class User {
 	@JoinColumn(name="role_id")
 	private Role role;
 	
-	private boolean valid;
+	private Integer status;
 	
-	private boolean deleted;
+	private Integer ageing;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "tanent_user", 
@@ -67,8 +76,6 @@ public class User {
 	
 	private Date createTime;
 	
-	private Date updateTime;
-
 	public Integer getId() {
 		return id;
 	}
@@ -83,14 +90,6 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getRealName() {
-		return realName;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
 	}
 
 	public String getPhone() {
@@ -140,21 +139,37 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-	public boolean isValid() {
-		return valid;
+	
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setValid(boolean valid) {
-		this.valid = valid;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getAgeing() {
+		return ageing;
+	}
+
+	public void setAgeing(Integer ageing) {
+		this.ageing = ageing;
 	}
 
 	public Date getCreateTime() {
@@ -163,14 +178,6 @@ public class User {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	public List<Tenant> getTanents() {
@@ -195,6 +202,46 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
 	
 }

@@ -2,12 +2,15 @@ package com.inforstack.openstack.utils;
 
 import java.util.Locale;
 
+import org.springframework.context.ApplicationContext;
+
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.model.I18nContext;
 
 
 public class OpenstackUtil {
 	
+	private static ApplicationContext context;
 	private static final ThreadLocal<I18nContext> localeConext = new ThreadLocal<I18nContext>();
 	
 	public static Locale getLocale(Language language){
@@ -28,5 +31,13 @@ public class OpenstackUtil {
 	
 	public static Language getLanguage(){
 		return localeConext.get().getLanguage();
+	}
+
+	public static Object getBean(String name) {
+		return context.getBean(name);
+	}
+
+	public static void setContext(ApplicationContext context) {
+		OpenstackUtil.context = context;
 	}
 }

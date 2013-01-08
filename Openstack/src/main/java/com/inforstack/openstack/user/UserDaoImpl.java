@@ -7,15 +7,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.inforstack.openstack.security.auth.OpenstackUserDetailsService;
-
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -27,15 +22,18 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findUser(Integer userId) {
 		log.debug("getting User instance with id: " + userId);
-		if(userId==null) return null;
+		if(userId==null) {
+			log.debug("getting user failed for user id is null");
+			return null;
+		}
 		
 		try {
 			User instance = em.find(User.class, userId);
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
+			log.error(re.getMessage(), re);
+			return null;
 		}
 	}
 
@@ -58,9 +56,22 @@ public class UserDaoImpl implements UserDao {
 			log.debug("No record found for name : " + userName);
 			return null;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
+			log.error(re.getMessage(), re);
+			return null;
 		}
+	}
+
+	@Override
+	public User persist(User user) {
+		log.debug("persist user : " + user.getName());
+		try{
+			em.persist(user);
+		}catch(RuntimeException re){
+			log.error(re.getMessage(), re);
+			return null;
+		}
+		
+		return user;
 	}
 
 

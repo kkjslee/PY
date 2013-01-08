@@ -6,28 +6,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><spring:message code="user.login.page.title"/></title>
-	<link href="${pageContext.request.contextPath}/resources/common/css/theme_enterprise.css" rel="stylesheet" type="text/css">
+	<link href="${requestScope.contextPath}/resource/common/css/theme_enterprise.css" rel="stylesheet" type="text/css" />
 	<script>
-	function changeLocale(language){
-		if(language == -1){
-            return false;            
-        }
-	    var url = window.location.href;
-	    if(url.indexOf("languageCode=1") >0){
-	            url = url.replace(/languageCode=1/g,"languageCode="+language); 
-	    }else if(url.indexOf("languageCode=2") >0){
-	            url = url.replace(/languageCode=2/g,"languageCode="+language); 
-	    }else if(url.indexOf("languageCode") == -1){
-	            if(url.indexOf("?") >0){
-	                    url = url + "&languageCode="+language;
-	                }else{
-	                    url = url + "?languageCode="+language;
-	                    }
+		function changeLocale(language){
+			if(language == -1){
+	            return false;            
 	        }
-	    window.location.href=url;
-	}
+		    var url = window.location.href;
+		    if(url.indexOf("languageCode=1") >0){
+		            url = url.replace(/languageCode=1/g,"languageCode="+language); 
+		    }else if(url.indexOf("languageCode=2") >0){
+		            url = url.replace(/languageCode=2/g,"languageCode="+language); 
+		    }else if(url.indexOf("languageCode") == -1){
+		            if(url.indexOf("?") >0){
+		                    url = url + "&languageCode="+language;
+		                }else{
+		                    url = url + "?languageCode="+language;
+		                    }
+		        }
+		    window.location.href=url;
+		}
 	</script>
 </head>
 <body id="splash">
@@ -54,7 +54,7 @@
 								<label for="id_username"><spring:message code="user.name.lable" /></label>
 								<span class="help-block"></span>
 								<div class="input">
-									<input id="j_username" class="iwidth" type="text" name="j_username" maxlength="40" autofocus />
+									<input id="j_username" class="iwidth" type="text" name="j_username" maxlength="40" />
 								</div>
 							</div>
 							<div class="control-group form-field clearfix">
@@ -76,9 +76,12 @@
 						</fieldset>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" id="logBtn" href="#" tabindex="3" class="logBtn btn btn-primary pull-right" value='<spring:message code="user.login.lable"/>'/>
-						<c:if test='${"user" eq enterpoint || "agent" eq enterpoint}'>
-						  <a type="button" id="regBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.signup"/></a>
+						<input type="submit" id="logBtn" tabindex="3" class="logBtn btn btn-primary pull-right" value='<spring:message code="user.login.lable"/>'/>
+						<c:if test='${"user" eq enterpoint}'>
+						  	<a type="button" id="regBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
+						 </c:if>
+						 <c:if test='${"agent" eq enterpoint }'>
+						 	<a type="button" id="regBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
 						 </c:if>
 			       <div id="message" class="msg">
 				       <c:if test="${not empty param.error && param.error=='true'}">

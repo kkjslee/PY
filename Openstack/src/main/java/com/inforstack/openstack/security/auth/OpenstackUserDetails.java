@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
+import com.inforstack.openstack.utils.Constants;
 
 
 @Component
@@ -75,7 +76,7 @@ public class OpenstackUserDetails implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return user.isValid() && !user.isDeleted();
+		return user.getStatus()==Constants.USER_STATUS_VALID && user.getAgeing()==Constants.USER_AGEING_ACTIVE;
 	}
 
 	public User getUser() {

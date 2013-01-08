@@ -18,12 +18,15 @@
 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   
+  <listener>
+  	<listener-class>com.inforstack.openstack.web.context.OpenstackContextListener</listener-class>
+  </listener>
   
   <filter>
     <filter-name>encoding-filter</filter-name>
-    <filter-class>
-            org.springframework.web.filter.CharacterEncodingFilter
-        </filter-class>
+   	<filter-class>
+           org.springframework.web.filter.CharacterEncodingFilter
+       </filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>

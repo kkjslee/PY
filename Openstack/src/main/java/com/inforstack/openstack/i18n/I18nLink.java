@@ -47,7 +47,7 @@ public class I18nLink {
 	}
 	@Transient
 	public String getI18nContent(){
-		I18nService i18nService = null;
+		I18nService i18nService = (I18nService)OpenstackUtil.getBean("i18nService");
 		I18n i18n = i18nService.findByLinkAndLanguage(this.getId(), OpenstackUtil.getLanguage().getId());
 		if(i18n==null){
 			i18n = i18nService.getFirstByLink(this.getId());

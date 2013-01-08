@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.criteria.CriteriaBuilder.In;
 
 import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.user.User;
@@ -29,6 +27,20 @@ public class Tenant {
 	private String name;
 	
 	private String dipalyName;
+	
+	private String email;
+	
+	private String phone;
+	
+	private String country;
+	
+	private String province;
+	
+	private String city;
+	
+	private String address;
+	
+	private String postcode;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
 	@JoinColumn(name="role_id")
@@ -41,12 +53,10 @@ public class Tenant {
 	)
 	private List<User> users;
 	
-	private boolean deleted;
+	private int ageing;
 	
 	private Date createTime;
 	
-	private Date updateTime;
-
 	public Integer getId() {
 		return id;
 	}
@@ -79,12 +89,12 @@ public class Tenant {
 		this.role = role;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public int getAgeing() {
+		return ageing;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setAgeing(int ageing) {
+		this.ageing = ageing;
 	}
 
 	public Date getCreateTime() {
@@ -95,14 +105,6 @@ public class Tenant {
 		this.createTime = createTime;
 	}
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
 	public List<User> getUsers() {
 		return users;
 	}
@@ -110,4 +112,61 @@ public class Tenant {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }

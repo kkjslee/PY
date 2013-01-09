@@ -8,5 +8,12 @@ public interface TenantDao {
 	 * @return null if error or the pass tenant
 	 */
 	public Tenant persist(Tenant tenant);
+	
+	/**
+	 * find tenant by tenant id
+	 * @param tenantId
+	 * @return null if not found
+	 */
+	public Tenant findById(Integer tenantId);
 
 }

@@ -4,7 +4,7 @@ import com.inforstack.openstack.user.User;
 
 public class UserModel {
 	
-	private String username;
+	private String name;
 	
 	private String password;
 	
@@ -34,7 +34,7 @@ public class UserModel {
 	
 	public User getUser(){
 		User user = new User();
-		user.setName(username);
+		user.setName(name);
 		user.setPassword(password);
 		user.setFirstName(firstname);
 		user.setLastName(lastname);
@@ -51,13 +51,15 @@ public class UserModel {
 		return user;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 
 	public String getPassword() {
 		return password;

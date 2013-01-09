@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
 
@@ -15,9 +14,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.inforstack.openstack.security.permission.Permission;
+import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.tenant.agent.Agent;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
@@ -32,6 +32,8 @@ public class OpenstackUserDetails implements UserDetails {
 	private static final long serialVersionUID = -423843895615465679L;
 	private static final Log log = LogFactory.getLog(OpenstackUserDetails.class);
 	private User user;
+	private Tenant tenant;
+	private Agent agent;
 	@Autowired
 	private UserService userService;
 	
@@ -99,5 +101,21 @@ public class OpenstackUserDetails implements UserDetails {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Tenant getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
+	}
+
+	public Agent getAgent() {
+		return agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 }

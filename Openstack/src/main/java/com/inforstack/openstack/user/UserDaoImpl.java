@@ -27,14 +27,20 @@ public class UserDaoImpl implements UserDao {
 			return null;
 		}
 		
+		User instance = null;
 		try {
-			User instance = em.find(User.class, userId);
-			log.debug("get successful");
-			return instance;
+			instance = em.find(User.class, userId);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
-			return null;
 		}
+		
+		if(instance == null){
+			log.debug("get failed");
+		}else{
+			log.debug("get successful");
+		}
+		
+		return instance;
 	}
 
 	@Override

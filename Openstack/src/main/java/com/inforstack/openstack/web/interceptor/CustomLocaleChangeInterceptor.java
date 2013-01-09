@@ -1,4 +1,4 @@
-package com.inforstack.openstack.i18n.interceptor;
+package com.inforstack.openstack.web.interceptor;
 
 import java.util.Locale;
 
@@ -14,8 +14,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.i18n.model.I18nContext;
-import com.inforstack.openstack.i18n.resolver.CustomSessionLocaleResolver;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.web.resolver.CustomSessionLocaleResolver;
 
 /**
  * Interceptor that allows for changing the current locale on every request,

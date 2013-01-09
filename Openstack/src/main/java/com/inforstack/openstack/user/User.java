@@ -56,6 +56,8 @@ public class User {
 	@JoinColumn(name="role_id")
 	private Role role;
 	
+	private Integer defaultTenantId;
+	
 	private Integer status;
 	
 	private Integer ageing;
@@ -242,6 +244,14 @@ public class User {
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+
+	public Integer getDefaultTenantId() {
+		return defaultTenantId;
+	}
+
+	public void setDefaultTenantId(Integer defaultTenantId) {
+		this.defaultTenantId = defaultTenantId;
 	}
 	
 }

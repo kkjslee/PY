@@ -18,9 +18,16 @@
 	<mvc:resources mapping="/resource/**" location="/resources/" />
 	
 	<mvc:interceptors>
-		<bean class="com.inforstack.openstack.i18n.interceptor.CustomLocaleChangeInterceptor">
+		<bean class="com.inforstack.openstack.web.interceptor.CustomLocaleChangeInterceptor">
 			<property name="paramName" value="languageCode" />
 			<property name="LanguageService" ref="languageService" />
+		</bean>
+	</mvc:interceptors>
+	
+	<mvc:interceptors>
+		<bean class="com.inforstack.openstack.web.interceptor.CustomInterceptor">
+			<property name="tenantParam" value="tenantCode" />
+			<property name="tenantService" ref="tenantService" />
 		</bean>
 	</mvc:interceptors>
 	

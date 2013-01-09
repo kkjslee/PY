@@ -4,7 +4,7 @@ import com.inforstack.openstack.tenant.Tenant;
 
 public class TenantModel {
 	
-	private String tenantName;
+	private String name;
 	
 	private String tenantDisplayName;
 	
@@ -24,7 +24,7 @@ public class TenantModel {
 	
 	public Tenant getTenant(){
 		Tenant tenant = new Tenant();
-		tenant.setName(tenantName);
+		tenant.setName(name);
 		tenant.setDipalyName(tenantDisplayName);
 		tenant.setPhone(tenantPhone);
 		tenant.setEmail(tenantEmail);
@@ -36,13 +36,15 @@ public class TenantModel {
 		return tenant;
 	}
 
-	public String getTenantName() {
-		return tenantName;
+	public String getName() {
+		return name;
 	}
 
-	public void setTenantName(String tenantName) {
-		this.tenantName = tenantName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 
 	public String getTenantDisplayName() {
 		return tenantDisplayName;

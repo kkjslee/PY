@@ -27,4 +27,28 @@ public class TenantDaoImpl implements TenantDao{
 		return tenant;
 	}
 
+	@Override
+	public Tenant findById(Integer tenantId) {
+		log.debug("find tenant by id " + tenantId);
+		if(tenantId == null){
+			log.debug("getting tenant failed for tenant id is null");
+			return null;
+		}
+		
+		Tenant instance = null;
+		try {
+			instance = em.find(Tenant.class, tenantId);
+		} catch (RuntimeException re) {
+			log.error(re.getMessage(), re);
+		}
+		
+		if(instance == null){
+			log.debug("get failed");
+		}else{
+			log.debug("get successful");
+		}
+		
+		return instance;
+	}
+
 }

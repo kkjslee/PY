@@ -1,5 +1,7 @@
 package com.inforstack.openstack.controller;
 
+import java.security.Security;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class RootController {
       @PathVariable("agent_id") String agentId) {
     Agent agent = agentService.findAgentTenantByAgentId(agentId);
     if (agent != null) {
-      WebUtils.setSessionAttribute(request, Constants.SESSION_ATTRIBUTE_NAME_AGENT, agent);
+    	WebUtils.setSessionAttribute(request, Constants.SESSION_ATTRIBUTE_NAME_AGENT, agent);
     }
     return visitUser(model);
   }

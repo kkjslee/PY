@@ -1,4 +1,4 @@
-package com.inforstack.openstack.i18n.resolver;
+package com.inforstack.openstack.web.resolver;
 
 import java.util.Locale;
 

@@ -39,6 +39,6 @@
 	</bean>	 
 	
 	<bean id="localeResolver"
-		class="com.inforstack.openstack.i18n.resolver.CustomSessionLocaleResolver">
+		class="com.inforstack.openstack.web.resolver.CustomSessionLocaleResolver">
 	</bean>
 </beans>

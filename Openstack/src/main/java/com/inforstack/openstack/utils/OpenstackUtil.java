@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.model.I18nContext;
 
-
 public class OpenstackUtil {
 	
 	private static ApplicationContext context;

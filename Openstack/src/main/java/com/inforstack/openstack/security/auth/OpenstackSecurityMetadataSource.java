@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import com.inforstack.openstack.security.resource.Resource;
 import com.inforstack.openstack.security.resource.ResourceService;
-import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.utils.StringUtil;
 
 @Service("securityMetadataSource")
@@ -73,6 +72,9 @@ public class OpenstackSecurityMetadataSource implements FilterInvocationSecurity
 		int index = url.indexOf("?");
 		if(index!=-1) {
 			url = url.substring(0, index);
+		}
+		if(url.endsWith("/")){
+			url = url.substring(0, url.length()-1);
 		}
         List<String> permissions = resourceMap.get(url);
         

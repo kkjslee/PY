@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><spring:message code="user.login.page.title"/></title>
-	<link href="${requestScope.contextPath}/resource/common/css/theme_enterprise.css" rel="stylesheet" type="text/css" />
+	<link href="<c:url value='/resource/common/css/theme_enterprise.css' />" rel="stylesheet" type="text/css" />
 	<script>
 		function changeLocale(language){
 			if(language == -1){
@@ -31,6 +31,7 @@
 	</script>
 </head>
 <body id="splash">
+${request}
 	<div class="container">
 		<div class="row large-rounded">
 			<div style="right: 15px; top: 15px; position: absolute;">
@@ -47,7 +48,7 @@
 						<spring:message code="system.name" />
 					</h3>
 				</div>
-				<form id="" action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm">
+				<form action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm" method="post">
 					<div class="modal-body clearfix">
 						<fieldset>
 							<div class="control-group form-field clearfix">
@@ -89,7 +90,7 @@
 				       </c:if>
 			        </div>  
               </div> 
-          </form> 
+          </form>
     </div> 
    </div> 
   </div> 

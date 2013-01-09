@@ -50,7 +50,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
-	public Server[] listServers(Access access) throws OpenstackAPIException {
+	public Server[] listServers(Access access, boolean flavorAndImage) throws OpenstackAPIException {
 		Server[] servers = null;
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS_DETAIL);
 		if (endpoint != null) {
@@ -58,10 +58,12 @@ public class ServerServiceImpl implements ServerService {
 			if (response != null) {
 				servers = response.getServers();
 				for (Server server : servers) {
-					Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
-					server.setFlavor(flavor);
-					Image image = this.imageService.getImage(server.getImage().getId());
-					server.setImage(image);
+					if (flavorAndImage) {
+						Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
+						server.setFlavor(flavor);
+						Image image = this.imageService.getImage(server.getImage().getId());
+						server.setImage(image);
+					}
 				}
 			}
 		}
@@ -83,16 +85,18 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
-	public Server getServer(Access access, String id) throws OpenstackAPIException {
+	public Server getServer(Access access, String id, boolean flavorAndImage) throws OpenstackAPIException {
 		Server server = null;
 		Configuration endpointServer = this.configurationDao.findByName(ENDPOINT_SERVER);
 		if (access != null && endpointServer != null) {
 			ServerBody response = RestUtils.get(endpointServer.getValue(), access, ServerBody.class, access.getToken().getTenant().getId(), id);
 			server = response.getServer();
-			Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
-			server.setFlavor(flavor);
-			Image image = this.imageService.getImage(server.getImage().getId());
-			server.setImage(image);
+			if (flavorAndImage) {
+				Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
+				server.setFlavor(flavor);
+				Image image = this.imageService.getImage(server.getImage().getId());
+				server.setImage(image);
+			}
 		}
 		return server;
 	}
@@ -106,7 +110,7 @@ public class ServerServiceImpl implements ServerService {
 			request.setServer(server);
 			ServerBody response = RestUtils.postForObject(endpointServers.getValue(), access, request, ServerBody.class, access.getToken().getTenant().getId());
 			newServer = response.getServer();
-			newServer = this.getServer(access, newServer.getId());
+			newServer = this.getServer(access, newServer.getId(), true);
 		}
 		return newServer;
 	}

@@ -10,9 +10,9 @@ public interface ServerService {
 	public final static String ENDPOINT_SERVER			= "openstack.endpoint.server";
 	public final static String ENDPOINT_SERVER_ACTION	= "openstack.endpoint.server.action";
 	
-	public Server[] listServers(Access access) throws OpenstackAPIException;
+	public Server[] listServers(Access access, boolean flaverAndImage) throws OpenstackAPIException;
 	
-	public Server getServer(Access access, String id) throws OpenstackAPIException;
+	public Server getServer(Access access, String id, boolean flaverAndImage) throws OpenstackAPIException;
 	
 	public Server createServer(Access access, Server server) throws OpenstackAPIException;
 	

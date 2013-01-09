@@ -1,0 +1,486 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xml:lang="en-gb" xmlns="http://www.w3.org/1999/xhtml" lang="en-gb">
+<head>
+
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.8.custom.css" rel="stylesheet" />
+
+
+<link rel="stylesheet" href="image/template.css" type="text/css">
+<link rel="stylesheet" href="image/constant.css" type="text/css">
+<link rel="stylesheet" href="image/imagegallery.css" type="text/css">
+<link rel="stylesheet" href="image/ui.jqgrid.css" type="text/css"/>
+<link rel="stylesheet" href="image/content.css" type="text/css"/>
+<link rel="stylesheet" href="image/dd.css" type="text/css"/>
+<link rel="stylesheet" href="image/custom.css" type="text/css"/>
+
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.8.custom.min.js"></script>
+<script type="text/javascript" src="../../locale.jsp"></script>
+<script type="text/javascript" src="../../js/base64.js"></script>
+<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../js/account.js"></script>
+<script type="text/javascript" src="../../js/server.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/xml.parser.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/grid.locale-cn.js"></script>
+<script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="js/jquery.dd.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+<!--<script type="text/javascript" src="image/jquery.jNice.js"></script>-->
+
+<!--<link href="image/base.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="image/jNice.css" rel="stylesheet" type="text/css" />-->
+<style>th,td{vertical-align:middle;}</style>
+
+<script language="javascript">
+var newpwd=false;
+$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+<!-- 处理参数 -->	
+var paras=getParas(location.href);
+
+function loadData() {
+	$.post(
+		Server+"/billingCN/BillingServlet",
+		{
+			RequestType: 'getBillDates',
+			Period: 'current'
+		},
+		function(data) {			
+			data='<root>'+data+'</root>';
+			var timeData=$.createXml(data);
+			
+			var nowTime=$(timeData).find('root').find('NowTime').text();			
+
+			var sDate='1293811200000';
+			var eDate='1295784805423';
+			var reason='';
+			
+			var date1, date2;		
+			// 选项一判定
+			switch($('#select_1').val()) {
+				case '0': { // 最近一天
+					date1=new Date();
+					eDate=nowTime;
+					sDate=''+(parseInt(nowTime)-86400000);
+					break;
+				} 
+				case '1': { // 最近一周
+					date1=new Date();
+					eDate=nowTime;
+					sDate=''+(parseInt(nowTime)-86400000*7);
+					break;
+				} 
+				case '2': { // 最近一月
+					date1=new Date();
+					eDate=nowTime;
+					sDate=''+(parseInt(nowTime)-86400000*7*30);
+					break;
+				} 
+				case '3': // 自定义日期
+				default: {
+					sDate=''+Date.parse($('#startDate').val());
+					eDate=''+(Date.parse($('#endDate').val())+86399999);
+				}
+			}
+				
+			// 选项二判定
+			switch($('#select_2').val()) {
+				case '0': reason='all'; break;
+				case '1': reason='vm_payment'; break;
+				case '2': reason='IP'; break;
+				case '3': reason='volume_payment'; break;
+			}
+			
+			
+			// 发送查询请求
+			$.post(
+				Server+"/billingCN/BillingServlet",
+				{
+					RequestType: 'getMyTransactionsByLongDates',
+					LoginUsername: getUsername(),
+					Password: getPassword(),
+					StartDate: sDate,
+					EndDate: eDate,
+					outputType: 'web',
+					reasonSearch: reason
+				}, 
+				function(data) {
+					data='<data>'+data+'</data>';			
+					//alert(data);
+					
+					userStatusCheck($.createXml(data));
+					
+					updateTable(data);
+				}
+			);	
+		}
+	);
+
+}	
+
+<!-- 更新数据表格 -->
+function updateTable(data) {
+	jQuery('#dataTable').clearGridData(true);
+	
+	jQuery("#dataTable").jqGrid('setGridParam',{datatype:"xmlstring", datastr:data, sortorder:'asc'}).trigger("reloadGrid").sortGrid('PaymentDate');
+}
+
+
+function balFmt(cellvalue, options, rowObject) {
+	cellvalue=parseFloat(cellvalue).toFixed(2);	
+	return cellvalue;
+}
+
+$(function(){
+	// Button
+	// 初始化Button
+	$("#submitBtn").button();
+	$("#resetBtn").button();
+	$("#radioset").buttonset();
+
+	jQuery("#dataTable").jqGrid({
+		//url:'server.php?q=1',
+		datatype: 'xmlstring', //"xml",
+		//datastr: data,
+		colNames:['日期','金额','操作','类型','明细','备注','流水账号','单号',''],
+		colModel:[
+			{name:'PaymentDate',	index:'PaymentDate', 	xmlmap: 'PaymentDate', 	align:'left'},
+			{name:'PaymentAmount',	index:'PaymentAmount', 	xmlmap: 'PaymentAmount',	align:'left',	width:'60px', formatter:balFmt},
+			{name:'Method',			index:'Method',			xmlmap: 'Method', 			align:'left',	width:'160px'},	
+			{name:'Type',			index:'Type', 			xmlmap: 'Type', 			align:'left',	width:'40px'},	
+			{name:'Reason',			index:'Reason', 		xmlmap: 'Reason', 			align:'left',	width:'90px'},
+			{name:'Notes',			index:'Notes', 			xmlmap: 'Notes',			align:'left',	width:'400px'},
+			{name:'tranID',			index:'tranID', 		xmlmap: 'tranID', 			align:'left', 	hidden:true},	
+			{name:'InvoiceID',		index:'InvoiceID', 		xmlmap: 'InvoiceID',		align:'left', 	hidden:true},
+			{name:'act',			index:'act', 			align:'center',				width:'60px'}
+			//{name:'foo',			index:'foo', 			width:'10px'}
+		],
+		xmlReader: {
+			root: 'data',
+			row: 'Transaction',
+			repeatitems:false,
+			id: 'tranID'
+		},
+		gridComplete:function() {
+			var ids=jQuery('#dataTable').jqGrid('getDataIDs');
+			for(var i=0; i<ids.length; i++) {
+				var cl=ids[i];
+				
+				var rowData=jQuery('#dataTable').jqGrid('getRowData', cl);
+				
+				var args=''.makeDetailStr('日期',rowData.PaymentDate).makeDetailStr('金额',rowData.PaymentAmount)
+					.makeDetailStr('款操作',rowData.Method).makeDetailStr('类型',rowData.Type)
+					.makeDetailStr('操作事由',rowData.Reason).makeDetailStr('备注',rowData.Notes);
+				
+				detailDiv="<a href='#' onclick='window.open(\"detail.html?args="+args+"\", \"\", \"height=400, "+
+						"width=600, top=100, left=200, toolbar=no, menubar=no, scrollbars=no, "+
+						"resizable=no,location=no, status=no\");return false;'><img src='image/images/tree_file.gif'/>详细</a>";
+						
+				jQuery('#dataTable').jqGrid('setRowData', ids[i], {act: detailDiv});
+			}						
+		},
+		//sortable: true,
+		sortname: 'PaymentDate',
+		sortorder: 'desc',
+		height: 480,
+		rowNum: 20,
+		autowidth: true,
+		//rowList:[10,20,30], // 页行数选择
+		pager: jQuery('#pager'),
+		viewrecords: true,
+		caption:"财务记录"
+	}).navGrid('#pager',{search:false,refresh:false,edit:false,add:false,del:false});
+	
+			
+	// Dialog		
+	$('#checkDialog').dialog({
+		autoOpen: false,
+		width: 600,
+		resizable: false,
+		buttons: {
+			"返回继续填写": function() { 
+				$(this).dialog("close"); 
+			}
+		}
+	});
+	
+	var tips="";
+	
+	// Dialog Link
+	// 提交
+	$('#submitBtn').click(function(){		
+		loadData();
+				
+		return false;	
+	});
+	$('#downbtn').click(function(){ // 下载清单		
+		$.post(
+			Server+"/billingCN/BillingServlet",
+			{
+				RequestType: 'getBillDates',
+				Period: 'current'
+			},
+			function(data) {			
+				data='<root>'+data+'</root>';
+				var timeData=$.createXml(data);
+				
+				var nowTime=$(timeData).find('root').find('NowTime').text();			
+
+				var sDate='1293811200000';
+				var eDate='1295784805423';
+				var reason='';
+				
+				var date1, date2;		
+				// 选项一判定
+				switch($('#select_1').val()) {
+					case '0': { // 最近一天
+						date1=new Date();
+						eDate=nowTime;
+						sDate=''+(parseInt(nowTime)-86400000);
+						break;
+					} 
+					case '1': { // 最近一周
+						date1=new Date();
+						eDate=nowTime;
+						sDate=''+(parseInt(nowTime)-86400000*7);
+						break;
+					} 
+					case '2': { // 最近一月
+						date1=new Date();
+						eDate=nowTime;
+						sDate=''+(parseInt(nowTime)-86400000*7*30);
+						break;
+					} 
+					case '3': // 自定义日期
+					default: {
+						sDate=''+Date.parse($('#startDate').val());
+						eDate=''+(Date.parse($('#endDate').val())+86399999);
+					}
+				}
+					
+				// 选项二判定
+				switch($('#select_2').val()) {
+					case '0': reason='all'; break;
+					case '1': reason='vm_payment'; break;
+					case '2': reason='IP'; break;
+					case '3': reason='volume_payment'; break;
+				}
+						
+				var type=$('#downtype').val();
+				location.replace(
+					Server+"/billingCN/BillingServlet"+'?RequestType=getMyTransactionsByLongDates&LoginUsername='+
+					getUsername()+
+					'&Password='+getPassword()+
+					'&StartDate='+sDate+
+					'&EndDate='+eDate+
+					'&outputType='+type+
+					'&reasonSearch='+reason
+				);
+				/*
+				$.post(SERVLET['billing'], 
+					{
+						RequestType: 'getMyTransactionsByLongDates',
+						LoginUsername: paras['username'],
+						StartDate: sDate,
+						EndDate: eDate,
+						outputType: type,
+						reasonSearch: reason
+					}, 
+					function(data) {			
+						alert(data);
+					}
+				);
+				*/
+			}
+		);
+	});
+	
+	
+
+	// 初始化日期选择器
+	// Datepicker
+	$.datepicker.setDefaults($.datepicker.regional['zh-CN']); // 暂时不产生效果
+	var dates=$('#startDate, #endDate').datepicker({
+		inline: true,
+		showOn: 'both',
+		buttonText: '起始日期',
+		//dateFormat: 'yy-mm-dd',
+		maxDate: '+0D +0M +0Y',
+		buttonImage: 'image/images/calendar.gif',		
+		onSelect: function( selectedDate ) {
+			var option=(this.id=='startDate') ? 'minDate' : 'maxDate';
+			var instance = $(this).data( 'datepicker' );
+			date=$.datepicker.parseDate(
+				instance.settings.dateFormat ||
+				$.datepicker._defaults.dateFormat,
+				selectedDate, instance.settings );
+			dates.not(this).datepicker( 'option', option, date );
+		}
+	});			
+	// 初始化自定义日期初值
+	var today=new Date();		
+	$('#startDate').val((today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear());		
+	$('#endDate').val((today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear());	
+	
+	// 初始化下拉框
+	/*$('select').combobox({
+		editable:false,
+		panelHeight:'auto',
+	});*/
+	
+	$('#submitBtn').button();
+	
+	// 自定义日期dialog
+	$('#customDialog').dialog({
+		autoOpen: false,
+		width: 320,
+		modal: true,
+		resizable: false,
+		closeText: 'hide',
+		buttons: {
+			'确定' : function(){
+						$('#select_1').val('3');
+						lastSel=$('#select_1').val();
+												
+						// 关闭dialog
+						$(this).dialog('close');
+						updateDD();
+					},
+			'取消' : function(){
+						$('#select_1').val(lastSel);
+						
+						// 关闭dialog
+						$(this).dialog('close');
+					}
+		},
+		close: function(event, ui){$('#select_1').val(lastSel);}
+	});
+	
+	// 自定义时弹出窗口
+	var lastSel='0';
+	$('#select_1').change(function() {
+		if($(this).val()=='3') {
+			$('#customDialog').dialog('open');
+		}else {
+			lastSel=$(this).val();
+		}
+	});
+	$('#customBtn').button({
+		icons: {primary: "ui-icon-calendar"},
+		text: false
+	}).css({height:'24px', width:'24px'}).click(function() {
+		return false;
+	}).click(function() {
+			$('#customDialog').dialog('open');		
+	}).parent().buttonset();
+
+	//$('#tabs').tabs();
+
+	updateDD();
+});
+
+		
+<!-- ajax的处理 -->
+$(document).ready(
+	function(){
+		loadData();			
+	}
+);
+
+function updateDD() {
+	//$("select").msDropDown().data("dd");
+}
+
+</script>
+
+</head>
+<body id="body">
+
+<!-- check-dialog -->
+
+<div style='display:none;' id="checkDialog" title="提示">
+	<p><label id="tips">&nbsp;</label></p>
+</div>
+
+<div style='display:none;' id='customDialog' title="自定义时间区间">
+	<table style="border:0;">
+		<tr><td>
+	<span>
+		<label>起始日期：&nbsp;</label><input id='startDate' style="cursor:default;" type="text" readonly/>
+	</span>
+		</td></tr>
+		<tr><td>
+	<span>
+		<label>截止日期：&nbsp;</label><input id='endDate' style="cursor:default;" type="text" readonly/>
+	</span>
+		</td></tr>
+	</table>
+</div>
+
+<!--  
+<div id="tabs">
+<ul><li class="content-header"><span style="vertical-align:bottom;"><img src='image/images/bill.png'/>账户历史记录：</span></li></ul>
+-->
+
+<div class='contentBody'>
+<div id='inputDiv' style="margin:20px 0 10px 40px;padding-top:0px;padding-bottom:5px;text-align:center;">
+		<table style="white-space:nowrap;display:inline-block;">
+		<tr>
+			<td style="width:100px;text-align:right;">
+				<img class="small-icon" src="image/images/datebox_arrow.png" style="vertical-align:middle;"/>
+				<label style="vertical-align:middle;">请选择日期：</label>
+			</td><td style="width:100px;text-align:left;">
+				<select id='select_1' style="vertical-align:middle;">
+					<option value="0" selected="selected">最近一天</option>
+					<option value="1">最近一周</option>
+					<option value="2">最近一月</option>
+					<option value="3">自定义</option>
+				</select><button style='vertical-align:middle;' id='customBtn' title="自定义日期" /></button>
+			</td>
+			<td style="width:140px;text-align:right;">
+				<img class="small-icon" src="image/images/type.png" style="vertical-align:middle;margin-left:20px;"/>
+				<label style="vertical-align:middle;">请选择查询种类：</label>
+			</td><td style="140px;text-align:left;">
+				<select id='select_2' style="vertical-align:middle;">
+					<option value="0" selected="selected">全部</option>
+					<option value="1">云主机</option>
+					<option value="2">IP地址</option>
+					<option value="3">云存储</option>
+				</select>
+			</td><td style="width:100px;text-align:right;">
+				<input style='vertical-align:middle;' id='submitBtn' type="button" value="查询"/>
+			</td>
+		</tr>		
+		</table>
+</div>
+
+
+
+<!-- 数据段 -->
+<div id='dataDiv' style="width:800px;margin:auto;">
+	<table id="dataTable"></table>
+	<div id='pager'></div>
+	<div style="margin:5px;text-align:center;">
+	<button id='downbtn' style="vertical-align:middle;">下载清单</button>
+	<select id='downtype' style="vertical-align:middle;"><option value='csv'>CSV</option></select>
+	</div>
+</div>
+
+</div>
+
+<!--  
+</div>
+-->
+
+</body>
+</html>

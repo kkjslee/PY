@@ -1,0 +1,4 @@
+// to enable WebVNC ability, ensure the follow access authority
+
+chmod +x /usr/local/zhumulangma/webapps/Enterprise/modules/WebVNC/utils/websockify
+

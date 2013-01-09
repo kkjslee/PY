@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xml:lang="en-gb" xmlns="http://www.w3.org/1999/xhtml" lang="en-gb">
+<head>
+
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.8.custom.css" rel="stylesheet" />
+
+
+<link rel="stylesheet" href="image/template.css" type="text/css">
+<link rel="stylesheet" href="image/constant.css" type="text/css">
+<link rel="stylesheet" href="image/imagegallery.css" type="text/css">
+<link rel="stylesheet" href="image/content.css" type="text/css"/>
+<link rel="stylesheet" href="image/custom.css" type="text/css"/>
+
+<script type="text/javascript" src="js/jquery.js"></script>	
+<script type="text/javascript" src="js/jquery-ui-1.8.8.custom.min.js"></script>
+<script type="text/javascript" src="../../locale.jsp"></script>
+<script type="text/javascript" src="../../js/base64.js"></script>
+<script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../js/account.js"></script>
+<script type="text/javascript" src="../../js/server.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/xml.parser.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+<!--<script type="text/javascript" src="image/jquery.jNice.js"></script>-->
+
+<!--<link href="image/base.css" rel="stylesheet" type="text/css" />-->
+<!--<link href="image/jNice.css" rel="stylesheet" type="text/css" />-->
+
+<script language="javascript">
+var newpwd=false;
+$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+var paras=getParas(location.href);
+
+$(function(){
+	// Button
+	// 初始化Button
+	$("#submitBtn").button();
+
+	
+	// Dialog		
+	$('#infoDialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		position: ['center',200],
+		dragable:false,
+		resizable: false,
+		buttons: {
+			"关闭": function() { 
+				$(this).dialog("close"); 
+			}
+		}
+	});
+	
+	
+	$('#confirmDialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		position: ['center',200],
+		dragable:false,
+		resizable: false,
+		modal: true,
+		buttons: {
+			"确定": function() {
+				var vid=$('#vid').val();
+				var vpassword=$('#vpassword_1').val()+$('#vpassword_2').val()+$('#vpassword_3').val()+$('#vpassword_4').val();
+				
+        
+				$.post(
+					Server+"/billingCN/BillingServlet",
+					{
+						RequestType: 'topupVoucher',
+						voucherID: vid,
+						voucherPassword: vpassword,
+						LoginUsername: getUsername()
+					}, 
+					function(data) {
+						var obj=$.createXml(data);
+						userStatusCheck(obj); // 登陆状态检测
+						
+						//alert(data);
+						
+						var result=$(obj).find('status').text();
+						var tips='';
+						switch(result.toUpperCase()) {
+							case 'VALID':			
+                $('#vid').val('');
+                $('#vpassword_1').val('');
+                $('#vpassword_2').val('');
+                $('#vpassword_3').val('');
+                $('#vpassword_4').val('');
+                
+                $('#ok_tips').html('充值成功');
+                $('#okDialog').dialog('open');
+                return;
+							case'NOVOUCHER':
+								tips='对不起，无此充值卡号，请重新输入。';
+								break;
+							case 'NOUSER':
+								tips='对不起，用户登录名不存在。';
+								break;
+							case 'USED':
+								tips='对不起，充值卡已被使用。';
+								break;
+							case 'SUSPENDED':
+								tips='对不起，输入卡被锁定，请联系管理员。';
+								break;
+							case 'NOTNEW':
+								tips='对不起，未知充值卡状态，请重新输入。';
+								break;
+							case 'EXPIRED':
+								tips='对不起，充值卡已过期。';
+								break;
+							case 'WRONG_PASSWORD':
+								tips='对不起，错误充值卡密码，请重新输入。';
+								break;
+							case 'MISSING_INPUTS':
+							case 'EXCEPTION':
+							case 'UNKNOWN':
+								tips='对不起，系统错误，请联系管理员。';
+								break;
+							default:
+								tips='未定义的返回类型: '+result;
+								break;
+						}
+						
+						$('#err_tips').html(tips);
+						$('#errDialog').dialog("open");
+						
+					}
+				);
+				
+				$(this).dialog("close");
+			},
+			"取消": function() { 
+				$(this).dialog("close"); 
+			}
+		}
+	});
+	
+	$('#okDialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		modal: true,
+		draggable: false,
+		position: ['center',200],
+		resizable: false,
+		buttons: {
+			"关闭": function() { 
+				$(this).dialog("close"); 
+			}
+		}
+	});
+	
+	$('#errDialog').dialog({
+		autoOpen: false,
+		width: 'auto',
+		modal: true,
+		draggable: false,
+		position: ['center',200],
+		resizable: false,
+		buttons: {
+			"关闭": function() { 
+				$(this).dialog("close"); 
+			}
+		}
+	});
+	
+		
+	// Dialog Link
+	// 提交
+	$('#submitBtn').click(function(){
+		var tips="";
+		var isok=true;
+		
+		var vpassword=$('#vpassword_1').val()+$('#vpassword_2').val()+$('#vpassword_3').val()+$('#vpassword_4').val();
+		var vid=$('#vid').val();
+		
+		if(vpassword.length!=4*4) {
+			tips='请输入正确的充值卡密码';
+			isok=false;
+		}else if(''==vid) {
+			tips='请输入您的卡号';
+      isok=false;
+		}
+		
+		if(!isok) {
+			$('#tips').html(tips);
+			$('#infoDialog').dialog('open');
+		}else {
+			$('#confirm').html('马上为您进行充值吗？');
+			$('#infoDialog').dialog('close');
+			$('#confirmDialog').dialog('open');
+		}
+	
+		return false;
+	});
+	
+});
+
+
+</script>
+
+</head>
+
+<body id="body">
+
+<!-- check-dialog -->
+
+<div style='display:none; min-width:400px; text-align:left;' id="infoDialog" title="提示">
+	<p><img src='image/bigimg/alert.png' style='vertical-align:middle;margin-top:10px;'/>
+	<label id="tips" style="vertical-align:bottom;font-size:14px;font-weight:bold;margin-left:8px;">&nbsp;</label></p>
+</div>
+
+<div style='display:none; min-width:400px; text-align:left;' id="confirmDialog" title="确认">
+	<p><img src='image/bigimg/alert.png' style='vertical-align:middle;margin-top:10px;'/>
+	<label id="confirm" style="vertical-align:bottom;font-size:14px;font-weight:bold;margin-left:8px;">&nbsp;</label></p>
+</div>
+
+<div style='display:none; min-width:400px; text-align:left;' id="okDialog" title="提示">
+	<p><img src='image/bigimg/ok.png' style='vertical-align:middle;margin-top:10px;'/>
+	<label id="ok_tips" style="vertical-align:bottom;font-size:14px;font-weight:bold;margin-left:8px;">&nbsp;</label></p>
+</div>
+
+<div style='display:none; min-width:400px; text-align:left;' id="errDialog" title="提示">
+	<p><img src='image/bigimg/close.png' style='vertical-align:middle;margin-top:10px;'/>
+	<label id="err_tips" style="vertical-align:bottom;font-size:14px;font-weight:bold;margin-left:8px;">&nbsp;</label></p>
+</div>
+
+
+<!-- 标题 -->
+<!-- <div id="tabs"><ul><li class="content-header"><img src='image/images/internet.png'/>购买IP地址：</li></ul> -->
+<div class="contentBody">
+	<label style="text-align:left;font-weight:bold;color:blue;font-size:14px;display:block;line-height:24px;padding:10px 0 5px 40px;">
+您可以在这里使用您的充值卡进行充值：
+	</label>
+	
+	<div style='margin-top:10px;margin-bottom:10px;display:block;border:1px silver solid;'></div>
+	
+	<label style="text-align:left;color:red;font-weight:bold;font-size:14px;display:block;line-height:24px;padding:5px 0 10px 40px;">
+<img src="image/icons/redo.png" class="small-icon" />Viacloud云平台充值卡支付服务条款
+	</label>	
+	
+	<label style="font-family:微软雅黑;text-align:left;font-size:12px;display:block;line-height:20px;padding:5px 120px 10px 80px;white-space:normal;">
+<ul>
+<li>（一） Viacloud云平台充值卡支付服务，是Viacloud为方便用户购买网上产品和服务而提供的一个支付渠道。 </li>
+<li>（二） 用户使用Viacloud云平台充值卡支付服务，除必须遵守本服务条款。 </li>
+<li>（三） 充值卡相关服务的所有权和解释权均归上海世纪互联所有。 </li>
+<li>（四）用户进行充值卡支付即表明认可并接受本服务条款。如用户对服务条款有异议，可选择不使用充值卡支付服务。 </li>
+<li>（五）Viacloud云平台充值卡支付必须是合法途径获得的，如果经查证，用于购买服务的Viacloud云平台充值卡是非法获得的，上海世纪互联将有权对该用户的个人账户进行冻结或关闭服务，并有权回收系统资源。 </li>
+<li>（六）上海世纪互联有权视需要修改本服务条款。 </li>
+<li>（七）上海世纪互联对本服务条款进行修改，会以通告形式公布于Viacloud云平台页面上，一经公布即视为已通知用户。 </li>
+<li>（八） 用户所使用的Viacloud云平台充值卡的卡号、充值密码的安全性由用户自己负责，由于充值卡卡号、密码被盗所造成的用户损失，上海世纪互联概不负责。充值卡内的金额将一次性全额扣除，请务必选择与消费金额相近的充值卡面额。如果用户选择的消费金额小于充值卡的实际面额，差额部分不退还。 </li>
+<li>（九）Viacloud云平台充值卡一经售出，概不退还、不补缺。</li>
+</ul>
+	</label>
+	
+	<div style='margin-top:10px;margin-bottom:10px;display:block;border:1px silver solid;'></div>
+
+	<div style='text-align:left;width:600px;vertical-align:middle;margin-left:80px;white-space:nowrap;'>
+    <img class="middle-icon" src="image/images/to_go.png" />
+    <label style='color:red;line-height:28px;'>请填写充值卡的卡号和密码</label>
+	</div>
+	
+	<div id="part1" style="text-align:center;padding:5px 5px 40px 5px;white-space:nowrap;">
+	
+    <label for="vid">充值卡号</label><input type="text" id="vid" />&nbsp;&nbsp;&nbsp;&nbsp;
+    <label for="vpassword_1">充值卡密码</label>
+    <input type="text" size="4" maxlength="4" id="vpassword_1" onfocus="$(this).select();" onkeyup="if($(this).val().length==4){$('#vpassword_2').focus();}"  />&nbsp;-
+    <input type="text" size="4" maxlength="4" id="vpassword_2" onfocus="$(this).select();" onkeyup="if($(this).val().length==4){$('#vpassword_3').focus();}"  />&nbsp;-
+    <input type="text" size="4" maxlength="4" id="vpassword_3" onfocus="$(this).select();" onkeyup="if($(this).val().length==4){$('#vpassword_4').focus();}"  />&nbsp;-
+    <input type="text" size="4" maxlength="4" id="vpassword_4" onfocus="$(this).select();"  />&nbsp;&nbsp;
+		<a href='#' id="submitBtn">充值</a>
+	</div>
+	
+	<div id="part2" style="display:none;text-align:center;padding:5px 5px 40px 5px;white-space:nowrap;">	
+		<label>您的帐号已经开通，您可以从这里登陆您的</label><a target="_blank" style="font-size:18px;color:red;font-weight:bold;" href="http://203.166.164.217:8080">云存储管理平台</a>
+	</div>
+	
+</div>
+
+<!-- 
+</div>
+ -->
+	
+<br/>
+
+
+</body>
+</html>

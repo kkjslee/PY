@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+* {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+div {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+select {
+	outline: none;
+}
+
+em {
+	color: red;
+	font-style: normal;
+	margin-left: 20px;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+body {
+	background: white;
+	margin: 0;
+}
+
+.bannerheader {
+	padding: 40px 0 0;
+	width: 100%;
+}
+
+#mainBody {
+	margin: 20px 20px 0;
+}
+.vmnotes{
+	margin-bottom:5px;
+	font-size:12px;
+	padding:5px;
+}
+#vmReqClientList table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.headerRow tr{
+	height:35px;
+}
+
+#vmReqClientList {
+	width: 100%;
+	display: block;
+}
+
+.message {
+	display: block;
+	font-size: 12px;
+	text-align: center;
+}
+
+.finder {
+	border: 1px solid #DDDDDD;
+	font-size: 12px;
+	margin-bottom: 20px;
+	padding: 5px;
+	position: relative;
+}
+
+.finder .finder-indicator {
+	background: none repeat scroll 0 0 #FFFFFF;
+	cursor: default;
+	left: 10px;
+	position: absolute;
+	top: -12px;
+}
+
+.finder input[type="text"] {
+	border: 0;
+	background: none;
+	width: 100px;
+	border-bottom: 1px solid silver;
+}
+
+.finder td {
+	padding: 2px 10px;
+}
+
+.smallIcon {
+	float: left;
+	margin-right: 5px;
+}
+
+.vmiddle {
+	height: 25px;
+	line-height: 25px;
+	vertical-align: middle;
+}
+
+.headerRow {
+	background: #fff;
+}
+
+
+.footerRow {
+	margin-bottom: 20px;
+	white-space: nowrap;
+	padding: 2px 5px;
+	text-align: right;
+	height: 30px;
+}
+
+.footerRow td {
+	border-top: 1px solid #ddd;
+}
+
+.dataTableFile {
+	min-height: 40px;
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+#vmReqClientList th {
+	border-bottom: 1px solid black;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 3px 18px 3px 10px;
+    font-size:13px;
+    text-align:left;
+}
+.vmReqClientRow{
+	line-height:160%;
+}
+#vmReqClientList tbody tr {
+	border-color: #CCC;
+	border-width: 1px 0;
+	border-style: solid;
+	cursor: default;
+}
+#vmReqClientList tbody tr:last-child td {
+    border: medium none;
+}
+#vmReqClientList tbody tr td {
+	cursor: default;
+    padding: 5px 0 4px;
+    text-indent: 5px;
+    vertical-align: middle;
+}
+
+.green {
+	color: green;
+}
+
+.orange {
+	color: orange;
+}
+
+.vmReqClientName {
+}
+
+.vmReqClientStatus {
+}
+
+.vmReqClientZoneDisplay {
+}
+
+.vmReqClientLogin {
+}
+
+.vmReqClientQuantity {
+}
+
+.vmReqClientNotes {
+}
+
+.vmReqClientDefaultCPU {
+}
+
+.vmReqClientMaxCPU {
+}
+
+.vmReqClientDefaultmem {
+}
+
+.vmReqClientMaxmem {
+}
+
+.vmReqClientVMplanname {
+}
+
+.vmReqClientSoftName {
+}
+
+.vmReqClientsubmissiontime {
+}
+
+.vmReqClientOpe {
+}
+
+.vmReqClientOpe a {
+	color: blue;
+    margin-right: 10px;
+}
+
+.vmReqClientOpe a:hover {
+	color: #222;
+	border-color: #aaa;
+	background: #d5d5d5; /* FF3.6+ */
+}
+
+#vmReqClientList tfoot td {
+	text-align: right;
+	padding: 5px 5px 4px;
+}
+
+.dialogLine {
+	display: block;
+	margin-bottom: 3px;
+}
+
+.dialogLineLeft {
+	width: 120px;
+	display: inline-block;
+	text-align: right;
+}
+
+.dialogLineRight input {
+	padding: 1px;
+	width: 200px;
+}
+
+.dialogLineRight select {
+	padding: 1px;
+	width: 205px;
+}

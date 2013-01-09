@@ -28,6 +28,7 @@ import com.inforstack.openstack.api.nova.server.SecurityGroup;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.Server.File;
 import com.inforstack.openstack.api.nova.server.ServerService;
+import com.inforstack.openstack.api.nova.server.impl.RebootServer;
 import com.inforstack.openstack.api.nova.server.impl.StartServer;
 import com.inforstack.openstack.api.nova.server.impl.StopServer;
 import com.inforstack.openstack.configuration.ConfigurationDao;
@@ -248,6 +249,8 @@ public class NovaTest {
 				System.out.println("New ID    : " + server.getId());
 				System.out.println("Name      : " + server.getName());
 				System.out.println("Status    : " + server.getStatus());
+				System.out.println("Task      : " + server.getTask());
+				System.out.println("Power     : " + server.getPower());
 				System.out.println("Tenant    : " + server.getTenant());
 				System.out.println("User      : " + server.getUser());
 				System.out.println("Host ID   : " + server.getHostId());
@@ -326,7 +329,7 @@ public class NovaTest {
 	}
 	
 	@Test
-	public void testServerAction() {
+	public void testStartAndStopServer() {
 		try {
 			if (this.access != null) {
 				Server server = null;
@@ -367,6 +370,53 @@ public class NovaTest {
 					System.out.println("ID    : " + server.getId());
 					System.out.println("");
 					wait = 0;
+					while (wait < 20) {
+						server = this.serverService.getServer(access, server.getId());
+						if (server.getStatus().equalsIgnoreCase("active") && (server.getTask() == null || server.getTask().equalsIgnoreCase("none")) && server.getPower() == 1) {
+							break;
+						} else {
+							System.out.println("--" + server.getStatus() + "|" + (server.getTask() != null ? server.getTask() : "None") + "|" + (server.getPower() == 1 ? "On" : "Off") + "...");
+							try {
+								Thread.sleep(200);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						wait++;
+					}
+				} else {
+					fail("No active server");
+				}
+			} else {
+				fail("Can not get access");
+			}
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testRebootServer() {
+		try {
+			if (this.access != null) {
+				Server server = null;
+				
+				Server[] servers = this.serverService.listServers(this.access);
+				if (servers.length > 0) {
+					for (Server s : servers) {
+						if (s.getStatus().equalsIgnoreCase("active")) {
+							server = s;
+							break;
+						}
+					}
+				}
+				if (server != null) {
+					this.serverService.doServerAction(this.access, server, new RebootServer());
+					System.out.println("\n\n\nRebooting server");
+					System.out.println("ID    : " + server.getId());
+					System.out.println("");
+					int wait = 0;
 					while (wait < 20) {
 						server = this.serverService.getServer(access, server.getId());
 						if (server.getStatus().equalsIgnoreCase("active") && (server.getTask() == null || server.getTask().equalsIgnoreCase("none")) && server.getPower() == 1) {

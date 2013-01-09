@@ -80,6 +80,8 @@ public class Server {
 	
 	private Date updated;
 	
+	private Date created;
+	
 	private Map<String, String> metadata;
 
 	public String getId() {
@@ -224,6 +226,14 @@ public class Server {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	public Map<String, String> getMetadata() {

@@ -1,0 +1,112 @@
+/* CSS Document */
+
+input,
+textarea {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+input:focus,
+textarea:focus {
+  border-color: #00AEEF;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0;
+  outline: thin dotted \9;
+
+}
+input,
+textarea,
+select,
+.uneditable-input {
+  display: inline-block;
+  width: 210px;
+  padding: 4px;
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #555555;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.radius5{
+	-webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.uneditable-textarea {
+  width: auto;
+  height: auto;
+}
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+select:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+#question{
+	padding:2px;
+	height:28px;
+	line-height:28px;
+	margin:0;
+	width:210px;
+}
+div {
+}
+.reg_input {
+	width:200px;
+}
+.reg_label {
+	float:right;
+	font-weight:normal;
+	padding-right:20px;
+	line-height:28px;
+	vertical-align:middle;	
+}
+.reg_ltd .reg_label label{
+	vertical-align:middle;
+}
+.reg_div {
+}
+.reg_frame {
+	border:0 none;
+	padding:2px;
+	margin:auto;
+	margin-top:2px;
+	width:950px;
+	display:block;
+	position:relative;
+}
+
+.reg_ltd {
+}
+.reg_rtd {
+	text-align:left;
+}
+
+.reg_tips {
+	float:left;
+}
+
+.reg_table {
+	white-space:nowrap;
+	margin:auto;
+	border:0;
+}
+
+.text_tip_grid {
+  text-align:left;
+}

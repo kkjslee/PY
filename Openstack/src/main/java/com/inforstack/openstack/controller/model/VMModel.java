@@ -10,21 +10,21 @@ import java.util.List;
  * 
  */
 public class VMModel {
-  //vm uuid
+  // vm uuid
   private String vmid;
   private String vmname;
-  //cpu number
+  // cpu number
   private Integer cpus;
-  //memory size
+  // memory size
   private Integer memory;
-  //vm create time
+  // vm create time
   private Date starttime;
-  //vm expire time
+  // vm expire time
   private Date expiretime;
-  //public up bound
+  // public up bound
   private List<String> publcips;
   private String privateip;
   private Integer disksize;
   private Integer maxmemory;
-  private 
+  private Integer maxcpu;
 }

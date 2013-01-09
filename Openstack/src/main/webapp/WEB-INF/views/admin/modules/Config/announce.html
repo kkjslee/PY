@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--#include virtual="../../config.shtml" -->
+
+<meta charset="utf-8" />
+<meta name="description" content="<!--#echo var='login.meta.description' -->" />
+<meta name="keywords" content="<!--#echo var='login.meta.keywords' -->" />
+
+<title><!--#echo var='PageTitle' --></title>
+
+<link rel="icon" type="image/ico" href="../../favicon.ico">
+
+<!-- Setting Theme CSS -->
+<link href="../../css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet" type="text/css">
+
+<script src="../../js/jquery-1.6.4.js"></script>
+<script src="../../js/jquery-ui-1.8.16.enterprise.min.js"></script>
+<script src="../../js/jquery.cookie.js"></script>
+<script src="../../locale.jsp"></script>
+<script src="../../js/base64.js"></script>
+<script src="../../js/jquery.tmpl.js"></script>
+<script src="../../js/String.js"></script>
+
+<script type="text/javascript" src="../../js/server.js"></script>
+<style>
+*{font-family: 微软雅黑;font-size:14px;}
+a {text-decoration: none;}
+.funcIcon {
+	display:inline-block;
+	color:blue;
+	margin:0;
+	padding:0 5px;
+	border-collapse:collapse;
+	border-spacing:0;
+	border-width: 1px 1px 0 1px;
+	border-style:solid;
+	border-color:#ccc;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+}
+.funcIcon:hover {
+	background: #eee;
+}
+#notice-normal-div {
+	display:none;
+	padding:5px;
+	border:1px solid #ccc;
+	border-radius:0 0 5px 5px;
+}
+#notice-normal-text {
+	height:540px;
+	width:100%;
+	border:1px solid #ccc;
+}
+#tips{font-size:10px;margin:0 20px;color:#7C7C7C;cursor: default;}
+table{border:0;border-collapse:0;border-spacing:0;margin:0;padding:0;width:100%;}
+.funcTable {margin-bottom:-1px;}
+.funcTable td:first-child {text-align:left;}
+.funcTable td:last-child {text-align:right;}
+</style>
+</head>
+
+<body><!-- onbeforeunload="return 'You have somthing unsaved!';"-->
+
+<h1>Set up Announce</h1>
+<hr/>
+
+<div style="position: relative;">
+<div id="block" style="position:absolute;width:100%;height:100%;background: rgba(0,0,0,.5);z-index: 2;">
+	<table style="height:100%;"><tr><td style="vertical-align: middle;text-align: center;color:white;font-size: 24px;font-weight: bold;font-family: Helvetica;">
+		Await response...
+	</td></tr></table>
+</div>
+
+<table style="width: 100%;">
+<tr><td style="padding:20px;">
+	
+<div style="margin:0;padding:0;white-space: nowrap;">
+	
+<table class="funcTable">
+<tr>
+	<td>
+		<a class="funcIcon" href="" onclick="editAsRaw();return false;">Edit As Raw</a>
+		<a class="funcIcon" href="" onclick="editAsVisual();return false;">Edit As Visual</a>
+		<span id="tips"></span>
+	</td>
+	<td>
+		<a class="funcIcon" style="color:red;" href="" onclick="saveAnnounce();return false;">Save</a>
+	</td>
+</tr>
+</table>
+</div>
+
+<textarea id="notice-normal-text" contenteditable="true"></textarea>
+<div id='notice-normal-div' contenteditable="true"></div>
+
+</td></tr>
+</table>
+</div>
+
+<script>
+$(function(){
+	
+	$("button").button();
+	
+	loadAnnounce(editAsRaw);
+	
+});
+
+function loadAnnounce(success_callback) {
+	var noticePath="../../../<!--#echo var='EnterpriseBase' -->/notice.partial";
+	
+	$("#block").show();
+	
+	$.ajax({
+		url: noticePath,
+		type: "GET",
+		cache: false,
+		dataType: "text",
+		success: function(data) {
+			$("#notice-normal-text").val(data);
+			$("#notice-normal-div").html(data);
+			
+			success_callback && success_callback();
+			
+			$("#block").hide();
+		},
+		error: function(jqXHR, textStatus, errorThrown) {$("#block").hide();}
+	});
+}
+	
+function editAsVisual() {
+	var content=$("#notice-normal-text").val();
+	$("#notice-normal-div").html(content);
+	
+	$("#notice-normal-text").hide();
+	$("#notice-normal-div").show();
+	
+	$("#notice-normal-text").parents("table").first().attr("mode", "visual");
+	
+	$("#tips").html("[Visual Mode]");
+}
+
+function editAsRaw() {
+	var content=$("#notice-normal-div").html();
+	$("#notice-normal-text").val(content);
+	
+	$("#notice-normal-text").show();
+	$("#notice-normal-div").hide();
+	
+	$("#notice-normal-text").parents("table").first().attr("mode", "raw");
+	
+	$("#tips").html("[Raw Text Mode]");
+}
+
+function saveAnnounce() {
+	var text;
+	
+	var mode=$("#notice-normal-text").parents("table").first().attr("mode");
+	if(mode==="visual") {
+		text=$("#notice-normal-div").html();
+	}else if(mode==="raw") {
+		text=$("#notice-normal-text").val();
+	}
+	
+	if(!text || !confirm("Do you want to save it?")) {return;}
+	
+	$("#block").show();
+	
+	$.ajax({
+		url: "console.jsp",
+		cache: false,
+		type: "POST",
+		data: {
+			action: "update",
+			type: "normal",
+			data: text
+		},
+		success: function(data) {
+			$("#block").hide();
+			alert("Success");
+			loadAnnounce();
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			$("#block").hide();
+			alert("Failed: "+textStatus);
+		}
+	});
+}
+
+</script>
+
+</body>
+</html>

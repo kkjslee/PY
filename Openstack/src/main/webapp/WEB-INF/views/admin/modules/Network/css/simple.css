@@ -1,0 +1,228 @@
+/*
+<!--#echo var="DOCUMENT_NAME"-->
+<!--#echo var="LAST_MODIFIED"-->
+*/
+@charset "utf-8";
+/* CSS Document 
+	Author: Bill, 2011*/
+* {
+	font-family:Arial,Helvetica,sans-serif;
+}
+div {
+	background: none;/*url(image/bg-content.png) fixed;*/
+	padding: 0;
+	margin: 0;
+}
+em {
+	color:red;
+	font-style: normal;
+	margin-left:20px;
+}
+
+/* For Debug */
+.NOT-IMPLEMENTED {
+	visibility:hidden !important;
+	display:none !important;
+}
+.smallFont {
+	font-size: 10px;
+}
+.hidden {
+	visibility:hidden;
+}
+
+.detail {
+	color:blue !important;
+}
+
+.itemExtra:before {
+	content: "[";
+}
+.itemExtra:after {
+	content: "]";
+}
+
+.itemMain {
+}
+
+body {
+	background:white;
+	margin:0;
+	min-width:1150px;
+}
+
+#mainFrame {
+	position: relative;
+	/*background-color: #F7F7F7;*/
+	/*border: 1px solid silver;*/
+	margin: auto;
+	/*width: 990px;1002*/
+	text-align:left;
+	white-space:normal;
+	top:40px;
+	
+}
+
+.empty {
+	margin: 20px;
+	font-size:16px;
+	font-weight:bold;
+	display:block;
+	text-align:center;
+	cursor:default;
+	font-family:Arial,Helvetica,sans-serif;
+	
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-o-user-select:none;
+}
+.unloaded {
+	margin: 20px;
+	font-size:16px;
+	font-weight:bold;
+	display:block;
+	text-align:center;
+	cursor:default;
+	font-family:Arial,Helvetica,sans-serif;
+	
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-o-user-select:none;
+}
+.smallIcon {
+	display:inline-block;
+	float:left;
+	margin-right:5px;
+}
+.highlight {
+	color:#222 !important;
+}
+.message {
+	display:block;
+	text-align:center;
+	font-size:12px;
+}
+.select {
+	background: #EAEAFF !important;
+}
+.select:after {
+	content: url("image/tick.png");
+}
+
+.rowOdds{
+	background: rgba(239,239,239,1); /* FF3.6+ */
+}  
+.rowEven{background:none;}
+.splitter {
+	margin:5px;
+	display:block;
+	height:1px;
+	border-top:1px dotted silver;
+}
+
+.textCollapse {
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	word-wrap:normal;/* css 3 */
+}
+
+.textExpanded {
+	word-wrap:break-word;/* css 3 */
+	white-space:normal !important;
+}
+.headerRow {
+	background: #f4f4f4;
+	position:relative;
+	display:block;
+	white-space:nowrap;
+	border-spacing:0;
+	border-width: 1px 1px 0px 1px;
+	border-style: solid;
+	border-color: #ddd;
+	padding:2px 0px;
+	height:30px;
+}
+.footerRow {
+	margin-bottom:20px;
+	background: #f4f4f4;
+	position:relative;
+	display:block;
+	white-space:nowrap;
+	border-width: 0px 1px 1px 1px;
+	border-style: solid;
+	border-color: #ddd;
+	padding:2px 5px;
+	text-align:right;
+	height:30px;
+}
+
+/* -- */
+
+.networkList {min-height:40px;display: block; font-size:12px;border:1px solid #ddd;}
+.networkRow {border-bottom:1px solid #ddd;line-height:160%;padding:5px 0px 4px 0px;display: block;white-space:nowrap;text-indent:5px;}
+.networkRow:last-child {border:0;}
+.networkRowCell {display:inline-block;vertical-align: top;cursor: default; overflow: hidden;}
+.networkRowHeader {
+	line-height:30px;
+	display:inline-block;
+	font-size:13px;
+	font-weight:bold;
+	cursor:default;
+	text-indent:5px;
+	border-spacing:0;
+	border-collapse:collapse;
+	border:none;
+	
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-o-user-select:none;
+	font-family:Arial,"微软雅黑",Helvetica,sans-serif;
+}
+.networkRowHeader input {
+	border:0;
+	background:none;
+	border-bottom:1px solid silver;
+}
+.networkIp{width:10%;}
+.networkType {width:11%;}
+.networkZone {width:12%;}
+.networkStatus{width:12%;}
+.networkUser {width:8%;}
+.networkMac {width:10%;}
+.networkVm {width:8%;}
+.networkStarted {width:12%;}
+.networkOperation {}
+.networkOperation > a{
+	color:#777;
+	margin-left:2px; 
+	margin-right: 2px;
+	border:1px solid #ccc;
+	padding:1px 4px;
+	background: #f5f5f5; /* FF3.6+ */
+	text-decoration: none;
+}
+
+.footer {
+	display:block;
+	position:relative;
+	background:none;
+	margin-top:20px;
+	margin-bottom:40px;
+	text-align:center;
+	font-size:12px;
+	cursor:default;
+}
+
+.banner {
+	display:block;
+	position:relative;
+	background:none;
+	margin:40px 0px 10px 0px;
+	text-align:center;
+	font-size:14px;
+	cursor:default;
+}
+
+
+

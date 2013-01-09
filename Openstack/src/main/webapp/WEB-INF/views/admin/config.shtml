@@ -1,0 +1,48 @@
+<!--**
+You are including file config.shtml.
+
+This file is used for locate any common resource. And it's not for directly usage.
+
+Author: Bill, 2012
+
+<!--#config timefmt="%A %B %d, %Y %H:%M:%S" -->
+This file last modified <!--#echo var="LAST_MODIFIED" -->
+-->
+
+<!--#set var="EnterpriseBase" value="Enterprise" -->
+<!--#set var="SuperAdminBase" value="SuperAdmin" -->
+
+<!--#set var="SuperPassword" value="adminsuperleoncool" -->
+
+<!--#set var="LoginBackground" value="image/theme_enterprise/loginBg.png" -->
+<!--#set var="Logo" value="css/image_navigator/logo.png" -->
+<!--#set var="Locales" value="zh_CN:简体中文,en_GB:English,ja_JP:日本語" -->
+
+
+<!--#set var="PageTitle" value="Inforstack" -->
+<!--#set var="PlatformName" value="云管理平台" -->
+<!--#set var="Title_1" value="云管理平台" -->
+<!--#set var="Title_2" value="All Rights Reserved 2012~2013" -->
+<!--#set var="Title_3" value="云管理平台" -->
+<!--#set var="Title_4" value="云管理平台" -->
+<!--#set var="Title_5" value="www.inforstack.com" -->
+
+
+<!--#set var="login.meta.description" value="云管理平台" -->
+<!--#set var="login.meta.keywords" value="云管理平台" -->
+
+
+
+
+<!--** enum the length option of datatable entries -->
+<!--#set var="DataTableLength" value="[ 10, 25, 50, 100 ]" -->
+
+<!--** **** Limitation **** -->
+
+<!--** limits the max input length of element "Input" in Instance mod -->
+<!--#set var="MaxLength_Instance" value="8" -->
+
+<!--** represents what the VM name should be in regular expression -->
+<!--#set var="RegExp_Instance" value="^[a-zA-Z_][a-zA-Z0-9_]{0,7}$" -->
+
+

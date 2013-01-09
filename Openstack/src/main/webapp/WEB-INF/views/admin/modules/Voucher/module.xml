@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform>
+	<module index="6" role="is_admin">
+		<parent>menu1</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.resource.voucher
+		</name>
+		<license>financemanagement</license>
+		<entry>modules/Voucher/index.html</entry>
+	</module>
+</platform>

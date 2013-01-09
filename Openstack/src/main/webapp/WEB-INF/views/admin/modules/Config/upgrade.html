@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--#include virtual="../../config.shtml" -->
+<html>
+<head>
+<title>System Upgrade</title>
+<meta charset="utf-8">
+
+<link href="../../css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet"/>
+<link href="css/upgrade.css" rel="stylesheet"/>
+
+<script src="../../js/jquery-1.6.4.js"></script>
+<script src="../../js/jquery-ui-1.8.16.enterprise.min.js"></script>
+<script src="../../js/String.js"></script>
+<script src="../../js/base64.js"></script>
+<script src="../../js/jquery.cookie.js"></script>
+<script src="../../js/jquery.form.js"></script>
+<script src="../../js/jquery.tmpl.js"></script>
+
+<script src="js/WebBooter.js"></script>
+<script src="js/BootStrap.upgrade.js"></script>
+
+</head>
+
+<body>
+	
+<h1>Upgrade System easily</h1>
+<hr/>
+<p><label style="font-size:12px;color:#AAA;">Attention: This page requires HTML5 supported explorer!</label></p>
+<p><label style="font-size:12px;color:red;">Maybe you should restart services if it doesn't take any/entire effect. Watch out for the service log is a good idea for you to track the problems.</label></p>
+
+<div class="panel" zmlm:item="dbPanel">
+	<span class="panelTitle">DB Node Upgrade</span>
+	
+	<div class="panelList" style="text-align:center;">
+		<input name="dbname" style="width:99%;border:none;border-bottom:1px solid silver;" placeholder="Type in Database Name (eg. RedDragon)"/>
+	</div>
+	
+	<div class="panelCtrl" class="panelCtrl">
+		<button name="upgradedb" class="submit">Upgrade</button>
+	</div>
+</div>
+
+<div class="panel" zmlm:item="asPanel">
+	<span class="panelTitle">Application Server Node Upgrade</span>
+	
+	<span class="panelList"></span>
+	
+	<div class="panelCtrl" class="panelCtrl">
+		<form>
+			Upgrade package: 
+			<input type="file" name="filename"/>
+			<input type="hidden" name="methodtype" value="updatepackage"/>
+			<input type="hidden" name="ips"/>
+			<input type="hidden" name="username"/>
+			<input type="hidden" name="passwd"/>
+			<input type="submit" value="Upgrade" class="submit"/>
+		</form>
+	</div>
+</div>
+
+<div class="panel" zmlm:item="zonePanel">
+	<span class="panelTitle">Zone Node Upgrade</span>
+	
+	<span class="panelList"></span>
+	
+	<div class="panelCtrl" class="panelCtrl">
+		<form>
+			Upgrade package: 
+			<input type="file" name="filename"/>
+			<input type="hidden" name="methodtype" value="updatepackage"/>
+			<input type="hidden" name="ips"/>
+			<input type="hidden" name="username"/>
+			<input type="hidden" name="passwd"/>
+			<a href="#" class="anchor_sa">Select All</a>
+			<a href="#" class="anchor_da">Deselect All</a>
+			<input type="submit" value="Upgrade" class="submit"/>
+		</form>
+	</div>
+</div>
+
+<div class="panel" zmlm:item="diskPanel">
+	<span class="panelTitle">Disk Node Upgrade</span>
+	
+	<span class="panelList"></span>
+	
+	<div class="panelCtrl" class="panelCtrl">
+		<form>
+			Upgrade package: 
+			<input type="file" name="file"/>
+			<input type="hidden" name="methodtype" value="updatepackage"/>
+			<input type="hidden" name="ips"/>
+			<input type="hidden" name="username"/>
+			<input type="hidden" name="passwd"/>
+			<a href="#" class="anchor_sa">Select All</a>
+			<a href="#" class="anchor_da">Deselect All</a>
+			<input type="submit" value="Upgrade" class="submit"/>
+		</form>
+	</div>
+</div>
+
+<div class="panel" zmlm:item="poolPanel">
+	<span class="panelTitle">Service Node Upgrade</span>
+	
+	<span class="panelList"></span>
+	
+	<div class="panelCtrl" class="panelCtrl">
+		<form>
+			Upgrade package: 
+			<input type="file" name="file"/>
+			<input type="hidden" name="methodtype" value="updatepackage"/>
+			<input type="hidden" name="ips"/>
+			<input type="hidden" name="username"/>
+			<input type="hidden" name="passwd"/>
+			<a href="#" class="anchor_sa">Select All</a>
+			<a href="#" class="anchor_da">Deselect All</a>
+			<input type="submit" value="Upgrade" class="submit"/> 
+		</form>
+	</div>
+</div>
+
+</body>
+</html>

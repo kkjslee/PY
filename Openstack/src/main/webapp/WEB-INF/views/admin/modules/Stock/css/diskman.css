@@ -1,0 +1,103 @@
+@CHARSET "UTF-8";
+.tableList {
+	line-height: 160%;
+	border-collapse:collapse;
+	border-spacing: 0;
+	width:100%;
+	margin: 10px 0;
+}
+.tableList th {
+	font-weight: bold;
+	font-size:12px;
+}
+.tableList tr {
+	border: 1px solid silver;
+}
+.tableList td,th {
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align:left;
+}
+.tableInfo {
+	border-collapse:collapse;
+	border-spacing: 0;
+	margin:10px 0;
+	line-height:160%;
+}
+.tableInfo th{text-align:left;}
+.tableInfo td:first-child {text-align:right;text-indent:2em;}
+.tableInfo td:last-child {text-align:left;}
+.labelLeft {
+	padding-right: 20px;
+}
+.tableSell {
+	line-height:160%;
+	margin:10px 0;
+	border-collapse:collapse;
+	border-spacing: 0;
+}
+.tableSell td {vertical-align:top;}
+.tableSell span {margin:5px 10px;white-space:nowrap;}
+.graphArea {height: 280px; width: 360px;margin: 10px 20px;}
+.graphArea:empty {
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(239,239,239,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(239,239,239,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(239,239,239,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+	
+	border: 1px solid silver;
+	border-radius:5px;
+}
+.labelLeft:after {
+	content: ":";
+}
+.labelRight {
+}
+.unitGB:after {
+	font-size: 8px;
+	content: "    GB";
+}
+.subtitle {font-weight:bold;margin:5px 0;}
+.area {
+	margin-left: 20px;
+}
+
+.progress {
+	width:100px;
+	height:10px;
+	display:inline-block;
+}
+
+.diskAuto {
+	border-left: 1px dotted #ccc;
+	width:120px;
+}
+.diskRemove {width:14px;}
+.diskRemove a {
+	background:url("image/delete.gif") 0 0 no-repeat;
+	display:inline-block;
+	width:14px;
+	height:14px;
+	border:none;
+}
+.diskRemove a:hover {
+	-webkit-filter: invert(.05);
+	-moz-filter: invert(.05);
+	-ms-filter: invert(.05);
+	-o-filter: invert(.05);
+	filter: invert(.05);
+}
+.diskCreate {
+	border:1px solid silver;
+	line-height:160%;
+	padding:5px 10px;
+}
+.diskCreate > * {margin: 0 5px;}
+.diskQuota {width:200px;}
+.apply {width: 70px;}
+
+
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform>
+	<module index="4" role="is_admin,is_2ndadmin">
+		<parent>menu1</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.resource.volume
+		</name>
+		<license>volumemanagement</license>
+		<entry>modules/Volume/index.html</entry>
+	</module>
+</platform>

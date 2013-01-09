@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform>
+	<module index="2" role="is_admin">
+		<parent>menu7</parent>
+		<!-- local / descriptor -->
+		<name source="local">
+			navigation.menu.admin.apply.volumereqmgr
+		</name>
+		<license></license>
+		<entry>modules/VolumeReqMgr/index.html</entry>
+	</module>
+</platform>

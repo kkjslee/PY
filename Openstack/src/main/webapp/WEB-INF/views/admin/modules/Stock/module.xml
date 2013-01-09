@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform count="2">
+	<module index="1" role="is_admin">
+		<parent>menu2</parent>
+		<name source="local">
+			navigation.menu.admin.resource.instance
+		</name>
+		<license>inventorymanagement</license>
+		<entry>modules/Stock/vmman.html?content=vmman</entry>
+	</module>
+	<module index="2" role="is_admin,is_2ndadmin">
+		<parent>menu2</parent>
+		<name source="local">
+			navigation.menu.admin.stock.volume
+		</name>
+		<license>inventorymanagement</license>
+		<entry>modules/Stock/diskman.html?content=diskman</entry>
+	</module>
+</platform>

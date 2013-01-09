@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--#include virtual="../../config.shtml" -->
+<html>
+<head>
+<title>Personal Settings</title>
+<meta charset="utf-8">
+
+<link href="../../css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet"/>
+
+<script src="../../js/jquery-1.6.4.js"></script>
+<script src="../../js/jquery-ui-1.8.16.enterprise.min.js"></script>
+<script src="../../js/String.js"></script>
+<script src="../../js/base64.js"></script>
+<script src="../../js/jquery.cookie.js"></script>
+<script src="../../js/jquery.form.js"></script>
+<script src="../../js/jquery.tmpl.js"></script>
+<script src="../../js/account.js"></script>
+
+</head>
+<style>
+table tbody td:first-child {border-right: 1px dotted #ddd;text-align:right;padding:0 10px;}
+table tbody td:not(first-child) {text-align:left;padding:0 10px;}
+table tr {height:30px;}
+</style>
+
+<script>
+$(function(){
+	var prop=readPersonalInfo(getUsername(), "Instance");
+	prop && $("[name='dashboard']").first().find("[name='r_instance'][value='"+prop+"']").attr("checked", "checked");
+	
+	prop=readPersonalInfo(getUsername(), "Network");
+	prop && $("[name='dashboard']").first().find("[name='r_network'][value='"+prop+"']").attr("checked", "checked");
+	
+});
+
+function apply(dashboard) {
+	var prop=$(dashboard).parents("[name='dashboard']").first().find("[name='r_instance']:checked").val();
+	savePersonalInfo(getUsername(), "Instance", prop);
+	
+	prop=$(dashboard).parents("[name='dashboard']").first().find("[name='r_network']:checked").val();
+	savePersonalInfo(getUsername(), "Network", prop);
+	
+	alert("Done!");
+}
+</script>
+<body>
+	
+<h1>Personal Dashboard</h1>
+<hr/>
+<p><label style="font-size:12px;color:#AAA;">Attention: Configure this page according to your local machine. While you are encounter any ui delay, reduce the display effect may help you a few more.</label></p>
+
+<div name="dashboard" style="background:none;text-align:center;padding:10px;border:1px solid #ddd;">
+	<table style="border-collapse:collapse;border:none;border-spacing:0;width:100%;">
+		<tbody>
+			<tr>
+				<td>Instance Page</td>
+				<td>
+					<input type="radio" name="r_instance" value="classic" checked />Classic
+				</td>
+				<td>
+					<input type="radio" name="r_instance" value="simple" />Simple
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Network Page</td>
+				<td>
+					<input type="radio" name="r_network" value="classic" checked />Classic
+				</td>
+				<td>
+					<input type="radio" name="r_network" value="simple" />Simple
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="3" style="text-align:right;border-top: 1px dotted #ddd;">
+					<button onclick="apply(this);">Apply</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+</body>
+</html>

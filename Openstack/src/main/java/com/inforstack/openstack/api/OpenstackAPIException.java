@@ -11,4 +11,8 @@ public class OpenstackAPIException extends Exception {
 		super(message, e);
 	}
 
+	public OpenstackAPIException(String message) {
+		super(message);
+	}
+
 }

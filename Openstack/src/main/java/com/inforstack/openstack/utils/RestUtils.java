@@ -113,6 +113,18 @@ public class RestUtils {
 		return uri;
 	}
 	
+	public static <Request extends RequestBody> void put(String url, Access access, Request request, Object... urlVariables) throws OpenstackAPIException {
+		HttpHeaders headers = new HttpHeaders();
+		addHeader(headers);
+		
+		try {
+			RestTemplate template = getTemplate(new SimpleClientHttpRequestFactory());
+			template.put(url, new HttpEntity<Request>(request, headers), urlVariables);
+		} catch (Exception e) {
+			throw new OpenstackAPIException("Can not fetch data[POST]:" + url, e);
+		}
+	}
+	
 	public static <Request, Response> Response get(String url, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {
 		Response response = null;
 		

@@ -342,6 +342,35 @@ public class KeystoneServiceImpl implements KeystoneService {
 			}
 		}
 	}
+	
+	@Override
+	public void addRole(Role role, User user, Tenant tenant) throws OpenstackAPIException {
+		if (user != null && !user.getId().trim().isEmpty() && tenant != null && !tenant.getId().trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_ROLE);
+			if (endpoint != null) {
+				Access adminAccess = this.getAdminAccess();
+				if (adminAccess != null) {
+					String roleId = null;
+					switch (role) {
+					case ADMIN:
+						roleId = this.configurationDao.findByName(ROLE_ID_ADMIN).getValue();
+						break;
+					case RESELL:
+						roleId = this.configurationDao.findByName(ROLE_ID_RESELL).getValue();
+						break;
+					case MEMBER:
+						roleId = this.configurationDao.findByName(ROLE_ID_MEMBER).getValue();
+						break;
+					}
+					if (roleId != null) {
+						RestUtils.put(endpoint.getValue(), adminAccess, null, tenant.getId(), user.getId(), roleId);
+					} else {
+						throw new OpenstackAPIException("Unknown role");
+					}
+				}
+			}
+		}
+	}
 
 	@Override
 	public void addUserAndTenant(String username, String password, String email, String tenant) throws OpenstackAPIException {
@@ -351,7 +380,10 @@ public class KeystoneServiceImpl implements KeystoneService {
 			}
 			Tenant newTenant = this.createTenant(tenant, "Tenant for user[" + username + "]", true);
 			if (newTenant != null) {
-				this.createUser(username, password, email);
+				User newUser = this.createUser(username, password, email);
+				if (newUser != null) {
+					this.addRole(Role.MEMBER, newUser, newTenant);
+				}
 			}
 		}
 	}

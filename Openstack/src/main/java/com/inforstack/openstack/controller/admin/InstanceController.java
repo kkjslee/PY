@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/admin/instance")
@@ -25,4 +26,11 @@ public class InstanceController {
   public String template(Model model, String script) {
     return "admin/modules/Instance/scripts/template";
   }
+
+  @RequestMapping(value = "/vmdetails", method = RequestMethod.POST, produces = "application/json")
+  public @ResponseBody
+  String listVMs(Model model) {
+    return "admin/modules/Instance/scripts/template";
+  }
+
 }

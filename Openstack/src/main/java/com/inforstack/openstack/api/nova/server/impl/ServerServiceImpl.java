@@ -8,6 +8,10 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.nova.flavor.Flavor;
+import com.inforstack.openstack.api.nova.flavor.FlavorService;
+import com.inforstack.openstack.api.nova.image.Image;
+import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerAction;
 import com.inforstack.openstack.api.nova.server.ServerService;
@@ -24,6 +28,12 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Autowired
 	private KeystoneService tokenService;
+	
+	@Autowired
+	private FlavorService flavorService;
+	
+	@Autowired
+	private ImageService imageService;
 	
 	public static final class Servers {
 		
@@ -47,6 +57,12 @@ public class ServerServiceImpl implements ServerService {
 			Servers response = RestUtils.get(endpoint.getValue(), access, Servers.class, access.getToken().getTenant().getId());
 			if (response != null) {
 				servers = response.getServers();
+				for (Server server : servers) {
+					Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
+					server.setFlavor(flavor);
+					Image image = this.imageService.getImage(server.getImage().getId());
+					server.setImage(image);
+				}
 			}
 		}
 		return servers;
@@ -73,6 +89,10 @@ public class ServerServiceImpl implements ServerService {
 		if (access != null && endpointServer != null) {
 			ServerBody response = RestUtils.get(endpointServer.getValue(), access, ServerBody.class, access.getToken().getTenant().getId(), id);
 			server = response.getServer();
+			Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
+			server.setFlavor(flavor);
+			Image image = this.imageService.getImage(server.getImage().getId());
+			server.setImage(image);
 		}
 		return server;
 	}

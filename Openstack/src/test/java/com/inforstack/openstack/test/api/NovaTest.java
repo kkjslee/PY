@@ -151,7 +151,7 @@ public class NovaTest {
 					System.out.println("Host Name : " + server.getHostName());
 					System.out.println("Key Name  : " + server.getKey());
 					System.out.println("Image     : " + server.getImage().getId());
-					System.out.println("Flavor    : " + server.getFlavor().getId());
+					System.out.println("Flavor    : " + (server.getFlavor() != null ? server.getFlavor().getId() : "None"));
 					System.out.println("Addresses : {");
 					if (server.getAddresses().getPrivateList() != null) {
 						System.out.println("        Private : [");

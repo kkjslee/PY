@@ -51,4 +51,19 @@ public class FlavorServiceImpl implements FlavorService {
 		return flavors;
 	}
 
+	@Override
+	public Flavor getFlavor(String id) throws OpenstackAPIException {
+		Flavor flavor = null;
+		Flavor[] flavors = this.listFlavors();
+		if (flavors != null) {
+			for (Flavor f : flavors) {
+				if (f.getId().equalsIgnoreCase(id)) {
+					flavor = f;
+					break;
+				}
+			}
+		}
+		return flavor;
+	}
+
 }

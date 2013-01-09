@@ -9,5 +9,7 @@ public interface ImageService {
 	public final static String ENDPOINT_IMAGE			= "openstack.endpoint.image";
 	
 	public Image[] listImages() throws OpenstackAPIException;
+	
+	public Image getImage(String id) throws OpenstackAPIException;
 
 }

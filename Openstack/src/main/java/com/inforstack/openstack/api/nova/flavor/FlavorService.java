@@ -10,4 +10,6 @@ public interface FlavorService {
 	
 	public Flavor[] listFlavors() throws OpenstackAPIException;
 	
+	public Flavor getFlavor(String id) throws OpenstackAPIException;
+	
 }

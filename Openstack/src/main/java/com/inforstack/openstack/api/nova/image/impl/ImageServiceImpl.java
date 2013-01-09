@@ -51,4 +51,19 @@ public class ImageServiceImpl implements ImageService {
 		return images;
 	}
 
+	@Override
+	public Image getImage(String id) throws OpenstackAPIException {
+		Image image = null;
+		Image[] images = this.listImages();
+		if (images != null) {
+			for (Image f : images) {
+				if (f.getId().equalsIgnoreCase(id)) {
+					image = f;
+					break;
+				}
+			}
+		}
+		return image;
+	}
+
 }

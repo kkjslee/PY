@@ -173,7 +173,7 @@ $(function(){
         }else if($('#user_password').val() != $('#user_password_2').val()) {
             isok=false;
             tips='请确认密码。';                      
-        }else if($('#user_question').val().length<6) {
+        }else if($('#user_question_ex').val().length<6) {
             isok=false;
             tips='密码找回提示问题最少为6位。';
         }else if($('#user_answer').val().length<4) {
@@ -202,7 +202,7 @@ $(function(){
             $('#c_user_firstname').html($('#user_firstname').val());
             $('#c_user_lastname').html($('#user_lastname').val());
             $('#c_user_email').html($('#user_email').val());
-            $('#c_user_question').html($('#user_question').val());
+            $('#c_user_question').html($('#user_question_ex').val());
             $('#c_user_answer').html($('#user_answer').val());
             $('#c_user_phone').html($('#t#user_phone').val());
             $('#c_user_mobile').html($('#user_mobile').val());
@@ -270,7 +270,7 @@ function register_submit() {
             firstname: $('#user_firstname').val(),
             lastname: $('#user_lastname').val(),
             userEmail: $('#user_email').val(),
-            question: $('#user_question').val(),
+            question: $('#user_question_ex').val(),
             answer: $('#user_answer').val(),
             userPhone: $('#user_phone').val(),
             userMobile: $('#user_mobile').val(),
@@ -753,12 +753,12 @@ function resend() {
     <td class="reg_ltd"><label class="reg_label">密码找回提示问题（最少6位）&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
     <td style="text-align:left;">
     <select id='user_question' title="密码找回提示问题">
-        <option value="web">我就读的第二所学校的名称？</option>
-        <option value="personal">我最喜欢的宠物？</option>
-        <option value="personal">我最喜欢的电影人物？</option>
-        <option value="personal">我最喜欢的歌曲？</option>
-        <option value="personal">我的初恋日期？</option>
-        <option value="personal">我的祖父有多少个孩子？</option>
+        <option >我就读的第二所学校的名称？</option>
+        <option >我最喜欢的宠物？</option>
+        <option >我最喜欢的电影人物？</option>
+        <option >我最喜欢的歌曲？</option>
+        <option >我的初恋日期？</option>
+        <option >我的祖父有多少个孩子？</option>
     </select>
     <!--<input id="question" class="reg_input" type="text" />-->
     </td>

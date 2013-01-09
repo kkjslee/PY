@@ -10,7 +10,7 @@ public class Flavor {
 	
 	private String name;
 	
-	private int vcpu;
+	private int vcpus;
 	
 	private int ram;
 	
@@ -46,12 +46,12 @@ public class Flavor {
 		this.name = name;
 	}
 
-	public int getVcpu() {
-		return vcpu;
+	public int getVcpus() {
+		return vcpus;
 	}
 
-	public void setVcpu(int vcpu) {
-		this.vcpu = vcpu;
+	public void setVcpus(int vcpus) {
+		this.vcpus = vcpus;
 	}
 
 	public int getRam() {

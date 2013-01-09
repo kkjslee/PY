@@ -80,7 +80,7 @@ public class NovaTest {
 				System.out.println("-----------------------");
 				System.out.println("ID:        " + flavor.getId());
 				System.out.println("Name:      " + flavor.getName());
-				System.out.println("CPU:       " + flavor.getVcpu());
+				System.out.println("CPU:       " + flavor.getVcpus());
 				System.out.println("RAM:       " + flavor.getRam());
 				System.out.println("Disk:      " + flavor.getDisk());
 				System.out.println("Ephemeral: " + flavor.getEphemeral());

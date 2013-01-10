@@ -12,4 +12,6 @@ public interface FlavorService {
 	
 	public Flavor getFlavor(String id) throws OpenstackAPIException;
 	
+	public Flavor createFlavor(String name, int vcpus, int ram, int disk) throws OpenstackAPIException;
+	
 }

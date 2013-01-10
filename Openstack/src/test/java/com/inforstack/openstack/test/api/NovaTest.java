@@ -87,7 +87,40 @@ public class NovaTest {
 				System.out.println("Factor:    " + flavor.getFactor());
 				System.out.println("SWAP:      " + flavor.getSwap());
 				System.out.println("Disabled:  " + flavor.isDisabled());
-				System.out.println("Public:    " + flavor.isPublic());
+				System.out.println("Public:    " + flavor.isAccessPublic());
+			}
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateAndRemoveFlavor() {
+		try {
+			Flavor flavor = this.flavorService.createFlavor("flavor.test1", 1, 512, 10);
+			if (flavor != null) {
+				flavor = this.flavorService.getFlavor(flavor.getId());
+				System.out.println("\n\n\n");
+				System.out.println("======= Create Flavor =======");
+				System.out.println("ID:        " + flavor.getId());
+				System.out.println("Name:      " + flavor.getName());
+				System.out.println("CPU:       " + flavor.getVcpus());
+				System.out.println("RAM:       " + flavor.getRam());
+				System.out.println("Disk:      " + flavor.getDisk());
+				System.out.println("Ephemeral: " + flavor.getEphemeral());
+				System.out.println("Factor:    " + flavor.getFactor());
+				System.out.println("SWAP:      " + flavor.getSwap());
+				System.out.println("Disabled:  " + flavor.isDisabled());
+				System.out.println("Public:    " + flavor.isAccessPublic());
+				
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				this.flavorService.removeFlavor(flavor);
 			}
 		} catch (OpenstackAPIException e) {
 			fail(e.getMessage());
@@ -328,7 +361,7 @@ public class NovaTest {
 				
 				Server newServer = new Server();
 				newServer.setName("Test Create Server");
-				newServer.setImageRef("2295e9f5-3404-4f77-885b-02af4a78802c");
+				newServer.setImageRef("493f6097-938a-44bb-9698-deb53aa79948");
 				newServer.setFlavorRef("1");
 				newServer.setMetadata(new HashMap<String, String>());
 				newServer.getMetadata().put("1", "M1");

@@ -25,10 +25,10 @@ public class Flavor {
 	private String swap;
 	
 	@JsonProperty("OS-FLV-DISABLED:disabled")
-	private boolean disabled;
+	private Boolean disabled;
 	
 	@JsonProperty("os-flavor-access:is_public")
-	private boolean isPublic;
+	private Boolean accessPublic;
 
 	public String getId() {
 		return id;
@@ -94,20 +94,20 @@ public class Flavor {
 		this.swap = swap;
 	}
 
-	public boolean isDisabled() {
+	public Boolean isDisabled() {
 		return disabled;
 	}
 
-	public void setDisabled(boolean disabled) {
+	public void setDisabled(Boolean disabled) {
 		this.disabled = disabled;
 	}
 
-	public boolean isPublic() {
-		return isPublic;
+	public Boolean isAccessPublic() {
+		return accessPublic;
 	}
 
-	public void setPublic(boolean isPublic) {
-		this.isPublic = isPublic;
+	public void setAccessPublic(Boolean accessPublic) {
+		this.accessPublic = accessPublic;
 	}
 
 }

@@ -86,7 +86,7 @@ public class FlavorServiceImpl implements FlavorService {
 	@Override
 	public Flavor createFlavor(String name, int vcpus, int ram, int disk) throws OpenstackAPIException {
 		Flavor flavor = null;
-		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLAVORS_DETAIL);
+		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLAVORS);
 		if (endpoint != null) {
 			Access access = this.tokenService.getAdminAccess();
 			if (access != null) {
@@ -94,8 +94,10 @@ public class FlavorServiceImpl implements FlavorService {
 				Flavor newFlavor = new Flavor();
 				newFlavor.setId(id);
 				newFlavor.setName(name);
+				newFlavor.setVcpus(vcpus);
 				newFlavor.setRam(ram);
 				newFlavor.setDisk(disk);
+				newFlavor.setFactor(1);
 				
 				FlavorBody request = new FlavorBody();
 				request.setFlavor(newFlavor);
@@ -107,6 +109,19 @@ public class FlavorServiceImpl implements FlavorService {
 			}
 		}
 		return flavor;
+	}
+	
+	@Override
+	public void removeFlavor(Flavor flavor) throws OpenstackAPIException {
+		if (flavor != null && !flavor.getId().trim().isEmpty()) {
+			Access access = this.tokenService.getAdminAccess();
+			if (access != null) {
+				Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_FLAVOR);
+				if (endpointUser != null) {
+					RestUtils.delete(endpointUser.getValue(), access, access.getToken().getTenant().getId(), flavor.getId());
+				}
+			}
+		}
 	}
 
 }

@@ -189,7 +189,7 @@ public class RestUtils {
 			RestTemplate template = getTemplate(requestFactory);
 			template.delete(url, urlVariables);
 		} catch (Exception e) {
-			throw new OpenstackAPIException("Can not fetch data[GET]:" + url, e);
+			throw new OpenstackAPIException("Can not fetch data[DELETE]:" + url, e);
 		}
 	}
 

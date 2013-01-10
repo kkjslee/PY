@@ -8,7 +8,7 @@
 
 	<context:component-scan base-package="com.inforstack.openstack.controller"/>
 
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator"/>
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>

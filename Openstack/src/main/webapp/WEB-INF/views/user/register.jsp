@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title><spring:message code="user.user.signup"/></title>
-<c:set var="rPath" value="${pageContext.request.contextPath}/resource/common" scope="page"/>
+<c:url value="/resource/common" var="rPath"></c:url>
 <link rel="stylesheet" href="${rPath}/css/template.css" type="text/css" />
 <link rel="stylesheet" href="${rPath}/css/register.css" type="text/css" />
 <link type="text/css" href="${rPath}/css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet" />
@@ -120,69 +120,98 @@ $(function(){
         //return false;
         
         var isok=true;
-        if(jQuery.trim($('#tenant_display_name').val()) == '') {
+        
+        var tDisplayName = jQuery.trim($('#tenant_display_name').val());
+        var tPhone = jQuery.trim($('#tenant_phone').val());
+        var tEmail = jQuery.trim($('#tenant_email').val());
+		var tEmail2 = jQuery.trim($('#tenant_email_2').val());
+		var tPostcode= jQuery.trim($('#tenant_postcode').val());
+		var username = jQuery.trim($('#username').val());
+		var uEmail = jQuery.trim($('#user_email').val());
+        var uEmail2 = jQuery.trim($('#user_email_2').val());
+        var uPassword =  jQuery.trim($('#user_password').val());
+        var uPassword2 =  jQuery.trim($('#user_password_2').val());
+        var uMobile = jQuery.trim($('#user_mobile').val());
+        var uPhone = jQuery.trim($('#user_phone').val());
+        if(tDisplayName == '') {
             isok=false;
             tips='公司组织不能为空';
-         }else if(jQuery.trim($('#tenant_phone').val()) == '') {
-             isok=false;
-             tips='联系电话不能为空。';
-          }else if(jQuery.checkstr($('#tenant_email').val(), 'tenant_email')==false 
-                  || $('#tenant_email').val() != $('#tenant_email_2').val()){
-              isok=false;
-              tips='请确认邮箱地址。';
-           }else if(jQuery.trim($('#tenant_country').val()) == '') {
-               isok=false;
-               tips='国家不能为空。';
-           }else if(jQuery.trim($('#tenant_province').val()) == '') {
-               isok=false;
-               tips='省能为空';
-           }else if(jQuery.trim($('#tenant_city').val()) == '') {
-               isok=false;
-               tips='城市不能为空';
-           }else if(jQuery.trim($('#tenant_address').val()) == '') {
-               isok=false;
-               tips='地址不能为空';
-           }else if(jQuery.trim($('#tenant_postcode').val()) == '') {
-               isok=false;
-               tips='组织邮编不能为空';
-           }
-        else if(jQuery.trim($('#username').val())=="") { 
+        }else if(tPhone == '') {
+        	isok=false;
+        	tips='联系电话不能为空(组织)';
+        }else if(jQuery.checkstr(tPhone, 'tel')==false){
+        	isok=false;
+        	tips='联系电话不合法(组织)';
+        }else if(tEmail == ''){
+			isok=false;
+        	tips='邮箱不能为空(组织)';
+		}else if(tEmail != tEmail2){
+			isok=false;
+        	tips='邮箱和确认邮箱不一致(组织)';
+		}else if(jQuery.checkstr(tEmail, 'email')==false){
+			isok=false;
+        	tips='邮箱不合法(组织)';
+		}else if(jQuery.trim($('#tenant_country').val()) == '') {
             isok=false;
-            tips='登录用户名不能为空。';
-        }else if(jQuery.checkstr($('#username').val(), 'username')==false 
-                || $('#username').val().length>45
-                || $('#username').val().length<6) {
+            tips='国家不能为空(组织)';
+        }else if(jQuery.trim($('#tenant_province').val()) == '') {
             isok=false;
-            tips='登录用户名只能使用字母，数字或者下划线，并且至少6个字符，最多45个字符。';
-        }else if($('#user_firstname').val()=='') {
+            tips='省能为空(组织)';
+        }else if(jQuery.trim($('#tenant_city').val()) == '') {
             isok=false;
-            tips='姓不能为空。';
-        }else if($('#user_lastname').val()=='') {
+            tips='城市不能为空(组织)';
+        }else if(jQuery.trim($('#tenant_address').val()) == '') {
             isok=false;
-            tips='名不能为空。';
-        }else if($('#user_email').val()=='') {
+            tips='地址不能为空(组织)';
+        }else if(tPostcode == '') {
             isok=false;
-            tips='我的邮箱地址不能为空。';
-        }else if(jQuery.checkstr($('#user_email').val(), 'user_email')==false 
-                || $('#user_email').val() != $('#user_email_2').val()){
+            tips='邮编不能为空(组织)';
+        }else if(jQuery.checkstr(tPostcode, 'postcode') == false){
+        	isok=false;
+            tips='邮编不合法(组织)';
+        }else if(jQuery.checkstr(username, 'username')==false 
+                || username.length>45
+                || username.length<6) {
             isok=false;
-            tips='请确认邮箱地址。';
-        }else if($('#user_password').val().length<6 || $('#user_password').val().length>45) {
+            tips='登录用户名只能使用字母，数字或者下划线，并且至少6个字符，最多45个字符';
+        }else if(jQuery.trim($('#user_firstname').val())=='') {
             isok=false;
-            tips='密码最少为6位, 最多为45位。';
-        }else if($('#user_password').val() != $('#user_password_2').val()) {
+            tips='姓不能为空';
+        }else if(jQuery.trim($('#user_lastname').val())=='') {
             isok=false;
-            tips='请确认密码。';                      
-        }else if($('#user_question_ex').val().length<6) {
+            tips='名不能为空';
+        }else if(uEmail=='') {
             isok=false;
-            tips='密码找回提示问题最少为6位。';
-        }else if($('#user_answer').val().length<4) {
+            tips='邮箱不能为空(用户)';
+        }else if(uEmail != uEmail2){
+        	isok=false;
+            tips='邮箱和确认邮箱不一致(用户)';
+        }else if(jQuery.checkstr(uEmail, 'email')==false){
+        	isok=false;
+        	tips="邮箱不合法(用户)";
+        }else if(uPassword.length<6 || uPassword.length>45) {
             isok=false;
-            tips='问题答案最少为4位。';              
-        }else if(jQuery.trim($('#user_mobile').val()) == '') {
+            tips='密码最少为6位, 最多为45位(用户)';
+        }else if(uPassword != uPassword2) {
             isok=false;
-            tips='手机号码不能为空。';
-        }/* else if(jQuery.checkstr($('#user_mobile').val(), 'mobile')==false) {
+            tips='密码和确认密码不一致(用户)';                      
+        }else if( jQuery.trim($('#user_question_ex').val()).length<6) {
+            isok=false;
+            tips='密码找回提示问题最少为6位(用户)';
+        }else if( jQuery.trim($('#user_answer').val()).length<4) {
+            isok=false;
+            tips='问题答案最少为4位(用户)';              
+        }else if(uMobile == '' && uPhone == '') {
+            isok=false;
+            tips='电话号码/手机号码不能全为空(用户)';
+        }else if(uPhone != '' && jQuery.checkstr(uPhone, 'tel')==false){
+        	isok=false;
+        	tips='联系电话不合法(组织)';
+        }else if(uMobile != '' && jQuery.checkstr(uMobile, 'mobile')==false){
+        	isok=false;
+        	tips='手机号码不合法(组织)';
+        }
+        /* else if(jQuery.checkstr($('#user_mobile').val(), 'mobile')==false) {
             isok=false;
             tips='手机号码不正确。';
         } */else 
@@ -262,58 +291,45 @@ function register_submit() {
     $.blockUI();
     //alert(jQuery.trim($('#verifycode').val()));
     $.post(
-        Server+"/RedDragonEnterprise/loginCtrlServlet",
+       '<c:url value="/user/doReg" />',
         {
-            methodtype: 'register',
-            name: $('#username').val(),
-            password: $('#user_password').val(),
-            firstname: $('#user_firstname').val(),
-            lastname: $('#user_lastname').val(),
-            userEmail: $('#user_email').val(),
-            question: $('#user_question_ex').val(),
-            answer: $('#user_answer').val(),
-            userPhone: $('#user_phone').val(),
-            userMobile: $('#user_mobile').val(),
-            userCountry: $('#user_country').val(),
-            userProvince: $('#user_province').val(),
-            userCity: $('#user_city').val(),
-            userAddress: $('#user_address').val(),
-            userPostcode: $('#user_postcode').val(),
-            tenantDisplayName: $('#tenant_display_name').val(),
-            tenantPhone : $('#tenant_phone').val(),
-            tenantEmail : $('#tenant_email').val(),
-            tenantCountry: $('#tenant_country').val(),
-            tenantProvince: $('#tenant_province').val(),
-            tenantCity: $('#tenant_city').val(),
-            tenantAddress: $('#tenant_address').val(),
-            tenantPostcode: $('#tenant_postcode').val(),
+            name: jQuery.trim($('#username').val()),
+            password: jQuery.trim($('#user_password').val()),
+            firstname: jQuery.trim($('#user_firstname').val()),
+            lastname: jQuery.trim($('#user_lastname').val()),
+            userEmail: jQuery.trim($('#user_email').val()),
+            question: jQuery.trim($('#user_question_ex').val()),
+            answer: jQuery.trim($('#user_answer').val()),
+            userPhone: jQuery.trim($('#user_phone').val()),
+            userMobile: jQuery.trim($('#user_mobile').val()),
+            userCountry: jQuery.trim($('#user_country').val()),
+            userProvince: jQuery.trim($('#user_province').val()),
+            userCity: jQuery.trim($('#user_city').val()),
+            userAddress: jQuery.trim($('#user_address').val()),
+            userPostcode: jQuery.trim($('#user_postcode').val()),
+            tenantDisplayName: jQuery.trim($('#tenant_display_name').val()),
+            tenantPhone : jQuery.trim($('#tenant_phone').val()),
+            tenantEmail : jQuery.trim($('#tenant_email').val()),
+            tenantCountry: jQuery.trim($('#tenant_country').val()),
+            tenantProvince: jQuery.trim($('#tenant_province').val()),
+            tenantCity: jQuery.trim($('#tenant_city').val()),
+            tenantAddress: jQuery.trim($('#tenant_address').val()),
+            tenantPostcode: jQuery.trim($('#tenant_postcode').val())
             //code: jQuery.trim($('#verifycode').val())
         },
         function(data) {
             try {
-                var obj=$.parseJSON(data);
-                var result=obj.status;
-                var info='';
-                
-                switch(result) {
-                    case 'emailexist':info='注册失败，Email已被注册。';break;
-                    case 'userexist':info='注册失败，用户已存在。';break;
-                    case 'missingdata ':
-                    case 'exception':info='注册失败，发生错误。';break;
-                    case 'done':info='注册成功。';   break;
-                    case 'wrongcode':info='验证码错误或已过期。'; break;
-                    default:info='未定义的返回信息：'+result;
-                }
-                
-                if(result=='done') {
-                    $('#p3_username').html(g_username);
-                    $('#p3_email').html(g_email);
-                    $('#resendimg').attr('src', Server+"/RedDragonEnterprise/VerificationServlet"+'?'+Math.random());
-                    gotoPage('#main_content_2', '#main_content_3');
-                }else{
+                if (data.error) {
+                    info = data.error;
                     $('#tips').html(info);
                     $('#checkDialog').dialog('open');
-                }
+                }else if(data.success){
+                	 $('#p3_username').html(g_username);
+                     $('#p3_email').html(g_email);
+                     $('#resendimg').attr('src', Server+"/RedDragonEnterprise/VerificationServlet"+'?'+Math.random());
+                     gotoPage('#main_content_2', '#main_content_3');
+               }
+                
             }catch(e){}
         }
     );
@@ -469,8 +485,8 @@ function gotoPage(from, to) {
                     },
                     change: function( event, ui ) {
                         if ( !ui.item ) {
-                            var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
-                                valid = false;
+                            var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" );
+                            valid = false;
                             select.children( "option" ).each(function() {
                                 if ( $( this ).text().match( matcher ) ) {
                                     this.selected = valid = true;
@@ -601,7 +617,7 @@ function resend() {
 </div>
 
 <div style="margin:0;padding:0;border:0;height:24px;text-align:left;vertical-align:bottom;cursor:default;">
-    <span style="line-height:24px;margin-left:10px;color:#6e6e6e;">当前位置：&nbsp;&nbsp;&nbsp;&nbsp;<label style="color:#00AEEF;cursor:pointer;" onclick="location.href='../../index.html';return false;">首页</label> >> <label style="color:#F60">会员注册</label></span>
+    <span style="line-height:24px;margin-left:10px;color:#6e6e6e;">当前位置：&nbsp;&nbsp;&nbsp;&nbsp;<label style="color:#00AEEF;cursor:pointer;" onclick="location.href='../../index.html';return false;">首页</label> &gt;&gt; <label style="color:#F60">会员注册</label></span>
 </div>
 
 <div id='main_content'></div>
@@ -636,63 +652,64 @@ function resend() {
     <td colspan='5' style='font-weight:bold;line-height:24px;padding-left:32px;border:1px solid silver;background:url(${rPath}/image/images/menu_downarrow.png) 10px center no-repeat #f0f0f0;'>组织信息</td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">公司组织&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_display_name" class="reg_label">公司组织&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_display_name" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div>公司名称，组织机构，法定代表人</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">联系电话&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_phone" class="reg_label">联系电话&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_phone" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">邮箱&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_email" class="reg_label">邮箱&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_email" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">确认输入邮箱&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_email_2" class="reg_label">确认输入邮箱&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_email_2" class="reg_input" type="text" /></td>
     <td><span id='tips_tenant_email_2'></span></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr>
-    <td class="reg_ltd"><label class="reg_label">国家&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp; :</label></td>
+    <td class="reg_ltd"><label for="tenant_country" class="reg_label">国家&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp; :</label></td>
     <td><input id="tenant_country" class="reg_input" type="text" /></td>
     <td></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label class="reg_label">省&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="tenant_province" class="reg_label">省&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_province" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">城市&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_city" class="reg_label">城市&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_city" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">地址&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_address" class="reg_label">地址&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_address" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label class="reg_label">邮编&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
-<td><input id="tenant_postcode" class="reg_input" type="text" /></td>
-<td></td>
-<td></td>
-<td><div></div></td>
+<tr style="border-bottom:1px dashed silver;">
+	<td class="reg_ltd"><label for="tenant_postcode" class="reg_label">邮编&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+	<td><input id="tenant_postcode" class="reg_input" type="text" /></td>
+	<td></td>
+	<td></td>
+	<td><div></div></td>
 </tr>
 
 <!-- 
@@ -714,7 +731,7 @@ function resend() {
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">登录用户名&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="username" class="reg_label">登录用户名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="username" class="reg_input" type="text" /></td>
     <td><span id='tips_username'></span></td>
     <td><div id='tips_username_2' class="text_tip_grid"></div></td>
@@ -736,21 +753,21 @@ function resend() {
 <tr><td colspan='3' style="padding-right:100px;"><label class="reg_label">为保护您的帐户安全,请选择一个至少8位的密码</label></td></tr>
 -->
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">输入密码（最短6位）&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_password" class="reg_label">输入密码（最短6位）&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_password" class="reg_input" type="password" /></td>
     <td></td>
     <td></td>
     <td><div>举例：cLouD@example</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">再次输入&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_password_2" class="reg_label">再次输入&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_password_2" class="reg_input" type="password" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">密码找回提示问题（最少6位）&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">密码找回提示问题（最少6位）&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td style="text-align:left;">
     <select id='user_question' title="密码找回提示问题">
         <option >我就读的第二所学校的名称？</option>
@@ -767,7 +784,7 @@ function resend() {
     <td><div>举例：我的云主机是？</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">问题答案（最少4位）&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_answer" class="reg_label">问题答案（最少4位）&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_answer" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
@@ -776,7 +793,7 @@ function resend() {
 
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">我的姓&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_firstname" class="reg_label">我的姓&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_firstname" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
@@ -784,7 +801,7 @@ function resend() {
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">我的名&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_lastname" class="reg_label">我的名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_lastname" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
@@ -792,7 +809,7 @@ function resend() {
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">我的邮箱是&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_email" class="reg_label">我的邮箱是&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_email" class="reg_input" type="text" /></td>
     <td><span id='tips_user_email'></span></td>
     <td><span id='tips_user_email_t2' class="text_tip_grid"></span></td>
@@ -800,21 +817,21 @@ function resend() {
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">确认输入邮箱&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_email_2" class="reg_label">确认输入邮箱&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_email_2" class="reg_input" type="text" /></td>
     <td><span id='tips_user_email_2'></span></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">手机号码&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_mobile" class="reg_label">手机号码&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_mobile" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div>举例：13400000000</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">电话号码：</label></td>
+    <td class="reg_ltd"><label for="user_phone" class="reg_label">电话号码：</label></td>
     <td><input id="user_phone" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
@@ -822,31 +839,31 @@ function resend() {
 </tr>
 
 <tr>
-	<td class="reg_ltd"><label class="reg_label">国家 :</label></td>
-	<td><input id=user_country" class="reg_input" type="text" /></td>
+	<td class="reg_ltd"><label for="user_country" class="reg_label">国家 :</label></td>
+	<td><input id="user_country" class="reg_input" type="text" /></td>
 	<td></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label class="reg_label">省：</label></td>
+<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="user_province" class="reg_label">省：</label></td>
 	<td><input id="user_province" class="reg_input" type="text" /></td>
 	<td></td>
 	<td></td>
 	<td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-	<td class="reg_ltd"><label class="reg_label">城市：</label></td>
+	<td class="reg_ltd"><label for="user_city" class="reg_label">城市：</label></td>
 	<td><input id="user_city" class="reg_input" type="text" /></td>
 	<td></td>
 	<td></td>
 	<td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">地址：</label></td>
+    <td class="reg_ltd"><label for="user_address" class="reg_label">地址：</label></td>
     <td><input id="user_address" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label class="reg_label">邮编：</label></td>
+<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="user_postcode" class="reg_label">邮编：</label></td>
 <td><input id="user_postcode" class="reg_input" type="text" /></td>
 <td></td>
 <td></td>
@@ -863,7 +880,7 @@ function resend() {
 <tr>
     <td colspan="5">
         <div style="text-align:center;">
-            <input type="checkbox" name="etc_10" id="etc_10" unchecked/>
+            <input type="checkbox" name="etc_10" id="etc_10" />
             <label for="etc_10" style="font-weight:bold;line-height:48px;font-size:14px;"><i>我已阅读，并理解和接受<a href="#"><!--#echo var="register.platform.name"-->会员注册条款</a></i></label>
             <br/><label style="font-size:12px;">（用户同意此在线注册条款之效力如同用户亲自签字、盖章的书面条款一样，对用户具有法律约束力）</label>
         </div>
@@ -901,37 +918,37 @@ function resend() {
     <td colspan='4' style='font-weight:bold;line-height:24px;padding-left:32px;border:1px solid silver;background:url(${rPath}/image/images/menu_downarrow.png) 10px center no-repeat #f0f0f0;'>组织信息</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">公司组织&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">公司组织&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_display_name"></label></td>
     <td></td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">联系电话&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">联系电话&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_phone"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">国家&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">国家&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_country"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">省&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">省&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_province"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">城市&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">城市&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_city"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">地址&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">地址&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_address"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">邮编&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">邮编&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_postcode"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
@@ -942,7 +959,7 @@ function resend() {
     <td colspan='4' style='font-weight:bold;line-height:24px;padding-left:32px;border:1px solid silver;background:url(${rPath}/image/images/menu_downarrow.png) 10px center no-repeat #f0f0f0;'>基本信息</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">登录用户名&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">登录用户名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_username"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
@@ -952,31 +969,31 @@ function resend() {
 <tr><td colspan='3' style="padding-right:100px;"><label class="reg_label">为保护您的帐户安全,请选择一个至少8位的密码</label></td></tr>
 -->
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">密码找回提示问题&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">密码找回提示问题&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_question"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">问题答案&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">问题答案&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_answer"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">我的姓&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">我的姓&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_firstname"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">我的名&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">我的名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_lastname"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">我的邮箱是&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">我的邮箱是&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_email"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">手机号码&nbsp;<label style="color:#F60;font-weight:bold;font-size:18px;">*</label>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">手机号码&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_mobile"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
@@ -1010,8 +1027,8 @@ function resend() {
 
 <tr>
     <td class="reg_ltd">&nbsp;</td>
-    <td style='height:48px;vertical-align:bottom;'><a id="subBtn" value="提交注册申请" style="float:left;background:url(${rPath}/image/bigimg/but02.png);width:165px;height:32px;cursor:pointer;" >&nbsp;</a>&nbsp;&nbsp;</td>
-    <td style='height:48px;vertical-align:bottom;'><a id="retBtn" value="返回" style="float:left;background:url(${rPath}/image/bigimg/but01.png);width:88px;height:32px;cursor:pointer;" >&nbsp;</a></td>
+    <td style='height:48px;vertical-align:bottom;'><a id="subBtn" style="float:left;background:url(${rPath}/image/bigimg/but02.png);width:165px;height:32px;cursor:pointer;" ><!-- 提交注册申请 -->&nbsp;</a>&nbsp;&nbsp;</td>
+    <td style='height:48px;vertical-align:bottom;'><a id="retBtn" style="float:left;background:url(${rPath}/image/bigimg/but01.png);width:88px;height:32px;cursor:pointer;" ><!-- 返回 -->&nbsp;</a></td>
     <td>&nbsp;</td>
 </tr>
 </table>
@@ -1034,7 +1051,7 @@ function resend() {
 
 <div style="margin:20px;padding:0;border:0;text-align:left;font-weight:bold;border-bottom:1px dotted silver;line-height:40px;">
 <img src='${rPath}/image/icons/ok.png' />
-<label style="color:#0C0;font-size:16px;line-height:40px;">恭喜您<u><label style="color:#F30" id='p3_username'>&nbsp;</label></u>，您的注册已成功！</label><br/>
+<label style="color:#0C0;font-size:16px;line-height:40px;">恭喜您<u><span style="color:#F30" id='p3_username'>&nbsp;</span></u>，您的注册已成功！</label><br/>
 确认Email已发送至您的邮箱<label style="color:#F30" id='p3_email'>&nbsp;</label>，请您注意查收。若您长时间未收到系统邮件，请检查您邮箱中的过滤设置。<br/>
 或者您可以尝试：先填写验证码&nbsp;<input id="resendcode" maxlength="4" type="text" size='4' />
 &nbsp;&nbsp;<img id='resendimg' style="width:80px;height:30px;margin:0;padding:0;border:0;border-collapse:collapse;vertical-align:middle;cursor:pointer;" title="点击换一张" />
@@ -1075,7 +1092,7 @@ function resend() {
 
 <!-- 协议内容 -->
 <div style="display:none;" id='protocolContent'>
-    <div class='ui-state-highlight ui-corner-all'><span><textarea readonly id="agreeTxt" style='background-color:#f0f0ff;width:100%;height:340px;padding-bottom:5px;cursor:default;margin-bottom:5px;border:0;'></textarea></span></div><br/>
+    <div class='ui-state-highlight ui-corner-all'><span><textarea readonly="readonly" id="agreeTxt" style='background-color:#f0f0ff;width:100%;height:340px;padding-bottom:5px;cursor:default;margin-bottom:5px;border:0;'></textarea></span></div><br/>
     <input type="button" id="closeProtocol" value="关闭" />   
 </div>
 

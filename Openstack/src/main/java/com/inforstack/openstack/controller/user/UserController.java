@@ -1,12 +1,20 @@
 package com.inforstack.openstack.controller.user;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inforstack.openstack.controller.RootController;
 import com.inforstack.openstack.controller.model.TenantModel;
@@ -34,20 +42,30 @@ public class UserController {
 		return BASE + "register";
 	}
 	
-	@RequestMapping(value = "/doReg", method = RequestMethod.GET)
-	public String doRegister(Model model, UserModel userModel, TenantModel tenantModel){
+	@RequestMapping(value = "/doReg", method = RequestMethod.POST, produces="application/json")
+	public @ResponseBody Map<String, Object> doRegister(@Valid UserModel userModel, BindingResult result,
+			TenantModel tenantModel, BindingResult result2, Model model){
 		log.debug("register user");
+		
+		Map<String, Object> ret = new HashMap<String, Object>();
+		if(result.hasErrors()){
+			ret.put("error", result.getAllErrors().get(0).getDefaultMessage());
+			return ret;
+		}
+		
 		User user = userModel.getUser();
 		Tenant tenant = tenantModel.getTenant();
 		
 		User u = userService.registerUser(user, tenant);
 		if(u == null){
 			log.debug("Register user failed");
-			return register(model);
+			ret.put("error", "error");
 		}else{
 			log.debug("Register user successfully");
-			return rootController.visitUser(model);
+			ret.put("success", "success");
 		}
+		
+		return ret;
 	}
 
 }

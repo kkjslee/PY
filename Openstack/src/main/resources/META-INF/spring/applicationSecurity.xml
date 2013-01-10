@@ -9,10 +9,12 @@
 	
 	<http request-matcher="ciRegex" pattern="/user/login(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/user/reg(/?)(\?.*){0,1}" security="none"/>
+	<http request-matcher="ciRegex" pattern="/user/doReg(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/user/.*?/login(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/admin/login(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/agent/login(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/agent/reg(/?)(\?.*){0,1}" security="none"/>
+	<http request-matcher="ciRegex" pattern="/agent/doReg(/?)(\?.*){0,1}" security="none"/>
 	<http pattern="/*.jsp" security="none"/>
     <http pattern="/resource/**" security="none"/>
 	

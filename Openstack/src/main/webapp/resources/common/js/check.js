@@ -1,11 +1,11 @@
 jQuery.extend({
 checkstr: function( str , checkType ){
-var result;
+var result = true;
 switch(checkType){
    case 'odd_number':
     var testStr = testArr['number'];
     var reg = RegExp( testStr,'g' );
-    var result = reg.test( str );
+    result = reg.test( str );
     if( true == result ){
     var num = parseInt( str ) % 2;
     if( 1 == num ){
@@ -20,7 +20,7 @@ switch(checkType){
    case 'even_number':
     var testStr = testArr['number'];
     var reg = RegExp( testStr,'g' );
-    var result = reg.test( str );
+    result = reg.test( str );
     if( true == result ){
     var num=parseInt( str ) % 2;
     if( num == 0 ){
@@ -69,7 +69,7 @@ switch(checkType){
    case 'is_cardid':
     var testStr = testArr['number'];
     var reg = RegExp( testStr,'g' );
-       var result = reg.test( str );
+       result = reg.test( str );
     if( true == result ){
     if( 15 == str.length || 18 == str.length ){
      result = true;
@@ -83,7 +83,7 @@ switch(checkType){
    case 'prime_number':
     var strArr = testArr[checkType].split(',');
     var len = strArr.length;
-    var result = false;
+    result = false;
     var num = parseInt(str);
     for( var i=0; i<len; i++ ){
     if( num == strArr[i] ){
@@ -95,7 +95,7 @@ switch(checkType){
    case 'composite_number':
     var strArr = testArr[checkType].split(',');
     var len = strArr.length;
-    var result = false;
+    result = false;
     var num = parseInt(str);
     for( var i=0;i<len;i++ ){
     if( num == strArr[i] ){
@@ -107,7 +107,7 @@ switch(checkType){
      default:
     var testStr = testArr[checkType];
     var reg = RegExp( testStr,'g' );
-       var result = reg.test( str );
+       result = reg.test( str );
    break;
 }
 return result;
@@ -122,13 +122,16 @@ testArr['positive_int']='^[1-9]\\d*$';
 testArr['vmname']='^[a-zA-Z_][a-zA-Z0-9_]*$';
 testArr['letter'] = '^[a-zA-Z]+$';
 testArr['username'] = '^[0-9a-zA-Z_]+$';
-testArr['qq'] = '[0-9]\\d*$';
-testArr['email'] = '\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.[a-zA-Z]+([-.][a-zA-Z]+)*';
-testArr['ip'] = '\\d+\\.\\d+\\.\\d+\\.\\d+';
-testArr['tel'] = '(\\(\\d{3,4}\\)|\\d{3,4}-|\\s)?\\d{7,8}';
-testArr['mobile'] = '(86)*0*1[3,5,8]\\d{9}';
+testArr['qq'] = '^[0-9]\\d*$';
+testArr['email'] = '^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.[a-zA-Z]+([-.][a-zA-Z]+)*$';
+testArr['ip'] = '^\\d+\\.\\d+\\.\\d+\\.\\d+$';
+testArr['tel'] = '^\\+?(\\d+(\\s*\\-?\\s*))+$';
+//(\\(\\d{3,4}\\)|\\d{3,4}-|\\s)?\\d{7,8}
+testArr['mobile'] = '^\\+?(\\d+(\\s*\\-?\\s*))+$';
+//(86)*0*1[3,5,8]\\d{9}
 //testArr['mobile'] = '[0-9]\\d*$';
-testArr['postcode'] = '[1-9]\\d{5}(?!\\d)';
+testArr['postcode'] = '^([0-9a-zA-Z]+(\\s*\\-?\\s*))+$';
+//[1-9]\\d{5}(?!\\d)
 testArr['number'] = '^-?[0-9]\\d*$';
 testArr['positive_number'] = '^[1-9]\\d*$';
 testArr['negative_number'] = '^-[1-9]\\d*$';

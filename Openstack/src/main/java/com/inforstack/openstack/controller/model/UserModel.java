@@ -1,5 +1,9 @@
 package com.inforstack.openstack.controller.model;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+
 import com.inforstack.openstack.user.User;
 
 public class UserModel {
@@ -26,6 +30,7 @@ public class UserModel {
 	
 	private String userProvince;
 	
+	@Email(message="{user.login.page.title}")
 	private String userCity;
 	
 	private String userAddress;

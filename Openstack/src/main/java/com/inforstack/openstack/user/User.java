@@ -62,6 +62,8 @@ public class User {
 	
 	private Integer ageing;
 	
+	private String uuid;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "tanent_user", 
 		joinColumns = { @JoinColumn(name = "user_id", insertable=false, updatable = false) }, 
@@ -252,6 +254,14 @@ public class User {
 
 	public void setDefaultTenantId(Integer defaultTenantId) {
 		this.defaultTenantId = defaultTenantId;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }

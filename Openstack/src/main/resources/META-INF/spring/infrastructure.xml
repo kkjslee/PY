@@ -38,6 +38,10 @@
         <property name="cacheSeconds" value="5"/>
 	</bean>	 
 	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+	    <property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	
 	<bean id="localeResolver"
 		class="com.inforstack.openstack.web.resolver.CustomSessionLocaleResolver">
 	</bean>

@@ -2,8 +2,8 @@
 insert into Language(id, name, language, country) values (1, 'English', 'en', 'US')
 insert into Language(id, name, language, country) values (2, '中文', 'zh', 'CN')
 
-insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', '8384b45a9ad34a5da3a0a2f8b12b99bb')
-insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', 'b7c22b6d6610409e9f7d18ad5761112f')
+insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', '71a4b952593b4379a113561f210c2fd6')
+insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', 'e42403f3c6474eae9d6d333b2f9b25f8')
 insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin')
 insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '5f4dcc3b5aa765d61d8327deb882cf99')
 insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.145:5000/v2.0/tokens')
@@ -24,9 +24,9 @@ insert into Configuration(id, name, value) values(19, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', 'http://192.168.1.145:8774/v2/{tenant}/servers/detail')
 insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', 'http://192.168.1.145:8774/v2/{tenant}/servers/{server}')
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', 'http://192.168.1.145:8774/v2/{tenant}/servers/{server}/action')
-insert into Configuration(id, name, value) values(23, 'openstack.role.admin', 'd3c55b03408a483d858f10dba3ef76f4')
-insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'bb74aeeef3ef40ad8ae827ff353f909c')
-insert into Configuration(id, name, value) values(25, 'openstack.role.memer', 'cb33885dae744738ace723c2f6b76e12')
+insert into Configuration(id, name, value) values(23, 'openstack.role.admin', 'beaa223cf25448af978ad6c9910b9fb2')
+insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', '6198e95792e940538ceaaf69c95c5b6d')
+insert into Configuration(id, name, value) values(25, 'openstack.role.memer', '0830a5e1cc204c98b5357da3c363ca1d')
 
 insert into Role(id, name) values (1, 'admin')
 insert into Role(id, name) values (2, 'user')

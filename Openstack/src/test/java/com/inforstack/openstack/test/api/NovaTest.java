@@ -326,14 +326,14 @@ public class NovaTest {
 					System.out.println("ID    : " + server.getId());
 					System.out.println("");
 					int wait = 0;
-					while (wait < 10) {
+					while (wait < 10000) {
 						server = this.serverService.getServer(access, server.getId(), false);
 						if (server.getStatus().equalsIgnoreCase("active") && (server.getTask() == null || server.getTask().equalsIgnoreCase("none")) && server.getPower() == 1) {
 							break;
 						} else {
 							System.out.println("--" + server.getStatus() + "|" + (server.getTask() != null ? server.getTask() : "None") + "|" + (server.getPower() == 1 ? "On" : "Off") + "...");
 							try {
-								Thread.sleep(200);
+								Thread.sleep(500);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}

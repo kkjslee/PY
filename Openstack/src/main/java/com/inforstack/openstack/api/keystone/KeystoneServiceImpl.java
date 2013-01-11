@@ -378,11 +378,23 @@ public class KeystoneServiceImpl implements KeystoneService {
 			if (tenant == null || tenant.trim().isEmpty()) {
 				tenant = username;
 			}
+			User newUser = null;
 			Tenant newTenant = this.createTenant(tenant, "Tenant for user[" + username + "]", true);
 			if (newTenant != null) {
-				User newUser = this.createUser(username, password, email);
-				if (newUser != null) {
+				try {
+					newUser = this.createUser(username, password, email);
+				} catch (OpenstackAPIException e) {
+					this.removeTenant(newTenant);
+					throw new OpenstackAPIException("Fail to create user: " + username, e);
+				}
+			}
+			if (newUser != null) {
+				try {
 					this.addRole(Role.MEMBER, newUser, newTenant);
+				} catch (OpenstackAPIException e) {
+					this.removeUser(newUser);
+					this.removeTenant(newTenant);
+					throw new OpenstackAPIException("Fail to add role" + e);
 				}
 			}
 		}

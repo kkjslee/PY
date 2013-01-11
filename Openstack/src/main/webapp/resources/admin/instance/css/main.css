@@ -180,7 +180,7 @@ body {
 	margin-bottom:20px;
 }
 .vmTipsLabel {display:block;margin:10px;}
-.vmRow {line-height:160%;}
+.vmRow {line-height:170%;}
 .vmRow:last-child td {border:none;}
 .vmRowCell {cursor: default; overflow: hidden;text-indent:5px;border-bottom:1px solid #ddd;}
 .vmRowCell>div {background:none;}
@@ -209,8 +209,8 @@ body {
 .vmName{width:12%;}
 .vmZone {width:10%;}
 .vmZone .vice {white-space:nowrap;overflow:hidden;max-width:120px;text-overflow:ellipsis;}
-.vmUser {width:13%;}
-.vmStatus {width:10%;}
+.vmUser {width:11%;}
+.vmStatus {width:12%;}
 .vmServer {width:10%;}
 .vmOstype {width:20%;}
 .vmOperation {text-indent:0;}
@@ -299,6 +299,7 @@ body {
 }
 .ui-server-refresh{
 	background-image:url(image/loading.gif);
+	width:35px;
 }
 
 .dialogLine {

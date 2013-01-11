@@ -2,10 +2,21 @@ package com.inforstack.openstack.item.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
 
 public class CategoryDaoImpl implements CategoryDao {
+	
+	private static final Log log = LogFactory.getLog(CategoryDaoImpl.class);
+	
+	@Autowired
+	private EntityManager em;
 
 	@Override
 	public List<Category> list() {

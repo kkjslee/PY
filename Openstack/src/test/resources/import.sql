@@ -26,7 +26,7 @@ insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', 'http://192.168.1.145:8774/v2/{tenant}/servers/{server}/action')
 insert into Configuration(id, name, value) values(23, 'openstack.role.admin', 'beaa223cf25448af978ad6c9910b9fb2')
 insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', '6198e95792e940538ceaaf69c95c5b6d')
-insert into Configuration(id, name, value) values(25, 'openstack.role.memer', '0830a5e1cc204c98b5357da3c363ca1d')
+insert into Configuration(id, name, value) values(25, 'openstack.role.member', '0830a5e1cc204c98b5357da3c363ca1d')
 
 insert into Role(id, name) values (1, 'admin')
 insert into Role(id, name) values (2, 'user')

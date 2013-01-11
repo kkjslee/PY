@@ -117,6 +117,10 @@ public class RestUtils {
 		HttpHeaders headers = new HttpHeaders();
 		addHeader(headers);
 		
+		if (access != null) {
+			headers.add("X-Auth-Token", access.getToken().getId());
+		}
+		
 		try {
 			RestTemplate template = getTemplate(new SimpleClientHttpRequestFactory());
 			template.put(url, new HttpEntity<Request>(request, headers), urlVariables);

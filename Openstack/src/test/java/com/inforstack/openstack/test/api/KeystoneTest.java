@@ -123,6 +123,8 @@ public class KeystoneTest {
 //			testUser = this.keystoneService.updateUser(testUser);
 //			Assert.assertTrue(testUser.getName().equals("update"));
 			this.keystoneService.removeUser(testUser);
+			
+			this.keystoneService.addUserAndTenant("testUser2", "pass", "test@user.com", "testTenant2");
 		} catch (OpenstackAPIException e) {
 			Assert.fail();
 			e.printStackTrace();

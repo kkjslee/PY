@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-// JavaScript Document
 
 var _DEBUG_=false;
 var Server="<%=request.getContextPath()%>/admin";
@@ -406,7 +405,7 @@ function createVMImageItem(vmname, selImageModel, selFlavorModel) {
 
                 switch (data.status) {
                 case "done":
-                    printMessage('<spring:message code="admin.vmimage.message.vm.new.success"/>');
+                    printMessage('<spring:message code="admin.vmimage.message.vm.new.request.success"/>');
                     loadVm();
                     break;
                 case "failed":
@@ -739,7 +738,7 @@ function poweron(which) {
                 
                 var msg="";
                 switch(data.status) {
-                    case "done": msg="<spring:message code='admin.vm.message.done'/>";break;
+                    case "done": msg="<spring:message code='admin.vm.message.poweron.request.submit'/>";break;
                     case "error": ;
                     case "exception": msg="<spring:message code='admin.vm.message.error'/>";break;
                     default: msg="<spring:message code='admin.vm.message.undefined'/>".sprintf(data.status);
@@ -785,7 +784,7 @@ function poweroff(which) {
                 
                 var msg="";
                 switch(data.status) {
-                    case "done": msg="<spring:message code='admin.vm.message.done'/>";break;
+                    case "done": msg="<spring:message code='admin.vm.message.poweroff.request.submit'/>";break;
                     case "error": ;
                     case "exception": msg="<spring:message code='admin.vm.message.error'/>";break;
                     default: msg="<spring:message code='admin.vm.message.undefined'/>".sprintf(data.status);
@@ -830,7 +829,7 @@ function suspend(which) {
                 
                 var msg="";
                 switch(data.status) {
-                    case "done": msg="<spring:message code='admin.vm.message.done'/>";break;
+                    case "done": msg="<spring:message code='admin.vm.message.suspend.request.done'/>";break;
                     case "error": ;
                     case "exception": msg="<spring:message code='admin.vm.message.error'/>";break;
                     default: msg="<spring:message code='admin.vm.message.undefined'/>".sprintf(data.status);
@@ -875,7 +874,7 @@ function resume(which) {
                 
                 var msg="";
                 switch(data.status) {
-                    case "done": msg="<spring:message code='admin.vm.message.done'/>";break;
+                    case "done": msg="<spring:message code='admin.vm.message.resume.request.submit'/>";break;
                     case "error": ;
                     case "exception": msg="<spring:message code='admin.vm.message.error'/>";break;
                     default: msg="<spring:message code='admin.vm.message.undefined'/>".sprintf(data.status);
@@ -920,7 +919,7 @@ function remove(which) {
                 
                 var msg="";
                 switch(data.status) {
-                    case "done": msg="<spring:message code='admin.vm.message.remove.done'/>";break;
+                    case "done": msg="<spring:message code='admin.vm.message.remove.request.done'/>";break;
                     case "failtostop": msg="<spring:message code='admin.vm.message.remove.failtostop'/>";break;
                     case "vlanmember": msg="<spring:message code='admin.vm.message.remove.vlanmember'/>";break;
                     case "backupjobexists": msg="<spring:message code='admin.vm.message.remove.backupjobexists'/>";break;
@@ -965,7 +964,7 @@ function detail(which) {
         $(panel).find("[name='updatetime']").html(new Date(data.updatetime).toLocaleString());
         //$(panel).find("[name='expiretime']").html(new Date(data.expiretime).toLocaleString());
         $(panel).find("[name='publicips']").html(formatPublicIps(data.publicips));
-        $(panel).find("[name='privateip']").html(formatPrivateIps(data.privateips));
+        $(panel).find("[name='privateips']").html(formatPrivateIps(data.privateips));
         $(panel).find("[name='disksize']").html(formatDisk(data.disksize));
         $(panel).find("[name='maxmemory']").html(formatMemory(data.maxmemory));
         $(panel).find("[name='maxcpus']").html(data.maxcpus);
@@ -977,7 +976,7 @@ function detail(which) {
         $(panel).find("[name='statusdisplay']").html(data.statusdisplay);
         $(panel).find("[name='accesspoint']").children("a[name='javavnc']").attr("href", data.accesspoint);
         $(panel).find("[name='accesspoint']").children("a[name='webvnc']").attr("href", getWebVNCLink(data));
-        $(panel).find("[name='vmpasswd']").children("a").data("privateip", data.privateip);
+        $(panel).find("[name='vmpasswd']").children("a").data("privateips", data.privateips);
         $(panel).find("[name='vmpasswd']").children("a").data("ostype", data.ostype);
         
         // set up CPU slider
@@ -996,13 +995,13 @@ function detail(which) {
         // set up memory slider
         $(panel).find("[name='slider_mem']").slider("destroy").slider({
             value: data.memory * 1024, // KB unit
-            min: 1024*1024, // =1GB
+            min: 1024*256, // =256MB
             max: data.maxmemory *1024,
             step: 1024*256, // 256 MB per step
             animate: true,
             range: "min",
             slide: function(event, ui) {
-                $(panel).find("[name='memory']").html(formatMemory(ui.value));
+                $(panel).find("[name='memory']").html(formatSize(ui.value*1024,2));
             }
         });
     
@@ -1295,7 +1294,7 @@ function drawChart(container, type, vmid, vmname, startDate, endDate, interval, 
 }
 
 function showVmPasswd(ui) {
-    var privateip=$(ui).data("privateip");
+    var privateips=$(ui).data("privateips");
     var ostype=$(ui).data("ostype");
     
     var pd=showProcessingDialog();
@@ -1308,7 +1307,7 @@ function showVmPasswd(ui) {
             methodtype: "getvmpasswd",
             loginuser: getUsername(),
             password: getPassword(),
-            privateip: privateip
+            privateips: privateips
         },
         success: function(data) {
             pd.dialog("destroy");
@@ -1411,7 +1410,7 @@ function formatPublicIps(publicips) {
     }else {
         var pips=[];
         for(var i=0; i<publicips.length; i++) {
-            pips.push(publicips[i].publicip);
+            pips.push(publicips[i]);
         }
         return pips.join(", ");
     }
@@ -1426,7 +1425,7 @@ function formatPrivateIps(privateips) {
     }else {
         var pips=[];
         for(var i=0; i<privateips.length; i++) {
-            pips.push(privateips[i].publicip);
+            pips.push(privateips[i]);
         }
         return pips.join(", ");
     }

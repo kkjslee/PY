@@ -1,9 +1,3 @@
-/*
-<!--#echo var="DOCUMENT_NAME"-->
-<!--#echo var="LAST_MODIFIED"-->
-*/
-/* CSS Document 
-	Author: Bill, 2011*/
 * {
 	font-family:Arial,Helvetica,sans-serif;
 }
@@ -303,6 +297,21 @@ body {
 	font-size:14px;
 	cursor:default;
 }
+.ui-server-refresh{
+	background-image:url(image/loading.gif);
+}
 
-
+.dialogLine {
+    display:block;
+    margin-bottom:3px;
+}
+.dialogLineLeft {
+    width:120px;
+    display:inline-block;
+    text-align:right;
+}
+.dialogLineRight input{
+    padding:1px;
+    width:200px;
+}
 

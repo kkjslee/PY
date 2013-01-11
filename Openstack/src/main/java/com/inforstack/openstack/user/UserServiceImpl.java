@@ -81,6 +81,10 @@ public class UserServiceImpl implements UserService {
 		}
 		t.setRoleId(Constants.ROLE_USER);
 		
+		if(t != null){
+			throw new RuntimeException("11111111111111");
+		}
+		
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
 		User u = self.createUser(user);
 		if(u == null){

@@ -29,7 +29,7 @@ public class SecurityUtils {
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				RoleService rs = (RoleService)OpenstackUtil.getBean("RoleService");
+				RoleService rs = (RoleService)OpenstackUtil.getBean("roleService");
 				return rs.findRoleById(((OpenstackUserDetails)o).getUser().getRoleId());
 			}
 		}catch(Exception e){

@@ -5,14 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Instance</title>
-<link href="<%=request.getContextPath()%>/resource/admin/instance/css/main.css" rel="stylesheet" type="text/css" />
-
 <jsp:include page="../../../commonlinks.jsp" />
 <jsp:include page="../../adminlinks.jsp" /> 
 
 <script src="<%=request.getContextPath()%>/resource/admin/instance/scripts/exporting.js" language="javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/instance/scripts/template" language="javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/instance/scripts/bootstrap" language="javascript"></script>
+<link href="<%=request.getContextPath()%>/resource/admin/instance/css/main.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>

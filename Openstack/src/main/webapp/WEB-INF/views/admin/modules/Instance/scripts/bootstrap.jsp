@@ -1458,6 +1458,9 @@ function formatStatus(status, statusdisplay) {
     if(status == null){
         return "";
     }
+    if(statusdisplay == null){
+        statusdisplay = "";
+    }
     switch(status) {
         case "RUNNING": statusdisplay="<span class='ui-icon ui-icon-play' style='float:left; margin:0 0 0 0;'></span><span style='color:#25a300;font-weight:bold;'>"+statusdisplay+"</span>"; break;
         case "SHUTOFF": statusdisplay="<span class='ui-icon ui-icon-power' style='float:left; margin:0 0 0 0;'></span><span style='color:#777;'>"+statusdisplay+"</span>"; break;
@@ -1465,7 +1468,7 @@ function formatStatus(status, statusdisplay) {
         case "RESUMING": statusdisplay="<span class='ui-icon ui-server-refresh' style='float:left; margin:0 0 0 0;'></span><span style='color:red;'>"+statusdisplay+"</span>"; break;
         case "PAUSED": statusdisplay="<span class='ui-icon ui-icon-locked' style='float:left; margin:0 0 0 0;'></span><span style='color:orange;'>"+statusdisplay+"</span>"; break;
         case "SUSPENDED": statusdisplay="<span class='ui-icon ui-icon-locked' style='float:left; margin:0 0 0 0;'></span><span style='color:orange;'>"+statusdisplay+"</span>"; break;
-        default: statusdisplay="";
+        default: ;
     }
     
     return statusdisplay;

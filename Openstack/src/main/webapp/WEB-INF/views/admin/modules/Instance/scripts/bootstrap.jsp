@@ -3,7 +3,7 @@
 // JavaScript Document
 
 var _DEBUG_=false;
-
+var Server="<%=request.getContextPath()%>/admin";
 $(function(){
     
     BootLoader.init();
@@ -31,6 +31,7 @@ function registerTemplate() {
     $.template("messageBoxTemplate", Template_MessageBox);
     $.template("migratePanelTemplate", Template_MigratePanel);
     $.template("clonePanelTemplate", Template_ClonePanel);
+    $.template("createVMPanelTemplate", Template_CreateVMImageItem);
 }
 
 // ----------- Context Menu ------------
@@ -222,7 +223,7 @@ function printMessage(msg) {
 }
 
 function showProcessingDialog() {
-    var view=$("<div style='text-align:center;'><img src='${requestScope.contextPath}/resource/admin/instance/css/image/progress.gif'/>"+"<spring:message code='admin.vm.dialog.processing'/>"+"</div>").dialog({
+    var view=$("<div style='text-align:center;'><img src='<%=request.getContextPath()%>/resource/common/image/progress.gif'/>"+"<spring:message code='admin.vm.dialog.processing'/>"+"</div>").dialog({
         autoOpen: true,
         width: 240,
         height: 100,
@@ -244,15 +245,11 @@ function loadVm() {
     
     $.ajax({
         type: "POST",
-        url: Server+"/instance/vmdetails",
+        url: Server+"/instance/vmlist",
         cache: false,
-        data: {
-            matchflag: "all",
-            loginuser: getUsername()
-        },
         success: function(data) {
             try{
-                //data=$.parseJSON(data);
+                //data=$.parseJSON(data); 
                 
                 // clear table before inserting new data
                 var dataTable=$(list).parents("table").first();
@@ -315,7 +312,7 @@ function cloneVM(vmid, vmname, userpass) {
             },
             success: function(data) {
                 try{
-                    data=$.parseJSON(data);
+                   // data=$.parseJSON(data);
                     
                     switch(data.status) {
                         case "done": msg="<spring:message code='admin.vm.message.clone.done'/>"; break;
@@ -343,6 +340,100 @@ function cloneVM(vmid, vmname, userpass) {
         });
     }
 }
+function showCreateVM(){ 
+    var createImageItem = $.tmpl("createVMPanelTemplate", [{
+        id: "createImageItem"
+    }]).appendTo("#mainBody");
+
+    createImageItem = $(createImageItem).dialog({
+        title: "<span class=\"ui-icon ui-icon-circle-plus smallIcon\"></span><spring:message code="admin.instance.dialog.create"/>",
+        modal: true,
+        autoOpen: false,
+        resizable: false,
+        show: "slide",
+        hide: "slide",
+        width: "400px",
+        buttons: [{
+            text: '<spring:message code="common.button.confirm"/>',
+            click: function() {
+                var vmname = $(this).find("input[isos\\\:item='vmname']").val();
+                var selImageModel = $(this).find("select[isos\\\:item='selImageModel']").val();
+                var selFlavorModel = $(this).find("select[isos\\\:item='selFlavorModel']").val();
+                 if(!/^[a-zA-Z_][a-zA-Z0-9_]{0,7}$/i.test(vmname)) {
+                     printMessage("<spring:message code='admin.vm.message.clone.tips.vmname'/>");
+                    return false;
+                 }
+  
+                if (!checkValidImageField(selImageModel, selFlavorModel)) {
+                    printMessage('<spring:message code="admin.common.message.invalid"/>');
+                    return;
+                }
+
+                createVMImageItem(vmname, selImageModel, selFlavorModel);
+                $(this).dialog("close");
+            }
+        },
+        {
+            text: '<spring:message code="common.button.cancel"/>',
+            click: function() {
+                $(this).dialog("close");
+            }
+        }]
+    });
+   /* $("#selFlavorModel").change(function(e){
+        if($("isos\\\:item='selFlavorModel'").val() != "-1"){
+            
+        }
+    }); */
+    $("#createImageItem").dialog("open");
+}
+
+function createVMImageItem(vmname, selImageModel, selFlavorModel) {
+
+    var pd = showProcessingDialog();
+    $.ajax({
+        url: Server + "/instance/createVM",
+        type: "POST",
+        data: {
+            vmName:vmname,
+            imgId:selImageModel,
+            flavorId:selFlavorModel
+        },
+        cache: false,
+        success: function(data) {
+            $(pd).dialog("close");
+            try {
+
+                switch (data.status) {
+                case "done":
+                    printMessage('<spring:message code="admin.vmimage.message.vm.new.success"/>');
+                    loadVM();
+                    break;
+                case "failed":
+                    ;
+                case "exception":
+                    printMessage('<spring:message code="admin.vmimage.message.vm.new.failed"/>');
+                    break;
+                }
+
+            } catch(e) {
+                printMessage("Data Broken: [" + e + "]");
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            pd.dialog("destroy");
+            printError(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+
+function checkValidImageField(selImageModel, selFlavorModel) {
+     if (selImageModel == "-1" || selFlavorModel =="-1") {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 function showCloneDialog(which) {
     var vmid=$(which).parents(".vmRow").first().find("input[isos\\\:item='vmId']").val();
@@ -360,7 +451,7 @@ function showCloneDialog(which) {
         },
         success: function(data) {
             try{
-                data=$.parseJSON(data);
+              //  data=$.parseJSON(data);
                 
                 // init panel
                 var panel=$("#clonePanel");
@@ -395,7 +486,7 @@ function showCloneDialog(which) {
                 $(panel).find(".vmname input").val(""); // empty input of vmname
                 $(panel).find(".vmzone .value").html(data.zonedisplay);
                 $(panel).find(".vmcpu .value").html([data.cpu," ","<spring:message code='admin.vm.template.clone.unit.cpu'/>"," / ",data.maxcpu," ","<spring:message code='admin.vm.template.clone.unit.cpu'/>"].join(""));
-                $(panel).find(".vmmem .value").html([formatSize(parseFloat(data.memory)*1024,2), " / ", formatSize(parseFloat(data.maxmemory)*1024,2)].join(""));
+                $(panel).find(".vmmem .value").html([formatMemory(data.memory), " / ", formatMemory(data.maxmemory*1024)].join(""));
                 $(panel).find(".vmsoft .value").html(data.softwarename);
                 $(panel).find(".vmplan .value").html(data.vmplanname);
                 $(panel).find(".vmprice .value").html(parseFloat(data.paymentamount).toFixed(2));
@@ -466,7 +557,7 @@ function showMigrateDialog(vmid, vmzone, vmzonedisplay, formerServer, view) {
             cache: false,
             success: function(data) {
                 try {
-                    data=$.parseJSON(data);
+                    //data=$.parseJSON(data);
                     
                     // try to cache the data
                     BootLoader.cache[vmzone]=data;
@@ -503,7 +594,7 @@ function migrate(vmid, target, view) {
         },
         success: function(data) {
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -555,7 +646,7 @@ function unassign(which) {
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -594,13 +685,12 @@ function resetpass(which) {
         cache: false,
         data: {
             methodtype: "rmvmpasswd",
-            loginuser: getUsername(),
             vmuuid: vmid
         },
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -636,20 +726,16 @@ function poweron(which) {
     
     $.ajax({
         type: "POST",
-        url: Server+"/RedDragonEnterprise/InstanceCtrlServlet",
+        url: Server+"/instance/vmcontrol",
         cache: false,
         data: {
-            methodtype: "executecommand",
-            loginuser: getUsername(),
-            password: getPassword(),
             executecommand: "poweron",
-            zone: zone,
             vmid: vmid
         },
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -686,20 +772,16 @@ function poweroff(which) {
     
     $.ajax({
         type: "POST",
-        url: Server+"/RedDragonEnterprise/InstanceCtrlServlet",
+        url: Server+"/instance/vmcontrol",
         cache: false,
         data: {
-            methodtype: "executecommand",
-            loginuser: getUsername(),
-            password: getPassword(),
             executecommand: "poweroff",
-            zone: zone,
             vmid: vmid
         },
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -724,7 +806,7 @@ function poweroff(which) {
     });
 }
 
-function pause(which) {
+function suspend(which) {
     var vmid=$(which).parents(".vmRow").first().find("input[isos\\\:item='vmId']").val();
     var zone=$(which).parents(".vmRow").first().find("input[isos\\\:item='vmZone']").val();
     var vmname=$(which).parents(".vmRow").first().find("input[isos\\\:item='vmName']").val();
@@ -735,20 +817,16 @@ function pause(which) {
     
     $.ajax({
         type: "POST",
-        url: Server+"/RedDragonEnterprise/InstanceCtrlServlet",
+        url: Server+"/instance/vmcontrol",
         cache: false,
         data: {
-            methodtype: "executecommand",
-            loginuser: getUsername(),
-            password: getPassword(),
-            executecommand: "pause",
-            zone: zone,
+            executecommand: "suspend",
             vmid: vmid
         },
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+              //  data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -784,20 +862,16 @@ function resume(which) {
     
     $.ajax({
         type: "POST",
-        url: Server+"/RedDragonEnterprise/InstanceCtrlServlet",
+        url: Server+"/instance/vmcontrol",
         cache: false,
         data: {
-            methodtype: "executecommand",
-            loginuser: getUsername(),
-            password: getPassword(),
             executecommand: "resume",
-            zone: zone,
             vmid: vmid
         },
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -833,19 +907,16 @@ function remove(which) {
     
     $.ajax({
         type: "POST",
-        url: Server+"/RedDragonEnterprise/InstanceCtrlServlet",
+        url: Server+"/instance/vmcontrol",
         cache: false,
         data: {
-            methodtype: "removevm",
-            loginuser: getUsername(),
-            password: getPassword(),
-            zone: zone,
+            executecommand: "removevm",
             vmid: vmid
         },
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+              //  data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -889,13 +960,14 @@ function detail(which) {
         $(panel).find("[name='zonedisplay']").html(data.zonedisplay);
         $(panel).find("[name='ostype']").html(data.ostype);
         $(panel).find("[name='cpus']").html(data.cpus);
-        $(panel).find("[name='memory']").html(formatSize(data.memory*1024, 2));
-        $(panel).find("[name='starttime']").html(new Date(data.starttime.time).toLocaleString());
-        $(panel).find("[name='expiretime']").html(new Date(data.expiretime.time).toLocaleString());
+        $(panel).find("[name='memory']").html(formatMemory(data.memory));
+        $(panel).find("[name='starttime']").html(new Date(data.starttime).toLocaleString());
+        $(panel).find("[name='updatetime']").html(new Date(data.updatetime).toLocaleString());
+        //$(panel).find("[name='expiretime']").html(new Date(data.expiretime).toLocaleString());
         $(panel).find("[name='publicips']").html(formatPublicIps(data.publicips));
-        $(panel).find("[name='privateip']").html(data.privateip);
-        $(panel).find("[name='disksize']").html(formatSize(data.disksize));
-        $(panel).find("[name='maxmemory']").html(formatSize(data.maxmemory*1024, 2));
+        $(panel).find("[name='privateip']").html(formatPrivateIps(data.privateips));
+        $(panel).find("[name='disksize']").html(formatDisk(data.disksize));
+        $(panel).find("[name='maxmemory']").html(formatMemory(data.maxmemory));
         $(panel).find("[name='maxcpus']").html(data.maxcpus);
         if(data.status=="RUNNING") {
             $(panel).find("[name='statusicon']").attr("class", "ui-icon ui-icon-play");
@@ -923,14 +995,14 @@ function detail(which) {
         
         // set up memory slider
         $(panel).find("[name='slider_mem']").slider("destroy").slider({
-            value: data.memory, // KB unit
+            value: data.memory * 1024, // KB unit
             min: 1024*1024, // =1GB
-            max: data.maxmemory,
+            max: data.maxmemory *1024,
             step: 1024*256, // 256 MB per step
             animate: true,
             range: "min",
             slide: function(event, ui) {
-                $(panel).find("[name='memory']").html(formatSize(ui.value*1024, 2));
+                $(panel).find("[name='memory']").html(formatMemory(ui.value));
             }
         });
     
@@ -965,7 +1037,7 @@ function applyCpu(which) {
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+              //  data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -1065,7 +1137,7 @@ function showChart(ui, type) {
 }
 
 function drawChart(container, type, vmid, vmname, startDate, endDate, interval, yAxisTitle, chartTitle, yUnit, chartSubtitle, callback) {
-    $("#"+container).empty().append("<img style='display:inline-block;position:absolute;top:50%;left:50%;' src='${requestScope.contextPath}/resource/admin/instance/css/image/progress_large.gif'/>");
+    $("#"+container).empty().append("<img style='display:inline-block;position:absolute;top:50%;left:50%;' src='${requestScope.contextPath}/resource/common/image/progress_large.gif'/>");
     
     $.ajax({
         url: Server+"/RedDragonEnterprise/InformationRetriverServlet",
@@ -1083,7 +1155,7 @@ function drawChart(container, type, vmid, vmname, startDate, endDate, interval, 
             if($("#"+container).length==0) return; // if the view not existed further more, do nothing
             
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 if(data.status!="valid") printMessage("<spring:message code='admin.vm.chart.label.message.no_vm_data'/>");
                 
@@ -1241,7 +1313,7 @@ function showVmPasswd(ui) {
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+             //   data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -1305,7 +1377,7 @@ function applyMem(which) {
         success: function(data) {
             pd.dialog("destroy");
             try{
-                data=$.parseJSON(data);
+               // data=$.parseJSON(data);
                 
                 var msg="";
                 switch(data.status) {
@@ -1331,6 +1403,9 @@ function applyMem(which) {
 }
 
 function formatPublicIps(publicips) {
+    if(publicips == null){
+        return "";
+    }
     if(typeof(publicips)=="string") {
         return publicips;
     }else {
@@ -1342,29 +1417,65 @@ function formatPublicIps(publicips) {
     }
 }
 
+function formatPrivateIps(privateips) {
+    if(privateips == null){
+        return "";
+    }
+    if(typeof(privateips)=="string") {
+        return privateips;
+    }else {
+        var pips=[];
+        for(var i=0; i<privateips.length; i++) {
+            pips.push(privateips[i].publicip);
+        }
+        return pips.join(", ");
+    }
+}
+function formatMemory(memory){
+    if(memory == null){
+        return "0MB"
+    }
+    return memory + " MB";
+}
+
+function formatDisk(disk){
+    if(disk == null){
+        return "0GB";
+    }
+    return disk + " GB";
+}
+
 function formatSize(bytes, digit) {
     if(null==bytes || 0==bytes) return "--";
-    
     var i=0;
     while(1023 < bytes){
         bytes /= 1024;
         ++i;
     };
     return i?bytes.toFixed(digit || 0) + ["", " KB", " MB", " GB", " TB"][i] : bytes + " bytes";
-}
+ }
 
 function formatStatus(status, statusdisplay) {
+    if(status == null){
+        return "";
+    }
     switch(status) {
         case "RUNNING": statusdisplay="<span class='ui-icon ui-icon-play' style='float:left; margin:0 0 0 0;'></span><span style='color:#25a300;font-weight:bold;'>"+statusdisplay+"</span>"; break;
         case "SHUTOFF": statusdisplay="<span class='ui-icon ui-icon-power' style='float:left; margin:0 0 0 0;'></span><span style='color:#777;'>"+statusdisplay+"</span>"; break;
-        case "CREATING": statusdisplay="<span class='ui-icon ui-icon-refresh' style='float:left; margin:0 0 0 0;'></span><span style='color:red;'>"+statusdisplay+"</span>"; break;
+        case "CREATING": statusdisplay="<span class='ui-icon ui-server-refresh' style='float:left; margin:0 0 0 0;'></span><span style='color:red;'>"+statusdisplay+"</span>"; break;
+        case "RESUMING": statusdisplay="<span class='ui-icon ui-server-refresh' style='float:left; margin:0 0 0 0;'></span><span style='color:red;'>"+statusdisplay+"</span>"; break;
         case "PAUSED": statusdisplay="<span class='ui-icon ui-icon-locked' style='float:left; margin:0 0 0 0;'></span><span style='color:orange;'>"+statusdisplay+"</span>"; break;
+        case "SUSPENDED": statusdisplay="<span class='ui-icon ui-icon-locked' style='float:left; margin:0 0 0 0;'></span><span style='color:orange;'>"+statusdisplay+"</span>"; break;
+        default: statusdisplay="";
     }
     
     return statusdisplay;
 }
 
 function formatOstype(ostype) {
+    if(ostype == null){
+        return "";
+    }
     if(ostype.toLowerCase().match("win")) {
         return "<img style='width:16px;margin-right:4px;vertical-align:middle;' src='${requestScope.contextPath}/resource/admin/instance/css/image/windows.png'/>"+ostype;
     }else if(ostype.toLowerCase().match("linux|centos|ubunto|ubunto|debian")){

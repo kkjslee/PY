@@ -4,24 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
-import com.inforstack.openstack.security.role.Role;
+import org.hibernate.annotations.GenericGenerator;
+
 import com.inforstack.openstack.user.User;
-
 
 @Entity
 public class Tenant {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tenant_id")
+	@GenericGenerator(name="tenant_id", strategy = "increment")
 	private Integer id;
 	
 	private String name;
@@ -44,9 +47,11 @@ public class Tenant {
 	
 	private String uuid;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
-	@JoinColumn(name="role_id")
-	private Role role;
+	@Column(name="role_id")
+	private int roleId;
+	
+	@Transient
+	private com.inforstack.openstack.api.keystone.Tenant openstatckTenant;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "tanent_user", 
@@ -83,12 +88,12 @@ public class Tenant {
 		this.dipalyName = dipalyName;
 	}
 
-	public Role getRole() {
-		return role;
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 
 	public int getAgeing() {
@@ -178,5 +183,13 @@ public class Tenant {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	
+
+	public com.inforstack.openstack.api.keystone.Tenant getOpenstatckTenant() {
+		return openstatckTenant;
+	}
+
+	public void setOpenstatckTenant(
+			com.inforstack.openstack.api.keystone.Tenant openstatckTenant) {
+		this.openstatckTenant = openstatckTenant;
+	}
 }

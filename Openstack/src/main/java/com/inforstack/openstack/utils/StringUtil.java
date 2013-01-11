@@ -14,4 +14,12 @@ public class StringUtil {
 		if(s.length() == 0) return true;
 		return false;
 	}
+	
+	public static String trimString(String s){
+		if(s==null){
+			return null;
+		}else {
+			return s.trim();
+		}
+	}
 }

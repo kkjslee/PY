@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.utils.Constants;
 
 @Service("tenantService")
@@ -17,9 +19,11 @@ public class TenantServiceImpl implements TenantService {
 	private static final Log log = LogFactory.getLog(TenantServiceImpl.class);
 	@Autowired
 	private TenantDao tenantDao;
+	@Autowired
+	private KeystoneService keystoneService;
 	
 	@Override
-	public Tenant createTenant(Tenant tenant) {
+	public Tenant createTenant(Tenant tenant) throws OpenstackAPIException  {
 		if(tenant == null){
 			log.debug("Create tenant failed for null is passed");
 		}
@@ -32,6 +36,8 @@ public class TenantServiceImpl implements TenantService {
 			log.debug("create failed ");
 			return null;
 		}else{
+//			t.setOpenstatckTenant(keystoneService.createTenant(tenant.getName(), "", true));
+//			t.setUuid(t.getOpenstatckTenant().getId());
 			log.debug("create successfully ");
 			return t;
 		}

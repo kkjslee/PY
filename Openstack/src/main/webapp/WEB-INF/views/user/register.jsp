@@ -120,8 +120,8 @@ $(function(){
         //return false;
         
         var isok=true;
-        
-        var tDisplayName = jQuery.trim($('#tenant_display_name').val());
+       
+        /* var tDisplayName = jQuery.trim($('#tenant_display_name').val());
         var tPhone = jQuery.trim($('#tenant_phone').val());
         var tEmail = jQuery.trim($('#tenant_email').val());
 		var tEmail2 = jQuery.trim($('#tenant_email_2').val());
@@ -210,19 +210,21 @@ $(function(){
         }else if(uMobile != '' && jQuery.checkstr(uMobile, 'mobile')==false){
         	isok=false;
         	tips='手机号码不合法(组织)';
-        }
-        /* else if(jQuery.checkstr($('#user_mobile').val(), 'mobile')==false) {
-            isok=false;
-            tips='手机号码不正确。';
-        } */else 
-        	/* if(jQuery.trim($('#verifycode').val())==''){
-            isok=false;
-            tips='请填写验证码。';
-        }else  */if($('#etc_10').attr('checked')==false){
+        } */
+       /* else if($('#etc_10').attr('checked')==false){
             isok=false;
             tips='请阅读并接受有关条款。';
-        }
-    
+        } */
+        /* else if(jQuery.checkstr($('#user_mobile').val(), 'mobile')==false) {
+	        isok=false;
+	        tips='手机号码不正确。';
+	    } */ 
+	    	/* if(jQuery.trim($('#verifycode').val())==''){
+	        isok=false;
+	        tips='请填写验证码。';
+	    }else  */
+		
+        
         if(!isok) {
             $('#tips').html(tips);
             $('#checkDialog').dialog('open');
@@ -293,20 +295,20 @@ function register_submit() {
     $.post(
        '<c:url value="/user/doReg" />',
         {
-            name: jQuery.trim($('#username').val()),
+            username: jQuery.trim($('#username').val()),
             password: jQuery.trim($('#user_password').val()),
             firstname: jQuery.trim($('#user_firstname').val()),
             lastname: jQuery.trim($('#user_lastname').val()),
-            userEmail: jQuery.trim($('#user_email').val()),
+            email: jQuery.trim($('#user_email').val()),
             question: jQuery.trim($('#user_question_ex').val()),
             answer: jQuery.trim($('#user_answer').val()),
-            userPhone: jQuery.trim($('#user_phone').val()),
-            userMobile: jQuery.trim($('#user_mobile').val()),
-            userCountry: jQuery.trim($('#user_country').val()),
-            userProvince: jQuery.trim($('#user_province').val()),
-            userCity: jQuery.trim($('#user_city').val()),
-            userAddress: jQuery.trim($('#user_address').val()),
-            userPostcode: jQuery.trim($('#user_postcode').val()),
+            phone: jQuery.trim($('#user_phone').val()),
+            mobile: jQuery.trim($('#user_mobile').val()),
+            country: jQuery.trim($('#user_country').val()),
+            province: jQuery.trim($('#user_province').val()),
+            city: jQuery.trim($('#user_city').val()),
+            address: jQuery.trim($('#user_address').val()),
+            postcode: jQuery.trim($('#user_postcode').val()),
             tenantDisplayName: jQuery.trim($('#tenant_display_name').val()),
             tenantPhone : jQuery.trim($('#tenant_phone').val()),
             tenantEmail : jQuery.trim($('#tenant_email').val()),
@@ -652,60 +654,79 @@ function resend() {
     <td colspan='5' style='font-weight:bold;line-height:24px;padding-left:32px;border:1px solid silver;background:url(${rPath}/image/images/menu_downarrow.png) 10px center no-repeat #f0f0f0;'>组织信息</td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="tenant_display_name" class="reg_label">公司组织&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_display_name" class="reg_label">
+    	<spring:message code="tenantDisplayName.label" ></spring:message> &nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：
+    </label></td>
     <td><input id="tenant_display_name" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
-    <td><div>公司名称，组织机构，法定代表人</div></td>
+    <td><div><spring:message code="tenantDisplayName.tip" /></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="tenant_phone" class="reg_label">联系电话&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_phone" class="reg_label">
+    	<spring:message code="tenantPhone.label" ></spring:message> &nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_phone" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="tenant_email" class="reg_label">邮箱&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_email" class="reg_label">
+		<spring:message code="tenantEmail.label" ></spring:message> &nbsp;
+		<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_email" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="tenant_email_2" class="reg_label">确认输入邮箱&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_email_2" class="reg_label">
+ 		<spring:message code="confirmEmail.label" ></spring:message>&nbsp;
+ 		<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_email_2" class="reg_input" type="text" /></td>
     <td><span id='tips_tenant_email_2'></span></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr>
-    <td class="reg_ltd"><label for="tenant_country" class="reg_label">国家&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp; :</label></td>
+    <td class="reg_ltd"><label for="tenant_country" class="reg_label">
+    	<spring:message code="tenantCountry.label" ></spring:message>&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp; :</label></td>
     <td><input id="tenant_country" class="reg_input" type="text" /></td>
     <td></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="tenant_province" class="reg_label">省&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="tenant_province" class="reg_label">
+		<spring:message code="tenantProvince.label" ></spring:message>&nbsp;
+		<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_province" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="tenant_city" class="reg_label">城市&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_city" class="reg_label">
+    	<spring:message code="tenantCity.label" ></spring:message>&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_city" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="tenant_address" class="reg_label">地址&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="tenant_address" class="reg_label">
+    	<spring:message code="tenantAddress.label" ></spring:message>&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="tenant_address" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-	<td class="reg_ltd"><label for="tenant_postcode" class="reg_label">邮编&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+	<td class="reg_ltd"><label for="tenant_postcode" class="reg_label">
+		<spring:message code="tenantPostcode.label" ></spring:message>&nbsp;
+		<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
 	<td><input id="tenant_postcode" class="reg_input" type="text" /></td>
 	<td></td>
 	<td></td>
@@ -731,15 +752,20 @@ function resend() {
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="username" class="reg_label">登录用户名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="username" class="reg_label">
+    	<spring:message code="username.label" ></spring:message>&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="username" class="reg_input" type="text" /></td>
     <td><span id='tips_username'></span></td>
     <td><div id='tips_username_2' class="text_tip_grid"></div></td>
-    <td><div>举例：CloudUser</div></td>
+    <td><div><spring:message code="example.label" ></spring:message>：CloudUser</div></td>
 </tr>
 <tr style="">
     <td class="reg_ltd"><label class="reg_label">&nbsp;</label></td>
-    <td><label class="reg_tips">只能使用字母，数字或者下划线<br/>（至少为6个字符，最多45个字符）</label></td>
+    <td><label class="reg_tips">
+    	<spring:message code="username.tip" ></spring:message><br/>
+    	(<spring:message code="size.tip" arguments="6,45"/>)
+    </label></td>
     <td>&nbsp;</td>
     <td></td>
     <td></td>
@@ -753,21 +779,28 @@ function resend() {
 <tr><td colspan='3' style="padding-right:100px;"><label class="reg_label">为保护您的帐户安全,请选择一个至少8位的密码</label></td></tr>
 -->
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_password" class="reg_label">输入密码（最短6位）&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_password" class="reg_label">
+    	<spring:message code="password.label" />（<spring:message code="size.min.tip" arguments="6"/>）&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_password" class="reg_input" type="password" /></td>
     <td></td>
     <td></td>
-    <td><div>举例：cLouD@example</div></td>
+    <td><div><spring:message code="example.label" />：cLouD@example</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_password_2" class="reg_label">再次输入&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_password_2" class="reg_label">
+    	<spring:message code="confirmPassword.label" />&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_password_2" class="reg_input" type="password" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label class="reg_label">密码找回提示问题（最少6位）&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd">
+    	<label class="reg_label"><spring:message code="question.label" />
+    	（<spring:message code="size.min.tip" arguments="6"/>）&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td style="text-align:left;">
     <select id='user_question' title="密码找回提示问题">
         <option >我就读的第二所学校的名称？</option>
@@ -781,27 +814,22 @@ function resend() {
     </td>
     <td></td>
     <td></td>
-    <td><div>举例：我的云主机是？</div></td>
+    <td><div><spring:message code="example.label" />: 我的云主机是？</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_answer" class="reg_label">问题答案（最少4位）&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_answer" class="reg_label">
+    	<spring:message code="answer.label" />(<spring:message code="size.min.tip" arguments="4"/>)）&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_answer" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
-    <td><div>举例：CloudUser</div></td>
-</tr>
-
-
-<tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_firstname" class="reg_label">我的姓&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
-    <td><input id="user_firstname" class="reg_input" type="text" /></td>
-    <td></td>
-    <td></td>
-    <td><div></div></td>
+    <td><div><spring:message code="example.label"/>：CloudUser</div></td>
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_lastname" class="reg_label">我的名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_lastname" class="reg_label">
+    	<spring:message code="lastname.label" />&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_lastname" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
@@ -809,61 +837,84 @@ function resend() {
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_email" class="reg_label">我的邮箱是&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
-    <td><input id="user_email" class="reg_input" type="text" /></td>
-    <td><span id='tips_user_email'></span></td>
-    <td><span id='tips_user_email_t2' class="text_tip_grid"></span></td>
-    <td><div>举例：email@example.com</div></td>
+    <td class="reg_ltd"><label for="user_firstname" class="reg_label">
+    	<spring:message code="firstname.label"/>&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td><input id="user_firstname" class="reg_input" type="text" /></td>
+    <td></td>
+    <td></td>
+    <td><div></div></td>
 </tr>
 
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_email_2" class="reg_label">确认输入邮箱&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_email" class="reg_label">
+    	<spring:message code="email.label" />&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td><input id="user_email" class="reg_input" type="text" /></td>
+    <td><span id='tips_user_email'></span></td>
+    <td><span id='tips_user_email_t2' class="text_tip_grid"></span></td>
+    <td><div><spring:message code="example.label" />：email@example.com</div></td>
+</tr>
+
+<tr style="border-bottom:1px dashed silver;">
+    <td class="reg_ltd"><label for="user_email_2" class="reg_label">
+    	<spring:message code="confirmEmail.label" />&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_email_2" class="reg_input" type="text" /></td>
     <td><span id='tips_user_email_2'></span></td>
     <td></td>
     <td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_mobile" class="reg_label">手机号码&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label for="user_mobile" class="reg_label">
+    	<spring:message code="mobile.label" />&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_mobile" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
-    <td><div>举例：13400000000</div></td>
+    <td><div><spring:message code="example.label" />：13400000000</div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_phone" class="reg_label">电话号码：</label></td>
+    <td class="reg_ltd"><label for="user_phone" class="reg_label">
+    	<spring:message code="phone.label" />&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td><input id="user_phone" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
-    <td><div>举例：66668888</div></td>
+    <td><div><spring:message code="example.label" />：66668888</div></td>
 </tr>
 
 <tr>
-	<td class="reg_ltd"><label for="user_country" class="reg_label">国家 :</label></td>
+	<td class="reg_ltd"><label for="user_country" class="reg_label">
+		<spring:message code="country.label" /> :</label></td>
 	<td><input id="user_country" class="reg_input" type="text" /></td>
 	<td></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="user_province" class="reg_label">省：</label></td>
+<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="user_province" class="reg_label">
+		<spring:message code="province.label" />：</label></td>
 	<td><input id="user_province" class="reg_input" type="text" /></td>
 	<td></td>
 	<td></td>
 	<td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-	<td class="reg_ltd"><label for="user_city" class="reg_label">城市：</label></td>
+	<td class="reg_ltd"><label for="user_city" class="reg_label">
+		<spring:message code="city.label" />：</label></td>
 	<td><input id="user_city" class="reg_input" type="text" /></td>
 	<td></td>
 	<td></td>
 	<td><div></div></td>
 </tr>
 <tr style="border-bottom:1px dashed silver;">
-    <td class="reg_ltd"><label for="user_address" class="reg_label">地址：</label></td>
+    <td class="reg_ltd"><label for="user_address" class="reg_label">
+    	<spring:message code="address.label" />: </label></td>
     <td><input id="user_address" class="reg_input" type="text" /></td>
     <td></td>
     <td></td>
     <td><div></div></td>
 </tr>
-<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="user_postcode" class="reg_label">邮编：</label></td>
+<tr style="border-bottom:1px dashed silver;"><td class="reg_ltd"><label for="user_postcode" class="reg_label">
+	<spring:message code="postcode.label" />：</label></td>
 <td><input id="user_postcode" class="reg_input" type="text" /></td>
 <td></td>
 <td></td>
@@ -918,37 +969,51 @@ function resend() {
     <td colspan='4' style='font-weight:bold;line-height:24px;padding-left:32px;border:1px solid silver;background:url(${rPath}/image/images/menu_downarrow.png) 10px center no-repeat #f0f0f0;'>组织信息</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">公司组织&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantDisplayName.label" ></spring:message>&nbsp;
+    	<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_display_name"></label></td>
     <td></td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">联系电话&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantPhone.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_phone"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">国家&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantEmail.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class='reg_rtd'><label id="c_tenant_phone"></label></td>
+    <td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr style='border-bottom:1px dashed silver;'>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantCountry.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_country"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">省&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantProvince.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_province"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">城市&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+		<spring:message code="tenantCity.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_city"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">地址&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantAddress.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_address"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">邮编&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="tenantPostcode.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_tenant_postcode"></label></td>
     <td>&nbsp;</td><td>&nbsp;</td>
 </tr>
@@ -959,7 +1024,8 @@ function resend() {
     <td colspan='4' style='font-weight:bold;line-height:24px;padding-left:32px;border:1px solid silver;background:url(${rPath}/image/images/menu_downarrow.png) 10px center no-repeat #f0f0f0;'>基本信息</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">登录用户名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="username.label" ></spring:message>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_username"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
@@ -969,56 +1035,63 @@ function resend() {
 <tr><td colspan='3' style="padding-right:100px;"><label class="reg_label">为保护您的帐户安全,请选择一个至少8位的密码</label></td></tr>
 -->
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">密码找回提示问题&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="question.label" />&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_question"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">问题答案&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="answer.label" />&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_answer"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">我的姓&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="lastname.label" />&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_firstname"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">我的名&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="firstname.label"/>&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_lastname"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">我的邮箱是&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="email.label" />&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_email"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">手机号码&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="mobile.label" />&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_mobile"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">联系电话：</label></td>
+    <td class="reg_ltd"><label class="reg_label">
+    	<spring:message code="phone.label" />&nbsp;<span style="color:#F60;font-weight:bold;font-size:18px;">*</span>&nbsp;：</label></td>
     <td class='reg_rtd'><label id="c_user_phone"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">国家：</label></td>
+    <td class="reg_ltd"><label class="reg_label"><spring:message code="country.label" />：</label></td>
     <td class='reg_rtd'><label id="c_user_country"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">省：</label></td>
+    <td class="reg_ltd"><label class="reg_label"><spring:message code="province.label" />：</label></td>
     <td class='reg_rtd'><label id="c_user_province"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">城市：</label></td>
+    <td class="reg_ltd"><label class="reg_label"><spring:message code="city.label" />：</label></td>
     <td class='reg_rtd'><label id="c_user_city"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">地址：</label></td>
+    <td class="reg_ltd"><label class="reg_label"><spring:message code="address.label" />：</label></td>
     <td class='reg_rtd'><label id="c_user_address"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 <tr style='border-bottom:1px dashed silver;'>
-    <td class="reg_ltd"><label class="reg_label">邮编：</label></td>
+    <td class="reg_ltd"><label class="reg_label"><spring:message code="postcode.label" />：</label></td>
     <td class='reg_rtd'><label id="c_user_postcode"></label></td><td>&nbsp;</td><td>&nbsp;</td>
 </tr>
 

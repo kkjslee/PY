@@ -40,4 +40,8 @@ public class Constants {
     vmStatusMap.put("resuming", "RESUMING");
   }
 
+	public static final int ROLE_ADMIN = 1;
+	public static final int ROLE_USER = 2;
+	public static final int ROLE_AGENT = 3;
+	
 }

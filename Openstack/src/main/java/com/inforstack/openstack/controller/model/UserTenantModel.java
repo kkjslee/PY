@@ -1,15 +1,20 @@
 package com.inforstack.openstack.controller.model;
 
-import com.inforstack.openstack.tenant.Tenant;
+import javax.validation.constraints.Pattern;
 
-public class TenantModel {
-	
-	private String name;
+import org.hibernate.validator.constraints.Email;
+
+import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.utils.StringUtil;
+
+public class UserTenantModel {
 	
 	private String tenantDisplayName;
 	
+	@Pattern(regexp="^(\\(\\d{3,4}\\)|\\d{3,4}-|\\s)?\\d{7,8}(-\\d{1,4})?$", message="{not.valid}")
 	private String tenantPhone;
 	
+	@Email(message="{not.valid}")
 	private String tenantEmail;
 	
 	private String tenantCountry;
@@ -20,31 +25,21 @@ public class TenantModel {
 	
 	private String tenantAddress;
 	
+	@Pattern(regexp="^[1-9]\\d{5}(?!\\d)$", message="{not.valid}")
 	private String tenantPostcode;
 	
 	public Tenant getTenant(){
 		Tenant tenant = new Tenant();
-		tenant.setName(name);
-		tenant.setDipalyName(tenantDisplayName);
-		tenant.setPhone(tenantPhone);
-		tenant.setEmail(tenantEmail);
-		tenant.setCountry(tenantCountry);
-		tenant.setProvince(tenantProvince);
-		tenant.setCity(tenantCity);
-		tenant.setAddress(tenantAddress);
-		tenant.setPostcode(tenantPostcode);
+		tenant.setDipalyName(StringUtil.trimString(tenantDisplayName));
+		tenant.setPhone(StringUtil.trimString(tenantPhone));
+		tenant.setEmail(StringUtil.trimString(tenantEmail));
+		tenant.setCountry(StringUtil.trimString(tenantCountry));
+		tenant.setProvince(StringUtil.trimString(tenantProvince));
+		tenant.setCity(StringUtil.trimString(tenantCity));
+		tenant.setAddress(StringUtil.trimString(tenantAddress));
+		tenant.setPostcode(StringUtil.trimString(tenantPostcode));
 		return tenant;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 
 	public String getTenantDisplayName() {
 		return tenantDisplayName;

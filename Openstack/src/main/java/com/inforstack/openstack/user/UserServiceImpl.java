@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.keystone.KeystoneService.Role;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
@@ -27,6 +30,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private TenantService tenantService;
+	@Autowired
+	private KeystoneService keystoneService;
 	
 	@Override
 	public List<Permission> getPermissions(Integer userId) {
@@ -62,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User registerUser(User user, Tenant tenant) {
+	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException  {
 		if(user==null || tenant==null){
 			log.debug("Register user failed for passed user/tenant is null");
 			return null;
@@ -74,6 +79,7 @@ public class UserServiceImpl implements UserService {
 			log.debug("create tenant failed" + tenant.getName());
 			return null;
 		}
+		t.setRoleId(Constants.ROLE_USER);
 		
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
 		User u = self.createUser(user);
@@ -81,15 +87,18 @@ public class UserServiceImpl implements UserService {
 			log.debug("create user failed" + user.getName());
 			return null;
 		}
+		u.setRoleId(Constants.ROLE_USER);
 		List<Tenant> tlst = new ArrayList<Tenant>();
 		tlst.add(t);
 		u.setTanents(tlst);
+		
+//		keystoneService.addRole(Role.MEMBER, u.getOpenstackUser(), t.getOpenstatckTenant());
 		
 		return user;
 	}
 
 	@Override
-	public User createUser(User user) {
+	public User createUser(User user) throws OpenstackAPIException {
 		if(user==null) {
 			log.debug("Create user failed for null is passed");
 			return null;
@@ -104,6 +113,8 @@ public class UserServiceImpl implements UserService {
 			log.debug("Create user failed");
 			return null;
 		}else{
+//			u.setOpenstackUser(keystoneService.createUser(u.getName(), u.getPassword(), u.getEmail()));
+//			u.setUuid(u.getOpenstackUser().getId());
 			log.debug("create user successfully");
 			return u;
 		}

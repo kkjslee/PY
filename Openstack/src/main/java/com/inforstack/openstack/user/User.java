@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.role.Role;
@@ -52,9 +54,8 @@ public class User {
 	
 	private String answer;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
-	@JoinColumn(name="role_id")
-	private Role role;
+	@Column(name="role_id")
+	private int roleId;
 	
 	private Integer defaultTenantId;
 	
@@ -79,6 +80,9 @@ public class User {
 	private List<SecurityGroup> securityGroups;
 	
 	private Date createTime;
+	
+	@Transient
+	private com.inforstack.openstack.api.keystone.User openstackUser;
 	
 	public Integer getId() {
 		return id;
@@ -136,14 +140,14 @@ public class User {
 		this.answer = answer;
 	}
 
-	public Role getRole() {
-		return role;
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -262,6 +266,14 @@ public class User {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public com.inforstack.openstack.api.keystone.User getOpenstackUser() {
+		return openstackUser;
+	}
+
+	public void setOpenstackUser(com.inforstack.openstack.api.keystone.User openstackUser) {
+		this.openstackUser = openstackUser;
 	}
 	
 }

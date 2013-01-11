@@ -2,6 +2,7 @@ package com.inforstack.openstack.user;
 
 import java.util.List;
 
+import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 
@@ -27,13 +28,14 @@ public interface UserService {
 	 * @param tenant
 	 * @return null if create failed
 	 */
-	public User registerUser(User user, Tenant tenant);
+	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException;
 
 	/**
 	 * create user
 	 * @param user
 	 * @return null if create failed
+	 * @throws OpenstackAPIException 
 	 */
-	public User createUser(User user);
+	public User createUser(User user) throws OpenstackAPIException;
 
 }

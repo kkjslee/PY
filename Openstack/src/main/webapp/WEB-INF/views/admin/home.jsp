@@ -22,7 +22,7 @@
 	</div>
 </td>
 
-<td style="position:relative;" valign="top">
+<td style="position:relative;width:100%" valign="top">
 <div class="prepare"><spring:message code="admin.prepare.module"/></div>
 <div class="right">
 </div>

@@ -407,7 +407,7 @@ function createVMImageItem(vmname, selImageModel, selFlavorModel) {
                 switch (data.status) {
                 case "done":
                     printMessage('<spring:message code="admin.vmimage.message.vm.new.success"/>');
-                    loadVM();
+                    loadVm();
                     break;
                 case "failed":
                     ;

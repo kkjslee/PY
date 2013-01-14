@@ -64,12 +64,7 @@ public class CustomLocaleChangeInterceptor extends HandlerInterceptorAdapter {
 		String languageCode = request.getParameter(this.paramName);
 		if (languageCode != null) {
 			Language language = languageService.findById(languageCode);
-			if(localeResolver instanceof CustomSessionLocaleResolver){
-				((CustomSessionLocaleResolver)localeResolver).setLanguage(request, response, language);
-			}else{
-				Locale locale = OpenstackUtil.getLocale(language);
-				localeResolver.setLocale(request, response, locale);
-			}
+			setLanguage(language, request, response);
 		}
 		
 		Locale locale = localeResolver.resolveLocale(request);
@@ -80,16 +75,29 @@ public class CustomLocaleChangeInterceptor extends HandlerInterceptorAdapter {
 		
 		if(language == null){
 			language = languageService.findByCountryAndLanguage(locale.getCountry(), locale.getLanguage());
+			if(language == null){
+				language = languageService.getDefaultLanguage();
+			}
+			
+			setLanguage(language, request, response);
 		}
-		if(language == null){
-			language = languageService.getDefaultLanguage();
-			locale = OpenstackUtil.getLocale(language);
-			localeResolver.setLocale(request, response, locale);
-		}
+		
 		OpenstackUtil.setI18nResolver(new I18nContext(locale, language));
 		
 		// Proceed in any case.
 		return true;
+	}
+	
+	private void setLanguage(Language language, HttpServletRequest request, HttpServletResponse response){
+		LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+		if(language != null){
+			if(localeResolver instanceof CustomSessionLocaleResolver){
+				((CustomSessionLocaleResolver)localeResolver).setLanguage(request, response, language);
+			}else{
+				Locale locale = OpenstackUtil.getLocale(language);
+				localeResolver.setLocale(request, response, locale);
+			}
+		}
 	}
 
 	public LanguageService getLanguageService() {

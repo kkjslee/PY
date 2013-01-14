@@ -235,7 +235,7 @@ $(function(){
             $('#c_user_email').html($('#user_email').val());
             $('#c_user_question').html($('#user_question_ex').val());
             $('#c_user_answer').html($('#user_answer').val());
-            $('#c_user_phone').html($('#t#user_phone').val());
+            $('#c_user_phone').html($('#user_phone').val());
             $('#c_user_mobile').html($('#user_mobile').val());
             $('#c_user_country').html($('#user_country').val());
             $('#c_user_province').html($('#user_province').val());

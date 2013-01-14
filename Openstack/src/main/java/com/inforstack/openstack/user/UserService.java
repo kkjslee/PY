@@ -38,4 +38,6 @@ public interface UserService {
 	 */
 	public User createUser(User user) throws OpenstackAPIException;
 
+	public User updateUser(User user);
+
 }

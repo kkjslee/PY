@@ -80,5 +80,18 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	@Override
+	public User merge(User user) {
+		log.debug("merge user : " + user.getName());
+		try{
+			em.merge(user);
+		}catch(RuntimeException re){
+			log.error(re.getMessage(), re);
+			return null;
+		}
+		
+		return user;
+	}
+
 
 }

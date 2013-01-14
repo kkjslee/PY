@@ -1,5 +1,6 @@
 package com.inforstack.openstack.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,11 +67,11 @@ public class User {
 	private String uuid;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "tanent_user", 
-		joinColumns = { @JoinColumn(name = "user_id", insertable=false, updatable = false) }, 
-		inverseJoinColumns = { @JoinColumn(name = "tenant_id", insertable=false, updatable = false) }
+	@JoinTable(name = "tenant_user", 
+		joinColumns = { @JoinColumn(name = "user_id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "tenant_id") }
 	)
-	private List<Tenant> tanents;
+	private List<Tenant> tanents = new ArrayList<Tenant>();
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "user_securitygroup", 

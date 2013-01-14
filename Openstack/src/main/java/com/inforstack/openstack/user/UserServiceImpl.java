@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
-import com.inforstack.openstack.api.keystone.KeystoneService.Role;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
-
 
 @Service("UserService")
 @Transactional
@@ -32,6 +32,8 @@ public class UserServiceImpl implements UserService {
 	private TenantService tenantService;
 	@Autowired
 	private KeystoneService keystoneService;
+	@Autowired
+	private EntityManager em;
 	
 	@Override
 	public List<Permission> getPermissions(Integer userId) {
@@ -74,28 +76,22 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		log.debug("register user : " + user.getName() +", tenant : " + tenant.getName());
+		tenant.setRoleId(Constants.ROLE_USER);
 		Tenant t = tenantService.createTenant(tenant);
 		if(t == null){
 			log.debug("create tenant failed" + tenant.getName());
 			return null;
 		}
-		t.setRoleId(Constants.ROLE_USER);
-		
-		if(t != null){
-			throw new RuntimeException("11111111111111");
-		}
 		
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
+		user.setRoleId(Constants.ROLE_USER);
 		User u = self.createUser(user);
 		if(u == null){
 			log.debug("create user failed" + user.getName());
 			return null;
 		}
-		u.setRoleId(Constants.ROLE_USER);
-		List<Tenant> tlst = new ArrayList<Tenant>();
-		tlst.add(t);
-		u.setTanents(tlst);
 		
+		u.getTanents().add(t);
 //		keystoneService.addRole(Role.MEMBER, u.getOpenstackUser(), t.getOpenstatckTenant());
 		
 		return user;
@@ -119,6 +115,24 @@ public class UserServiceImpl implements UserService {
 		}else{
 //			u.setOpenstackUser(keystoneService.createUser(u.getName(), u.getPassword(), u.getEmail()));
 //			u.setUuid(u.getOpenstackUser().getId());
+			log.debug("create user successfully");
+			return u;
+		}
+	}
+
+	@Override
+	public User updateUser(User user) {
+		if(user==null) {
+			log.debug("Upfate user failed for null is passed");
+			return null;
+		}
+		
+		log.debug("Update user : "+user.getName());
+		User u = userDao.merge(user);
+		if(u == null){
+			log.debug("Update user failed");
+			return null;
+		}else{
 			log.debug("create user successfully");
 			return u;
 		}

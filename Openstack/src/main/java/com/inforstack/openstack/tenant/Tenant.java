@@ -1,5 +1,6 @@
 package com.inforstack.openstack.tenant;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,8 +23,7 @@ import com.inforstack.openstack.user.User;
 public class Tenant {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="tenant_id")
-	@GenericGenerator(name="tenant_id", strategy = "increment")
+	@GeneratedValue
 	private Integer id;
 	
 	private String name;
@@ -54,11 +53,11 @@ public class Tenant {
 	private com.inforstack.openstack.api.keystone.Tenant openstatckTenant;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "tanent_user", 
-		joinColumns = { @JoinColumn(name = "tanent_id", insertable=false, updatable = false) }, 
-		inverseJoinColumns = { @JoinColumn(name = "user_id", insertable=false, updatable = false) }
+	@JoinTable(name = "tenant_user", 
+		joinColumns = { @JoinColumn(name = "tenant_id") }, 
+		inverseJoinColumns = { @JoinColumn(name = "user_id") }
 	)
-	private List<User> users;
+	private List<User> users = new ArrayList<User>();
 	
 	private int ageing;
 	

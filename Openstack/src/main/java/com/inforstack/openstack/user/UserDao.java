@@ -23,4 +23,11 @@ public interface UserDao {
 	 * @return null if persist failed or self
 	 */
 	public User persist(User user);
+
+	/**
+	 * update user
+	 * @param user
+	 * @return
+	 */
+	public User merge(User user);
 }

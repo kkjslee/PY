@@ -25,7 +25,7 @@ import com.inforstack.openstack.tenant.Tenant;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	private Integer id;
 	
 	private String name;

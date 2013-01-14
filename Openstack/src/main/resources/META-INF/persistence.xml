@@ -14,6 +14,7 @@
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="update" />
          <property name="hibernate.show_sql" value="true" />
+         <property name="hibernate.id.new_generator_mapping" value="false"/>
       </properties>
    </persistence-unit>
 </persistence>

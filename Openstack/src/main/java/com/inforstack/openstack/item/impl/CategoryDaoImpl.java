@@ -10,10 +10,12 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
 
+@Repository
 public class CategoryDaoImpl implements CategoryDao {
 	
 	private static final Log log = LogFactory.getLog(CategoryDaoImpl.class);

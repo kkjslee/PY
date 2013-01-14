@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
 import com.inforstack.openstack.item.ItemService;
 
+@Service
+@Transactional
 public class ItemServiceImpl implements ItemService {
 	
 	//private static final Log log = LogFactory.getLog(ItemServiceImpl.class);

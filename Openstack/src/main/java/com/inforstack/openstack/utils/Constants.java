@@ -26,6 +26,19 @@ public class Constants {
   public static final String JSON_STATUS_DONE = "{\"status\":\"done\"}";
   public static final String JSON_STATUS_FAILED = "{\"status\":\"failed\"}";
 
+  public static final String JSON_ERROR_STATUS = "error";
+  public static final String JSON_SUCCESS_STATUS = "success";
+
+  public static final int DEFAULT_CPU_NUM_MIN_LIMIT = 0;
+  public static final int DEFAULT_CPU_NUM_MAX_LIMIT = 65536;
+  public static final int DEFAULT_RAM_SIZE_MIN_LIMIT = 0;
+  public static final int DEFAULT_RAM_SIZE_MAX_LIMIT = 6553600;
+  public static final int DEFAULT_DISK_SIZE_MIN_LIMIT = 0;
+  public static final int DEFAULT_DISK_SIZE_MAX_LIMIT = 6553600;
+
+  public static final int DEFAULT_NAME_MIN_LENGTH = 3;
+  public static final int DEFAULT_NAME_MAX_LENGTH = 45;
+
   // compatible with font side
   public static final Map<String, String> vmStatusMap = new HashMap<String, String>();
   // key is the same as openstack status, and value is the same as front
@@ -40,8 +53,8 @@ public class Constants {
     vmStatusMap.put("resuming", "RESUMING");
   }
 
-	public static final int ROLE_ADMIN = 1;
-	public static final int ROLE_USER = 2;
-	public static final int ROLE_AGENT = 3;
-	
+  public static final int ROLE_ADMIN = 1;
+  public static final int ROLE_USER = 2;
+  public static final int ROLE_AGENT = 3;
+
 }

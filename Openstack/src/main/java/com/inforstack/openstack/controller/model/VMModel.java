@@ -3,7 +3,13 @@ package com.inforstack.openstack.controller.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.hibernate.validator.constraints.Range;
+
+import com.inforstack.openstack.utils.Constants;
 
 /**
  * vm instance model used for response
@@ -15,10 +21,15 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 public class VMModel {
   // vm uuid
   private String vmid;
+
+  @Size(min = Constants.DEFAULT_NAME_MIN_LENGTH, max = Constants.DEFAULT_NAME_MAX_LENGTH, message = "{size.not.valid}")
+  @Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
   private String vmname;
   // cpu number
+  @Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
   private Integer cpus;
-  // memory size
+  // memory size,DEFAULT UNIT MB
+  @Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
   private Integer memory;
   // vm create time
   private Date starttime;
@@ -30,7 +41,7 @@ public class VMModel {
   private List<String> privateips;
   private Integer disksize;
   private Integer maxmemory;
-  private Integer maxcpu;
+  private Integer maxcpus;
   // vm status
   private String status;
   // vm status display name
@@ -45,6 +56,13 @@ public class VMModel {
   private String ostype;
   // sub user specified
   private String assignedto;
+
+  // task staus
+  private String taskStatus;
+
+  private String imageId;
+
+  private String flavorId;
 
   public VMModel() {
     super();
@@ -139,12 +157,12 @@ public class VMModel {
     this.maxmemory = maxmemory;
   }
 
-  public Integer getMaxcpu() {
-    return maxcpu;
+  public Integer getMaxcpus() {
+    return maxcpus;
   }
 
-  public void setMaxcpu(Integer maxcpu) {
-    this.maxcpu = maxcpu;
+  public void setMaxcpus(Integer maxcpus) {
+    this.maxcpus = maxcpus;
   }
 
   public String getStatusdisplay() {
@@ -209,6 +227,30 @@ public class VMModel {
 
   public void setUpdatetime(Date updateTime) {
     this.updatetime = updateTime;
+  }
+
+  public String getTaskStatus() {
+    return taskStatus;
+  }
+
+  public void setTaskStatus(String taskStatus) {
+    this.taskStatus = taskStatus;
+  }
+
+  public String getImageId() {
+    return imageId;
+  }
+
+  public void setImageId(String imageId) {
+    this.imageId = imageId;
+  }
+
+  public String getFlavorId() {
+    return flavorId;
+  }
+
+  public void setFlavorId(String flavorId) {
+    this.flavorId = flavorId;
   }
 
 }

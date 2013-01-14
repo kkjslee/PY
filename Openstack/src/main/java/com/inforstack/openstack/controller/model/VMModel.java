@@ -31,6 +31,14 @@ public class VMModel {
   // memory size,DEFAULT UNIT MB
   @Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
   private Integer memory;
+  @Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
+  private Integer maxmemory;
+
+  @Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
+  private Integer maxcpus;
+
+  @Range(min = Constants.DEFAULT_DISK_SIZE_MIN_LIMIT, max = Constants.DEFAULT_DISK_SIZE_MAX_LIMIT, message = "{size.not.valid}")
+  private Integer disksize;
   // vm create time
   private Date starttime;
   // vm expire time
@@ -39,9 +47,7 @@ public class VMModel {
   // public up bound
   private List<String> publicips;
   private List<String> privateips;
-  private Integer disksize;
-  private Integer maxmemory;
-  private Integer maxcpus;
+
   // vm status
   private String status;
   // vm status display name

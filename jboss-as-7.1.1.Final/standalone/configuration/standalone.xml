@@ -98,8 +98,8 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/SjznDS" pool-name="Shinki">
-                    <connection-url>jdbc:mysql://192.168.20.110:3306/sjzn?zeroDateTimeBehavior=convertToNull</connection-url>
+                <datasource jndi-name="java:jboss/datasources/troposphere" pool-name="troposphere">
+                    <connection-url>jdbc:mysql://192.168.1.145:3306/troposphere</connection-url>
                     <driver>com.mysql</driver>
                     <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                     <pool>
@@ -109,7 +109,7 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>harmony</password>
+                        <password>inforstack</password>
                     </security>
                     <statement>
                         <prepared-statement-cache-size>32</prepared-statement-cache-size>

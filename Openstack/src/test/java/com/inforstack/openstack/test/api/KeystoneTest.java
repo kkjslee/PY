@@ -123,8 +123,28 @@ public class KeystoneTest {
 //			testUser = this.keystoneService.updateUser(testUser);
 //			Assert.assertTrue(testUser.getName().equals("update"));
 			this.keystoneService.removeUser(testUser);
+		} catch (OpenstackAPIException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testUserAndTenant() {
+		try {
+			String user = "testUser1";
+			String pass = "pass";
+			String tenant = "testTenant1";
+			Access access = this.keystoneService.addUserAndTenant(user, pass, "test@user.com", tenant);
 			
-			this.keystoneService.addUserAndTenant("testUser2", "pass", "test@user.com", "testTenant2");
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			this.keystoneService.removeUserAndTenant(access.getUser().getId(), access.getToken().getTenant().getId());
+			
 		} catch (OpenstackAPIException e) {
 			Assert.fail();
 			e.printStackTrace();

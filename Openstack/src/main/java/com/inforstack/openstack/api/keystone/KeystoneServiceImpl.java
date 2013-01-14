@@ -373,24 +373,26 @@ public class KeystoneServiceImpl implements KeystoneService {
 	}
 
 	@Override
-	public void addUserAndTenant(String username, String password, String email, String tenant) throws OpenstackAPIException {
-		if (username != null && password != null && email != null && !username.trim().isEmpty() && !password.trim().isEmpty()) {
-			if (tenant == null || tenant.trim().isEmpty()) {
-				tenant = username;
+	public Access addUserAndTenant(String userName, String password, String email, String tenantName) throws OpenstackAPIException {
+		Access access = null;
+		if (userName != null && password != null && email != null && !userName.trim().isEmpty() && !password.trim().isEmpty()) {
+			if (tenantName == null || tenantName.trim().isEmpty()) {
+				tenantName = userName;
 			}
 			User newUser = null;
-			Tenant newTenant = this.createTenant(tenant, "Tenant for user[" + username + "]", true);
+			Tenant newTenant = this.createTenant(tenantName, "Tenant for user[" + userName + "]", true);
 			if (newTenant != null) {
 				try {
-					newUser = this.createUser(username, password, email);
+					newUser = this.createUser(userName, password, email);
 				} catch (OpenstackAPIException e) {
 					this.removeTenant(newTenant);
-					throw new OpenstackAPIException("Fail to create user: " + username, e);
+					throw new OpenstackAPIException("Fail to create user: " + userName, e);
 				}
 			}
 			if (newUser != null) {
 				try {
 					this.addRole(Role.MEMBER, newUser, newTenant);
+					access = this.getAccess(userName, password, newTenant.getId(), true);
 				} catch (OpenstackAPIException e) {
 					this.removeUser(newUser);
 					this.removeTenant(newTenant);
@@ -398,12 +400,28 @@ public class KeystoneServiceImpl implements KeystoneService {
 				}
 			}
 		}
+		return access;
 	}
 
 	@Override
-	public void removeUserAndTenant(String name) throws OpenstackAPIException {
-		// TODO Auto-generated method stub
-		
+	public void removeUserAndTenant(String userId, String tenantId) throws OpenstackAPIException {
+		Access adminAccess = this.getAdminAccess();
+		if (tenantId != null && !tenantId.trim().isEmpty()) {
+			Configuration endpointTenant = this.configurationDao.findByName(ENDPOINT_TENANT);
+			if (endpointTenant != null) {
+				if (adminAccess != null) {
+					RestUtils.delete(endpointTenant.getValue(), adminAccess, tenantId);
+				}
+			}
+		}		
+		if (userId != null && !userId.trim().isEmpty()) {
+			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USER);
+			if (endpointUser != null) {
+				if (adminAccess != null) {
+					RestUtils.delete(endpointUser.getValue(), adminAccess, userId);
+				}
+			}
+		}		
 	}
 
 }

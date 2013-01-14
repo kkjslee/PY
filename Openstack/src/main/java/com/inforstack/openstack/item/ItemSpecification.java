@@ -32,16 +32,15 @@ public class ItemSpecification {
 	
 	private Date updated;
 	
-//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinTable(name = "item_category", 
-//		joinColumns = { @JoinColumn(name = "item_id", insertable=false, updatable = false) }, 
-//		inverseJoinColumns = { @JoinColumn(name = "category_id", insertable=false, updatable = false) }
-//	)
-//	private List<Category> categories;
-//	
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
-//    @JoinColumn(name = "item_id")
-//	private List<ItemMetadata> metadata;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "item_category", 
+		joinColumns = { @JoinColumn(name = "item_id", insertable=false, updatable = false) }, 
+		inverseJoinColumns = { @JoinColumn(name = "category_id", insertable=false, updatable = false) }
+	)
+	private List<Category> categories;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
+	private List<ItemMetadata> metadata;
 
 	public int getId() {
 		return id;
@@ -99,12 +98,12 @@ public class ItemSpecification {
 		this.updated = updated;
 	}
 
-//	public List<Category> getCategories() {
-//		return categories;
-//	}
-//
-//	public void setCategories(List<Category> categories) {
-//		this.categories = categories;
-//	}
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
 
 }

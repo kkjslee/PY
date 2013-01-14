@@ -1,6 +1,5 @@
 package com.inforstack.openstack.api.keystone;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
@@ -10,7 +9,6 @@ public class User {
 	
 	private String name;
 	
-	@JsonProperty("OS-KSADM:password")
 	private String password;
 	
 	private String email;

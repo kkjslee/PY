@@ -46,8 +46,8 @@ public interface KeystoneService {
 	
 	public void addRole(Role role, User user, Tenant tenant) throws OpenstackAPIException;
 	
-	public void addUserAndTenant(String username, String password, String email, String tenant) throws OpenstackAPIException;
+	public Access addUserAndTenant(String userName, String password, String email, String tenantName) throws OpenstackAPIException;
 	
-	public void removeUserAndTenant(String name) throws OpenstackAPIException;
+	public void removeUserAndTenant(String userId, String tenantId) throws OpenstackAPIException;
 	
 }

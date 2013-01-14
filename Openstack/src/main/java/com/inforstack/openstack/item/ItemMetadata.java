@@ -19,9 +19,9 @@ public class ItemMetadata {
 	
 	private String value;
 	
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
-//	@JoinColumn(name="item_id")
-//	private ItemSpecification itemSpecification;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
+	@JoinColumn(name="item_id")
+	private ItemSpecification itemSpecification;
 
 	public int getId() {
 		return id;

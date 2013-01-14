@@ -35,8 +35,13 @@ public class AdminController {
     return "admin/scripts/bootloader";
   }
 
-  @RequestMapping(value = "/vmlist", method = RequestMethod.GET)
-  public String loadVMDetails(Model model) {
+  @RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
+  public String bootstrap(Model model) {
+    return "admin/scripts/bootloader";
+  }
+
+  @RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
+  public String template(Model model) {
     return "admin/scripts/bootloader";
   }
 

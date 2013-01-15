@@ -96,7 +96,7 @@ public class ItemSpecification {
 		this.refId = refId;
 	}
 
-	public boolean isAvailable() {
+	public boolean getAvailable() {
 		return available;
 	}
 

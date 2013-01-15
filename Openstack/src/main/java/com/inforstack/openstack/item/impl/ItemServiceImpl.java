@@ -46,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
 		if (excludeDisabled) {
 			List<Category> list = new ArrayList<Category>();
 			for (Category category : categories) {
-				if (category.isEnable()) {
+				if (category.getEnable()) {
 					list.add(category);
 				}
 			}

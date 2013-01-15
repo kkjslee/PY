@@ -45,7 +45,7 @@ public class Category {
 		this.name = name;
 	}
 
-	public boolean isEnable() {
+	public boolean getEnable() {
 		return enable;
 	}
 

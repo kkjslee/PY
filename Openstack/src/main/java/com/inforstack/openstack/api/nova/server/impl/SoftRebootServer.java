@@ -4,8 +4,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.inforstack.openstack.api.nova.server.ServerAction;
 
-public class RebootServer implements ServerAction {
-	
+public class SoftRebootServer implements ServerAction {
+
 	private static final class Reboot {
 
 		@JsonProperty("type")
@@ -15,5 +15,5 @@ public class RebootServer implements ServerAction {
 	
 	@JsonProperty("reboot")
 	private Reboot reboot = new Reboot();
-
+	
 }

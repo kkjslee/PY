@@ -28,7 +28,7 @@ import com.inforstack.openstack.api.nova.server.SecurityGroup;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.Server.File;
 import com.inforstack.openstack.api.nova.server.ServerService;
-import com.inforstack.openstack.api.nova.server.impl.RebootServer;
+import com.inforstack.openstack.api.nova.server.impl.HardRebootServer;
 import com.inforstack.openstack.api.nova.server.impl.StartServer;
 import com.inforstack.openstack.api.nova.server.impl.StopServer;
 import com.inforstack.openstack.configuration.ConfigurationDao;
@@ -53,8 +53,6 @@ public class NovaTest {
 	private ConfigurationDao configurationDao;
 	
 	private Access access;
-	
-	private static String id;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -321,7 +319,7 @@ public class NovaTest {
 					}
 				}
 				if (server != null) {
-					this.serverService.doServerAction(this.access, server, new RebootServer());
+					this.serverService.doServerAction(this.access, server, new HardRebootServer());
 					System.out.println("\n\n\nRebooting server");
 					System.out.println("ID    : " + server.getId());
 					System.out.println("");
@@ -353,7 +351,7 @@ public class NovaTest {
 	}
 	
 	@Test
-	public void testCreateServer() {
+	public void testCreateAndRemoveServer() {
 		try {
 			if (this.access != null) {
 				Server[] servers = this.serverService.listServers(this.access, false);
@@ -448,28 +446,13 @@ public class NovaTest {
 					}
 				}
 				System.out.println("]");
-				id = server.getId();
-			} else {
-				fail("Can not get access");
-			}
-		} catch (OpenstackAPIException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void testRemoveServer() {
-		try {
-			if (this.access != null && id != null) {
-				Server server = this.serverService.getServer(this.access, id, false);
 				
 				this.serverService.removeServer(this.access, server);
 				
-				int wait = 0;
+				wait = 0;
 				while (wait < 100) {
 					try {
-						server = this.serverService.getServer(access, id, false);
+						server = this.serverService.getServer(access, server.getId(), false);
 					} catch (OpenstackAPIException e) {
 						break;
 					}

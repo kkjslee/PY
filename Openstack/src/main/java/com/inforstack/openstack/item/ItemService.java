@@ -12,4 +12,6 @@ public interface ItemService {
 	
 	public void removeCategory(Category category);
 	
+	public ItemSpecification addItem(String name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata);
+	
 }

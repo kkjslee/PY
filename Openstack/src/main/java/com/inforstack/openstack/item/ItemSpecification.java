@@ -16,6 +16,18 @@ import javax.persistence.OneToMany;
 @Entity
 public class ItemSpecification {
 	
+	public static final int OS_TYPE_NONE_ID = 0;
+	public static final int OS_TYPE_FLAVOR_ID = 1;
+	public static final int OS_TYPE_IMAGE_ID = 2;
+	public static final int OS_TYPE_VOLUME_ID = 3;
+	public static final int OS_TYPE_NETWORK_ID = 4;
+	
+	public static final String OS_TYPE_NONE = "";
+	public static final String OS_TYPE_FLAVOR = "openstack.flavor";
+	public static final String OS_TYPE_IMAGE = "openstack.image";
+	public static final String OS_TYPE_VOLUME = "openstack.volume";
+	public static final String OS_TYPE_NETWORK = "openstack.network";
+	
 	@Id
 	@GeneratedValue
 	private int id;
@@ -24,9 +36,11 @@ public class ItemSpecification {
 	
 	private float defaultPrice;
 	
+	private String osType;
+	
 	private String refId;
 	
-	private boolean enabled;
+	private boolean available;
 	
 	private Date created;
 	
@@ -66,6 +80,14 @@ public class ItemSpecification {
 		this.defaultPrice = defaultPrice;
 	}
 
+	public String getOsType() {
+		return osType;
+	}
+
+	public void setOsType(String osType) {
+		this.osType = osType;
+	}
+
 	public String getRefId() {
 		return refId;
 	}
@@ -74,12 +96,12 @@ public class ItemSpecification {
 		this.refId = refId;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
+	public boolean isAvailable() {
+		return available;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	public Date getCreated() {
@@ -104,6 +126,14 @@ public class ItemSpecification {
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+
+	public List<ItemMetadata> getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(List<ItemMetadata> metadata) {
+		this.metadata = metadata;
 	}
 
 }

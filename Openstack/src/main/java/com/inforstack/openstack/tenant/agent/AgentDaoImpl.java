@@ -16,8 +16,6 @@ public class AgentDaoImpl implements AgentDao {
 	@Override
 	public Agent findById(String agentId) {
 		log.debug("getting Agent instance with id: " + agentId);
-		if(agentId==null) return null;
-		
 		try {
 			Agent instance = em.find(Agent.class, agentId);
 			log.debug("get successful");

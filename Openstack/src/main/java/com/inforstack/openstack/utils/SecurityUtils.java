@@ -87,4 +87,10 @@ public class SecurityUtils {
 		return null;
 	}
 	
+	public static boolean isUserEnabled(User user){
+		if(user==null) return false;
+		
+		return user.getStatus() == Constants.USER_STATUS_VALID
+				&& user.getAgeing() == Constants.USER_AGEING_ACTIVE;
+	}
 }

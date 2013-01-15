@@ -7,7 +7,7 @@ public interface TenantDao {
 	 * @param tenant
 	 * @return null if error or the pass tenant
 	 */
-	public Tenant persist(Tenant tenant);
+	public void persist(Tenant tenant);
 	
 	/**
 	 * find tenant by tenant id

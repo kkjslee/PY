@@ -21,7 +21,7 @@ public class I18nServiceImpl implements I18nService {
 		log.debug("find i18n instance by i18nlink id : "+linkId+", language id : "+languageId);
 		I18n i18n = i18nDao.find(linkId, languageId);
 		if(i18n == null){
-			log.debug("No i18n instance found");
+			log.info("No i18n instance found");
 		}else{
 			log.debug("I18n instance found with content : "+i18n.getContent());
 		}
@@ -35,7 +35,7 @@ public class I18nServiceImpl implements I18nService {
 		I18n i18n = i18nDao.findFirst(linkId);
 		
 		if(i18n==null){
-			log.debug("No i18n instance found for link id : " + linkId);
+			log.info("No i18n instance found for link id : " + linkId);
 		}else{
 			log.debug("I18n instance found with content : "+i18n.getContent());
 		}

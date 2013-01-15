@@ -25,8 +25,6 @@ public class LanguageDaoImpl implements LanguageDao{
 	@Override
 	public Language findById(Integer languageId) {
 		log.debug("getting Language instance with id: " + languageId);
-		if(languageId==null) return null;
-		
 		try {
 			Language instance = em.find(Language.class, languageId);
 			log.debug("get successful");
@@ -47,6 +45,7 @@ public class LanguageDaoImpl implements LanguageDao{
 			CriteriaQuery<Language> criteria = builder
 					.createQuery(Language.class);
 			Root<Language> root = criteria.from(Language.class);
+			
 			criteria.select(root).where(
 					builder.and(
 						builder.equal(root.get("country"), country),

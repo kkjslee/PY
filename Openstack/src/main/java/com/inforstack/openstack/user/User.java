@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.SecurityUtils;
 
 @Entity
 public class User {
@@ -79,7 +81,7 @@ public class User {
 		joinColumns = { @JoinColumn(name = "user_id", insertable=false, updatable = false) }, 
 		inverseJoinColumns = { @JoinColumn(name = "group_id", insertable=false, updatable = false) }
 	)
-	private List<SecurityGroup> securityGroups;
+	private List<SecurityGroup> securityGroups = new ArrayList<SecurityGroup>();
 	
 	private Date createTime;
 	
@@ -271,6 +273,15 @@ public class User {
 	}
 
 	public com.inforstack.openstack.api.keystone.User getOpenstackUser() {
+		if( openstackUser == null ){
+			com.inforstack.openstack.api.keystone.User ou =  new com.inforstack.openstack.api.keystone.User();
+			ou.setEmail(email);
+			ou.setEnabled(SecurityUtils.isUserEnabled(this));
+			ou.setId(uuid);
+			ou.setName(name);
+			ou.setPassword(password);
+		}
+		
 		return openstackUser;
 	}
 

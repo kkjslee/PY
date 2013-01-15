@@ -19,7 +19,6 @@ public class RoleDaoImpl implements RoleDao {
 	@Override
 	public Role findById(Integer roleId) {
 		log.debug("getting Role instance with id: " + roleId);
-		if(roleId==null) return null;
 		
 		try {
 			Role instance = em.find(Role.class, roleId);
@@ -28,6 +27,7 @@ public class RoleDaoImpl implements RoleDao {
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
 			throw re;
-		}	}
+		}	
+	}
 
 }

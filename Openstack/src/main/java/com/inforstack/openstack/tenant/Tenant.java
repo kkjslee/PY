@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -49,6 +50,13 @@ public class Tenant {
 
 	@Column(name="role_id")
 	private int roleId;
+	
+	@Column(name="creator_id", insertable=false, updatable=false)
+	private Integer creatorId;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="creator_id")
+	private User creator;
 	
 	@Transient
 	private com.inforstack.openstack.api.keystone.Tenant openstatckTenant;
@@ -192,4 +200,21 @@ public class Tenant {
 			com.inforstack.openstack.api.keystone.Tenant openstatckTenant) {
 		this.openstatckTenant = openstatckTenant;
 	}
+
+	public Integer getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Integer creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+	
 }

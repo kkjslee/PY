@@ -15,31 +15,26 @@ public class TenantDaoImpl implements TenantDao{
 	private EntityManager em;
 	
 	@Override
-	public Tenant persist(Tenant tenant) {
+	public void persist(Tenant tenant) {
 		log.debug("persist tenant :" + tenant.getName());
 		try{
 			em.persist(tenant);
 		}catch(RuntimeException re){
 			log.error(re.getMessage(), re);
-			return null;
+			throw re;
 		}
 		log.debug("persist successfully");
-		return tenant;
 	}
 
 	@Override
 	public Tenant findById(Integer tenantId) {
 		log.debug("find tenant by id " + tenantId);
-		if(tenantId == null){
-			log.debug("getting tenant failed for tenant id is null");
-			return null;
-		}
-		
 		Tenant instance = null;
 		try {
 			instance = em.find(Tenant.class, tenantId);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
+			throw re;
 		}
 		
 		if(instance == null){

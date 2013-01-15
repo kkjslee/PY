@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.controller.RootController;
 import com.inforstack.openstack.controller.model.UserTenantModel;
 import com.inforstack.openstack.controller.model.UserModel;
@@ -42,6 +44,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private KeystoneService keystoneService;
 	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String register(Model model) {
@@ -130,18 +135,30 @@ public class UserController {
 		Tenant tenant = tenantModel.getTenant();
 		tenant.setName(user.getName());
 		
-		User u = null;
+		boolean success = true;
 		try{
-			u = userService.registerUser(user, tenant);
+			userService.registerUser(user, tenant);
 		}catch(Exception e){
+			success = false;
 			log.error(e.getMessage(), e);
 		}
-		if(u == null){
-			log.debug("Register user failed");
-			ret.put("error", "error");
-		}else{
+		
+		if(success == false){
+			try {
+				keystoneService.removeUserAndTenant(
+						user.getOpenstackUser().getId(), tenant
+								.getOpenstatckTenant().getId());
+			} catch (OpenstackAPIException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
+		
+		if(success){
 			log.debug("Register user successfully");
 			ret.put("success", "success");
+		}else{
+			log.debug("Register user failed");
+			ret.put("error", "error");
 		}
 		
 		return ret;

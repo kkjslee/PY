@@ -22,16 +22,13 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findUser(Integer userId) {
 		log.debug("getting User instance with id: " + userId);
-		if(userId==null) {
-			log.debug("getting user failed for user id is null");
-			return null;
-		}
 		
 		User instance = null;
 		try {
 			instance = em.find(User.class, userId);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
+			throw re;
 		}
 		
 		if(instance == null){
@@ -39,14 +36,12 @@ public class UserDaoImpl implements UserDao {
 		}else{
 			log.debug("get successful");
 		}
-		
 		return instance;
 	}
 
 	@Override
 	public User findByName(String userName) {
 		log.debug("getting User instance with name : " + userName);
-		if(userName==null)  return null;
 		
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -63,34 +58,47 @@ public class UserDaoImpl implements UserDao {
 			return null;
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
-			return null;
+			throw re;
 		}
 	}
 
 	@Override
-	public User persist(User user) {
+	public void persist(User user) {
 		log.debug("persist user : " + user.getName());
 		try{
 			em.persist(user);
 		}catch(RuntimeException re){
 			log.error(re.getMessage(), re);
-			return null;
+			throw re;
 		}
 		
-		return user;
+		log.debug("persist successful");
 	}
 
 	@Override
 	public User merge(User user) {
 		log.debug("merge user : " + user.getName());
 		try{
-			em.merge(user);
+			User u = em.merge(user);
+			log.debug("merge sucessfully");
+			return u;
 		}catch(RuntimeException re){
 			log.error(re.getMessage(), re);
-			return null;
+			throw re;
 		}
 		
-		return user;
+	}
+
+	@Override
+	public void remove(User user) {
+		log.debug("remove user : " + user.getName());
+		try{
+			em.remove(user);
+			log.debug("merge successful");
+		}catch(RuntimeException re){
+			log.error(re.getMessage(), re);
+			throw re;
+		}
 	}
 
 

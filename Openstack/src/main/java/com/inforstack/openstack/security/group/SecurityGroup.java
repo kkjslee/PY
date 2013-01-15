@@ -1,5 +1,6 @@
 package com.inforstack.openstack.security.group;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class SecurityGroup {
 		joinColumns = { @JoinColumn(name = "group_id", insertable=false, updatable = false) }, 
 		inverseJoinColumns = { @JoinColumn(name = "permmision_id", insertable=false, updatable = false) }
 	)
-	private List<Permission> permissions;
+	private List<Permission> permissions = new ArrayList<Permission>();
 	
 	private Date createTime;
 	

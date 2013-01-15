@@ -1,8 +1,9 @@
 package com.inforstack.openstack.user;
 
-import java.util.List;
+import java.util.Set;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 
@@ -11,9 +12,9 @@ public interface UserService {
 	/**
 	 * get all user permissions by user id
 	 * @param userId
-	 * @return if no permission, an empty list will return
+	 * @return if no permission, an empty Set will return
 	 */
-	public List<Permission> getPermissions(Integer userId);
+	public Set<Permission> getPermissions(Integer userId);
 	
 	/**
 	 * find user by user name
@@ -26,10 +27,11 @@ public interface UserService {
 	 * register user
 	 * @param user
 	 * @param tenant
-	 * @return null if create failed
+	 * @throws OpenstackAPIException
+	 * @throws ApplicationWarning
 	 */
-	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException;
-
+	public void registerUser(User user, Tenant tenant) throws OpenstackAPIException, ApplicationException;
+	
 	/**
 	 * create user
 	 * @param user
@@ -37,7 +39,16 @@ public interface UserService {
 	 * @throws OpenstackAPIException 
 	 */
 	public User createUser(User user) throws OpenstackAPIException;
+	
+	/**
+	 * create tenant user, use the tenant stored in user detail
+	 * @param user
+	 * @return
+	 * @throws OpenstackAPIException
+	 */
+	public User createTenantUser(User user) throws ApplicationException, OpenstackAPIException;
 
-	public User updateUser(User user);
+	public User updateUser(User user) throws OpenstackAPIException;
 
+	public void deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException;
 }

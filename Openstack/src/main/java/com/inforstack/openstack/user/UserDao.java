@@ -20,9 +20,8 @@ public interface UserDao {
 	/**
 	 * persist user
 	 * @param user
-	 * @return null if persist failed or self
 	 */
-	public User persist(User user);
+	public void persist(User user);
 
 	/**
 	 * update user
@@ -30,4 +29,10 @@ public interface UserDao {
 	 * @return
 	 */
 	public User merge(User user);
+	
+	/**
+	 * remove user
+	 * @param user
+	 */
+	public void remove(User user);
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 
@@ -21,6 +22,7 @@ import com.inforstack.openstack.tenant.agent.Agent;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.SecurityUtils;
 
 
 @Component
@@ -56,7 +58,7 @@ public class OpenstackUserDetails implements UserDetails {
 		}
 		
 		grantedAuthorities = new HashSet<GrantedAuthority>(); 
-		List<Permission> permissions = userService.getPermissions(user.getId());
+		Set<Permission> permissions = userService.getPermissions(user.getId());
 		for(Permission p : permissions){
 			grantedAuthorities.add(new SimpleGrantedAuthority(p.getName()));
 		}
@@ -92,7 +94,7 @@ public class OpenstackUserDetails implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return user.getStatus()==Constants.USER_STATUS_VALID && user.getAgeing()==Constants.USER_AGEING_ACTIVE;
+		return SecurityUtils.isUserEnabled(user);
 	}
 
 	public User getUser() {

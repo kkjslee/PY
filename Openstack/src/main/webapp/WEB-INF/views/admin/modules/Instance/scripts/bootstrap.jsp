@@ -1473,7 +1473,14 @@ function formatStatus(status, statusdisplay) {
     
     return statusdisplay;
 }
-
+function formatTaskStatus(taskStatus){
+    if(taskStatus == null){
+        return "";
+    }else{
+        taskStatus="<spring:message code="admin.vm.task.status"/>" + ": " + taskStatus;
+        return taskStatus;
+    }
+}
 function formatOstype(ostype) {
     if(ostype == null){
         return "";

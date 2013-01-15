@@ -27,10 +27,11 @@ public interface UserService {
 	 * register user
 	 * @param user
 	 * @param tenant
+	 * @return User the user created or null for fail
 	 * @throws OpenstackAPIException
 	 * @throws ApplicationWarning
 	 */
-	public void registerUser(User user, Tenant tenant) throws OpenstackAPIException, ApplicationException;
+	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException;
 	
 	/**
 	 * create user
@@ -50,5 +51,12 @@ public interface UserService {
 
 	public User updateUser(User user) throws OpenstackAPIException;
 
-	public void deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException;
+	/**
+	 * 
+	 * @param userId
+	 * @return The user deleted or null for fail
+	 * @throws OpenstackAPIException
+	 * @throws ApplicationException
+	 */
+	public User deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException;
 }

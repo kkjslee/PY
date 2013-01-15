@@ -80,10 +80,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void registerUser(User user, Tenant tenant) throws OpenstackAPIException, ApplicationException  {
+	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException  {
 		if(user==null || tenant==null){
 			log.info("Register user failed for passed user/tenant is null");
-			return;
+			return null;
 		}
 		
 		log.debug("register user : " + user.getName() +", tenant : " + tenant.getName());
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 		Tenant t = tenantService.createTenant(tenant);
 		if(t == null){
 			log.warn("create tenant failed" + tenant.getName());
-			throw new ApplicationException("tenant.create.fail");
+			return null;
 		}
 		
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
@@ -99,11 +99,13 @@ public class UserServiceImpl implements UserService {
 		User u = self.createUser(user);
 		if(u == null){
 			log.warn("create user failed" + user.getName());
-			throw new ApplicationException("user.create.fail");
+			return null;
 		}
 		
 		t.setCreator(user);
 		keystoneService.addRole(Role.MEMBER, u.getOpenstackUser(), t.getOpenstatckTenant());
+		
+		return user;
 	}
 
 	@Override
@@ -198,10 +200,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException {
+	public User deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException {
 		if(userId==null) {
 			log.info("Delete user failed for null is passed");
-			return;
+			return null;
 		}
 		
 		log.debug("Delete User");
@@ -212,10 +214,12 @@ public class UserServiceImpl implements UserService {
 		
 		User user = userDao.findUser(userId);
 		if(user == null){
-			log.warn("No user instance found for user id : " + userId);
-			return;
+			log.info("No user instance found for user id : " + userId);
+			return null;
 		}
 		userDao.remove(user);
+		
+		return user;
 	}
 	
 }

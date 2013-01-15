@@ -19,7 +19,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.inforstack.openstack.i18n.I18nLink;
+import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.user.User;
 
 @Entity

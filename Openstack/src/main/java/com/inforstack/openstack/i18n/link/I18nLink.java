@@ -1,14 +1,19 @@
-package com.inforstack.openstack.i18n;
+package com.inforstack.openstack.i18n.link;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-
-import com.inforstack.openstack.i18n.lang.LanguageService;
+import com.inforstack.openstack.i18n.I18n;
+import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Entity
@@ -20,6 +25,8 @@ public class I18nLink {
 	private String tableName;
 	private String columnName;
 	private Date createTime;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="i18nLink")
+	private List<I18n> i18ns = new ArrayList<I18n>();
 	
 	public Integer getId() {
 		return id;
@@ -45,14 +52,16 @@ public class I18nLink {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	public List<I18n> getI18ns() {
+		return i18ns;
+	}
+	public void setI18ns(List<I18n> i18ns) {
+		this.i18ns = i18ns;
+	}
+	
 	@Transient
 	public String getI18nContent(){
 		I18nService i18nService = (I18nService)OpenstackUtil.getBean("i18nService");
-		I18n i18n = i18nService.findByLinkAndLanguage(this.getId(), OpenstackUtil.getLanguage().getId());
-		if(i18n==null){
-			i18n = i18nService.getFirstByLink(this.getId());
-		}
-		
-		return i18n==null ? null : i18n.getContent();
+		return i18nService.getI18nContent(this);
 	}
 }

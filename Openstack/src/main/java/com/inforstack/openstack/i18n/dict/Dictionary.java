@@ -11,11 +11,8 @@ import javax.persistence.ManyToOne;
 
 import com.inforstack.openstack.i18n.lang.Language;
 
-
-
-
 @Entity
-public class Directory {
+public class Dictionary {
 	
 	@Id
 	@GeneratedValue
@@ -26,9 +23,8 @@ public class Directory {
 	
 	private String code;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="language_id")
-	private Language language;
+	@Column(name = "language_id")
+	private Integer languageId;
 	
 	private String value;
 	
@@ -50,11 +46,11 @@ public class Directory {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Language getLanguage() {
-		return language;
+	public Integer getLanguageId() {
+		return languageId;
 	}
-	public void setLanguage(Language language) {
-		this.language = language;
+	public void setLanguageId(Integer languageId) {
+		this.languageId = languageId;
 	}
 	public String getValue() {
 		return value;

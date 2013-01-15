@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.inforstack.openstack.i18n.I18nLink;
 
 @Entity
 public class ItemMetadata {
@@ -15,9 +18,13 @@ public class ItemMetadata {
 	@GeneratedValue
 	private int id;
 	
-	private String name;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+	@JoinColumn
+	private I18nLink name;
 	
-	private String value;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+	@JoinColumn
+	private I18nLink value;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
 	@JoinColumn(name="item_id")
@@ -31,28 +38,28 @@ public class ItemMetadata {
 		this.id = id;
 	}
 
-	public String getName() {
+	public I18nLink getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(I18nLink name) {
 		this.name = name;
 	}
 
-	public String getValue() {
+	public I18nLink getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(I18nLink value) {
 		this.value = value;
 	}
 
-//	public ItemSpecification getItemSpecification() {
-//		return itemSpecification;
-//	}
-//
-//	public void setItemSpecification(ItemSpecification itemSpecification) {
-//		this.itemSpecification = itemSpecification;
-//	}
+	public ItemSpecification getItemSpecification() {
+		return itemSpecification;
+	}
+
+	public void setItemSpecification(ItemSpecification itemSpecification) {
+		this.itemSpecification = itemSpecification;
+	}
 	
 }

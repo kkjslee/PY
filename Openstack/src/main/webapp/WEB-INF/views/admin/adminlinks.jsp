@@ -6,6 +6,8 @@
 
 <script src="<%=request.getContextPath()%>/resource/admin/common/addons/dataTables/jquery.dataTables.min.js" language="javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/scripts/bootloader" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/admin/scripts/bootstrap" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/admin/scripts/template" type="text/javascript"></script>
 <%
     String userName =  SecurityUtils.getUserName();
 %>

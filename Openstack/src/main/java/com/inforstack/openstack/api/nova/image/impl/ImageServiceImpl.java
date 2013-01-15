@@ -1,5 +1,7 @@
 package com.inforstack.openstack.api.nova.image.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,10 @@ public class ImageServiceImpl implements ImageService {
 	@Autowired
 	private KeystoneService tokenService;
 	
+	private static Image[] cache = null;
+	
+	private static Date update = null;
+	
 	public static final class Images {
 		
 		private Image[] images;
@@ -40,13 +46,24 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public Image[] listImages() throws OpenstackAPIException {
 		Image[] images = null;
-		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_IMAGES_DETAIL);
-		if (endpoint != null) {
-			Access access = this.tokenService.getAdminAccess();
-			Images response = RestUtils.get(endpoint.getValue(), access, Images.class, access.getToken().getTenant().getId());
-			if (response != null) {
-				images = response.getImages();
+		Date now = new Date();
+		if (cache == null || update == null || now.after(update)) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_IMAGES_DETAIL);
+			if (endpoint != null) {
+				Access access = this.tokenService.getAdminAccess();
+				Images response = RestUtils.get(endpoint.getValue(), access, Images.class, access.getToken().getTenant().getId());
+				if (response != null) {
+					images = response.getImages();
+					Configuration expire = this.configurationDao.findByName(CACHE_EXPIRE);
+					if (expire != null) {
+						cache = images;
+						now.setTime(now.getTime() + Integer.parseInt(expire.getValue()) * 60 * 1000);
+						update = now;
+					}
+				}
 			}
+		} else {
+			images = cache;
 		}
 		return images;
 	}

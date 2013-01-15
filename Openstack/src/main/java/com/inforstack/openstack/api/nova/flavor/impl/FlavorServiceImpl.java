@@ -1,5 +1,7 @@
 package com.inforstack.openstack.api.nova.flavor.impl;
 
+import java.util.Date;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,10 @@ public class FlavorServiceImpl implements FlavorService {
 	@Autowired
 	private KeystoneService tokenService;
 	
+	private static Flavor[] cache = null;
+	
+	private static Date update = null;
+	
 	public static final class Flavors {
 
 		private Flavor[] flavors;
@@ -42,13 +48,24 @@ public class FlavorServiceImpl implements FlavorService {
 	@Override
 	public Flavor[] listFlavors() throws OpenstackAPIException {
 		Flavor[] flavors = null;
-		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLAVORS_DETAIL);
-		if (endpoint != null) {
-			Access access = this.tokenService.getAdminAccess();
-			Flavors response = RestUtils.get(endpoint.getValue(), access, Flavors.class, access.getToken().getTenant().getId());
-			if (response != null) {
-				flavors = response.getFlavors();
+		Date now = new Date();
+		if (cache == null || update == null || now.after(update)) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLAVORS_DETAIL);
+			if (endpoint != null) {
+				Access access = this.tokenService.getAdminAccess();
+				Flavors response = RestUtils.get(endpoint.getValue(), access, Flavors.class, access.getToken().getTenant().getId());
+				if (response != null) {
+					flavors = response.getFlavors();
+					Configuration expire = this.configurationDao.findByName(CACHE_EXPIRE);
+					if (expire != null) {
+						cache = flavors;
+						now.setTime(now.getTime() + Integer.parseInt(expire.getValue()) * 60 * 1000);
+						update = now;
+					}
+				}
 			}
+		} else {
+			flavors = cache;
 		}
 		return flavors;
 	}
@@ -105,6 +122,7 @@ public class FlavorServiceImpl implements FlavorService {
 				FlavorBody response = RestUtils.postForObject(endpoint.getValue(), access, request, FlavorBody.class, access.getToken().getTenant().getId());
 				if (response != null) {
 					flavor = response.getFlavor();
+					cache = null;
 				}
 			}
 		}
@@ -119,6 +137,7 @@ public class FlavorServiceImpl implements FlavorService {
 				Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_FLAVOR);
 				if (endpointUser != null) {
 					RestUtils.delete(endpointUser.getValue(), access, access.getToken().getTenant().getId(), flavor.getId());
+					cache = null;
 				}
 			}
 		}

@@ -15,6 +15,7 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
+import com.inforstack.openstack.i18n.I18nLink;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
 import com.inforstack.openstack.item.ItemMetadata;
@@ -56,7 +57,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Category addCategory(String name, boolean enable) {
+	public Category addCategory(I18nLink name, boolean enable) {
 		Category category = new Category();
 		category.setName(name);
 		category.setEnable(enable);
@@ -74,7 +75,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemSpecification addItem(String name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata) {
+	public ItemSpecification addItem(I18nLink name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata) {
 		ItemSpecification newItem = null;
 		String osTypeName = ItemSpecification.OS_TYPE_NONE;
 		switch (osType) {

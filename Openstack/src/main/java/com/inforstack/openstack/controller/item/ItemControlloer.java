@@ -37,7 +37,7 @@ public class ItemControlloer {
 			if (!excludeDisabled || category.getEnable()) {
 				CategoryModel cm = new CategoryModel();
 				cm.setId(category.getId());
-				cm.setName(category.getName());
+				cm.setName(category.getName().getI18nContent());
 				cm.setEnable(category.getEnable());
 				models.add(cm);
 			}

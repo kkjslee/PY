@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+import com.inforstack.openstack.i18n.I18nLink;
 
 @Entity
 public class Category {
@@ -17,8 +20,10 @@ public class Category {
 	@Id
 	@GeneratedValue
 	private int id;
-
-	private String name;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+	@JoinColumn
+	private I18nLink name;
 	
 	private boolean enable;
 	
@@ -37,11 +42,11 @@ public class Category {
 		this.id = id;
 	}
 
-	public String getName() {
+	public I18nLink getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(I18nLink name) {
 		this.name = name;
 	}
 

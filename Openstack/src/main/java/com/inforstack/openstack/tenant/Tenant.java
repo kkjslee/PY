@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.inforstack.openstack.i18n.I18nLink;
 import com.inforstack.openstack.user.User;
 
 @Entity
@@ -45,6 +46,10 @@ public class Tenant {
 	private String address;
 	
 	private String postcode;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn
+	private I18nLink description;
 	
 	private String uuid;
 
@@ -216,5 +221,12 @@ public class Tenant {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
-	
+
+	public I18nLink getDescription() {
+		return description;
+	}
+
+	public void setDescription(I18nLink description) {
+		this.description = description;
+	}
 }

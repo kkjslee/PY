@@ -17,8 +17,8 @@ public class I18nLink {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	private String table;
-	private String name;
+	private String tableName;
+	private String columnName;
 	private Date createTime;
 	
 	public Integer getId() {
@@ -27,17 +27,17 @@ public class I18nLink {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getTable() {
-		return table;
+	public String getTableName() {
+		return tableName;
 	}
-	public void setTable(String table) {
-		this.table = table;
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
-	public String getName() {
-		return name;
+	public String getColumnName() {
+		return columnName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}
 	public Date getCreateTime() {
 		return createTime;

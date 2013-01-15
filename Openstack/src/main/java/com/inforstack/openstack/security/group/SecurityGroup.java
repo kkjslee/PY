@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.inforstack.openstack.i18n.I18nLink;
 import com.inforstack.openstack.security.permission.Permission;
@@ -29,7 +30,7 @@ public class SecurityGroup {
 	
 	private String name;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
 	@JoinColumn
 	private I18nLink description;
 	

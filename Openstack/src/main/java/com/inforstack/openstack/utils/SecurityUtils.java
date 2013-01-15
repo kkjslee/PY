@@ -25,12 +25,29 @@ public class SecurityUtils {
 		return null;
 	}
 	
+	public static Integer getUserRoleId(){
+		try{
+			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(o instanceof OpenstackUserDetails){
+				return ((OpenstackUserDetails)o).getUser().getRoleId();
+			}
+		}catch(Exception e){
+		}
+		
+		return null;
+	}
+	
 	public static Role getUserRole() {
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				RoleService rs = (RoleService)OpenstackUtil.getBean("roleService");
-				return rs.findRoleById(((OpenstackUserDetails)o).getUser().getRoleId());
+				User user = ((OpenstackUserDetails)o).getUser();
+				Role role = user.getRole();
+				if(role == null){
+					RoleService rs = (RoleService)OpenstackUtil.getBean("roleService");
+					role = rs.findRoleById(user.getRoleId());
+				}
+				return role;
 			}
 		}catch(Exception e){
 		}

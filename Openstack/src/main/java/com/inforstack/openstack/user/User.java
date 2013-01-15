@@ -57,7 +57,7 @@ public class User {
 	private String question;
 	
 	private String answer;
-	
+
 	@Column(name="role_id")
 	private int roleId;
 	
@@ -87,6 +87,8 @@ public class User {
 	
 	@Transient
 	private com.inforstack.openstack.api.keystone.User openstackUser;
+	@Transient
+	private Role role;
 	
 	public Integer getId() {
 		return id;
@@ -288,5 +290,12 @@ public class User {
 	public void setOpenstackUser(com.inforstack.openstack.api.keystone.User openstackUser) {
 		this.openstackUser = openstackUser;
 	}
-	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 }

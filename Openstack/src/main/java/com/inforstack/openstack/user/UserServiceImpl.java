@@ -217,4 +217,5 @@ public class UserServiceImpl implements UserService {
 		}
 		userDao.remove(user);
 	}
+	
 }

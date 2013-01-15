@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
 			log.debug("Find successfully");
 		}
 		
-		return null;
+		return role;
 	}
 	
 }

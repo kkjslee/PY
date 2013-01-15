@@ -1,6 +1,7 @@
 package com.inforstack.openstack.i18n.dict;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Directory {
 	@GeneratedValue
 	private Integer id;
 	
+	@Column(name="key_value")
 	private String key;
 	
 	private String code;

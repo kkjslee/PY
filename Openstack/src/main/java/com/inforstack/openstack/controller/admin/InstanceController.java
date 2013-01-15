@@ -1,9 +1,7 @@
 package com.inforstack.openstack.controller.admin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +9,6 @@ import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,7 +33,6 @@ import com.inforstack.openstack.api.nova.server.impl.SuspendServer;
 import com.inforstack.openstack.api.nova.server.impl.UnpauseServer;
 import com.inforstack.openstack.controller.model.FlavorModel;
 import com.inforstack.openstack.controller.model.ImgModel;
-import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.controller.model.VMModel;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.StringUtil;
@@ -58,9 +54,6 @@ public class InstanceController {
   @Autowired
   private FlavorService flavorService;
 
-  @Autowired
-  private Validator validator;
-
   @RequestMapping(value = "/modules/index", method = RequestMethod.GET)
   public String redirectModule(Model model, HttpServletRequest request) {
     return "admin/modules/Instance/index";
@@ -81,9 +74,9 @@ public class InstanceController {
     return "admin/modules/Instance/scripts/template";
   }
 
-  @RequestMapping(value = "/getPagerVMList", method = RequestMethod.POST, produces = "application/json")
+  @RequestMapping(value = "/vmlist", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  List<VMModel> getPagerVMs(Model model, String loginUser, int pageIndex, int pageSize) {
+  List<VMModel> listVMs(Model model, String loginUser) {
     List<VMModel> vmList = new ArrayList<VMModel>();
     // String username = SecurityUtils.getUserName();
     // String password = SecurityUtils.getUser().getPassword();
@@ -139,10 +132,7 @@ public class InstanceController {
     } catch (OpenstackAPIException e) {
       e.printStackTrace();
     }
-    PagerModel<VMModel> page = new PagerModel<VMModel>(vmList, pageSize);
-    vmList = page.getPagedData(pageIndex);
-    model.addAttribute("pageIndex", pageIndex);
-    model.addAttribute("pageSize", pageSize);
+
     return vmList;
   }
 
@@ -184,26 +174,23 @@ public class InstanceController {
 
   @RequestMapping(value = "/createVM", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  Map<String, Object> createVM(Model model, VMModel vmModel) {
+  String createVM(Model model, String vmName, String imgId, String flavorId) {
+
     Server newServer = new Server();
-    Map<String, Object> ret = new HashMap<String, Object>();
-    String errorMsg = ValidateUtil.validModel(validator, "admin", vmModel);
-    if (errorMsg != null) {
-      ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
-      return ret;
+    if (StringUtil.isNullOrEmpty(vmName) || StringUtil.isNullOrEmpty(imgId)
+        || StringUtil.isNullOrEmpty(flavorId)) {
+      return Constants.JSON_STATUS_FAILED;
     }
-    newServer.setName(vmModel.getVmname());
-    newServer.setImageRef(vmModel.getImageId());
-    newServer.setFlavorRef(vmModel.getFlavorId());
+    newServer.setName(vmName);
+    newServer.setImageRef(imgId);
+    newServer.setFlavorRef(flavorId);
     try {
       Access access = keystoneService.getAdminAccess();
       serverService.createServer(access, newServer);
     } catch (OpenstackAPIException e) {
-      ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
-      return ret;
+      return Constants.JSON_STATUS_EXCEPTION;
     }
-    ret.put(Constants.JSON_SUCCESS_STATUS, "success");
-    return ret;
+    return Constants.JSON_STATUS_DONE;
   }
 
   @RequestMapping(value = "/imglist", method = RequestMethod.POST, produces = "application/json")

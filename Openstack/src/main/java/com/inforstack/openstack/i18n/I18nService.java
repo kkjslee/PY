@@ -41,15 +41,18 @@ public interface I18nService {
 	public I18n createI18n(Integer languageId, String content, I18nLink i18nLink);
 	
 	public I18n createI18n(Integer languageId, String content, Integer i18nLinkId);
+	
+	public I18n createI18n(Integer languageId, String content, String tableName, String columnName);
 
 	/**
 	 * find i18n by id and language, then update the content
 	 * @param i18nId
-	 * @param languageId
 	 * @param content
 	 * @return
 	 */
-	public I18n updateI18n(Integer i18nId, Integer languageId, String content);
+	public I18n updateI18n(Integer i18nId, String content);
+	
+	public I18n updateI18n(Integer i18nLinkId, Integer languageId, String content);
 
 	/**
 	 * 
@@ -64,4 +67,5 @@ public interface I18nService {
 	 * @return The i18n list removed or null ofr fail
 	 */
 	public List<I18n> removeI18nByLinkId(Integer i18nLinkId);
+
 }

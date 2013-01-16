@@ -90,33 +90,6 @@ public class I18nDaoImpl implements I18nDao{
 	}
 
 	@Override
-	public I18n findI18nByLanguageAndId(Integer i18nId, Integer languageId) {
-		log.debug("Find i18n with id : " + i18nId + ", language id : "+languageId);
-		try {
-			CriteriaBuilder builder = em.getCriteriaBuilder();
-			CriteriaQuery<I18n> criteria = builder
-					.createQuery(I18n.class);
-			Root<I18n> root = criteria.from(I18n.class);
-			criteria.select(root).where(
-					builder.and(
-							builder.equal(root.get("id"), i18nId),
-							builder.equal(root.get("languageId"), languageId)
-					)
-			);
-			List<I18n> instances = em.createQuery(criteria).getResultList();
-			if(instances!=null && instances.size()>0){
-				log.debug("get successful");
-				return instances.get(0);
-			}
-			log.debug("No record found ");
-			return null;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
-
-	@Override
 	public void remove(I18n i18n) {
 		log.debug("Remove i18n : " + i18n.getId());
 		try{

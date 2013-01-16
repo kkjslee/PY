@@ -22,8 +22,6 @@ public interface I18nDao {
 
 	public void persist(I18n i18n);
 
-	public I18n findI18nByLanguageAndId(Integer i18nId, Integer languageId);
-
 	public void remove(I18n i18n);
 
 	public I18n findById(Integer i18nId);

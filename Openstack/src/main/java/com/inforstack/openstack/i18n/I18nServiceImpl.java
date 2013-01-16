@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
+import com.inforstack.openstack.i18n.link.I18nLinkService;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.utils.StringUtil;
 
 
 @Service("i18nService")
@@ -20,6 +22,8 @@ public class I18nServiceImpl implements I18nService {
 	private static final Log log = LogFactory.getLog(I18nServiceImpl.class);
 	@Autowired
 	private I18nDao i18nDao;
+	@Autowired
+	private I18nLinkService i18nLinkService;
 
 	@Override
 	public I18n findByLinkAndLanguage(Integer linkId, Integer languageId) {
@@ -72,14 +76,70 @@ public class I18nServiceImpl implements I18nService {
 	}
 
 	@Override
-	public I18n addI18n(I18n i18n) {
+	public I18n createI18n(I18n i18n) {
 		if(i18n == null || i18n.getI18nLink()==null){
-			log.info("Add i18n failed for passed i18n is null or i18n link is null");
+			log.info("Create i18n failed for passed i18n is null or i18n link is null");
+			return null;
 		}
 		
-		log.debug("Add new i18n with link id : " + i18n.getI18nLinkId());
+		log.debug("Create i18n with link id : " + i18n.getI18nLinkId());
 		i18nDao.persist(i18n);
-		log.debug("create user successfully");
+		log.debug("Create i18n successfully");
+		return i18n;
+	}
+	
+	@Override
+	public I18n createI18n(Integer languageId, String content, I18nLink i18nLink) {
+		if(languageId==null || StringUtil.isNullOrEmpty(content) || i18nLink==null || i18nLink.getId()==null){
+			log.info("Create i18n failed for passed languageId/contennt/i18nLink/i18nLinkId is null");
+			return null;
+		}
+		
+		log.debug("Create i18n with language : " + languageId + ", content : "
+				+ StringUtil.convertToLogString(content) + ", i18nLink : "
+				+ i18nLink.getId());
+		I18n i18n = new I18n();
+		i18n.setContent(content);
+		i18n.setI18nLink(i18nLink);
+		i18n.setLanguageId(languageId);
+		
+		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
+		i18n = self.createI18n(i18n);
+		
+		if(i18n==null){
+			log.debug("Create failed");
+		}else{
+			log.debug("Create successfully");
+		}
+		
+		return i18n;
+	}
+
+	@Override
+	public I18n createI18n(Integer languageId, String content,
+			Integer i18nLinkId) {
+		if(languageId==null || StringUtil.isNullOrEmpty(content) || i18nLinkId==null){
+			log.info("Create i18n failed for passed languageId/contennt/i18nLinkId is null");
+			return null;
+		}
+		
+		log.debug("Create i18n with language : " + languageId + ", content : "
+				+ StringUtil.convertToLogString(content) + ", i18nlinkId : "
+				+ i18nLinkId);
+		I18nLink link = i18nLinkService.findI18nLink(i18nLinkId);
+		if(link == null){
+			log.info("Create i18n failed for i18n link not found by id : " + i18nLinkId);
+			return null;
+		}
+		
+		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
+		I18n i18n = self.createI18n(languageId, content, link);
+		if(i18n==null){
+			log.debug("Create failed");
+		}else{
+			log.debug("Create successfully");
+		}
+		
 		return i18n;
 	}
 	

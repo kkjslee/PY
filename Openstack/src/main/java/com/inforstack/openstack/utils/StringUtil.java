@@ -22,4 +22,16 @@ public class StringUtil {
 			return s.trim();
 		}
 	}
+	
+	public static String convertToLogString(String s){
+		if(s == null){
+			return"";
+		}else{
+			if(s.length()<50){
+				return s;
+			}else{
+				return s.substring(0, 50) + "...";
+			}
+		}
+	}
 }

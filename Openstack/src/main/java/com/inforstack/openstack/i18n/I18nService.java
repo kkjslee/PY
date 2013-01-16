@@ -36,7 +36,11 @@ public interface I18nService {
 	 * @param i18n
 	 * @return
 	 */
-	public I18n addI18n(I18n i18n);
+	public I18n createI18n(I18n i18n);
+	
+	public I18n createI18n(Integer languageId, String content, I18nLink i18nLink);
+	
+	public I18n createI18n(Integer languageId, String content, Integer i18nLinkId);
 
 	/**
 	 * find i18n by id and language, then update the content

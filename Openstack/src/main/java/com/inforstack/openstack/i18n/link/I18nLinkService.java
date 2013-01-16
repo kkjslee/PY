@@ -6,6 +6,8 @@ public interface I18nLinkService {
 	
 	public I18nLink createI18nLink(String tableName, String columnName);
 	
+	public I18nLink findOrCreateI18nLink(String tableName, String columnName);
+	
 	/**
 	 * 
 	 * @param linkId

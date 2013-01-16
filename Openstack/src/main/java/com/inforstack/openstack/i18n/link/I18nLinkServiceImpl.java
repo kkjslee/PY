@@ -35,6 +35,7 @@ public class I18nLinkServiceImpl implements I18nLinkService{
 	public I18nLink createI18nLink(String tableName, String columnName) {
 		if(StringUtil.isNullOrEmpty(tableName) || StringUtil.isNullOrEmpty(columnName)){
 			log.info("Create i18n link failed for passed tableName/columnName is null");
+			return null;
 		}
 		
 		log.debug("Create i18n link with tableName : " + tableName + ", columnName : " + columnName);
@@ -44,6 +45,31 @@ public class I18nLinkServiceImpl implements I18nLinkService{
 		link.setTableName(tableName);
 		
 		link =  self.createI18nLink(link);
+		if(link == null){
+			log.debug("Create failed");
+		}else{
+			log.debug("Create successfully");
+		}
+		
+		return link;
+	}
+	
+	@Autowired
+	public I18nLink findOrCreateI18nLink(String tableName, String columnName){
+		if(StringUtil.isNullOrEmpty(tableName) || StringUtil.isNullOrEmpty(columnName)){
+			log.info("Find or create i18n link failed for passed tableName/columnName is null");
+			return null;
+		}
+		
+		log.debug("Find or create i18nLink with tableName : " + tableName + ", columnName : " + columnName);
+		I18nLink link = i18nLinkDao.findByTableAndColumnName(tableName, columnName);
+		if(link != null){
+			log.debug("Find successfully");
+			return link;
+		}
+		
+		I18nLinkService self = (I18nLinkService)OpenstackUtil.getBean("i18nLinkService");
+		link = self.createI18nLink(tableName, columnName);
 		if(link == null){
 			log.debug("Create failed");
 		}else{

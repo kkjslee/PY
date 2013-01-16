@@ -15,7 +15,8 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
-import com.inforstack.openstack.i18n.I18nLink;
+import com.inforstack.openstack.i18n.I18nService;
+import com.inforstack.openstack.i18n.link.I18nLinkService;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
 import com.inforstack.openstack.item.ItemMetadata;
@@ -40,6 +41,12 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private I18nService i18nService;
+	
+	@Autowired
+	private I18nLinkService i18nLinkService;
 
 	@Override
 	public List<Category> listAllCategory(boolean excludeDisabled) {
@@ -57,9 +64,9 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Category addCategory(I18nLink name, boolean enable) {
+	public Category addCategory(int languageId, String name, boolean enable) {
 		Category category = new Category();
-		category.setName(name);
+		//category.setName(name);
 		category.setEnable(enable);
 		return this.categoryDao.persist(category);
 	}
@@ -75,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemSpecification addItem(I18nLink name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata) {
+	public ItemSpecification addItem(int languageId, String name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata) {
 		ItemSpecification newItem = null;
 		String osTypeName = ItemSpecification.OS_TYPE_NONE;
 		switch (osType) {
@@ -105,7 +112,7 @@ public class ItemServiceImpl implements ItemService {
 		if (osTypeName != null) {
 			Date now = new Date();
 			newItem = new ItemSpecification();
-			newItem.setName(name);
+			//newItem.setName(name);
 			newItem.setDefaultPrice(defaultPrice);
 			newItem.setAvailable(available);
 			newItem.setOsType(osTypeName);

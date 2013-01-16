@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.inforstack.openstack.i18n.I18nLink;
+import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
 public class ItemMetadata {

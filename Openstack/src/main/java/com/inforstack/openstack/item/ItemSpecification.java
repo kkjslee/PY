@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.inforstack.openstack.i18n.I18nLink;
+import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
 public class ItemSpecification {

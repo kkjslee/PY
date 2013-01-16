@@ -36,7 +36,6 @@ public class ItemSpecificationDaoImpl implements ItemSpecificationDao {
 			log.debug("get successful");
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
-			throw re;
 		}
 		return list;
 	}

@@ -12,7 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import com.inforstack.openstack.i18n.I18nLink;
+import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
 public class Category {
@@ -29,8 +29,8 @@ public class Category {
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "item_category", 
-		joinColumns = { @JoinColumn(name = "item_id", insertable=false, updatable = false) }, 
-		inverseJoinColumns = { @JoinColumn(name = "category_id", insertable=false, updatable = false) }
+		joinColumns = { @JoinColumn(name = "category_id", insertable=false, updatable = false) }, 
+		inverseJoinColumns = { @JoinColumn(name = "item_id", insertable=false, updatable = false) }
 	)
 	private List<ItemSpecification> itemSpecifications;
 	

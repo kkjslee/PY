@@ -36,7 +36,6 @@ public class CategoryDaoImpl implements CategoryDao {
 			log.debug("get successful");
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
-			throw re;
 		}
 		return list;
 	}

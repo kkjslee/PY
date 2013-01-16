@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -60,6 +62,7 @@ public class I18nLink {
 	}
 	
 	@Transient
+	@Transactional
 	public String getI18nContent(){
 		I18nService i18nService = (I18nService)OpenstackUtil.getBean("i18nService");
 		return i18nService.getI18nContent(this);

@@ -9,7 +9,8 @@
 		<class>com.inforstack.openstack.security.permission.Permission</class>
 		<class>com.inforstack.openstack.security.role.Role</class>
 		<class>com.inforstack.openstack.security.group.SecurityGroup</class>
-		<class>com.inforstack.openstack.i18n.I18nLink</class>
+		<class>com.inforstack.openstack.i18n.I18n</class>
+		<class>com.inforstack.openstack.i18n.link.I18nLink</class>
 		<class>com.inforstack.openstack.tenant.Tenant</class>
 		<class>com.inforstack.openstack.tenant.agent.Agent</class>
 		<class>com.inforstack.openstack.user.User</class>

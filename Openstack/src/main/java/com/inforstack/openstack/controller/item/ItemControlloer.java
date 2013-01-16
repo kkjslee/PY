@@ -34,13 +34,11 @@ public class ItemControlloer {
 		ArrayList<CategoryModel> models = new ArrayList<CategoryModel>();
 		List<Category> categories = this.itemService.listAllCategory(excludeDisabled);
 		for (Category category : categories) {
-			if (!excludeDisabled || category.getEnable()) {
-				CategoryModel cm = new CategoryModel();
-				cm.setId(category.getId());
-				cm.setName(category.getName().getI18nContent());
-				cm.setEnable(category.getEnable());
-				models.add(cm);
-			}
+			CategoryModel cm = new CategoryModel();
+			cm.setId(category.getId());
+			cm.setName(category.getName().getI18nContent());
+			cm.setEnable(category.getEnable());
+			models.add(cm);
 		}
 		return models;
 	}

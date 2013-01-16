@@ -15,7 +15,9 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
+import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
+import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.i18n.link.I18nLinkService;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
@@ -23,6 +25,7 @@ import com.inforstack.openstack.item.ItemMetadata;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.ItemSpecificationDao;
+import com.inforstack.openstack.utils.Constants;
 
 @Service
 @Transactional
@@ -51,28 +54,40 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Category> listAllCategory(boolean excludeDisabled) {
 		List<Category> categories = this.categoryDao.list();
-		if (excludeDisabled) {
-			List<Category> list = new ArrayList<Category>();
-			for (Category category : categories) {
-				if (category.getEnable()) {
-					list.add(category);
-				}
+		List<Category> list = new ArrayList<Category>();
+		for (Category category : categories) {
+			if (!excludeDisabled || category.getEnable()) {
+				category.getName().getId();
+				list.add(category);
 			}
-			categories = list;
 		}
 		return categories;
 	}
 
 	@Override
 	public Category addCategory(int languageId, String name, boolean enable) {
+		I18nLink link = this.i18nService.createI18n(languageId, name, Constants.TABLE_CATEGORY, Constants.COLUMN_CATEGORY_NAME).getI18nLink();
 		Category category = new Category();
-		//category.setName(name);
+		category.setName(link);
 		category.setEnable(enable);
 		return this.categoryDao.persist(category);
 	}
 
 	@Override
-	public void updateCategory(Category category) {
+	public void updateCategory(Category category, int languageId, String name, boolean enable) {
+		I18nLink link = this.i18nLinkService.findI18nLink(category.getName().getId());
+		if (link == null) {
+			link = this.i18nService.createI18n(languageId, name, Constants.TABLE_CATEGORY, Constants.COLUMN_CATEGORY_NAME).getI18nLink();
+			category.setName(link);
+		} else {
+			I18n i18n = this.i18nService.findByLinkAndLanguage(category.getName().getId(), languageId);
+			if (i18n == null) {
+				this.i18nService.createI18n(languageId, name, link);
+			} else {
+				this.i18nService.updateI18n(category.getName().getId(), languageId, name);
+			}
+		}
+		category.setEnable(enable);
 		this.categoryDao.update(category);
 	}
 

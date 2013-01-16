@@ -8,7 +8,7 @@ public interface ItemService {
 	
 	public Category addCategory(int languageId, String name, boolean enable);
 	
-	public void updateCategory(Category category);
+	public void updateCategory(Category category, int languageId, String name, boolean enable);
 	
 	public void removeCategory(Category category);
 	

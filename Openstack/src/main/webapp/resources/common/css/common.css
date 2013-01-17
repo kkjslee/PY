@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+* {
+    font-family:"微软雅黑",Arial,Helvetica,sans-serif;
+}
+body {
+    background:white;
+    margin:0;
+}
+

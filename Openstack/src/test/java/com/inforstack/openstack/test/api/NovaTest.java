@@ -359,7 +359,7 @@ public class NovaTest {
 				
 				Server newServer = new Server();
 				newServer.setName("Test Create Server");
-				newServer.setImageRef("493f6097-938a-44bb-9698-deb53aa79948");
+				newServer.setImageRef("0236a3ba-48e3-4150-92bf-af2d2285800a");
 				newServer.setFlavorRef("1");
 				newServer.setMetadata(new HashMap<String, String>());
 				newServer.getMetadata().put("1", "M1");

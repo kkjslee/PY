@@ -3,19 +3,7 @@
 //this is for admin dashboard
 $(function(){
 	initUI();
-	  
-	$(window).bind("resize", fixSize); // we should resize it while the window is resizing 
-  
-	// ok, let's expand it acquiescently
-	$("#menu1").trigger("click");
-  
-	// and then open default page
-	$("#menu0").trigger("click");
 	
-	// register logout button
-	$(".menu").delegate(".logout", "click", function(){
-		signout();
-	});
 });
 
 
@@ -99,7 +87,7 @@ function dumpMenu(container, type) {
 			
 			$("<li class=\"optmenu\"><a id=\"menu6\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.logs'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
 			
-			$("<li><a id=\"menu7\" class=\"logout\">"+"<spring:message code='admin.navigation.menu.admin.signout'/>"+"</a></li>").appendTo(container);
+			$("<li><a id=\"menu7\" href=\"<%=request.getContextPath()%>/admin/doLogout\" class=\"logout\">"+"<spring:message code='admin.navigation.menu.admin.signout'/>"+"</a></li>").appendTo(container);
 		}
 	}
 	
@@ -135,13 +123,14 @@ function loadModule(modulePath) {
   
 	$(".prepare").show();
 
-	var view=$("<iframe id='contentFrame' style='height:100%;display:none;border:0;overflow:auto;border-collapse:collapse;' frameborder=0 src='${pageContext.request.contextPath}/admin/"+modulePath+"' scrolling='auto'></iframe>").appendTo($(".right").empty());
-	$(view).bind("load", function(){
-		fixSize();
-		$(view).css("display","block");
-		$(".prepare").hide();
-	});
-  
+  $(".right").empty()
+    $(".right").load("${pageContext.request.contextPath}/admin/"+modulePath,function(response,status,xhr){
+        if(status == "success"){
+            $(".prepare").hide();
+        }else{
+        
+        }
+    })
 }
 
 function fixSize() {

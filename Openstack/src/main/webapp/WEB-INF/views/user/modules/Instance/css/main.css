@@ -220,6 +220,8 @@ body {
 	font-size:14px;
 	cursor:default;
 }
-
+.vmstopped,.vmactive,.vmunpause,.vmpaused,.vmsuspended,.vmresuming{
+	display:none;
+}
 
 

@@ -2,12 +2,11 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page import="com.inforstack.openstack.utils.SecurityUtils"%>
 <!-- admin common link for modules -->
-<link rel="Stylesheet" type="text/css"  href="<%=request.getContextPath()%>/resource/admin/common/addons/dataTables/jquery.dataTables.css" />
+<link href="<%=request.getContextPath()%>/resource/admin/common/css/common.css" rel="Stylesheet" type="text/css"  />
+<script src="<%=request.getContextPath()%>/resource/admin/common/js/common.js" type="text/javascript"></script>
 
-<script src="<%=request.getContextPath()%>/resource/admin/common/addons/dataTables/jquery.dataTables.min.js" language="javascript"></script>
-<script src="<%=request.getContextPath()%>/admin/scripts/bootloader" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/admin/scripts/bootstrap" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/scripts/template" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/admin/scripts/bootstrap" type="text/javascript"></script>
 <%
     String userName =  SecurityUtils.getUserName();
 %>

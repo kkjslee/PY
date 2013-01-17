@@ -1,0 +1,129 @@
+@CHARSET "UTF-8";
+.dataTable{
+    min-height:40px;
+    width:100%;
+    border-collapse:collapse;
+    border-spacing:0; 
+    font-size:12px;
+    -webkit-box-shadow: rgba(0, 0, 0, .5) 1px 1px 1px;
+    -moz-box-shadow: rgba(0, 0, 0, .5) 1px 1px 1px;
+    box-shadow: rgba(0, 0, 0, .5) 1px 1px 1px;
+    
+    border-radius:5px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border:1px solid #ddd;
+    
+    margin-bottom:10px;
+}
+.dataTable th{
+    line-height: 100%;
+    white-space: nowrap;
+    border-bottom:1px solid black;
+    padding: 3px 18px 3px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align:middle;
+    cursor:pointer;
+    text-align:left;
+}
+.dataTable body tr {
+    border-color: #CCC;
+    border-width: 1px 0;
+    border-style: solid;
+    cursor:default;
+}
+
+.dataTable  tbody tr td{
+    font-size: 12px;
+    line-height: 160%;
+    white-space: nowrap;
+    padding: 5px 10px 4px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    text-indent:2px;
+}
+.headerRow {
+    background: #fff;
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height:35px;
+}
+.headerRow:hover {
+    background: #f0f0f0;
+}
+.footerRow {
+    margin-bottom:20px;
+    background: #f4f4f4;
+    white-space:nowrap;
+    padding:2px 5px;
+    text-align:right;
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+    height:30px;
+}
+.footerRow td {border-top:1px solid #ddd;}
+
+.green{
+    color:#65C300;
+}
+.orange{
+    color:#CC4444;
+}
+.dataRow {line-height:170%;}
+.dataRow:last-child td {border:none;}
+.dataTable  tfoot td{
+    text-align:right;
+    padding: 5px 5px 4px;
+}
+.dialogLine {
+    display:block;
+    line-height:28px;
+    margin-bottom:3px;
+    overflow:hidden;
+}
+.dialogLineLeft {
+    width:100px;
+    display:block;
+    float:left;
+    text-align:right;
+}
+.dialogLineRight {
+    display:block;
+    float:left;
+    text-align:left;
+}
+.dialogLineRight input{
+    width:200px;
+    height:25px;
+}
+.dialogLineRight select{
+	width:180px;
+	height:25px;
+}
+.loadingTips{
+	display:block;
+	padding:5px;
+	font-size:13px;
+	color:#0064CD;
+}
+.flavorDetails{
+	display:none;
+}
+.loadingError{
+	display:block;
+	padding:5px;
+    font-size:13px;
+    color:#C43C35;
+}
+.rowEve{
+	background-color:#FDF5D9;
+}

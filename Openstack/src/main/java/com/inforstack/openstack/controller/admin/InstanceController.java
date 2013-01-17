@@ -1,14 +1,20 @@
 package com.inforstack.openstack.controller.admin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,9 +23,6 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
-import com.inforstack.openstack.api.nova.flavor.FlavorService;
-import com.inforstack.openstack.api.nova.image.Image;
-import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.api.nova.server.Address;
 import com.inforstack.openstack.api.nova.server.Addresses;
 import com.inforstack.openstack.api.nova.server.Server;
@@ -31,16 +34,18 @@ import com.inforstack.openstack.api.nova.server.impl.StartServer;
 import com.inforstack.openstack.api.nova.server.impl.StopServer;
 import com.inforstack.openstack.api.nova.server.impl.SuspendServer;
 import com.inforstack.openstack.api.nova.server.impl.UnpauseServer;
-import com.inforstack.openstack.controller.model.FlavorModel;
-import com.inforstack.openstack.controller.model.ImgModel;
-import com.inforstack.openstack.controller.model.VMModel;
+import com.inforstack.openstack.controller.model.InstanceModel;
+import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 import com.inforstack.openstack.utils.ValidateUtil;
 
 @Controller
 @RequestMapping(value = "/admin/instance")
 public class InstanceController {
+
+  private static final Log log = LogFactory.getLog(InstanceController.class);
 
   @Autowired
   private ServerService serverService;
@@ -49,96 +54,112 @@ public class InstanceController {
   private KeystoneService keystoneService;
 
   @Autowired
-  private ImageService imageService;
+  private Validator validator;
 
-  @Autowired
-  private FlavorService flavorService;
+  private final String INSTANCE_MODULE_HOME = "admin/modules/Instance";
 
   @RequestMapping(value = "/modules/index", method = RequestMethod.GET)
   public String redirectModule(Model model, HttpServletRequest request) {
-    return "admin/modules/Instance/index";
+    return INSTANCE_MODULE_HOME + "/index";
   }
 
   @RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
   public String bootstrap(Model model) {
-    return "admin/modules/Instance/scripts/bootstrap";
+    model.addAttribute(Constants.PAGER_PAGE_INDEX, Constants.DEFAULT_PAGE_INDEX);
+    model.addAttribute(Constants.PAGER_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
+    return INSTANCE_MODULE_HOME + "/scripts/bootstrap";
   }
 
   @RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
   public String template(Model model) {
-    // retrive images and flavors
-    List<ImgModel> imgModels = listImgs(model);
-    model.addAttribute("imgModels", imgModels);
-    List<FlavorModel> flavorModels = listFlavors(model);
-    model.addAttribute("flavorModels", flavorModels);
-    return "admin/modules/Instance/scripts/template";
+    return INSTANCE_MODULE_HOME + "/scripts/template";
   }
 
-  @RequestMapping(value = "/vmlist", method = RequestMethod.POST, produces = "application/json")
-  public @ResponseBody
-  List<VMModel> listVMs(Model model, String loginUser) {
-    List<VMModel> vmList = new ArrayList<VMModel>();
-    // String username = SecurityUtils.getUserName();
-    // String password = SecurityUtils.getUser().getPassword();
+  @RequestMapping(value = "/getPagerInstanceList", method = RequestMethod.POST)
+  public String getPagerInstances(Model model, Integer pageIndex, Integer pageSize) {
+    int pageIdx = -1;
+    int pageSze = 0;
+    if (pageIndex == null || pageIndex == 0) {
+      log.warn("no pageindex passed, set default value 1");
+      pageIdx = Constants.DEFAULT_PAGE_INDEX;
+    } else {
+      pageIdx = pageIndex;
+    }
+    if (pageSize == null) {
+      log.warn("no page size passed, set default value 20");
+      pageSze = Constants.DEFAULT_PAGE_SIZE;
+    } else {
+      pageSze = pageSize;
+    }
+    List<InstanceModel> imList = new ArrayList<InstanceModel>();
     try {
       Access access = keystoneService.getAdminAccess();
       // Tenant tenant = access.getToken().getTenant();
       if (access != null) {
+        log.debug("listing server instances");
         Server[] servers = serverService.listServers(access, true);
-        VMModel vm = null;
-        Flavor flavor = null;
-        for (Server server : servers) {
-          vm = new VMModel();
-          vm.setVmid(server.getId());
-          vm.setVmname(server.getName());
-          vm.setStatus(Constants.vmStatusMap.get(server.getStatus()));
-          vm.setStatusdisplay(server.getStatus());
-          vm.setTenantId(server.getTenant());
-          vm.setStarttime(server.getCreated());
-          vm.setUpdatetime(server.getUpdated());
-          vm.setTaskStatus(server.getTask());
-          vm.setAssignedto(access.getUser().getUsername());
-          vm.setAccesspoint("");
-          Addresses addresses = server.getAddresses();
-          if (addresses.getPrivateList() != null) {
-            List<String> privateIps = new ArrayList<String>();
-            for (Address address : addresses.getPrivateList()) {
-              privateIps.add(address.getAddr());
+        if (servers != null) {
+          InstanceModel im = null;
+          Flavor flavor = null;
+          for (Server server : servers) {
+            im = new InstanceModel();
+            im.setVmid(server.getId());
+            im.setVmname(server.getName());
+            im.setStatus(server.getStatus());
+            im.setStatusdisplay(OpenstackUtil.getMessage(server.getStatus() + ".status.vm"));
+            im.setTenantId(server.getTenant());
+            im.setStarttime(server.getCreated());
+            im.setUpdatetime(server.getUpdated());
+            im.setTaskStatus(server.getTask());
+            im.setAssignedto(access.getUser().getUsername());
+            im.setAccesspoint("");
+            Addresses addresses = server.getAddresses();
+            if (addresses.getPrivateList() != null) {
+              List<String> privateIps = new ArrayList<String>();
+              for (Address address : addresses.getPrivateList()) {
+                privateIps.add(address.getAddr());
+              }
+              if (privateIps.size() > 0) {
+                im.setPrivateips(privateIps);
+              }
             }
-            if (privateIps.size() > 0) {
-              vm.setPrivateips(privateIps);
-            }
-          }
 
-          if (addresses.getPublicList() != null) {
-            List<String> publicIps = new ArrayList<String>();
-            for (Address address : addresses.getPublicList()) {
-              publicIps.add(address.getAddr());
+            if (addresses.getPublicList() != null) {
+              List<String> publicIps = new ArrayList<String>();
+              for (Address address : addresses.getPublicList()) {
+                publicIps.add(address.getAddr());
+              }
+              if (publicIps.size() > 0) {
+                im.setPublicips(publicIps);
+              }
             }
-            if (publicIps.size() > 0) {
-              vm.setPublicips(publicIps);
-            }
+            flavor = server.getFlavor();
+            im.setCpus(flavor.getVcpus());
+            im.setMaxcpus(flavor.getVcpus());
+            im.setMemory(flavor.getRam());
+            im.setMaxmemory(flavor.getRam());
+            im.setDisksize(flavor.getDisk());
+            im.setOstype(server.getImage().getName());
+            imList.add(im);
           }
-          flavor = server.getFlavor();
-          vm.setCpus(flavor.getVcpus());
-          vm.setMaxcpus(flavor.getVcpus());
-          vm.setMemory(flavor.getRam());
-          vm.setMaxmemory(flavor.getRam());
-          vm.setDisksize(flavor.getDisk());
-          vm.setOstype(server.getImage().getName());
-          vmList.add(vm);
         }
+
+        PagerModel<InstanceModel> page = new PagerModel<InstanceModel>(imList, pageSze);
+        imList = page.getPagedData(pageIdx);
+        model.addAttribute("pageIndex", pageIdx);
+        model.addAttribute("pageSize", pageSze);
+        model.addAttribute("pageTotal", page.getTotalRecord());
+        model.addAttribute("dataList", imList);
       }
     } catch (OpenstackAPIException e) {
-      e.printStackTrace();
+      log.error(e.getMessage(), e);
     }
-
-    return vmList;
+    return INSTANCE_MODULE_HOME + "/tr";
   }
 
-  @RequestMapping(value = "/vmcontrol", method = RequestMethod.POST, produces = "application/json")
+  @RequestMapping(value = "/imcontrol", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  String controlVM(Model model, String executecommand, String vmid) {
+  String controlInstance(Model model, String executecommand, String vmid) {
     try {
       Access access = keystoneService.getAdminAccess();
       if (!StringUtil.isNullOrEmpty(executecommand) && !StringUtils.isNullOrEmpty(vmid)) {
@@ -172,74 +193,56 @@ public class InstanceController {
     return Constants.JSON_STATUS_DONE;
   }
 
-  @RequestMapping(value = "/createVM", method = RequestMethod.POST, produces = "application/json")
+  @RequestMapping(value = "/createInstance", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  String createVM(Model model, String vmName, String imgId, String flavorId) {
-
+  Map<String, Object> createInstance(Model model, @Valid InstanceModel vmModel) {
     Server newServer = new Server();
-    if (StringUtil.isNullOrEmpty(vmName) || StringUtil.isNullOrEmpty(imgId)
-        || StringUtil.isNullOrEmpty(flavorId)) {
-      return Constants.JSON_STATUS_FAILED;
+    Map<String, Object> ret = new HashMap<String, Object>();
+    String errorMsg = ValidateUtil.validModel(validator, "admin", vmModel);
+    if (errorMsg != null) {
+      ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
+      return ret;
     }
-    newServer.setName(vmName);
-    newServer.setImageRef(imgId);
-    newServer.setFlavorRef(flavorId);
+    newServer.setName(vmModel.getVmname());
+    newServer.setImageRef(vmModel.getImageId());
+    newServer.setFlavorRef(vmModel.getFlavorId());
     try {
       Access access = keystoneService.getAdminAccess();
       serverService.createServer(access, newServer);
     } catch (OpenstackAPIException e) {
-      return Constants.JSON_STATUS_EXCEPTION;
+      log.error(e.getMessage(), e);
+      ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
+      return ret;
     }
-    return Constants.JSON_STATUS_DONE;
+    ret.put(Constants.JSON_SUCCESS_STATUS, "success");
+    return ret;
   }
 
-  @RequestMapping(value = "/imglist", method = RequestMethod.POST, produces = "application/json")
+  @RequestMapping(value = "/getInstance", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  List<ImgModel> listImgs(Model model) {
-    List<ImgModel> imgModels = new ArrayList<ImgModel>();
-    try {
-      Image[] imgs = imageService.listImages();
-      ImgModel imgModel = null;
-      for (Image img : imgs) {
-        if (ValidateUtil.checkValidImg(img)) {
-          imgModel = new ImgModel();
-          imgModel.setImgId(img.getId());
-          imgModel.setImgName(img.getName());
-          imgModels.add(imgModel);
+  InstanceModel retrieveInstance(Model model, String vmId) {
+    InstanceModel im = new InstanceModel();
+    if (!StringUtil.isNullOrEmpty(vmId, false)) {
+      try {
+        Access access = keystoneService.getAdminAccess();
+        if (access != null) {
+          Server server = serverService.getServer(access, vmId, false);
+          if (server != null) {
+            im.setTaskStatus(server.getTask());
+            im.setStatus(server.getStatus());
+            im.setStatusdisplay(OpenstackUtil.getMessage(server.getStatus() + ".status.vm"));
+          }
+        }
+
+      } catch (OpenstackAPIException e) {
+        if (e.getMessage().contains("404 Not Found")) {
+          log.error(e.getMessage());
+        } else {
+          log.error(e.getMessage(), e);
         }
 
       }
-    } catch (OpenstackAPIException e) {
-      e.printStackTrace();
     }
-
-    return imgModels;
+    return im;
   }
-
-  @RequestMapping(value = "/flavorlist", method = RequestMethod.POST, produces = "application/json")
-  public @ResponseBody
-  List<FlavorModel> listFlavors(Model model) {
-    List<FlavorModel> flavorModels = new ArrayList<FlavorModel>();
-    try {
-      Flavor[] flavors = flavorService.listFlavors();
-      FlavorModel flavorModel = null;
-      for (Flavor flavor : flavors) {
-        if (ValidateUtil.checkValidFlavor(flavor)) {
-          flavorModel = new FlavorModel();
-          flavorModel.setFlavorId(flavor.getId());
-          flavorModel.setDisk(flavor.getDisk());
-          flavorModel.setFlavorName(flavor.getName());
-          flavorModel.setRam(flavor.getRam());
-          flavorModel.setVcpus(flavor.getVcpus());
-          flavorModels.add(flavorModel);
-        }
-
-      }
-    } catch (OpenstackAPIException e) {
-      e.printStackTrace();
-    }
-
-    return flavorModels;
-  }
-
 }

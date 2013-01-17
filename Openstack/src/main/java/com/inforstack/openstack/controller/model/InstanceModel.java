@@ -17,8 +17,8 @@ import com.inforstack.openstack.utils.Constants;
  * @author shaw
  * 
  */
-@JsonSerialize(include = JsonSerialize.Inclusion.ALWAYS)
-public class VMModel {
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+public class InstanceModel {
   // vm uuid
   private String vmid;
 
@@ -60,7 +60,6 @@ public class VMModel {
   private String zonedisplay;
   // vm os type
   private String ostype;
-  // sub user specified
   private String assignedto;
 
   // task staus
@@ -70,7 +69,7 @@ public class VMModel {
 
   private String flavorId;
 
-  public VMModel() {
+  public InstanceModel() {
     super();
     // TODO Auto-generated constructor stub
   }

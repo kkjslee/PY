@@ -15,7 +15,7 @@ import com.inforstack.openstack.utils.Constants;
  * @author shaw
  * 
  */
-public class ImgModel {
+public class ImageModel {
 
   private String imgId;
 
@@ -42,7 +42,7 @@ public class ImgModel {
   @Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
   private int minRam;
 
-  public ImgModel() {
+  public ImageModel() {
     super();
     // TODO Auto-generated constructor stub
   }

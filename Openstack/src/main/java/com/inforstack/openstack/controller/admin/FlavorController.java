@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,14 @@ import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.controller.model.FlavorModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.StringUtil;
 import com.inforstack.openstack.utils.ValidateUtil;
 
 @Controller
 @RequestMapping(value = "/admin/flavor")
 public class FlavorController {
+
+  private static final Log log = LogFactory.getLog(FlavorController.class);
 
   @Autowired
   private FlavorService flavorService;
@@ -52,8 +57,41 @@ public class FlavorController {
 
   @RequestMapping(value = "/getPagerFlavorList", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  List<FlavorModel> getPagerFlavors(Model model, int pageIndex, int pageSize) {
+  List<FlavorModel> getPagerFlavors(Model model, Integer pageIndex, Integer pageSize) {
     List<FlavorModel> flavorList = new ArrayList<FlavorModel>();
+    try {
+      Flavor[] flavors = flavorService.listFlavors();
+      if (flavors != null) {
+        FlavorModel flavorModel = null;
+        for (Flavor flavor : flavors) {
+          if (ValidateUtil.checkValidFlavor(flavor)) {
+            flavorModel = new FlavorModel();
+            flavorModel.setFlavorId(flavor.getId());
+            flavorModel.setDisk(flavor.getDisk());
+            flavorModel.setFlavorName(flavor.getName());
+            flavorModel.setRam(flavor.getRam());
+            flavorModel.setVcpus(flavor.getVcpus());
+            flavorList.add(flavorModel);
+          }
+
+        }
+
+        PagerModel<FlavorModel> page = new PagerModel<FlavorModel>(flavorList, pageSize);
+        flavorList = page.getPagedData(pageIndex);
+        model.addAttribute("pageIndex", pageIndex);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageTotal", flavorList.size());
+      }
+    } catch (OpenstackAPIException e) {
+      e.printStackTrace();
+    }
+    return flavorList;
+  }
+
+  @RequestMapping(value = "/flavorList", method = RequestMethod.POST, produces = "application/json")
+  public @ResponseBody
+  List<FlavorModel> listFlavors(Model model) {
+    List<FlavorModel> flavorModels = new ArrayList<FlavorModel>();
     try {
       Flavor[] flavors = flavorService.listFlavors();
       FlavorModel flavorModel = null;
@@ -65,18 +103,15 @@ public class FlavorController {
           flavorModel.setFlavorName(flavor.getName());
           flavorModel.setRam(flavor.getRam());
           flavorModel.setVcpus(flavor.getVcpus());
-          flavorList.add(flavorModel);
+          flavorModels.add(flavorModel);
         }
 
       }
     } catch (OpenstackAPIException e) {
       e.printStackTrace();
     }
-    PagerModel<FlavorModel> page = new PagerModel<FlavorModel>(flavorList, pageSize);
-    flavorList = page.getPagedData(pageIndex);
-    model.addAttribute("pageIndex", pageIndex);
-    model.addAttribute("pageSize", pageSize);
-    return flavorList;
+
+    return flavorModels;
   }
 
   @RequestMapping(value = "/createFlavor", method = RequestMethod.POST, produces = "application/json")
@@ -96,6 +131,30 @@ public class FlavorController {
     }
     ret.put(Constants.JSON_SUCCESS_STATUS, "success");
     return ret;
+  }
+
+  @RequestMapping(value = "/getFlavorDetails", method = RequestMethod.POST, produces = "application/json")
+  public @ResponseBody
+  FlavorModel getFlavor(Model model, String flavorId) {
+    if (StringUtil.isNullOrEmpty(flavorId, true)) {
+      return null;
+    }
+    Flavor flavor = null;
+    FlavorModel fModel = new FlavorModel();
+    try {
+      flavor = flavorService.getFlavor(flavorId);
+    } catch (OpenstackAPIException e) {
+      log.error("flavor id:" + flavorId + e.getMessage(), e);
+    }
+    if (flavor == null) {
+      log.warn("flavor id:" + flavorId + " IS NULL ");
+    } else {
+      fModel.setFlavorId(flavorId);
+      fModel.setFlavorName(flavor.getName());
+      fModel.setRam(flavor.getRam());
+      fModel.setVcpus(flavor.getVcpus());
+    }
+    return fModel;
   }
 
   @RequestMapping(value = "/removeFlavor", method = RequestMethod.POST, produces = "application/json")

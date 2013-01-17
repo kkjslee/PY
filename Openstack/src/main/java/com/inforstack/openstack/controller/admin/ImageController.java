@@ -18,7 +18,7 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
-import com.inforstack.openstack.controller.model.ImgModel;
+import com.inforstack.openstack.controller.model.ImageModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.StringUtil;
@@ -39,33 +39,59 @@ public class ImageController {
 
   @RequestMapping(value = "/getPagerImageList", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  List<ImgModel> getPagerImages(Model model, int pageIndex, int pageSize) {
-    List<ImgModel> imgList = new ArrayList<ImgModel>();
+  List<ImageModel> getPagerImages(Model model, Integer pageIndex, Integer pageSize) {
+    List<ImageModel> imgList = new ArrayList<ImageModel>();
     try {
       Image[] images = imageService.listImages();
-      ImgModel imgModel = null;
-      for (Image img : images) {
-        if (ValidateUtil.checkValidImg(img)) {
-          imgModel = new ImgModel();
-          imgModel.setImgId(img.getId());
-          imgModel.setImgName(img.getName());
-          imgList.add(imgModel);
+      if (images != null) {
+        ImageModel imgModel = null;
+        for (Image img : images) {
+          if (ValidateUtil.checkValidImg(img)) {
+            imgModel = new ImageModel();
+            imgModel.setImgId(img.getId());
+            imgModel.setImgName(img.getName());
+            imgList.add(imgModel);
+          }
         }
+
+        PagerModel<ImageModel> page = new PagerModel<ImageModel>(imgList, pageSize);
+        imgList = page.getPagedData(pageIndex);
+        model.addAttribute("pageIndex", pageIndex);
+        model.addAttribute("pageSize", pageSize);
       }
     } catch (OpenstackAPIException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    PagerModel<ImgModel> page = new PagerModel<ImgModel>(imgList, pageSize);
-    imgList = page.getPagedData(pageIndex);
-    model.addAttribute("pageIndex", pageIndex);
-    model.addAttribute("pageSize", pageSize);
     return imgList;
+  }
+
+  @RequestMapping(value = "/imgList", method = RequestMethod.POST, produces = "application/json")
+  public @ResponseBody
+  List<ImageModel> listImages(Model model) {
+    List<ImageModel> imgModels = new ArrayList<ImageModel>();
+    try {
+      Image[] imgs = imageService.listImages();
+      ImageModel imgModel = null;
+      for (Image img : imgs) {
+        if (ValidateUtil.checkValidImg(img)) {
+          imgModel = new ImageModel();
+          imgModel.setImgId(img.getId());
+          imgModel.setImgName(img.getName());
+          imgModels.add(imgModel);
+        }
+
+      }
+    } catch (OpenstackAPIException e) {
+      e.printStackTrace();
+    }
+
+    return imgModels;
   }
 
   @RequestMapping(value = "/createImage", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  Map<String, Object> createImage(Model model, ImgModel imgModel) {
+  Map<String, Object> createImage(Model model, ImageModel imgModel) {
 
     Map<String, Object> ret = new HashMap<String, Object>();
     String errorMsg = ValidateUtil.validModel(validator, "admin", imgModel);
@@ -86,7 +112,7 @@ public class ImageController {
 
   @RequestMapping(value = "/retrieveImage", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  String createVM(Model model, String imgId) {
+  String getVM(Model model, String imgId) {
 
     if (StringUtil.isNullOrEmpty(imgId)) {
       return Constants.JSON_STATUS_FAILED;

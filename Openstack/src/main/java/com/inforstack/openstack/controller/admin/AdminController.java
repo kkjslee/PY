@@ -14,12 +14,6 @@ public class AdminController {
     return "admin/home";
   }
 
-  // for test
-  @RequestMapping(value = "/home", method = RequestMethod.GET)
-  public String navi(Model model) {
-    return "admin/home";
-  }
-
   @RequestMapping(value = "/modules/entry/index", method = RequestMethod.GET)
   public String entry(Model model) {
     return "admin/modules/Entry/index";
@@ -37,12 +31,12 @@ public class AdminController {
 
   @RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
   public String bootstrap(Model model) {
-    return "admin/scripts/bootloader";
+    return "admin/scripts/bootstrap";
   }
 
   @RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
   public String template(Model model) {
-    return "admin/scripts/bootloader";
+    return "admin/scripts/template";
   }
 
 }

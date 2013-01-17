@@ -3,6 +3,8 @@ package com.inforstack.openstack.controller.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inforstack.openstack.utils.Constants;
+
 /**
  * data list should be filtered first if necessary, this class just supply the pager function
  * 
@@ -12,8 +14,8 @@ import java.util.List;
  */
 public class PagerModel<T> {
   // pageIndex
-  private int pageNo = 1;
-  private int pageSize = 10;
+  private int pageNo = Constants.DEFAULT_PAGE_INDEX;
+  private int pageSize = Constants.DEFAULT_PAGE_SIZE;
   // total records number
   private int totalRecord = 0;
   // total page number
@@ -22,16 +24,16 @@ public class PagerModel<T> {
 
   public PagerModel(List<T> data) {
     this.data = data;
-    initPageUtil();
+    initPageModel();
   }
 
   public PagerModel(List<T> data, int pageSize) {
     this.data = data;
     this.pageSize = pageSize;
-    initPageUtil();
+    initPageModel();
   }
 
-  private void initPageUtil() {
+  private void initPageModel() {
     if (data != null) {
       totalRecord = data.size();
       totalPages = (totalRecord + pageSize - 1) / pageSize;
@@ -64,7 +66,7 @@ public class PagerModel<T> {
     }
     List<T> ret = new ArrayList<T>();
     int index = 0;
-    int first = (pageIndex - 1) * pageSize;
+    int first = pageIndex * pageSize;
     for (int i = 0; i < pageSize; i++) {
       index = first + i;
       if (index < data.size()) {

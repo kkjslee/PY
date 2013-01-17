@@ -57,6 +57,9 @@ public class Constants {
   public static final int ROLE_USER = 2;
   public static final int ROLE_AGENT = 3;
   
+  public static final int LANGUAGE_EN = 1;
+  public static final int LANGUAGE_CH = 2;
+  
   public static final String TABLE_CATEGORY = "Category";
   public static final String TABLE_ITEMMETADATA = "ItemMetadata";
   public static final String TABLE_ITEMSPECIFICATION = "ItemSpecification";

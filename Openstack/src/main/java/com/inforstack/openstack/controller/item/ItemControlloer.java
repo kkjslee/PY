@@ -1,19 +1,26 @@
 package com.inforstack.openstack.controller.item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.I18nModel;
+import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -21,6 +28,8 @@ import com.inforstack.openstack.utils.OpenstackUtil;
 @Controller
 @RequestMapping(value = "/item")
 public class ItemControlloer {
+	
+	private static final Log log = LogFactory.getLog(ItemControlloer.class);
 	
 	@Autowired
 	private ItemService itemService;
@@ -51,28 +60,49 @@ public class ItemControlloer {
 		return models;
 	}
 	
-	@RequestMapping(value = "/category/add", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody CategoryModel addCategory(Model model, CategoryModel categoryModel) {
-		CategoryModel cm = new CategoryModel();
-		
-		I18nModel[] name = categoryModel.getName();
-		if (name != null && name.length >= 1) {
-			Category category = this.itemService.addCategory(name[0].getLanguageId(), name[0].getContent(), categoryModel.isEnable());
-			if (category != null) {
-				for (int idx = 1; idx < name.length; idx++) {
-					this.itemService.updateCategory(category, name[idx].getLanguageId(), name[idx].getContent(), categoryModel.isEnable());
+	@RequestMapping(value = "/category", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> createCategory(Model model, @RequestBody CategoryModel categoryModel) {
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		if (categoryModel != null) {
+			try {
+				Category category = this.itemService.createCategory(categoryModel);
+				if (category != null) {
+					returnValue.put("success", "success");
 				}
-				
-				cm.setId(category.getId());
-				I18nModel[] n = new I18nModel[1];
-				n[0] = new I18nModel();
-				n[0].setLanguageId(OpenstackUtil.getLanguage().getId());
-				n[0].setContent(category.getName().getI18nContent());
-				cm.setName(n);
-				cm.setEnable(category.getEnable());
+			} catch (ApplicationException e) {
+				log.error(e.getMessage(), e);
+			}
+			
+		}
+		return returnValue;
+	}
+	
+	@RequestMapping(value = "/category", method = RequestMethod.PUT, produces = "application/json")
+	public @ResponseBody Map<String, Object> updateCategory(Model model, @RequestBody CategoryModel categoryModel) {
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		if (categoryModel != null) {
+			try {
+				this.itemService.updateCategory(categoryModel);
+				returnValue.put("success", "success");
+			} catch (ApplicationException e) {
+				log.error(e.getMessage(), e);
 			}
 		}
-		return cm;
+		return returnValue;
+	}
+	
+	@RequestMapping(value = "/category", method = RequestMethod.DELETE, produces = "application/json")
+	public @ResponseBody Map<String, Object> removeCategory(Model model, @RequestParam("id") Integer categoryId) {
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		if (categoryId != null) {
+			try {
+				this.itemService.removeCategory(categoryId);
+				returnValue.put("success", "success");
+			} catch (ApplicationException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
+		return returnValue;
 	}
 
 }

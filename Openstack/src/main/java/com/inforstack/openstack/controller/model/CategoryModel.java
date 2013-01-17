@@ -8,6 +8,10 @@ public class CategoryModel {
 	private I18nModel[] name;
 	
 	private Boolean enable;
+	
+	public CategoryModel() {
+		
+	}
 
 	public Integer getId() {
 		return id;

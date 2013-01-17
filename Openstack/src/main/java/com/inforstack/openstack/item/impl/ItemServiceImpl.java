@@ -15,6 +15,9 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
+import com.inforstack.openstack.controller.model.CategoryModel;
+import com.inforstack.openstack.controller.model.I18nModel;
+import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.i18n.link.I18nLink;
@@ -63,37 +66,59 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return categories;
 	}
-
+	
 	@Override
-	public Category addCategory(int languageId, String name, boolean enable) {
-		I18nLink link = this.i18nService.createI18n(languageId, name, Constants.TABLE_CATEGORY, Constants.COLUMN_CATEGORY_NAME).getI18nLink();
-		Category category = new Category();
-		category.setName(link);
-		category.setEnable(enable);
-		return this.categoryDao.persist(category);
+	public Category getCategory(int id) {
+		Category category = this.categoryDao.findById(id);
+		category.getName().getId();
+		return category;
 	}
 
 	@Override
-	public void updateCategory(Category category, int languageId, String name, boolean enable) {
-		I18nLink link = this.i18nLinkService.findI18nLink(category.getName().getId());
-		if (link == null) {
-			link = this.i18nService.createI18n(languageId, name, Constants.TABLE_CATEGORY, Constants.COLUMN_CATEGORY_NAME).getI18nLink();
-			category.setName(link);
-		} else {
-			I18n i18n = this.i18nService.findByLinkAndLanguage(category.getName().getId(), languageId);
-			if (i18n == null) {
-				this.i18nService.createI18n(languageId, name, link);
-			} else {
-				this.i18nService.updateI18n(category.getName().getId(), languageId, name);
+	public Category createCategory(CategoryModel model) throws ApplicationException {
+		Category category = null;
+		I18nModel[] i18nModels = model.getName();
+		if (i18nModels != null && i18nModels.length > 0) {
+			I18nLink link = this.i18nService.createI18n(i18nModels[0].getLanguageId(), i18nModels[0].getContent(), Constants.TABLE_CATEGORY, Constants.COLUMN_CATEGORY_NAME).getI18nLink();
+			if (link != null) {
+				for (int idx = 1; idx < i18nModels.length; idx++) {
+					this.i18nService.createI18n(i18nModels[idx].getLanguageId(), i18nModels[idx].getContent(), link);
+				}
+				category = new Category();
+				category.setEnable(model.isEnable());
+				category.setName(link);
+				category = this.categoryDao.persist(category);
 			}
 		}
-		category.setEnable(enable);
-		this.categoryDao.update(category);
+		return category;
 	}
 
 	@Override
-	public void removeCategory(Category category) {
-		this.categoryDao.remove(category.getId());
+	public void updateCategory(CategoryModel model) throws ApplicationException {
+		if (model.getId() != null) {
+			Category category = this.categoryDao.findById(model.getId());
+			if (category != null) {
+				Integer linkId = category.getName().getId();
+				if (linkId != null) {
+					I18nModel[] i18nModels = model.getName();
+					for (I18nModel i18nModel : i18nModels) {
+						I18n i18n = this.i18nService.findByLinkAndLanguage(linkId, i18nModel.getLanguageId());
+						if (i18n == null) {
+							this.i18nService.createI18n(i18nModel.getLanguageId(), i18nModel.getContent(), category.getName());
+						} else {
+							this.i18nService.updateI18n(linkId, i18nModel.getLanguageId(), i18nModel.getContent());
+						}
+					}
+					category.setEnable(model.isEnable());
+					this.categoryDao.update(category);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void removeCategory(Integer id) throws ApplicationException {
+		this.categoryDao.remove(id);
 	}
 
 	@Override

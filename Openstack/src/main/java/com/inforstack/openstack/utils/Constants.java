@@ -1,8 +1,5 @@
 package com.inforstack.openstack.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Constants {
 
   public static final String SESSION_ATTRIBUTE_NAME_AGENT = Constants.class.getName() + ".Agent";
@@ -39,19 +36,12 @@ public class Constants {
   public static final int DEFAULT_NAME_MIN_LENGTH = 3;
   public static final int DEFAULT_NAME_MAX_LENGTH = 45;
 
-  // compatible with font side
-  public static final Map<String, String> vmStatusMap = new HashMap<String, String>();
-  // key is the same as openstack status, and value is the same as front
-  static {
-    vmStatusMap.put("active", "RUNNING");
-    vmStatusMap.put("pause", "PAUSED");
-    vmStatusMap.put("rebooting", "RESUMING");
-    vmStatusMap.put("building", "CREATING");
-    vmStatusMap.put("stopped", "SHUTOFF");
-    vmStatusMap.put("resized", "RESIZED");
-    vmStatusMap.put("suspended", "SUSPENDED");
-    vmStatusMap.put("resuming", "RESUMING");
-  }
+  public static final int DEFAULT_PAGE_INDEX = 0;
+  // for test
+  public static final int DEFAULT_PAGE_SIZE = 5;
+
+  public static final String PAGER_PAGE_INDEX = "pageIndex";
+  public static final String PAGER_PAGE_SIZE = "pageSize";
 
   public static final int ROLE_ADMIN = 1;
   public static final int ROLE_USER = 2;

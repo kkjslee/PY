@@ -12,6 +12,7 @@ public class Permission {
 	private Integer id;
 	private String name;
 	private String description;
+	private Integer order;
 	public Integer getId() {
 		return id;
 	}
@@ -30,6 +31,13 @@ public class Permission {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Integer getOrder() {
+		return order;
+	}
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -53,5 +61,4 @@ public class Permission {
 			return false;
 		return true;
 	}
-	
 }

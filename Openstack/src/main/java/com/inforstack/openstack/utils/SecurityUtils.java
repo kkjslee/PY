@@ -110,4 +110,14 @@ public class SecurityUtils {
 		return user.getStatus() == Constants.USER_STATUS_VALID
 				&& user.getAgeing() == Constants.USER_AGEING_ACTIVE;
 	}
+	
+	public static boolean isAdminTenant(Tenant tenant){
+		if(tenant==null) return false;
+		
+		if(Constants.ROLE_ADMIN == tenant.getRoleId()){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

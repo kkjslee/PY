@@ -1,7 +1,9 @@
 package com.inforstack.openstack.i18n;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.i18n.link.I18nLinkService;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -170,9 +173,46 @@ public class I18nServiceImpl implements I18nService {
 	}
 	
 	@Override
+	public List<I18n> createI18n(Map<Integer, String> contentMap, String tableName,
+			String columnName) {
+		if(StringUtil.isNullOrEmpty(tableName) || StringUtil.isNullOrEmpty(columnName) ||
+				contentMap==null || contentMap.isEmpty()){
+			log.info("Create i18n failed for passed tableName/columnName/contentMap is null or empty");
+			return null;
+		}
+		
+		log.debug("Create I18n with tableName : " + tableName + ", columnName : " + columnName);
+		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
+		List<I18n> i18nLst = new ArrayList<I18n>();
+		for(Map.Entry<Integer, String> entry : contentMap.entrySet()){
+			Integer language = entry.getKey();
+			String content = entry.getValue();
+			I18n i18n = null;
+			if(i18nLst.isEmpty()){
+				i18n = self.createI18n(language, content, tableName, columnName);
+			}else{
+				I18nLink link = i18nLst.get(0).getI18nLink();
+				i18n = self.createI18n(language, content, link);
+			}
+			
+			if(i18n==null){
+				throw new ApplicationRuntimeException(
+						"Create i18n failed for language : " + language
+								+ ", content : "
+								+ StringUtil.convertToLogString(content));
+			}
+			i18nLst.add(i18n);
+		}
+		
+		log.debug("Create successfully");
+		return i18nLst;
+	}
+	
+	@Override
 	public I18n updateI18n(Integer i18nId, String content){
 		if(i18nId==null){
 			log.info("Update i18n failed for passed i18n id is null");
+			return null;
 		}
 		
 		log.debug("Update i18n with id : "+ i18nId);
@@ -190,8 +230,9 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public I18n updateI18n(Integer i18nLinkId, Integer languageId, String content){
-		if(i18nLinkId==null || languageId==null || content == null){
-			log.info("Update i18n failed for passed i18nLinkId/languageId/content is null");
+		if(i18nLinkId==null || languageId==null){
+			log.info("Update i18n failed for passed i18nLinkId/languageId is null");
+			return null;
 		}
 		
 		log.debug("Update i18n with link id : "+ i18nLinkId + ", language : " +languageId + ", content : " + StringUtil.convertToLogString(content) );
@@ -201,10 +242,65 @@ public class I18nServiceImpl implements I18nService {
 			log.info("No i18n found by link id : " + i18nLinkId + " and language id : " + languageId);
 			return null;
 		}
-		i18n.setContent(content);
+		i18n.setContent(content==null?"":content);
 		
 		log.debug("Update i18n successfully");
 		return i18n;
+	}
+	
+	@Override
+	public List<I18n> updateOrCreateI18n(I18nLink i18nLink, Map<Integer, String> contentMap){
+		if(i18nLink==null || contentMap==null || contentMap.isEmpty()){
+			log.info("Update or Create i18n failed for passed i18nLink/contentMap is null or empty");
+			return null;
+		}
+		log.debug("Update i18n with link : " + i18nLink.getId());
+		
+		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
+		List<I18n> i18nLst = new ArrayList<I18n>();
+		for(Map.Entry<Integer, String> entry : contentMap.entrySet()){
+			Integer language = entry.getKey();
+			String content = entry.getValue();
+			I18n i18n = i18nDao.find(i18nLink.getId(), language);
+			if(i18n == null){
+				i18n = self.createI18n(language, content, i18nLink);
+				if(i18n == null){
+					throw new ApplicationRuntimeException(
+							"Create i18n failed with language : " + language +
+							", content : " + StringUtil.convertToLogString(content) + 
+							", link : " + i18nLink.getId());
+				}
+			}
+			
+			i18n.setContent(content);
+		}
+		
+		log.debug("Create or update i18n successfully");
+		return i18nLst;
+	}
+	
+	public List<I18n> updateOrCreateI18n(Integer i18nLinkId, Map<Integer, String> contentMap){
+		if(i18nLinkId==null || contentMap==null || contentMap.isEmpty()){
+			log.info("Update or Create i18n failed for passed i18nLinkId/contentMap is null or empty");
+			return null;
+		}
+		log.debug("Update i18n with link : " + i18nLinkId);
+		
+		I18nLink link = i18nLinkService.findI18nLink(i18nLinkId);
+		if(link == null){
+			log.info("Update or create i18n failed for no link found for id : " + link.getId());
+			return null;
+		}
+		
+		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
+		List<I18n> i18nLst = self.updateOrCreateI18n(link, contentMap);
+		
+		if(i18nLst==null || i18nLst.isEmpty()){
+			log.debug("Create or update i18n failed");
+		}else{
+			log.debug("Create or update i18n successfully");
+		}
+		return i18nLst;
 	}
 	
 	@Override
@@ -245,4 +341,5 @@ public class I18nServiceImpl implements I18nService {
 		log.debug("Remove successfully");
 		return i18nLst;
 	}
+
 }

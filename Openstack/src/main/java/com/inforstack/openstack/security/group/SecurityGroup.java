@@ -40,7 +40,7 @@ public class SecurityGroup {
 	
 	private boolean valid;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	@JoinTable(name = "permission_group", 
 		joinColumns = { @JoinColumn(name = "group_id", insertable=false, updatable = false) }, 
 		inverseJoinColumns = { @JoinColumn(name = "permmision_id", insertable=false, updatable = false) }

@@ -210,6 +210,10 @@ public class Tenant {
 		return creatorId;
 	}
 
+	/**
+	 * Using this method will not insert into database
+	 * @param creatorId
+	 */
 	public void setCreatorId(Integer creatorId) {
 		this.creatorId = creatorId;
 	}

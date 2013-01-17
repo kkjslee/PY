@@ -63,10 +63,12 @@ public class Constants {
   public static final String TABLE_CATEGORY = "Category";
   public static final String TABLE_ITEMMETADATA = "ItemMetadata";
   public static final String TABLE_ITEMSPECIFICATION = "ItemSpecification";
+  public static final String TABLE_SECURITY_GROUP = "SecurityGroup";
   
   public static final String COLUMN_CATEGORY_NAME = "name_id";
   public static final String COLUMN_ITEMMETADATA_NAME = "name_id";
   public static final String COLUMN_ITEMMETADATA_VALUE = "value_id";
   public static final String COLUMN_ITEMSPECIFICATION_NAME = "name_id";
+  public static final String COLUMN_SECURITY_GROUP_DESCRIPTION = "SecurityGroup";
 
 }

@@ -1,6 +1,7 @@
 package com.inforstack.openstack.i18n;
 
 import java.util.List;
+import java.util.Map;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 
@@ -43,6 +44,8 @@ public interface I18nService {
 	public I18n createI18n(Integer languageId, String content, Integer i18nLinkId);
 	
 	public I18n createI18n(Integer languageId, String content, String tableName, String columnName);
+	
+	public List<I18n> createI18n(Map<Integer, String> contentMap, String tableName, String columnName);
 
 	/**
 	 * find i18n by id and language, then update the content
@@ -53,6 +56,10 @@ public interface I18nService {
 	public I18n updateI18n(Integer i18nId, String content);
 	
 	public I18n updateI18n(Integer i18nLinkId, Integer languageId, String content);
+	
+	public List<I18n> updateOrCreateI18n(I18nLink i18nLink, Map<Integer, String> contentMap);
+	
+	public List<I18n> updateOrCreateI18n(Integer i18nLinkId, Map<Integer, String> contentMap);
 
 	/**
 	 * 

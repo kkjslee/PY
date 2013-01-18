@@ -11,6 +11,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.configuration.Configuration;
@@ -53,7 +54,8 @@ public class FlavorServiceImpl implements FlavorService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLAVORS_DETAIL);
 			if (endpoint != null) {
 				Access access = this.tokenService.getAdminAccess();
-				Flavors response = RestUtils.get(endpoint.getValue(), access, Flavors.class, access.getToken().getTenant().getId());
+				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				Flavors response = RestUtils.get(url, access, Flavors.class);
 				if (response != null) {
 					flavors = response.getFlavors();
 					Configuration expire = this.configurationDao.findByName(CACHE_EXPIRE);
@@ -107,6 +109,8 @@ public class FlavorServiceImpl implements FlavorService {
 		if (endpoint != null) {
 			Access access = this.tokenService.getAdminAccess();
 			if (access != null) {
+				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				
 				String id = java.util.UUID.randomUUID().toString();
 				Flavor newFlavor = new Flavor();
 				newFlavor.setId(id);
@@ -119,7 +123,7 @@ public class FlavorServiceImpl implements FlavorService {
 				FlavorBody request = new FlavorBody();
 				request.setFlavor(newFlavor);
 				
-				FlavorBody response = RestUtils.postForObject(endpoint.getValue(), access, request, FlavorBody.class, access.getToken().getTenant().getId());
+				FlavorBody response = RestUtils.postForObject(url, access, request, FlavorBody.class);
 				if (response != null) {
 					flavor = response.getFlavor();
 					cache = null;
@@ -134,13 +138,18 @@ public class FlavorServiceImpl implements FlavorService {
 		if (flavor != null && !flavor.getId().trim().isEmpty()) {
 			Access access = this.tokenService.getAdminAccess();
 			if (access != null) {
-				Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_FLAVOR);
-				if (endpointUser != null) {
-					RestUtils.delete(endpointUser.getValue(), access, access.getToken().getTenant().getId(), flavor.getId());
+				Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLAVOR);
+				if (endpoint != null) {
+					String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+					RestUtils.delete(url, access, flavor.getId());
 					cache = null;
 				}
 			}
 		}
+	}
+	
+	private static String getEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "nova", type, suffix);
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 import com.inforstack.openstack.utils.RestUtils;
@@ -205,7 +206,8 @@ public class KeystoneServiceImpl implements KeystoneService {
 		if (endpointTenant != null) {
 			Access adminAccess = this.getAdminAccess();
 			if (adminAccess != null) {
-				TenantsResponse response = RestUtils.get(endpointTenant.getValue(), adminAccess, TenantsResponse.class);
+				String url = getEndpoint(adminAccess, Type.ADMIN, endpointTenant.getValue());
+				TenantsResponse response = RestUtils.get(url, adminAccess, TenantsResponse.class);
 				if (response != null) {
 					tenants = response.getTenants();
 				}
@@ -235,6 +237,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 		if (endpointTenant != null) {
 			Access adminAccess = this.getAdminAccess();
 			if (adminAccess != null) {
+				String url = getEndpoint(adminAccess, Type.ADMIN, endpointTenant.getValue());
 				Tenant newTenant = new Tenant();
 				newTenant.setName(name);
 				newTenant.setDescription(description);
@@ -242,22 +245,24 @@ public class KeystoneServiceImpl implements KeystoneService {
 				
 				TenantBody body = new TenantBody();
 				body.setTenant(newTenant);
-				body = RestUtils.postForObject(endpointTenant.getValue(), adminAccess, body, TenantBody.class);
+				body = RestUtils.postForObject(url, adminAccess, body, TenantBody.class);
 				tenant = body.getTenant();
 			}
 		}
 		return tenant;
 	}
 	
+	@Override
 	public Tenant updateTenant(Tenant tenant) throws OpenstackAPIException {
 		Tenant newTenant = null;
 		Configuration endpointTenant = this.configurationDao.findByName(ENDPOINT_TENANT);
 		if (endpointTenant != null) {
 			Access adminAccess = this.getAdminAccess();
 			if (adminAccess != null) {
+				String url = getEndpoint(adminAccess, Type.ADMIN, endpointTenant.getValue());
 				TenantBody body = new TenantBody();
 				body.setTenant(tenant);
-				body = RestUtils.postForObject(endpointTenant.getValue(), adminAccess, body, TenantBody.class, tenant.getId());
+				body = RestUtils.postForObject(url, adminAccess, body, TenantBody.class, tenant.getId());
 				newTenant = body.getTenant();
 			}
 		}
@@ -271,7 +276,8 @@ public class KeystoneServiceImpl implements KeystoneService {
 			if (endpointTenant != null) {
 				Access adminAccess = this.getAdminAccess();
 				if (adminAccess != null) {
-					RestUtils.delete(endpointTenant.getValue(), adminAccess, tenant.getId());
+					String url = getEndpoint(adminAccess, Type.ADMIN, endpointTenant.getValue());
+					RestUtils.delete(url, adminAccess, tenant.getId());
 				}
 			}
 		}
@@ -298,6 +304,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 		if (endpointUser != null) {
 			Access adminAccess = this.getAdminAccess();
 			if (adminAccess != null) {
+				String url = getEndpoint(adminAccess, Type.ADMIN, endpointUser.getValue());
 				User newUser = new User();
 				newUser.setName(name);
 				newUser.setPassword(pass);
@@ -306,7 +313,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 				
 				UserBody body = new UserBody();
 				body.setUser(newUser);
-				body = RestUtils.postForObject(endpointUser.getValue(), adminAccess, body, UserBody.class);
+				body = RestUtils.postForObject(url, adminAccess, body, UserBody.class);
 				user = body.getUser();
 				user.setPassword(null);
 			}
@@ -321,9 +328,10 @@ public class KeystoneServiceImpl implements KeystoneService {
 		if (endpointUser != null) {
 			Access adminAccess = this.getAdminAccess();
 			if (adminAccess != null) {
+				String url = getEndpoint(adminAccess, Type.ADMIN, endpointUser.getValue());
 				UserBody body = new UserBody();
 				body.setUser(user);
-				body = RestUtils.postForObject(endpointUser.getValue(), adminAccess, body, UserBody.class, user.getId());
+				body = RestUtils.postForObject(url, adminAccess, body, UserBody.class, user.getId());
 				newUser = body.getUser();
 			}
 		}
@@ -337,7 +345,8 @@ public class KeystoneServiceImpl implements KeystoneService {
 			if (endpointUser != null) {
 				Access adminAccess = this.getAdminAccess();
 				if (adminAccess != null) {
-					RestUtils.delete(endpointUser.getValue(), adminAccess, user.getId());
+					String url = getEndpoint(adminAccess, Type.ADMIN, endpointUser.getValue());
+					RestUtils.delete(url, adminAccess, user.getId());
 				}
 			}
 		}
@@ -363,7 +372,8 @@ public class KeystoneServiceImpl implements KeystoneService {
 						break;
 					}
 					if (roleId != null) {
-						RestUtils.put(endpoint.getValue(), adminAccess, null, tenant.getId(), user.getId(), roleId);
+						String url = getEndpoint(adminAccess, Type.ADMIN, endpoint.getValue());
+						RestUtils.put(url, adminAccess, null, tenant.getId(), user.getId(), roleId);
 					} else {
 						throw new OpenstackAPIException("Unknown role");
 					}
@@ -410,7 +420,8 @@ public class KeystoneServiceImpl implements KeystoneService {
 			Configuration endpointTenant = this.configurationDao.findByName(ENDPOINT_TENANT);
 			if (endpointTenant != null) {
 				if (adminAccess != null) {
-					RestUtils.delete(endpointTenant.getValue(), adminAccess, tenantId);
+					String url = getEndpoint(adminAccess, Type.ADMIN, endpointTenant.getValue());
+					RestUtils.delete(url, adminAccess, tenantId);
 				}
 			}
 		}		
@@ -418,10 +429,15 @@ public class KeystoneServiceImpl implements KeystoneService {
 			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_USER);
 			if (endpointUser != null) {
 				if (adminAccess != null) {
-					RestUtils.delete(endpointUser.getValue(), adminAccess, userId);
+					String url = getEndpoint(adminAccess, Type.ADMIN, endpointUser.getValue());
+					RestUtils.delete(url, adminAccess, userId);
 				}
 			}
 		}		
+	}
+	
+	private static String getEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "keystone", type, suffix);
 	}
 
 }

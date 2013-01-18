@@ -56,6 +56,10 @@ public class Access {
 		
 		public static final class EndPoint {
 			
+			public static enum Type {
+				ADMIN, INTERNAL, PUBLIC
+			}
+			
 			private String id;
 			
 			private String region;

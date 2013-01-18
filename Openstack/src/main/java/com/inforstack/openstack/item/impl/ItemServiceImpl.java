@@ -56,12 +56,14 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public List<Category> listAllCategory(boolean excludeDisabled) {
-		List<Category> categories = this.categoryDao.list();
 		List<Category> list = new ArrayList<Category>();
-		for (Category category : categories) {
-			if (!excludeDisabled || category.getEnable()) {
-				category.getName().getId();
-				list.add(category);
+		List<Category> categories = this.categoryDao.list();
+		if (categories != null) {
+			for (Category category : categories) {
+				if (!excludeDisabled || category.getEnable()) {
+					category.getName().getId();
+					list.add(category);
+				}
 			}
 		}
 		return categories;
@@ -70,7 +72,9 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Category getCategory(int id) {
 		Category category = this.categoryDao.findById(id);
-		category.getName().getId();
+		if (category != null) {
+			category.getName().getId();
+		}
 		return category;
 	}
 

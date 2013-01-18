@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.configuration.Configuration;
@@ -51,7 +52,8 @@ public class ImageServiceImpl implements ImageService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_IMAGES_DETAIL);
 			if (endpoint != null) {
 				Access access = this.tokenService.getAdminAccess();
-				Images response = RestUtils.get(endpoint.getValue(), access, Images.class, access.getToken().getTenant().getId());
+				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				Images response = RestUtils.get(url, access, Images.class);
 				if (response != null) {
 					images = response.getImages();
 					Configuration expire = this.configurationDao.findByName(CACHE_EXPIRE);
@@ -81,6 +83,10 @@ public class ImageServiceImpl implements ImageService {
 			}
 		}
 		return image;
+	}
+	
+	private static String getEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "nova", type, suffix);
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.nova.host.Host;
 import com.inforstack.openstack.api.nova.host.HostDescribe;
 import com.inforstack.openstack.api.nova.host.HostService;
@@ -46,7 +47,8 @@ public class HostServiceImpl implements HostService {
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_HOSTS);
 		if (endpoint != null) {
 			Access access = this.tokenService.getAdminAccess();
-			Hosts response = RestUtils.get(endpoint.getValue(), access, Hosts.class, access.getToken().getTenant().getId());
+			String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+			Hosts response = RestUtils.get(url, access, Hosts.class);
 			if (response != null) {
 				hosts = response.getHosts();
 			}
@@ -76,10 +78,15 @@ public class HostServiceImpl implements HostService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_HOST_DESCRIBE);
 			if (endpoint != null) {
 				Access access = this.tokenService.getAdminAccess();
-				describes = RestUtils.get(endpoint.getValue(), access, HostDescribes.class, access.getToken().getTenant().getId(), host.getName()).getDescribes();
+				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				describes = RestUtils.get(url, access, HostDescribes.class, host.getName()).getDescribes();
 			}
 		}
 		return describes;
+	}
+	
+	private static String getEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "nova", type, suffix);
 	}
 
 }

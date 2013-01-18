@@ -8,6 +8,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
@@ -54,7 +55,8 @@ public class ServerServiceImpl implements ServerService {
 		Server[] servers = null;
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS_DETAIL);
 		if (endpoint != null) {
-			Servers response = RestUtils.get(endpoint.getValue(), access, Servers.class, access.getToken().getTenant().getId());
+			String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+			Servers response = RestUtils.get(url, access, Servers.class);
 			if (response != null) {
 				servers = response.getServers();
 				for (Server server : servers) {
@@ -89,7 +91,8 @@ public class ServerServiceImpl implements ServerService {
 		Server server = null;
 		Configuration endpointServer = this.configurationDao.findByName(ENDPOINT_SERVER);
 		if (access != null && endpointServer != null) {
-			ServerBody response = RestUtils.get(endpointServer.getValue(), access, ServerBody.class, access.getToken().getTenant().getId(), id);
+			String url = getEndpoint(access, Type.ADMIN, endpointServer.getValue());
+			ServerBody response = RestUtils.get(url, access, ServerBody.class, id);
 			server = response.getServer();
 			if (flavorAndImage) {
 				Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
@@ -104,11 +107,12 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public Server createServer(Access access, Server server) throws OpenstackAPIException {
 		Server newServer = null;
-		Configuration endpointServers = this.configurationDao.findByName(ENDPOINT_SERVERS);
-		if (access != null && endpointServers != null) {
+		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS);
+		if (access != null && endpoint != null) {
+			String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
 			ServerBody request = new ServerBody();
 			request.setServer(server);
-			ServerBody response = RestUtils.postForObject(endpointServers.getValue(), access, request, ServerBody.class, access.getToken().getTenant().getId());
+			ServerBody response = RestUtils.postForObject(url, access, request, ServerBody.class);
 			newServer = response.getServer();
 			newServer = this.getServer(access, newServer.getId(), true);
 		}
@@ -118,9 +122,10 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public void removeServer(Access access, Server server) throws OpenstackAPIException {
 		if (access != null && server != null && !server.getId().trim().isEmpty()) {
-			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_SERVER);
-			if (endpointUser != null) {
-				RestUtils.delete(endpointUser.getValue(), access, access.getToken().getTenant().getId(), server.getId());
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				RestUtils.delete(url, access, server.getId());
 			}
 		}
 	}
@@ -128,11 +133,16 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public void doServerAction(Access access, Server server, ServerAction action) throws OpenstackAPIException {
 		if (access != null && server != null && !server.getId().trim().isEmpty()) {
-			Configuration endpointUser = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
-			if (endpointUser != null) {
-				RestUtils.postForLocation(endpointUser.getValue(), access, action, access.getToken().getTenant().getId(), server.getId());
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				RestUtils.postForLocation(url, access, action, server.getId());
 			}
 		}
+	}
+	
+	private static String getEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "nova", type, suffix);
 	}
 
 }

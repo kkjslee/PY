@@ -19,6 +19,9 @@ import org.springframework.web.client.RestTemplate;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
+import com.inforstack.openstack.api.keystone.Access.Service;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint;
+import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 
 public class RestUtils {
 	
@@ -38,6 +41,35 @@ public class RestUtils {
 	private static void addHeader(HttpHeaders headers) {
 		headers.add("Content-type", "application/json");
 		headers.add("Accept", "application/json");
+	}
+	
+	public static String getEndpoint(Access access, String serviceName,Type type, String endpointSuffix) {
+		String url = null;
+		if (access != null && serviceName != null && type != null && endpointSuffix != null) {
+			Service[] services = access.getServiceCatalog();
+			if (services != null) {
+				for (Service service : services) {
+					if (service.getName().equalsIgnoreCase(serviceName)) {
+						EndPoint[] endpoints = service.getEndpoints();
+						if (endpoints.length > 0) {
+							switch (type) {
+							case ADMIN:
+								url = endpoints[0].getAdminURL() + endpointSuffix;
+								break;
+							case INTERNAL:
+								url = endpoints[0].getInternalURL() + endpointSuffix;
+								break;
+							case PUBLIC:
+								url = endpoints[0].getPublicURL() + endpointSuffix;
+								break;
+							}
+						}
+						break;
+					}
+				}
+			}
+		}
+		return url;
 	}
 	
 	public static <Request extends RequestBody, Response> Response postForObject(String url, Request request, Class<Response> responseType, Object... urlVariables) throws OpenstackAPIException {

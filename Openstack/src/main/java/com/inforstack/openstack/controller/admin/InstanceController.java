@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -152,6 +151,7 @@ public class InstanceController {
         model.addAttribute("dataList", imList);
       }
     } catch (OpenstackAPIException e) {
+      System.out.println(e.getMessage());
       log.error(e.getMessage(), e);
     }
     return INSTANCE_MODULE_HOME + "/tr";
@@ -195,7 +195,7 @@ public class InstanceController {
 
   @RequestMapping(value = "/createInstance", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  Map<String, Object> createInstance(Model model, @Valid InstanceModel vmModel) {
+  Map<String, Object> createInstance(Model model, InstanceModel vmModel) {
     Server newServer = new Server();
     Map<String, Object> ret = new HashMap<String, Object>();
     String errorMsg = ValidateUtil.validModel(validator, "admin", vmModel);
@@ -230,13 +230,37 @@ public class InstanceController {
           if (server != null) {
             im.setTaskStatus(server.getTask());
             im.setStatus(server.getStatus());
+            List<String> privateIps = new ArrayList<String>();
+            if (server.getAddresses() != null && server.getAddresses().getPrivateList() != null) {
+              Address[] addresses = server.getAddresses().getPrivateList();
+              for (Address addr : addresses) {
+                privateIps.add(addr.getAddr());
+              }
+            }
+            if (privateIps.size() > 0) {
+              im.setPrivateips(privateIps);
+            }
+
+            List<String> publicIps = new ArrayList<String>();
+            if (server.getAddresses() != null && server.getAddresses().getPublicList() != null) {
+              Address[] addresses = server.getAddresses().getPublicList();
+              for (Address addr : addresses) {
+                publicIps.add(addr.getAddr());
+              }
+            }
+            if (publicIps.size() > 0) {
+              im.setPublicips(publicIps);
+            }
             im.setStatusdisplay(OpenstackUtil.getMessage(server.getStatus() + ".status.vm"));
           }
         }
 
       } catch (OpenstackAPIException e) {
-        if (e.getMessage().contains("404 Not Found")) {
+        System.out.println(e.getMessage());
+        if (e.getMessage().contains("404") || e.getMessage().contains("Can not fetch data")) {
           log.error(e.getMessage());
+          im.setStatus("deleted");
+          im.setStatusdisplay(OpenstackUtil.getMessage("deleted.status.vm"));
         } else {
           log.error(e.getMessage(), e);
         }

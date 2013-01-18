@@ -6,10 +6,13 @@ import java.util.List;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.Range;
 
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.StringUtil;
 
 /**
  * vm instance model used for response
@@ -19,6 +22,7 @@ import com.inforstack.openstack.utils.Constants;
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class InstanceModel {
+  private static final Log log = LogFactory.getLog(InstanceModel.class);
   // vm uuid
   private String vmid;
 
@@ -68,6 +72,10 @@ public class InstanceModel {
   private String imageId;
 
   private String flavorId;
+  private boolean isProcessing;
+  private int powerOn;
+  // status+task+power
+  private String statusString;
 
   public InstanceModel() {
     super();
@@ -256,6 +264,38 @@ public class InstanceModel {
 
   public void setFlavorId(String flavorId) {
     this.flavorId = flavorId;
+  }
+
+  public boolean getIsProcessing() {
+    String powerString = (powerOn == 1 ? "on" : "off");
+    this.statusString = StringUtil.joinStringWithEmpty(status, taskStatus, powerString + "")
+        .toLowerCase();
+    log.info("vm :" + vmid + " vmname: " + vmname + " current status string : " + statusString);
+    if (Constants.VM_STATUS_DONE_STRING.indexOf("|" + statusString + "|") == -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void setIsProcessing(boolean isProcessing) {
+    this.isProcessing = isProcessing;
+  }
+
+  public int getPowerOn() {
+    return powerOn;
+  }
+
+  public void setPowerOn(int powerOn) {
+    this.powerOn = powerOn;
+  }
+
+  public String getStatusString() {
+    return statusString;
+  }
+
+  public void setStatusString(String statusString) {
+    this.statusString = statusString;
   }
 
 }

@@ -55,7 +55,7 @@ public class ServerServiceImpl implements ServerService {
 		Server[] servers = null;
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS_DETAIL);
 		if (endpoint != null) {
-			String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+			String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 			Servers response = RestUtils.get(url, access, Servers.class);
 			if (response != null) {
 				servers = response.getServers();
@@ -91,7 +91,7 @@ public class ServerServiceImpl implements ServerService {
 		Server server = null;
 		Configuration endpointServer = this.configurationDao.findByName(ENDPOINT_SERVER);
 		if (access != null && endpointServer != null) {
-			String url = getEndpoint(access, Type.ADMIN, endpointServer.getValue());
+			String url = getEndpoint(access, Type.INTERNAL, endpointServer.getValue());
 			ServerBody response = RestUtils.get(url, access, ServerBody.class, id);
 			server = response.getServer();
 			if (flavorAndImage) {
@@ -109,7 +109,7 @@ public class ServerServiceImpl implements ServerService {
 		Server newServer = null;
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS);
 		if (access != null && endpoint != null) {
-			String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+			String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 			ServerBody request = new ServerBody();
 			request.setServer(server);
 			ServerBody response = RestUtils.postForObject(url, access, request, ServerBody.class);
@@ -124,7 +124,7 @@ public class ServerServiceImpl implements ServerService {
 		if (access != null && server != null && !server.getId().trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				RestUtils.delete(url, access, server.getId());
 			}
 		}
@@ -135,7 +135,7 @@ public class ServerServiceImpl implements ServerService {
 		if (access != null && server != null && !server.getId().trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.ADMIN, endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				RestUtils.postForLocation(url, access, action, server.getId());
 			}
 		}

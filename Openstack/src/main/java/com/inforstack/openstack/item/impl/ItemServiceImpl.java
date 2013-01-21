@@ -20,6 +20,7 @@ import com.inforstack.openstack.controller.model.I18nModel;
 import com.inforstack.openstack.controller.model.ItemMetadataModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
 import com.inforstack.openstack.controller.model.PriceModel;
+import com.inforstack.openstack.controller.model.ProfileModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
@@ -32,6 +33,7 @@ import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.ItemSpecificationDao;
 import com.inforstack.openstack.item.Price;
+import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.utils.Constants;
 
 @Service
@@ -137,6 +139,9 @@ public class ItemServiceImpl implements ItemService {
 			list = c.getItemSpecifications();
 			for (ItemSpecification is : list) {
 				is.getName().getId();
+				if (is.getProfile() != null) {
+					is.getProfile().getId();
+				}
 			}
 		}
 		return list;
@@ -147,6 +152,9 @@ public class ItemServiceImpl implements ItemService {
 		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
+			if (itemSpecification.getProfile() != null) {
+				itemSpecification.getProfile().getId();
+			}
 		}
 		return itemSpecification;
 	}
@@ -255,6 +263,36 @@ public class ItemServiceImpl implements ItemService {
 						newItem.setCategories(categorys);
 					}
 					
+					ProfileModel profileModel =  model.getProfile();
+					if (profileModel != null) {
+						Profile profile = new Profile();
+						if (profileModel.getCpuId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getCpuId());
+							if (item != null) {
+								profile.setCpu(item);
+							}
+						}
+						if (profileModel.getMemoryId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getMemoryId());
+							if (item != null) {
+								profile.setMemory(item);
+							}
+						}
+						if (profileModel.getDiskId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getDiskId());
+							if (item != null) {
+								profile.setDisk(item);
+							}
+						}
+						if (profileModel.getNetworkId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getNetworkId());
+							if (item != null) {
+								profile.setNetwork(item);
+							}
+						}
+						newItem.setProfile(profile);
+					}
+					
 					newItem = this.itemSpecificationDao.persist(newItem);
 				}
 			}
@@ -311,6 +349,39 @@ public class ItemServiceImpl implements ItemService {
 							}
 						}
 						itemSpecification.setCategories(categorys);
+					}
+					
+					ProfileModel profileModel =  model.getProfile();
+					if (profileModel != null) {
+						Profile profile = itemSpecification.getProfile();
+						if (profile == null) {
+							profile = new Profile();
+						}
+						if (profileModel.getCpuId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getCpuId());
+							if (item != null) {
+								profile.setCpu(item);
+							}
+						}
+						if (profileModel.getMemoryId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getMemoryId());
+							if (item != null) {
+								profile.setMemory(item);
+							}
+						}
+						if (profileModel.getDiskId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getDiskId());
+							if (item != null) {
+								profile.setDisk(item);
+							}
+						}
+						if (profileModel.getNetworkId() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getNetworkId());
+							if (item != null) {
+								profile.setNetwork(item);
+							}
+						}
+						itemSpecification.setProfile(profile);
 					}
 					
 					this.itemSpecificationDao.update(itemSpecification);

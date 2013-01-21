@@ -23,6 +23,8 @@ public class ItemSpecificationModel {
 	private CategoryModel[] categories;
 	
 	private ItemMetadataModel[] metadata;
+	
+	private ProfileModel profile;
 
 	public Integer getId() {
 		return id;
@@ -102,6 +104,14 @@ public class ItemSpecificationModel {
 
 	public void setMetadata(ItemMetadataModel[] metadata) {
 		this.metadata = metadata;
+	}
+
+	public ProfileModel getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ProfileModel profile) {
+		this.profile = profile;
 	}
 
 }

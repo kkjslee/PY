@@ -65,6 +65,10 @@ public class ItemSpecification {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
 	private List<ItemMetadata> metadata;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+	@JoinColumn
+	private Profile profile;
 
 	public int getId() {
 		return id;
@@ -152,6 +156,14 @@ public class ItemSpecification {
 
 	public void setMetadata(List<ItemMetadata> metadata) {
 		this.metadata = metadata;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 }

@@ -119,7 +119,7 @@ return result;
  */
 var testArr={};
 testArr['positive_int']='^[1-9]\\d*$';
-testArr['vmname']='^[a-zA-Z_][a-zA-Z0-9_]*$';
+testArr['vmname']='^[a-zA-Z_][a-zA-Z0-9_]{2,11}$';
 testArr['letter'] = '^[a-zA-Z]+$';
 testArr['username'] = '^[0-9a-zA-Z_]+$';
 testArr['qq'] = '^[0-9]\\d*$';

@@ -1,6 +1,6 @@
 package com.inforstack.openstack.controller.model;
 
-import java.util.Date;
+
 
 public class ItemSpecificationModel {
 	
@@ -16,9 +16,13 @@ public class ItemSpecificationModel {
 	
 	private Boolean available;
 	
-	private Date created;
+	private String created;
 	
-	private Date updated;
+	private String updated;
+	
+	private CategoryModel[] categories;
+	
+	private ItemMetadataModel[] metadata;
 
 	public Integer getId() {
 		return id;
@@ -68,20 +72,36 @@ public class ItemSpecificationModel {
 		this.available = available;
 	}
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
-	public Date getUpdated() {
+	public String getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(String updated) {
 		this.updated = updated;
+	}
+
+	public CategoryModel[] getCategories() {
+		return categories;
+	}
+
+	public void setCategories(CategoryModel[] categories) {
+		this.categories = categories;
+	}
+
+	public ItemMetadataModel[] getMetadata() {
+		return metadata;
+	}
+
+	public void setMetadata(ItemMetadataModel[] metadata) {
+		this.metadata = metadata;
 	}
 
 }

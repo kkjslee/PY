@@ -1,5 +1,6 @@
 package com.inforstack.openstack.controller.item;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.I18nModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
+import com.inforstack.openstack.controller.model.PriceModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.ItemService;
@@ -75,8 +77,8 @@ public class ItemControlloer {
 					itemSpecificationModel.setRefId(itemSpecification.getRefId());
 					itemSpecificationModel.setDefaultPrice(itemSpecification.getDefaultPrice());
 					itemSpecificationModel.setAvailable(itemSpecification.getAvailable());
-					itemSpecificationModel.setCreated(itemSpecification.getCreated());
-					itemSpecificationModel.setUpdated(itemSpecification.getUpdated());
+					itemSpecificationModel.setCreated(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, OpenstackUtil.getLocale()).format(itemSpecification.getCreated()));
+					itemSpecificationModel.setUpdated(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, OpenstackUtil.getLocale()).format(itemSpecification.getUpdated()));
 					itemSpecificationModels[idx++] = itemSpecificationModel;
 				}
 				cm.setItemSpecifications(itemSpecificationModels);
@@ -136,10 +138,25 @@ public class ItemControlloer {
 		Map<String, Object> returnValue = new HashMap<String, Object>();
 		if (itemSpecificationModel != null) {
 			try {
-				ItemSpecification itemSpecification = this.itemService.createItem(itemSpecificationModel, null);
+				ItemSpecification itemSpecification = this.itemService.createItem(itemSpecificationModel);
 				if (itemSpecification != null) {
 					returnValue.put("success", "success");
 				}
+			} catch (ApplicationException e) {
+				log.error(e.getMessage(), e);
+			}
+			
+		}
+		return returnValue;
+	}
+	
+	@RequestMapping(value = "/editPrice", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> editPrice(Model model, @RequestBody PriceModel priceModel) {
+		Map<String, Object> returnValue = new HashMap<String, Object>();
+		if (priceModel != null) {
+			try {
+				this.itemService.updateItemSpecificationPrice(priceModel);
+				returnValue.put("success", "success");
 			} catch (ApplicationException e) {
 				log.error(e.getMessage(), e);
 			}

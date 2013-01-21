@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
+import com.inforstack.openstack.controller.model.PriceModel;
 import com.inforstack.openstack.exception.ApplicationException;
 
 public interface ItemService {
 	
 	public List<Category> listAllCategory(boolean excludeDisabled) ;
 	
-	public Category getCategory(int id);
+	public Category getCategory(Integer id);
 	
 	public Category createCategory(CategoryModel model) throws ApplicationException;
 	
@@ -20,6 +21,14 @@ public interface ItemService {
 	
 	public List<ItemSpecification> listItemSpecificationByCategory(Category category);
 	
-	public ItemSpecification createItem(ItemSpecificationModel model, List<ItemMetadata> metadata) throws ApplicationException;
+	public ItemSpecification getItemSpecification(Integer id);
+	
+	public ItemSpecification createItem(ItemSpecificationModel model) throws ApplicationException;
+	
+	public void updateItemSpecification(ItemSpecificationModel model) throws ApplicationException;
+	
+	public void updateItemSpecificationPrice(PriceModel model) throws ApplicationException;
+	
+	public void removeItemSpecification(Integer id) throws ApplicationException;
 	
 }

@@ -17,7 +17,9 @@ import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.I18nModel;
+import com.inforstack.openstack.controller.model.ItemMetadataModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
+import com.inforstack.openstack.controller.model.PriceModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
@@ -72,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 	
 	@Override
-	public Category getCategory(int id) {
+	public Category getCategory(Integer id) {
 		Category category = this.categoryDao.findById(id);
 		if (category != null) {
 			category.getName().getId();
@@ -141,7 +143,16 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemSpecification createItem(ItemSpecificationModel model, List<ItemMetadata> metadata) throws ApplicationException {
+	public ItemSpecification getItemSpecification(Integer id) {
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		if (itemSpecification != null) {
+			itemSpecification.getName().getId();
+		}
+		return itemSpecification;
+	}
+	
+	@Override
+	public ItemSpecification createItem(ItemSpecificationModel model) throws ApplicationException {
 		ItemSpecification newItem = null;
 		String refId = model.getRefId();
 		String osTypeName = ItemSpecification.OS_TYPE_NONE;
@@ -190,8 +201,36 @@ public class ItemServiceImpl implements ItemService {
 					newItem.setRefId(refId);
 					newItem.setCreated(now);
 					newItem.setUpdated(now);
-					if (metadata != null) {
-						newItem.setMetadata(metadata);
+					
+					ItemMetadataModel[] metadataModel = model.getMetadata();
+					if (metadataModel != null) {
+						ArrayList<ItemMetadata> metadataList = new ArrayList<ItemMetadata>();
+						for (ItemMetadataModel m : metadataModel) {
+							I18nModel[] names = m.getName();
+							I18nModel[] values = m.getValue();
+							
+							I18nLink nameLink = this.i18nService.createI18n(names[0].getLanguageId(), names[0].getContent(), Constants.TABLE_ITEMMETADATA, Constants.COLUMN_ITEMMETADATA_NAME).getI18nLink();
+							if (nameLink != null) {
+								for (int idx = 1; idx < names.length; idx++) {
+									this.i18nService.createI18n(names[idx].getLanguageId(), names[idx].getContent(), nameLink);
+								}
+							}
+							
+							I18nLink valueLink = this.i18nService.createI18n(values[0].getLanguageId(), values[0].getContent(), Constants.TABLE_ITEMMETADATA, Constants.COLUMN_ITEMMETADATA_VALUE).getI18nLink();
+							if (valueLink != null) {
+								for (int idx = 1; idx < values.length; idx++) {
+									this.i18nService.createI18n(values[idx].getLanguageId(), values[idx].getContent(), valueLink);
+								}
+							}
+							
+							ItemMetadata metadata = new ItemMetadata();
+							metadata.setName(nameLink);
+							metadata.setValue(valueLink);
+							metadata.setItemSpecification(newItem);
+							
+							metadataList.add(metadata);
+						}
+						newItem.setMetadata(metadataList);
 					}
 					
 					Price price = new Price();
@@ -204,12 +243,106 @@ public class ItemServiceImpl implements ItemService {
 					prices.add(price);
 					newItem.setPrices(prices);
 					
+					CategoryModel[] categoryModels = model.getCategories();
+					if (categoryModels != null) {
+						ArrayList<Category> categorys = new ArrayList<Category>();						
+						for (CategoryModel categoryModel : categoryModels) {
+							Category category = this.categoryDao.findById(categoryModel.getId());
+							if (category != null) {
+								categorys.add(category);
+							}
+						}
+						newItem.setCategories(categorys);
+					}
+					
 					newItem = this.itemSpecificationDao.persist(newItem);
 				}
 			}
 			
 		}
 		return newItem;
+	}
+
+	@Override
+	public void updateItemSpecification(ItemSpecificationModel model) throws ApplicationException {
+		if (model.getId() != null) {
+			ItemSpecification itemSpecification = this.itemSpecificationDao.findById(model.getId());
+			if (itemSpecification != null) {
+				Integer linkId = itemSpecification.getName().getId();
+				if (linkId != null) {
+					I18nModel[] i18nModels = model.getName();
+					for (I18nModel i18nModel : i18nModels) {
+						I18n i18n = this.i18nService.findByLinkAndLanguage(linkId, i18nModel.getLanguageId());
+						if (i18n == null) {
+							this.i18nService.createI18n(i18nModel.getLanguageId(), i18nModel.getContent(), itemSpecification.getName());
+						} else {
+							this.i18nService.updateI18n(linkId, i18nModel.getLanguageId(), i18nModel.getContent());
+						}
+					}
+
+					Date now = new Date();
+					
+					itemSpecification.setDefaultPrice(model.getDefaultPrice());
+					itemSpecification.setAvailable(model.isAvailable());
+					itemSpecification.setOsType(model.getOsType());
+					itemSpecification.setRefId(model.getRefId());
+					itemSpecification.setUpdated(now);
+					
+					float defaultPrice = model.getDefaultPrice();
+					if (defaultPrice != itemSpecification.getDefaultPrice()) {
+						Price price = new Price();
+						price.setItemSpecification(itemSpecification);
+						price.setValue(defaultPrice);
+						price.setCreated(now);
+						price.setActivated(now);
+						
+						List<Price> prices = itemSpecification.getPrices();
+						prices.add(price);
+						itemSpecification.setPrices(prices);
+					}
+					
+					CategoryModel[] categoryModels = model.getCategories();
+					if (categoryModels != null) {
+						ArrayList<Category> categorys = new ArrayList<Category>();						
+						for (CategoryModel categoryModel : categoryModels) {
+							Category category = this.categoryDao.findById(categoryModel.getId());
+							if (category != null) {
+								categorys.add(category);
+							}
+						}
+						itemSpecification.setCategories(categorys);
+					}
+					
+					this.itemSpecificationDao.update(itemSpecification);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateItemSpecificationPrice(PriceModel model) throws ApplicationException {
+		if (model.getItemSpecificationId() != null && model.getValue() != null && model.getActivated() != null) {
+			ItemSpecification itemSpecification = this.itemSpecificationDao.findById(model.getItemSpecificationId());
+			float priceValue = itemSpecification.getDefaultPrice();
+			if (priceValue != model.getValue().floatValue()) {
+				Price price = new Price();
+				price.setItemSpecification(itemSpecification);
+				price.setValue(model.getValue().floatValue());
+				price.setCreated(new Date());
+				price.setActivated(model.getActivated());
+				
+				List<Price> prices = itemSpecification.getPrices();
+				prices.add(price);
+				itemSpecification.setPrices(prices);
+				
+				this.itemSpecificationDao.update(itemSpecification);
+			}
+		}
+	}
+
+	@Override
+	public void removeItemSpecification(Integer id) throws ApplicationException {
+		this.itemSpecificationDao.remove(id);
 	}
 	
 	private boolean checkFlavor(String id) {

@@ -24,11 +24,4 @@
 		</bean>
 	</mvc:interceptors>
 	
-	<mvc:interceptors>
-		<bean class="com.inforstack.openstack.web.interceptor.CustomInterceptor">
-			<property name="tenantParam" value="tenantCode" />
-			<property name="tenantService" ref="tenantService" />
-		</bean>
-	</mvc:interceptors>
-	
 </beans>

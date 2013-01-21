@@ -35,8 +35,6 @@ insert into Role(id, name) values (3, 'agent')
 
 insert into Tenant(id, name, dipalyName, role_id, ageing) values (1, 'admin', 'admin', 1, 1)
 
-insert into Agent(uuid, commission, tenant_id) values ('1', 0.1, 1)
-
 insert into User(id, name, password, firstName, lastName, role_id, defaultTenantId, status, ageing) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 'admin', 1, 1, 1, 1)
 
 insert into tenant_user(user_id, tenant_id) values (1, 1)

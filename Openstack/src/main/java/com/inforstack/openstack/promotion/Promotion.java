@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
@@ -29,6 +30,8 @@ public class Promotion {
 
 	private double discount;
 	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="tenant_id")
 	private Tenant tenant;
 	
 	private boolean deleted;

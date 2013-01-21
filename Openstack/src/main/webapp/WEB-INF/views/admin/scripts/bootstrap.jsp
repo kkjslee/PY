@@ -25,7 +25,9 @@ function showProcessingDialog() {
 function printError(jqXHR, textStatus, errorThrown) {
     printMessage("Connection Broken: "+textStatus+", "+errorThrown);
 }
-
+function printWarn(msg){
+    printMessage(msg);
+}
 function printMessage(msg) {
     return $.tmpl("messageBoxTemplate", [{message: msg}]).appendTo("#mainBody").dialog({
         resizable: false,

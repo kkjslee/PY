@@ -63,15 +63,15 @@ function dumpMenu(container, type) {
 			var subMenu, items;
 			
 			subMenu = $("<li class=\"optmenu\"><a id=\"menu1\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.resource'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
-			dumpMenuItem(true, subMenu, menuli("instance/modules/index", "<spring:message code='admin.navigation.menu.admin.resource.instance'/>"));
-			dumpMenuItem(true, subMenu, menuli("flavor/modules/index", "<spring:message code='admin.navigation.menu.admin.resource.flavor'/>"));
+			dumpMenuItem(true, subMenu, menuli("instance/modules/index", "<spring:message code='admin.navi.instance'/>"));
+			dumpMenuItem(true, subMenu, menuli("flavor/modules/index", "<spring:message code='admin.navi.flavor'/>"));
 			subMenu = $("<li class=\"optmenu\"><a id=\"menu2\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.stock'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
 			
 			subMenu = $("<li class=\"optmenu\"><a id=\"menu8\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.image'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
-			dumpMenuItem(true, subMenu, menuli("modules/VMImage/index", "<spring:message code='admin.navigation.menu.admin.image.manager'/>"));
+			/*dumpMenuItem(true, subMenu, menuli("modules/VMImage/index", "<spring:message code='admin.navigation.menu.admin.image.manager'/>"));
 			dumpMenuItem(true, subMenu, menuli("modules/VMCharge/index", "<spring:message code='admin.navigation.menu.admin.image.price'/>"));
 			dumpMenuItem(true, subMenu, menuli("modules/AppMgr/index", "<spring:message code='admin.navigation.menu.admin.image.appmgr'/>"));
-			
+			*/
 			$("<li class=\"optmenu\"><a id=\"menu7\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.apply'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
 			
 			$("<li class=\"optmenu\"><a id=\"menu3\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.apptemplate'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");

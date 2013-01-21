@@ -39,25 +39,42 @@ public class FlavorController {
   @Autowired
   private Validator validator;
 
+  private final String FLAVOR_MODULE_HOME = "admin/modules/Flavor";
+
   @RequestMapping(value = "/modules/index", method = RequestMethod.GET)
   public String redirectModule(Model model, HttpServletRequest request) {
-    return "admin/modules/Flavor/index";
+    return FLAVOR_MODULE_HOME + "/index";
   }
 
   @RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
   public String bootstrap(Model model) {
-    return "admin/modules/Flavor/scripts/bootstrap";
+    model.addAttribute(Constants.PAGER_PAGE_INDEX, Constants.DEFAULT_PAGE_INDEX);
+    model.addAttribute(Constants.PAGER_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
+    return FLAVOR_MODULE_HOME + "/scripts/bootstrap";
   }
 
   @RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
   public String template(Model model) {
     // retrieve images and flavors
-    return "admin/modules/Flavor/scripts/template";
+    return FLAVOR_MODULE_HOME + "/scripts/template";
   }
 
-  @RequestMapping(value = "/getPagerFlavorList", method = RequestMethod.POST, produces = "application/json")
-  public @ResponseBody
-  List<FlavorModel> getPagerFlavors(Model model, Integer pageIndex, Integer pageSize) {
+  @RequestMapping(value = "/getPagerFlavorList", method = RequestMethod.POST)
+  public String getPagerFlavors(Model model, Integer pageIndex, Integer pageSize) {
+    int pageIdx = -1;
+    int pageSze = 0;
+    if (pageIndex == null || pageIndex == 0) {
+      log.warn("no pageindex passed, set default value 1");
+      pageIdx = Constants.DEFAULT_PAGE_INDEX;
+    } else {
+      pageIdx = pageIndex;
+    }
+    if (pageSize == null) {
+      log.warn("no page size passed, set default value 20");
+      pageSze = Constants.DEFAULT_PAGE_SIZE;
+    } else {
+      pageSze = pageSize;
+    }
     List<FlavorModel> flavorList = new ArrayList<FlavorModel>();
     try {
       Flavor[] flavors = flavorService.listFlavors();
@@ -73,19 +90,19 @@ public class FlavorController {
             flavorModel.setVcpus(flavor.getVcpus());
             flavorList.add(flavorModel);
           }
-
         }
 
-        PagerModel<FlavorModel> page = new PagerModel<FlavorModel>(flavorList, pageSize);
-        flavorList = page.getPagedData(pageIndex);
-        model.addAttribute("pageIndex", pageIndex);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("pageTotal", flavorList.size());
+        PagerModel<FlavorModel> page = new PagerModel<FlavorModel>(flavorList, pageSze);
+        flavorList = page.getPagedData(pageIdx);
+        model.addAttribute("pageIndex", pageIdx);
+        model.addAttribute("pageSize", pageSze);
+        model.addAttribute("pageTotal", page.getTotalRecord());
+        model.addAttribute("dataList", flavorList);
       }
     } catch (OpenstackAPIException e) {
       e.printStackTrace();
     }
-    return flavorList;
+    return FLAVOR_MODULE_HOME + "/tr";
   }
 
   @RequestMapping(value = "/flavorList", method = RequestMethod.POST, produces = "application/json")
@@ -159,7 +176,7 @@ public class FlavorController {
 
   @RequestMapping(value = "/removeFlavor", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
-  String createVM(Model model, String flavorId) {
+  String removeFlavor(Model model, String flavorId) {
     if (StringUtils.isNullOrEmpty(flavorId)) {
       return Constants.JSON_STATUS_FAILED;
     }

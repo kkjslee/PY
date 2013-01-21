@@ -23,11 +23,11 @@
 	<table class="dataTable imList">
         <thead>
             <tr class="headerRow">
-                <th class="vmName"><spring:message code="admin.vm.template.vm.name" /> </th>
-                <th class="vmUser"><spring:message code="admin.vm.template.vm.user" /> </th>
-                <th class="vmStatus"><spring:message code="admin.vm.template.vm.status" /> </th>
-                <th class="vmOstype"><spring:message code="admin.vm.template.vm.ostype" /> </th>
-                <th class="vmOperation"><spring:message code="admin.vm.template.vm.operation" /> </th>
+                <th class="vmName"><spring:message code="admin.vm.name" /> </th>
+                <th class="vmUser"><spring:message code="admin.vm.user" /> </th>
+                <th class="vmStatus"><spring:message code="admin.vm.status" /> </th>
+                <th class="vmOstype"><spring:message code="admin.vm.ostype" /> </th>
+                <th class="vmOperation"><spring:message code="common.operation" /> </th>
             </tr>
         </thead>
         <tbody>

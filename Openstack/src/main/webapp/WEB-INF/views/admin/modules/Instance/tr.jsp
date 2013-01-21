@@ -17,14 +17,14 @@
     <input isos="vmName" type="hidden" value="${item.vmname}" />
     <input isos="vmAssignedTo" type="hidden" value="${item.assignedto}" />
     <div class="ititle">${item.vmname}</div>
-        <div class="vice">${item.privateips}</div>
+        <div class="pipvice vice">${item.privateips}</div>
     </td>
     <td class="vmRowCell vmUser">${item.assignedto}</td>
     <td class="vmRowCell vmStatus">
         <div class="ititle statusTitle">${item.statusdisplay}</div>
-        <c:if test='${not empty item.taskStatus}'>
-        <div class="statusVice vice">${item.taskStatus}</div>
-        </c:if>
+        <c:if test='${item.isProcessing == true}'>
+        <div class="statusVice vice"><c:if test='${not empty item.taskStatus}'>${item.taskStatus} </c:if></div>
+       </c:if>
     </td>
     <td class="vmRowCell vmOstype">
          ${item.ostype}
@@ -36,8 +36,8 @@
         <span class="ope vmpaused" <c:if test='${item.status=="paused"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'unpause','<spring:message code='unpause.button'/>');return false;"><spring:message code="unpause.button" /></a></span>
         <span class="ope vmsuspended"  <c:if test='${item.status=="suspended"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'resume','<spring:message code='resume.button'/>');return false;"><spring:message code="resume.button" /></a></span>
         <span class="ope vmresuming"    <c:if test='${item.status=="resuming" || item.status == "active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'suspend','<spring:message code='suspend.button'/>');return false;"><spring:message code="suspend.button" /></a></span>
-        <span><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></span>
-        <span><a class="button" href="#" onclick="ctlInstance(this, 'removevm','<spring:message code='remove.button'/>');return false;"><spring:message code="remove.button" /></a></span>
+        <span <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></span>
+        <span <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'removevm','<spring:message code='remove.button'/>');return false;"><spring:message code="remove.button" /></a></span>
     </td>
 </tr>
 </c:forEach>

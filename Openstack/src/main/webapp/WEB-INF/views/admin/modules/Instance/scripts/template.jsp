@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 var Template_CreateVM = '\
-    <div id="\${id}" style="font-size:12px;">\
+    <div id="\${id}">\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="vmname.label"/>:</span>\
             <span class="dialogLineRight">\

@@ -87,7 +87,7 @@ function ctlInstance(which, command, opeDesc) {
                     case "done": msg="<spring:message code='operation.request.submited'/>".sprintf(opeDesc);
                     break;
                     case "error": ;
-                    case "exception": msg="<spring:message code='admin.vm.message.error'/>";break;
+                    case "exception": msg="<spring:message code='operation.request.error'/>";break;
                 }
                 
                 printMessage(msg);
@@ -128,13 +128,13 @@ function showCreatVM(){
                 var selImageModel = $(this).find("select[isos='selImageModel']").val();
                 var selFlavorModel = $(this).find("select[isos='selFlavorModel']").val();
                 
-                 if(!/^[a-zA-Z_][a-zA-Z0-9_]{0,7}$/i.test(vmname)) {
-                     printMessage("<spring:message code='admin.vm.message.clone.tips.vmname'/>");
+                 if(!jQuery.checkstr(vmname,"vmname")) {
+                     printMessage("<spring:message code='vmname.check'/>");
                     return false;
                  }
   
                 if (!checkValidImageField(selImageModel, selFlavorModel)) {
-                    printMessage('<spring:message code="admin.common.message.invalid"/>');
+                    printMessage('<spring:message code="choosen.invalid"/>');
                     return;
                 }
 
@@ -189,7 +189,7 @@ function checkPageVMStatus(){
 }
 function refreshTaskStatus(){
      var hasTask = false;
-     $(".dataTable").find(".statusVice").each(function(){
+     $(".dataTable").find(".statusVice:visible").each(function(){
          hasTask = true;
          var row =  $(this).parents(".dataRow").first();
          var vmId = $(row).find("input[isos='vmId']").val();
@@ -215,7 +215,11 @@ function getTaskStatus(row,id){
             	  if (!data || data.length == 0) {
                       
                   }else{
-                	  if(!isNull(data.taskStatus)){
+                       if(!isNull(data.privateips)){
+                        $(row).find(".pipvice").text("[" + data.privateips.join(",")+"]");
+                       }
+                                         
+                	  if(!isNull(data.isProcessing) && data.isProcessing == true){
                         $(row).find(".statusVice").text(data.taskStatus);
                        }else{
                            $(row).find(".statusTitle").text(data.statusdisplay);
@@ -240,7 +244,7 @@ function updateButtonWidthStatus(row,status){
         $(row).find(".vmresuming").show();
      }
      if(status == "deleted"){
-        $(row).remove();
+        $(row).fadeOut("slow");
      }
     }
    
@@ -288,7 +292,7 @@ function getFlavorDetails(flavorId){
 
 
 function createVMItem(vmname, selImageModel, selFlavorModel) {
-
+ 
     var pd = showProcessingDialog();
     $.ajax({
         url: Server + "/createInstance",
@@ -309,7 +313,7 @@ function createVMItem(vmname, selImageModel, selFlavorModel) {
                     loadInstances(pageIndex, pageSize);
                 }
                 if(data.error){
-                    printMessage('<spring:message code="vm.new.request.failed"/>');
+                    printMessage(data.error);
                 }
 
             } catch(e) {
@@ -319,6 +323,7 @@ function createVMItem(vmname, selImageModel, selFlavorModel) {
         error: function(jqXHR, textStatus, errorThrown) {
             pd.dialog("close");
             printError(jqXHR, textStatus, errorThrown);
+            return false;
         }
     });
 }

@@ -9,6 +9,10 @@ public class PriceModel {
 	private Float value;
 	
 	private Date activated;
+	
+	public PriceModel() {
+		
+	}
 
 	public Integer getItemSpecificationId() {
 		return itemSpecificationId;

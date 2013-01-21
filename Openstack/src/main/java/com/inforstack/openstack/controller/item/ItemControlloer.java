@@ -23,10 +23,12 @@ import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.I18nModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
 import com.inforstack.openstack.controller.model.PriceModel;
+import com.inforstack.openstack.controller.model.ProfileModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
+import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Controller
@@ -79,6 +81,27 @@ public class ItemControlloer {
 					itemSpecificationModel.setAvailable(itemSpecification.getAvailable());
 					itemSpecificationModel.setCreated(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, OpenstackUtil.getLocale()).format(itemSpecification.getCreated()));
 					itemSpecificationModel.setUpdated(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, OpenstackUtil.getLocale()).format(itemSpecification.getUpdated()));
+					
+					Profile profile = itemSpecification.getProfile();
+					if (profile != null) {
+						ProfileModel profileModel = new ProfileModel();
+						profileModel.setItem(itemSpecification.getId());
+						if (profile.getCpu() != null) {
+							profileModel.setCpu(profile.getCpu().getId());
+						}
+						if (profile.getMemory() != null) {
+							profileModel.setMemory(profile.getMemory().getId());
+						}
+						if (profile.getDisk() != null) {
+							profileModel.setDisk(profile.getDisk().getId());
+						}
+						if (profile.getNetwork() != null) {
+							profileModel.setNetwork(profile.getNetwork().getId());
+						}
+						
+						itemSpecificationModel.setProfile(profileModel);
+					}
+					
 					itemSpecificationModels[idx++] = itemSpecificationModel;
 				}
 				cm.setItemSpecifications(itemSpecificationModels);

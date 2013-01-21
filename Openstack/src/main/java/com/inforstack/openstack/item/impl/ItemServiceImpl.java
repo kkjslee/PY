@@ -266,26 +266,26 @@ public class ItemServiceImpl implements ItemService {
 					ProfileModel profileModel =  model.getProfile();
 					if (profileModel != null) {
 						Profile profile = new Profile();
-						if (profileModel.getCpuId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getCpuId());
+						if (profileModel.getCpu() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getCpu());
 							if (item != null) {
 								profile.setCpu(item);
 							}
 						}
-						if (profileModel.getMemoryId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getMemoryId());
+						if (profileModel.getMemory() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getMemory());
 							if (item != null) {
 								profile.setMemory(item);
 							}
 						}
-						if (profileModel.getDiskId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getDiskId());
+						if (profileModel.getDisk() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getDisk());
 							if (item != null) {
 								profile.setDisk(item);
 							}
 						}
-						if (profileModel.getNetworkId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getNetworkId());
+						if (profileModel.getNetwork() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getNetwork());
 							if (item != null) {
 								profile.setNetwork(item);
 							}
@@ -357,26 +357,26 @@ public class ItemServiceImpl implements ItemService {
 						if (profile == null) {
 							profile = new Profile();
 						}
-						if (profileModel.getCpuId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getCpuId());
+						if (profileModel.getCpu() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getCpu());
 							if (item != null) {
 								profile.setCpu(item);
 							}
 						}
-						if (profileModel.getMemoryId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getMemoryId());
+						if (profileModel.getMemory() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getMemory());
 							if (item != null) {
 								profile.setMemory(item);
 							}
 						}
-						if (profileModel.getDiskId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getDiskId());
+						if (profileModel.getDisk() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getDisk());
 							if (item != null) {
 								profile.setDisk(item);
 							}
 						}
-						if (profileModel.getNetworkId() != null) {
-							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getNetworkId());
+						if (profileModel.getNetwork() != null) {
+							ItemSpecification item = this.itemSpecificationDao.findById(profileModel.getNetwork());
 							if (item != null) {
 								profile.setNetwork(item);
 							}

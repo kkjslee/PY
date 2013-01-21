@@ -78,15 +78,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException  {
+	public User registerUser(User user, Tenant tenant, int roleId) throws OpenstackAPIException  {
 		if(user==null || tenant==null){
 			log.info("Register user failed for passed user/tenant is null");
 			return null;
 		}
 		
 		log.debug("register user : " + user.getName() +", tenant : " + tenant.getName());
-		tenant.setRoleId(Constants.ROLE_USER);
-		Tenant t = tenantService.createTenant(tenant);
+		tenant.setRoleId(roleId);
+		Tenant t = tenantService.createTenant(tenant, roleId);
 		if(t == null){
 			log.warn("create tenant failed" + tenant.getName());
 			return null;
@@ -94,26 +94,27 @@ public class UserServiceImpl implements UserService {
 		
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
 		fillUser(user, t);
-		User u = self.createUser(user);
+		User u = self.createUser(user, roleId);
 		if(u == null){
 			log.warn("create user failed" + user.getName());
 			return null;
 		}
 		
 		t.setCreator(user);
-		keystoneService.addRole(Role.MEMBER, u.getOpenstackUser(), t.getOpenstatckTenant());
+		keystoneService.addRole(OpenstackUtil.getOpenstackRole(roleId), u.getOpenstackUser(), t.getOpenstatckTenant());
 		
 		return user;
 	}
 
 	@Override
-	public User createUser(User user) throws OpenstackAPIException {
+	public User createUser(User user, int roleId) throws OpenstackAPIException {
 		if(user==null) {
 			log.info("Create user failed for null is passed");
 			return null;
 		}
 		
 		log.debug("Create user : "+user.getName());
+		user.setRoleId(roleId);
 		user.setStatus(Constants.USER_STATUS_VALID);
 		user.setAgeing(Constants.USER_AGEING_ACTIVE);
 		user.setCreateTime(new Date());
@@ -177,7 +178,7 @@ public class UserServiceImpl implements UserService {
 		log.debug("Create user for tenant : "  + t.getName());
 		fillUser(user, t);
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
-		User u = self.createUser(user);
+		User u = self.createUser(user, t.getRoleId());
 		if(u == null){
 			log.warn("Create tenant user failed");
 			return null;
@@ -189,7 +190,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	private User fillUser(User user, Tenant t){
-		user.setRoleId(Constants.ROLE_USER);
+		user.setRoleId(t.getRoleId());
 		user.setDefaultTenantId(t.getId());
 		user.getTanents().clear();
 		user.getTanents().add(t);

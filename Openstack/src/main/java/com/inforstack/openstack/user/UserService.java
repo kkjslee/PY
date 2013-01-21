@@ -31,15 +31,16 @@ public interface UserService {
 	 * @throws OpenstackAPIException
 	 * @throws ApplicationWarning
 	 */
-	public User registerUser(User user, Tenant tenant) throws OpenstackAPIException;
+	public User registerUser(User user, Tenant tenant, int role) throws OpenstackAPIException;
 	
 	/**
 	 * create user
 	 * @param user
+	 * @param roleId
 	 * @return null if create failed
 	 * @throws OpenstackAPIException 
 	 */
-	public User createUser(User user) throws OpenstackAPIException;
+	public User createUser(User user, int roleId) throws OpenstackAPIException;
 	
 	/**
 	 * create tenant user, use the tenant stored in user detail

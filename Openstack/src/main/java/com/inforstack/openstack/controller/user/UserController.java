@@ -27,6 +27,7 @@ import com.inforstack.openstack.controller.model.UserModel;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
+import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
@@ -137,7 +138,7 @@ public class UserController {
 		
 		boolean success = true;
 		try{
-			userService.registerUser(user, tenant);
+			userService.registerUser(user, tenant, Constants.ROLE_USER);
 		}catch(Exception e){
 			success = false;
 			log.error(e.getMessage(), e);

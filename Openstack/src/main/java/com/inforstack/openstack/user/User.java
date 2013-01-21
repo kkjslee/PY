@@ -9,18 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.inforstack.openstack.security.group.SecurityGroup;
-import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.tenant.Tenant;
-import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.SecurityUtils;
 
 @Entity
@@ -87,8 +83,6 @@ public class User {
 	
 	@Transient
 	private com.inforstack.openstack.api.keystone.User openstackUser;
-	@Transient
-	private Role role;
 	
 	public Integer getId() {
 		return id;
@@ -273,7 +267,7 @@ public class User {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-
+	
 	public com.inforstack.openstack.api.keystone.User getOpenstackUser() {
 		if( openstackUser == null ){
 			com.inforstack.openstack.api.keystone.User ou =  new com.inforstack.openstack.api.keystone.User();
@@ -282,20 +276,19 @@ public class User {
 			ou.setId(uuid);
 			ou.setName(name);
 			ou.setPassword(password);
+			
+			return ou;
+		}else{
+			return openstackUser;
 		}
-		
-		return openstackUser;
 	}
 
+	/**
+	 * Transient
+	 * @param openstackUser
+	 */
 	public void setOpenstackUser(com.inforstack.openstack.api.keystone.User openstackUser) {
 		this.openstackUser = openstackUser;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 }

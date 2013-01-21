@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,9 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import com.inforstack.openstack.i18n.link.I18nLink;
+import com.inforstack.openstack.promotion.Promotion;
 import com.inforstack.openstack.user.User;
 
 @Entity
@@ -47,7 +45,7 @@ public class Tenant {
 	
 	private String postcode;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn
 	private I18nLink description;
 	
@@ -56,12 +54,21 @@ public class Tenant {
 	@Column(name="role_id")
 	private int roleId;
 	
+	private Integer agentId;
+	
 	@Column(name="creator_id", insertable=false, updatable=false)
 	private Integer creatorId;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="creator_id")
 	private User creator;
+	
+	@Column(name="promotion_id", insertable=false, updatable=false)
+	private Integer promotionId;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="promotion_id")
+	private Promotion promotion;
 	
 	@Transient
 	private com.inforstack.openstack.api.keystone.Tenant openstatckTenant;
@@ -197,21 +204,16 @@ public class Tenant {
 		this.uuid = uuid;
 	}
 
-	public com.inforstack.openstack.api.keystone.Tenant getOpenstatckTenant() {
-		return openstatckTenant;
-	}
-
-	public void setOpenstatckTenant(
-			com.inforstack.openstack.api.keystone.Tenant openstatckTenant) {
-		this.openstatckTenant = openstatckTenant;
-	}
-
+	/**
+	 * transient
+	 * @return
+	 */
 	public Integer getCreatorId() {
 		return creatorId;
 	}
-
+	
 	/**
-	 * Using this method will not insert into database
+	 * transient
 	 * @param creatorId
 	 */
 	public void setCreatorId(Integer creatorId) {
@@ -225,6 +227,30 @@ public class Tenant {
 	public void setCreator(User creator) {
 		this.creator = creator;
 	}
+	
+	/**
+	 * transient
+	 * @return
+	 */
+	public Integer getPromotionId() {
+		return promotionId;
+	}
+
+	/**
+	 * transient
+	 * @param promotionId
+	 */
+	public void setPromotionId(Integer promotionId) {
+		this.promotionId = promotionId;
+	}
+
+	public Promotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
 
 	public I18nLink getDescription() {
 		return description;
@@ -232,5 +258,22 @@ public class Tenant {
 
 	public void setDescription(I18nLink description) {
 		this.description = description;
+	}
+
+	public Integer getAgentId() {
+		return agentId;
+	}
+
+	public void setAgentId(Integer agentId) {
+		this.agentId = agentId;
+	}
+	
+	public com.inforstack.openstack.api.keystone.Tenant getOpenstatckTenant() {
+		return openstatckTenant;
+	}
+
+	public void setOpenstatckTenant(
+			com.inforstack.openstack.api.keystone.Tenant openstatckTenant) {
+		this.openstatckTenant = openstatckTenant;
 	}
 }

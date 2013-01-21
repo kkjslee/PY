@@ -16,4 +16,8 @@ public interface TenantDao {
 	 */
 	public Tenant findById(Integer tenantId);
 
+	public void remove(Tenant tenant);
+
+	public void merge(Tenant tenant);
+
 }

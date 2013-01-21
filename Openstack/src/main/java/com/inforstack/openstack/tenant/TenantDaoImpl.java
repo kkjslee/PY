@@ -46,4 +46,28 @@ public class TenantDaoImpl implements TenantDao{
 		return instance;
 	}
 
+	@Override
+	public void remove(Tenant tenant) {
+		log.debug("Remove tenant :" + tenant.getName());
+		try{
+			em.remove(tenant);
+		}catch(RuntimeException re){
+			log.error(re.getMessage(), re);
+			throw re;
+		}
+		log.debug("Remove successfully");
+	}
+
+	@Override
+	public void merge(Tenant tenant) {
+		log.debug("Merge tenant :" + tenant.getName());
+		try{
+			em.merge(tenant);
+		}catch(RuntimeException re){
+			log.error(re.getMessage(), re);
+			throw re;
+		}
+		log.debug("Merge successfully");
+	}
+
 }

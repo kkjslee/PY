@@ -1,15 +1,13 @@
 package com.inforstack.openstack.utils;
 
-
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.inforstack.openstack.security.auth.OpenstackUserDetails;
 import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.security.role.RoleService;
 import com.inforstack.openstack.tenant.Tenant;
-import com.inforstack.openstack.tenant.agent.Agent;
+import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
-
 
 public class SecurityUtils {
 
@@ -41,11 +39,12 @@ public class SecurityUtils {
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				User user = ((OpenstackUserDetails)o).getUser();
-				Role role = user.getRole();
+				OpenstackUserDetails ud = ((OpenstackUserDetails)o);
+				Role role = ud.getRole();
 				if(role == null){
 					RoleService rs = (RoleService)OpenstackUtil.getBean("roleService");
-					role = rs.findRoleById(user.getRoleId());
+					role = rs.findRoleById(ud.getUser().getRoleId());
+					ud.setRole(role);
 				}
 				return role;
 			}
@@ -80,11 +79,18 @@ public class SecurityUtils {
 		return null;
 	}
 	
-	public static Agent getAgent(){
+	public static Tenant getAgent(){
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				return ((OpenstackUserDetails)o).getAgent();
+				OpenstackUserDetails ud = ((OpenstackUserDetails)o);
+				Tenant agent = ud.getAgent();
+				if(agent == null){
+					TenantService as = (TenantService)OpenstackUtil.getBean("tenantService");
+					agent = as.findAgent(getTenant().getAgentId());
+					ud.setAgent(agent);
+				}
+				return agent;
 			}
 		}catch(Exception e){
 		}
@@ -96,7 +102,14 @@ public class SecurityUtils {
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				return ((OpenstackUserDetails)o).getTenant();
+				OpenstackUserDetails ud = ((OpenstackUserDetails)o);
+				Tenant tenant = ud.getTenant();
+				if(tenant == null){
+					TenantService ts = (TenantService)OpenstackUtil.getBean("tenantService");
+					tenant = ts.findTenantById(ud.getUser().getDefaultTenantId());
+					ud.setTenant(tenant);
+				}
+				return tenant;
 			}
 		}catch(Exception e){
 		}

@@ -10,7 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.promotion.Promotion;
+import com.inforstack.openstack.promotion.PromotionService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Service("tenantService")
 @Transactional(rollbackFor=Exception.class)
@@ -21,15 +24,18 @@ public class TenantServiceImpl implements TenantService {
 	private TenantDao tenantDao;
 	@Autowired
 	private KeystoneService keystoneService;
+	@Autowired
+	private PromotionService promotionService;
 	
 	@Override
-	public Tenant createTenant(Tenant tenant) throws OpenstackAPIException  {
+	public Tenant createTenant(Tenant tenant, int roleId) throws OpenstackAPIException  {
 		if(tenant == null){
 			log.info("Create tenant failed for null is passed");
 			return null;
 		}
 		
 		log.debug("create tenant : " + tenant.getName());
+		tenant.setRoleId(roleId);
 		tenant.setAgeing(Constants.TENANT_AGEING_ACTIVE);
 		tenant.setCreateTime(new Date());
 		tenantDao.persist(tenant);
@@ -56,6 +62,121 @@ public class TenantServiceImpl implements TenantService {
 		}
 		
 		return t;
+	}
+	
+	@Override
+	public Tenant findTenantWithPromotion(Integer tenantId){
+		if(tenantId == null){
+			log.info("Find tenant with promotion failed for passed tenannt id is null");
+			return null;
+		}
+		
+		TenantService self = (TenantService)OpenstackUtil.getBean("tenantService");
+		Tenant tenant = self.findTenantById(tenantId);
+		if(tenant == null){
+			log.info("Find tenant with promotion failed for no tenant found by id : " + tenantId);
+			return null;
+		}
+		tenant.getPromotion().getId();
+		log.debug("Find tenant with promotion successfully");
+		
+		return tenant;
+	}
+	
+	@Override
+	public Tenant findAgent(Integer agentId){
+		if(agentId==null){
+			log.info("Find agent by id failed for passed id is null");
+			return null;
+		}
+		
+		log.debug("find agent by id :" + agentId);
+		Tenant t = tenantDao.findById(agentId);
+		if(t != null && t.getRoleId() != Constants.ROLE_AGENT){
+			log.info("Tenant found with role : " + t.getRoleId());
+			t = null;
+		}
+		
+		if(t == null){
+			log.info("No tenant found for tenant id : " + agentId);
+		}else{
+			log.debug("Tenant found successfully by id : " + agentId);
+		}
+		
+		return t;
+	}
+
+	@Override
+	public Tenant updateTenant(Tenant tenant) {
+		if(tenant == null){
+			log.info("update tenant failed for passed tenant is null");
+			return null;
+		}
+		
+		log.debug("Update tenant with name : " + tenant.getName());
+		tenantDao.merge(tenant);
+		log.debug("Update tenant successfully");
+		return tenant;
+	}
+
+	@Override
+	public Tenant removeTenant(Tenant tenant) {
+		if(tenant == null){
+			log.info("Remove tenant failed for passed tenant is null");
+			return null;
+		}
+		
+		log.debug("Remove tenant with name : " + tenant.getName());
+		tenantDao.remove(tenant);
+		log.debug("Remove tenant successfully");
+		return tenant;
+	}
+
+	@Override
+	public Tenant removeTenant(Integer tenantId) {
+		if(tenantId == null){
+			log.info("Remove tenant failed for passed tenant id is null");
+			return null;
+		}
+		
+		log.debug("Remove tenant with id : " + tenantId);
+		Tenant tenant =  tenantDao.findById(tenantId);
+		if(tenant==null){
+			log.info("Remove tenant failed for no tenant instance found by id : " + tenantId);
+			return null;
+		}
+		tenantDao.remove(tenant);
+		log.debug("Remove tenant successfully");
+		return tenant;
+	}
+
+	@Override
+	public Tenant setPromotion(Integer tenantId, double discount) {
+		if(tenantId == null){
+			log.info("Set promotion failed for passed tenant id is null");
+			return null;
+		}
+		if(discount < 0){
+			log.info("Set promotion failed for passed discount is less than 0");
+			return null;
+		}
+		
+		log.debug("Set the promotion of tenant['"+tenantId+"'] to " + discount);
+		TenantService self = (TenantService)OpenstackUtil.getBean("tenantService");
+		Tenant tenant = self.findTenantById(tenantId);
+		if(tenant == null){
+			log.info("Set promotion failed for no tenant instance found by id : " + tenantId);
+			return null;
+		}
+		Promotion promotion = tenant.getPromotion();
+		Promotion newPromotion = promotionService.editDiscount(promotion.getId(), discount, tenant);
+		if(newPromotion==null){
+			log.warn("Set prommtion failed for edit discount failed");
+			return null;
+		}
+		tenant.setPromotion(newPromotion);
+		log.debug("Set promotion successfully");
+		return tenant;
 	}
 	
 }

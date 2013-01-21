@@ -2,7 +2,6 @@ package com.inforstack.openstack.security.auth;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -17,11 +16,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.inforstack.openstack.security.permission.Permission;
+import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.tenant.Tenant;
-import com.inforstack.openstack.tenant.agent.Agent;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
-import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.SecurityUtils;
 
 
@@ -35,7 +33,8 @@ public class OpenstackUserDetails implements UserDetails {
 	private static final Log log = LogFactory.getLog(OpenstackUserDetails.class);
 	private User user;
 	private Tenant tenant;
-	private Agent agent;
+	private Tenant agent;
+	private Role role;
 	@Autowired
 	private UserService userService;
 	
@@ -113,11 +112,19 @@ public class OpenstackUserDetails implements UserDetails {
 		this.tenant = tenant;
 	}
 
-	public Agent getAgent() {
+	public Tenant getAgent() {
 		return agent;
 	}
 
-	public void setAgent(Agent agent) {
+	public void setAgent(Tenant agent) {
 		this.agent = agent;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

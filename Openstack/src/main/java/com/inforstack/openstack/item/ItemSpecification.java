@@ -24,12 +24,14 @@ public class ItemSpecification {
 	public static final int OS_TYPE_IMAGE_ID = 2;
 	public static final int OS_TYPE_VOLUME_ID = 3;
 	public static final int OS_TYPE_NETWORK_ID = 4;
+	public static final int OS_TYPE_USAGE_ID = 5;
 	
 	public static final String OS_TYPE_NONE = "";
 	public static final String OS_TYPE_FLAVOR = "openstack.flavor";
 	public static final String OS_TYPE_IMAGE = "openstack.image";
 	public static final String OS_TYPE_VOLUME = "openstack.volume";
 	public static final String OS_TYPE_NETWORK = "openstack.network";
+	public static final String OS_TYPE_USAGE = "openstack.usage";
 	
 	@Id
 	@GeneratedValue
@@ -39,9 +41,7 @@ public class ItemSpecification {
 	@JoinColumn
 	private I18nLink name;
 	
-	private float defaultPrice;
-	
-	private String osType;
+	private int osType;
 	
 	private String refId;
 	
@@ -50,6 +50,11 @@ public class ItemSpecification {
 	private Date created;
 	
 	private Date updated;
+	
+	private float defaultPrice;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
+	private List<Price> prices;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "item_category", 
@@ -76,7 +81,7 @@ public class ItemSpecification {
 	public void setName(I18nLink name) {
 		this.name = name;
 	}
-
+	
 	public float getDefaultPrice() {
 		return defaultPrice;
 	}
@@ -85,11 +90,19 @@ public class ItemSpecification {
 		this.defaultPrice = defaultPrice;
 	}
 
-	public String getOsType() {
+	public List<Price> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(List<Price> prices) {
+		this.prices = prices;
+	}
+
+	public int getOsType() {
 		return osType;
 	}
 
-	public void setOsType(String osType) {
+	public void setOsType(int osType) {
 		this.osType = osType;
 	}
 

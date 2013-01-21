@@ -17,6 +17,7 @@ import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.I18nModel;
+import com.inforstack.openstack.controller.model.ItemSpecificationModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
@@ -28,6 +29,7 @@ import com.inforstack.openstack.item.ItemMetadata;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.ItemSpecificationDao;
+import com.inforstack.openstack.item.Price;
 import com.inforstack.openstack.utils.Constants;
 
 @Service
@@ -124,12 +126,26 @@ public class ItemServiceImpl implements ItemService {
 	public void removeCategory(Integer id) throws ApplicationException {
 		this.categoryDao.remove(id);
 	}
+	
+	@Override
+	public List<ItemSpecification> listItemSpecificationByCategory(Category category) {
+		List<ItemSpecification> list = null;
+		Category c = this.categoryDao.findById(category.getId());
+		if (c != null) {
+			list = c.getItemSpecifications();
+			for (ItemSpecification is : list) {
+				is.getName().getId();
+			}
+		}
+		return list;
+	}
 
 	@Override
-	public ItemSpecification addItem(int languageId, String name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata) {
+	public ItemSpecification createItem(ItemSpecificationModel model, List<ItemMetadata> metadata) throws ApplicationException {
 		ItemSpecification newItem = null;
+		String refId = model.getRefId();
 		String osTypeName = ItemSpecification.OS_TYPE_NONE;
-		switch (osType) {
+		switch (model.getOsType()) {
 		case ItemSpecification.OS_TYPE_FLAVOR_ID:
 			if (this.checkFlavor(refId)) {
 				osTypeName = ItemSpecification.OS_TYPE_FLAVOR;
@@ -150,23 +166,48 @@ public class ItemServiceImpl implements ItemService {
 		case ItemSpecification.OS_TYPE_NETWORK_ID:
 			osTypeName = ItemSpecification.OS_TYPE_NETWORK;
 			break;
+		case ItemSpecification.OS_TYPE_USAGE_ID:
+			osTypeName = ItemSpecification.OS_TYPE_USAGE;
+			break;
 		default:
-			log.debug("Unknown ItemSpecification Type: " + osType);
+			log.debug("Unknown ItemSpecification Type: " + model.getOsType());
 		}
 		if (osTypeName != null) {
 			Date now = new Date();
-			newItem = new ItemSpecification();
-			//newItem.setName(name);
-			newItem.setDefaultPrice(defaultPrice);
-			newItem.setAvailable(available);
-			newItem.setOsType(osTypeName);
-			newItem.setRefId(refId);
-			newItem.setCreated(now);
-			newItem.setUpdated(now);
-			if (metadata != null) {
-				newItem.setMetadata(metadata);
+			I18nModel[] i18nModels = model.getName();
+			if (i18nModels != null && i18nModels.length > 0) {
+				I18nLink link = this.i18nService.createI18n(i18nModels[0].getLanguageId(), i18nModels[0].getContent(), Constants.TABLE_ITEMSPECIFICATION, Constants.COLUMN_ITEMSPECIFICATION_NAME).getI18nLink();
+				if (link != null) {
+					for (int idx = 1; idx < i18nModels.length; idx++) {
+						this.i18nService.createI18n(i18nModels[idx].getLanguageId(), i18nModels[idx].getContent(), link);
+					}
+					
+					newItem = new ItemSpecification();
+					newItem.setName(link);
+					newItem.setDefaultPrice(model.getDefaultPrice());
+					newItem.setAvailable(model.isAvailable());
+					newItem.setOsType(model.getOsType());
+					newItem.setRefId(refId);
+					newItem.setCreated(now);
+					newItem.setUpdated(now);
+					if (metadata != null) {
+						newItem.setMetadata(metadata);
+					}
+					
+					Price price = new Price();
+					price.setItemSpecification(newItem);
+					price.setValue(model.getDefaultPrice());
+					price.setCreated(now);
+					price.setActivated(now);
+					
+					ArrayList<Price> prices = new ArrayList<Price>();
+					prices.add(price);
+					newItem.setPrices(prices);
+					
+					newItem = this.itemSpecificationDao.persist(newItem);
+				}
 			}
-			newItem = this.itemSpecificationDao.persist(newItem);
+			
 		}
 		return newItem;
 	}

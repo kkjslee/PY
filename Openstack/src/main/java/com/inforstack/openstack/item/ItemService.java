@@ -3,6 +3,7 @@ package com.inforstack.openstack.item;
 import java.util.List;
 
 import com.inforstack.openstack.controller.model.CategoryModel;
+import com.inforstack.openstack.controller.model.ItemSpecificationModel;
 import com.inforstack.openstack.exception.ApplicationException;
 
 public interface ItemService {
@@ -17,6 +18,8 @@ public interface ItemService {
 	
 	public void removeCategory(Integer id) throws ApplicationException;
 	
-	public ItemSpecification addItem(int languageId, String name, float defaultPrice, int osType, String refId, boolean available, List<ItemMetadata> metadata);
+	public List<ItemSpecification> listItemSpecificationByCategory(Category category);
+	
+	public ItemSpecification createItem(ItemSpecificationModel model, List<ItemMetadata> metadata) throws ApplicationException;
 	
 }

@@ -9,6 +9,8 @@ public class CategoryModel {
 	
 	private Boolean enable;
 	
+	private ItemSpecificationModel[] itemSpecifications;
+	
 	public CategoryModel() {
 		
 	}
@@ -35,6 +37,14 @@ public class CategoryModel {
 
 	public void setEnable(Boolean enable) {
 		this.enable = enable;
+	}
+
+	public ItemSpecificationModel[] getItemSpecifications() {
+		return itemSpecifications;
+	}
+
+	public void setItemSpecifications(ItemSpecificationModel[] itemSpecifications) {
+		this.itemSpecifications = itemSpecifications;
 	}
 
 }

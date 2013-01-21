@@ -12,7 +12,7 @@ public class Permission {
 	private Integer id;
 	private String name;
 	private String description;
-	private Integer order;
+	private Integer sort;
 	public Integer getId() {
 		return id;
 	}
@@ -31,11 +31,11 @@ public class Permission {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getOrder() {
-		return order;
+	public Integer getSort() {
+		return sort;
 	}
-	public void setOrder(Integer order) {
-		this.order = order;
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 	
 	@Override

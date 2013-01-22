@@ -15,30 +15,6 @@
 .flavorOperation{
 	width:25%;
 }
-.flavorOperation a{
-    color:#777;
-    margin-left:2px; 
-    margin-right: 2px;
-    border:1px solid #ccc;
-    border-radius: 2px;
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    -o-border-radius:2px;
-    -ms-border-radius:2px;
-    padding:1px 4px;
-    -webkit-transition: all 0.3s ease-in;
-    -o-transition: all 0.3s ease-in;
-    -moz-transition: all 0.3s ease-in;
-    -ms-transition: all 0.3s ease-in;
-    transition: all 0.3s ease-in;
-    background: #f5f5f5; /* FF3.6+ */
-    text-decoration: none;
-}
-.flavorOperation a:hover{
-    color:#222;
-    border-color:#aaa;
-    background: #d5d5d5; /* FF3.6+ */
-}
 .flavorDetails{
 	display:none;
 }

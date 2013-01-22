@@ -56,7 +56,7 @@ public class PromotionDaoImpl implements PromotionDao {
 	}
 
 	@Override
-	public Promotion findByName(String name) throws ApplicationException {
+	public Promotion findByNameAndRole(String name, int roleId) throws ApplicationException {
 		log.debug("Find promotion by name : " + name);
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -66,6 +66,7 @@ public class PromotionDaoImpl implements PromotionDao {
 			criteria.select(root).where(
 					builder.and(
 							builder.equal(root.get("name"), name),
+							builder.equal(root.get("roleId"), roleId),
 							builder.equal(root.get("deleted"), false)
 					)
 			);

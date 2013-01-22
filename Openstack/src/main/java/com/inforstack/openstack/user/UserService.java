@@ -16,6 +16,8 @@ public interface UserService {
 	 */
 	public Set<Permission> getPermissions(Integer userId);
 	
+	public User findUserById(Integer userId);
+	
 	/**
 	 * find user by user name
 	 * @param userName
@@ -60,4 +62,6 @@ public interface UserService {
 	 * @throws ApplicationException
 	 */
 	public User deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException;
+	
+	public boolean checkQuestion(String username, String question, String answer);
 }

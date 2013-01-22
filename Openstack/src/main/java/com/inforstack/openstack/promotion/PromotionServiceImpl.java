@@ -42,11 +42,43 @@ public class PromotionServiceImpl implements PromotionService {
 		
 		return promotion;
 	}
+	
+	@Override
+	public Promotion createPromotion(String name,
+			Map<Integer, String> displayNames, double discount, Integer roleId) {
+		if(StringUtil.isNullOrEmpty(name) || MapUtil.isNullOrEmpty(displayNames) || roleId==null){
+			log.info("Create Promotion failed for passed name/displayNames/roleId is null or empty");
+			return null;
+		}
+		if(discount < 0){
+			log.info("Create Promotion failed for passed discount is less than 0");
+			return null;
+		}
+		
+		log.debug("Create Promotion with name : " + name);
+		List<I18n> i18n = i18nService.createI18n(displayNames,
+				Constants.TABLE_PROMOTION,
+				Constants.COLUMN_PROMOTION_DISPLAYNAME);
+		if(i18n==null || i18n.isEmpty()){
+			log.warn("Create Promotion failed for creating i18n of displayname failed");
+			return null;
+		}
+		Promotion promotion = new Promotion();
+		promotion.setDiscount(discount);
+		promotion.setDisplayName(i18n.get(0).getI18nLink());
+		promotion.setName(name);
+		promotion.setDeleted(false);
+		promotion.setRoleId(roleId);
+		promotionDao.persist(promotion);
+		
+		log.debug("Create promotion successfully");
+		return promotion;
+	}
 
 	@Override
 	public Promotion createPromotion(String name,
 			Map<Integer, String> displayNames, double discount, Tenant tenant) {
-		if(StringUtil.isNullOrEmpty(name) || MapUtil.isNullOrEmpty(displayNames)){
+		if(StringUtil.isNullOrEmpty(name) || MapUtil.isNullOrEmpty(displayNames) || tenant == null){
 			log.info("Create Promotion failed for passed name/displayNames/tenantId is null or empty");
 			return null;
 		}
@@ -68,9 +100,8 @@ public class PromotionServiceImpl implements PromotionService {
 		promotion.setDisplayName(i18n.get(0).getI18nLink());
 		promotion.setName(name);
 		promotion.setDeleted(false);
-		if(tenant != null){
-			promotion.setTenant(tenant);
-		}
+		promotion.setTenant(tenant);
+		promotion.setRoleId(tenant.getRoleId());
 		promotionDao.persist(promotion);
 		
 		log.debug("Create promotion successfully");
@@ -105,8 +136,10 @@ public class PromotionServiceImpl implements PromotionService {
 		newPromotion.setDeleted(false);
 		if(promotion.getTenant()!=null){
 			promotion.setTenant(promotion.getTenant());
+			promotion.setRoleId(promotion.getRoleId());
 		}else{
 			promotion.setTenant(tenant);
+			promotion.setRoleId(tenant.getRoleId());
 		}
 		promotionDao.persist(promotion);
 		
@@ -134,18 +167,15 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public Promotion findPromotionByName(String name, Tenant tenant) throws ApplicationException {
-		if(StringUtil.isNullOrEmpty(name)){
-			log.info("Find promotion failed for passed name is null or empty");
+		if(StringUtil.isNullOrEmpty(name) || tenant == null){
+			log.info("Find promotion failed for passed name/tenant is null or empty");
 			return null;
 		}
 		
 		log.debug("Find promotion by name : " + name);
-		Promotion promotion = null;
-		if(tenant != null){
-			promotion = promotionDao.findByNameAndTenant(name, tenant);
-		}
+		Promotion promotion = promotionDao.findByNameAndTenant(name, tenant);
 		if(promotion == null){
-			promotion = promotionDao.findByName(name);
+			promotion = promotionDao.findByNameAndRole(name, tenant.getRoleId());
 		}
 		if(promotion==null){
 			log.info("No valid promotion found by name");

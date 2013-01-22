@@ -14,6 +14,9 @@ public interface PromotionService {
 	 */
 	public Promotion createPromotion(Promotion promotion);
 	
+	Promotion createPromotion(String name, Map<Integer, String> displayNames,
+			double discount, Integer roleId);
+	
 	/**
 	 * 
 	 * @param name
@@ -51,4 +54,5 @@ public interface PromotionService {
 	public Promotion findPromotionByName(String name, Tenant tenant) throws ApplicationException;
 	
 	public Promotion removePromotion(Integer id);
+
 }

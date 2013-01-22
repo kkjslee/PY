@@ -78,4 +78,31 @@ public class DictionaryDaoImpl implements DictionaryDao{
 		}
 	}
 
+	@Override
+	public List<Dictionary> findDictionary(String key, String code) {
+		log.debug("Find dictionary by key : " + key + ", code : " + code);
+		try{
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<Dictionary> criteria = builder
+					.createQuery(Dictionary.class);
+			Root<Dictionary> dict = criteria.from(Dictionary.class);
+			criteria.select(dict).where(
+					builder.and(
+							builder.equal(dict.get("key"), key),
+							builder.equal(dict.get("code"), code)
+					)
+			);
+			List<Dictionary> instances = em.createQuery(criteria).getResultList();
+			if(instances != null && !instances.isEmpty()){
+				log.debug("get successful");
+				return instances;
+			}
+			log.debug("No record found");
+			return null;
+		}catch(RuntimeException re){
+			log.error("Find failed", re);
+			throw re;
+		}
+	}
+
 }

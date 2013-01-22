@@ -9,6 +9,13 @@ public class Constants {
 
   public static final int USER_AGEING_ACTIVE = 1;
   public static final int USER_AGEING_DELETED = 2;
+  
+  public static final int ORDER_STATUS_NEW = 1;
+  public static final int ORDER_STATUS_PROCESSING = 2;
+  public static final int ORDER_STATUS_ACTIVE = 3;
+  public static final int ORDER_STATUS_INACTIVE = 4;
+  public static final int ORDER_STATUS_FINISHED = 5;
+  public static final int ORDER_STATUS_CALLELED = 6;
 
   public static final int TENANT_AGEING_ACTIVE = 1;
   public static final int TENANT_AGEING_DELETED = 2;
@@ -55,6 +62,7 @@ public class Constants {
   public static final String TABLE_ITEMSPECIFICATION = "ItemSpecification";
   public static final String TABLE_SECURITY_GROUP = "SecurityGroup";
   public static final String TABLE_PROMOTION = "Promotion";
+  public static final String TABLE_PERIOD = "Period";
   
   public static final String COLUMN_CATEGORY_NAME = "name_id";
   public static final String COLUMN_ITEMMETADATA_NAME = "name_id";
@@ -62,7 +70,16 @@ public class Constants {
   public static final String COLUMN_ITEMSPECIFICATION_NAME = "name_id";
   public static final String COLUMN_SECURITY_GROUP_DESCRIPTION = "SecurityGroup";
   public static final String COLUMN_PROMOTION_DISPLAYNAME = "DisplayName";
+  public static final String COLUMN_PERIOD_NAME = "Name";
 
   public static final String VM_STATUS_DONE_STRING = "|activeoff|pausedoff|stoppedoff|suspendedoff|deletedoff|";
-
+  
+  public static final int PERIOD_TYPE_YEAR = 1;
+  public static final int PERIOD_TYPE_MONTH = 2;
+  public static final int PERIOD_TYPE_WEEK = 4;
+  public static final int PERIOD_TYPE_DAY = 5;
+  public static final int PERIOD_TYPE_HOUR = 11;
+  public static final int PERIOD_TYPE_MINUTE = 12;
+  
+  public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
 }

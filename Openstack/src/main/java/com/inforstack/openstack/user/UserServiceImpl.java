@@ -22,6 +22,7 @@ import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Service("UserService")
 @Transactional(rollbackFor=Exception.class)
@@ -57,6 +58,24 @@ public class UserServiceImpl implements UserService {
 		log.debug(permissions.size()+ " permissions found for user id : " +userId);
 		
 		return permissions;
+	}
+	
+	@Override
+	public User findUserById(Integer userId){
+		if(userId == null){
+			log.info("Find User by id failed for passed user id is null");
+			return null;
+		}
+		
+		log.debug("Find user by id : " + userId);
+		User user = userDao.findUser(userId);
+		if(user == null){
+			log.debug("Find user failed for no instance found");
+		}else{
+			log.debug("Find user successfully");
+		}
+		
+		return user;
 	}
 
 	@Override
@@ -219,6 +238,29 @@ public class UserServiceImpl implements UserService {
 		userDao.remove(user);
 		
 		return user;
+	}
+
+	@Override
+	public boolean checkQuestion(String username, String question, String answer) {
+		if(StringUtil.isNullOrEmpty(username) || StringUtil.isNullOrEmpty(question) || StringUtil.isNullOrEmpty(answer)){
+			log.info("Check question failed for passed username/question/answer is null or empty");
+			return false;
+		}
+		
+		log.debug("Check Question with user name : " + username);
+		User user = userDao.findByName(username);
+		if(user == null){
+			log.info("Check question failed for no user find by user name : " + username);
+			return false;
+		}
+		
+		if(question.equals(user.getQuestion()) && answer.equals(answer)){
+			log.debug("Check successfully");
+			return true;
+		}
+		
+		log.debug("Check failed");
+		return false;
 	}
 	
 }

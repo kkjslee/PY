@@ -21,4 +21,12 @@ public interface DictionaryDao {
 	 */
 	public Dictionary findDictionary(String key, Integer languageId, String code);
 
+	/**
+	 * find dictionary with all language
+	 * @param key
+	 * @param code
+	 * @return null if not found
+	 */
+	public List<Dictionary> findDictionary(String key, String code);
+
 }

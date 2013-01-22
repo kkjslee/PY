@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class CollectionUtil {
 
-	public static boolean isNullOrEmpty(Collection<Object> collection){
+	public static boolean isNullOrEmpty(Collection<? extends Object> collection){
 		if(collection==null || collection.isEmpty()){
 			return true;
 		}

@@ -34,6 +34,8 @@ public class Promotion {
 	@JoinColumn(name="tenant_id")
 	private Tenant tenant;
 	
+	private Integer roleId;
+	
 	private boolean deleted;
 	
 	private Date createTime;
@@ -92,6 +94,14 @@ public class Promotion {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
 @Service
@@ -48,7 +49,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 		}
 		
 		log.debug("Find dictionarys by key : " + key + ", language : " + languageId + ", code : " + code);
-		Dictionary dict = dictionaryDao.findDictionary(key, languageId ,code);
+		Dictionary dict = dictionaryDao.findDictionary(key, languageId, code);
 		if(dict == null){
 			log.info("No dictionary found by key : " + key + ", language : " + languageId + ", code : " + code);
 		}else{
@@ -56,6 +57,25 @@ public class DictionaryServiceImpl implements DictionaryService {
 		}
 		
 		return dict;
+	}
+
+	@Override
+	public boolean contains(String key, String code) {
+		if(StringUtil.isNullOrEmpty(key) || StringUtil.isNullOrEmpty(code)){
+			log.debug("Find dictionary failed for passed key/code is null or empty");
+			return false;
+		}
+		
+		log.debug("Find dictionarys by key : " + key + ", code : " + code);
+		List<Dictionary> dicts = dictionaryDao.findDictionary(key, code);
+		if(CollectionUtil.isNullOrEmpty(dicts)){
+			log.info("No dictionary found by key : " + key + ", code : " + code);
+			return false;
+		}else{
+			log.debug("Find successfully");
+			return true;
+		}
+	
 	}
 
 

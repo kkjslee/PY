@@ -39,6 +39,19 @@ insert into User(id, name, password, firstName, lastName, role_id, defaultTenant
 
 insert into tenant_user(user_id, tenant_id) values (1, 1)
 
+insert into Dictionary(id, key_value, code, language_id, value) values (1, 'period.type', '1', 1, 'Year')
+insert into Dictionary(id, key_value, code, language_id, value) values (2, 'period.type', '1', 2, '年')
+insert into Dictionary(id, key_value, code, language_id, value) values (3, 'period.type', '2', 1, 'Month')
+insert into Dictionary(id, key_value, code, language_id, value) values (4, 'period.type', '2', 2, '月')
+insert into Dictionary(id, key_value, code, language_id, value) values (5, 'period.type', '4', 1, 'Week')
+insert into Dictionary(id, key_value, code, language_id, value) values (6, 'period.type', '4', 2, '周')
+insert into Dictionary(id, key_value, code, language_id, value) values (7, 'period.type', '5', 1, 'Day')
+insert into Dictionary(id, key_value, code, language_id, value) values (8, 'period.type', '5', 2, '天')
+insert into Dictionary(id, key_value, code, language_id, value) values (9, 'period.type', '11', 1, 'Hour')
+insert into Dictionary(id, key_value, code, language_id, value) values (10, 'period.type', '11', 2, '小时')
+insert into Dictionary(id, key_value, code, language_id, value) values (11, 'period.hour', '12', 1, 'Minute')
+insert into Dictionary(id, key_value, code, language_id, value) values (12, 'period.hour', '12', 2, '分钟')
+
 insert into Resource(id, url, permission) values (1, '/admin', 'admin')
 
 insert into Resource(id, url, permission) values (2, '/admin/instance/modules/index', 'admin');

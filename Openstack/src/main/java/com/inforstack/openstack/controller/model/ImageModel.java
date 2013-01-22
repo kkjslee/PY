@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
 
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.OpenstackUtil;
 
 /**
  * this is for json resposne
@@ -25,13 +26,19 @@ public class ImageModel {
 
   private Date created;
 
+  // for client converted to locale string with time
+  private Long createdTime;
+
   private Date updated;
+
+  private Long updatedTime;
 
   private String tenant;
 
   private String user;
 
   private String status;
+  private String statusDisplay;
 
   private int progress;
 
@@ -125,6 +132,48 @@ public class ImageModel {
 
   public void setMinRam(int minRam) {
     this.minRam = minRam;
+  }
+
+  public Long getCreatedTime() {
+    if (created != null) {
+      return created.getTime();
+    }
+    return createdTime;
+  }
+
+  public void setCreatedTime(Long createdTime) {
+    this.createdTime = createdTime;
+  }
+
+  public Long getUpdateDTime() {
+    if (updated != null) {
+      return updated.getTime();
+    }
+    return updatedTime;
+  }
+
+  public void setUpdateDTime(Long updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public Long getUpdatedTime() {
+    return updatedTime;
+  }
+
+  public void setUpdatedTime(Long updatedTime) {
+    this.updatedTime = updatedTime;
+  }
+
+  public String getStatusDisplay() {
+    if (status != null) {
+      return OpenstackUtil.getMessage("admin.image." + status.toLowerCase() + ".status");
+    } else {
+      return status;
+    }
+  }
+
+  public void setStatusDisplay(String statusDisplay) {
+    this.statusDisplay = statusDisplay;
   }
 
 }

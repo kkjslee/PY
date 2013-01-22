@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +32,8 @@ import com.inforstack.openstack.utils.ValidateUtil;
 @RequestMapping(value = "/admin/image")
 public class ImageController {
 
+  private static final Log log = LogFactory.getLog(ImageController.class);
+
   @Autowired
   private ImageService imageService;
 
@@ -37,9 +43,41 @@ public class ImageController {
   @Autowired
   private Validator validator;
 
-  @RequestMapping(value = "/getPagerImageList", method = RequestMethod.POST, produces = "application/json")
-  public @ResponseBody
-  List<ImageModel> getPagerImages(Model model, Integer pageIndex, Integer pageSize) {
+  private final String IMAGE_MODULE_HOME = "admin/modules/Image";
+
+  @RequestMapping(value = "/modules/index", method = RequestMethod.GET)
+  public String redirectModule(Model model, HttpServletRequest request) {
+    return IMAGE_MODULE_HOME + "/index";
+  }
+
+  @RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
+  public String bootstrap(Model model) {
+    model.addAttribute(Constants.PAGER_PAGE_INDEX, Constants.DEFAULT_PAGE_INDEX);
+    model.addAttribute(Constants.PAGER_PAGE_SIZE, Constants.DEFAULT_PAGE_SIZE);
+    return IMAGE_MODULE_HOME + "/scripts/bootstrap";
+  }
+
+  @RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
+  public String template(Model model) {
+    return IMAGE_MODULE_HOME + "/scripts/template";
+  }
+
+  @RequestMapping(value = "/getPagerImageList", method = RequestMethod.POST)
+  public String getPagerImages(Model model, Integer pageIndex, Integer pageSize) {
+    int pageIdx = -1;
+    int pageSze = 0;
+    if (pageIndex == null || pageIndex == 0) {
+      log.info("no pageindex passed, set default value 1");
+      pageIdx = Constants.DEFAULT_PAGE_INDEX;
+    } else {
+      pageIdx = pageIndex;
+    }
+    if (pageSize == null) {
+      log.info("no page size passed, set default value 20");
+      pageSze = Constants.DEFAULT_PAGE_SIZE;
+    } else {
+      pageSze = pageSize;
+    }
     List<ImageModel> imgList = new ArrayList<ImageModel>();
     try {
       Image[] images = imageService.listImages();
@@ -50,20 +88,81 @@ public class ImageController {
             imgModel = new ImageModel();
             imgModel.setImgId(img.getId());
             imgModel.setImgName(img.getName());
+            imgModel.setCreated(img.getCreated());
+            imgModel.setMinDisk(img.getMinDisk());
+            imgModel.setMinRam(img.getMinRam());
+            imgModel.setProgress(img.getProgress());
+            imgModel.setStatus(img.getStatus());
+            imgModel.setTenant(img.getTenant());
+            imgModel.setUpdated(img.getUpdated());
+            imgModel.setUser(img.getUser());
             imgList.add(imgModel);
           }
         }
 
-        PagerModel<ImageModel> page = new PagerModel<ImageModel>(imgList, pageSize);
-        imgList = page.getPagedData(pageIndex);
-        model.addAttribute("pageIndex", pageIndex);
-        model.addAttribute("pageSize", pageSize);
+        PagerModel<ImageModel> page = new PagerModel<ImageModel>(imgList, pageSze);
+        imgList = page.getPagedData(pageIdx);
+        model.addAttribute("pageIndex", pageIdx);
+        model.addAttribute("pageSize", pageSze);
+        model.addAttribute("pageTotal", page.getTotalRecord());
+        model.addAttribute("dataList", imgList);
       }
     } catch (OpenstackAPIException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    return imgList;
+    return IMAGE_MODULE_HOME + "/tr";
+  }
+
+  // this not valid image meta data
+  @RequestMapping(value = "/getPagerAllImageList", method = RequestMethod.POST)
+  public String getPagerAllImages(Model model, Integer pageIndex, Integer pageSize) {
+    int pageIdx = -1;
+    int pageSze = 0;
+    if (pageIndex == null || pageIndex == 0) {
+      log.info("no pageindex passed, set default value 1");
+      pageIdx = Constants.DEFAULT_PAGE_INDEX;
+    } else {
+      pageIdx = pageIndex;
+    }
+    if (pageSize == null) {
+      log.info("no page size passed, set default value 20");
+      pageSze = Constants.DEFAULT_PAGE_SIZE;
+    } else {
+      pageSze = pageSize;
+    }
+    List<ImageModel> imgList = new ArrayList<ImageModel>();
+    try {
+      Image[] images = imageService.listImages();
+      if (images != null) {
+        ImageModel imgModel = null;
+        for (Image img : images) {
+          imgModel = new ImageModel();
+          imgModel.setImgId(img.getId());
+          imgModel.setImgName(img.getName());
+          imgModel.setCreated(img.getCreated());
+          imgModel.setMinDisk(img.getMinDisk());
+          imgModel.setMinRam(img.getMinRam());
+          imgModel.setProgress(img.getProgress());
+          imgModel.setStatus(img.getStatus());
+          imgModel.setTenant(img.getTenant());
+          imgModel.setUpdated(img.getUpdated());
+          imgModel.setUser(img.getUser());
+          imgList.add(imgModel);
+        }
+
+        PagerModel<ImageModel> page = new PagerModel<ImageModel>(imgList, pageSze);
+        imgList = page.getPagedData(pageIdx);
+        model.addAttribute("pageIndex", pageIdx);
+        model.addAttribute("pageSize", pageSze);
+        model.addAttribute("pageTotal", page.getTotalRecord());
+        model.addAttribute("dataList", imgList);
+      }
+    } catch (OpenstackAPIException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return IMAGE_MODULE_HOME + "/tr";
   }
 
   @RequestMapping(value = "/imgList", method = RequestMethod.POST, produces = "application/json")
@@ -101,12 +200,13 @@ public class ImageController {
     }
     try {
       Access access = keystoneService.getAdminAccess();
+      // to do
+      ret.put(Constants.JSON_SUCCESS_STATUS, "success");
     } catch (OpenstackAPIException e) {
       ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
       return ret;
     }
-    // to do
-    ret.put(Constants.JSON_SUCCESS_STATUS, "success");
+
     return ret;
   }
 

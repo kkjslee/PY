@@ -79,13 +79,13 @@ public class InstanceController {
     int pageIdx = -1;
     int pageSze = 0;
     if (pageIndex == null || pageIndex == 0) {
-      log.warn("no pageindex passed, set default value 1");
+      log.info("no pageindex passed, set default value 1");
       pageIdx = Constants.DEFAULT_PAGE_INDEX;
     } else {
       pageIdx = pageIndex;
     }
     if (pageSize == null) {
-      log.warn("no page size passed, set default value 20");
+      log.info("no page size passed, set default value 20");
       pageSze = Constants.DEFAULT_PAGE_SIZE;
     } else {
       pageSze = pageSize;
@@ -209,12 +209,12 @@ public class InstanceController {
     try {
       Access access = keystoneService.getAdminAccess();
       serverService.createServer(access, newServer);
+      ret.put(Constants.JSON_SUCCESS_STATUS, "success");
     } catch (OpenstackAPIException e) {
       log.error(e.getMessage(), e);
       ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
       return ret;
     }
-    ret.put(Constants.JSON_SUCCESS_STATUS, "success");
     return ret;
   }
 

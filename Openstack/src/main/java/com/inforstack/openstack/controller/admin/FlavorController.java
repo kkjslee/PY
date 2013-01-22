@@ -55,7 +55,6 @@ public class FlavorController {
 
   @RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
   public String template(Model model) {
-    // retrieve images and flavors
     return FLAVOR_MODULE_HOME + "/scripts/template";
   }
 
@@ -64,13 +63,13 @@ public class FlavorController {
     int pageIdx = -1;
     int pageSze = 0;
     if (pageIndex == null || pageIndex == 0) {
-      log.warn("no pageindex passed, set default value 1");
+      log.info("no pageindex passed, set default value 1");
       pageIdx = Constants.DEFAULT_PAGE_INDEX;
     } else {
       pageIdx = pageIndex;
     }
     if (pageSize == null) {
-      log.warn("no page size passed, set default value 20");
+      log.info("no page size passed, set default value 20");
       pageSze = Constants.DEFAULT_PAGE_SIZE;
     } else {
       pageSze = pageSize;
@@ -143,10 +142,10 @@ public class FlavorController {
     try {
       flavorService.createFlavor(flavorModel.getFlavorName(), flavorModel.getVcpus(),
           flavorModel.getRam(), flavorModel.getDisk());
+      ret.put(Constants.JSON_SUCCESS_STATUS, "success");
     } catch (OpenstackAPIException e) {
       ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
     }
-    ret.put(Constants.JSON_SUCCESS_STATUS, "success");
     return ret;
   }
 

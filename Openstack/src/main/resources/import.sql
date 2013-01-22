@@ -80,6 +80,9 @@ insert into Resource(id, url, permission) values (21, '/admin/scripts/bootstrap'
 insert into Resource(id, url, permission) values (22, '/admin/scripts/template', 'admin');
 insert into Resource(id, url, permission) values (23, '/admin/modules/entry/index', 'admin');
 
-
-insert into Resource(id, url, permission) values (24, '/admin/image/imgList', 'admin');
+insert into Resource(id, url, permission) values (24, '/admin/image/modules/index', 'admin');
 insert into Resource(id, url, permission) values (25, '/admin/flavor/flavorList', 'admin');
+insert into Resource(id, url, permission) values (26, '/admin/image/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (27, '/admin/image/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (28, '/admin/image/getPagerAllImageList', 'admin');
+

@@ -95,11 +95,13 @@
     display:block;
     float:left;
     text-align:right;
+    padding:3px;
 }
 .dialogLineRight {
     display:block;
     float:left;
     text-align:left;
+    padding:3px;
 }
 .dialogLineRight input{
     width:200px;
@@ -115,9 +117,7 @@
 	font-size:13px;
 	color:#0064CD;
 }
-.flavorDetails{
-	display:none;
-}
+
 .loadingError{
 	display:block;
 	padding:5px;
@@ -126,4 +126,28 @@
 }
 .rowEve{
 	background-color:#FDF5D9;
+}
+.moduleOperation a{
+    color:#777;
+    margin-left:2px; 
+    margin-right: 2px;
+    border:1px solid #ccc;
+    border-radius: 2px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    -o-border-radius:2px;
+    -ms-border-radius:2px;
+    padding:1px 4px;
+    -webkit-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    background: #f5f5f5; /* FF3.6+ */
+    text-decoration: none;
+}
+.moduleOperation a:hover{
+    color:#222;
+    border-color:#aaa;
+    background: #d5d5d5; /* FF3.6+ */
 }

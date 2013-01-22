@@ -12,11 +12,13 @@
 		<class>com.inforstack.openstack.i18n.I18n</class>
 		<class>com.inforstack.openstack.i18n.link.I18nLink</class>
 		<class>com.inforstack.openstack.tenant.Tenant</class>
-		<class>com.inforstack.openstack.tenant.agent.Agent</class>
 		<class>com.inforstack.openstack.user.User</class>
 		<class>com.inforstack.openstack.item.Category</class>
 		<class>com.inforstack.openstack.item.ItemMetadata</class>
 		<class>com.inforstack.openstack.item.ItemSpecification</class>
+		<class>com.inforstack.openstack.item.Profile</class>
+		<class>com.inforstack.openstack.item.Price</class>
+		<class>com.inforstack.openstack.promotion.Promotion</class>
         <properties>
 	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         	<property name="hibernate.show_sql" value="false" />

@@ -35,10 +35,38 @@ insert into Role(id, name) values (3, 'agent')
 
 insert into Tenant(id, name, dipalyName, role_id, ageing) values (1, 'admin', 'admin', 1, 1)
 
-insert into Agent(uuid, commission, tenant_id) values ('1', 0.1, 1)
-
 insert into User(id, name, password, firstName, lastName, role_id, defaultTenantId, status, ageing) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 'admin', 1, 1, 1, 1)
 
 insert into tenant_user(user_id, tenant_id) values (1, 1)
 
 insert into Resource(id, url, permission) values (1, '/admin', 'admin')
+
+insert into Resource(id, url, permission) values (2, '/admin/instance/modules/index', 'admin');
+insert into Resource(id, url, permission) values (3, '/admin/instance/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (4, '/admin/instance/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (5, '/admin/instance/getPagerInstanceList', 'admin');
+insert into Resource(id, url, permission) values (6, '/admin/instance/imcontrol', 'admin');
+insert into Resource(id, url, permission) values (7, '/admin/instance/createInstance', 'admin');
+insert into Resource(id, url, permission) values (8, '/admin/instance/getInstance', 'admin');
+
+insert into Resource(id, url, permission) values (9, '/admin/image/getPagerImageList', 'admin');
+insert into Resource(id, url, permission) values (10, '/admin/image/imglist', 'admin');
+insert into Resource(id, url, permission) values (11, '/admin/image/createImage', 'admin');
+insert into Resource(id, url, permission) values (12, '/admin/image/retrieveImage', 'admin');
+
+insert into Resource(id, url, permission) values (13, '/admin/flavor/modules/index', 'admin');
+insert into Resource(id, url, permission) values (14, '/admin/flavor/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (15, '/admin/flavor/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (16, '/admin/flavor/getPagerFlavorList', 'admin');
+insert into Resource(id, url, permission) values (17, '/admin/flavor/createFlavor', 'admin');
+insert into Resource(id, url, permission) values (18, '/admin/flavor/removeFlavor', 'admin');
+insert into Resource(id, url, permission) values (19, '/admin/flavor/getFlavorDetails', 'admin');
+
+insert into Resource(id, url, permission) values (20, '/admin/scripts/navinit', 'admin');
+insert into Resource(id, url, permission) values (21, '/admin/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (22, '/admin/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (23, '/admin/modules/entry/index', 'admin');
+
+
+insert into Resource(id, url, permission) values (24, '/admin/image/imgList', 'admin');
+insert into Resource(id, url, permission) values (25, '/admin/flavor/flavorList', 'admin');

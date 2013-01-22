@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+.imageName{
+	width:26%;
+}
+.imageUser{
+    width:19%;
+}
+.imageStatus{
+    width:19%;
+}
+.imageMinDisk{
+    width:12%;
+}
+.imageMinRam{
+    width:12%;
+}
+.imageOperation{
+    width:12%;
+}

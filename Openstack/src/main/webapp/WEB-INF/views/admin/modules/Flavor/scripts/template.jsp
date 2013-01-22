@@ -10,19 +10,19 @@ var Template_EditFlavor = '\
         </span>\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="admin.flavor.vcpus"/>:</span>\
-            <span class="dialogLineRight typeSelect">\
+            <span class="dialogLineRight ">\
                 <input isos="vcpus" type="text" value=""/>\
            </span>\
         </span>\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="admin.flavor.ram"/>:</span>\
-            <span class="dialogLineRight typeSelect">\
+            <span class="dialogLineRight ">\
                  <input isos="ram" type="text" value=""/>  MB\
             </span>\
          </span>\
          <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="admin.flavor.rdisk"/>:</span>\
-            <span class="dialogLineRight typeSelect">\
+            <span class="dialogLineRight ">\
                  <input isos="disk" type="text" value=""/> GB\
            </span>\
         </span>\

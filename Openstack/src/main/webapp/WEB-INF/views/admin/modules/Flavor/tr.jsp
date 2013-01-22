@@ -25,7 +25,7 @@
     <td class="flavorRdisk">
          ${item.disk}
     </td>
-    <td class="flavorOperation">
+    <td class="flavorOperation moduleOperation">
         <!-- <span ><a class="button" href="#" onclick="showEditFlavor(this);return false;"><spring:message code="edit.button" /></a></span> -->
         <span ><a class="button" href="#" onclick="removeFlavor(this);return false;"><spring:message code="remove.button" /></a></span>
     </td>

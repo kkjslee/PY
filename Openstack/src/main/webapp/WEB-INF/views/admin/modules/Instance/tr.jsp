@@ -12,24 +12,24 @@
     <c:if test="${status.index%2!=0}">
     <tr class="dataRow  rowEve">
     </c:if>
-    <td class="vmRowCell vmName"><!-- to be compatible with ie6,hidden input should be place in td element  -->
+    <td class="vmName"><!-- to be compatible with ie6,hidden input should be place in td element  -->
     <input isos="vmId" type="hidden" value="${item.vmid}" />
     <input isos="vmName" type="hidden" value="${item.vmname}" />
     <input isos="vmAssignedTo" type="hidden" value="${item.assignedto}" />
     <div class="ititle">${item.vmname}</div>
         <div class="pipvice vice">${item.privateips}</div>
     </td>
-    <td class="vmRowCell vmUser">${item.assignedto}</td>
-    <td class="vmRowCell vmStatus">
+    <td class="vmUser">${item.assignedto}</td>
+    <td class="vmStatus">
         <div class="ititle statusTitle">${item.statusdisplay}</div>
         <c:if test='${item.isProcessing == true}'>
         <div class="statusVice vice"><c:if test='${not empty item.taskStatus}'>${item.taskStatus} </c:if></div>
        </c:if>
     </td>
-    <td class="vmRowCell vmOstype">
+    <td class="vmOstype">
          ${item.ostype}
     </td>
-    <td class="vmRowCell vmOperation ">
+    <td class="vmOperation moduleOperation">
         <span class="ope vmstopped" <c:if test='${item.status=="stopped"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'poweron','<spring:message code='poweron.button'/>');return false;"><spring:message code="poweron.button" /></a></span>
         <span class="ope vmactive"  <c:if test='${item.status=="active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'poweroff','<spring:message code='poweroff.button'/>');return false;"><spring:message code="poweroff.button" /></a></span>
         <span class="ope vmunpause"  <c:if test='${item.status=="unpause" || item.status == "active"}'> style="display:block"   </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'pause','<spring:message code='pause.button'/>');return false;"><spring:message code="pause.button" /></a></span>

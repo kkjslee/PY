@@ -104,11 +104,9 @@
     padding:3px;
 }
 .dialogLineRight input{
-    width:200px;
     height:25px;
 }
 .dialogLineRight select{
-	width:180px;
 	height:25px;
 }
 .loadingTips{
@@ -150,4 +148,29 @@
     color:#222;
     border-color:#aaa;
     background: #d5d5d5; /* FF3.6+ */
+}
+.error{
+	padding:2px;
+	color:red;
+}
+.tipIcon{
+	background:url(images/sys-icons-16.png) 0 0 no-repeat;
+	padding:5px;
+}
+.okTipIcon{
+	background:url(images/sys-icons-16.png) 6px 8px no-repeat;
+    border: 0 none;
+    height: 20px;
+    padding: 6px 3px 6px 24px;
+    width: 24px;
+}
+.errorTipIcon{
+	background:url(images/sys-icons-16.png) 5px -193px no-repeat;
+    border: 0 none;
+    height: 20px;
+    padding: 6px 3px 6px 24px;
+    width: 24px;
+    color:red;
+    font-size:13px;
+    
 }

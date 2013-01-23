@@ -25,6 +25,9 @@
     <td class="flavorRdisk">
          ${item.disk}
     </td>
+    <td class="flavorStatus">
+         ${item.status}
+    </td>
     <td class="flavorOperation moduleOperation">
         <!-- <span ><a class="button" href="#" onclick="showEditFlavor(this);return false;"><spring:message code="edit.button" /></a></span> -->
         <span ><a class="button" href="#" onclick="removeFlavor(this);return false;"><spring:message code="remove.button" /></a></span>
@@ -33,6 +36,6 @@
 </c:forEach>
 </c:when>
 <c:otherwise>
-    <tr><td colspan="5"><spring:message code="data.norecords"/></td></tr>
+    <tr><td colspan="6"><spring:message code="data.norecords"/></td></tr>
 </c:otherwise>
 </c:choose>

@@ -29,7 +29,7 @@ function loadFlavors(pageIndex, pageSize) {
         type: "POST",
         dataType: "html",
         cache: false,
-        url: Server + "/getPagerFlavorList",  
+        url: Server + "/getPagerAllFlavorList",  
         data: {
             pageIndex: pageIndex,
             pageSize: pageSize
@@ -87,7 +87,7 @@ function showEditFlavor(which){
             text: '<spring:message code="confirm.button"/>',
             click: function() {
                var flavorName = $(this).find("input[isos='vmname']").val();
-               var ram = $(this).find("input[isos='ram']").val();
+               var ram = $(this).find("select[isos='ram']").val();
                var disk = $(this).find("input[isos='disk']").val();
                var vcpus = $(this).find("input[isos='vcpus']").val();
                
@@ -122,7 +122,7 @@ function showEditFlavor(which){
     //set former data
     $(editFlavor).find("input[isos='flavorName']").val(flavorName);
     $(editFlavor).find("input[isos='vcpus']").val(vcpus);
-    $(editFlavor).find("input[isos='ram']").val(ram);
+    $(editFlavor).find("select[isos='ram']").val(ram);
     $(editFlavor).find("input[isos='disk']").val(disk);
     $(editFlavor).dialog("open");
    }
@@ -141,12 +141,12 @@ function showCreatFlavor(){
         resizable: false,
         show: "slide",
         hide: "slide",
-        width: "400px",
+        width: "420px",
         buttons: [{
             text: '<spring:message code="confirm.button"/>',
             click: function() {
                var flavorName = $(this).find("input[isos='flavorName']").val();
-               var ram = $(this).find("input[isos='ram']").val();
+               var ram = $(this).find("select[isos='ram']").val();
                var disk = $(this).find("input[isos='disk']").val();
                var vcpus = $(this).find("input[isos='vcpus']").val();
                
@@ -178,14 +178,51 @@ function showCreatFlavor(){
             }
         }]
     });
+    bindNameCheck(addFlavor);
 	$(addFlavor).dialog("open");
+}
+
+function bindNameCheck(panel){
+    $(panel).find("input[isos='flavorName']").bind("blur",function(){
+        if(!isNull($(this).val())){
+            $(panel).find("#nameCheck").text("");
+            $(panel).find("#nameCheck").attr("class","");
+            nameUnique(panel, $(this).val());
+        }
+    })
+}
+
+function nameUnique(panel, name){
+     $.ajax({
+        type: "POST",
+        url: Server+"/nameCheck",
+        cache: false,
+        data: {
+            name: name
+        },
+        success: function(data) {
+            try{
+                switch(data.status) {
+                    case "false": 
+                        $(panel).find("#nameCheck").text('<spring:message code="admin.flavor.name.exist"/>');
+                        $(panel).find("#nameCheck").attr("class", "errorTipIcon");
+                        break;
+                    case "true": 
+                    $(panel).find("#nameCheck").text("");
+                    $(panel).find("#nameCheck").attr("class","okTipIcon");
+                }
+            }catch(e) {
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        }
+    });
 }
 
 function removeFlavor(which) {
     var flavorId=$(which).parents(".dataRow").first().find("input[isos='flavorId']").val();
     var flavorName = $(which).parents(".dataRow").first().find("input[isos='flavorName']").val();
     if(!confirm("<spring:message code='flavor.remove.confirm'/>".sprintf(flavorName))) return;
-    
     var pd=showProcessingDialog();
     $.ajax({
         type: "POST",
@@ -219,6 +256,7 @@ function removeFlavor(which) {
     });
     
 }
+
 function createFlavorItem(flavorName, ram, disk, vcpus){
 
     var pd = showProcessingDialog();

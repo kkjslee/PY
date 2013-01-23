@@ -5,7 +5,7 @@ var Template_EditFlavor = '\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="admin.flavor.name"/>:</span>\
             <span class="dialogLineRight">\
-                <input isos="flavorName" type="text" value=""/>\
+                <input isos="flavorName" type="text" value=""/><label id="nameCheck"></label>\
             </span>\
         </span>\
         <span class="dialogLine">\
@@ -17,7 +17,14 @@ var Template_EditFlavor = '\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="admin.flavor.ram"/>:</span>\
             <span class="dialogLineRight ">\
-                 <input isos="ram" type="text" value=""/>  MB\
+                <select isos="ram">\
+                    <option value="512">512MB</option>\
+                    <option value="1024">1GB</option>\
+                    <option value="2048">2GB</option>\
+                    <option value="4096">4GB</option>\
+                    <option value="8192">8GB</option>\
+                    <option value="16384">16GB</option>\
+                </select>\
             </span>\
          </span>\
          <span class="dialogLine">\

@@ -27,6 +27,7 @@
                 <th class="flavorVcpus"><spring:message code="admin.flavor.vcpus" /> </th>
                 <th class="flavorRam"><spring:message code="admin.flavor.ram" /> (MB)</th>
                 <th class="flavorRdisk"><spring:message code="admin.flavor.rdisk" /> (GB)</th>
+                <th class="flavorStatus"><spring:message code="admin.flavor.status" /></th>
                 <th class="flavorOperation"><spring:message code="common.operation" /> </th>
             </tr>
         </thead>
@@ -34,7 +35,7 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="4" class="pagination"></td>
+            <td colspan="5" class="pagination"></td>
             <td align="left"><a class="button" href="#" onclick="showCreatFlavor();return false;"><spring:message code="create.button"/></a></td>
             </tr>
         </tfoot>

@@ -2,9 +2,13 @@ package com.inforstack.openstack.period;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 
@@ -15,6 +19,8 @@ public class Period {
 	@GeneratedValue
 	private Integer id;
 	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn
 	private I18nLink name;
 	
 	private Integer type;

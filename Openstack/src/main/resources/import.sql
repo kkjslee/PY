@@ -63,7 +63,7 @@ insert into Resource(id, url, permission) values (7, '/admin/instance/createInst
 insert into Resource(id, url, permission) values (8, '/admin/instance/getInstance', 'admin');
 
 insert into Resource(id, url, permission) values (9, '/admin/image/getPagerImageList', 'admin');
-insert into Resource(id, url, permission) values (10, '/admin/image/imglist', 'admin');
+insert into Resource(id, url, permission) values (10, '/admin/image/imgList', 'admin');
 insert into Resource(id, url, permission) values (11, '/admin/image/createImage', 'admin');
 insert into Resource(id, url, permission) values (12, '/admin/image/retrieveImage', 'admin');
 
@@ -85,4 +85,5 @@ insert into Resource(id, url, permission) values (25, '/admin/flavor/flavorList'
 insert into Resource(id, url, permission) values (26, '/admin/image/scripts/bootstrap', 'admin');
 insert into Resource(id, url, permission) values (27, '/admin/image/scripts/template', 'admin');
 insert into Resource(id, url, permission) values (28, '/admin/image/getPagerAllImageList', 'admin');
-
+insert into Resource(id, url, permission) values (29, '/admin/flavor/getPagerAllFlavorList', 'admin');
+insert into Resource(id, url, permission) values (30, '/admin/flavor/nameCheck', 'admin');

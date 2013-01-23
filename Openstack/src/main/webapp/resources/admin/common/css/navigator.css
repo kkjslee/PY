@@ -10,21 +10,14 @@
 }
 .left{
 	width:245px;
-	float:left;
 	display: inline-block;
 	background:url(image_navigator/sidebar.gif) 0 0 repeat-y;
-	position: absolute;
 	height:100%;
-	left:0;
-	top:0px;
 	overflow:hidden;
 }
 .right {
   background:white;
   display:block;
-  position:absolute;
-  top:0;
-  left:245px;
   min-width:800px;
   min-height:500px;
   height:100%;

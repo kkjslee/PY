@@ -30,6 +30,9 @@ public class FlavorModel {
   @Range(min = Constants.DEFAULT_DISK_SIZE_MIN_LIMIT, max = Constants.DEFAULT_DISK_SIZE_MAX_LIMIT, message = "{size.not.valid}")
   private int disk;
 
+  // enabled or disabled;
+  private String status;
+
   public FlavorModel() {
     super();
   }
@@ -72,6 +75,14 @@ public class FlavorModel {
 
   public void setDisk(int disk) {
     this.disk = disk;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
 }

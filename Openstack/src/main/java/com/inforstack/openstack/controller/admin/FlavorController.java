@@ -24,6 +24,7 @@ import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.controller.model.FlavorModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 import com.inforstack.openstack.utils.ValidateUtil;
 
@@ -74,59 +75,35 @@ public class FlavorController {
     } else {
       pageSze = pageSize;
     }
-    List<FlavorModel> flavorList = new ArrayList<FlavorModel>();
-    try {
-      Flavor[] flavors = flavorService.listFlavors();
-      if (flavors != null) {
-        FlavorModel flavorModel = null;
-        for (Flavor flavor : flavors) {
-          if (ValidateUtil.checkValidFlavor(flavor)) {
-            flavorModel = new FlavorModel();
-            flavorModel.setFlavorId(flavor.getId());
-            flavorModel.setDisk(flavor.getDisk());
-            flavorModel.setFlavorName(flavor.getName());
-            flavorModel.setRam(flavor.getRam());
-            flavorModel.setVcpus(flavor.getVcpus());
-            flavorList.add(flavorModel);
-          }
-        }
-
-        PagerModel<FlavorModel> page = new PagerModel<FlavorModel>(flavorList, pageSze);
-        flavorList = page.getPagedData(pageIdx);
-        model.addAttribute("pageIndex", pageIdx);
-        model.addAttribute("pageSize", pageSze);
-        model.addAttribute("pageTotal", page.getTotalRecord());
-        model.addAttribute("dataList", flavorList);
-      }
-    } catch (OpenstackAPIException e) {
-      e.printStackTrace();
-    }
+    getPagerFlavors(model, pageIdx, pageSze, true);
     return FLAVOR_MODULE_HOME + "/tr";
   }
 
+  @RequestMapping(value = "/getPagerAllFlavorList", method = RequestMethod.POST)
+  public String getPagerAllFlavors(Model model, Integer pageIndex, Integer pageSize) {
+    int pageIdx = -1;
+    int pageSze = 0;
+    if (pageIndex == null || pageIndex == 0) {
+      log.info("no pageindex passed, set default value 1");
+      pageIdx = Constants.DEFAULT_PAGE_INDEX;
+    } else {
+      pageIdx = pageIndex;
+    }
+    if (pageSize == null) {
+      log.info("no page size passed, set default value 20");
+      pageSze = Constants.DEFAULT_PAGE_SIZE;
+    } else {
+      pageSze = pageSize;
+    }
+    getPagerFlavors(model, pageIdx, pageSze, false);
+    return FLAVOR_MODULE_HOME + "/tr";
+  }
+
+  // this is for instance selection
   @RequestMapping(value = "/flavorList", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
   List<FlavorModel> listFlavors(Model model) {
-    List<FlavorModel> flavorModels = new ArrayList<FlavorModel>();
-    try {
-      Flavor[] flavors = flavorService.listFlavors();
-      FlavorModel flavorModel = null;
-      for (Flavor flavor : flavors) {
-        if (ValidateUtil.checkValidFlavor(flavor)) {
-          flavorModel = new FlavorModel();
-          flavorModel.setFlavorId(flavor.getId());
-          flavorModel.setDisk(flavor.getDisk());
-          flavorModel.setFlavorName(flavor.getName());
-          flavorModel.setRam(flavor.getRam());
-          flavorModel.setVcpus(flavor.getVcpus());
-          flavorModels.add(flavorModel);
-        }
-
-      }
-    } catch (OpenstackAPIException e) {
-      e.printStackTrace();
-    }
-
+    List<FlavorModel> flavorModels = getAllFlavors(true);
     return flavorModels;
   }
 
@@ -187,5 +164,101 @@ public class FlavorController {
       return Constants.JSON_STATUS_EXCEPTION;
     }
     return Constants.JSON_STATUS_DONE;
+  }
+
+  /**
+   * check all flavor unique name
+   * 
+   * @return if exist return false
+   */
+  @RequestMapping(value = "nameCheck", method = RequestMethod.POST, produces = "application/json")
+  public @ResponseBody
+  String checkUniqueName(String name) {
+    if (StringUtil.isNullOrEmpty(name, true)) {
+      return Constants.JSON_STATUS_FALSE;
+    }
+    if (flavorNameExist(name)) {
+      return Constants.JSON_STATUS_FALSE;
+    } else {
+      return Constants.JSON_STATUS_TRUE;
+    }
+  }
+
+  private List<FlavorModel> getPagerFlavors(Model model, int pageIdx, int pageSze, boolean needCheck) {
+    List<FlavorModel> flavorList = new ArrayList<FlavorModel>();
+    try {
+      Flavor[] flavors = flavorService.listFlavors();
+      if (flavors != null) {
+        FlavorModel flavorModel = null;
+        for (Flavor flavor : flavors) {
+          flavorModel = new FlavorModel();
+          flavorModel.setFlavorId(flavor.getId());
+          flavorModel.setDisk(flavor.getDisk());
+          flavorModel.setFlavorName(flavor.getName());
+          flavorModel.setRam(flavor.getRam());
+          flavorModel.setVcpus(flavor.getVcpus());
+          if (!flavor.isDisabled()) {
+            flavorModel.setStatus(OpenstackUtil.getMessage("admin.flavor.enabled.status"));
+          } else {
+            flavorModel.setStatus(OpenstackUtil.getMessage("admin.flavor.disbled.status"));
+          }
+          if (needCheck) {
+            if (!ValidateUtil.checkValidFlavor(flavor)) {
+              continue;
+            }
+          }
+          flavorList.add(flavorModel);
+        }
+
+        PagerModel<FlavorModel> page = new PagerModel<FlavorModel>(flavorList, pageSze);
+        flavorList = page.getPagedData(pageIdx);
+        model.addAttribute("pageIndex", pageIdx);
+        model.addAttribute("pageSize", pageSze);
+        model.addAttribute("pageTotal", page.getTotalRecord());
+        model.addAttribute("dataList", flavorList);
+      }
+    } catch (OpenstackAPIException e) {
+      e.printStackTrace();
+    }
+    return flavorList;
+  }
+
+  // has no pager
+  private List<FlavorModel> getAllFlavors(boolean needCheck) {
+    List<FlavorModel> flavorModels = new ArrayList<FlavorModel>();
+    try {
+      Flavor[] flavors = flavorService.listFlavors();
+      FlavorModel flavorModel = null;
+      for (Flavor flavor : flavors) {
+        flavorModel = new FlavorModel();
+        flavorModel.setFlavorId(flavor.getId());
+        flavorModel.setDisk(flavor.getDisk());
+        flavorModel.setFlavorName(flavor.getName());
+        flavorModel.setRam(flavor.getRam());
+        flavorModel.setVcpus(flavor.getVcpus());
+        if (needCheck) {
+          if (!ValidateUtil.checkValidFlavor(flavor)) {
+            continue;
+          }
+        }
+        flavorModels.add(flavorModel);
+      }
+    } catch (OpenstackAPIException e) {
+      e.printStackTrace();
+    }
+    return flavorModels;
+  }
+
+  private boolean flavorNameExist(String name) {
+    if (StringUtil.isNullOrEmpty(name, true)) {
+      return false;
+    }
+    List<FlavorModel> flavorList = getAllFlavors(false);
+    for (FlavorModel m : flavorList) {
+      if (m.getFlavorName().equalsIgnoreCase(name)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

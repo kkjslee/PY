@@ -78,39 +78,7 @@ public class ImageController {
     } else {
       pageSze = pageSize;
     }
-    List<ImageModel> imgList = new ArrayList<ImageModel>();
-    try {
-      Image[] images = imageService.listImages();
-      if (images != null) {
-        ImageModel imgModel = null;
-        for (Image img : images) {
-          if (ValidateUtil.checkValidImg(img)) {
-            imgModel = new ImageModel();
-            imgModel.setImgId(img.getId());
-            imgModel.setImgName(img.getName());
-            imgModel.setCreated(img.getCreated());
-            imgModel.setMinDisk(img.getMinDisk());
-            imgModel.setMinRam(img.getMinRam());
-            imgModel.setProgress(img.getProgress());
-            imgModel.setStatus(img.getStatus());
-            imgModel.setTenant(img.getTenant());
-            imgModel.setUpdated(img.getUpdated());
-            imgModel.setUser(img.getUser());
-            imgList.add(imgModel);
-          }
-        }
-
-        PagerModel<ImageModel> page = new PagerModel<ImageModel>(imgList, pageSze);
-        imgList = page.getPagedData(pageIdx);
-        model.addAttribute("pageIndex", pageIdx);
-        model.addAttribute("pageSize", pageSze);
-        model.addAttribute("pageTotal", page.getTotalRecord());
-        model.addAttribute("dataList", imgList);
-      }
-    } catch (OpenstackAPIException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    getImages(model, pageIdx, pageSze, false);
     return IMAGE_MODULE_HOME + "/tr";
   }
 
@@ -131,6 +99,11 @@ public class ImageController {
     } else {
       pageSze = pageSize;
     }
+    getImages(model, pageIdx, pageSze, false);
+    return IMAGE_MODULE_HOME + "/tr";
+  }
+
+  private List<ImageModel> getImages(Model model, int pageIdx, int pageSze, boolean needCheck) {
     List<ImageModel> imgList = new ArrayList<ImageModel>();
     try {
       Image[] images = imageService.listImages();
@@ -148,6 +121,11 @@ public class ImageController {
           imgModel.setTenant(img.getTenant());
           imgModel.setUpdated(img.getUpdated());
           imgModel.setUser(img.getUser());
+          if (needCheck) {
+            if (!ValidateUtil.checkValidImg(img)) {
+              continue;
+            }
+          }
           imgList.add(imgModel);
         }
 
@@ -162,9 +140,10 @@ public class ImageController {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    return IMAGE_MODULE_HOME + "/tr";
+    return imgList;
   }
 
+  // this is for instance selection
   @RequestMapping(value = "/imgList", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
   List<ImageModel> listImages(Model model) {

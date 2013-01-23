@@ -45,7 +45,6 @@ public class Order {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="order")
 	private List<SubOrder> subOrders;
 	
-	
 	public String getId() {
 		return id;
 	}

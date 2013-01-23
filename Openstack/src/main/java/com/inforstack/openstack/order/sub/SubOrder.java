@@ -1,5 +1,7 @@
 package com.inforstack.openstack.order.sub;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,9 +33,11 @@ public class SubOrder {
 	@JoinColumn(name="period_id")
 	private Period period;
 	
+	private Date nextBillingDate;
+	
 	private String uuid;
 	
-	private boolean deleted;
+	private int status;
 
 	public Integer getId() {
 		return id;
@@ -75,11 +79,20 @@ public class SubOrder {
 		this.uuid = uuid;
 	}
 
-	public boolean getDeleted() {
-		return deleted;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setStatus(int status) {
+		this.status = status;
 	}
+
+	public Date getNextBillingDate() {
+		return nextBillingDate;
+	}
+
+	public void setNextBillingDate(Date nextBillingDate) {
+		this.nextBillingDate = nextBillingDate;
+	}
+	
 }

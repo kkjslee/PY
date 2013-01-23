@@ -95,10 +95,10 @@ public class PeriodDaoImpl implements PeriodDao {
 			}
 			List<Period> instances = em.createQuery(criteria).getResultList();
 			if(CollectionUtil.isNullOrEmpty(instances)){
-				log.debug("get successful");
+				log.debug("No record found");
 				return instances;
 			}
-			log.debug("No record found");
+			log.debug("get successful");
 			return null;
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);

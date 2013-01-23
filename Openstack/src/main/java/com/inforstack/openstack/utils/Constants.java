@@ -12,10 +12,17 @@ public class Constants {
 
   public static final int ORDER_STATUS_NEW = 1;
   public static final int ORDER_STATUS_PROCESSING = 2;
-  public static final int ORDER_STATUS_ACTIVE = 3;
-  public static final int ORDER_STATUS_INACTIVE = 4;
+  public static final int ORDER_STATUS_READY = 3;
+  public static final int ORDER_STATUS_ACTIVE = 4;
   public static final int ORDER_STATUS_FINISHED = 5;
-  public static final int ORDER_STATUS_CALLELED = 6;
+  public static final int ORDER_STATUS_PENDING_CALLEL = 6;
+  public static final int ORDER_STATUS_CALLELED = 7;
+  
+  public static final int SUBORDER_STATUS_NEW = 1;
+  public static final int SUBORDER_STATUS_AVAILABLE = 2;
+  public static final int SUBORDER_STATUS_UNAVAILABLE = 3;
+  public static final int SUBORDER_STATUS_ERROR = 4;
+  public static final int SUBORDER_STATUS_DELETED = 5;
 
   public static final int TENANT_AGEING_ACTIVE = 1;
   public static final int TENANT_AGEING_DELETED = 2;

@@ -87,3 +87,9 @@ insert into Resource(id, url, permission) values (27, '/admin/image/scripts/temp
 insert into Resource(id, url, permission) values (28, '/admin/image/getPagerAllImageList', 'admin');
 insert into Resource(id, url, permission) values (29, '/admin/flavor/getPagerAllFlavorList', 'admin');
 insert into Resource(id, url, permission) values (30, '/admin/flavor/nameCheck', 'admin');
+
+insert into Resource(id, url, permission) values (31, '/user', 'user')
+insert into Resource(id, url, permission) values (32, '/user/scripts/navinit', 'user');
+insert into Resource(id, url, permission) values (33, '/user/scripts/bootstrap', 'user');
+insert into Resource(id, url, permission) values (34, '/user/scripts/template', 'user');
+insert into Resource(id, url, permission) values (35, '/user/modules/entry/index', 'user');

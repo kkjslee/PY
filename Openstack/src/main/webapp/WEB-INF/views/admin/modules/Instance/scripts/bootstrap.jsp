@@ -170,6 +170,7 @@ function dataInit(url,selectId,optionModel){
             	   
                }else{
             	    $.tmpl(optionModel, data).appendTo("#" + selectId);
+            	    $("#" + selectId).selectmenu();
             	    if(selectId == "selFlavorModel"){
             	       bindFlavorSelect();
             	    }

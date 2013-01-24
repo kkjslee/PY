@@ -2,7 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-<input type="hidden" id="pageTotal" value="${pageTotal}">
 <c:choose>
 <c:when test='${not empty dataList}'>
 <c:forEach items="${dataList}" var="item" varStatus="status">
@@ -13,6 +12,7 @@
     <tr class="dataRow  rowEve">
     </c:if>
     <td class="imageName"><!-- to be compatible with ie6,hidden input should be placed in td element  -->
+    <input type="hidden" id="pageTotal" value="${pageTotal}">
     <input isos="imgId" type="hidden" value="${item.imgId}" />
      <input isos="imgName" type="hidden" value="${item.imgName}" />
     <input isos="createdTime" type="hidden" value="${item.createdTime}" />

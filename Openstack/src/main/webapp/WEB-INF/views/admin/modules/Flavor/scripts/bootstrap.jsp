@@ -123,6 +123,7 @@ function showEditFlavor(which){
     $(editFlavor).find("input[isos='flavorName']").val(flavorName);
     $(editFlavor).find("input[isos='vcpus']").val(vcpus);
     $(editFlavor).find("select[isos='ram']").val(ram);
+    $("select").selectmenu();
     $(editFlavor).find("input[isos='disk']").val(disk);
     $(editFlavor).dialog("open");
    }
@@ -179,6 +180,7 @@ function showCreatFlavor(){
         }]
     });
     bindNameCheck(addFlavor);
+    $("select").selectmenu();
 	$(addFlavor).dialog("open");
 }
 

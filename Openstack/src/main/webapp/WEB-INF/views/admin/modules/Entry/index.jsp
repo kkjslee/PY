@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	<div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="admin.entry.label.title"/></div>
+	<div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="admin.entry.title"/></div>
     <div style="padding:30px 0 10px 60px;">
-    	<div style="font-family:'微软雅黑';font-size:14px;"><spring:message code="admin.entry.label.welcome"/></script></div>
+    	<div style="font-family:'微软雅黑';font-size:14px;"><spring:message code="admin.entry.welcome"/></script></div>
     </div>
 </body>
 </html>

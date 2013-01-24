@@ -108,6 +108,7 @@
 }
 .dialogLineRight select{
 	height:25px;
+	width:200px;
 }
 .loadingTips{
 	display:block;

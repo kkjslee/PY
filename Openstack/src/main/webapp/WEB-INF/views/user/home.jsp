@@ -1,42 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-
-<!--#include virtual="config.shtml" -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><!--#echo var='PageTitle' --></title>
-
-<link href="css/navigator.css" rel="stylesheet" type="text/css">
-<script src="js/jquery-1.6.4.js" language="javascript"></script>
-<script src="js/jquery.cookie.js" language="javascript"></script>
-<script src="js/base64.js" language="javascript"></script>
-<script src="js/String.js" language="javascript"></script>
-<script type="text/javascript" src="locale.jsp"></script>
- 
-<script src="js/server.js" language="javascript"></script>
-<script src="js/account.js" language="javascript"></script>
-<script src="js/Bootstrap.js" language="javascript"></script>
+<title>用户云平台</title>
+<link href="<%=request.getContextPath()%>/resource/admin/common/css/navigator.css" rel="Stylesheet" type="text/css"  />
+<script src="<%=request.getContextPath()%>/resource/common/js/jquery-1.6.4.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/admin/scripts/navinit" type="text/javascript"></script>
 </head>
-
 <body class="mainBody">
-<div>
+<table>
+<tr>
+    
+<td class="left" valign="top">
+    <div class="logo"><img src="${pageContext.request.contextPath}/resource/common/image/logo.png"/></div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</td>
 
-<div class="left">
-   <div class="logo"><img src="<!--#echo var='Logo' -->"/></div>
-   <div class="menu" type="senior">
-      <ul>
-      	 <!-- Menu Content -->
-      </ul>
-   </div>
+<td style="width:100%" valign="top">
+<div class="prepare"><spring:message code="admin.prepare.module"/></div>
+<div class="right">
 </div>
+</td>
 
-<div class="right"><!--Main Content--></div>
-
-
-
-</div>
+</tr>
+</table>
 
 </body>
 </html>

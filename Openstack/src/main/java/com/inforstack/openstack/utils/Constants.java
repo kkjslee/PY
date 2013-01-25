@@ -23,6 +23,27 @@ public class Constants {
   public static final int SUBORDER_STATUS_UNAVAILABLE = 3;
   public static final int SUBORDER_STATUS_ERROR = 4;
   public static final int SUBORDER_STATUS_DELETED = 5;
+  
+  public static final int PAYMENT_STATUS_NEW = 1;
+  public static final int PAYMENT_STATUS_PROCESSING = 2;
+  public static final int PAYMENT_STATUS_ERROR = 3;
+  public static final int PAYMENT_STATUS_OK = 4;
+  
+  public static final int PAYMENT_TYPE_TOPUP = 1;
+  public static final int PAYMENT_TYPE_REFUND = 2;
+  public static final int PAYMENT_TYPE_POINT = 3;
+  
+  public static final int INVOICE_STATUS_NEW = 1;
+  public static final int INVOICE_STATUS_UPPAID = 2;
+  public static final int INVOICE_STATUS_PAID = 3;
+  public static final int INVOICE_STATUS_OVERDUE = 4;
+  
+  public static final int BILLINGPROCESS_STATUS_NEW = 1;
+  public static final int BILLINGPROCESS_STATUS_WAITING = 2;
+  public static final int BILLINGPROCESS_STATUS_PROCESSING = 3;
+  public static final int BILLINGPROCESS_STATUS_SUCCESS = 4;
+  public static final int BILLINGPROCESS_STATUS_PART_SUCCESS = 5;
+  public static final int BILLINGPROCESS_STATUS_FAILED = 6;
 
   public static final int TENANT_AGEING_ACTIVE = 1;
   public static final int TENANT_AGEING_DELETED = 2;

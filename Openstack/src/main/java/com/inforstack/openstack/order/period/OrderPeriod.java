@@ -1,8 +1,9 @@
-package com.inforstack.openstack.period;
+package com.inforstack.openstack.order.period;
 
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import javax.persistence.OneToOne;
 import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
-public class Period {
+public class OrderPeriod {
 	
 	@Id
 	@GeneratedValue
@@ -23,9 +24,11 @@ public class Period {
 	@JoinColumn
 	private I18nLink name;
 	
-	private Integer type;
+	@Column(name="period_type")
+	private Integer periodType;
 	
-	private Integer quantity;
+	@Column(name="period_qutity")
+	private Integer periodQuantity;
 
 	private Date createTime;
 	
@@ -46,21 +49,21 @@ public class Period {
 	public void setName(I18nLink name) {
 		this.name = name;
 	}
-
-	public Integer getType() {
-		return type;
+	
+	public Integer getPeriodType() {
+		return periodType;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setPeriodType(Integer periodType) {
+		this.periodType = periodType;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public Integer getPeriodQuantity() {
+		return periodQuantity;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setPeriodQuantity(Integer periodQuantity) {
+		this.periodQuantity = periodQuantity;
 	}
 
 	public Date getCreateTime() {

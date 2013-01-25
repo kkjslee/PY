@@ -1,4 +1,4 @@
-package com.inforstack.openstack.period;
+package com.inforstack.openstack.order.period;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ import org.springframework.stereotype.Repository;
 import com.inforstack.openstack.utils.CollectionUtil;
 
 @Repository
-public class PeriodDaoImpl implements PeriodDao {
+public class OrderPeriodDaoImpl implements OrderPeriodDao {
 	
-	private static final Log log = LogFactory.getLog(PeriodDaoImpl.class);
+	private static final Log log = LogFactory.getLog(OrderPeriodDaoImpl.class);
 	@Autowired
 	private EntityManager em;
 	
 	@Override
-	public void persist(Period period) {
+	public void persist(OrderPeriod period) {
 		log.debug("Persist period");
 		try{
 			em.persist(period);
@@ -34,7 +34,7 @@ public class PeriodDaoImpl implements PeriodDao {
 	}
 
 	@Override
-	public void merge(Period period) {
+	public void merge(OrderPeriod period) {
 		log.debug("Merge period");
 		try{
 			em.merge(period);
@@ -46,7 +46,7 @@ public class PeriodDaoImpl implements PeriodDao {
 	}
 
 	@Override
-	public void remove(Period period) {
+	public void remove(OrderPeriod period) {
 		log.debug("Remove period");
 		try{
 			em.remove(period);
@@ -58,12 +58,12 @@ public class PeriodDaoImpl implements PeriodDao {
 	}
 
 	@Override
-	public Period findById(Integer periodId) {
+	public OrderPeriod findById(Integer periodId) {
 		log.debug("Find period by id : " + periodId);
 		
-		Period period = null;
+		OrderPeriod period = null;
 		try{
-			period = em.find(Period.class, periodId);
+			period = em.find(OrderPeriod.class, periodId);
 		}catch(RuntimeException re){
 			log.error("Find period failed", re);
 			throw re;
@@ -79,13 +79,13 @@ public class PeriodDaoImpl implements PeriodDao {
 	}
 
 	@Override
-	public List<Period> findAll(boolean includeDeleted) {
+	public List<OrderPeriod> findAll(boolean includeDeleted) {
 		log.debug("Find all period instance(s)  " + (includeDeleted?"include deleted":"exclude deleted"));
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
-			CriteriaQuery<Period> criteria = builder
-					.createQuery(Period.class);
-			Root<Period> root = criteria.from(Period.class);
+			CriteriaQuery<OrderPeriod> criteria = builder
+					.createQuery(OrderPeriod.class);
+			Root<OrderPeriod> root = criteria.from(OrderPeriod.class);
 			if(includeDeleted){
 				criteria.select(root);
 			}else{
@@ -93,7 +93,7 @@ public class PeriodDaoImpl implements PeriodDao {
 						builder.equal(root.get("deleted"), false)
 				);
 			}
-			List<Period> instances = em.createQuery(criteria).getResultList();
+			List<OrderPeriod> instances = em.createQuery(criteria).getResultList();
 			if(CollectionUtil.isNullOrEmpty(instances)){
 				log.debug("No record found");
 				return instances;

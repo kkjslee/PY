@@ -13,8 +13,8 @@ import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
-import com.inforstack.openstack.period.Period;
-import com.inforstack.openstack.period.PeriodService;
+import com.inforstack.openstack.order.period.OrderPeriod;
+import com.inforstack.openstack.order.period.OrderPeriodService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.StringUtil;
@@ -31,7 +31,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 	@Autowired
 	private OrderService orderService;
 	@Autowired
-	private PeriodService periodService;
+	private OrderPeriodService orderPeriodService;
 	
 	@Override
 	public SubOrder createSubOrder(Integer itemId, String orderId,
@@ -54,7 +54,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 			return null;
 		}
 		
-		Period period = periodService.findPeriodById(periodId);
+		OrderPeriod period = orderPeriodService.findPeriodById(periodId);
 		if(period == null){
 			log.info("Create sub order failed for no period found by id : " + periodId);
 			return null;
@@ -63,7 +63,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 		SubOrder so = new SubOrder();
 		so.setItem(item);
 		so.setOrder(order);
-		so.setPeriod(period);
+		so.setOrderPeriod(period);
 		so.setStatus(Constants.SUBORDER_STATUS_NEW);
 		subOrderDao.persist(so);
 		

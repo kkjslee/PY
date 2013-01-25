@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.security.permission.Permission;
@@ -22,6 +23,7 @@ import com.inforstack.openstack.tenant.Tenant;
 
 
 @Entity
+@Table(name="security_group")
 public class SecurityGroup {
 	
 	@Id

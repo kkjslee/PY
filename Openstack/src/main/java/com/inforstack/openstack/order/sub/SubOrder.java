@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
-import com.inforstack.openstack.period.Period;
+import com.inforstack.openstack.order.period.OrderPeriod;
 
 @Entity
 public class SubOrder {
@@ -30,8 +30,8 @@ public class SubOrder {
 	private Order order;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="period_id")
-	private Period period;
+	@JoinColumn(name="order_period_id")
+	private OrderPeriod orderPeriod;
 	
 	private Date nextBillingDate;
 	
@@ -62,13 +62,13 @@ public class SubOrder {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-
-	public Period getPeriod() {
-		return period;
+	
+	public OrderPeriod getOrderPeriod() {
+		return orderPeriod;
 	}
 
-	public void setPeriod(Period period) {
-		this.period = period;
+	public void setOrderPeriod(OrderPeriod orderPeriod) {
+		this.orderPeriod = orderPeriod;
 	}
 
 	public String getUuid() {

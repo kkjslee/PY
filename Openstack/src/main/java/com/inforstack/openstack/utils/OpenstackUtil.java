@@ -3,6 +3,7 @@ package com.inforstack.openstack.utils;
 import java.util.Locale;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
 import com.inforstack.openstack.i18n.lang.Language;
@@ -61,5 +62,9 @@ public class OpenstackUtil {
 		}else{
 			throw new IllegalArgumentException("Passed roleId is not valid : " + roleId);
 		}
+	}
+	
+	public static String md5(String s){
+		return new MessageDigestPasswordEncoder("md5").encodePassword(s, null);
 	}
 }

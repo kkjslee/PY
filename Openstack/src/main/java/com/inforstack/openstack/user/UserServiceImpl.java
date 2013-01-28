@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
-import com.inforstack.openstack.exception.ApplicationException;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
@@ -22,7 +22,6 @@ import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
-import com.inforstack.openstack.utils.StringUtil;
 
 @Service("UserService")
 @Transactional(rollbackFor=Exception.class)
@@ -39,15 +38,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Set<Permission> getPermissions(Integer userId) {
 		Set<Permission> permissions = new HashSet<Permission>();
-		if(userId==null){
-			log.info("Get permissions failed for passed user id is null");
-			return permissions;
-		}
-		
-		log.debug("get permission by user id : " +userId);
+		log.debug("Get permissions by user id : " +userId);
 		User user = userDao.findUser(userId);
 		if(user == null) {
-			log.info("No user found for id : " +userId);
+			log.info("Get permisstions failed for no user found by id : " +userId);
 			return permissions;
 		}
 		
@@ -55,18 +49,13 @@ public class UserServiceImpl implements UserService {
 		for(SecurityGroup sg : sgs){
 			permissions.addAll(sg.getPermissions());
 		}
-		log.debug(permissions.size()+ " permissions found for user id : " +userId);
+		log.debug(permissions.size()+ " permissions found for user : " +userId);
 		
 		return permissions;
 	}
 	
 	@Override
-	public User findUserById(Integer userId){
-		if(userId == null){
-			log.info("Find User by id failed for passed user id is null");
-			return null;
-		}
-		
+	public User findUserById(int userId){
 		log.debug("Find user by id : " + userId);
 		User user = userDao.findUser(userId);
 		if(user == null){
@@ -80,11 +69,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByName(String userName) {
-		if(userName == null){
-			log.info("Find user by name failed for passed user name is null");
-			return null;
-		}
-		
 		log.debug("find user by name : " +userName);
 		User user = userDao.findByName(userName);
 		if(user==null){
@@ -98,45 +82,37 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User registerUser(User user, Tenant tenant, int roleId) throws OpenstackAPIException  {
-		if(user==null || tenant==null){
-			log.info("Register user failed for passed user/tenant is null");
-			return null;
-		}
-		
-		log.debug("register user : " + user.getName() +", tenant : " + tenant.getName());
+		log.debug("Register user with user : " + user.getName() +", tenant : " + tenant.getName());
 		tenant.setRoleId(roleId);
 		Tenant t = tenantService.createTenant(tenant, roleId);
 		if(t == null){
-			log.warn("create tenant failed" + tenant.getName());
-			return null;
+			log.warn("Register user failed for creating tenant failed : " + tenant.getName());
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.create.fail"));
 		}
 		
 		UserService self = (UserService)OpenstackUtil.getBean("UserService");
 		fillUser(user, t);
 		User u = self.createUser(user, roleId);
 		if(u == null){
-			log.warn("create user failed" + user.getName());
-			return null;
+			log.warn("Register user failed for creating user failed : " + user.getName());
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("user.create.failed"));
 		}
 		
 		t.setCreator(user);
 		keystoneService.addRole(OpenstackUtil.getOpenstackRole(roleId), u.getOpenstackUser(), t.getOpenstatckTenant());
+		log.debug("Register user successfully");
 		
 		return user;
 	}
 
 	@Override
 	public User createUser(User user, int roleId) throws OpenstackAPIException {
-		if(user==null) {
-			log.info("Create user failed for null is passed");
-			return null;
-		}
-		
 		log.debug("Create user : "+user.getName());
 		user.setRoleId(roleId);
 		user.setStatus(Constants.USER_STATUS_VALID);
 		user.setAgeing(Constants.USER_AGEING_ACTIVE);
 		user.setCreateTime(new Date());
+		user.setPassword(OpenstackUtil.md5(user.getPassword()));
 		userDao.persist(user);
 		
 		user.setOpenstackUser(keystoneService.createUser(user.getName(), user.getPassword(), user.getEmail()));
@@ -147,11 +123,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(User user) throws OpenstackAPIException {
-		if(user==null || user.getId()==null) {
-			log.info("Update user failed for null is passed or no id found");
-			return null;
-		}
-		
 		User newUser = userDao.findUser(user.getId());
 		if(newUser==null){
 			log.warn("Update user failed for no user found for id :　" + user.getId());
@@ -183,15 +154,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User createTenantUser(User user) throws OpenstackAPIException, ApplicationException {
-		if(user==null) {
-			log.info("Create tenant user failed for null is passed");
-			return null;
-		}
+	public User createTenantUser(User user) throws OpenstackAPIException {
 		Tenant t = SecurityUtils.getTenant();
 		if(t == null){
 			log.error("Create tenant user failed for tenant is not found");
-			throw new ApplicationException(OpenstackUtil.getMessage("tenant.not.found"));
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.not.found"));
 		}
 		
 		log.debug("Create user for tenant : "  + t.getName());
@@ -200,7 +167,7 @@ public class UserServiceImpl implements UserService {
 		User u = self.createUser(user, t.getRoleId());
 		if(u == null){
 			log.warn("Create tenant user failed");
-			return null;
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.create.fail"));
 		}
 		
 		keystoneService.addRole(Role.MEMBER, u.getOpenstackUser(), t.getOpenstatckTenant());
@@ -218,16 +185,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User deleteUser(Integer userId) throws OpenstackAPIException, ApplicationException {
-		if(userId==null) {
-			log.info("Delete user failed for null is passed");
-			return null;
-		}
-		
+	public User deleteUser(int userId) throws OpenstackAPIException {
 		log.debug("Delete User");
 		Tenant tenant = SecurityUtils.getTenant();
 		if(tenant.getCreatorId()==userId){
-			throw new ApplicationException(OpenstackUtil.getMessage("tenant.creator.cannot.delete"));
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.creator.cannot.delete"));
 		}
 		
 		User user = userDao.findUser(userId);
@@ -242,11 +204,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkQuestion(String username, String question, String answer) {
-		if(StringUtil.isNullOrEmpty(username) || StringUtil.isNullOrEmpty(question) || StringUtil.isNullOrEmpty(answer)){
-			log.info("Check question failed for passed username/question/answer is null or empty");
-			return false;
-		}
-		
 		log.debug("Check Question with user name : " + username);
 		User user = userDao.findByName(username);
 		if(user == null){

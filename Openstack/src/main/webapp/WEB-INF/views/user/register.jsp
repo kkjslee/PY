@@ -12,7 +12,7 @@
 <link type="text/css" href="${rPath}/css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet" />
 
 <script type="text/javascript" src="${rPath}/js/jquery-1.6.4.js"></script>
-<script type="text/javascript" src="${rPath}/js/jquery-ui-1.8.16.enterprise.min.js"></script>
+<script type="text/javascript" src="${rPath}/js/jquery-ui-1.9.2.custom.min.js"></script>
 <script type="text/javascript" src="${rPath}/js/check.js"></script>
 <script type="text/javascript" src="${rPath}/js/xml.parser.js"></script>
 <script type="text/javascript" src="${rPath}/js/jquery.blockUI.js"></script>

@@ -4,11 +4,34 @@ import java.util.List;
 
 public interface SubOrderService {
 	
-	public SubOrder createSubOrder(Integer itemId, String orderId, Integer periodId);
+	/**
+	 * Create sub order by necessary fileds
+	 * @param itemId
+	 * @param orderId
+	 * @param periodId
+	 * @return
+	 */
+	public SubOrder createSubOrder(int itemId, String orderId, int periodId);
 	
-	public SubOrder findSubOrderById(Integer subOrderId);
+	/**
+	 * find sub order by id
+	 * @param subOrderId
+	 * @return
+	 */
+	public SubOrder findSubOrderById(int subOrderId);
 	
+	/**
+	 * find sub orders by order id and/or status
+	 * @param orderId
+	 * @param status
+	 * @return
+	 */
 	public List<SubOrder> findSubOrders(String orderId, int status);
 	
-	public SubOrder changeSubOrderStatus(Integer subOrderId, int status);
+	/**
+	 * delete sub order by id
+	 * @param subOrderId
+	 * @return
+	 */
+	public SubOrder deleteSubOrder(int subOrderId);
 }

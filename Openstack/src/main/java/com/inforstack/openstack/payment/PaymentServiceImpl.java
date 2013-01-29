@@ -60,13 +60,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Payment createPayment(Integer tenantId, double amount,
+	public Payment createPayment(int tenantId, double amount,
 			boolean isRefund, int type) {
-		if(tenantId==null){
-			log.info("Create payment failed for passed tenant id is null");
-			return null;
-		}
-		
 		log.debug("Create payment for tenant : " + tenantId);
 		Tenant tenant = tenantService.findTenantById(tenantId);
 		if(tenant == null){
@@ -85,34 +80,16 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public Payment updatePaymentStatus(Payment payment, int status) {
-		if(payment == null){
-			log.info("Update payment failed for passed payment is null");
-			return null;
-		}
-		
-		log.debug("Update payment status to " + status + " : " + payment.getId());
-		payment.setStatus(status);
-		log.debug("Update payment status successfully");
-		return payment;
-	}
-
-	@Override
-	public Payment updatePaymentStatus(Integer paymentId, int status) {
-		if(paymentId == null){
-			log.info("Update payment failed for passed payment id is null");
-			return null;
-		}
-		
-		log.debug("Update payment status to " + status + " : " + paymentId);
+	public Payment processPayment(int paymentId) {
+		log.debug("Process payment : " + paymentId);
 		Payment payment = paymentDao.findById(paymentId);
 		if(payment==null){
-			log.info("Update payment failed for no payment found by id : " + paymentId);
+			log.info("Process payment failed for no payment found by id : " + paymentId);
 			return null;
 		}
 		
-		payment.setStatus(status);
-		log.debug("Update payment status successfully");
+		payment.setStatus(Constants.PAYMENT_STATUS_PROCESSING);
+		log.debug("Process payment status successfully");
 		return payment;
 	}
 	

@@ -34,13 +34,8 @@ public class SubOrderServiceImpl implements SubOrderService {
 	private OrderPeriodService orderPeriodService;
 	
 	@Override
-	public SubOrder createSubOrder(Integer itemId, String orderId,
-			Integer periodId) {
-		if(itemId == null || orderId == null || periodId == null){
-			log.info("Create sub order failed for passed itemId/orderId/periodId is null or empty");
-			return null;
-		}
-		
+	public SubOrder createSubOrder(int itemId, String orderId,
+			int periodId) {
 		log.debug("Create sub order for order : " + orderId);
 		ItemSpecification item = itemService.getItemSpecification(itemId);
 		if(item == null){
@@ -85,12 +80,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 	}
 	
 	@Override
-	public SubOrder findSubOrderById(Integer subOrderId){
-		if(subOrderId == null){
-			log.info("Find sub order failed for passed subOrderId is null");
-			return null;
-		}
-		
+	public SubOrder findSubOrderById(int subOrderId){
 		log.debug("Find sub order by id : " + subOrderId);
 		SubOrder suborder = subOrderDao.findById(subOrderId);
 		if(suborder == null){
@@ -103,21 +93,16 @@ public class SubOrderServiceImpl implements SubOrderService {
 	}
 
 	@Override
-	public SubOrder changeSubOrderStatus(Integer subOrderId, int status) {
-		if(subOrderId == null){
-			log.info("Change sub order status failed for passed sub order id is null or empty");
-			return null;
-		}
-		
-		log.debug("Change order status to " + status + " : " + subOrderId);
+	public SubOrder deleteSubOrder(int subOrderId) {
+		log.debug("Delete order ");
 		SubOrder subOrder = subOrderDao.findById(subOrderId);
 		if(subOrder == null){
-			log.info("Changesub  order status failed for no instance found by sub order id : " + subOrderId);
+			log.info("delete sub order failed for no instance found by sub order id : " + subOrderId);
 			return null;
 		}
-		subOrder.setStatus(status);
+		subOrder.setStatus(Constants.SUBORDER_STATUS_DELETED);
 		
-		log.debug("Change sub order status successfully");
+		log.debug("Delete sub order successfully");
 		return subOrder;
 	}
 	

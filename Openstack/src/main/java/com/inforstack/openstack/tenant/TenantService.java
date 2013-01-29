@@ -27,13 +27,39 @@ public interface TenantService {
 	 */
 	public Tenant findTenantWithPromotion(int tenantId);
 	
+	/**
+	 * find agent tenant by id
+	 * @param agentId
+	 * @return
+	 */
 	public Tenant findAgent(int agentId);
 	
+	/**
+	 * update tenant
+	 * @param tenant
+	 * @return
+	 */
 	public Tenant updateTenant(Tenant tenant);
 	
+	/**
+	 * remove tenant
+	 * @param tenant
+	 * @return
+	 */
 	public Tenant removeTenant(Tenant tenant);
 	
+	/**
+	 * remove tenant by id
+	 * @param tenantId
+	 * @return
+	 */
 	public Tenant removeTenant(int tenantId);
 	
+	/**
+	 * set tenant promotion
+	 * @param tenantId
+	 * @param discount
+	 * @return
+	 */
 	public Tenant setPromotion(int tenantId, double discount);
 }

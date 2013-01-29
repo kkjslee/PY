@@ -31,11 +31,6 @@ public class PromotionServiceImpl implements PromotionService {
 	
 	@Override
 	public Promotion createPromotion(Promotion promotion) {
-		if(promotion == null){
-			log.info("Create promotion failed for passed promotion is null");
-			return null;
-		}
-		
 		log.debug("Create promotion with name : " + promotion.getName());
 		promotionDao.persist(promotion);
 		log.debug("Create promotion successfully");
@@ -45,16 +40,7 @@ public class PromotionServiceImpl implements PromotionService {
 	
 	@Override
 	public Promotion createPromotion(String name,
-			Map<Integer, String> displayNames, double discount, Integer roleId) {
-		if(StringUtil.isNullOrEmpty(name) || MapUtil.isNullOrEmpty(displayNames) || roleId==null){
-			log.info("Create Promotion failed for passed name/displayNames/roleId is null or empty");
-			return null;
-		}
-		if(discount < 0){
-			log.info("Create Promotion failed for passed discount is less than 0");
-			return null;
-		}
-		
+			Map<Integer, String> displayNames, double discount, int roleId) {
 		log.debug("Create Promotion with name : " + name);
 		List<I18n> i18n = i18nService.createI18n(displayNames,
 				Constants.TABLE_PROMOTION,
@@ -78,15 +64,6 @@ public class PromotionServiceImpl implements PromotionService {
 	@Override
 	public Promotion createPromotion(String name,
 			Map<Integer, String> displayNames, double discount, Tenant tenant) {
-		if(StringUtil.isNullOrEmpty(name) || MapUtil.isNullOrEmpty(displayNames) || tenant == null){
-			log.info("Create Promotion failed for passed name/displayNames/tenantId is null or empty");
-			return null;
-		}
-		if(discount < 0){
-			log.info("Create Promotion failed for passed discount is less than 0");
-			return null;
-		}
-		
 		log.debug("Create Promotion with name : " + name);
 		List<I18n> i18n = i18nService.createI18n(displayNames,
 				Constants.TABLE_PROMOTION,
@@ -109,16 +86,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Promotion editDiscount(Integer id, double discount, Tenant tenant) {
-		if(id == null){
-			log.info("Edit discount failed for passed id is null");
-			return null;
-		}
-		if(discount < 0){
-			log.info("Edit discount failed for passed discount is less than 0");
-			return null;
-		}
-		
+	public Promotion editDiscount(int id, double discount, Tenant tenant) {
 		log.debug("Edit discount with id : " + id);
 		Promotion promotion = promotionDao.findById(id);
 		if(promotion == null){
@@ -148,12 +116,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Promotion findPromotionById(Integer id) {
-		if(id == null){
-			log.info("Find promotion failed for passed id is null");
-			return null;
-		}
-		
+	public Promotion findPromotionById(int id) {
 		log.debug("Find promotion by id : " + id);
 		Promotion promotion = promotionDao.findById(id);
 		if(promotion==null){
@@ -167,11 +130,6 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public Promotion findPromotionByName(String name, Tenant tenant) throws ApplicationException {
-		if(StringUtil.isNullOrEmpty(name) || tenant == null){
-			log.info("Find promotion failed for passed name/tenant is null or empty");
-			return null;
-		}
-		
 		log.debug("Find promotion by name : " + name);
 		Promotion promotion = promotionDao.findByNameAndTenant(name, tenant);
 		if(promotion == null){
@@ -187,12 +145,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Promotion removePromotion(Integer id) {
-		if(id == null){
-			log.info("Remove Promotion failed for passed id is null");
-			return null;
-		}
-		
+	public Promotion removePromotion(int id) {
 		log.debug("Remove promotion with id : " + id);
 		Promotion promotion = promotionDao.findById(id);
 		if(promotion==null){

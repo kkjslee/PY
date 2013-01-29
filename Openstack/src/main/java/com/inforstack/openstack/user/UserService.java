@@ -16,6 +16,11 @@ public interface UserService {
 	 */
 	public Set<Permission> getPermissions(Integer userId);
 	
+	/**
+	 * find user by id
+	 * @param userId
+	 * @return
+	 */
 	public User findUserById(int userId);
 	
 	/**
@@ -53,10 +58,16 @@ public interface UserService {
 	 */
 	public User createTenantUser(User user) throws OpenstackAPIException;
 
+	/**
+	 * update user
+	 * @param user
+	 * @return
+	 * @throws OpenstackAPIException
+	 */
 	public User updateUser(User user) throws OpenstackAPIException;
 
 	/**
-	 * 
+	 * delete user by id
 	 * @param userId
 	 * @return The user deleted or null for fail
 	 * @throws OpenstackAPIException
@@ -64,5 +75,12 @@ public interface UserService {
 	 */
 	public User deleteUser(int userId) throws OpenstackAPIException;
 	
+	/**
+	 * check security question
+	 * @param username
+	 * @param question
+	 * @param answer
+	 * @return
+	 */
 	public boolean checkQuestion(String username, String question, String answer);
 }

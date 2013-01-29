@@ -2,6 +2,11 @@ package com.inforstack.openstack.payment.method;
 
 public interface PaymentMethodService {
 	
-	public PaymentMethod findPaymentMethodById(Integer paymentMethodId);
+	/**
+	 * find payment method by id
+	 * @param paymentMethodId
+	 * @return
+	 */
+	public PaymentMethod findPaymentMethodById(int paymentMethodId);
 
 }

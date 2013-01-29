@@ -48,7 +48,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	}
 	
 	@Override
-	public BillingProcess processingBillingProcess(BillingProcess billingProcess) {
+	public BillingProcess processBillingProcess(BillingProcess billingProcess) {
 		log.debug("Change billing process status to "
 				+ Constants.BILLINGPROCESS_STATUS_PROCESSING + " : "
 				+ billingProcess.getId());
@@ -59,7 +59,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	}
 
 	@Override
-	public BillingProcess processingBillingProcess(int billingProcessId) {
+	public BillingProcess processBillingProcess(int billingProcessId) {
 		log.debug("Update billing process status");
 		BillingProcess bp = billingProcessDao.findById(billingProcessId);
 		if(bp == null){

@@ -48,11 +48,6 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public Order createOrder(Tenant tenant, Date begin, Date end) {
-		if(tenant == null){
-			log.info("Create order failed for passed tenant is null");
-			return null;
-		}
-		
 		log.debug("Create order for tenant : " + tenant.getName());
 		Date now  = new Date();
 		Order order = new Order();
@@ -76,12 +71,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order createOrder(Integer tenantId, Date begin, Date end) {
-		if(tenantId == null){
-			log.info("Create order failed for passed tenant id is null");
-			return null;
-		}
-		
+	public Order createOrder(int tenantId, Date begin, Date end) {
 		log.debug("Create order for tenant : " + tenantId);
 		Tenant tenant = tenantService.findTenantById(tenantId);
 		if(tenant == null){
@@ -101,19 +91,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order changeOrderStatus(String orderId, int status) {
-		if(StringUtil.isNullOrEmpty(orderId)){
-			log.info("Change order status failed for passed order id is null or empty");
-			return null;
-		}
-		
-		log.debug("Change order status to " + status + " : " + orderId);
+	public Order cancelOrder(String orderId) {
+		log.debug("Delete order : " + orderId);
 		Order order = orderDao.findById(orderId);
 		if(order == null){
 			log.info("Change order status failed for no instance found by order id : " + orderId);
 			return null;
 		}
-		order.setStatus(status);
+		order.setStatus(Constants.ORDER_STATUS_CALLELED);
 		
 		log.debug("Change order status successfully");
 		return order;
@@ -121,11 +106,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Order findOrderById(String orderId) {
-		if(StringUtil.isNullOrEmpty(orderId)){
-			log.info("Find order failed for passed order id is null or empty");
-			return null;
-		}
-		
 		log.debug("Find order by id : " + orderId);
 		Order order = orderDao.findById(orderId);
 		if(order == null){
@@ -138,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findAll(Integer tenantId, Integer status) {
+	public List<Order> findAll(int tenantId, int status) {
 		log.debug("Find all orders by tenant : " + tenantId + ", status : " + status);
 		List<Order> orders = orderDao.find(tenantId, status);
 		if(CollectionUtil.isNullOrEmpty(orders)){

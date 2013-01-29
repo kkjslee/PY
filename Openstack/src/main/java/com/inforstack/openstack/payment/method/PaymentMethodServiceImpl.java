@@ -15,12 +15,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	private PaymentMethodDao paymentMethodDao;
 	
 	@Override
-	public PaymentMethod findPaymentMethodById(Integer paymentMethodId) {
-		if(paymentMethodId == null){
-			log.info("Find payment method failed for passed id is null");
-			return null;
-		}
-		
+	public PaymentMethod findPaymentMethodById(int paymentMethodId) {
 		log.debug("Find payment method by id : " + paymentMethodId);
 		PaymentMethod paymentMethod = paymentMethodDao.findById(paymentMethodId);
 		log.debug("Find payment method successfully");

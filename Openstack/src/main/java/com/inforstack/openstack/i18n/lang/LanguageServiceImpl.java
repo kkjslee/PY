@@ -20,16 +20,12 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public Language findById(String languageId) {
-		if(StringUtil.isNullOrEmpty(languageId)){
-			log.info("Find Language failed for passed language id is null or empty");
-			return null;
-		}
-		
 		log.debug("Find Language by id" + languageId);
 		
 		Integer id = NumberUtil.getInteger(languageId);
 		if(id == null){
 			log.info("Find Language failed for passed languageId is not a valid integer : " + languageId);
+			return null;
 		}
 		Language lang = languageDao.findById(id);
 		if(lang==null){
@@ -43,11 +39,6 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public Language findByCountryAndLanguage(String country, String language) {
-		if(StringUtil.isNullOrEmpty(language)){
-			log.info("Find language failed for passed language is null or empty");
-			return null;
-		}
-		
 		log.info("Find language by country : " + country + ", language : "+language);
 		Language lang = null;
 		if(StringUtil.isNullOrEmpty(country)){

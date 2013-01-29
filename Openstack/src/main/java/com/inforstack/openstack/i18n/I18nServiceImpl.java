@@ -57,11 +57,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public String getI18nContent(I18nLink i18nLink){
-		if(i18nLink == null || i18nLink.getId()==null){
-			log.info("Get i18n content failed for passed i18n link is null or link id is null");
-			return null;
-		}
-		
 		log.debug("Find i18n contennt by link id : " + i18nLink.getId());
 		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
 		I18n i18n = self.findByLinkAndLanguage(i18nLink.getId(), OpenstackUtil.getLanguage().getId());
@@ -80,11 +75,6 @@ public class I18nServiceImpl implements I18nService {
 
 	@Override
 	public I18n createI18n(I18n i18n) {
-		if(i18n == null || i18n.getI18nLink()==null){
-			log.info("Create i18n failed for passed i18n is null or i18n link is null");
-			return null;
-		}
-		
 		log.debug("Create i18n with link id : " + i18n.getI18nLinkId());
 		i18nDao.persist(i18n);
 		log.debug("Create i18n successfully");
@@ -93,11 +83,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public I18n createI18n(Integer languageId, String content, I18nLink i18nLink) {
-		if(languageId==null || content==null || i18nLink==null || i18nLink.getId()==null){
-			log.info("Create i18n failed for passed languageId/contennt/i18nLink/i18nLinkId is null");
-			return null;
-		}
-		
 		log.debug("Create i18n with language : " + languageId + ", content : "
 				+ StringUtil.convertToLogString(content) + ", i18nLink : "
 				+ i18nLink.getId());
@@ -121,11 +106,6 @@ public class I18nServiceImpl implements I18nService {
 	@Override
 	public I18n createI18n(Integer languageId, String content,
 			Integer i18nLinkId) {
-		if(languageId==null || content==null || i18nLinkId==null){
-			log.info("Create i18n failed for passed languageId/contennt/i18nLinkId is null");
-			return null;
-		}
-		
 		log.debug("Create i18n with language : " + languageId + ", content : "
 				+ StringUtil.convertToLogString(content) + ", i18nlinkId : "
 				+ i18nLinkId);
@@ -148,12 +128,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public I18n createI18n(Integer languageId, String content, String tableName, String columnName){
-		if(languageId==null || content==null ||
-				StringUtil.isNullOrEmpty(tableName) || StringUtil.isNullOrEmpty(columnName)){
-			log.info("Create i18n failed for passed language/content/tableName/columnName is null or empty");
-			return null;
-		}
-		
 		log.info("Create i18n with language : " + languageId + ", content : " + StringUtil.convertToLogString(content) +
 				", tableName : " + tableName + ", columnName : " + columnName);
 		I18nLink link = i18nLinkService.createI18nLink(tableName, columnName);
@@ -175,12 +149,6 @@ public class I18nServiceImpl implements I18nService {
 	@Override
 	public List<I18n> createI18n(Map<Integer, String> contentMap, String tableName,
 			String columnName) {
-		if(StringUtil.isNullOrEmpty(tableName) || StringUtil.isNullOrEmpty(columnName) ||
-				contentMap==null || contentMap.isEmpty()){
-			log.info("Create i18n failed for passed tableName/columnName/contentMap is null or empty");
-			return null;
-		}
-		
 		log.debug("Create I18n with tableName : " + tableName + ", columnName : " + columnName);
 		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
 		List<I18n> i18nLst = new ArrayList<I18n>();
@@ -210,11 +178,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public I18n updateI18n(Integer i18nId, String content){
-		if(i18nId==null){
-			log.info("Update i18n failed for passed i18n id is null");
-			return null;
-		}
-		
 		log.debug("Update i18n with id : "+ i18nId);
 		I18n i18n = i18nDao.findById(i18nId);
 		
@@ -230,11 +193,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public I18n updateI18n(Integer i18nLinkId, Integer languageId, String content){
-		if(i18nLinkId==null || languageId==null){
-			log.info("Update i18n failed for passed i18nLinkId/languageId is null");
-			return null;
-		}
-		
 		log.debug("Update i18n with link id : "+ i18nLinkId + ", language : " +languageId + ", content : " + StringUtil.convertToLogString(content) );
 		I18n i18n = i18nDao.find(i18nLinkId, languageId);
 		
@@ -250,10 +208,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public List<I18n> updateOrCreateI18n(I18nLink i18nLink, Map<Integer, String> contentMap){
-		if(i18nLink==null || contentMap==null || contentMap.isEmpty()){
-			log.info("Update or Create i18n failed for passed i18nLink/contentMap is null or empty");
-			return null;
-		}
 		log.debug("Update i18n with link : " + i18nLink.getId());
 		
 		I18nService self = (I18nService)OpenstackUtil.getBean("i18nService");
@@ -280,15 +234,11 @@ public class I18nServiceImpl implements I18nService {
 	}
 	
 	public List<I18n> updateOrCreateI18n(Integer i18nLinkId, Map<Integer, String> contentMap){
-		if(i18nLinkId==null || contentMap==null || contentMap.isEmpty()){
-			log.info("Update or Create i18n failed for passed i18nLinkId/contentMap is null or empty");
-			return null;
-		}
 		log.debug("Update i18n with link : " + i18nLinkId);
 		
 		I18nLink link = i18nLinkService.findI18nLink(i18nLinkId);
 		if(link == null){
-			log.info("Update or create i18n failed for no link found for id : " + link.getId());
+			log.info("Update or create i18n failed for no link found for id : " + i18nLinkId);
 			return null;
 		}
 		
@@ -305,11 +255,6 @@ public class I18nServiceImpl implements I18nService {
 	
 	@Override
 	public I18n removeI18nById(Integer i18nId){
-		if(i18nId==null){
-			log.info("Remove i18n failed for passed i18n id is null");
-			return null;
-		}
-		
 		log.debug("Remove i18n by id : " + i18nId);
 		I18n i18n = i18nDao.findById(i18nId);
 		if(i18n == null){
@@ -323,11 +268,6 @@ public class I18nServiceImpl implements I18nService {
 
 	@Override
 	public List<I18n> removeI18nByLinkId(Integer i18nLinkId) {
-		if(i18nLinkId == null){
-			log.info("remove i18n failed for passed link id is null");
-			return null;
-		}
-		
 		log.debug("Remove i18n by link id : " + i18nLinkId);
 		List<I18n> i18nLst = i18nDao.findByLinkId(i18nLinkId);
 		if(i18nLst == null){

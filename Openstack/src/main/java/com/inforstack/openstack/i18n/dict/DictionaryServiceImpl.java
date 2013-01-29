@@ -3,8 +3,6 @@ package com.inforstack.openstack.i18n.dict;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +22,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 	
 	@Override
 	public List<Dictionary> findDictsByKeyAndLanguageId(String key, Integer languageId) {
-		List<Dictionary> dicts = new ArrayList<Dictionary>();
-		if(StringUtil.isNullOrEmpty(key) || languageId == null){
-			log.debug("Find dictionarys failed for passed key/languageId is null or empty");
-			return dicts;
-		}
-		
 		log.debug("Find dictionarys by key : " + key + ", language : " + languageId);
-		dicts = dictionaryDao.findByKeyAndLanguage(key, languageId);
+		List<Dictionary> dicts = dictionaryDao.findByKeyAndLanguage(key, languageId);
 		if(dicts == null){
 			log.info("No dictionary found by key : " + key + ", language : " + languageId);
 		}else{
@@ -43,11 +35,6 @@ public class DictionaryServiceImpl implements DictionaryService {
 
 	@Override
 	public Dictionary findDict(String key, Integer languageId, String code) {
-		if(StringUtil.isNullOrEmpty(key) || languageId == null || StringUtil.isNullOrEmpty(code)){
-			log.debug("Find dictionary failed for passed key/languageId/code is null or empty");
-			return null;
-		}
-		
 		log.debug("Find dictionarys by key : " + key + ", language : " + languageId + ", code : " + code);
 		Dictionary dict = dictionaryDao.findDictionary(key, languageId, code);
 		if(dict == null){
@@ -61,11 +48,6 @@ public class DictionaryServiceImpl implements DictionaryService {
 
 	@Override
 	public boolean contains(String key, String code) {
-		if(StringUtil.isNullOrEmpty(key) || StringUtil.isNullOrEmpty(code)){
-			log.debug("Find dictionary failed for passed key/code is null or empty");
-			return false;
-		}
-		
 		log.debug("Find dictionarys by key : " + key + ", code : " + code);
 		List<Dictionary> dicts = dictionaryDao.findDictionary(key, code);
 		if(CollectionUtil.isNullOrEmpty(dicts)){

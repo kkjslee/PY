@@ -59,7 +59,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public Invoice deleteInvoice(Integer invoiceId) {
+	public Invoice deleteInvoice(int invoiceId) {
 		log.debug("Delete invoice by id : " + invoiceId);
 		Invoice invoice = invoiceDao.findById(invoiceId);
 		if(invoice == null){
@@ -72,7 +72,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public Invoice findInvoice(Integer invoiceId) {
+	public Invoice findInvoice(int invoiceId) {
 		log.debug("Find invoice by id : " + invoiceId);
 		Invoice invoice = invoiceDao.findById(invoiceId);
 		if(invoice == null){

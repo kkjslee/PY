@@ -39,12 +39,41 @@ public interface I18nService {
 	 */
 	public I18n createI18n(I18n i18n);
 	
+	/**
+	 * create i18n with provided language, content and i18nLink
+	 * @param languageId
+	 * @param content
+	 * @param i18nLink
+	 * @return
+	 */
 	public I18n createI18n(Integer languageId, String content, I18nLink i18nLink);
 	
+	/**
+	 * create i18n with provided language, content and i18nLink
+	 * @param languageId
+	 * @param content
+	 * @param i18nLinkId
+	 * @return
+	 */
 	public I18n createI18n(Integer languageId, String content, Integer i18nLinkId);
 	
+	/**
+	 * create i18n and i18nLink with provided language, content, tableName and columnName
+	 * @param languageId
+	 * @param content
+	 * @param tableName
+	 * @param columnName
+	 * @return
+	 */
 	public I18n createI18n(Integer languageId, String content, String tableName, String columnName);
 	
+	/**
+	 * create i18n and i18nlink with provided contentMap, tableName and columnName
+	 * @param contentMap key is language, value is related content
+	 * @param tableName
+	 * @param columnName
+	 * @return
+	 */
 	public List<I18n> createI18n(Map<Integer, String> contentMap, String tableName, String columnName);
 
 	/**
@@ -55,10 +84,29 @@ public interface I18nService {
 	 */
 	public I18n updateI18n(Integer i18nId, String content);
 	
+	/**
+	 * update the content of i18n by language and i18nlink to the given content
+	 * @param i18nLinkId
+	 * @param languageId
+	 * @param content
+	 * @return
+	 */
 	public I18n updateI18n(Integer i18nLinkId, Integer languageId, String content);
 	
+	/**
+	 * update i18n content if exist or create a new one
+	 * @param i18nLink
+	 * @param contentMap
+	 * @return
+	 */
 	public List<I18n> updateOrCreateI18n(I18nLink i18nLink, Map<Integer, String> contentMap);
 	
+	/**
+	 * update i18n content if exist or create a new one
+	 * @param i18nLinkId
+	 * @param contentMap
+	 * @return
+	 */
 	public List<I18n> updateOrCreateI18n(Integer i18nLinkId, Map<Integer, String> contentMap);
 
 	/**
@@ -71,7 +119,7 @@ public interface I18nService {
 	/**
 	 * 
 	 * @param i18nLinkId
-	 * @return The i18n list removed or null ofr fail
+	 * @return The i18n list removed or null for fail
 	 */
 	public List<I18n> removeI18nByLinkId(Integer i18nLinkId);
 

@@ -14,8 +14,16 @@ public interface PromotionService {
 	 */
 	public Promotion createPromotion(Promotion promotion);
 	
+	/**
+	 * create promotion with necessary fields
+	 * @param name
+	 * @param displayNames
+	 * @param discount
+	 * @param roleId
+	 * @return
+	 */
 	Promotion createPromotion(String name, Map<Integer, String> displayNames,
-			double discount, Integer roleId);
+			double discount, int roleId);
 	
 	/**
 	 * 
@@ -34,15 +42,15 @@ public interface PromotionService {
 	 * @param tenant
 	 * @return
 	 */
-	public Promotion editDiscount(Integer id, double discount, Tenant tenant);
+	public Promotion editDiscount(int id, double discount, Tenant tenant);
 	
 	
 	/**
-	 * 
+	 * find promotion by id
 	 * @param id
 	 * @return
 	 */
-	public Promotion findPromotionById(Integer id);
+	public Promotion findPromotionById(int id);
 	
 	/**
 	 * Find undeleted promotion
@@ -53,6 +61,11 @@ public interface PromotionService {
 	 */
 	public Promotion findPromotionByName(String name, Tenant tenant) throws ApplicationException;
 	
-	public Promotion removePromotion(Integer id);
+	/**
+	 * remove promotion by id
+	 * @param id
+	 * @return
+	 */
+	public Promotion removePromotion(int id);
 
 }

@@ -31,11 +31,6 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 	
 	@Override
 	public OrderPeriod createPeriod(OrderPeriod period) {
-		if(period == null){
-			log.info("Create period failed for passed period is null");
-			return null;
-		}
-		
 		log.debug("Create period");
 		periodDao.persist(period);
 		log.debug("Create successfully");
@@ -44,13 +39,8 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 	}
 
 	@Override
-	public OrderPeriod createPeriod(Map<Integer, String> nameMap, Integer type,
-			Integer quantity) {
-		if(MapUtil.isNullOrEmpty(nameMap) || type==null || quantity==null){
-			log.info("Create period failed for passed nameMap/type/quantity is null or empty");
-			return null;
-		}
-		
+	public OrderPeriod createPeriod(Map<Integer, String> nameMap, int type,
+			int quantity) {
 		boolean valid = dictionaryService.contains(Constants.DICTIONARY_KEY_PERIOD_TYPE, type+"");
 		if(valid==false){
 			log.info("Create period failed for passed type is invalid");
@@ -75,11 +65,6 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 
 	@Override
 	public OrderPeriod deletePeriod(OrderPeriod period) {
-		if(period == null){
-			log.info("Delete period failed for passed period is null");
-			return null;
-		}
-		
 		log.debug("Delete period with id : " + period.getId());
 		period.setDeleted(true);
 		log.debug("Delete period successfully");
@@ -88,12 +73,7 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 	}
 
 	@Override
-	public OrderPeriod deletePeriod(Integer periodId) {
-		if(periodId == null){
-			log.info("Delete period failed for passed period id is null");
-			return null;
-		}
-		
+	public OrderPeriod deletePeriod(int periodId) {
 		log.debug("Delete period with id : " + periodId);
 		OrderPeriod period = periodDao.findById(periodId);
 		if(period == null){
@@ -121,12 +101,7 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 	}
 
 	@Override
-	public OrderPeriod findPeriodById(Integer periodId) {
-		if(periodId == null){
-			log.info("Find period by id failed for passed id is null");
-			return null;
-		}
-		
+	public OrderPeriod findPeriodById(int periodId) {
 		log.info("Find period by id : " + periodId);
 		OrderPeriod period = periodDao.findById(periodId);
 		if(period == null){

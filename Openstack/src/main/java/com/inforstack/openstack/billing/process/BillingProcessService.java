@@ -7,13 +7,40 @@ import com.inforstack.openstack.user.User;
 
 public interface BillingProcessService {
 	
+	/**
+	 * Create billing process
+	 * @param billingProcess
+	 * @return
+	 */
 	public BillingProcess createBillingProcess(BillingProcess billingProcess);
-
+	
+	/**
+	 * Create billing porcess with necessary fields
+	 * @param config
+	 * @param startTime
+	 * @param user
+	 * @return
+	 */
 	public BillingProcess createBillingProcess(BillingProcessConfiguration config, Date startTime, User user);
 	
-	public BillingProcess processingBillingProcess(BillingProcess billingProcess);
+	/**
+	 * process billing process
+	 * @param billingProcess
+	 * @return
+	 */
+	public BillingProcess processBillingProcess(BillingProcess billingProcess);
 	
-	public BillingProcess processingBillingProcess(int billingProcessId);
+	/**
+	 * process billing process
+	 * @param billingProcessId
+	 * @return
+	 */
+	public BillingProcess processBillingProcess(int billingProcessId);
 	
+	/**
+	 * find billing process
+	 * @param billingProcessId
+	 * @return
+	 */
 	public BillingProcess findBillingProcessById(int billingProcessId);
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,6 @@ import javax.persistence.Table;
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
-
-
 
 @Entity
 @Table(name="security_group")
@@ -49,6 +48,7 @@ public class SecurityGroup {
 	)
 	private List<Permission> permissions = new ArrayList<Permission>();
 	
+	@Column(name="create_time")
 	private Date createTime;
 	
 	public Integer getId() {

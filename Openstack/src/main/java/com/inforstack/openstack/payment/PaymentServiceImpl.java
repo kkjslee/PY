@@ -1,5 +1,6 @@
 package com.inforstack.openstack.payment;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.apache.commons.logging.LogFactory;
@@ -45,7 +46,9 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		log.debug("Create payment for tenant : " + tenant.getName());
 		Payment payment = new Payment();
-		payment.setAmount(amount);
+		BigDecimal amoutBD = new BigDecimal(amount);
+		payment.setAmount(amoutBD);
+		payment.setBalance(amoutBD);
 		payment.setCreateTime(new Date());
 		payment.setType(type);
 		payment.setStatus(Constants.PAYMENT_STATUS_NEW);

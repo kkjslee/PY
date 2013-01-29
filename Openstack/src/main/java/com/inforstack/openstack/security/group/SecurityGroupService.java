@@ -34,7 +34,7 @@ public interface SecurityGroupService {
 	 * @return null if failed
 	 * @throws ApplicationException
 	 */
-	public SecurityGroup createSecurityGroup(String name, Integer languageId, String description);
+	public SecurityGroup createSecurityGroup(String name, int languageId, String description);
 	
 	/**
 	 * 
@@ -59,7 +59,7 @@ public interface SecurityGroupService {
 	 * @param valid
 	 * @return null if failed
 	 */
-	public SecurityGroup updateSecurityGroup(Integer securityGroupId, Map<Integer, String> descriptionMap, Boolean valid);
+	public SecurityGroup updateSecurityGroup(int securityGroupId, Map<Integer, String> descriptionMap, Boolean valid);
 	
 	/**
 	 * 
@@ -73,7 +73,7 @@ public interface SecurityGroupService {
 	 * @param securityGroupId
 	 * @return null if failed
 	 */
-	public SecurityGroup removeSecurityGroup(Integer securityGroupId);
+	public SecurityGroup removeSecurityGroup(int securityGroupId);
 	
 	/**
 	 * 
@@ -97,7 +97,7 @@ public interface SecurityGroupService {
 	 * @param permissions
 	 * @return null if failed
 	 */
-	public SecurityGroup addPermissionsByPermissionId(Integer securityGroupId, List<Integer> permissions);
+	public SecurityGroup addPermissionsByPermissionId(int securityGroupId, List<Integer> permissions);
 	
 	/**
 	 * 
@@ -121,5 +121,5 @@ public interface SecurityGroupService {
 	 * @param permissions
 	 * @return null if failed
 	 */
-	public SecurityGroup updatePermissionsByPermissionId(Integer securityGroupId, List<Integer> permissions);
+	public SecurityGroup updatePermissionsByPermissionId(int securityGroupId, List<Integer> permissions);
 }

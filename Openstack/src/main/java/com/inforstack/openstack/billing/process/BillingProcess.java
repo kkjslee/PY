@@ -3,6 +3,7 @@ package com.inforstack.openstack.billing.process;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,11 +23,14 @@ public class BillingProcess {
 	@GeneratedValue
 	private Integer id;
 	
-	private Date billingTime;
-	
+	@Column(name="start_time")
 	private Date startTime;
 	
+	@Column(name="end_time")
 	private Date endTime;
+	
+	@Column(name="billing_time")
+	private Date billingTime;
 	
 	private int retry;
 	

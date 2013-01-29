@@ -1,9 +1,11 @@
 package com.inforstack.openstack.billing.invoice;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,12 +30,20 @@ public class Invoice {
 	
 	private int status;
 	
+	@Column(name="start_time")
 	private Date startTime;
 	
+	@Column(name="end_time")
 	private Date endTime;
 	
+	private BigDecimal amount;
+	
+	private BigDecimal banlance;
+	
+	@Column(name="pay_time")
 	private Date payTime;
 	
+	@Column(name="create_time")
 	private Date createTime;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -145,6 +155,22 @@ public class Invoice {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getBanlance() {
+		return banlance;
+	}
+
+	public void setBanlance(BigDecimal banlance) {
+		this.banlance = banlance;
 	}
 	
 }

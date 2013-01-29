@@ -29,6 +29,7 @@ public class Tenant {
 	
 	private String name;
 	
+	@Column(name="display_name")
 	private String dipalyName;
 	
 	private String email;
@@ -54,6 +55,7 @@ public class Tenant {
 	@Column(name="role_id")
 	private int roleId;
 	
+	@Column(name="agent_id")
 	private Integer agentId;
 	
 	@Column(name="creator_id", insertable=false, updatable=false)
@@ -82,6 +84,7 @@ public class Tenant {
 	
 	private int ageing;
 	
+	@Column(name="create_time")
 	private Date createTime;
 	
 	public Integer getId() {

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PermissionService {
 	
-	public Permission findPermissionById(Integer permissionId);
+	public Permission findPermissionById(int permissionId);
 	
 	/**
 	 * 

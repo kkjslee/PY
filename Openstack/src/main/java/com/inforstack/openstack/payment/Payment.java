@@ -1,5 +1,6 @@
 package com.inforstack.openstack.payment;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,9 @@ public class Payment {
 	@GeneratedValue
 	private Integer id;
 	
-	private Double amount;
+	private BigDecimal amount;
+	
+	private BigDecimal balance;
 	
 	private int type;
 	
@@ -33,6 +36,7 @@ public class Payment {
 	@JoinColumn(name="tenant_id")
 	private Tenant tenant;
 	
+	@Column(name="create_time")
 	private Date createTime;
 
 	public Integer getId() {
@@ -43,12 +47,20 @@ public class Payment {
 		this.id = id;
 	}
 
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 	public int getType() {

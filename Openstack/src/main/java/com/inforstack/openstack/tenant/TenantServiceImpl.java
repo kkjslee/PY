@@ -29,11 +29,6 @@ public class TenantServiceImpl implements TenantService {
 	
 	@Override
 	public Tenant createTenant(Tenant tenant, int roleId) throws OpenstackAPIException  {
-		if(tenant == null){
-			log.info("Create tenant failed for null is passed");
-			return null;
-		}
-		
 		log.debug("create tenant : " + tenant.getName());
 		tenant.setRoleId(roleId);
 		tenant.setAgeing(Constants.TENANT_AGEING_ACTIVE);
@@ -47,12 +42,7 @@ public class TenantServiceImpl implements TenantService {
 	}
 
 	@Override
-	public Tenant findTenantById(Integer tenantId) {
-		if(tenantId==null){
-			log.info("Find tenant by id failed for passed id is null");
-			return null;
-		}
-		
+	public Tenant findTenantById(int tenantId) {
 		log.debug("find tenant by id :" + tenantId);
 		Tenant t = tenantDao.findById(tenantId);
 		if(t == null){
@@ -65,12 +55,8 @@ public class TenantServiceImpl implements TenantService {
 	}
 	
 	@Override
-	public Tenant findTenantWithPromotion(Integer tenantId){
-		if(tenantId == null){
-			log.info("Find tenant with promotion failed for passed tenannt id is null");
-			return null;
-		}
-		
+	public Tenant findTenantWithPromotion(int tenantId){
+		log.debug("Fidn tenant with promotion by tenant id : " + tenantId);
 		TenantService self = (TenantService)OpenstackUtil.getBean("tenantService");
 		Tenant tenant = self.findTenantById(tenantId);
 		if(tenant == null){
@@ -84,12 +70,7 @@ public class TenantServiceImpl implements TenantService {
 	}
 	
 	@Override
-	public Tenant findAgent(Integer agentId){
-		if(agentId==null){
-			log.info("Find agent by id failed for passed id is null");
-			return null;
-		}
-		
+	public Tenant findAgent(int agentId){
 		log.debug("find agent by id :" + agentId);
 		Tenant t = tenantDao.findById(agentId);
 		if(t != null && t.getRoleId() != Constants.ROLE_AGENT){
@@ -108,11 +89,6 @@ public class TenantServiceImpl implements TenantService {
 
 	@Override
 	public Tenant updateTenant(Tenant tenant) {
-		if(tenant == null){
-			log.info("update tenant failed for passed tenant is null");
-			return null;
-		}
-		
 		log.debug("Update tenant with name : " + tenant.getName());
 		tenantDao.merge(tenant);
 		log.debug("Update tenant successfully");
@@ -133,12 +109,7 @@ public class TenantServiceImpl implements TenantService {
 	}
 
 	@Override
-	public Tenant removeTenant(Integer tenantId) {
-		if(tenantId == null){
-			log.info("Remove tenant failed for passed tenant id is null");
-			return null;
-		}
-		
+	public Tenant removeTenant(int tenantId) {
 		log.debug("Remove tenant with id : " + tenantId);
 		Tenant tenant =  tenantDao.findById(tenantId);
 		if(tenant==null){
@@ -151,11 +122,7 @@ public class TenantServiceImpl implements TenantService {
 	}
 
 	@Override
-	public Tenant setPromotion(Integer tenantId, double discount) {
-		if(tenantId == null){
-			log.info("Set promotion failed for passed tenant id is null");
-			return null;
-		}
+	public Tenant setPromotion(int tenantId, double discount) {
 		if(discount < 0){
 			log.info("Set promotion failed for passed discount is less than 0");
 			return null;

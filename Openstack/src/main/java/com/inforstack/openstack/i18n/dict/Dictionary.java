@@ -18,7 +18,7 @@ public class Dictionary {
 	@GeneratedValue
 	private Integer id;
 	
-	@Column(name="key_value")
+	@Column(name="dict_key")
 	private String key;
 	
 	private String code;
@@ -26,6 +26,7 @@ public class Dictionary {
 	@Column(name = "language_id")
 	private Integer languageId;
 	
+	@Column(name="value")
 	private String value;
 	
 	public Integer getId() {

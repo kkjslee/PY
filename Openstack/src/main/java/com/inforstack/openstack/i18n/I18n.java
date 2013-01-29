@@ -22,10 +22,10 @@ public class I18n {
 	private Integer languageId;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="i18nlink_id")
+	@JoinColumn(name="i18n_link_id")
 	private I18nLink i18nLink;
 	
-	@Column(name="i18nlink_id", insertable=false, updatable=false)
+	@Column(name="i18n_link_id", insertable=false, updatable=false)
 	private Integer i18nLinkId;
 	
 	private String content;

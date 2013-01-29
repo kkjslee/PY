@@ -18,22 +18,22 @@ public interface TenantService {
 	 * @param tenantId
 	 * @return null if not found
 	 */
-	public Tenant findTenantById(Integer tenantId);
+	public Tenant findTenantById(int tenantId);
 	
 	/**
 	 * find tenant by id, lazy loaded Promotion will be fetched
 	 * @param tenantId
 	 * @return
 	 */
-	public Tenant findTenantWithPromotion(Integer tenantId);
+	public Tenant findTenantWithPromotion(int tenantId);
 	
-	public Tenant findAgent(Integer agentId);
+	public Tenant findAgent(int agentId);
 	
 	public Tenant updateTenant(Tenant tenant);
 	
 	public Tenant removeTenant(Tenant tenant);
 	
-	public Tenant removeTenant(Integer tenantId);
+	public Tenant removeTenant(int tenantId);
 	
-	public Tenant setPromotion(Integer tenantId, double discount);
+	public Tenant setPromotion(int tenantId, double discount);
 }

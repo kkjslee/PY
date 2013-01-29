@@ -3,8 +3,10 @@ package com.inforstack.openstack.payment.method;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="payment_method")
 public class PaymentMethod {
 	
 	@Id

@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +21,22 @@ import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Entity
+@Table(name="i18n_link")
 public class I18nLink {
 	
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	@Column(name="table_name")
 	private String tableName;
+	
+	@Column(name="column_name")
 	private String columnName;
+	
+	@Column(name="create_time")
 	private Date createTime;
+	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="i18nLink")
 	private List<I18n> i18ns = new ArrayList<I18n>();
 	

@@ -57,6 +57,7 @@ public class User {
 	@Column(name="role_id")
 	private int roleId;
 	
+	@Column(name="default_tenant_id")
 	private Integer defaultTenantId;
 	
 	private Integer status;
@@ -73,12 +74,13 @@ public class User {
 	private List<Tenant> tanents = new ArrayList<Tenant>();
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "user_securitygroup", 
+	@JoinTable(name = "user_security_group", 
 		joinColumns = { @JoinColumn(name = "user_id", insertable=false, updatable = false) }, 
 		inverseJoinColumns = { @JoinColumn(name = "group_id", insertable=false, updatable = false) }
 	)
 	private List<SecurityGroup> securityGroups = new ArrayList<SecurityGroup>();
 	
+	@Column(name="create_time")
 	private Date createTime;
 	
 	@Transient

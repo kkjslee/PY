@@ -37,6 +37,7 @@ public class Constants {
   public static final int INVOICE_STATUS_UPPAID = 2;
   public static final int INVOICE_STATUS_PAID = 3;
   public static final int INVOICE_STATUS_OVERDUE = 4;
+  public static final int INVOICE_STATUS_DELETED = 5;
   
   public static final int BILLINGPROCESS_STATUS_NEW = 1;
   public static final int BILLINGPROCESS_STATUS_WAITING = 2;
@@ -47,6 +48,10 @@ public class Constants {
 
   public static final int TENANT_AGEING_ACTIVE = 1;
   public static final int TENANT_AGEING_DELETED = 2;
+  
+  public static final int REPORT_TYPE_BIllING_PROCESS = 1;
+  
+  public static final int REPORT_STATUS_ERROR = 1;
 
   public static final int IMG_PROGRESS_ACTIVE = 100;
   public static final String IMG_STATUS_ACTIVE = "ACTIVE";

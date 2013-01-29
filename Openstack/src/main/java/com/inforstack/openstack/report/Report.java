@@ -1,4 +1,4 @@
-package com.inforstack.openstack.security.role;
+package com.inforstack.openstack.report;
 
 import java.util.Date;
 
@@ -6,20 +6,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Role {
+@Table
+public class Report {
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
-	private String name;
+	private Integer type;
 	
-	private String description;
+	private Integer status;
 	
 	@Column(name="create_time")
 	private Date createTime;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -28,20 +31,20 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Integer getType() {
+		return type;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
-	public String getDescription() {
-		return description;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Date getCreateTime() {
@@ -51,5 +54,5 @@ public class Role {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-
+	
 }

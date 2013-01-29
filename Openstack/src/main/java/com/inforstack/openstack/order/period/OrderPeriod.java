@@ -10,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
+@Table(name="order_period")
 public class OrderPeriod {
 	
 	@Id
@@ -30,6 +32,7 @@ public class OrderPeriod {
 	@Column(name="period_qutity")
 	private Integer periodQuantity;
 
+	@Column(name="create_time")
 	private Date createTime;
 	
 	private boolean deleted;

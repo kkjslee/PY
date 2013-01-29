@@ -41,11 +41,6 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 
 	@Override
 	public SecurityGroup createSecurityGroup(SecurityGroup securityGroup) {
-		if(securityGroup == null){
-			log.info("Create security group failed for null is passed");
-			return null;
-		}
-		
 		log.debug("Create security group with name : " + securityGroup.getName());
 		securityGroupDao.persist(securityGroup);
 		log.debug("Create successfully");
@@ -53,47 +48,34 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	}
 	
 	@Override
-	public SecurityGroup createSecurityGroup(String name, Integer languageId, String description) {
-		if(StringUtils.isNullOrEmpty(name) || languageId==null || description==null){
-			log.info("Create security group failed for passed name/language/description is null or empty");
-			return null;
-		}
-		
+	public SecurityGroup createSecurityGroup(String name, int languageId, String description) {
 		log.debug("Create security group with name : " + name + ", language : " + languageId + ", description : " + description);
+		
+		Tenant tenant = SecurityUtils.getTenant();
+		if(tenant == null){
+			log.error("Create secuirty group failed for tenant is not found");
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.not.found"));
+		}
 		
 		I18n i18n = i18nService.createI18n(languageId, description,
 				Constants.TABLE_SECURITY_GROUP,
 				Constants.COLUMN_SECURITY_GROUP_DESCRIPTION);
 		if(i18n==null){
 			log.info("Create security group failed for create i18n failed");
-			return null;
-		}
-		Tenant tenant = SecurityUtils.getTenant();
-		if(tenant == null){
-			log.error("Create secuirty group failed for tenant is not found");
-			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.not.found"));
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("security.group.create.failed"));
 		}
 		SecurityGroup sg = new SecurityGroup();
 		sg.setDescription(i18n.getI18nLink());
 		sg.setName(name);
 		sg.setTenant(tenant);
-		SecurityGroupService self = (SecurityGroupService)OpenstackUtil.getBean("securityGroupService");
-		sg = self.createSecurityGroup(sg);
-		if(sg==null){
-			log.debug("Create failed");
-		}else{
-			log.debug("Create successfully");
-		}
+		securityGroupDao.persist(sg);
+		log.debug("Create successfully");
 		
 		return sg;
 	}
 	
 	@Override
 	public SecurityGroup createSecuirtyGroup(I18nLink i18nLink, String name) {
-		if(i18nLink==null || StringUtil.isNullOrEmpty(name)){
-			log.info("Create security group failed for passed name/i18nLink is null or empty");
-			return null;
-		}
 		log.debug("Create security group with i18n link : " + i18nLink.getId() + ", name : " + name);
 		
 		Tenant tenant = SecurityUtils.getTenant();
@@ -106,24 +88,14 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 		sg.setDescription(i18nLink);
 		sg.setName(name);
 		sg.setTenant(tenant);
-		SecurityGroupService self = (SecurityGroupService)OpenstackUtil.getBean("securityGroupService");
-		sg = self.createSecurityGroup(sg);
-		if(sg==null){
-			log.debug("Create failed");
-		}else{
-			log.debug("Create successfully");
-		}
+		securityGroupDao.persist(sg);
+		log.debug("Create successfully");
 		
 		return sg;
 	}
 	
 	@Override
 	public SecurityGroup createSecurityGroup(String name, Map<Integer, String> descriptionMap) {
-		if(StringUtils.isNullOrEmpty(name) || descriptionMap==null || descriptionMap.isEmpty()){
-			log.info("Create security group failed for passed name/descriptionMap is null or empty");
-			return null;
-		}
-		
 		log.debug("Create security group with name : " + name);
 		List<I18n> i18nLst = i18nService.createI18n(descriptionMap,
 				Constants.TABLE_SECURITY_GROUP,
@@ -145,11 +117,6 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	
 	@Override
 	public SecurityGroup updateSecurityGroup(SecurityGroup securityGroup){
-		if(securityGroup == null){
-			log.info("Update security group failed for null is passed");
-			return null;
-		}
-		
 		log.debug("Update security group with name : " + securityGroup.getName());
 		securityGroupDao.merge(securityGroup);
 		log.debug("Update successfully");
@@ -157,13 +124,8 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	}
 
 	@Override
-	public SecurityGroup updateSecurityGroup(Integer securityGroupId,
+	public SecurityGroup updateSecurityGroup(int securityGroupId,
 			Map<Integer, String> descriptionMap, Boolean valid) {
-		if(securityGroupId == null){
-			log.info("Update security group failed for passed id is null");
-			return null;
-		}
-		
 		log.debug("Update security group with id : " + securityGroupId);
 		SecurityGroup sg = securityGroupDao.findById(securityGroupId);
 		if(sg==null){
@@ -178,7 +140,7 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 						Constants.TABLE_SECURITY_GROUP,
 						Constants.COLUMN_SECURITY_GROUP_DESCRIPTION);
 				if(i18nLst == null || i18nLst.isEmpty()){
-					log.info("Update security group failed for create i18n failed");
+					log.warn("Update security group failed for create i18n failed");
 					return null;
 				}
 				link = i18nLst.get(0).getI18nLink();
@@ -197,11 +159,6 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	
 	@Override
 	public SecurityGroup removeSecurityGroup(SecurityGroup securityGroup){
-		if(securityGroup == null){
-			log.info("Remove security group failed for passed securityGroup is null");
-			return null;
-		}
-		
 		log.debug("Remove security group with name : " + securityGroup.getName());
 		securityGroupDao.remove(securityGroup);
 		log.debug("Remove successfully");
@@ -209,12 +166,7 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	}
 
 	@Override
-	public SecurityGroup removeSecurityGroup(Integer securityGroupId) {
-		if(securityGroupId == null){
-			log.info("Remove security group failed for passed securityGroupId is null");
-			return null;
-		}
-		
+	public SecurityGroup removeSecurityGroup(int securityGroupId) {
 		log.debug("Remove security group by id : " + securityGroupId);
 		SecurityGroupService self = (SecurityGroupService)OpenstackUtil.getBean("securityGroupService");
 		SecurityGroup sg = securityGroupDao.findById(securityGroupId);
@@ -262,13 +214,8 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	}
 
 	@Override
-	public SecurityGroup addPermissionsByPermissionId(Integer securityGroupId,
+	public SecurityGroup addPermissionsByPermissionId(int securityGroupId,
 			List<Integer> permissions) {
-		if(securityGroupId == null){
-			log.info("Add permissions failed for passed security group id is null");
-			return null;
-		}
-		
 		log.debug("Add permissions to security group with id : " + securityGroupId);
 		SecurityGroup sg = securityGroupDao.findById(securityGroupId);
 		if(sg == null){
@@ -290,11 +237,6 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	@Override
 	public SecurityGroup updatePermissions(SecurityGroup securityGroup,
 			List<Permission> permissions) {
-		if(securityGroup == null){
-			log.info("Update permissions failed for passed security group is null");
-			return null;
-		}
-		
 		log.debug("Update permissions to security group with name " + securityGroup.getName());
 		securityGroup.getPermissions().clear();
 		securityGroup.setPermissions(permissions);
@@ -324,12 +266,7 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 
 	@Override
 	public SecurityGroup updatePermissionsByPermissionId(
-			Integer securityGroupId, List<Integer> permissions) {
-		if(securityGroupId == null){
-			log.info("Update permissions failed for passed security group id is null");
-			return null;
-		}
-		
+			int securityGroupId, List<Integer> permissions) {
 		log.debug("Update permissions to security group with id : " + securityGroupId);
 		SecurityGroup sg = securityGroupDao.findById(securityGroupId);
 		if(sg == null){

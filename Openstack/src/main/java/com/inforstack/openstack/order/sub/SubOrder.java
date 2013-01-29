@@ -3,18 +3,21 @@ package com.inforstack.openstack.order.sub;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.period.OrderPeriod;
 
 @Entity
+@Table(name="sub_order")
 public class SubOrder {
 
 	@Id
@@ -33,6 +36,7 @@ public class SubOrder {
 	@JoinColumn(name="order_period_id")
 	private OrderPeriod orderPeriod;
 	
+	@Column(name="next_billing_date")
 	private Date nextBillingDate;
 	
 	private String uuid;

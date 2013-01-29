@@ -17,12 +17,7 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 
 	@Override
-	public Role findRoleById(Integer roleId) {
-		if(roleId == null){
-			log.info("Find role failed for passed role id is null");
-			return null;
-		}
-		
+	public Role findRoleById(int roleId) {
 		log.debug("Find role by id : " + roleId);
 		Role role = roleDao.findById(roleId);
 		if(role==null){

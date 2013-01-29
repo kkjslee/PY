@@ -18,11 +18,7 @@ public class PermissionServiceImpl implements PermissionService {
 	private PermissionDao permissionDao;
 	
 	@Override
-	public Permission findPermissionById(Integer permissionId) {
-		if(permissionId == null){
-			log.info("No permission found for passed permission id is null");
-			return null;
-		}
+	public Permission findPermissionById(int permissionId) {
 		log.debug("Find permission by id : " + permissionId);
 		Permission p = permissionDao.findById(permissionId);
 		if(p==null){

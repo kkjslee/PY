@@ -16,8 +16,7 @@ public class BillingProcessConfiguration {
 	@GeneratedValue
 	private Integer id;
 	
-	@Column(name="order_period_id")
-	private Integer orderPeriodId;
+	private String name;
 	
 	@Column(name="next_billing_date")
 	private Date nextBillingDate;
@@ -35,5 +34,69 @@ public class BillingProcessConfiguration {
 	
 	@Column(name="create_time")
 	private Date createTime;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getNextBillingDate() {
+		return nextBillingDate;
+	}
+
+	public void setNextBillingDate(Date nextBillingDate) {
+		this.nextBillingDate = nextBillingDate;
+	}
+
+	public Integer getRetry() {
+		return retry;
+	}
+
+	public void setRetry(Integer retry) {
+		this.retry = retry;
+	}
+
+	public Integer getDaysBetweenRetry() {
+		return daysBetweenRetry;
+	}
+
+	public void setDaysBetweenRetry(Integer daysBetweenRetry) {
+		this.daysBetweenRetry = daysBetweenRetry;
+	}
+
+	public int getPeriodType() {
+		return periodType;
+	}
+
+	public void setPeriodType(int periodType) {
+		this.periodType = periodType;
+	}
+
+	public int getPeriodQuantity() {
+		return periodQuantity;
+	}
+
+	public void setPeriodQuantity(int periodQuantity) {
+		this.periodQuantity = periodQuantity;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 	
 }

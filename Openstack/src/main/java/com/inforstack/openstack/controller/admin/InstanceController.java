@@ -133,11 +133,13 @@ public class InstanceController {
               }
             }
             flavor = server.getFlavor();
-            im.setCpus(flavor.getVcpus());
-            im.setMaxcpus(flavor.getVcpus());
-            im.setMemory(flavor.getRam());
-            im.setMaxmemory(flavor.getRam());
-            im.setDisksize(flavor.getDisk());
+            if (flavor != null) {
+              im.setCpus(flavor.getVcpus());
+              im.setMaxcpus(flavor.getVcpus());
+              im.setMemory(flavor.getRam());
+              im.setMaxmemory(flavor.getRam());
+              im.setDisksize(flavor.getDisk());
+            }
             im.setOstype(server.getImage().getName());
             imList.add(im);
           }

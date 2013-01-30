@@ -9,7 +9,7 @@
 <c:url value="/resource/common" var="rPath"></c:url>
 <link rel="stylesheet" href="${rPath}/css/template.css" type="text/css" />
 <link rel="stylesheet" href="${rPath}/css/register.css" type="text/css" />
-<link type="text/css" href="${rPath}/css/jquery-ui-1.8.16.enterprise.css" rel="stylesheet" />
+<link type="text/css" href="${rPath}/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
 
 <script type="text/javascript" src="${rPath}/js/jquery-1.6.4.js"></script>
 <script type="text/javascript" src="${rPath}/js/jquery-ui-1.9.2.custom.min.js"></script>

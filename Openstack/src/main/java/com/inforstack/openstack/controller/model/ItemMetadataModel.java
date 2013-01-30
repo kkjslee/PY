@@ -7,6 +7,10 @@ public class ItemMetadataModel {
 	private I18nModel[] name;
 	
 	private I18nModel[] value;
+	
+	public ItemMetadataModel() {
+		
+	}
 
 	public Integer getId() {
 		return id;

@@ -15,6 +15,10 @@ public class I18nModel {
 	@Size(min = Constants.DEFAULT_NAME_MIN_LENGTH, max = Constants.DEFAULT_NAME_MAX_LENGTH, message = "{size.not.valid}")
 	@Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
 	private String content;
+	
+	public I18nModel() {
+		
+	}
 
 	public Integer getLanguageId() {
 		return languageId;

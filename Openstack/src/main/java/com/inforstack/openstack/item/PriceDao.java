@@ -1,17 +1,9 @@
 package com.inforstack.openstack.item;
 
-public interface PriceDao {
-	
-	public Price findById(int id);
+import com.inforstack.openstack.utils.db.IDao;
+
+public interface PriceDao extends IDao<Price> {
 	
 	public Price findByItemSpecificationId(int id);
-	
-	public Price persist(Price price);
-	
-	public void update(Price price);
-	
-	public void remove(Price price);
-	
-	public void remove(int id);
 
 }

@@ -1,21 +1,9 @@
 package com.inforstack.openstack.item;
 
-import java.util.List;
+import com.inforstack.openstack.utils.db.IDao;
 
-public interface ItemSpecificationDao {
+public interface ItemSpecificationDao extends IDao<ItemSpecification> {
 
-	public List<ItemSpecification> list();
-	
-	public ItemSpecification findById(int id);
-	
 	public ItemSpecification findByName(String name);
-	
-	public ItemSpecification persist(ItemSpecification itemSpecification);
-	
-	public void update(ItemSpecification itemSpecification);
-	
-	public void remove(ItemSpecification itemSpecification);
-	
-	public void remove(int id);
 	
 }

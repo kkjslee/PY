@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,8 +42,10 @@ public class ItemSpecification {
 	@JoinColumn
 	private I18nLink name;
 	
+	@Column(name="os_type")
 	private int osType;
 	
+	@Column(name="ref_id")
 	private String refId;
 	
 	private boolean available;
@@ -51,6 +54,7 @@ public class ItemSpecification {
 	
 	private Date updated;
 	
+	@Column(name="default_price")
 	private float defaultPrice;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")

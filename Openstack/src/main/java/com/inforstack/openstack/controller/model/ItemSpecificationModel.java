@@ -25,6 +25,10 @@ public class ItemSpecificationModel {
 	private ItemMetadataModel[] metadata;
 	
 	private ProfileModel profile;
+	
+	public ItemSpecificationModel() {
+		
+	}
 
 	public Integer getId() {
 		return id;

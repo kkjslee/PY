@@ -29,8 +29,10 @@ public class ShopCartController {
 	public @ResponseBody Map<String, Object> test(Model model) {
 		Map<String, Object> returnValue = new HashMap<String, Object>();
 		List<RuleType> types = this.ruleService.listRuleType();
-		for (RuleType type : types) {
-			returnValue.put(Integer.toString(type.getId()), type.getName());
+		if (types != null) {
+			for (RuleType type : types) {
+				returnValue.put(Integer.toString(type.getId()), type.getName());
+			}
 		}
 		returnValue.put("success", "success");
 		return returnValue;

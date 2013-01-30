@@ -11,20 +11,19 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.inforstack.openstack.utils.OpenstackUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 
 	protected static final Log log = LogFactory.getLog(BasicDaoImpl.class);
 	
+	@Autowired
 	protected EntityManager em;
 	
 	private Class<T> clz;
 	
 	@SuppressWarnings("unchecked")
 	public BasicDaoImpl() {
-		em = OpenstackUtil.getBean(EntityManager.class);
 		Type type = this.getClass().getGenericSuperclass();
 		if (type instanceof ParameterizedType) {
 			this.clz = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];

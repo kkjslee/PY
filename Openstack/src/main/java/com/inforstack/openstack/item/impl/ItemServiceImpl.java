@@ -128,7 +128,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void removeCategory(Integer id) throws ApplicationException {
-		this.categoryDao.remove(id);
+		this.categoryDao.findById(id);
 	}
 	
 	@Override
@@ -413,7 +413,10 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void removeItemSpecification(Integer id) throws ApplicationException {
-		this.itemSpecificationDao.remove(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		if (itemSpecification != null) {
+			this.itemSpecificationDao.remove(itemSpecification);
+		}
 	}
 	
 	private boolean checkFlavor(String id) {

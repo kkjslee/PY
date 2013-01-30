@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inforstack.openstack.rule.Rule;
+import com.inforstack.openstack.rule.RuleDao;
 import com.inforstack.openstack.rule.RuleService;
 import com.inforstack.openstack.rule.RuleType;
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.rule.RuleTypeDao;
 
 @Service
 @Transactional
@@ -20,10 +20,10 @@ public class RuleServiceImpl implements RuleService {
 	private static final Log log = LogFactory.getLog(RuleServiceImpl.class);
 	
 	@Autowired
-	private AbstractDao<Rule> ruleDao;
+	private RuleDao ruleDao;
 	
 	@Autowired
-	private AbstractDao<RuleType> ruleTypeDao;
+	private RuleTypeDao ruleTypeDao;
 	
 	@Override
 	public List<RuleType> listRuleType() {

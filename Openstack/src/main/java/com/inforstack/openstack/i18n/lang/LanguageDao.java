@@ -1,9 +1,9 @@
 package com.inforstack.openstack.i18n.lang;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
 
-public interface LanguageDao extends IDao<Language> {
+public interface LanguageDao extends BasicDao<Language> {
 
 	public Language find(String country, String language);
 

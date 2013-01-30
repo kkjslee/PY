@@ -1,7 +1,7 @@
 package com.inforstack.openstack.billing.process;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface BillingProcessDao extends IDao<BillingProcess> {
+public interface BillingProcessDao extends BasicDao<BillingProcess> {
 
 }

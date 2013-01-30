@@ -2,12 +2,12 @@ package com.inforstack.openstack.item.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.item.Price;
 import com.inforstack.openstack.item.PriceDao;
-import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class PriceDaoImpl extends AbstractDao<Price> implements PriceDao {
+public class PriceDaoImpl extends BasicDaoImpl<Price> implements PriceDao {
 
 	@Override
 	public Price findByItemSpecificationId(int id) {

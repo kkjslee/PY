@@ -1,8 +1,8 @@
 package com.inforstack.openstack.user;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface UserDao extends IDao<User> {
+public interface UserDao extends BasicDao<User> {
 
 	
 	/**

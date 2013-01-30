@@ -14,12 +14,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.StringUtil;
-import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class SubOrderDaoImpl extends AbstractDao<SubOrder> implements SubOrderDao {
+public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderDao {
 
 	private static final Log log = LogFactory.getLog(SubOrderDaoImpl.class);
 	@Autowired

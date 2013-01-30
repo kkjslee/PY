@@ -1,7 +1,7 @@
 package com.inforstack.openstack.i18n.link;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface I18nLinkDao extends IDao<I18nLink>{
+public interface I18nLinkDao extends BasicDao<I18nLink>{
 
 }

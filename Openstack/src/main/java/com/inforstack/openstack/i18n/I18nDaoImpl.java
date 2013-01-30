@@ -14,10 +14,10 @@ import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.basic.BasicDaoImpl;
 
 @Repository
-public class I18nDaoImpl extends AbstractDao<I18n> implements I18nDao{
+public class I18nDaoImpl extends BasicDaoImpl<I18n> implements I18nDao{
 	
 	private static final Log log = LogFactory.getLog(I18nDaoImpl.class);
 	@Autowired

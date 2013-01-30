@@ -10,10 +10,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.basic.BasicDaoImpl;
 
 @Repository
-public class DictionaryDaoImpl extends AbstractDao<Dictionary> implements DictionaryDao{
+public class DictionaryDaoImpl extends BasicDaoImpl<Dictionary> implements DictionaryDao{
 	
 	private static final Log log = LogFactory.getLog(DictionaryDaoImpl.class);
 

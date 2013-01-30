@@ -1,7 +1,7 @@
 package com.inforstack.openstack.security.group;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface SecurityGroupDao extends IDao<SecurityGroup>{
+public interface SecurityGroupDao extends BasicDao<SecurityGroup>{
 
 }

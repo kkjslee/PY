@@ -12,11 +12,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.utils.CollectionUtil;
-import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
+public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 
 	private static final Log log = LogFactory.getLog(OrderDaoImpl.class);
 	

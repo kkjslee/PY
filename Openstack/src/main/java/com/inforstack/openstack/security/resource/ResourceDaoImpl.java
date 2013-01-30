@@ -13,10 +13,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.basic.BasicDaoImpl;
 
 
 @Repository
-public class ResourceDaoImpl extends AbstractDao<Resource> implements ResourceDao {
+public class ResourceDaoImpl extends BasicDaoImpl<Resource> implements ResourceDao {
 	
 }

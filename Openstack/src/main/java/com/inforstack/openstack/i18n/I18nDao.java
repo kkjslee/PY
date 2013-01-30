@@ -2,10 +2,10 @@ package com.inforstack.openstack.i18n;
 
 import java.util.List;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
 
-public interface I18nDao extends IDao<I18n> {
+public interface I18nDao extends BasicDao<I18n> {
 
 	/**
 	 * find i18n object with the given i18n link id and language id

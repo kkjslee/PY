@@ -2,9 +2,9 @@ package com.inforstack.openstack.i18n.dict;
 
 import java.util.List;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface DictionaryDao extends IDao<Dictionary> {
+public interface DictionaryDao extends BasicDao<Dictionary> {
 
 	/**
 	 * 

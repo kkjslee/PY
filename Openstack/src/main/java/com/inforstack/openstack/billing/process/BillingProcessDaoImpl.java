@@ -2,9 +2,9 @@ package com.inforstack.openstack.billing.process;
 
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.basic.BasicDaoImpl;
 
 @Repository
-public class BillingProcessDaoImpl extends AbstractDao<BillingProcess> implements BillingProcessDao {
+public class BillingProcessDaoImpl extends BasicDaoImpl<BillingProcess> implements BillingProcessDao {
 
 }

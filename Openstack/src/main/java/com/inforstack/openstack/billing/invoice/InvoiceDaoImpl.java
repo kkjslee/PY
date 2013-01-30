@@ -13,11 +13,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.utils.CollectionUtil;
-import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class InvoiceDaoImpl extends AbstractDao<Invoice> implements InvoiceDao {
+public class InvoiceDaoImpl extends BasicDaoImpl<Invoice> implements InvoiceDao {
 
 	private static final Log log = LogFactory.getLog(InvoiceDaoImpl.class);
 	

@@ -1,7 +1,7 @@
 package com.inforstack.openstack.payment;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface PaymentDao extends IDao<Payment> {
+public interface PaymentDao extends BasicDao<Payment> {
 
 }

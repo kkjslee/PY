@@ -1,8 +1,8 @@
 package com.inforstack.openstack.item;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface ItemSpecificationDao extends IDao<ItemSpecification> {
+public interface ItemSpecificationDao extends BasicDao<ItemSpecification> {
 
 	public ItemSpecification findByName(String name);
 	

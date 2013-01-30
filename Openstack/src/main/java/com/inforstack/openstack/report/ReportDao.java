@@ -1,7 +1,7 @@
 package com.inforstack.openstack.report;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
-public interface ReportDao extends IDao<Report>{
+public interface ReportDao extends BasicDao<Report>{
 
 }

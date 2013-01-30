@@ -3,9 +3,9 @@ package com.inforstack.openstack.payment;
 
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.basic.BasicDaoImpl;
 
 @Repository
-public class PaymentDaoImpl extends AbstractDao<Payment> implements PaymentDao {
+public class PaymentDaoImpl extends BasicDaoImpl<Payment> implements PaymentDao {
 	
 }

@@ -10,12 +10,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.tenant.Tenant;
-import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class PromotionDaoImpl extends AbstractDao<Promotion> implements PromotionDao {
+public class PromotionDaoImpl extends BasicDaoImpl<Promotion> implements PromotionDao {
 	
 	private static final Log log = LogFactory.getLog(PromotionDaoImpl.class);
 	

@@ -11,10 +11,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.utils.db.AbstractDao;
+import com.inforstack.openstack.basic.BasicDaoImpl;
 
 @Repository
-public class LanguageDaoImpl extends AbstractDao<Language> implements LanguageDao{
+public class LanguageDaoImpl extends BasicDaoImpl<Language> implements LanguageDao{
 	
 	private static final Log log = LogFactory.getLog(LanguageDaoImpl.class);
 	

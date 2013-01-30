@@ -1,8 +1,8 @@
 package com.inforstack.openstack.security.role;
 
-import com.inforstack.openstack.utils.db.IDao;
+import com.inforstack.openstack.basic.BasicDao;
 
 
-public interface RoleDao extends IDao<Role> {
+public interface RoleDao extends BasicDao<Role> {
 
 }

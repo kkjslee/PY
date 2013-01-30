@@ -10,11 +10,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.utils.CollectionUtil;
-import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class ReportPropertyDaoImpl extends AbstractDao<ReportProperty> implements ReportPropertyDao {
+public class ReportPropertyDaoImpl extends BasicDaoImpl<ReportProperty> implements ReportPropertyDao {
 	
 	private static final Log log = LogFactory.getLog(ReportPropertyDaoImpl.class);
 

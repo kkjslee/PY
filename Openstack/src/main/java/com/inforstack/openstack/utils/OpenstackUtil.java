@@ -37,6 +37,10 @@ public class OpenstackUtil {
 	public static Object getBean(String name) {
 		return context.getBean(name);
 	}
+	
+	public static <T> T getBean(Class<T> clz) {
+		return context.getBean(clz);
+	}
 
 	public static void setContext(ApplicationContext context) {
 		OpenstackUtil.context = context;

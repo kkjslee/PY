@@ -1,11 +1,7 @@
 package com.inforstack.openstack.i18n.link;
 
-public interface I18nLinkDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(I18nLink link);
-
-	public I18nLink findById(Integer linkId);
-
-	public void remove(I18nLink link);
+public interface I18nLinkDao extends IDao<I18nLink>{
 
 }

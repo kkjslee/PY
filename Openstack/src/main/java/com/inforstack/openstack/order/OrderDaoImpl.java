@@ -3,7 +3,6 @@ package com.inforstack.openstack.order;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -11,65 +10,16 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.utils.CollectionUtil;
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
 	private static final Log log = LogFactory.getLog(OrderDaoImpl.class);
 	
-	@Autowired
-	private EntityManager em;
-
-	@Override
-	public void persist(Order order) {
-		log.debug("Persist order");
-		try{
-			em.persist(order);
-			log.debug("Persist order successfully");
-		}catch(RuntimeException re){
-			log.error("Persist order failed", re);
-			throw re;
-		}
-		
-	}
-
-	@Override
-	public void merge(Order order) {
-		log.debug("Merge order");
-		try{
-			em.merge(order);
-			log.debug("Merge order successfully");
-		}catch(RuntimeException re){
-			log.error("Merge order failed", re);
-			throw re;
-		}
-		
-	}
-
-	@Override
-	public Order findById(String orderId) {
-		log.debug("Find order by id : " + orderId);
-		Order order = null;
-		try{
-			order = em.find(Order.class, orderId);
-		}catch(RuntimeException re){
-			log.error("Find order failed", re);
-			throw re;
-		}
-		
-		if(order == null){
-			log.debug("No order instance found");
-		}else{
-			log.debug("Find order successfully");
-		}
-		
-		return order;
-	}
-
 	@Override
 	public List<Order> find(Integer tenantId, Integer status) {
 		log.debug("Find all order(s) by tenant id : " + tenantId + ", status : " + status);

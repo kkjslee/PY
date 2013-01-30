@@ -3,11 +3,9 @@ package com.inforstack.openstack.billing.invoice;
 import java.util.Date;
 import java.util.List;
 
-public interface InvoiceDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(Invoice invoice);
-
-	public Invoice findById(Integer invoiceId);
+public interface InvoiceDao extends IDao<Invoice>  {
 
 	public List<Invoice> findByTime(Date from, Date to);
 

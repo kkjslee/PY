@@ -14,8 +14,10 @@ import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.utils.db.AbstractDao;
+
 @Repository
-public class I18nDaoImpl implements I18nDao{
+public class I18nDaoImpl extends AbstractDao<I18n> implements I18nDao{
 	
 	private static final Log log = LogFactory.getLog(I18nDaoImpl.class);
 	@Autowired
@@ -74,52 +76,6 @@ public class I18nDaoImpl implements I18nDao{
 			log.error("get failed", re);
 			throw re;
 		}
-	}
-
-	@Override
-	public void persist(I18n i18n) {
-		log.debug("persist i18n with link: " + i18n.getI18nLinkId());
-		try{
-			em.persist(i18n);
-		}catch(RuntimeException re){
-			log.error(re.getMessage(), re);
-			throw re;
-		}
-		
-		log.debug("persist successful");
-	}
-
-	@Override
-	public void remove(I18n i18n) {
-		log.debug("Remove i18n : " + i18n.getId());
-		try{
-			em.remove(i18n);
-		}catch(RuntimeException re){
-			log.error("Remove failed", re);
-			throw re;
-		}
-		
-		log.debug("Remove successful");
-	}
-
-	@Override
-	public I18n findById(Integer i18nId) {
-		log.debug("Find i18b by id : " + i18nId);
-		
-		I18n i18n = null;
-		try{
-			i18n = em.find(I18n.class, i18nId);
-		}catch(RuntimeException re){
-			log.error("Find failed", re);
-			throw re;
-		}
-		
-		if(i18n == null){
-			log.debug("Find failed");
-		}else{
-			log.debug("Find successful");
-		}
-		return i18n;
 	}
 
 	@Override

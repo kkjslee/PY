@@ -13,70 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.utils.CollectionUtil;
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class OrderPeriodDaoImpl implements OrderPeriodDao {
+public class OrderPeriodDaoImpl extends AbstractDao<OrderPeriod> implements OrderPeriodDao {
 	
 	private static final Log log = LogFactory.getLog(OrderPeriodDaoImpl.class);
-	@Autowired
-	private EntityManager em;
-	
-	@Override
-	public void persist(OrderPeriod period) {
-		log.debug("Persist period");
-		try{
-			em.persist(period);
-			log.debug("Persist period successfully");
-		}catch(RuntimeException re){
-			log.error("Persist period failed", re);
-			throw re;
-		}
-	}
-
-	@Override
-	public void merge(OrderPeriod period) {
-		log.debug("Merge period");
-		try{
-			em.merge(period);
-			log.debug("Merge period successfully");
-		}catch(RuntimeException re){
-			log.error("Merge period failed", re);
-			throw re;
-		}
-	}
-
-	@Override
-	public void remove(OrderPeriod period) {
-		log.debug("Remove period");
-		try{
-			em.remove(period);
-			log.debug("Remove period successfully");
-		}catch(RuntimeException re){
-			log.error("Remove period failed", re);
-			throw re;
-		}
-	}
-
-	@Override
-	public OrderPeriod findById(Integer periodId) {
-		log.debug("Find period by id : " + periodId);
-		
-		OrderPeriod period = null;
-		try{
-			period = em.find(OrderPeriod.class, periodId);
-		}catch(RuntimeException re){
-			log.error("Find period failed", re);
-			throw re;
-		}
-		
-		if(period == null){
-			log.debug("No period instance found by id : " + periodId);
-		}else{
-			log.debug("Find successfully");
-		}
-		
-		return period;
-	}
 
 	@Override
 	public List<OrderPeriod> findAll(boolean includeDeleted) {

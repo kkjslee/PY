@@ -4,12 +4,9 @@ import java.util.List;
 
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.utils.db.IDao;
 
-public interface PromotionDao {
-
-	public void persist(Promotion promotion);
-
-	public Promotion findById(Integer id);
+public interface PromotionDao extends IDao<Promotion> {
 
 	public Promotion findByNameAndTenant(String name, Tenant tenant) throws ApplicationException;
 	

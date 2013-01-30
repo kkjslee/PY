@@ -43,4 +43,6 @@ public interface BillingProcessService {
 	 * @return
 	 */
 	public BillingProcess findBillingProcessById(int billingProcessId);
+	
+	public void runBillingProcess(BillingProcessConfiguration conf);
 }

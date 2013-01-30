@@ -6,7 +6,7 @@ public interface IDao<T> {
 
 	public List<T> list();
 	
-	public T findById(int id);
+	public T findById(Object primaryKey);
 	
 	public T findByObject(String name, Object value);
 	

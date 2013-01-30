@@ -1,13 +1,8 @@
 package com.inforstack.openstack.user;
 
-public interface UserDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	/**
-	 * find user by user id
-	 * @param userId
-	 * @return null if not found
-	 */
-	public User findUser(Integer userId);
+public interface UserDao extends IDao<User> {
 
 	
 	/**
@@ -17,22 +12,4 @@ public interface UserDao {
 	 */
 	public User findByName(String userName);
 
-	/**
-	 * persist user
-	 * @param user
-	 */
-	public void persist(User user);
-
-	/**
-	 * update user
-	 * @param user
-	 * @return
-	 */
-	public User merge(User user);
-	
-	/**
-	 * remove user
-	 * @param user
-	 */
-	public void remove(User user);
 }

@@ -90,7 +90,7 @@ public class TenantServiceImpl implements TenantService {
 	@Override
 	public Tenant updateTenant(Tenant tenant) {
 		log.debug("Update tenant with name : " + tenant.getName());
-		tenantDao.merge(tenant);
+		tenantDao.update(tenant);
 		log.debug("Update tenant successfully");
 		return tenant;
 	}

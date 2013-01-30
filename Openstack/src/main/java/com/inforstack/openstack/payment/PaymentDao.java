@@ -1,9 +1,7 @@
 package com.inforstack.openstack.payment;
 
-public interface PaymentDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(Payment payment);
-
-	public Payment findById(Integer paymentId);
+public interface PaymentDao extends IDao<Payment> {
 
 }

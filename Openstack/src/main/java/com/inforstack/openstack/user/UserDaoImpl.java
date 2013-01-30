@@ -12,32 +12,13 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.utils.db.AbstractDao;
+
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 	
 	private static final Log log = LogFactory.getLog(UserDaoImpl.class);
-	@Autowired
-	private EntityManager em;
 
-	@Override
-	public User findUser(Integer userId) {
-		log.debug("getting User instance with id: " + userId);
-		
-		User instance = null;
-		try {
-			instance = em.find(User.class, userId);
-		} catch (RuntimeException re) {
-			log.error(re.getMessage(), re);
-			throw re;
-		}
-		
-		if(instance == null){
-			log.debug("get failed");
-		}else{
-			log.debug("get successful");
-		}
-		return instance;
-	}
 
 	@Override
 	public User findByName(String userName) {
@@ -61,45 +42,5 @@ public class UserDaoImpl implements UserDao {
 			throw re;
 		}
 	}
-
-	@Override
-	public void persist(User user) {
-		log.debug("persist user : " + user.getName());
-		try{
-			em.persist(user);
-		}catch(RuntimeException re){
-			log.error(re.getMessage(), re);
-			throw re;
-		}
-		
-		log.debug("persist successful");
-	}
-
-	@Override
-	public User merge(User user) {
-		log.debug("merge user : " + user.getName());
-		try{
-			User u = em.merge(user);
-			log.debug("merge sucessfully");
-			return u;
-		}catch(RuntimeException re){
-			log.error(re.getMessage(), re);
-			throw re;
-		}
-		
-	}
-
-	@Override
-	public void remove(User user) {
-		log.debug("remove user : " + user.getName());
-		try{
-			em.remove(user);
-			log.debug("merge successful");
-		}catch(RuntimeException re){
-			log.error(re.getMessage(), re);
-			throw re;
-		}
-	}
-
 
 }

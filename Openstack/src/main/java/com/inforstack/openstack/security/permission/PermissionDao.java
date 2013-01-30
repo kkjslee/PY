@@ -2,9 +2,9 @@ package com.inforstack.openstack.security.permission;
 
 import java.util.List;
 
-public interface PermissionDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public Permission findById(Integer permissionId);
+public interface PermissionDao extends IDao<Permission> {
 
 	public List<Permission> findByKey(String key);
 

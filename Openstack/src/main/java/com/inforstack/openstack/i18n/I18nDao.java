@@ -2,8 +2,10 @@ package com.inforstack.openstack.i18n;
 
 import java.util.List;
 
+import com.inforstack.openstack.utils.db.IDao;
 
-public interface I18nDao {
+
+public interface I18nDao extends IDao<I18n> {
 
 	/**
 	 * find i18n object with the given i18n link id and language id
@@ -19,12 +21,6 @@ public interface I18nDao {
 	 * @return
 	 */
 	public I18n findFirst(Integer linkId);
-
-	public void persist(I18n i18n);
-
-	public void remove(I18n i18n);
-
-	public I18n findById(Integer i18nId);
 
 	/**
 	 * 

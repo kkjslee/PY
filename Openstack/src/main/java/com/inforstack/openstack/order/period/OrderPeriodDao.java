@@ -2,15 +2,9 @@ package com.inforstack.openstack.order.period;
 
 import java.util.List;
 
-public interface OrderPeriodDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(OrderPeriod period);
-	
-	public void merge(OrderPeriod period);
-	
-	public void remove(OrderPeriod period);
-
-	public OrderPeriod findById(Integer periodId);
+public interface OrderPeriodDao extends IDao<OrderPeriod> {
 
 	public List<OrderPeriod> findAll(boolean includeDeleted);
 }

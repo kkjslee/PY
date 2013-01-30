@@ -2,9 +2,9 @@ package com.inforstack.openstack.report.prop;
 
 import java.util.List;
 
-public interface ReportPropertyDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(ReportProperty reportProperty);
+public interface ReportPropertyDao extends IDao<ReportProperty> {
 
 	public List<ReportProperty> findByReport(int reportId);
 

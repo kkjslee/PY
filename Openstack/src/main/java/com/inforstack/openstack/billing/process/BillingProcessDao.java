@@ -1,9 +1,7 @@
 package com.inforstack.openstack.billing.process;
 
-public interface BillingProcessDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(BillingProcess billingProcess);
-
-	public BillingProcess findById(Integer billingProcessId);
+public interface BillingProcessDao extends IDao<BillingProcess> {
 
 }

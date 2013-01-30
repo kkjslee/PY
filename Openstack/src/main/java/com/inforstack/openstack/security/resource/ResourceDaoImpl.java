@@ -13,30 +13,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.utils.db.AbstractDao;
+
 
 @Repository
-public class ResourceDaoImpl implements ResourceDao {
+public class ResourceDaoImpl extends AbstractDao<Resource> implements ResourceDao {
 	
-	private static final Log log = LogFactory.getLog(ResourceDaoImpl.class);
-	@Autowired
-	private EntityManager em;
-	
-	@Override
-	public List<Resource> listAll() {
-		log.debug("getting all Resource instance");
-		try {
-			CriteriaBuilder builder = em.getCriteriaBuilder();
-			CriteriaQuery<Resource> criteria = builder
-					.createQuery(Resource.class);
-			Root<Resource> user = criteria.from(Resource.class);
-			criteria.select(user);
-			List<Resource> instances = em.createQuery(criteria).getResultList();
-			log.debug("get successful");
-			return instances;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
-
 }

@@ -8,26 +8,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.inforstack.openstack.utils.db.AbstractDao;
+
 
 @Repository
-public class RoleDaoImpl implements RoleDao {
+public class RoleDaoImpl extends AbstractDao<Role> implements RoleDao {
 	
-	private static final Log log = LogFactory.getLog(RoleDaoImpl.class);
-	@Autowired
-	private EntityManager em;
-	
-	@Override
-	public Role findById(Integer roleId) {
-		log.debug("getting Role instance with id: " + roleId);
-		
-		try {
-			Role instance = em.find(Role.class, roleId);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}	
-	}
-
 }

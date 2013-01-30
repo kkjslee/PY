@@ -1,13 +1,7 @@
 package com.inforstack.openstack.security.group;
 
-public interface SecurityGroupDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(SecurityGroup securityGroup);
-
-	public void merge(SecurityGroup securityGroup);
-
-	public SecurityGroup findById(Integer securityGroupId);
-
-	public void remove(SecurityGroup securityGroup);
+public interface SecurityGroupDao extends IDao<SecurityGroup>{
 
 }

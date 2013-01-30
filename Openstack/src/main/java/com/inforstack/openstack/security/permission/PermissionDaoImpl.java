@@ -14,33 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.user.User;
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class PermissionDaoImpl implements PermissionDao {
+public class PermissionDaoImpl extends AbstractDao<Permission> implements PermissionDao {
 	
 	private static final Log log = LogFactory.getLog(PermissionDaoImpl.class);
-	@Autowired
-	private EntityManager em;
 	
-	@Override
-	public Permission findById(Integer permissionId) {
-		log.debug("Find permission by id : " + permissionId);
-		Permission instance = null;
-		try {
-			instance = em.find(Permission.class, permissionId);
-		} catch (RuntimeException re) {
-			log.error(re.getMessage(), re);
-			throw re;
-		}
-		
-		if(instance == null){
-			log.debug("get failed");
-		}else{
-			log.debug("get successful");
-		}
-		return instance;
-	}
-
 	@Override
 	public List<Permission> findByKey(String key) {
 		log.debug("Find Permission instances with key : " + key);

@@ -81,7 +81,7 @@ public class BillingProcessConfigurationServiceImpl implements
 	@Override
 	public List<BillingProcessConfiguration> listAll() {
 		log.debug("List all billing process configuration");
-		List<BillingProcessConfiguration> bpcs = billingProcessConfigurationDao.findAll();
+		List<BillingProcessConfiguration> bpcs = billingProcessConfigurationDao.list();
 		if(CollectionUtil.isNullOrEmpty(bpcs)){
 			log.debug("No instance found");
 		}else{

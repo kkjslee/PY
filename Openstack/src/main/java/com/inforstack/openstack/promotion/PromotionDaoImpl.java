@@ -2,59 +2,23 @@ package com.inforstack.openstack.promotion;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class PromotionDaoImpl implements PromotionDao {
+public class PromotionDaoImpl extends AbstractDao<Promotion> implements PromotionDao {
 	
 	private static final Log log = LogFactory.getLog(PromotionDaoImpl.class);
-	@Autowired
-	private EntityManager em;
 	
-	@Override
-	public void persist(Promotion promotion) {
-		log.debug("Persist promotion : " + promotion.getName());
-		try{
-			em.persist(promotion);
-			log.debug("Persist successfully");
-		}catch(RuntimeException re){
-			log.error("Persist failed");
-			throw re;
-		}
-	}
-
-	@Override
-	public Promotion findById(Integer id) {
-		log.debug("Find promotion by id : " + id);
-		
-		Promotion promotion = null;
-		try{
-			promotion = em.find(Promotion.class, id);
-		}catch(RuntimeException re){
-			log.error("Find promotion failed", re);
-			throw re;
-		}
-		
-		if(promotion == null){
-			log.debug("Find promotion failed");
-		}else{
-			log.debug("Fnd promotion successfully");
-		}
-		
-		return promotion;
-	}
-
 	@Override
 	public Promotion findByNameAndRole(String name, int roleId) throws ApplicationException {
 		log.debug("Find promotion by name : " + name);

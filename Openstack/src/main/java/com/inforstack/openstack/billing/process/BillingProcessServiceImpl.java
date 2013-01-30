@@ -84,5 +84,10 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		
 		return bp;
 	}
+
+	@Override
+	public void runBillingProcess(BillingProcessConfiguration conf) {
+		
+	}
 	
 }

@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	public Set<Permission> getPermissions(Integer userId) {
 		Set<Permission> permissions = new HashSet<Permission>();
 		log.debug("Get permissions by user id : " +userId);
-		User user = userDao.findUser(userId);
+		User user = userDao.findById(userId);
 		if(user == null) {
 			log.info("Get permisstions failed for no user found by id : " +userId);
 			return permissions;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findUserById(int userId){
 		log.debug("Find user by id : " + userId);
-		User user = userDao.findUser(userId);
+		User user = userDao.findById(userId);
 		if(user == null){
 			log.debug("Find user failed for no instance found");
 		}else{
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(User user) throws OpenstackAPIException {
-		User newUser = userDao.findUser(user.getId());
+		User newUser = userDao.findById(user.getId());
 		if(newUser==null){
 			log.warn("Update user failed for no user found for id :　" + user.getId());
 			return null;
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		log.debug("Update user : "+user.getName());
-		newUser = userDao.merge(user);
+		newUser = userDao.findById(user);
 		if(newUser == null){
 			log.warn("Update user failed");
 			return null;
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.creator.cannot.delete"));
 		}
 		
-		User user = userDao.findUser(userId);
+		User user = userDao.findById(userId);
 		if(user == null){
 			log.info("No user instance found for user id : " + userId);
 			return null;

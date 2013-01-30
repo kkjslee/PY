@@ -118,7 +118,7 @@ public class SecurityGroupServiceImpl implements SecurityGroupService{
 	@Override
 	public SecurityGroup updateSecurityGroup(SecurityGroup securityGroup){
 		log.debug("Update security group with name : " + securityGroup.getName());
-		securityGroupDao.merge(securityGroup);
+		securityGroupDao.update(securityGroup);
 		log.debug("Update successfully");
 		return securityGroup;
 	}

@@ -2,7 +2,6 @@ package com.inforstack.openstack.i18n.lang;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -10,31 +9,14 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.user.User;
-
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class LanguageDaoImpl implements LanguageDao{
+public class LanguageDaoImpl extends AbstractDao<Language> implements LanguageDao{
 	
 	private static final Log log = LogFactory.getLog(LanguageDaoImpl.class);
-	@Autowired
-	private EntityManager em;
-	@Override
-	public Language findById(Integer languageId) {
-		log.debug("getting Language instance with id: " + languageId);
-		try {
-			Language instance = em.find(Language.class, languageId);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}	
-		
-	}
 	
 	@Override
 	public Language find(String country, String language) {

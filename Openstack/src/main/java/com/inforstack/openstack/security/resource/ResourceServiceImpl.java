@@ -17,7 +17,7 @@ public class ResourceServiceImpl implements ResourceService {
 
 	@Override
 	public List<Resource> listAll() {
-		return resourceDao.listAll();
+		return resourceDao.list();
 	}
 
 }

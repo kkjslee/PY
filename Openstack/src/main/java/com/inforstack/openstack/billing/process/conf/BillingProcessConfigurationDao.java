@@ -1,15 +1,7 @@
 package com.inforstack.openstack.billing.process.conf;
 
-import java.util.List;
+import com.inforstack.openstack.utils.db.IDao;
 
-public interface BillingProcessConfigurationDao {
-
-	public void persist(BillingProcessConfiguration bpc);
-
-	public BillingProcessConfiguration findById(Integer billingProcessConfigurationId);
-
-	public void remove(BillingProcessConfiguration bpc);
-
-	public List<BillingProcessConfiguration> findAll();
+public interface BillingProcessConfigurationDao extends IDao<BillingProcessConfiguration> {
 
 }

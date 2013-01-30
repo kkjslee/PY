@@ -16,26 +16,15 @@ import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.StringUtil;
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class SubOrderDaoImpl implements SubOrderDao {
+public class SubOrderDaoImpl extends AbstractDao<SubOrder> implements SubOrderDao {
 
 	private static final Log log = LogFactory.getLog(SubOrderDaoImpl.class);
 	@Autowired
 	private EntityManager em;
 	
-	@Override
-	public void persist(SubOrder subOrder) {
-		log.debug("Persist sub order");
-		try {
-			em.persist(subOrder);
-			log.debug("Persist sub order successfullly");
-		} catch (RuntimeException re) {
-			log.error("Persist sub order failed", re);
-			throw re;
-		}
-	}
-
 	@Override
 	public List<SubOrder> find(String orderId, Integer status) {
 		log.debug("Find all sub order(s) by order id : " + orderId + ", status : " + status);
@@ -75,25 +64,4 @@ public class SubOrderDaoImpl implements SubOrderDao {
 		}
 	}
 
-	@Override
-	public SubOrder findById(Integer subOrderId) {
-		log.debug("Find sub order by id : " + subOrderId);
-		
-		SubOrder subOrder = null;
-		try {
-			subOrder = em.find(SubOrder.class, subOrderId);
-		} catch (RuntimeException re) {
-			log.error("Find sub order failed", re);
-			throw re;
-		}
-		
-		if(subOrder == null){
-			log.debug("No sub order found");
-		}else{
-			log.debug("Find sub order successfullly");
-		}
-		
-		return subOrder;
-	}
-	
 }

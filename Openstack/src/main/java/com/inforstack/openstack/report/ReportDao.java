@@ -1,9 +1,7 @@
 package com.inforstack.openstack.report;
 
-public interface ReportDao {
+import com.inforstack.openstack.utils.db.IDao;
 
-	public void persist(Report report);
-
-	public Report findById(int reportId);
+public interface ReportDao extends IDao<Report>{
 
 }

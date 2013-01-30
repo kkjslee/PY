@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -12,52 +11,16 @@ import javax.persistence.criteria.Root;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.utils.CollectionUtil;
+import com.inforstack.openstack.utils.db.AbstractDao;
 
 @Repository
-public class InvoiceDaoImpl implements InvoiceDao {
+public class InvoiceDaoImpl extends AbstractDao<Invoice> implements InvoiceDao {
 
 	private static final Log log = LogFactory.getLog(InvoiceDaoImpl.class);
-	@Autowired
-	private EntityManager em;
 	
-	@Override
-	public void persist(Invoice invoice) {
-		log.debug("Persist invoice");
-		try {
-			em.persist(invoice);
-			log.debug("Persist successfully");
-		} catch (RuntimeException re) {
-			log.error("Persist invoice failed");
-			throw re;
-		}
-	}
-
-	@Override
-	public Invoice findById(Integer invoiceId) {
-		log.debug("Fidn invoice by id : " + invoiceId);
-		
-		Invoice invoice = null;
-		try {
-			invoice = em.find(Invoice.class, invoiceId);
-		} catch (RuntimeException re) {
-			log.error("Find invoice failed", re);
-			throw re;
-		}
-		
-		if(invoice==null){
-			log.debug("No invoice instance found");
-		}else{
-			log.debug("Find invoice successfully");
-		}
-		
-		return invoice;
-	}
-
 	@Override
 	public List<Invoice> findByTime(Date from, Date to) {
 		log.debug("Find invoices from : " + from + ", to : " + to);

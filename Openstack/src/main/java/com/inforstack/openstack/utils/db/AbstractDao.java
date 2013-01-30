@@ -35,7 +35,7 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public List<T> list() {		
+	public final List<T> list() {		
 		List<T> list = null;
 		log.debug("getting all " + this.clz.getSimpleName() + " instance");
 		try {
@@ -52,11 +52,11 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public T findById(int id) {
+	public final T findById(Object primaryKey) {
 		T instance = null;
-		log.debug("getting " + this.clz.getSimpleName() + " instance with id: " + id);
+		log.debug("getting " + this.clz.getSimpleName() + " instance with id: " + primaryKey);
 		try {
-			instance = em.find(this.clz, id);
+			instance = em.find(this.clz, primaryKey);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
 		}
@@ -69,7 +69,7 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 	
 	@Override
-	public T findByObject(String name, Object value) {
+	public final T findByObject(String name, Object value) {
 		T intance = null;
 		log.debug("getting " + this.clz.getSimpleName() + " instance with " + name + ": " + value.toString());
 		if (name != null) {
@@ -93,7 +93,7 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public T persist(T instance) {
+	public final T persist(T instance) {
 		log.debug("persist " + this.clz.getSimpleName());
 		try {
 			em.persist(instance);
@@ -105,7 +105,7 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public void update(T instance) {
+	public final void update(T instance) {
 		log.debug("update " + this.clz.getSimpleName());
 		try {
 			em.merge(instance);
@@ -115,7 +115,7 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public void remove(T instance) {
+	public final void remove(T instance) {
 		log.debug("remove " + this.clz.getSimpleName());
 		try {
 			em.remove(instance);
@@ -125,7 +125,7 @@ public class AbstractDao<T> implements IDao<T> {
 	}
 
 	@Override
-	public void remove(int id) {
+	public final void remove(int id) {
 		T instance = null;
 		log.debug("removing " + this.clz.getSimpleName() + " instance with id: " + id);
 		try {

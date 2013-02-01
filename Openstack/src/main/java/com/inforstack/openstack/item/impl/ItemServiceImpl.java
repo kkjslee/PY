@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,13 +32,14 @@ import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.ItemSpecificationDao;
 import com.inforstack.openstack.item.Price;
 import com.inforstack.openstack.item.Profile;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService {
 	
-	private static final Log log = LogFactory.getLog(ItemServiceImpl.class);
+	private static final Logger log = new Logger(ItemServiceImpl.class);
 	
 	@Autowired
 	private CategoryDao categoryDao;

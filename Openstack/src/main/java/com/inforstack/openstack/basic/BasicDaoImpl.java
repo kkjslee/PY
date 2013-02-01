@@ -9,13 +9,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.inforstack.openstack.log.Logger;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 
-	protected static final Log log = LogFactory.getLog(BasicDaoImpl.class);
+	private static final Logger log = new Logger(BasicDaoImpl.class);
 	
 	@Autowired
 	protected EntityManager em;

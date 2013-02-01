@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.item.ItemService;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.rule.RuleService;
 import com.inforstack.openstack.rule.RuleType;
 import com.inforstack.openstack.tenant.Tenant;
@@ -26,6 +27,8 @@ import com.inforstack.openstack.utils.SecurityUtils;
 @Controller
 @RequestMapping(value = "/shopcart")
 public class ShopCartController {
+	
+	private static final Logger log = new Logger(ShopCartController.class);
 	
 	@Autowired
 	private UserService userService;

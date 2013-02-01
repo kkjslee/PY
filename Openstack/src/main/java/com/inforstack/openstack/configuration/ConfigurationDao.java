@@ -1,6 +1,8 @@
 package com.inforstack.openstack.configuration;
 
-public interface ConfigurationDao {
+import com.inforstack.openstack.basic.BasicDao;
+
+public interface ConfigurationDao extends BasicDao<Configuration> {
 
 	public Configuration findByName(String name);
 	

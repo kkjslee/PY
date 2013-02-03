@@ -1,23 +1,11 @@
 @CHARSET "UTF-8";
 
-.flavorName{
+.categoryName{
 	width:20%;
 }
-.flavorVcpus{
-	width:15%;
+.categoryStatus{
+	width:30%;
 }
-.flavorRam{
-    width:15%;	
-}
-.flavorRdisk{
-	width:15%
-}
-.flavorStatus{
-    width:10%
-}
-.flavorOperation{
-	width:25%;
-}
-.flavorDetails{
-	display:none;
+.categoryOperation{
+    width:40%;	
 }

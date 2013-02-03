@@ -66,6 +66,8 @@ function dumpMenu(container, type) {
 			dumpMenuItem(true, subMenu, menuli("instance/modules/index", "<spring:message code='admin.navi.instance'/>"));
 			dumpMenuItem(true, subMenu, menuli("flavor/modules/index", "<spring:message code='admin.navi.flavor'/>"));
 			dumpMenuItem(true, subMenu, menuli("image/modules/index", "<spring:message code='admin.navi.image'/>"));
+			dumpMenuItem(true, subMenu, menuli("category/modules/index", "<spring:message code='admin.navi.category'/>"));
+			dumpMenuItem(true, subMenu, menuli("product/modules/index", "<spring:message code='admin.navi.product'/>"));
 			subMenu = $("<li class=\"optmenu\"><a id=\"menu2\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.stock'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
 			
 			subMenu = $("<li class=\"optmenu\"><a id=\"menu8\" name=\"menuItemTitle\">"+"<spring:message code='admin.navigation.menu.admin.image'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");

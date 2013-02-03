@@ -12,6 +12,7 @@
 <script src="<%=request.getContextPath()%>/resource/common/js/jquery.pagination.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/jquery.form.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/jquery.tmpl.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/resource/common/js/jquery.json-2.3.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/jquery.ui.position.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/jquery.ui.selectmenu.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/String.js" type="text/javascript"></script>

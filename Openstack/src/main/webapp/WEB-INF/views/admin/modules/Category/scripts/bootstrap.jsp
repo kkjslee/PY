@@ -160,7 +160,7 @@ function showEditCategory(which){
     var row = $(which).parents(".dataRow").first();
     var id = $(row).find("input[isos='id']").val();
     
-    var enable =  $(row).find("select[isos='enable']").val();
+    var enable =  $(row).find("input[isos='enable']").val();
     var editCategory = $.tmpl("editCategory", [{
         id: "editCategory"
     }]).appendTo("#mainBody");

@@ -1,6 +1,8 @@
 package com.inforstack.openstack.controller.model;
 
 public class CartItemModel {
+	
+	private String uuid;
 
 	private String name;
 	
@@ -12,6 +14,14 @@ public class CartItemModel {
 	
 	private Integer status; 
 	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	public String getName() {
 		return name;
 	}

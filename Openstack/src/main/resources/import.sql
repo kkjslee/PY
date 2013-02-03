@@ -1,58 +1,58 @@
 -- You can use this file to load seed data into the database using SQL statements
-insert into Language(id, name, language, country) values (1, 'English', 'en', 'US')
-insert into Language(id, name, language, country) values (2, '中文', 'zh', 'CN')
+insert into language(id, name, language, country) values (1, 'English', 'en', 'US');
+insert into language(id, name, language, country) values (2, '中文', 'zh', 'CN');
 
-insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'ec73d58df01b43e48aa41549953df091')
-insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '4f1cb88c9e4449ca90ae33ef20c38c34')
-insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin')
-insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '5f4dcc3b5aa765d61d8327deb882cf99')
-insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.145:5000/v2.0/tokens')
-insert into Configuration(id, name, value) values(6, 'openstack.endpoint.tenants', '/tenants')
-insert into Configuration(id, name, value) values(7, 'openstack.endpoint.tenant', '/tenants/{tenant}')
-insert into Configuration(id, name, value) values(8, 'openstack.endpoint.users', '/users')
-insert into Configuration(id, name, value) values(9, 'openstack.endpoint.user', '/users/{user}')
-insert into Configuration(id, name, value) values(10, 'openstack.endpoint.role', '/tenants/{tenant}/users/{user}/roles/OS-KSADM/{role}')
-insert into Configuration(id, name, value) values(11, 'openstack.endpoint.hosts', '/os-hosts')
-insert into Configuration(id, name, value) values(12, 'openstack.endpoint.host.describe', '/os-hosts/{host}')
-insert into Configuration(id, name, value) values(13, 'openstack.endpoint.flavors', '/flavors')
-insert into Configuration(id, name, value) values(14, 'openstack.endpoint.flavors.detail', '/flavors/detail')
-insert into Configuration(id, name, value) values(15, 'openstack.endpoint.flavor', '/flavors/{flavor}')
-insert into Configuration(id, name, value) values(16, 'openstack.endpoint.images', '/images')
-insert into Configuration(id, name, value) values(17, 'openstack.endpoint.images.detail', '/images/detail')
-insert into Configuration(id, name, value) values(18, 'openstack.endpoint.image', '/images/{image}')
-insert into Configuration(id, name, value) values(19, 'openstack.endpoint.servers', '/servers')
-insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail')
-insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}')
-insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action')
-insert into Configuration(id, name, value) values(23, 'openstack.role.admin', '8442ba0ed8314961afda3ac43db505a6')
-insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'e86c7037af3046f0a207ddcdf0cb9e67')
-insert into Configuration(id, name, value) values(25, 'openstack.role.member', '214afcc000ca4c8cb67ac05ceb563bae')
-insert into Configuration(id, name, value) values(26, 'openstack.cache.expire', '2')
+insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'ec73d58df01b43e48aa41549953df091');
+insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '4f1cb88c9e4449ca90ae33ef20c38c34');
+insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin');
+insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '5f4dcc3b5aa765d61d8327deb882cf99');
+insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.145:5000/v2.0/tokens');
+insert into Configuration(id, name, value) values(6, 'openstack.endpoint.tenants', '/tenants');
+insert into Configuration(id, name, value) values(7, 'openstack.endpoint.tenant', '/tenants/{tenant}');
+insert into Configuration(id, name, value) values(8, 'openstack.endpoint.users', '/users');
+insert into Configuration(id, name, value) values(9, 'openstack.endpoint.user', '/users/{user}');
+insert into Configuration(id, name, value) values(10, 'openstack.endpoint.role', '/tenants/{tenant}/users/{user}/roles/OS-KSADM/{role}');
+insert into Configuration(id, name, value) values(11, 'openstack.endpoint.hosts', '/os-hosts');
+insert into Configuration(id, name, value) values(12, 'openstack.endpoint.host.describe', '/os-hosts/{host}');
+insert into Configuration(id, name, value) values(13, 'openstack.endpoint.flavors', '/flavors');
+insert into Configuration(id, name, value) values(14, 'openstack.endpoint.flavors.detail', '/flavors/detail');
+insert into Configuration(id, name, value) values(15, 'openstack.endpoint.flavor', '/flavors/{flavor}');
+insert into Configuration(id, name, value) values(16, 'openstack.endpoint.images', '/images');
+insert into Configuration(id, name, value) values(17, 'openstack.endpoint.images.detail', '/images/detail');
+insert into Configuration(id, name, value) values(18, 'openstack.endpoint.image', '/images/{image}');
+insert into Configuration(id, name, value) values(19, 'openstack.endpoint.servers', '/servers');
+insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail');
+insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}');
+insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action');
+insert into Configuration(id, name, value) values(23, 'openstack.role.admin', '8442ba0ed8314961afda3ac43db505a6');
+insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'e86c7037af3046f0a207ddcdf0cb9e67');
+insert into Configuration(id, name, value) values(25, 'openstack.role.member', '214afcc000ca4c8cb67ac05ceb563bae');
+insert into Configuration(id, name, value) values(26, 'openstack.cache.expire', '2');
 
-insert into Role(id, name) values (1, 'admin')
-insert into Role(id, name) values (2, 'user')
-insert into Role(id, name) values (3, 'agent')
+insert into Role(id, name) values (1, 'admin');
+insert into Role(id, name) values (2, 'user');
+insert into Role(id, name) values (3, 'agent');
 
-insert into Tenant(id, name, display_name, role_id, ageing) values (1, 'admin', 'admin', 1, 1)
+insert into Tenant(id, name, display_name, role_id, ageing) values (1, 'admin', 'admin', 1, 1);
 
-insert into User(id, name, password, firstName, lastName, role_id, default_tenant_id, status, ageing) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 'admin', 1, 1, 1, 1)
+insert into User(id, name, password, firstName, lastName, role_id, default_tenant_id, status, ageing) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 'admin', 1, 1, 1, 1);
 
-insert into tenant_user(user_id, tenant_id) values (1, 1)
+insert into tenant_user(user_id, tenant_id) values (1, 1);
 
-insert into Dictionary(id, dict_key, code, language_id, value) values (1, 'period.type', '1', 1, 'Year')
-insert into Dictionary(id, dict_key, code, language_id, value) values (2, 'period.type', '1', 2, '年')
-insert into Dictionary(id, dict_key, code, language_id, value) values (3, 'period.type', '2', 1, 'Month')
-insert into Dictionary(id, dict_key, code, language_id, value) values (4, 'period.type', '2', 2, '月')
-insert into Dictionary(id, dict_key, code, language_id, value) values (5, 'period.type', '4', 1, 'Week')
-insert into Dictionary(id, dict_key, code, language_id, value) values (6, 'period.type', '4', 2, '周')
-insert into Dictionary(id, dict_key, code, language_id, value) values (7, 'period.type', '5', 1, 'Day')
-insert into Dictionary(id, dict_key, code, language_id, value) values (8, 'period.type', '5', 2, '天')
-insert into Dictionary(id, dict_key, code, language_id, value) values (9, 'period.type', '11', 1, 'Hour')
-insert into Dictionary(id, dict_key, code, language_id, value) values (10, 'period.type', '11', 2, '小时')
-insert into Dictionary(id, dict_key, code, language_id, value) values (11, 'period.hour', '12', 1, 'Minute')
-insert into Dictionary(id, dict_key, code, language_id, value) values (12, 'period.hour', '12', 2, '分钟')
+insert into Dictionary(id, dict_key, code, language_id, value) values (1, 'period.type', '1', 1, 'Year');
+insert into Dictionary(id, dict_key, code, language_id, value) values (2, 'period.type', '1', 2, '年');
+insert into Dictionary(id, dict_key, code, language_id, value) values (3, 'period.type', '2', 1, 'Month');
+insert into Dictionary(id, dict_key, code, language_id, value) values (4, 'period.type', '2', 2, '月');
+insert into Dictionary(id, dict_key, code, language_id, value) values (5, 'period.type', '4', 1, 'Week');
+insert into Dictionary(id, dict_key, code, language_id, value) values (6, 'period.type', '4', 2, '周');
+insert into Dictionary(id, dict_key, code, language_id, value) values (7, 'period.type', '5', 1, 'Day');
+insert into Dictionary(id, dict_key, code, language_id, value) values (8, 'period.type', '5', 2, '天');
+insert into Dictionary(id, dict_key, code, language_id, value) values (9, 'period.type', '11', 1, 'Hour');
+insert into Dictionary(id, dict_key, code, language_id, value) values (10, 'period.type', '11', 2, '小时');
+insert into Dictionary(id, dict_key, code, language_id, value) values (11, 'period.hour', '12', 1, 'Minute');
+insert into Dictionary(id, dict_key, code, language_id, value) values (12, 'period.hour', '12', 2, '分钟');
 
-insert into Resource(id, url, permission) values (1, '/admin', 'admin')
+insert into Resource(id, url, permission) values (1, '/admin', 'admin');
 
 insert into Resource(id, url, permission) values (2, '/admin/instance/modules/index', 'admin');
 insert into Resource(id, url, permission) values (3, '/admin/instance/scripts/bootstrap', 'admin');
@@ -88,8 +88,18 @@ insert into Resource(id, url, permission) values (28, '/admin/image/getPagerAllI
 insert into Resource(id, url, permission) values (29, '/admin/flavor/getPagerAllFlavorList', 'admin');
 insert into Resource(id, url, permission) values (30, '/admin/flavor/nameCheck', 'admin');
 
-insert into Resource(id, url, permission) values (31, '/user', 'user')
+insert into Resource(id, url, permission) values (31, '/user', 'user');
 insert into Resource(id, url, permission) values (32, '/user/scripts/navinit', 'user');
 insert into Resource(id, url, permission) values (33, '/user/scripts/bootstrap', 'user');
 insert into Resource(id, url, permission) values (34, '/user/scripts/template', 'user');
 insert into Resource(id, url, permission) values (35, '/user/modules/entry/index', 'user');
+
+insert into Resource(id, url, permission) values (36, '/admin/category/modules/index', 'admin');
+insert into Resource(id, url, permission) values (37, '/admin/category/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (38, '/admin/category/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (39, '/admin/category/listForJsp', 'admin');
+insert into Resource(id, url, permission) values (40, '/admin/category/create', 'admin');
+insert into Resource(id, url, permission) values (41, '/admin/category/update', 'admin');
+
+insert into Resource(id, url, permission) values (42, '/admin/category/remove', 'admin');
+

@@ -36,6 +36,20 @@ public class Server {
 		
 	}
 	
+	public static final class Network {
+		
+		private String uuid;
+
+		public String getUuid() {
+			return uuid;
+		}
+
+		public void setUuid(String uuid) {
+			this.uuid = uuid;
+		}
+		
+	}
+	
 	private String id;
 	
 	private String name;
@@ -77,6 +91,8 @@ public class Server {
 	private SecurityGroup[] securityGroups;
 	
 	private File[] personality;
+	
+	private Network[] networks;
 	
 	private Date updated;
 	
@@ -218,6 +234,14 @@ public class Server {
 
 	public void setPersonality(File[] personality) {
 		this.personality = personality;
+	}
+
+	public Network[] getNetworks() {
+		return networks;
+	}
+
+	public void setNetworks(Network[] networks) {
+		this.networks = networks;
 	}
 
 	public Date getUpdated() {

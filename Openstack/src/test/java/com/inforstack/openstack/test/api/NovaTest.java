@@ -26,7 +26,7 @@ import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.api.nova.server.Address;
 import com.inforstack.openstack.api.nova.server.SecurityGroup;
 import com.inforstack.openstack.api.nova.server.Server;
-import com.inforstack.openstack.api.nova.server.Server.File;
+import com.inforstack.openstack.api.nova.server.Server.Network;
 import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.api.nova.server.impl.HardRebootServer;
 import com.inforstack.openstack.api.nova.server.impl.StartServer;
@@ -359,16 +359,20 @@ public class NovaTest {
 				
 				Server newServer = new Server();
 				newServer.setName("Test Create Server");
-				newServer.setImageRef("0236a3ba-48e3-4150-92bf-af2d2285800a");
+				newServer.setImageRef("b431691a-1d37-4f1e-997d-7af8f37a748e");
 				newServer.setFlavorRef("1");
 				newServer.setMetadata(new HashMap<String, String>());
 				newServer.getMetadata().put("1", "M1");
 				newServer.getMetadata().put("2", "M2");
-				File[] files = new File[1];
-				files[0] = new File();
-				files[0].setPath("~/test.txt");	
-				files[0].setContents("ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBp dCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5k IGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVs c2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4g QnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRo ZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlv dSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vy c2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6 b25zLiINCg0KLVJpY2hhcmQgQmFjaA==");
-				newServer.setPersonality(files);
+//				File[] files = new File[1];
+//				files[0] = new File();
+//				files[0].setPath("~/test.txt");	
+//				files[0].setContents("ICAgICAgDQoiQSBjbG91ZCBkb2VzIG5vdCBrbm93IHdoeSBp dCBtb3ZlcyBpbiBqdXN0IHN1Y2ggYSBkaXJlY3Rpb24gYW5k IGF0IHN1Y2ggYSBzcGVlZC4uLkl0IGZlZWxzIGFuIGltcHVs c2lvbi4uLnRoaXMgaXMgdGhlIHBsYWNlIHRvIGdvIG5vdy4g QnV0IHRoZSBza3kga25vd3MgdGhlIHJlYXNvbnMgYW5kIHRo ZSBwYXR0ZXJucyBiZWhpbmQgYWxsIGNsb3VkcywgYW5kIHlv dSB3aWxsIGtub3csIHRvbywgd2hlbiB5b3UgbGlmdCB5b3Vy c2VsZiBoaWdoIGVub3VnaCB0byBzZWUgYmV5b25kIGhvcml6 b25zLiINCg0KLVJpY2hhcmQgQmFjaA==");
+//				newServer.setPersonality(files);
+				Network[] networks = new Network[1];
+				networks[0] = new Network();
+				networks[0].setUuid("9074c0c4-b258-4615-b1de-d05f18114f5c");
+				newServer.setNetworks(networks);
 				
 				Server server = this.serverService.createServer(this.access, newServer);
 				Assert.assertNotNull(server);

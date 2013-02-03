@@ -37,7 +37,9 @@
     </bean>
     	
 	<context:component-scan base-package="com.inforstack.openstack" >
-		<context:exclude-filter type="regex" expression="\.controller\..*"/>
+<!-- 		<context:exclude-filter type="regex" expression="\.controller\..*"/> -->
+		<context:include-filter type="regex" expression="\.api\..*"/>
+		<context:include-filter type="regex" expression="\.configuration\..*"/>
 	</context:component-scan>
 
 	<tx:annotation-driven />

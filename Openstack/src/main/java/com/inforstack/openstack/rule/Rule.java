@@ -16,6 +16,8 @@ public class Rule {
 	@GeneratedValue
 	private int id;
 	
+	private String name;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional=false)
 	@JoinColumn(name="type_id")
 	private RuleType type;
@@ -31,6 +33,14 @@ public class Rule {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public RuleType getType() {

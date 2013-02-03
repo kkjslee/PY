@@ -6,4 +6,6 @@ public interface RuleService {
 	
 	public List<RuleType> listRuleType();
 	
+	public List<Rule> listRuleByTypeName(String name);
+	
 }

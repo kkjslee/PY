@@ -24,6 +24,7 @@ insert into Configuration(id, name, value) values(19, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail');
 insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}');
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action');
+
 insert into Configuration(id, name, value) values(23, 'openstack.role.admin', 'ff02b500141840ca8ad260722667dd61');
 insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'a42f88b98f7945a29a2e6751e46b470a');
 insert into Configuration(id, name, value) values(25, 'openstack.role.member', 'af700213552b43feb76f1981e5403a9b');
@@ -109,6 +110,9 @@ insert into Resource(id, url, permission) values (46, '/admin/product/remove', '
 insert into Resource(id, url, permission) values (47, '/admin/product/editPrice', 'admin');
 insert into Resource(id, url, permission) values (48, '/admin/product/listForJsp', 'admin');
 insert into Resource(id, url, permission) values (49, '/admin/product/create', 'admin');
+
+insert into Resource(id, url, permission) values (50, '/admin/category/listForJson', 'admin');
+insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 

@@ -94,7 +94,7 @@ public class ItemServiceImpl implements ItemService {
 					this.i18nService.createI18n(i18nModels[idx].getLanguageId(), i18nModels[idx].getContent(), link);
 				}
 				category = new Category();
-				category.setEnable(model.isEnable());
+				category.setEnable(model.getEnable());
 				category.setName(link);
 				category = this.categoryDao.persist(category);
 			}
@@ -118,7 +118,7 @@ public class ItemServiceImpl implements ItemService {
 							this.i18nService.updateI18n(linkId, i18nModel.getLanguageId(), i18nModel.getContent());
 						}
 					}
-					category.setEnable(model.isEnable());
+					category.setEnable(model.getEnable());
 					this.categoryDao.update(category);
 				}
 			}
@@ -127,7 +127,10 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public void removeCategory(Integer id) throws ApplicationException {
-		this.categoryDao.findById(id);
+		Category category = this.categoryDao.findById(id);
+		if (category != null) {
+			this.categoryDao.remove(category);
+		}
 	}
 	
 	@Override
@@ -203,7 +206,7 @@ public class ItemServiceImpl implements ItemService {
 					newItem = new ItemSpecification();
 					newItem.setName(link);
 					newItem.setDefaultPrice(model.getDefaultPrice());
-					newItem.setAvailable(model.isAvailable());
+					newItem.setAvailable(model.getAvailable());
 					newItem.setOsType(model.getOsType());
 					newItem.setRefId(refId);
 					newItem.setCreated(now);
@@ -320,7 +323,7 @@ public class ItemServiceImpl implements ItemService {
 					Date now = new Date();
 					
 					itemSpecification.setDefaultPrice(model.getDefaultPrice());
-					itemSpecification.setAvailable(model.isAvailable());
+					itemSpecification.setAvailable(model.getAvailable());
 					itemSpecification.setOsType(model.getOsType());
 					itemSpecification.setRefId(model.getRefId());
 					itemSpecification.setUpdated(now);

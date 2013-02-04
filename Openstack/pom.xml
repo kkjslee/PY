@@ -335,21 +335,18 @@
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>knowledge-api</artifactId>
-			<scope>provided</scope>
 			<version>5.5.0.Final</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<scope>provided</scope>
 			<version>5.5.0.Final</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<scope>provided</scope>
 			<version>1.4.4</version>
 		</dependency>
 		

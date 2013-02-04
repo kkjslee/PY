@@ -100,6 +100,13 @@ insert into Resource(id, url, permission) values (38, '/admin/category/scripts/t
 insert into Resource(id, url, permission) values (39, '/admin/category/listForJsp', 'admin');
 insert into Resource(id, url, permission) values (40, '/admin/category/create', 'admin');
 insert into Resource(id, url, permission) values (41, '/admin/category/update', 'admin');
-
 insert into Resource(id, url, permission) values (42, '/admin/category/remove', 'admin');
+
+insert into Resource(id, url, permission) values (43, '/admin/product/modules/index', 'admin');
+insert into Resource(id, url, permission) values (44, '/admin/product/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (45, '/admin/product/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (46, '/admin/product/remove', 'admin');
+insert into Resource(id, url, permission) values (47, '/admin/product/editPrice', 'admin');
+insert into Resource(id, url, permission) values (48, '/admin/product/listForJsp', 'admin');
+insert into Resource(id, url, permission) values (49, '/admin/product/create', 'admin');
 

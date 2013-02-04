@@ -1,9 +1,9 @@
 -- You can use this file to load seed data into the database using SQL statements
-insert into language(id, name, language, country) values (1, 'English', 'en', 'US');
-insert into language(id, name, language, country) values (2, '中文', 'zh', 'CN');
+insert into Language(id, name, language, country) values (1, 'English', 'en', 'US');
+insert into Language(id, name, language, country) values (2, '中文', 'zh', 'CN');
 
-insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'ec73d58df01b43e48aa41549953df091');
-insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '4f1cb88c9e4449ca90ae33ef20c38c34');
+insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', '90dc38ea7f534aafa179f4c3216975ce');
+insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '5280df6ffe914483913f4f40825b772f');
 insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin');
 insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '5f4dcc3b5aa765d61d8327deb882cf99');
 insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.145:5000/v2.0/tokens');
@@ -24,9 +24,9 @@ insert into Configuration(id, name, value) values(19, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail');
 insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}');
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action');
-insert into Configuration(id, name, value) values(23, 'openstack.role.admin', '8442ba0ed8314961afda3ac43db505a6');
-insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'e86c7037af3046f0a207ddcdf0cb9e67');
-insert into Configuration(id, name, value) values(25, 'openstack.role.member', '214afcc000ca4c8cb67ac05ceb563bae');
+insert into Configuration(id, name, value) values(23, 'openstack.role.admin', 'ff02b500141840ca8ad260722667dd61');
+insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'a42f88b98f7945a29a2e6751e46b470a');
+insert into Configuration(id, name, value) values(25, 'openstack.role.member', 'af700213552b43feb76f1981e5403a9b');
 insert into Configuration(id, name, value) values(26, 'openstack.cache.expire', '2');
 
 insert into Role(id, name) values (1, 'admin');

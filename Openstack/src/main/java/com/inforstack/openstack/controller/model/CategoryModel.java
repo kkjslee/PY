@@ -1,6 +1,5 @@
 package com.inforstack.openstack.controller.model;
 
-import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class CategoryModel {
 
@@ -32,10 +31,6 @@ public class CategoryModel {
     this.name = name;
   }
 
-  public Boolean isEnable() {
-    return enable;
-  }
-
   public void setEnable(Boolean enable) {
     this.enable = enable;
   }
@@ -52,11 +47,4 @@ public class CategoryModel {
     this.itemSpecifications = itemSpecifications;
   }
 
-  public String getEnabledDesc() {
-    if (enable == true) {
-      return OpenstackUtil.getMessage("category.status.enabled");
-    } else {
-      return OpenstackUtil.getMessage("category.status.disabled");
-    }
-  }
 }

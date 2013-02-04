@@ -1,134 +1,121 @@
 package com.inforstack.openstack.controller.model;
 
-import com.inforstack.openstack.utils.OpenstackUtil;
+
 
 public class ItemSpecificationModel {
+	
+	private Integer id;
+	
+	private I18nModel[] name;
+	
+	private float defaultPrice;
+	
+	private Integer osType;
+	
+	private String refId;
+	
+	private Boolean available;
+	
+	private String created;
+	
+	private String updated;
+	
+	private CategoryModel[] categories;
+	
+	private ItemMetadataModel[] metadata;
+	
+	private ProfileModel profile;
+	
+	public ItemSpecificationModel() {
+		
+	}
 
-  private Integer id;
+	public Integer getId() {
+		return id;
+	}
 
-  private I18nModel[] name;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-  private float defaultPrice;
+	public I18nModel[] getName() {
+		return name;
+	}
 
-  private Integer osType;
+	public void setName(I18nModel[] name) {
+		this.name = name;
+	}
 
-  private String refId;
+	public float getDefaultPrice() {
+		return defaultPrice;
+	}
 
-  private Boolean available;
+	public void setDefaultPrice(float defaultPrice) {
+		this.defaultPrice = defaultPrice;
+	}
 
-  private String created;
+	public Integer getOsType() {
+		return osType;
+	}
 
-  private String updated;
+	public void setOsType(Integer osType) {
+		this.osType = osType;
+	}
 
-  private CategoryModel[] categories;
+	public String getRefId() {
+		return refId;
+	}
 
-  private ItemMetadataModel[] metadata;
+	public void setRefId(String refId) {
+		this.refId = refId;
+	}
 
-  private ProfileModel profile;
+	public Boolean getAvailable() {
+		return available;
+	}
 
-  public ItemSpecificationModel() {
+	public void setAvailable(Boolean available) {
+		this.available = available;
+	}
 
-  }
+	public String getCreated() {
+		return created;
+	}
 
-  public Integer getId() {
-    return id;
-  }
+	public void setCreated(String created) {
+		this.created = created;
+	}
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	public String getUpdated() {
+		return updated;
+	}
 
-  public I18nModel[] getName() {
-    return name;
-  }
+	public void setUpdated(String updated) {
+		this.updated = updated;
+	}
 
-  public void setName(I18nModel[] name) {
-    this.name = name;
-  }
+	public CategoryModel[] getCategories() {
+		return categories;
+	}
 
-  public float getDefaultPrice() {
-    return defaultPrice;
-  }
+	public void setCategories(CategoryModel[] categories) {
+		this.categories = categories;
+	}
 
-  public void setDefaultPrice(float defaultPrice) {
-    this.defaultPrice = defaultPrice;
-  }
+	public ItemMetadataModel[] getMetadata() {
+		return metadata;
+	}
 
-  public Integer getOsType() {
-    return osType;
-  }
+	public void setMetadata(ItemMetadataModel[] metadata) {
+		this.metadata = metadata;
+	}
 
-  public void setOsType(Integer osType) {
-    this.osType = osType;
-  }
+	public ProfileModel getProfile() {
+		return profile;
+	}
 
-  public String getRefId() {
-    return refId;
-  }
-
-  public void setRefId(String refId) {
-    this.refId = refId;
-  }
-
-  public Boolean isAvailable() {
-    return available;
-  }
-
-  public void setAvailable(Boolean available) {
-    this.available = available;
-  }
-
-  public Boolean getAvailable() {
-    return available;
-
-  }
-
-  public String getEnabledDesc() {
-    if (available == true) {
-      return OpenstackUtil.getMessage("product.status.enabled");
-    } else {
-      return OpenstackUtil.getMessage("product.status.disabled");
-    }
-  }
-
-  public String getCreated() {
-    return created;
-  }
-
-  public void setCreated(String created) {
-    this.created = created;
-  }
-
-  public String getUpdated() {
-    return updated;
-  }
-
-  public void setUpdated(String updated) {
-    this.updated = updated;
-  }
-
-  public CategoryModel[] getCategories() {
-    return categories;
-  }
-
-  public void setCategories(CategoryModel[] categories) {
-    this.categories = categories;
-  }
-
-  public ItemMetadataModel[] getMetadata() {
-    return metadata;
-  }
-
-  public void setMetadata(ItemMetadataModel[] metadata) {
-    this.metadata = metadata;
-  }
-
-  public ProfileModel getProfile() {
-    return profile;
-  }
-
-  public void setProfile(ProfileModel profile) {
-    this.profile = profile;
-  }
+	public void setProfile(ProfileModel profile) {
+		this.profile = profile;
+	}
 
 }

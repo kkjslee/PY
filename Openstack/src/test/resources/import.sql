@@ -24,10 +24,19 @@ insert into Configuration(id, name, value) values(19, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail')
 insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}')
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action')
-insert into Configuration(id, name, value) values(23, 'openstack.role.admin', '9cdcb290f2d0466790c64f3aa5b41cb9')
-insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', '9cdcb290f2d0466790c64f3aa5b41cb9')
-insert into Configuration(id, name, value) values(25, 'openstack.role.member', '9cdcb290f2d0466790c64f3aa5b41cb9')
-insert into Configuration(id, name, value) values(26, 'openstack.cache.expire', '2')
+insert into Configuration(id, name, value) values(23, 'openstack.endpoint.networks', 'v2.0/networks');
+insert into Configuration(id, name, value) values(24, 'openstack.endpoint.network', 'v2.0/networks/{network}');
+insert into Configuration(id, name, value) values(25, 'openstack.endpoint.subnets', 'v2.0/subnets');
+insert into Configuration(id, name, value) values(26, 'openstack.endpoint.subnet', 'v2.0/subnets/{subnet}');
+insert into Configuration(id, name, value) values(27, 'openstack.endpoint.ports', 'v2.0/ports');
+insert into Configuration(id, name, value) values(28, 'openstack.endpoint.port', 'v2.0/ports/{port}');
+
+
+
+insert into Configuration(id, name, value) values(50, 'openstack.role.admin', '9cdcb290f2d0466790c64f3aa5b41cb9')
+insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', '9cdcb290f2d0466790c64f3aa5b41cb9')
+insert into Configuration(id, name, value) values(52, 'openstack.role.member', '9cdcb290f2d0466790c64f3aa5b41cb9')
+insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', '2')
 
 insert into Role(id, name) values (1, 'admin')
 insert into Role(id, name) values (2, 'user')
@@ -109,3 +118,7 @@ insert into Resource(id, url, permission) values (46, '/admin/product/remove', '
 insert into Resource(id, url, permission) values (47, '/admin/product/editPrice', 'admin');
 insert into Resource(id, url, permission) values (48, '/admin/product/listForJsp', 'admin');
 insert into Resource(id, url, permission) values (49, '/admin/product/create', 'admin');
+
+insert into Resource(id, url, permission) values (50, '/admin/category/listForJson', 'admin');
+
+insert into Resource(id, url, permission) values (70, '/shopcart', 'user');

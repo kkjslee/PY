@@ -20,6 +20,7 @@ function registerTemplate() {
    $.template("createImgOption",  Template_ImgModelOption);
    $.template("createFlavorOption",  Template_FlavorModelOption);
    $.template("editPrice",  Template_EditPrice);
+   $.template("createCategoryOption",  Template_CategoryModelOption);
 }
 
 function setup() {
@@ -102,6 +103,15 @@ function showCreatProduct(){
                     return false;
                  } */
                  jsonData["available"] = available;
+                 
+                 var categoryArray = [];
+                 var categorySelect = $(this).find("select[id='categoriesSelect']").val();
+                 if(categorySelect != -1){
+                    var cData = {};
+                    cData["id"] = categorySelect;
+                    categoryArray.push(cData);
+                    jsonData["categories"] = categoryArray;
+                 }
                  //ostype
                  var osType = $(this).find("select[id='osType']").val();
                  if(osType != -1){
@@ -128,8 +138,9 @@ function showCreatProduct(){
             }
         }]
     });
-    $("select").selectmenu();
+    loadCategories();
     bindOSTypeSelect();
+    $("select").selectmenu();
     $(createProduct).dialog("open");
    }
 
@@ -196,7 +207,7 @@ function showEditPrice(which){
                var jsonData = {};
                var defaultPrice = $(this).find("input[isos='defaultPrice']").val();
                if(!isNull(defaultPrice)){
-                  jsonData["defaultPrice"] = defaultPrice;
+                  jsonData["value"] = defaultPrice;
                }
                jsonData["itemSpecificationId"] = id;
                var jsonString = $.toJSON(jsonData);
@@ -215,6 +226,7 @@ function showEditPrice(which){
     $(editPrice).find("input[isos='defaultPrice']").val(defaultPrice);
     $(editPrice).dialog("open");
 }
+
 function showEditProduct(which){
     //remove old elements
     if($("#editProduct").length > 0){
@@ -304,9 +316,9 @@ function getOSTyeList(url,selectId,optionModel){
                }else{
                     $.tmpl(optionModel, data).appendTo("#" + selectId);
                     $("#" + selectId).selectmenu();
-                    if(optionModel == "createImgOption"){
-                       bindFlavorSelect();
-                    }
+                    //if(optionModel == "createFlavorOption"){
+                    //   bindFlavorSelect();
+                    //}
                }
                 
             }catch(e){printMessage("Data Broken ["+e+"]");};
@@ -315,6 +327,40 @@ function getOSTyeList(url,selectId,optionModel){
             printError(jqXHR, textStatus, errorThrown);
         }
     });
+}
+
+function loadCategories(){
+    $.ajax({
+        type: "POST",
+        dataType: "html",
+        cache: false,
+        url: "<%=request.getContextPath()%>/admin/category" + "/listForJson",  
+        data: {
+            excludeDisabled:true,
+            withItems:true
+        },
+        success: function(data) {
+             try{
+               $("#categoriesSelect").empty();
+               $("#categoriesSelect").append('<option value="-1" selected><spring:message code="choose.label"/></option>');
+               if (!data || data.length == 0) {
+                   
+               }else{
+                    data = $.parseJSON(data);
+                     $.tmpl("createCategoryOption", data).appendTo("#categoriesSelect");
+                    $("#categoriesSelect").selectmenu();
+                    //if(optionModel == "createFlavorOption"){
+                    //   bindFlavorSelect();
+                    //}
+               }
+                
+            }catch(e){printMessage("Data Broken ["+e+"]");};
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $("<span class='loadingError'>"+"<spring:message code='message.loading.data.error'/>"+"</span>").appendTo($(tableBodyContainer).empty());
+        }
+    });
+    
 }
 //bind type select and get update refId  
 function bindOSTypeSelect(){

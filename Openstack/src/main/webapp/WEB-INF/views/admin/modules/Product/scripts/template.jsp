@@ -44,6 +44,13 @@ var Template_CreateProduct = '\
                 <input class="edit_content isos_content" isos_lang_id="${item.id}" type="text" value=""/><input class="isos_id" type="hidden" value="${item.id}"/>\
             </span>\
         </span></c:forEach>\
+        <span class="dialogLine ">\
+            <span class="dialogLineLeft"><spring:message code="category.label"/>:</span>\
+            <span class="dialogLineRight typeSelect">\
+                <select id="categoriesSelect">\
+                </select>\
+           </span>\
+        </span>\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="product.type.label"/>:</span>\
             <span class="dialogLineRight typeSelect">\
@@ -100,7 +107,9 @@ var Template_CreateProduct = '\
                 <input isos="defaultPrice" type="text" value=""/>\
            </span>\
         </span>\
-    </div>';    
+    </div>'; 
+    
     
 var Template_ImgModelOption = '<option value="\${imgId}">\${imgName}</option>';
 var Template_FlavorModelOption = '<option value="\${flavorId}">\${flavorName}</option>';
+var Template_CategoryModelOption = '<option value="\${id}">\${currentLocaleName}</option>';

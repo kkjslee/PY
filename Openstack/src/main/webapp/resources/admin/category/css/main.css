@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+.categoryName{
+    width:30%;	
+}
+.categoryStatus{
+	width:30%;
+}
+.categoryOperation{
+	width:40%;
+}

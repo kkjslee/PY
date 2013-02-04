@@ -8,14 +8,40 @@ import com.inforstack.openstack.security.role.RoleService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
+import com.inforstack.openstack.user.UserService;
 
 public class SecurityUtils {
+	
+	public static Integer getUserId(){
+		try{
+			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(o instanceof OpenstackUserDetails){
+				return ((OpenstackUserDetails)o).getUser().getId();
+			}
+		}catch(Exception e){
+		}
+		
+		return null;
+	}
 
 	public static String getUserName() {
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
 				return ((OpenstackUserDetails)o).getUsername();
+			}
+		}catch(Exception e){
+		}
+		
+		return null;
+	}
+	
+	public static User getUser(){
+		try{
+			Integer userId = getUserId();
+			if(userId != null){
+				UserService us = (UserService)OpenstackUtil.getBean("userService");
+				return us.findUserById(userId);
 			}
 		}catch(Exception e){
 		}
@@ -37,16 +63,10 @@ public class SecurityUtils {
 	
 	public static Role getUserRole() {
 		try{
-			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if(o instanceof OpenstackUserDetails){
-				OpenstackUserDetails ud = ((OpenstackUserDetails)o);
-				Role role = ud.getRole();
-				if(role == null){
-					RoleService rs = (RoleService)OpenstackUtil.getBean("roleService");
-					role = rs.findRoleById(ud.getUser().getRoleId());
-					ud.setRole(role);
-				}
-				return role;
+			Integer roleId = getUserRoleId();
+			if(roleId != null){
+				RoleService rs = (RoleService)OpenstackUtil.getBean("roleService");
+				return rs.findRoleById(roleId);
 			}
 		}catch(Exception e){
 		}
@@ -65,13 +85,12 @@ public class SecurityUtils {
 		
 		return null;
 	}
-
 	
-	public static User getUser(){
+	public static Integer getAgentId(){
 		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				return ((OpenstackUserDetails)o).getUser();
+				return ((OpenstackUserDetails)o).getTenant().getAgentId();
 			}
 		}catch(Exception e){
 		}
@@ -81,16 +100,22 @@ public class SecurityUtils {
 	
 	public static Tenant getAgent(){
 		try{
+			Integer agentId = getAgentId();
+			if(agentId != null){
+				TenantService ts = (TenantService)OpenstackUtil.getBean("tenantService");
+				return ts.findTenantById(agentId);
+			}
+		}catch(Exception e){
+		}
+		
+		return null;
+	}
+	
+	public static Integer getTenantId(){
+		try{
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if(o instanceof OpenstackUserDetails){
-				OpenstackUserDetails ud = ((OpenstackUserDetails)o);
-				Tenant agent = ud.getAgent();
-				if(agent == null){
-					TenantService as = (TenantService)OpenstackUtil.getBean("tenantService");
-					agent = as.findAgent(getTenant().getAgentId());
-					ud.setAgent(agent);
-				}
-				return agent;
+				return ((OpenstackUserDetails)o).getTenant().getId();
 			}
 		}catch(Exception e){
 		}
@@ -100,16 +125,10 @@ public class SecurityUtils {
 	
 	public static Tenant getTenant(){
 		try{
-			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if(o instanceof OpenstackUserDetails){
-				OpenstackUserDetails ud = ((OpenstackUserDetails)o);
-				Tenant tenant = ud.getTenant();
-				if(tenant == null){
-					TenantService ts = (TenantService)OpenstackUtil.getBean("tenantService");
-					tenant = ts.findTenantById(ud.getUser().getDefaultTenantId());
-					ud.setTenant(tenant);
-				}
-				return tenant;
+			Integer tenantId = getTenantId();
+			if(tenantId != null){
+				TenantService ts = (TenantService)OpenstackUtil.getBean("tenantService");
+				return ts.findTenantById(tenantId);
 			}
 		}catch(Exception e){
 		}

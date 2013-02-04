@@ -23,7 +23,7 @@ import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 
-@Service("UserService")
+@Service("userService")
 @Transactional(rollbackFor=Exception.class)
 public class UserServiceImpl implements UserService {
 	
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("tenant.create.fail"));
 		}
 		
-		UserService self = (UserService)OpenstackUtil.getBean("UserService");
+		UserService self = (UserService)OpenstackUtil.getBean("userService");
 		fillUser(user, t);
 		User u = self.createUser(user, roleId);
 		if(u == null){
@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
 		
 		log.debug("Create user for tenant : "  + t.getName());
 		fillUser(user, t);
-		UserService self = (UserService)OpenstackUtil.getBean("UserService");
+		UserService self = (UserService)OpenstackUtil.getBean("userService");
 		User u = self.createUser(user, t.getRoleId());
 		if(u == null){
 			log.warn("Create tenant user failed");
@@ -177,7 +177,7 @@ public class UserServiceImpl implements UserService {
 	
 	private User fillUser(User user, Tenant t){
 		user.setRoleId(t.getRoleId());
-		user.setDefaultTenantId(t.getId());
+		user.setDefaultTenant(t);
 		user.getTanents().clear();
 		user.getTanents().add(t);
 		

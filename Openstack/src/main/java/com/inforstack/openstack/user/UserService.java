@@ -3,7 +3,6 @@ package com.inforstack.openstack.user;
 import java.util.Set;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
-import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 

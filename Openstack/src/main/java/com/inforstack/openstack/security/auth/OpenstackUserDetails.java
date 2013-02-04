@@ -16,12 +16,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.inforstack.openstack.security.permission.Permission;
-import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.SecurityUtils;
-
 
 @Component
 public class OpenstackUserDetails implements UserDetails {
@@ -33,8 +31,7 @@ public class OpenstackUserDetails implements UserDetails {
 	private static final Log log = LogFactory.getLog(OpenstackUserDetails.class);
 	private User user;
 	private Tenant tenant;
-	private Tenant agent;
-	private Role role;
+	
 	@Autowired
 	private UserService userService;
 	
@@ -112,19 +109,4 @@ public class OpenstackUserDetails implements UserDetails {
 		this.tenant = tenant;
 	}
 
-	public Tenant getAgent() {
-		return agent;
-	}
-
-	public void setAgent(Tenant agent) {
-		this.agent = agent;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 }

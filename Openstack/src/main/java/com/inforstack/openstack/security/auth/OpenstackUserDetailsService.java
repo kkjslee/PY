@@ -33,6 +33,7 @@ public class OpenstackUserDetailsService implements UserDetailsService {
 		}
 		log.debug("User found by name : "+userName);
 		userDetails.setUser(user);  
+		userDetails.setTenant(user.getDefaultTenant());
 		return userDetails;
 	}
 

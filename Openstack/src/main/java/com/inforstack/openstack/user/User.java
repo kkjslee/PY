@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.inforstack.openstack.security.group.SecurityGroup;
@@ -58,8 +59,9 @@ public class User {
 	@Column(name="role_id")
 	private int roleId;
 	
-	@Column(name="default_tenant_id")
-	private Integer defaultTenantId;
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="default_tenant_id")
+	private Tenant defaultTenant;
 	
 	private Integer status;
 	
@@ -261,13 +263,21 @@ public class User {
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
-
-	public Integer getDefaultTenantId() {
-		return defaultTenantId;
+	
+	public Tenant getDefaultTenant() {
+		return defaultTenant;
 	}
 
-	public void setDefaultTenantId(Integer defaultTenantId) {
-		this.defaultTenantId = defaultTenantId;
+	public void setDefaultTenant(Tenant defaultTenant) {
+		this.defaultTenant = defaultTenant;
+	}
+
+	public List<VirtDomain> getVirtDomains() {
+		return virtDomains;
+	}
+
+	public void setVirtDomains(List<VirtDomain> virtDomains) {
+		this.virtDomains = virtDomains;
 	}
 
 	public String getUuid() {

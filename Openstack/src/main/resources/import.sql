@@ -110,3 +110,5 @@ insert into Resource(id, url, permission) values (47, '/admin/product/editPrice'
 insert into Resource(id, url, permission) values (48, '/admin/product/listForJsp', 'admin');
 insert into Resource(id, url, permission) values (49, '/admin/product/create', 'admin');
 
+insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
+

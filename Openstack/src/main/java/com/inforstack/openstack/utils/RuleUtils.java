@@ -35,7 +35,7 @@ public class RuleUtils {
 	
 	private static String createChangeSetString(String type, String location) {
 		StringBuilder str = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<change-set xmlns='http://drools.org/drools-5.0/change-set' " +
+                "<change-set xmlns='http://drools.org/drools-5.0/change-set ' " +
                 " xmlns:xs='http://www.w3.org/2001/XMLSchema-instance' " +
                 " xs:schemaLocation='http://drools.org/drools-5.0/change-set drools-change-set-5.0.xsd' >");
 		str.append("<add>");
@@ -60,7 +60,7 @@ public class RuleUtils {
         builder.append(source);
         builder.append("' type='");
         builder.append(type);
-        builder.append("' />");
+        builder.append("' basicAuthentication='enabled' username='admin' password='admin' />");
     }
 	
     private static String getFileURI(String file){

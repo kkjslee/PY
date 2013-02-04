@@ -6,6 +6,30 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Subnet {
 	
+	public static final class AllocationPool {
+		
+		private String start;
+		
+		private String end;
+
+		public String getStart() {
+			return start;
+		}
+
+		public void setStart(String start) {
+			this.start = start;
+		}
+
+		public String getEnd() {
+			return end;
+		}
+
+		public void setEnd(String end) {
+			this.end = end;
+		}
+		
+	}
+	
 	private String id;
 	
 	private String name;
@@ -26,6 +50,9 @@ public class Subnet {
 	
 	@JsonProperty("enable_dhcp")
 	private boolean dhcp;
+	
+	@JsonProperty("allocation_pools")
+	private AllocationPool[] pools;
 
 	public String getId() {
 		return id;
@@ -89,6 +116,14 @@ public class Subnet {
 
 	public void setDhcp(boolean dhcp) {
 		this.dhcp = dhcp;
+	}
+
+	public AllocationPool[] getPools() {
+		return pools;
+	}
+
+	public void setPools(AllocationPool[] pools) {
+		this.pools = pools;
 	}
 
 }

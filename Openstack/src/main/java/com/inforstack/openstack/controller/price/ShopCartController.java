@@ -9,6 +9,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.drools.KnowledgeBase;
+import org.drools.definition.type.FactType;
+import org.drools.runtime.StatefulKnowledgeSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +31,7 @@ import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
+import com.inforstack.openstack.utils.RuleUtils;
 import com.inforstack.openstack.utils.SecurityUtils;
 
 @Controller
@@ -104,25 +108,8 @@ public class ShopCartController {
 				cart.setItems(items);
 			}
 
-			User user = this.userService.findByName(SecurityUtils.getUserName());
-			Tenant tenant = null;
-			if (user != null) {
-				tenant = this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
-			}
-					
-			List<Rule> ruleList = this.ruleService.listRuleByTypeName("promotion");
-			for (Rule rule : ruleList) {
-//				try {
-//					KnowledgeBase kbase = RuleUtils.readKnowledgeBase(rule.getName(), rule.getLocationType(), rule.getLocation());
-//					FactType userType = kbase.getFactType("troposphere", "User");
-//					Object userFact = userType.newInstance();
-//					StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-//					ksession.insert(userFact);
-//					ksession.fireAllRules();
-//				} catch (InstantiationException e) {				
-//				} catch (IllegalAccessException e) {
-//				}
-			}
+			//this.runRules(cart);
+			
 			float amount = 0;
 			CartItemModel[] items = cart.getItems();
 			for (CartItemModel item : items) {
@@ -166,25 +153,8 @@ public class ShopCartController {
 				existItem.setPrice(cartItem.getPrice());
 				existItem.setStatus(0);
 				
-				User user = this.userService.findByName(SecurityUtils.getUserName());
-				Tenant tenant = null;
-				if (user != null) {
-					tenant = this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
-				}
-						
-				List<Rule> ruleList = this.ruleService.listRuleByTypeName("promotion");
-				for (Rule rule : ruleList) {
-//					try {
-//						KnowledgeBase kbase = RuleUtils.readKnowledgeBase(rule.getName(), rule.getLocationType(), rule.getLocation());
-//						FactType userType = kbase.getFactType("troposphere", "User");
-//						Object userFact = userType.newInstance();
-//						StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-//						ksession.insert(userFact);
-//						ksession.fireAllRules();
-//					} catch (InstantiationException e) {				
-//					} catch (IllegalAccessException e) {
-//					}
-				}
+				this.runRules(cart);						
+				
 				float amount = 0;
 				CartItemModel[] items = cart.getItems();
 				for (CartItemModel item : items) {
@@ -221,25 +191,8 @@ public class ShopCartController {
 				}
 				cart.setItems(itemList.toArray(new CartItemModel[0]));
 				
-				User user = this.userService.findByName(SecurityUtils.getUserName());
-				Tenant tenant = null;
-				if (user != null) {
-					tenant = this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
-				}
-						
-				List<Rule> ruleList = this.ruleService.listRuleByTypeName("promotion");
-				for (Rule rule : ruleList) {
-//					try {
-//						KnowledgeBase kbase = RuleUtils.readKnowledgeBase(rule.getName(), rule.getLocationType(), rule.getLocation());
-//						FactType userType = kbase.getFactType("troposphere", "User");
-//						Object userFact = userType.newInstance();
-//						StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-//						ksession.insert(userFact);
-//						ksession.fireAllRules();
-//					} catch (InstantiationException e) {				
-//					} catch (IllegalAccessException e) {
-//					}
-				}
+				//this.runRules(cart);
+				
 				float amount = 0;
 				items = cart.getItems();
 				for (CartItemModel item : items) {
@@ -254,6 +207,28 @@ public class ShopCartController {
 		
 		returnValue.put("success", success ? "success" : "error");
 		return returnValue;
+	}
+	
+	private void runRules(CartModel cart) {
+		User user = this.userService.findByName(SecurityUtils.getUserName());
+		Tenant tenant = null;
+		if (user != null) {
+			tenant = this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
+		}
+		
+		List<Rule> ruleList = this.ruleService.listRuleByTypeName("promotion");
+		for (Rule rule : ruleList) {
+			try {
+				KnowledgeBase kbase = RuleUtils.readKnowledgeBase(rule.getName(), rule.getLocationType(), rule.getLocation());
+				FactType userType = kbase.getFactType("troposphere", "User");
+				Object userFact = userType.newInstance();
+				StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
+				ksession.insert(userFact);
+				ksession.fireAllRules();
+			} catch (InstantiationException e) {				
+			} catch (IllegalAccessException e) {
+			}
+		}
 	}
 
 }

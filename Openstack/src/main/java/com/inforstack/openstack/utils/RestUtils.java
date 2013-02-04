@@ -39,7 +39,7 @@ public class RestUtils {
 	}
 	
 	private static void addHeader(HttpHeaders headers) {
-		headers.add("Content-type", "application/json");
+		headers.add("Content-Type", "application/json");
 		headers.add("Accept", "application/json");
 	}
 	

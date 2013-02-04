@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.SecurityUtils;
+import com.inforstack.openstack.virt.domain.VirtDomain;
 
 @Entity
 public class User {
@@ -82,6 +83,13 @@ public class User {
 	
 	@Column(name="create_time")
 	private Date createTime;
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinTable(name="user_domain",
+		joinColumns = { @JoinColumn(name="user_id", insertable=false, updatable = false) },
+		inverseJoinColumns = { @JoinColumn(name= "domain_id", insertable=false, updatable = false) }
+	)
+	private List<VirtDomain> virtDomains = new ArrayList<VirtDomain>();
 	
 	@Transient
 	private com.inforstack.openstack.api.keystone.User openstackUser;

@@ -38,7 +38,7 @@ public class Invoice {
 	
 	private BigDecimal amount;
 	
-	private BigDecimal banlance;
+	private BigDecimal balance;
 	
 	@Column(name="pay_time")
 	private Date payTime;
@@ -68,6 +68,8 @@ public class Invoice {
 			inverseJoinColumns = { @JoinColumn(name = "payment_id", insertable=false, updatable = false) }
 	)
 	private List<Payment> payments;
+	
+	private String uuid;
 
 	public Integer getId() {
 		return id;
@@ -165,12 +167,20 @@ public class Invoice {
 		this.amount = amount;
 	}
 
-	public BigDecimal getBanlance() {
-		return banlance;
+	public BigDecimal getBalance() {
+		return balance;
 	}
 
-	public void setBanlance(BigDecimal banlance) {
-		this.banlance = banlance;
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }

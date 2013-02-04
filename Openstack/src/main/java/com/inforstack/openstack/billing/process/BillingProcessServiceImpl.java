@@ -1,6 +1,9 @@
 package com.inforstack.openstack.billing.process;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -8,17 +11,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.billing.invoice.Invoice;
+import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.conf.BillingProcessConfiguration;
+import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.Order;
+import com.inforstack.openstack.order.OrderService;
+import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.order.sub.SubOrderService;
+import com.inforstack.openstack.order.sub.model.Period;
+import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.user.User;
+import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.OpenstackUtil;
 
-@Service
+@Service("billingProcessService")
 @Transactional
 public class BillingProcessServiceImpl implements BillingProcessService {
 
-	private static final Log log = LogFactory.getLog(BillingProcessServiceImpl.class);
+	private static final Logger log = new Logger(BillingProcessServiceImpl.class);
 	@Autowired
 	private BillingProcessDao billingProcessDao;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public BillingProcess createBillingProcess(BillingProcess billingProcess) {
@@ -84,10 +102,26 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		
 		return bp;
 	}
-
+	
 	@Override
 	public void runBillingProcess(BillingProcessConfiguration conf) {
+		log.debug("Running billing process for billing process configuration : " + conf.getId());
+		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
+		BillingProcess bp = self.createBillingProcess(conf, new Date(), null);
+				
+		List<Order> orders = orderService.findAll(null, Constants.ORDER_STATUS_ACTIVE);
+		for(Order order : orders){
+			orderService.payOrder(order, conf.getNextBillingDate(), bp);
+		}
 		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(conf.getNextBillingDate());
+		calendar.add(conf.getPeriodType(), conf.getPeriodQuantity());
+		conf.setNextBillingDate(calendar.getTime());
+		
+		bp.setEndTime(new Date());
+		bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
+		log.debug("Running billing process finished");
 	}
 	
 }

@@ -1,6 +1,10 @@
 package com.inforstack.openstack.order.sub;
 
+import java.util.Date;
 import java.util.List;
+
+import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.order.sub.model.Period;
 
 public interface SubOrderService {
 	
@@ -26,7 +30,7 @@ public interface SubOrderService {
 	 * @param status
 	 * @return
 	 */
-	public List<SubOrder> findSubOrders(String orderId, int status);
+	public List<SubOrder> findSubOrders(String orderId, Integer status, Integer periodId);
 	
 	/**
 	 * delete sub order by id
@@ -34,4 +38,14 @@ public interface SubOrderService {
 	 * @return
 	 */
 	public SubOrder deleteSubOrder(int subOrderId);
+
+	/**
+	 * calculate the period for the given sub order
+	 * @param billingDate
+	 * @return
+	 */
+	public List<Period> calcPeriod(SubOrder subOrder, Date billingDate, Date endLimit);
+
+	public void paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
+	
 }

@@ -21,11 +21,6 @@ public class BillingProcessConfiguration {
 	@Column(name="next_billing_date")
 	private Date nextBillingDate;
 	
-	private Integer retry;
-	
-	@Column(name="days_between_retry")
-	private Integer daysBetweenRetry;
-	
 	@Column(name="period_type")
 	private int periodType;
 	
@@ -57,22 +52,6 @@ public class BillingProcessConfiguration {
 
 	public void setNextBillingDate(Date nextBillingDate) {
 		this.nextBillingDate = nextBillingDate;
-	}
-
-	public Integer getRetry() {
-		return retry;
-	}
-
-	public void setRetry(Integer retry) {
-		this.retry = retry;
-	}
-
-	public Integer getDaysBetweenRetry() {
-		return daysBetweenRetry;
-	}
-
-	public void setDaysBetweenRetry(Integer daysBetweenRetry) {
-		this.daysBetweenRetry = daysBetweenRetry;
 	}
 
 	public int getPeriodType() {

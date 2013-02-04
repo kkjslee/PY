@@ -22,19 +22,15 @@ public class BillingProcessConfigurationServiceImpl implements
 	
 	@Override
 	public BillingProcessConfiguration createBillingProcessConfiguration(String name,
-			Date nextBillingDate, int retry, int daysBetweenRetry, int periodType,
-			int periodQuantity) {
+			Date nextBillingDate, int periodType, int periodQuantity) {
 		log.debug("Create billing process configuration with name : " + name + ", nextBillingDate : " +
-			nextBillingDate + ", daysBetweenRetry : " + daysBetweenRetry + ", periodType : " + periodType +
-			", periodQuantity : " + periodQuantity);
+			nextBillingDate + ", periodType : " + periodType + ", periodQuantity : " + periodQuantity);
 		BillingProcessConfiguration bpc = new BillingProcessConfiguration();
 		bpc.setCreateTime(new Date());
-		bpc.setDaysBetweenRetry(daysBetweenRetry);
 		bpc.setName(name);
 		bpc.setNextBillingDate(nextBillingDate);
 		bpc.setPeriodQuantity(periodQuantity);
 		bpc.setPeriodType(periodType);
-		bpc.setRetry(retry);
 		
 		billingProcessConfigurationDao.persist(bpc);
 		log.debug("Create billing process configuration successfully");

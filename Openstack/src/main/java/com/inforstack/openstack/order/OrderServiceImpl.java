@@ -10,7 +10,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
+import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
@@ -19,19 +23,20 @@ import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
-import com.inforstack.openstack.utils.StringUtil;
 
 @Service("orderService")
 @Transactional
 public class OrderServiceImpl implements OrderService {
 	
-	private static final Log log = LogFactory.getLog(OrderServiceImpl.class);
+	private static final Logger log = new Logger(OrderServiceImpl.class);
 	@Autowired
 	private OrderDao orderDao;
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private TenantService tenantService;
+	@Autowired
+	private SubOrderService subOrderService;
 	
 	@Override
 	public Order createOrder(Order order) {
@@ -47,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Order createOrder(Tenant tenant, Date begin, Date end) {
+	public Order createOrder(Tenant tenant, Date begin, Date end, boolean autoPay) {
 		log.debug("Create order for tenant : " + tenant.getName());
 		Date now  = new Date();
 		Order order = new Order();
@@ -63,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setCreatedBy(user);
 		order.setCreateTime(now);
 		order.setStatus(Constants.ORDER_STATUS_NEW);
+		order.setAutoPay(autoPay);
 		order.setTenant(tenant);
 		orderDao.persist(order);
 		log.debug("Create order successfully");
@@ -71,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order createOrder(int tenantId, Date begin, Date end) {
+	public Order createOrder(int tenantId, Date begin, Date end, boolean autoPay) {
 		log.debug("Create order for tenant : " + tenantId);
 		Tenant tenant = tenantService.findTenantById(tenantId);
 		if(tenant == null){
@@ -80,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		OrderService self = (OrderService)OpenstackUtil.getBean("orderService");
-		Order order = self.createOrder(tenant, begin, end);
+		Order order = self.createOrder(tenant, begin, end, autoPay);
 		if(order == null){
 			log.debug("Create order failed");
 		}else{
@@ -118,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findAll(int tenantId, int status) {
+	public List<Order> findAll(Integer tenantId, Integer status) {
 		log.debug("Find all orders by tenant : " + tenantId + ", status : " + status);
 		List<Order> orders = orderDao.find(tenantId, status);
 		if(CollectionUtil.isNullOrEmpty(orders)){
@@ -128,6 +134,32 @@ public class OrderServiceImpl implements OrderService {
 			log.debug("Find successfully");
 			return orders;
 		}
+	}
+
+	@Override
+	public void payOrder(Order order, Date billingDate, BillingProcess billingProcess) {
+		log.debug("Pay order : " +order.getId() + " with billing date : " + billingDate + 
+				", billing process : " + billingProcess==null?null:billingProcess.getId());
+		List<SubOrder> subOrders = subOrderService.findSubOrders(
+				order.getId(), 
+				Constants.SUBORDER_STATUS_AVAILABLE,
+				billingProcess==null? null : billingProcess.getBillingProcessConfiguration().getPeriodType());
+		for(SubOrder so : subOrders){
+			subOrderService.paySubOrder(so, billingDate, billingProcess);
+		}
+		log.debug("Pay order successfully");
+	}
+
+	@Override
+	public void checkOrderFinished(Order order, Date date) {
+		List<SubOrder> subOrders = order.getSubOrders();
+		for(SubOrder subOrder : subOrders){
+			if(subOrder.getStatus() == Constants.SUBORDER_STATUS_AVAILABLE){
+				return;
+			}
+		}
+		
+		order.setStatus(Constants.ORDER_STATUS_FINISHED);
 	}
 	
 }

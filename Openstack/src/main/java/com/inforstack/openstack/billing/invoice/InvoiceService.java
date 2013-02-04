@@ -53,4 +53,5 @@ public interface InvoiceService {
 	 * @return
 	 */
 	public List<Invoice> findInvoice(Date from, Date to);
+	
 }

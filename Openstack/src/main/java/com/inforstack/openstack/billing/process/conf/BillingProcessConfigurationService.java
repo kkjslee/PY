@@ -16,7 +16,7 @@ public interface BillingProcessConfigurationService {
 	 * @return
 	 */
 	public BillingProcessConfiguration createBillingProcessConfiguration(String name, Date nextBillingDate, 
-			int retry, int daysBetweenRetry, int periodType, int periodQuantity);
+			int periodType, int periodQuantity);
 	
 	/**
 	 * Find billing process configuration

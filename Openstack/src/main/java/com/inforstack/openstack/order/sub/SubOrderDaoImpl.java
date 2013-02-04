@@ -26,8 +26,8 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 	private EntityManager em;
 	
 	@Override
-	public List<SubOrder> find(String orderId, Integer status) {
-		log.debug("Find all sub order(s) by order id : " + orderId + ", status : " + status);
+	public List<SubOrder> find(String orderId, Integer status, Integer periodId) {
+		log.debug("Find all sub order(s) by order id : " + orderId + ", status : " + status + ", period id : " + periodId);
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
 			CriteriaQuery<SubOrder> criteria = builder
@@ -42,6 +42,11 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 			if(status != null){
 				predicates.add(
 						builder.equal(root.get("status"), status)
+				);
+			}
+			if(periodId != null){
+				predicates.add(
+						builder.equal(root.get("orderPeriod.id"), periodId)
 				);
 			}
 			if(predicates.isEmpty()){

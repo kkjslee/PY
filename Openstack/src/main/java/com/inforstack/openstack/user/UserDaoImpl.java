@@ -19,7 +19,6 @@ public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 	
 	private static final Log log = LogFactory.getLog(UserDaoImpl.class);
 
-
 	@Override
 	public User findByName(String userName) {
 		log.debug("getting User instance with name : " + userName);

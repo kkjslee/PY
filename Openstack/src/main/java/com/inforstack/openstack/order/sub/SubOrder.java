@@ -1,5 +1,6 @@
 package com.inforstack.openstack.order.sub;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.period.OrderPeriod;
+import com.inforstack.openstack.virt.domain.VirtDomain;
 
 @Entity
 @Table(name="sub_order")
@@ -23,6 +25,8 @@ public class SubOrder {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	private Integer type;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="item_id")
@@ -39,10 +43,16 @@ public class SubOrder {
 	@Column(name="next_billing_date")
 	private Date nextBillingDate;
 	
-	private String uuid;
+	private BigDecimal price; 
 	
 	private int status;
-
+	
+	private String uuid;
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="virt_domain_id")
+	private VirtDomain virtDomain;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -75,14 +85,6 @@ public class SubOrder {
 		this.orderPeriod = orderPeriod;
 	}
 
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
 	public int getStatus() {
 		return status;
 	}
@@ -97,6 +99,38 @@ public class SubOrder {
 
 	public void setNextBillingDate(Date nextBillingDate) {
 		this.nextBillingDate = nextBillingDate;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public VirtDomain getVirtDomain() {
+		return virtDomain;
+	}
+
+	public void setVirtDomain(VirtDomain virtDomain) {
+		this.virtDomain = virtDomain;
 	}
 	
 }

@@ -15,19 +15,22 @@ public class Constants {
   public static final int ORDER_STATUS_READY = 3;
   public static final int ORDER_STATUS_ACTIVE = 4;
   public static final int ORDER_STATUS_FINISHED = 5;
-  public static final int ORDER_STATUS_PENDING_CALLEL = 6;
-  public static final int ORDER_STATUS_CALLELED = 7;
+  public static final int ORDER_STATUS_CALLELED = 6;
   
   public static final int SUBORDER_STATUS_NEW = 1;
   public static final int SUBORDER_STATUS_AVAILABLE = 2;
-  public static final int SUBORDER_STATUS_UNAVAILABLE = 3;
+  public static final int SUBORDER_STATUS_END = 3;
   public static final int SUBORDER_STATUS_ERROR = 4;
   public static final int SUBORDER_STATUS_DELETED = 5;
+  
+  public static final int SUBORDER_TYPE_PREPAID = 1;
+  public static final int SUBORDER_TYPE_POSTPAID = 2;
   
   public static final int PAYMENT_STATUS_NEW = 1;
   public static final int PAYMENT_STATUS_PROCESSING = 2;
   public static final int PAYMENT_STATUS_ERROR = 3;
   public static final int PAYMENT_STATUS_OK = 4;
+  public static final int PAYMENT_STATUS_USEDUP = 5;
   
   public static final int PAYMENT_TYPE_TOPUP = 1;
   public static final int PAYMENT_TYPE_REFUND = 2;
@@ -52,6 +55,14 @@ public class Constants {
   public static final int REPORT_TYPE_BIllING_PROCESS = 1;
   
   public static final int REPORT_STATUS_ERROR = 1;
+  
+  public static final int VIRTDOMAIN_STATUS_RUNNING = 1;
+  public static final int VIRTDOMAIN_STATUS_INPROCESS = 2;
+  public static final int VIRTDOMAIN_STATUS_PAUSED = 3;
+  public static final int VIRTDOMAIN_STATUS_STOPPED = 4;
+  public static final int VIRTDOMAIN_STATUS_SUSPENDED = 5;
+  public static final int VIRTDOMAIN_STATUS_ERROR = 6;
+  public static final int VIRTDOMAIN_STATUS_DELETED = 7;
 
   public static final int IMG_PROGRESS_ACTIVE = 100;
   public static final String IMG_STATUS_ACTIVE = "ACTIVE";

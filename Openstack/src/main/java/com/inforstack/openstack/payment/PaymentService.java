@@ -1,5 +1,8 @@
 package com.inforstack.openstack.payment;
 
+import java.math.BigDecimal;
+
+import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.tenant.Tenant;
 
 public interface PaymentService {
@@ -37,4 +40,24 @@ public interface PaymentService {
 	 * @return
 	 */
 	public Payment processPayment(int paymentId);
+	
+	/**
+	 * apply payments to invoice
+	 * @param invoice
+	 */
+	public BigDecimal applyPayment(Invoice invoice);
+	
+	/**
+	 * apply payments to invoice
+	 * @param invoice
+	 * @param type sub order type : perpaid or postpaid
+	 */
+	public BigDecimal applyPayment(Invoice invoice, int type);
+
+	/**
+	 * apply selected payment to invoice
+	 * @param invoice
+	 * @param payment
+	 */
+	public BigDecimal applyPayment(Invoice invoice, Payment payment);
 }

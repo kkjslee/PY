@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
@@ -21,7 +23,7 @@ import com.inforstack.openstack.utils.Constants;
 @Transactional
 public class InvoiceServiceImpl implements InvoiceService {
 
-	private static final Log log = LogFactory.getLog(InvoiceServiceImpl.class);
+	private static final Logger log = new Logger(InvoiceServiceImpl.class);
 	@Autowired
 	private InvoiceDao invoiceDao;
 	
@@ -33,7 +35,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 				order.getId() + ", billingProcess : " + billingProcess.getId());
 		Invoice invoice = new Invoice();
 		invoice.setAmount(amount);
-		invoice.setBanlance(amount);
+		invoice.setBalance(amount);
 		invoice.setBillingProcess(billingProcess);
 		invoice.setCreateTime(new Date());
 		invoice.setStartTime(startTime);
@@ -97,7 +99,5 @@ public class InvoiceServiceImpl implements InvoiceService {
 		
 		return invoices;
 	}
-	
-	
-	
+
 }

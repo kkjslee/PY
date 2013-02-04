@@ -48,6 +48,9 @@ public class Order {
 	@Column(name="active_end")
 	private Date activeEnd;
 	
+	@Column(name="auto_pay")
+	private boolean autoPay;
+	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="order")
 	private List<SubOrder> subOrders;
 	
@@ -114,5 +117,13 @@ public class Order {
 	public void setActiveEnd(Date activeEnd) {
 		this.activeEnd = activeEnd;
 	}
-	
+
+	public boolean getAutoPay() {
+		return autoPay;
+	}
+
+	public void setAutoPay(boolean autoPay) {
+		this.autoPay = autoPay;
+	}
+
 }

@@ -20,6 +20,10 @@
 		<class>com.inforstack.openstack.item.Profile</class>
 		<class>com.inforstack.openstack.item.Price</class>
 		<class>com.inforstack.openstack.promotion.Promotion</class>
+		<class>com.inforstack.openstack.virt.domain.VirtDomain</class>
+		<class>com.inforstack.openstack.order.sub.SubOrder</class>
+		<class>com.inforstack.openstack.order.Order</class>
+		<class>com.inforstack.openstack.order.period.OrderPeriod</class>
         <properties>
 	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         	<property name="hibernate.show_sql" value="false" />

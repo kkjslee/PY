@@ -8,7 +8,7 @@ $(function() {
 });
 
 function showProcessingDialog() {
-    var view=$("<div style='text-align:center;'><img src='<%=request.getContextPath()%>/resource/common/image/progress.gif'/>"+"<spring:message code='admin.vm.dialog.processing'/>"+"</div>").dialog({
+    var view=$("<div style='text-align:center;'><img src='<%=request.getContextPath()%>/resource/common/image/progress.gif'/>"+"<spring:message code='dialog.processing'/>"+"</div>").dialog({
         autoOpen: true,
         width: 240,
         height: 100,

@@ -11,24 +11,27 @@
     <c:if test="${status.index%2!=0}">
     <tr class="dataRow  rowEve">
     </c:if>
-    <td class="categoryName"><!-- to be compatible with ie6,hidden input should be place in td element  -->
+    <td class="productName"><!-- to be compatible with ie6,hidden input should be place in td element  -->
     <input type="hidden" id="pageTotal" value="${pageTotal}"/>
     <input isos="id" type="hidden" value="${item.id}" />
-    <input isos="enable" type="hidden" value="${item.enable}" />
+    <input isos="defaultPrice" type="hidden" value="${item.defaultPrice}" />
+    <input isos="osType" type="hidden" value="${item.osType}">
+    <input isos="refId" type="hidden" value="${item.refId}">
+    <input isos="available" type="hidden" value="${item.available}">
     <c:forEach items="${item.name}" var="i18Name">
     <input class="langId" lang_isos_id="${i18Name.languageId}" type="hidden" value="${i18Name.content}" />
     ${i18Name.content}<br/>
     </c:forEach>
     </td>
-    <td class="categoryStatus">${item.enabledDesc}</td>
-    <td class="categoryOperation moduleOperation">
-        <span ><a class="button" href="#" onclick="showEditCategory(this);return false;"><spring:message code="edit.button" /></a></span>
-        <span ><a class="button" href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span>
+    <td class="productPrice">${item.enabledDesc}</td>
+    <td class="productPrice">${item.defaultPrice}</td>
+    <td class="productOperation moduleOperation">
+        <span ><a class="button" href="#" onclick="showEditPrice(this);return false;"><spring:message code="editPrice.button" /></a></span>
     </td>
 </tr>
 </c:forEach>
 </c:when>
 <c:otherwise>
-    <tr><td colspan="3"><spring:message code="data.norecords"/></td></tr>
+    <tr><td colspan="4"><spring:message code="data.norecords"/></td></tr>
 </c:otherwise>
 </c:choose>

@@ -258,11 +258,10 @@ function updateCategoryItem(jsonString) {
     });
 }
 
-function showRemoveCategory(which,opeDesc){
+function showRemoveCategory(which){
     var id=$(which).parents(".dataRow").first().find("input[isos='id']").val();
-    var name=$(which).parents(".dataRow").first().find("input[isos='name']").val();
     
-    if(!confirm("<spring:message code='operation.confirm'/>".sprintf(opeDesc, name))) return;
+    if(!confirm("<spring:message code='remove.confirm'/>")) return;
     
     var pd=showProcessingDialog();
     $.ajax({
@@ -276,12 +275,11 @@ function showRemoveCategory(which,opeDesc){
             pd.dialog("destroy");
             try{
                 var msg="";
-                switch(data.status) {
-                    case "success": msg="<spring:message code='remove.success'/>".sprintf(opeDesc);
-                    break;
-                    case "error": ;
-                    case "exception": msg="<spring:message code='remove.failed'/>";break;
-                }
+               if(data.success){
+                    msg="<spring:message code='remove.success'/>";
+                }else if(data.error){
+                   msg="<spring:message code='remove.failed'/>";
+               } 
                 
                 printMessage(msg);
                 loadCategories(pageIndex, pageSize);

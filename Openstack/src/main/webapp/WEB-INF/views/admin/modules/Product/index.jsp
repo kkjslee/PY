@@ -8,9 +8,9 @@
 <title></title>
 <jsp:include page="../../../commonlinks.jsp" />
 <jsp:include page="../../adminlinks.jsp" /> 
-<link href="<%=request.getContextPath()%>/resource/admin/category/css/main.css" rel="stylesheet" type="text/css" />
-<script src="<%=request.getContextPath()%>/admin/category/scripts/template" language="javascript"></script>
-<script src="<%=request.getContextPath()%>/admin/category/scripts/bootstrap" language="javascript"></script>
+<link href="<%=request.getContextPath()%>/resource/admin/product/css/main.css" rel="stylesheet" type="text/css" />
+<script src="<%=request.getContextPath()%>/admin/product/scripts/template" language="javascript"></script>
+<script src="<%=request.getContextPath()%>/admin/product/scripts/bootstrap" language="javascript"></script>
 </head>
 <body>
 <div class="banner">
@@ -23,17 +23,18 @@
 	<table class="dataTable imList">
         <thead>
             <tr class="headerRow">
-                <th class="categoryName"><spring:message code="category.name.label" /> </th>
-                <th class="categoryStatus"><spring:message code="category.status.label" /> </th>
-                <th class="categoryOperation"><spring:message code="common.operation" /> </th>
+                <th class="productName"><spring:message code="product.name.label" /> </th>
+                <th class="productPrice"><spring:message code="product.price.label" /> </th>
+                <th class="productStatus"><spring:message code="status.label" /> </th>
+                <th class="productOperation"><spring:message code="common.operation" /> </th>
             </tr>
         </thead>
         <tbody>
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="2" class="pagination"></td>
-            <td align="left"><a class="button" href="#" onclick="showCreatCategory();return false;"><spring:message code="create.button"/></a></td>
+            <td colspan="3" class="pagination"></td>
+            <td align="left"><a class="button" href="#" onclick="showCreatProduct();return false;"><spring:message code="create.button"/></a></td>
             </tr>
         </tfoot>
     </table>

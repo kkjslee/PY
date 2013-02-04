@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
+import com.inforstack.openstack.utils.OpenstackUtil;
 
 
 @Service("userDetailsService")
@@ -19,7 +20,7 @@ public class OpenstackUserDetailsService implements UserDetailsService {
 	private static final Log log = LogFactory.getLog(OpenstackUserDetailsService.class);
 	@Autowired
 	private UserService userService;
-	@Autowired
+	
 	private OpenstackUserDetails userDetails;
 	
 	@Override
@@ -32,6 +33,7 @@ public class OpenstackUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("No user found for user : " + userName );  
 		}
 		log.debug("User found by name : "+userName);
+		userDetails = (OpenstackUserDetails)OpenstackUtil.getBean("openstackUserDetails");
 		userDetails.setUser(user);  
 		userDetails.setTenant(user.getDefaultTenant());
 		return userDetails;

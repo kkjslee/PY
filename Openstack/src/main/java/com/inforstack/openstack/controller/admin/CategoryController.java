@@ -69,7 +69,7 @@ public class CategoryController {
   }
 
   @RequestMapping(value = "/listForJsp", method = RequestMethod.POST)
-  public String listCategory(Model model, boolean excludeDisabled, boolean withItems,
+  public String listPagerCategory(Model model, boolean excludeDisabled, boolean withItems,
       Integer pageIndex, Integer pageSize) {
     int pageIdx = -1;
     int pageSze = 0;
@@ -156,6 +156,76 @@ public class CategoryController {
     model.addAttribute("pageTotal", page.getTotalRecord());
     model.addAttribute("dataList", models);
     return ADMIN_CATEGORY_MODULE_HOME + "/tr";
+  }
+
+  @RequestMapping(value = "/listForJson", method = RequestMethod.POST, produces = "application/json")
+  public @ResponseBody
+  List<CategoryModel> listCategory(Model model, boolean excludeDisabled, boolean withItems) {
+    ArrayList<CategoryModel> models = new ArrayList<CategoryModel>();
+    Integer languageId = OpenstackUtil.getLanguage().getId();
+    List<Category> categories = this.itemService.listAllCategory(excludeDisabled);
+    for (Category category : categories) {
+      I18nModel[] name = new I18nModel[1];
+      name[0] = new I18nModel();
+      name[0].setLanguageId(languageId);
+      name[0].setContent(category.getName().getI18nContent());
+
+      CategoryModel cm = new CategoryModel();
+      cm.setId(category.getId());
+      cm.setName(name);
+      cm.setEnable(category.getEnable());
+
+      if (withItems) {
+        List<ItemSpecification> itemSpecifications = this.itemService
+            .listItemSpecificationByCategory(category);
+        ItemSpecificationModel[] itemSpecificationModels = new ItemSpecificationModel[itemSpecifications
+            .size()];
+        int idx = 0;
+        for (ItemSpecification itemSpecification : itemSpecifications) {
+          I18nModel[] itemName = new I18nModel[1];
+          itemName[0] = new I18nModel();
+          itemName[0].setLanguageId(languageId);
+          itemName[0].setContent(itemSpecification.getName().getI18nContent());
+
+          ItemSpecificationModel itemSpecificationModel = new ItemSpecificationModel();
+          itemSpecificationModel.setId(itemSpecification.getId());
+          itemSpecificationModel.setName(itemName);
+          itemSpecificationModel.setOsType(itemSpecification.getOsType());
+          itemSpecificationModel.setRefId(itemSpecification.getRefId());
+          itemSpecificationModel.setDefaultPrice(itemSpecification.getDefaultPrice());
+          itemSpecificationModel.setAvailable(itemSpecification.getAvailable());
+          itemSpecificationModel.setCreated(DateFormat.getDateTimeInstance(DateFormat.SHORT,
+              DateFormat.SHORT, OpenstackUtil.getLocale()).format(itemSpecification.getCreated()));
+          itemSpecificationModel.setUpdated(DateFormat.getDateTimeInstance(DateFormat.SHORT,
+              DateFormat.SHORT, OpenstackUtil.getLocale()).format(itemSpecification.getUpdated()));
+
+          Profile profile = itemSpecification.getProfile();
+          if (profile != null) {
+            ProfileModel profileModel = new ProfileModel();
+            profileModel.setItem(itemSpecification.getId());
+            if (profile.getCpu() != null) {
+              profileModel.setCpu(profile.getCpu().getId());
+            }
+            if (profile.getMemory() != null) {
+              profileModel.setMemory(profile.getMemory().getId());
+            }
+            if (profile.getDisk() != null) {
+              profileModel.setDisk(profile.getDisk().getId());
+            }
+            if (profile.getNetwork() != null) {
+              profileModel.setNetwork(profile.getNetwork().getId());
+            }
+
+            itemSpecificationModel.setProfile(profileModel);
+          }
+
+          itemSpecificationModels[idx++] = itemSpecificationModel;
+        }
+        cm.setItemSpecifications(itemSpecificationModels);
+      }
+      models.add(cm);
+    }
+    return models;
   }
 
   @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")

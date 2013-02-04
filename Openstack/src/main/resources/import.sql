@@ -24,11 +24,17 @@ insert into Configuration(id, name, value) values(19, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail');
 insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}');
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action');
+insert into Configuration(id, name, value) values(23, 'openstack.endpoint.networks', '/networks');
+insert into Configuration(id, name, value) values(24, 'openstack.endpoint.network', '/networks/{network}');
+insert into Configuration(id, name, value) values(25, 'openstack.endpoint.subnets', '/subnets');
+insert into Configuration(id, name, value) values(26, 'openstack.endpoint.subnet', '/subnets/{subnet}');
+insert into Configuration(id, name, value) values(27, 'openstack.endpoint.ports', '/ports');
+insert into Configuration(id, name, value) values(28, 'openstack.endpoint.port', '/ports/{port}');
 
-insert into Configuration(id, name, value) values(23, 'openstack.role.admin', 'ff02b500141840ca8ad260722667dd61');
-insert into Configuration(id, name, value) values(24, 'openstack.role.reseller', 'a42f88b98f7945a29a2e6751e46b470a');
-insert into Configuration(id, name, value) values(25, 'openstack.role.member', 'af700213552b43feb76f1981e5403a9b');
-insert into Configuration(id, name, value) values(26, 'openstack.cache.expire', '2');
+insert into Configuration(id, name, value) values(50, 'openstack.role.admin', 'ff02b500141840ca8ad260722667dd61');
+insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', 'a42f88b98f7945a29a2e6751e46b470a');
+insert into Configuration(id, name, value) values(52, 'openstack.role.member', 'af700213552b43feb76f1981e5403a9b');
+insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', '2');
 
 insert into Role(id, name) values (1, 'admin');
 insert into Role(id, name) values (2, 'user');
@@ -112,7 +118,6 @@ insert into Resource(id, url, permission) values (48, '/admin/product/listForJsp
 insert into Resource(id, url, permission) values (49, '/admin/product/create', 'admin');
 
 insert into Resource(id, url, permission) values (50, '/admin/category/listForJson', 'admin');
-insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 

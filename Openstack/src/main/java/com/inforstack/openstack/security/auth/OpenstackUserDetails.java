@@ -15,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
@@ -29,7 +30,7 @@ public class OpenstackUserDetails implements UserDetails {
 	 * 
 	 */
 	private static final long serialVersionUID = -423843895615465679L;
-	private static final Log log = LogFactory.getLog(OpenstackUserDetails.class);
+	private static final Logger log = new Logger(OpenstackUserDetails.class);
 	private User user;
 	private Tenant tenant;
 	

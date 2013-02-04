@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -17,7 +18,7 @@ import com.inforstack.openstack.utils.OpenstackUtil;
 @Service("userDetailsService")
 public class OpenstackUserDetailsService implements UserDetailsService {
 	
-	private static final Log log = LogFactory.getLog(OpenstackUserDetailsService.class);
+	private static final Logger log = new Logger(OpenstackUserDetailsService.class);
 	@Autowired
 	private UserService userService;
 	

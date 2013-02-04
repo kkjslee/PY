@@ -10,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.log.Logger;
 
 @Service
 @Transactional
 public class BillingProcessResultServiceImpl implements
 		BillingProcessResultService {
 	
-	private static final Log log = LogFactory.getLog(BillingProcessResultServiceImpl.class);
+	private static final Logger log = new Logger(BillingProcessResultServiceImpl.class);
 	@Autowired
 	private BillingProcessResultDao billingProcessResultDao;
 

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.i18n.link.I18nLinkService;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
@@ -22,7 +23,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Transactional
 public class I18nServiceImpl implements I18nService {
 	
-	private static final Log log = LogFactory.getLog(I18nServiceImpl.class);
+	private static final Logger log = new Logger(I18nServiceImpl.class);
 	@Autowired
 	private I18nDao i18nDao;
 	@Autowired

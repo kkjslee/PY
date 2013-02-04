@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.log.Logger;
+
 
 @Service("roleService")
 @Transactional
 public class RoleServiceImpl implements RoleService {
 	
-	private static final Log log = LogFactory.getLog(RoleServiceImpl.class);
+	private static final Logger log = new Logger(RoleServiceImpl.class);
 	@Autowired
 	private RoleDao roleDao;
 

@@ -16,6 +16,7 @@ import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.i18n.link.I18nLinkService;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.security.permission.PermissionService;
 import com.inforstack.openstack.tenant.Tenant;
@@ -28,7 +29,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Transactional
 public class SecurityGroupServiceImpl implements SecurityGroupService{
 	
-	private static final Log log = LogFactory.getLog(SecurityGroupServiceImpl.class);
+	private static final Logger log = new Logger(SecurityGroupServiceImpl.class);
 	
 	@Autowired
 	private SecurityGroupDao securityGroupDao;

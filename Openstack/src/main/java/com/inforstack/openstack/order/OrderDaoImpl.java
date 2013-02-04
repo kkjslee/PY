@@ -13,12 +13,13 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 
 @Repository
 public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 
-	private static final Log log = LogFactory.getLog(OrderDaoImpl.class);
+	private static final Logger log = new Logger(OrderDaoImpl.class);
 	
 	@Override
 	public List<Order> find(Integer tenantId, Integer status) {

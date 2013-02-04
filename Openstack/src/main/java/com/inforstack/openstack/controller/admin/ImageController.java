@@ -24,6 +24,7 @@ import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.ImageModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.StringUtil;
 import com.inforstack.openstack.utils.ValidateUtil;
@@ -32,7 +33,7 @@ import com.inforstack.openstack.utils.ValidateUtil;
 @RequestMapping(value = "/admin/image")
 public class ImageController {
 
-  private static final Log log = LogFactory.getLog(ImageController.class);
+  private static final Logger log = new Logger(ImageController.class);
 
   @Autowired
   private ImageService imageService;

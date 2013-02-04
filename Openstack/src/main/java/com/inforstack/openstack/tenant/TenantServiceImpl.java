@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.promotion.Promotion;
 import com.inforstack.openstack.promotion.PromotionService;
 import com.inforstack.openstack.utils.Constants;
@@ -19,7 +20,7 @@ import com.inforstack.openstack.utils.OpenstackUtil;
 @Transactional(rollbackFor=Exception.class)
 public class TenantServiceImpl implements TenantService {
 	
-	private static final Log log = LogFactory.getLog(TenantServiceImpl.class);
+	private static final Logger log = new Logger(TenantServiceImpl.class);
 	@Autowired
 	private TenantDao tenantDao;
 	@Autowired

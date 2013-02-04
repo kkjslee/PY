@@ -11,11 +11,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 
 @Repository
 public class DictionaryDaoImpl extends BasicDaoImpl<Dictionary> implements DictionaryDao{
 	
-	private static final Log log = LogFactory.getLog(DictionaryDaoImpl.class);
+	private static final Logger log = new Logger(DictionaryDaoImpl.class);
 
 	@Override
 	public List<Dictionary> findByKeyAndLanguage(String key, Integer languageId) {

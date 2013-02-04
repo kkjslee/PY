@@ -17,6 +17,7 @@ import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriod;
@@ -31,7 +32,7 @@ import com.inforstack.openstack.utils.OpenstackUtil;
 @Transactional
 public class SubOrderServiceImpl implements SubOrderService {
 
-	private static final Log log = LogFactory.getLog(SubOrderServiceImpl.class);
+	private static final Logger log = new Logger(SubOrderServiceImpl.class);
 	@Autowired
 	private SubOrderDao subOrderDao;
 	@Autowired

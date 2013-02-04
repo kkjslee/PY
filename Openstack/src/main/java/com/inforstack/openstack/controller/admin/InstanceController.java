@@ -35,6 +35,7 @@ import com.inforstack.openstack.api.nova.server.impl.SuspendServer;
 import com.inforstack.openstack.api.nova.server.impl.UnpauseServer;
 import com.inforstack.openstack.controller.model.InstanceModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
@@ -44,7 +45,7 @@ import com.inforstack.openstack.utils.ValidateUtil;
 @RequestMapping(value = "/admin/instance")
 public class InstanceController {
 
-  private static final Log log = LogFactory.getLog(InstanceController.class);
+  private static final Logger log = new Logger(InstanceController.class);
 
   @Autowired
   private ServerService serverService;

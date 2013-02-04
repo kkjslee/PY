@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Service;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.security.role.Role;
 import com.inforstack.openstack.security.role.RoleService;
 import com.inforstack.openstack.utils.SecurityUtils;
@@ -24,8 +25,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Service("accessDecisionManager")
 public class OpenstackAccessDecisionManager implements AccessDecisionManager {
 
-	private static final Log log = LogFactory
-			.getLog(OpenstackAccessDecisionManager.class);
+	private static final Logger log = new Logger(OpenstackAccessDecisionManager.class);
 
 	@Autowired
 	private RoleService roleService;

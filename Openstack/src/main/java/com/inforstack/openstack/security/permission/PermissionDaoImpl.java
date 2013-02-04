@@ -14,12 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.user.User;
 
 @Repository
 public class PermissionDaoImpl extends BasicDaoImpl<Permission> implements PermissionDao {
 	
-	private static final Log log = LogFactory.getLog(PermissionDaoImpl.class);
+	private static final Logger log = new Logger(PermissionDaoImpl.class);
 	
 	@Override
 	public List<Permission> findByKey(String key) {

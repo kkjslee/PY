@@ -15,6 +15,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
@@ -27,7 +28,7 @@ import com.inforstack.openstack.utils.SecurityUtils;
 @Transactional(rollbackFor=Exception.class)
 public class UserServiceImpl implements UserService {
 	
-	private static final Log log = LogFactory.getLog(UserServiceImpl.class);
+	private static final Logger log = new Logger(UserServiceImpl.class);
 	@Autowired
 	private UserDao userDao;
 	@Autowired

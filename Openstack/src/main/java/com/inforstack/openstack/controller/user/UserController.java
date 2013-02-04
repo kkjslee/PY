@@ -24,6 +24,7 @@ import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.controller.RootController;
 import com.inforstack.openstack.controller.model.UserModel;
 import com.inforstack.openstack.controller.model.UserTenantModel;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
@@ -35,7 +36,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @RequestMapping(value = "/user")
 public class UserController {
 
-  private static final Log log = LogFactory.getLog(UserController.class);
+  private static final Logger log = new Logger(UserController.class);
   private static final String BASE = "user/";
 
   @Autowired

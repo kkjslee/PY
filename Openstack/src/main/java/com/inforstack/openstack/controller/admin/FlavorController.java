@@ -23,6 +23,7 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.controller.model.FlavorModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
@@ -32,7 +33,7 @@ import com.inforstack.openstack.utils.ValidateUtil;
 @RequestMapping(value = "/admin/flavor")
 public class FlavorController {
 
-  private static final Log log = LogFactory.getLog(FlavorController.class);
+  private static final Logger log = new Logger(FlavorController.class);
 
   @Autowired
   private FlavorService flavorService;

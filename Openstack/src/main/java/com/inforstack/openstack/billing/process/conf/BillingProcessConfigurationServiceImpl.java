@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 
 @Service
@@ -16,7 +17,7 @@ import com.inforstack.openstack.utils.CollectionUtil;
 public class BillingProcessConfigurationServiceImpl implements
 		BillingProcessConfigurationService {
 	
-	private static final Log log = LogFactory.getLog(BillingProcessConfigurationServiceImpl.class);
+	private static final Logger log = new Logger(BillingProcessConfigurationServiceImpl.class);
 	@Autowired
 	private BillingProcessConfigurationDao billingProcessConfigurationDao;
 	

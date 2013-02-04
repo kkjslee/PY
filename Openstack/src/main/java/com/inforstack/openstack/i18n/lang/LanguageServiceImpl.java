@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
@@ -15,7 +16,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Transactional
 public class LanguageServiceImpl implements LanguageService {
 
-  private static final Log log = LogFactory.getLog(LanguageServiceImpl.class);
+  private static final Logger log = new Logger(LanguageServiceImpl.class);
   @Autowired
   private LanguageDao languageDao;
 

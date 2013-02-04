@@ -12,12 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.exception.ApplicationException;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Repository
 public class PromotionDaoImpl extends BasicDaoImpl<Promotion> implements PromotionDao {
 	
-	private static final Log log = LogFactory.getLog(PromotionDaoImpl.class);
+	private static final Logger log = new Logger(PromotionDaoImpl.class);
 	
 	@Override
 	public Promotion findByNameAndRole(String name, int roleId) throws ApplicationException {

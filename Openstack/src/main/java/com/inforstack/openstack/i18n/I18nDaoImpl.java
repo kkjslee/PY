@@ -15,11 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 
 @Repository
 public class I18nDaoImpl extends BasicDaoImpl<I18n> implements I18nDao{
 	
-	private static final Log log = LogFactory.getLog(I18nDaoImpl.class);
+	private static final Logger log = new Logger(I18nDaoImpl.class);
 	@Autowired
 	private EntityManager em;
 	

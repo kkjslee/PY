@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.report.prop.ReportPropertyService;
 import com.inforstack.openstack.utils.MapUtil;
 
@@ -17,7 +18,7 @@ import com.inforstack.openstack.utils.MapUtil;
 @Transactional
 public class ReportServiceImpl implements ReportService {
 	
-	private static final Log log = LogFactory.getLog(ReportServiceImpl.class);
+	private static final Logger log = new Logger(ReportServiceImpl.class);
 	@Autowired
 	private ReportDao reportDao;
 	@Autowired

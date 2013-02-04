@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.i18n.dict.DictionaryService;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.MapUtil;
@@ -21,7 +22,7 @@ import com.inforstack.openstack.utils.MapUtil;
 @Transactional
 public class OrderPeriodServiceImpl implements OrderPeriodService {
 	
-	private static final Log log = LogFactory.getLog(OrderPeriodServiceImpl.class);
+	private static final Logger log = new Logger(OrderPeriodServiceImpl.class);
 	@Autowired
 	private OrderPeriodDao periodDao;
 	@Autowired

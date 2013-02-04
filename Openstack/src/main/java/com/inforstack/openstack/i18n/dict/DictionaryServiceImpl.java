@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
@@ -16,7 +17,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Transactional
 public class DictionaryServiceImpl implements DictionaryService {
 	
-	private static final Log log = LogFactory.getLog(DictionaryServiceImpl.class);
+	private static final Logger log = new Logger(DictionaryServiceImpl.class);
 	@Autowired
 	private DictionaryDao dictionaryDao;
 	

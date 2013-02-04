@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.Range;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.StringUtil;
 
@@ -22,7 +23,7 @@ import com.inforstack.openstack.utils.StringUtil;
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class InstanceModel {
-  private static final Log log = LogFactory.getLog(InstanceModel.class);
+  private static final Logger log = new Logger(InstanceModel.class);
   // vm uuid
   private String vmid;
 

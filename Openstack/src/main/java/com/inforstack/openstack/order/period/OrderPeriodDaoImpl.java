@@ -13,12 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 
 @Repository
 public class OrderPeriodDaoImpl extends BasicDaoImpl<OrderPeriod> implements OrderPeriodDao {
 	
-	private static final Log log = LogFactory.getLog(OrderPeriodDaoImpl.class);
+	private static final Logger log = new Logger(OrderPeriodDaoImpl.class);
 
 	@Override
 	public List<OrderPeriod> findAll(boolean includeDeleted) {

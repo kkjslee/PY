@@ -13,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 
 @Repository
 public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 	
-	private static final Log log = LogFactory.getLog(UserDaoImpl.class);
+	private static final Logger log = new Logger(UserDaoImpl.class);
 
 	@Override
 	public User findByName(String userName) {

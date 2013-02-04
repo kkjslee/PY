@@ -18,6 +18,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Service;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.security.resource.Resource;
 import com.inforstack.openstack.security.resource.ResourceService;
 import com.inforstack.openstack.utils.StringUtil;
@@ -25,7 +26,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Service("securityMetadataSource")
 public class OpenstackSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 	
-	private static final Log log = LogFactory.getLog(OpenstackSecurityMetadataSource.class);
+	private static final Logger log = new Logger(OpenstackSecurityMetadataSource.class);
 	
 	@Autowired
 	private ResourceService resourceService;

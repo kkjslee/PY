@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.log.Logger;
+
 @Service
 @Transactional
 public class PermissionServiceImpl implements PermissionService {
 	
-	public static final Log log = LogFactory.getLog(PermissionServiceImpl.class);
+	public static final Logger log = new Logger(PermissionServiceImpl.class);
 	@Autowired
 	private PermissionDao permissionDao;
 	

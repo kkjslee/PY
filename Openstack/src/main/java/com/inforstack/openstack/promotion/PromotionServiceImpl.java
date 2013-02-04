@@ -13,6 +13,7 @@ import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.i18n.I18n;
 import com.inforstack.openstack.i18n.I18nService;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
@@ -23,7 +24,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Transactional(rollbackFor=Exception.class)
 public class PromotionServiceImpl implements PromotionService {
 	
-	public static final Log log = LogFactory.getLog(PromotionServiceImpl.class);
+	public static final Logger log = new Logger(PromotionServiceImpl.class);
 	@Autowired
 	private PromotionDao promotionDao;
 	@Autowired

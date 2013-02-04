@@ -11,12 +11,13 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 
 @Repository
 public class ReportPropertyDaoImpl extends BasicDaoImpl<ReportProperty> implements ReportPropertyDao {
 	
-	private static final Log log = LogFactory.getLog(ReportPropertyDaoImpl.class);
+	private static final Logger log = new Logger(ReportPropertyDaoImpl.class);
 
 	@Override
 	public List<ReportProperty> findByReport(int reportId) {

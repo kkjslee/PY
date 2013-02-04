@@ -12,11 +12,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.log.Logger;
 
 @Repository
 public class LanguageDaoImpl extends BasicDaoImpl<Language> implements LanguageDao{
 	
-	private static final Log log = LogFactory.getLog(LanguageDaoImpl.class);
+	private static final Logger log = new Logger(LanguageDaoImpl.class);
 	
 	@Override
 	public Language find(String country, String language) {

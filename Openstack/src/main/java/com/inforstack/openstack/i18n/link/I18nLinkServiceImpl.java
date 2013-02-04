@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
@@ -13,7 +14,7 @@ import com.inforstack.openstack.utils.StringUtil;
 @Transactional
 public class I18nLinkServiceImpl implements I18nLinkService{
 	
-	private static final Log log = LogFactory.getLog(I18nLinkServiceImpl.class);
+	private static final Logger log = new Logger(I18nLinkServiceImpl.class);
 	@Autowired
 	private I18nLinkDao i18nLinkDao;
 

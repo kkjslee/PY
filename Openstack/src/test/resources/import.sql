@@ -93,3 +93,19 @@ insert into Resource(id, url, permission) values (32, '/user/scripts/navinit', '
 insert into Resource(id, url, permission) values (33, '/user/scripts/bootstrap', 'user');
 insert into Resource(id, url, permission) values (34, '/user/scripts/template', 'user');
 insert into Resource(id, url, permission) values (35, '/user/modules/entry/index', 'user');
+
+insert into Resource(id, url, permission) values (36, '/admin/category/modules/index', 'admin');
+insert into Resource(id, url, permission) values (37, '/admin/category/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (38, '/admin/category/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (39, '/admin/category/listForJsp', 'admin');
+insert into Resource(id, url, permission) values (40, '/admin/category/create', 'admin');
+insert into Resource(id, url, permission) values (41, '/admin/category/update', 'admin');
+insert into Resource(id, url, permission) values (42, '/admin/category/remove', 'admin');
+
+insert into Resource(id, url, permission) values (43, '/admin/product/modules/index', 'admin');
+insert into Resource(id, url, permission) values (44, '/admin/product/scripts/bootstrap', 'admin');
+insert into Resource(id, url, permission) values (45, '/admin/product/scripts/template', 'admin');
+insert into Resource(id, url, permission) values (46, '/admin/product/remove', 'admin');
+insert into Resource(id, url, permission) values (47, '/admin/product/editPrice', 'admin');
+insert into Resource(id, url, permission) values (48, '/admin/product/listForJsp', 'admin');
+insert into Resource(id, url, permission) values (49, '/admin/product/create', 'admin');

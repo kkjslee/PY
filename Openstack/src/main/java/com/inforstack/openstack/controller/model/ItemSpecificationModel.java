@@ -1,33 +1,33 @@
 package com.inforstack.openstack.controller.model;
 
-
+import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class ItemSpecificationModel {
-	
+
 	private Integer id;
-	
+
 	private I18nModel[] name;
-	
+
 	private float defaultPrice;
-	
+
 	private Integer osType;
-	
+
 	private String refId;
-	
+
 	private Boolean available;
-	
+
 	private String created;
-	
+
 	private String updated;
-	
+
 	private CategoryModel[] categories;
-	
+
 	private ItemMetadataModel[] metadata;
-	
+
 	private ProfileModel profile;
-	
+
 	public ItemSpecificationModel() {
-		
+
 	}
 
 	public Integer getId() {
@@ -116,6 +116,14 @@ public class ItemSpecificationModel {
 
 	public void setProfile(ProfileModel profile) {
 		this.profile = profile;
+	}
+
+	public String getEnabledDesc() {
+		if (available == true) {
+			return OpenstackUtil.getMessage("product.status.enabled");
+		} else {
+			return OpenstackUtil.getMessage("product.status.disabled");
+		}
 	}
 
 }

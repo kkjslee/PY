@@ -93,7 +93,7 @@ public class QuantumTest {
 			Assert.assertNotNull(networks);
 			Assert.assertTrue(networks.length > 0);
 			
-			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true);
+			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true, false, false);
 			System.out.println("------------------------");
 			System.out.println("ID:           " + network.getId());
 			System.out.println("Name:         " + network.getName());
@@ -127,7 +127,7 @@ public class QuantumTest {
 	@Test
 	public void testCreateAndRemoveSubnet() {
 		try {
-			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true);
+			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true, false, false);
 			
 			Subnet[] subnets = this.quantumService.listSubnets(this.access);
 			Assert.assertNotNull(subnets);
@@ -176,6 +176,26 @@ public class QuantumTest {
 				System.out.println("Status:       " + port.getStatus());
 				System.out.println("\n\n");
 			}
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateAndRemovePort() {
+		try {
+			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true, false, false);
+			
+			AllocationPool[] pools = new AllocationPool[1];
+			pools[0] = new AllocationPool();
+			pools[0].setStart("10.0.10.20");
+			pools[0].setEnd("10.0.10.250");
+			
+			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), 4, "10.0.10.0/24", pools);
+			
+			this.quantumService.removeSubnet(access, subnet.getId());
+			this.quantumService.removeNetwork(access, network.getId());
 		} catch (OpenstackAPIException e) {
 			fail(e.getMessage());
 			e.printStackTrace();

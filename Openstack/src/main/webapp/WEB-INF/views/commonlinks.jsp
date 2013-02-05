@@ -4,6 +4,7 @@
 <link href="<%=request.getContextPath()%>/resource/common/css/jquery.ui.selectmenu.css" rel="Stylesheet" type="text/css"  />
 <link href="<%=request.getContextPath()%>/resource/common/css/pagination.css" rel="Stylesheet" type="text/css"  />
 <link href="<%=request.getContextPath()%>/resource/common/css/bootstrap.css" rel="Stylesheet" type="text/css"  />
+<link href="<%=request.getContextPath()%>/resource/common/css/jquery.multiselect.css" rel="Stylesheet" type="text/css"  />
 
 
 <script src="<%=request.getContextPath()%>/resource/common/js/jquery-1.6.4.js" type="text/javascript"></script>
@@ -18,4 +19,6 @@
 <script src="<%=request.getContextPath()%>/resource/common/js/String.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/check.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resource/common/js/common.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/resource/common/js/jquery.multiselect.min.js" type="text/javascript"></script>
+
 

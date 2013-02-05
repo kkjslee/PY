@@ -43,3 +43,89 @@ function printMessage(msg) {
     });
 }
 
+function getFlavorDetailsById(id,container,osTypeId,callBack){
+    window.console.log("getting flavor details");
+     $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/admin/flavor/getFlavorDetails",
+        cache: false,
+         dataType:"json",
+        data: {
+            flavorId: id
+        },
+        success: function(data) {
+            try{
+                if(!data || data.lengh == 0){
+                    return;
+                }else{
+                     callBack(container,osTypeId,data);
+                }
+                
+            }catch(e) {
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
+
+function getImageDetailsById(id,container,osTypeId,callBack){
+ window.console.log("getting image details");
+     $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/admin/image/retrieveImage",
+        cache: false,
+        dataType:"json",
+        data: {
+            imgId: id
+        },
+        success: function(data) {
+            try{
+                if(!data || data.lengh == 0){
+                }else{
+                    callBack(container,osTypeId,data);
+                }
+                
+            }catch(e) {
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
+
+function loadCategories(selectId,categories_id){
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        cache: false,
+        url: "<%=request.getContextPath()%>/admin/category" + "/listForJson",  
+        data: {
+            excludeDisabled:true,
+            withItems:true
+        },
+        success: function(data) {
+             try{
+               $("#" + selectId).empty();
+               if (!data || data.length == 0) {
+                   
+               }else{
+                     $.tmpl("createCategoryOption", data).appendTo("#" + selectId);
+                     if(!isNull(categories_id)){
+                        $("#" + selectId).val(categories_id);
+                     }
+                    $("#categoriesSelect").selectmenu();
+                    //if(optionModel == "createFlavorOption"){
+                    //   bindFlavorSelect();
+                    //}
+               }
+                $("#" + selectId).selectmenu();
+            }catch(e){printMessage("Data Broken ["+e+"]");};
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        printError(jqXHR, textStatus, errorThrown);
+            return false;
+        }
+    });
+    
+}

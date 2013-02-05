@@ -6,9 +6,16 @@ var Template_EditProduct = '\
         <c:forEach items="${lList}" var="item" varStatus="status"><span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="product.name.label"/>[${item.name}]:</span>\
             <span class="dialogLineRight i18n">\
-                <input class="isos_content" type="text" value=""/><input class="isos_id" type="hidden" value="${item.id}"/>\
+                <input class="edit_content isos_content" isos_lang_id="${item.id}" type="text" value=""/><input class="isos_id" type="hidden" value="${item.id}"/>\
             </span>\
         </span></c:forEach>\
+        <span class="dialogLine ">\
+            <span class="dialogLineLeft"><spring:message code="category.label"/>:</span>\
+            <span class="dialogLineRight typeSelect">\
+                <select id="categoriesEditSelect">\
+                </select>\
+           </span>\
+        </span>\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="product.type.label"/>:</span>\
             <span class="dialogLineRight">\
@@ -17,7 +24,7 @@ var Template_EditProduct = '\
         </span>\
         <span class="dialogLine">\
             <span class="dialogLineLeft infoLable"></span>\
-            <span class="dialogLineRight refId">\
+            <span class="dialogLineRight refName">\
            </span>\
         </span>\
          <span class="dialogLine">\
@@ -41,7 +48,7 @@ var Template_CreateProduct = '\
         <c:forEach items="${lList}" var="item" varStatus="status"><span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="product.name.label"/>[${item.name}]:</span>\
             <span class="dialogLineRight i18n">\
-                <input class="edit_content isos_content" isos_lang_id="${item.id}" type="text" value=""/><input class="isos_id" type="hidden" value="${item.id}"/>\
+                <input class="isos_content" isos_lang_id="${item.id}" type="text" value=""/><input class="isos_id" type="hidden" value="${item.id}"/>\
             </span>\
         </span></c:forEach>\
         <span class="dialogLine ">\
@@ -56,8 +63,8 @@ var Template_CreateProduct = '\
             <span class="dialogLineRight typeSelect">\
                 <select id="osType">\
                     <option value="-1"><spring:message code="choose.label"/></option>\
+                     <option value="2"><spring:message code="image.type"/></option>\
                     <option value="1"><spring:message code="flavor.type"/></option>\
-                    <option value="2"><spring:message code="image.type"/></option>\
                 </select>\
            </span>\
         </span>\

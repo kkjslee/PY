@@ -22,10 +22,15 @@
     <input class="langId" lang_isos_id="${i18Name.languageId}" type="hidden" value="${i18Name.content}" />
     ${i18Name.content}<br/>
     </c:forEach>
+    <c:forEach items="${item.categories}" var="i18Category">
+        <input type="hidden" isos="categories_id"  value="${i18Category.id}" />
+        <input type="hidden" isos="categories_name"  value="${i18Category.currentLocaleName}" />
+    </c:forEach>
     </td>
     <td class="productPrice">${item.enabledDesc}</td>
     <td class="productPrice">${item.defaultPrice}</td>
     <td class="productOperation moduleOperation">
+        <span ><a class="button" href="#" onclick="showEditProduct(this);return false;"><spring:message code="edit.button" /></a></span>
         <span ><a class="button" href="#" onclick="showEditPrice(this);return false;"><spring:message code="editPrice.button" /></a></span>
     </td>
 </tr>

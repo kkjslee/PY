@@ -138,7 +138,7 @@ function showCreatProduct(){
             }
         }]
     });
-    loadCategories();
+    loadCategories("categoriesSelect");
     bindOSTypeSelect();
     $("select").selectmenu();
     $(createProduct).dialog("open");
@@ -251,25 +251,39 @@ function showEditProduct(which){
         buttons: [{
             text: '<spring:message code="confirm.button"/>',
             click: function() {
-               var jsonData = {};
-               var nameArray = [];
-               $(this).find(".i18n").each(function(){
-                    var data = {};
-                    var languageId = $(this).find(".isos_id").val();
-                    data["languageId"]=languageId;
-                    var content = $(this).find(".isos_content").val();
-                    data["content"] = content;
-                    nameArray.push(data);
-               });
-               jsonData["name"] = nameArray;
-                var available = $(this).find("select[isos='available']").val();
-                 /* if(!jQuery.checkstr(name,"vmname")) {
-                     printMessage("<spring:message code='vmname.check'/>");
-                    return false;
-                 } */
-                 jsonData["available"] = available;
-                 jsonData["id"] = id;
-                var jsonString = $.toJSON(jsonData);
+            	 var jsonData = {};
+                 var nameArray = [];
+                  jsonData["id"] = id;
+                 $(this).find(".i18n").each(function(){
+                      var data = {};
+                      var languageId = $(this).find(".isos_id").val();
+                      data["languageId"]=languageId;
+                      var content = $(this).find(".isos_content").val();
+                      data["content"] = content;
+                      nameArray.push(data);
+                 });
+                 jsonData["name"] = nameArray;
+                  var available = $(this).find("select[isos='available']").val();
+                   /* if(!jQuery.checkstr(name,"vmname")) {
+                       printMessage("<spring:message code='vmname.check'/>");
+                      return false;
+                   } */
+                   jsonData["available"] = available;
+                   
+                   var categoryArray = [];
+                   var categorySelect = $(this).find("select[id='categoriesEditSelect']").val();
+                   if(categorySelect != -1){
+                      var cData = {};
+                      cData["id"] = categorySelect;
+                      categoryArray.push(cData);
+                      jsonData["categories"] = categoryArray;
+                   }
+                    var defaultPrice = $(this).find("input[isos='defaultPrice']").val();
+                   if(!isNull(defaultPrice)){
+                      jsonData["defaultPrice"] = defaultPrice;
+                   }
+                   
+                  var jsonString = $.toJSON(jsonData);
                 
                updateProductItem(jsonString);
                $(this).dialog("destroy");
@@ -292,11 +306,52 @@ function showEditProduct(which){
             }
         });
     });
-    $(editProduct).find("input[isos='available']").val(available);
+    $(editProduct).find("select[isos='available']").val(available);
+    //set price
+    var defaultPrice =  $(row).find("input[isos='defaultPrice']").val();
+    $(editProduct).find("input[isos='defaultPrice']").val(defaultPrice);
+    //set os type
+    var osType = $(row).find("input[isos='osType']").val();
+    if(parseInt(osType) ==1){
+        osType="<spring:message code="flavor.type"/>";
+    }else if(parseInt(osType) ==2){
+        osType="<spring:message code="image.type"/>";
+    }
+     $(editProduct).find(".osType").text(osType);
+   //set refId
+    var refId =  $(row).find("input[isos='refId']").val();
+    window.console.log("refId:"+ refId);
+    var refName = "";
+    if(!isNull(refId)){
+        var osTypeId = $(row).find("input[isos='osType']").val();
+    	if(parseInt(osTypeId) == 1){
+    		getFlavorDetailsById(refId,editProduct,osTypeId,setRefNameCallBack);
+    	}else if(parseInt(osTypeId)==2){
+    		getImageDetailsById(refId,editProduct,osTypeId,setRefNameCallBack);
+    	}
+    }
+    //set categoryies
+    var categories_id = $(row).find("input[isos='categories_id']").val();
+    loadCategories("categoriesEditSelect",categories_id);
     $("select").selectmenu();
     $(editProduct).dialog("open");
 }
 
+
+
+function setRefNameCallBack(editProduct,osTypeId,data){
+    if(!isNull(data)){
+                 var refName = "";
+                if(parseInt(osTypeId) == 1){
+                    refName = data.flavorName;
+		        }else if(parseInt(osTypeId)==2){
+		        refName = data.name;
+		        }
+                window.console.log("ref datadat:" + data);
+                window.console.log("ref name:" + refName);
+     }
+     $(editProduct).find(".refName").text(refName);
+}
 //dataInit("<%=request.getContextPath()%>/admin" + "/image/imgList","selImageModel","createImgOption");
 //    dataInit("<%=request.getContextPath()%>/admin" + "/flavor/flavorList","selFlavorModel","createFlavorOption");
 //dataInit(url,"typeInfo");
@@ -329,39 +384,7 @@ function getOSTyeList(url,selectId,optionModel){
     });
 }
 
-function loadCategories(){
-    $.ajax({
-        type: "POST",
-        dataType: "html",
-        cache: false,
-        url: "<%=request.getContextPath()%>/admin/category" + "/listForJson",  
-        data: {
-            excludeDisabled:true,
-            withItems:true
-        },
-        success: function(data) {
-             try{
-               $("#categoriesSelect").empty();
-               $("#categoriesSelect").append('<option value="-1" selected><spring:message code="choose.label"/></option>');
-               if (!data || data.length == 0) {
-                   
-               }else{
-                    data = $.parseJSON(data);
-                     $.tmpl("createCategoryOption", data).appendTo("#categoriesSelect");
-                    $("#categoriesSelect").selectmenu();
-                    //if(optionModel == "createFlavorOption"){
-                    //   bindFlavorSelect();
-                    //}
-               }
-                
-            }catch(e){printMessage("Data Broken ["+e+"]");};
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            $("<span class='loadingError'>"+"<spring:message code='message.loading.data.error'/>"+"</span>").appendTo($(tableBodyContainer).empty());
-        }
-    });
-    
-}
+
 //bind type select and get update refId  
 function bindOSTypeSelect(){
     $("#osType").change(function(){

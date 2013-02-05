@@ -67,6 +67,7 @@ public class ItemServiceImpl implements ItemService {
 			for (Category category : categories) {
 				if (!excludeDisabled || category.getEnable()) {
 					category.getName().getId();
+					category.getName().getI18ns();
 					list.add(category);
 				}
 			}
@@ -470,6 +471,7 @@ public class ItemServiceImpl implements ItemService {
 				List<Price> prices = itemSpecification.getPrices();
 				prices.add(price);
 				itemSpecification.setPrices(prices);
+				// TODO: a new price not default price
 				itemSpecification
 						.setDefaultPrice(model.getValue().floatValue());
 
@@ -521,16 +523,20 @@ public class ItemServiceImpl implements ItemService {
 		return success;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public List<ItemSpecification> listAllItemSpecification() {
 		List<ItemSpecification> list = new ArrayList<ItemSpecification>();
 		list = itemSpecificationDao.list();
 		for (ItemSpecification itemSpecification : list) {
-			/*
-			 * List<Category> categorys = itemSpecification.getCategories();
-			 * categorys.size();
-			 */
+			List<Category> categories = itemSpecification.getCategories();
+			for (Category category : categories) {
+				category.getId();
+			}
 			itemSpecification.getName().getId();
+			itemSpecification.getName().getI18ns();
 		}
 		return list;
 	}

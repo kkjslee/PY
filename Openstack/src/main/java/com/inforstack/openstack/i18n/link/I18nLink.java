@@ -37,7 +37,7 @@ public class I18nLink {
 	@Column(name = "create_time")
 	private Date createTime;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "i18nLink")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "i18nLink")
 	private List<I18n> i18ns = new ArrayList<I18n>();
 
 	public Integer getId() {

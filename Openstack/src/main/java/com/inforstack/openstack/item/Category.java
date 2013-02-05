@@ -21,7 +21,7 @@ public class Category {
 	@GeneratedValue
 	private int id;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn
 	private I18nLink name;
 

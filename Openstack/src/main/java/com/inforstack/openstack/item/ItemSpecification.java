@@ -38,7 +38,7 @@ public class ItemSpecification {
 	@GeneratedValue
 	private int id;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn
 	private I18nLink name;
 
@@ -60,7 +60,7 @@ public class ItemSpecification {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
 	private List<Price> prices;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "item_category", joinColumns = { @JoinColumn(name = "item_id", insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "category_id", insertable = false, updatable = false) })
 	private List<Category> categories;
 

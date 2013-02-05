@@ -19,58 +19,55 @@ import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
 public class ItemSpecification {
-	
+
 	public static final int OS_TYPE_NONE_ID = 0;
 	public static final int OS_TYPE_FLAVOR_ID = 1;
 	public static final int OS_TYPE_IMAGE_ID = 2;
 	public static final int OS_TYPE_VOLUME_ID = 3;
 	public static final int OS_TYPE_NETWORK_ID = 4;
 	public static final int OS_TYPE_USAGE_ID = 5;
-	
+
 	public static final String OS_TYPE_NONE = "";
 	public static final String OS_TYPE_FLAVOR = "openstack.flavor";
 	public static final String OS_TYPE_IMAGE = "openstack.image";
 	public static final String OS_TYPE_VOLUME = "openstack.volume";
 	public static final String OS_TYPE_NETWORK = "openstack.network";
 	public static final String OS_TYPE_USAGE = "openstack.usage";
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
 
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
 	@JoinColumn
 	private I18nLink name;
-	
-	@Column(name="os_type")
+
+	@Column(name = "os_type")
 	private int osType;
-	
-	@Column(name="ref_id")
+
+	@Column(name = "ref_id")
 	private String refId;
-	
+
 	private boolean available;
-	
+
 	private Date created;
-	
+
 	private Date updated;
-	
-	@Column(name="default_price")
+
+	@Column(name = "default_price")
 	private float defaultPrice;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
 	private List<Price> prices;
-	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "item_category", 
-		joinColumns = { @JoinColumn(name = "item_id", insertable=false, updatable = false) }, 
-		inverseJoinColumns = { @JoinColumn(name = "category_id", insertable=false, updatable = false) }
-	)
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "item_category", joinColumns = { @JoinColumn(name = "item_id", insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "category_id", insertable = false, updatable = false) })
 	private List<Category> categories;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "itemSpecification")
 	private List<ItemMetadata> metadata;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
 	@JoinColumn
 	private Profile profile;
 
@@ -89,7 +86,7 @@ public class ItemSpecification {
 	public void setName(I18nLink name) {
 		this.name = name;
 	}
-	
+
 	public float getDefaultPrice() {
 		return defaultPrice;
 	}

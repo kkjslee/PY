@@ -16,24 +16,21 @@ import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
 public class Category {
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=true)
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn
 	private I18nLink name;
-	
+
 	private boolean enable;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "item_category", 
-		joinColumns = { @JoinColumn(name = "category_id", insertable=false, updatable = false) }, 
-		inverseJoinColumns = { @JoinColumn(name = "item_id", insertable=false, updatable = false) }
-	)
+	@JoinTable(name = "item_category", joinColumns = { @JoinColumn(name = "category_id", insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "item_id", insertable = false, updatable = false) })
 	private List<ItemSpecification> itemSpecifications;
-	
+
 	public int getId() {
 		return id;
 	}

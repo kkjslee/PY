@@ -373,8 +373,10 @@ public class ItemServiceImpl implements ItemService {
 
 					itemSpecification.setDefaultPrice(model.getDefaultPrice());
 					itemSpecification.setAvailable(model.getAvailable());
-					itemSpecification.setOsType(model.getOsType());
-					itemSpecification.setRefId(model.getRefId());
+					/*
+					 * itemSpecification.setOsType(model.getOsType());
+					 * itemSpecification.setRefId(model.getRefId());
+					 */
 					itemSpecification.setUpdated(now);
 
 					float defaultPrice = model.getDefaultPrice();
@@ -468,6 +470,8 @@ public class ItemServiceImpl implements ItemService {
 				List<Price> prices = itemSpecification.getPrices();
 				prices.add(price);
 				itemSpecification.setPrices(prices);
+				itemSpecification
+						.setDefaultPrice(model.getValue().floatValue());
 
 				this.itemSpecificationDao.update(itemSpecification);
 			}
@@ -515,6 +519,20 @@ public class ItemServiceImpl implements ItemService {
 			throw new RuntimeException(e);
 		}
 		return success;
+	}
+
+	@Override
+	public List<ItemSpecification> listAllItemSpecification() {
+		List<ItemSpecification> list = new ArrayList<ItemSpecification>();
+		list = itemSpecificationDao.list();
+		for (ItemSpecification itemSpecification : list) {
+			/*
+			 * List<Category> categorys = itemSpecification.getCategories();
+			 * categorys.size();
+			 */
+			itemSpecification.getName().getId();
+		}
+		return list;
 	}
 
 }

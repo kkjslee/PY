@@ -2,6 +2,7 @@ package com.inforstack.openstack.api.quantum;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
+import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.quantum.Subnet.AllocationPool;
 
 public interface QuantumService {
@@ -19,7 +20,9 @@ public interface QuantumService {
 	
 	public Network getNetwork(Access access, String id) throws OpenstackAPIException;
 	
-	public Network createNetwork(Access access, String name, boolean adminStateUp) throws OpenstackAPIException;
+	public Network createNetwork(Access access, String name, boolean adminStateUp, boolean shared, boolean external) throws OpenstackAPIException;
+	
+	public void updateNetwork(Access access, Network network, String name, boolean adminStateUp, boolean shared) throws OpenstackAPIException;
 	
 	public void removeNetwork(Access access, String id) throws OpenstackAPIException;
 	
@@ -34,5 +37,9 @@ public interface QuantumService {
 	public Port[] listPorts(Access access) throws OpenstackAPIException;
 	
 	public Port getPort(Access access, String id) throws OpenstackAPIException;
+	
+	public Port createPort(Access access, Port port, Server server) throws OpenstackAPIException;
+	
+	public void removePort(Access access, String id) throws OpenstackAPIException;
 	
 }

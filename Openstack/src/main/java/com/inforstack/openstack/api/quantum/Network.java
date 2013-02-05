@@ -18,6 +18,9 @@ public class Network {
 	
 	private boolean shared;
 	
+	@JsonProperty("router:external")
+	private boolean external;
+	
 	private String[] subnets;
 	
 	private String status;
@@ -60,6 +63,14 @@ public class Network {
 
 	public void setShared(boolean shared) {
 		this.shared = shared;
+	}
+
+	public boolean isExternal() {
+		return external;
+	}
+
+	public void setExternal(boolean external) {
+		this.external = external;
 	}
 
 	public String[] getSubnets() {

@@ -10,6 +10,7 @@ import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.quantum.Network;
 import com.inforstack.openstack.api.quantum.Port;
 import com.inforstack.openstack.api.quantum.QuantumService;
@@ -91,7 +92,7 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 	
 	@Override
-	public Network createNetwork(Access access, String name, boolean adminStateUp) throws OpenstackAPIException {
+	public Network createNetwork(Access access, String name, boolean adminStateUp, boolean shared, boolean external) throws OpenstackAPIException {
 		Network network = null;
 		if (access != null && !name.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORKS);
@@ -100,6 +101,8 @@ public class QuantumServiceImpl implements QuantumService {
 				Network networkInstance = new Network();
 				networkInstance.setName(name);
 				networkInstance.setAdminStateUp(adminStateUp);
+				networkInstance.setShared(shared);
+				networkInstance.setExternal(external);
 				NetworkBody request = new NetworkBody();
 				request.setNetwork(networkInstance);
 				NetworkBody response = RestUtils.postForObject(url, access, request, NetworkBody.class);
@@ -109,6 +112,26 @@ public class QuantumServiceImpl implements QuantumService {
 			}
 		}
 		return network;
+	}
+	
+	@Override
+	public void updateNetwork(Access access, Network network, String name, boolean adminStateUp, boolean shared) throws OpenstackAPIException {
+		if (access != null && network != null && !network.getId().trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORK);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				Network networkInstance = new Network();
+				networkInstance.setName(name);
+				networkInstance.setAdminStateUp(adminStateUp);
+				networkInstance.setShared(shared);
+				NetworkBody request = new NetworkBody();
+				request.setNetwork(networkInstance);
+				RestUtils.put(url, access, request, network.getId());
+				network.setName(name);
+				network.setAdminStateUp(adminStateUp);
+				network.setShared(shared);
+			}
+		}
 	}
 	
 	@Override
@@ -266,6 +289,31 @@ public class QuantumServiceImpl implements QuantumService {
 			}
 		}
 		return port;
+	}
+	
+	@Override
+	public Port createPort(Access access, Port port, Server server) throws OpenstackAPIException {
+		Port newPort = null;
+		if (access != null) {
+			if (this.getNetwork(access, port.getNetwork()) != null) {
+				Configuration endpoint = this.configurationDao.findByName(ENDPOINT_PORTS);
+				if (endpoint != null) {
+					String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+					PortBody request = new PortBody();
+					request.setPort(port);
+					PortBody response = RestUtils.postForObject(url, access, request, PortBody.class);
+					if (response != null) {
+						newPort = response.getPort();
+					}
+				}
+			}
+		}
+		return newPort;
+	}
+	
+	@Override
+	public void removePort(Access access, String id) throws OpenstackAPIException {
+		this.remove(access, ENDPOINT_PORT, id);
 	}
 	
 	private static String getEndpoint(Access access, Type type, String suffix) {

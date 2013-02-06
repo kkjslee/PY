@@ -122,3 +122,38 @@ insert into Resource(id, url, permission) values (49, '/admin/product/create', '
 insert into Resource(id, url, permission) values (50, '/admin/category/listForJson', 'admin');
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
+
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (3,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (4,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (5,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (6,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (7,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (8,'name_id',NULL,'Category');
+
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (1,'OS Image',1,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (2,'操作系统镜像',1,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (3,'Data Center',2,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (4,'数据中心',2,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (5,'Flavor',3,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (6,'硬件配置',3,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (7,'Plan',4,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (8,'付费套餐',4,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (9,'IP Address',5,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (10,'IP地址',5,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (11,'Storage',6,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (12,'云存储',6,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (13,'Promotion',7,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (14,'促销',7,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (15,'Other 1',8,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (16,'其他1',8,2);
+
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (1,1,1);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (2,1,2);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (3,1,3);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (4,1,4);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (5,1,5);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (6,1,6);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (7,1,7);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (8,1,8);

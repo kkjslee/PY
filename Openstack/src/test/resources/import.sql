@@ -131,6 +131,7 @@ INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (6,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (7,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (8,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (9,'name_id',NULL,'Category');
 
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (1,'OS Image',1,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (2,'操作系统镜像',1,2);
@@ -144,10 +145,12 @@ INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (9,'IP A
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (10,'IP地址',5,2);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (11,'Storage',6,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (12,'云存储',6,2);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (13,'Promotion',7,1);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (14,'促销',7,2);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (15,'Other 1',8,1);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (16,'其他1',8,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (13,'Usage',7,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (14,'用量',7,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (15,'Promotion',8,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (16,'促销',8,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (17,'Other 1',9,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (18,'其他1',9,2);
 
 INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (1,1,1);
 INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (2,1,2);
@@ -157,3 +160,4 @@ INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (5,1,5);
 INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (6,1,6);
 INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (7,1,7);
 INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (8,1,8);
+INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (9,1,9);

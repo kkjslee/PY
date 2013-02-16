@@ -3,6 +3,7 @@ package com.inforstack.openstack.item;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,9 @@ public class Category {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn
 	private I18nLink name;
+	
+	@Column(name="name_id")
+	private int nameId;
 
 	private boolean enable;
 
@@ -45,6 +49,14 @@ public class Category {
 
 	public void setName(I18nLink name) {
 		this.name = name;
+	}
+
+	public int getNameId() {
+		return nameId;
+	}
+
+	public void setNameId(int nameId) {
+		this.nameId = nameId;
 	}
 
 	public boolean getEnable() {

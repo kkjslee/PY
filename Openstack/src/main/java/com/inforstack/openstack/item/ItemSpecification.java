@@ -41,6 +41,9 @@ public class ItemSpecification {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
 	@JoinColumn
 	private I18nLink name;
+	
+	@Column(name="name_id")
+	private int nameId;
 
 	@Column(name = "os_type")
 	private int osType;
@@ -85,6 +88,14 @@ public class ItemSpecification {
 
 	public void setName(I18nLink name) {
 		this.name = name;
+	}
+
+	public int getNameId() {
+		return nameId;
+	}
+
+	public void setNameId(int nameId) {
+		this.nameId = nameId;
 	}
 
 	public float getDefaultPrice() {

@@ -55,6 +55,13 @@ public class CartController {
 	@Autowired
 	private RuleService ruleService;
 
+	private final String CART_MODULE_HOME = "user/modules/Cart";
+
+	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
+	public String redirectModule(Model model, HttpServletRequest request) {
+		return CART_MODULE_HOME + "/index";
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> create(HttpServletRequest request, Model model) {

@@ -24,6 +24,7 @@ import com.inforstack.openstack.controller.model.PriceModel;
 import com.inforstack.openstack.controller.model.ProfileModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.i18n.I18n;
+import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.item.Category;
@@ -41,6 +42,9 @@ public class ProductController {
 
 	@Autowired
 	private ItemService itemService;
+
+	@Autowired
+	private I18nService i18nService;
 
 	@Autowired
 	private LanguageService languageService;
@@ -98,18 +102,34 @@ public class ProductController {
 		for (ItemSpecification itemSpecification : itemSpecifications) {
 
 			// TODO:different between user and admin
-			List<I18n> i18ns = itemSpecification.getName().getI18ns();
-			I18nModel[] itemName = new I18nModel[i18ns.size()];
-			for (int i = 0; i < i18ns.size(); i++) {
-				I18n n = i18ns.get(i);
-				itemName[i] = new I18nModel();
-				itemName[i].setLanguageId(n.getLanguageId());
-				itemName[i].setContent(n.getContent());
+			int nameId = itemSpecification.getNameId();
+			List<I18nModel> itemNameList = new ArrayList<I18nModel>();
+			I18nModel name = null;
+			if (nameId > 0) {
+				log.info("name ID:" + nameId);
+				List<Language> lList = new ArrayList<Language>();
+				lList = languageService.list();
+				I18n i18n = null;
+				for (Language l : lList) {
+					i18n = i18nService.findByLinkAndLanguage(nameId, l.getId());
+					if (i18n != null) {
+						name = new I18nModel();
+						name.setLanguageId(l.getId());
+						name.setContent(i18n.getContent());
+						itemNameList.add(name);
+					}
+				}
+
+			} else {
+				log.warn("itemSpecification nameid is null ,category id:"
+						+ itemSpecification.getId());
 			}
+			I18nModel[] itemNameArray = new I18nModel[itemNameList.size()];
+			itemNameList.toArray(itemNameArray);
 
 			ItemSpecificationModel itemSpecificationModel = new ItemSpecificationModel();
 			itemSpecificationModel.setId(itemSpecification.getId());
-			itemSpecificationModel.setName(itemName);
+			itemSpecificationModel.setName(itemNameArray);
 			itemSpecificationModel.setOsType(itemSpecification.getOsType());
 			itemSpecificationModel.setRefId(itemSpecification.getRefId());
 			List<Category> cList = itemSpecification.getCategories();
@@ -122,7 +142,21 @@ public class ProductController {
 				I18nModel[] cName = new I18nModel[1];
 				cName[0] = new I18nModel();
 				cName[0].setLanguageId(languageId);
-				cName[0].setContent(c.getName().getI18nContent());
+
+				int cNameId = c.getNameId();
+				if (cNameId > 0) {
+					log.info("item name ID:" + cNameId);
+					I18n i18n = null;
+					i18n = i18nService.findByLinkAndLanguage(cNameId,
+							languageId);
+					if (i18n != null) {
+						cName[0].setContent(i18n.getContent());
+					}
+
+				} else {
+					log.warn("category name id is null ,item id:" + c.getId());
+				}
+
 				cModel.setName(cName);
 				cModelArray[i] = cModel;
 			}

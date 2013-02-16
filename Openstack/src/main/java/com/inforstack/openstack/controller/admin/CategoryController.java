@@ -23,6 +23,7 @@ import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.controller.model.ProfileModel;
 import com.inforstack.openstack.exception.ApplicationException;
 import com.inforstack.openstack.i18n.I18n;
+import com.inforstack.openstack.i18n.I18nService;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.item.Category;
@@ -40,6 +41,9 @@ public class CategoryController {
 
 	@Autowired
 	private ItemService itemService;
+
+	@Autowired
+	private I18nService i18nService;
 
 	@Autowired
 	private LanguageService languageService;
@@ -95,23 +99,34 @@ public class CategoryController {
 				.listAllCategory(excludeDisabled);
 		for (Category category : categories) {
 			// TODO:different between user and admin
-			List<I18n> i18ns = category.getName().getI18ns();
-			I18nModel[] name = new I18nModel[i18ns.size()];
-			for (int i = 0; i < i18ns.size(); i++) {
-				I18n n = i18ns.get(i);
-				name[i] = new I18nModel();
-				name[i].setLanguageId(n.getLanguageId());
-				name[i].setContent(n.getContent());
+			int nameId = category.getNameId();
+			List<I18nModel> nameList = new ArrayList<I18nModel>();
+			I18nModel name = null;
+			if (nameId > 0) {
+				log.info("name ID:" + nameId);
+				List<Language> lList = new ArrayList<Language>();
+				lList = languageService.list();
+				I18n i18n = null;
+				for (Language l : lList) {
+					i18n = i18nService.findByLinkAndLanguage(nameId, l.getId());
+					if (i18n != null) {
+						name = new I18nModel();
+						name.setLanguageId(l.getId());
+						name.setContent(i18n.getContent());
+						nameList.add(name);
+					}
+				}
+
+			} else {
+				log.warn("category nameid is null ,category id:"
+						+ category.getId());
 			}
-			/*
-			 * I18nModel[] name = new I18nModel[1]; name[0] = new I18nModel();
-			 * name[0].setLanguageId(languageId);
-			 * name[0].setContent(category.getName().getI18nContent());
-			 */
+			I18nModel[] nameArray = new I18nModel[nameList.size()];
+			nameList.toArray(nameArray);
 
 			CategoryModel cm = new CategoryModel();
 			cm.setId(category.getId());
-			cm.setName(name);
+			cm.setName(nameArray);
 			cm.setEnable(category.getEnable());
 
 			if (withItems) {
@@ -120,12 +135,25 @@ public class CategoryController {
 				ItemSpecificationModel[] itemSpecificationModels = new ItemSpecificationModel[itemSpecifications
 						.size()];
 				int idx = 0;
+				// item need only one language just to display
 				for (ItemSpecification itemSpecification : itemSpecifications) {
 					I18nModel[] itemName = new I18nModel[1];
 					itemName[0] = new I18nModel();
 					itemName[0].setLanguageId(languageId);
-					itemName[0].setContent(itemSpecification.getName()
-							.getI18nContent());
+					int itemNameId = itemSpecification.getNameId();
+					if (itemNameId > 0) {
+						log.info("item name ID:" + itemNameId);
+						I18n i18n = null;
+						i18n = i18nService.findByLinkAndLanguage(itemNameId,
+								languageId);
+						if (i18n != null) {
+							itemName[0].setContent(i18n.getContent());
+						}
+
+					} else {
+						log.warn("item specification name id is null ,item id:"
+								+ itemSpecification.getId());
+					}
 
 					ItemSpecificationModel itemSpecificationModel = new ItemSpecificationModel();
 					itemSpecificationModel.setId(itemSpecification.getId());

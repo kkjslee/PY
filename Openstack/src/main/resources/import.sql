@@ -2,8 +2,8 @@
 insert into Language(id, name, language, country) values (1, 'English', 'en', 'US');
 insert into Language(id, name, language, country) values (2, '中文', 'zh', 'CN');
 
-insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', '90dc38ea7f534aafa179f4c3216975ce');
-insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '5280df6ffe914483913f4f40825b772f');
+insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'd04b95d3c3b84132ae1b939ecbb74cb5');
+insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', 'ab0d65f7ac0a4a1eb14d746b5e5ebbfc');
 insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin');
 insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '5f4dcc3b5aa765d61d8327deb882cf99');
 insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.145:5000/v2.0/tokens');
@@ -31,9 +31,9 @@ insert into Configuration(id, name, value) values(26, 'openstack.endpoint.subnet
 insert into Configuration(id, name, value) values(27, 'openstack.endpoint.ports', '/ports');
 insert into Configuration(id, name, value) values(28, 'openstack.endpoint.port', '/ports/{port}');
 
-insert into Configuration(id, name, value) values(50, 'openstack.role.admin', 'ff02b500141840ca8ad260722667dd61');
-insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', 'a42f88b98f7945a29a2e6751e46b470a');
-insert into Configuration(id, name, value) values(52, 'openstack.role.member', 'af700213552b43feb76f1981e5403a9b');
+insert into Configuration(id, name, value) values(50, 'openstack.role.admin', 'faefa2a247154e50ba2d0489c37dd2c5');
+insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', 'd1769816ef74437a8cb41199fcf1055f');
+insert into Configuration(id, name, value) values(52, 'openstack.role.member', '8321e47acbc64c3796af5b01ce969836');
 insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', '2');
 
 insert into Role(id, name) values (1, 'admin');

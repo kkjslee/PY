@@ -122,6 +122,15 @@ insert into Resource(id, url, permission) values (50, '/admin/category/listForJs
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 
+insert into Resource(id, url, permission) values (200, '/user/cart/modules/index', 'user');
+insert into Resource(id, url, permission) values (201, '/user/cart/scripts/bootstrap', 'user');
+insert into Resource(id, url, permission) values (202, '/user/cart/scripts/template', 'user');
+insert into Resource(id, url, permission) values (203, '/user/cart/create', 'user');
+insert into Resource(id, url, permission) values (204, '/user/cart/clear', 'user');
+insert into Resource(id, url, permission) values (205, '/user/cart/add', 'user');
+insert into Resource(id, url, permission) values (206, '/user/cart/update', 'user');
+insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'user');
+
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (3,'name_id',NULL,'Category');

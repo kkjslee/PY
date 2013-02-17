@@ -2,7 +2,9 @@ package com.inforstack.openstack.item.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -164,8 +166,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemSpecification getItemSpecification(Integer id) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao
-				.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -173,6 +174,36 @@ public class ItemServiceImpl implements ItemService {
 			}
 		}
 		return itemSpecification;
+	}
+	
+	@Override
+	public Map<String, String> getItemSpecificationDetail(Integer id) {
+		HashMap<String, String> detail = new HashMap<String, String>();
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		if (itemSpecification != null) {
+			int osType = itemSpecification.getOsType();
+			String refId = itemSpecification.getRefId();
+			switch (osType) {
+			case ItemSpecification.OS_TYPE_FLAVOR_ID:
+				try {
+					Flavor flavor = this.flavorService.getFlavor(refId);
+					detail.put("os_cpu", Integer.toString(flavor.getVcpus()));
+					detail.put("os_memory", Integer.toString(flavor.getRam()));
+					detail.put("os_disk", Integer.toString(flavor.getDisk()));
+				} catch (OpenstackAPIException e) {
+					log.debug("Unknown flavor id: " + refId);
+				}
+				break;
+			case ItemSpecification.OS_TYPE_VOLUME_ID:
+				detail.put("os_size", Integer.toString(0));
+				break;
+			}
+			List<ItemMetadata> metadataList = itemSpecification.getMetadata();
+			for (ItemMetadata metadata : metadataList) {
+				detail.put(metadata.getName().getI18nContent(), metadata.getValue().getI18nContent());
+			}
+		}
+		return detail;
 	}
 
 	@Override

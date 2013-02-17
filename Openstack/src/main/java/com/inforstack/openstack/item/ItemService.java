@@ -1,6 +1,7 @@
 package com.inforstack.openstack.item;
 
 import java.util.List;
+import java.util.Map;
 
 import com.inforstack.openstack.controller.model.CategoryModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
@@ -26,6 +27,8 @@ public interface ItemService {
 	public List<ItemSpecification> listAllItemSpecification();
 
 	public ItemSpecification getItemSpecification(Integer id);
+	
+	public Map<String, String> getItemSpecificationDetail(Integer id);
 
 	public ItemSpecification createItem(ItemSpecificationModel model)
 			throws ApplicationException;

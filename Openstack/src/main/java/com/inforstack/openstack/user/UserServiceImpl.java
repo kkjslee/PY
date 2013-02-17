@@ -1,5 +1,6 @@
 package com.inforstack.openstack.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
+import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
@@ -83,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User registerUser(User user, Tenant tenant, int roleId) throws OpenstackAPIException  {
-		log.debug("Register user with user : " + user.getName() +", tenant : " + tenant.getName());
+		log.debug("Register user with user : " + user.getUsername() +", tenant : " + tenant.getName());
 		tenant.setRoleId(roleId);
 		Tenant t = tenantService.createTenant(tenant, roleId);
 		if(t == null){
@@ -95,7 +97,7 @@ public class UserServiceImpl implements UserService {
 		fillUser(user, t);
 		User u = self.createUser(user, roleId);
 		if(u == null){
-			log.warn("Register user failed for creating user failed : " + user.getName());
+			log.warn("Register user failed for creating user failed : " + user.getUsername());
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("user.create.failed"));
 		}
 		
@@ -108,7 +110,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User createUser(User user, int roleId) throws OpenstackAPIException {
-		log.debug("Create user : "+user.getName());
+		log.debug("Create user : "+user.getUsername());
 		user.setRoleId(roleId);
 		user.setStatus(Constants.USER_STATUS_VALID);
 		user.setAgeing(Constants.USER_AGEING_ACTIVE);
@@ -116,7 +118,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(OpenstackUtil.md5(user.getPassword()));
 		userDao.persist(user);
 		
-		user.setOpenstackUser(keystoneService.createUser(user.getName(), user.getPassword(), user.getEmail()));
+		user.setOpenstackUser(keystoneService.createUser(user.getUsername(), user.getPassword(), user.getEmail()));
 		user.setUuid(user.getOpenstackUser().getId());
 		log.debug("create user successfully");
 		return user;
@@ -140,7 +142,7 @@ public class UserServiceImpl implements UserService {
 			mergeWithOpenstack = true;
 		}
 
-		log.debug("Update user : "+user.getName());
+		log.debug("Update user : "+user.getUsername());
 		newUser = userDao.findById(user);
 		if(newUser == null){
 			log.warn("Update user failed");
@@ -219,6 +221,20 @@ public class UserServiceImpl implements UserService {
 		
 		log.debug("Check failed");
 		return false;
+	}
+
+	@Override
+	public List<User> listAll() {
+		log.debug("List all users");
+		List<User> users = userDao.list();
+		
+		if(CollectionUtil.isNullOrEmpty(users)){
+			log.debug("No user found");
+			return new ArrayList<User>();
+		}else{
+			log.debug(users.size() + " users found");
+			return users;
+		}
 	}
 	
 }

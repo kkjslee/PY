@@ -49,10 +49,10 @@ public class UserModel {
 	
 	public User getUser(){
 		User user = new User();
-		user.setName(StringUtil.trimString(username));
+		user.setUsername(StringUtil.trimString(username));
 		user.setPassword(StringUtil.trimString(password));
-		user.setFirstName(StringUtil.trimString(firstname));
-		user.setLastName(StringUtil.trimString(lastname));
+		user.setFirstname(StringUtil.trimString(firstname));
+		user.setLastname(StringUtil.trimString(lastname));
 		user.setEmail(StringUtil.trimString(email));
 		user.setQuestion(StringUtil.trimString(question));
 		user.setAnswer(StringUtil.trimString(answer));

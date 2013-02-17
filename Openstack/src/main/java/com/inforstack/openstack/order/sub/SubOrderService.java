@@ -3,8 +3,8 @@ package com.inforstack.openstack.order.sub;
 import java.util.Date;
 import java.util.List;
 
+import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
-import com.inforstack.openstack.order.sub.model.Period;
 
 public interface SubOrderService {
 	
@@ -46,6 +46,6 @@ public interface SubOrderService {
 	 */
 	public List<Period> calcPeriod(SubOrder subOrder, Date billingDate, Date endLimit);
 
-	public void paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
+	public InvoiceCount paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
 	
 }

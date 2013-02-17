@@ -3,6 +3,7 @@ package com.inforstack.openstack.order;
 import java.util.Date;
 import java.util.List;
 
+import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.tenant.Tenant;
 
@@ -61,7 +62,7 @@ public interface OrderService {
 	 * @param order
 	 * @param periodType
 	 */
-	public void payOrder(Order order, Date billingDate, BillingProcess billingProcess);
+	public InvoiceCount payOrder(Order order, Date billingDate, BillingProcess billingProcess);
 
-	public void checkOrderFinished(Order order, Date date);
+	public boolean checkOrderFinished(Order order, Date date);
 }

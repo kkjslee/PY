@@ -12,18 +12,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
+import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.conf.BillingProcessConfiguration;
+import com.inforstack.openstack.billing.process.result.BillingProcessResult;
+import com.inforstack.openstack.billing.process.result.BillingProcessResultService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
+import com.inforstack.openstack.order.sub.Period;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
-import com.inforstack.openstack.order.sub.model.Period;
 import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Service("billingProcessService")
@@ -37,6 +41,8 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BillingProcessResultService billingProcessResultService;
 	
 	@Override
 	public BillingProcess createBillingProcess(BillingProcess billingProcess) {
@@ -108,10 +114,25 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		log.debug("Running billing process for billing process configuration : " + conf.getId());
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
 		BillingProcess bp = self.createBillingProcess(conf, new Date(), null);
-				
+		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
+		
 		List<Order> orders = orderService.findAll(null, Constants.ORDER_STATUS_ACTIVE);
 		for(Order order : orders){
-			orderService.payOrder(order, conf.getNextBillingDate(), bp);
+			InvoiceCount oic = orderService.payOrder(order, conf.getNextBillingDate(), bp);
+			if(!BigDecimal.ZERO.equals(oic.getInvoiceTotal())){
+				bpr.setOrderTotal(
+						NumberUtil.add(bpr.getOrderTotal(), 1)
+				);
+				bpr.setInvoiceTotal(
+						NumberUtil.add(bpr.getInvoiceTotal(), oic.getInvoiceTotal())
+				);
+				bpr.setUnPaidTotal(
+						NumberUtil.add(bpr.getUnPaidTotal(), oic.getBalance())
+				);
+				bpr.setPaidTotal(
+						NumberUtil.minus(bpr.getInvoiceTotal(), bpr.getUnPaidTotal())
+				);
+			}
 		}
 		
 		Calendar calendar = Calendar.getInstance();

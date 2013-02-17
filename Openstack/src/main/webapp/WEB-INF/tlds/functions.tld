@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"  
+	version="2.0">  
+	<display-name>Custom Functions</display-name>    
+    <tlib-version>1.0</tlib-version>
+    <short-name>f</short-name>
+    <uri>/WEB-INF/tlds/functions.tld</uri>
+
+    <function>
+        <name>replaceAll</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String replaceAll(java.lang.String, java.lang.String, java.lang.String)</function-signature>
+    </function>
+    
+    <function>
+        <name>append</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String append(java.lang.String, java.lang.String)</function-signature>
+    </function>
+    
+    <function>
+        <name>addItem</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.util.List addItem(java.util.List, java.lang.String)</function-signature>
+    </function>
+    
+    <function>
+        <name>label</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String label(java.lang.String, java.lang.String)</function-signature>
+    </function>
+    
+    <function>
+        <name>value</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String value(java.lang.String, java.lang.String)</function-signature>
+    </function>
+    
+     <function>
+        <name>getProp</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String getProp(java.lang.Object, java.lang.String)</function-signature>
+    </function>
+    
+    <function>
+        <name>propStr</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String propStr(java.lang.String, java.lang.Object)</function-signature>
+    </function>
+</taglib>

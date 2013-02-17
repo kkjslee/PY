@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
+import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.item.ItemService;
@@ -22,7 +23,6 @@ import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.period.OrderPeriodService;
-import com.inforstack.openstack.order.sub.model.Period;
 import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
@@ -178,9 +178,11 @@ public class SubOrderServiceImpl implements SubOrderService {
 	}
 
 	@Override
-	public void paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess) {
+	public InvoiceCount paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess) {
 		log.debug("Pay sub order : " + subOrder.getId() + " with bill date : " + billingDate + 
 				", billing process : " + billingProcess==null?null:billingProcess.getId());
+		
+		InvoiceCount ic = new InvoiceCount();
 		SubOrderService self = (SubOrderService)OpenstackUtil.getBean("subOrderService");
 		Order order = subOrder.getOrder();
 		List<Period> periods = self.calcPeriod(subOrder,billingDate, order.getActiveEnd());
@@ -194,6 +196,8 @@ public class SubOrderServiceImpl implements SubOrderService {
 			if(order.getAutoPay()){
 				paymentService.applyPayment(invoice);
 			}
+			ic.addInvoiceTotal(invoice.getAmount());
+			ic.addBalance(invoice.getBalance());
 			
 			i++;
 			if(i == size){
@@ -209,6 +213,8 @@ public class SubOrderServiceImpl implements SubOrderService {
 			}
 		}
 		log.debug("Pay sub order successfully");
+		
+		return ic;
 	}
 	
 	

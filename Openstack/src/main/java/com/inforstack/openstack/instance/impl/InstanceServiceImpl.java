@@ -34,7 +34,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void createVM(User user, Tenant tenant, Server server) {
 		try {
-			Access access = this.keystoneService.getAccess(user.getName(), user.getPassword(), tenant.getUuid(), true);
+			Access access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
 			if (access != null) {
 				Server newServer = this.serverService.createServer(access, server);
 			}

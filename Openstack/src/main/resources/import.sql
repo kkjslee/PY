@@ -42,7 +42,7 @@ insert into Role(id, name) values (3, 'agent');
 
 insert into Tenant(id, name, display_name, role_id, ageing) values (1, 'admin', 'admin', 1, 1);
 
-insert into User(id, name, password, firstName, lastName, role_id, default_tenant_id, status, ageing) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 'admin', 1, 1, 1, 1);
+insert into User(id, user_name, password, first_name, last_name, role_id, default_tenant_id, status, ageing) values (1, 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin', 'admin', 1, 1, 1, 1);
 
 insert into tenant_user(user_id, tenant_id) values (1, 1);
 

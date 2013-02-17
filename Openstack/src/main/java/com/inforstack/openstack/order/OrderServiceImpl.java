@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
@@ -137,29 +138,35 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void payOrder(Order order, Date billingDate, BillingProcess billingProcess) {
+	public InvoiceCount payOrder(Order order, Date billingDate, BillingProcess billingProcess) {
 		log.debug("Pay order : " +order.getId() + " with billing date : " + billingDate + 
 				", billing process : " + billingProcess==null?null:billingProcess.getId());
 		List<SubOrder> subOrders = subOrderService.findSubOrders(
 				order.getId(), 
 				Constants.SUBORDER_STATUS_AVAILABLE,
 				billingProcess==null? null : billingProcess.getBillingProcessConfiguration().getPeriodType());
+		InvoiceCount ic = new InvoiceCount();
 		for(SubOrder so : subOrders){
-			subOrderService.paySubOrder(so, billingDate, billingProcess);
+			InvoiceCount sic = subOrderService.paySubOrder(so, billingDate, billingProcess);
+			ic.addInvoiceTotal(sic.getInvoiceTotal());
+			ic.addBalance(ic.getBalance());
 		}
 		log.debug("Pay order successfully");
+		
+		return ic;
 	}
 
 	@Override
-	public void checkOrderFinished(Order order, Date date) {
+	public boolean checkOrderFinished(Order order, Date date) {
 		List<SubOrder> subOrders = order.getSubOrders();
 		for(SubOrder subOrder : subOrders){
 			if(subOrder.getStatus() == Constants.SUBORDER_STATUS_AVAILABLE){
-				return;
+				return false;
 			}
 		}
 		
 		order.setStatus(Constants.ORDER_STATUS_FINISHED);
+		return true;
 	}
 	
 }

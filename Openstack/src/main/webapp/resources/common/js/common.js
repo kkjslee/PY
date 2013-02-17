@@ -14,3 +14,19 @@ function formatDate(time){
 		return date.toLocaleString();
 	}
 }
+
+function isSuccess(response){
+	if(typeof(repsonse) == 'object' && repsonse.status == 1){
+		return true;
+	}
+	
+	return false;
+}
+
+function getResult(response){
+	if(typeof(repsonse) == 'object' && repsonse.hasOwnProperty('result')){
+		return response.result;
+	}
+	
+	return response;
+}

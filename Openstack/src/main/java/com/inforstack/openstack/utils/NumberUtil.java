@@ -1,5 +1,7 @@
 package com.inforstack.openstack.utils;
 
+import java.math.BigDecimal;
+
 public class NumberUtil {
 
 	/**
@@ -13,5 +15,38 @@ public class NumberUtil {
 		}catch(Exception e){
 			return null;
 		}
+	}
+	
+	public static Integer add(Integer i1, Integer i2){
+		if(i1 == null){
+			i1 = 0;
+		}
+		if(i2 == null){
+			i2 = 0;
+		}
+		
+		return i1+i2;
+	}
+	
+	public static BigDecimal add(BigDecimal bd1, BigDecimal bd2){
+		if(bd1 == null){
+			bd1 = BigDecimal.ZERO;
+		}
+		if(bd2 == null){
+			bd2 = BigDecimal.ZERO;
+		}
+		
+		return bd1.add(bd2);
+	}
+
+	public static BigDecimal minus(BigDecimal bd1, BigDecimal bd2) {
+		if(bd1 == null){
+			bd1 = BigDecimal.ZERO;
+		}
+		if(bd2 == null){
+			bd2 = BigDecimal.ZERO;
+		}
+		
+		return bd1.subtract(bd2);
 	}
 }

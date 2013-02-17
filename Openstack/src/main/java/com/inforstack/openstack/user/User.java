@@ -28,13 +28,16 @@ public class User {
 	@GeneratedValue
 	private Integer id;
 	
-	private String name;
+	@Column(name="user_name")
+	private String username;
 	
 	private String password;
 	
-	private String firstName;
+	@Column(name="first_name")
+	private String firstname;
 	
-	private String lastName;
+	@Column(name="last_name")
+	private String lastname;
 	
 	private String phone;
 	
@@ -104,12 +107,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPhone() {
@@ -160,20 +163,20 @@ public class User {
 		this.roleId = roleId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public Integer getStatus() {
@@ -294,7 +297,7 @@ public class User {
 			ou.setEmail(email);
 			ou.setEnabled(SecurityUtils.isUserEnabled(this));
 			ou.setId(uuid);
-			ou.setName(name);
+			ou.setName(username);
 			ou.setPassword(password);
 			
 			return ou;

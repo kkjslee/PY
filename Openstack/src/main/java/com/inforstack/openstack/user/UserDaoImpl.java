@@ -29,7 +29,7 @@ public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 			CriteriaQuery<User> criteria = builder
 					.createQuery(User.class);
 			Root<User> user = criteria.from(User.class);
-			criteria.select(user).where(builder.equal(user.get("name"), userName));;
+			criteria.select(user).where(builder.equal(user.get("username"), userName));;
 			List<User> instances = em.createQuery(criteria).getResultList();
 			if(instances!=null && instances.size()>0){
 				log.debug("get successful");

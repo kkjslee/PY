@@ -3,6 +3,7 @@ package com.inforstack.openstack.controller.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -53,6 +54,7 @@ public class UserController {
   @RequestMapping(value = "/reg", method = RequestMethod.GET)
   public String register(Model model) {
     log.debug("visit register page");
+    model.addAttribute("users", userService.listAll());
     return BASE + "register";
   }
 
@@ -64,7 +66,7 @@ public class UserController {
   @RequestMapping(value = "/doReg", method = RequestMethod.POST, produces = "application/json")
   public @ResponseBody
   Map<String, Object> doRegister(@Valid UserModel userModel, BindingResult result,
-      UserTenantModel tenantModel, Model model) {
+      UserTenantModel tenantModel, Model model, HttpServletRequest req) {
     log.debug("register user");
 
     Map<String, Object> ret = new HashMap<String, Object>();
@@ -170,7 +172,7 @@ public class UserController {
 
     User user = userModel.getUser();
     Tenant tenant = tenantModel.getTenant();
-    tenant.setName(user.getName());
+    tenant.setName(user.getUsername());
 
     boolean success = true;
     try {

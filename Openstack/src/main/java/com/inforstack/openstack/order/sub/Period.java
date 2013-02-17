@@ -1,4 +1,4 @@
-package com.inforstack.openstack.order.sub.model;
+package com.inforstack.openstack.order.sub;
 
 import java.math.BigDecimal;
 import java.util.Date;

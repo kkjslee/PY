@@ -1,5 +1,6 @@
 package com.inforstack.openstack.user;
 
+import java.util.List;
 import java.util.Set;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
@@ -14,6 +15,12 @@ public interface UserService {
 	 * @return if no permission, an empty Set will return
 	 */
 	public Set<Permission> getPermissions(Integer userId);
+	
+	/**
+	 * list all users
+	 * @return
+	 */
+	public List<User> listAll();
 	
 	/**
 	 * find user by id

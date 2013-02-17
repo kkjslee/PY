@@ -20,21 +20,21 @@
 	
    <security:http pattern="/user/**"  auto-config="true" access-denied-page="/user/login" >
         <security:form-login login-page="/user/login" login-processing-url="/user/doLogin" 
-        		authentication-failure-url="/user/login?error=true" default-target-url="/user"/>  
+        		authentication-failure-url="/user/login?error=true" default-target-url="/user" always-use-default-target="true"/>  
         <security:logout logout-url="/user/doLogout" logout-success-url="/user/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
    </security:http>
    
    <security:http pattern="/admin/**" auto-config="true" access-denied-page="/admin/login" >
         <security:form-login login-page="/admin/login" login-processing-url="/admin/doLogin" 
-        		authentication-failure-url="/admin/login?error=true" default-target-url="/admin"/>  
+        		authentication-failure-url="/admin/login?error=true" default-target-url="/admin" always-use-default-target="true"/>  
         <security:logout logout-url="/admin/doLogout" logout-success-url="/admin/login" />  
-        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
+        <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter" />
    </security:http>
    
    <security:http pattern="/agent/**" auto-config="true" access-denied-page="/agent/login" >
         <security:form-login login-page="/agent/login" login-processing-url="/agent/doLogin" 
-        		authentication-failure-url="/agent/login?error=true" default-target-url="/agent"/>  
+        		authentication-failure-url="/agent/login?error=true" default-target-url="/agent" always-use-default-target="true"/>  
         <security:logout logout-url="/agent/doLogout" logout-success-url="/agent/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
    </security:http>

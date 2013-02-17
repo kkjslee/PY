@@ -56,20 +56,20 @@ function initUI() {
 
 
 function dumpMenu(container, type) {
-    $("<li><a id=\"menu0\" class=\"noelements\" name=\"menuItemTitle\" zmlm:module=\"modules/entry/index\">"+"<spring:message code='admin.navigation.menu.admin.index'/>"+"</a></li>").appendTo(container);
+    $("<li><a id=\"menu0\" class=\"noelements\" name=\"menuItemTitle\" zmlm:module=\"modules/entry/index\">"+"<spring:message code='user.entry.index'/>"+"</a></li>").appendTo(container);
     
     var executor={
-        "is_admin": function() {
+        "is_user": function() {
             var subMenu, items;
-            
+            subMenu = $("<li class=\"optmenu\"><a id=\"menu1\" name=\"menuItemTitle\">"+"<spring:message code='user.navi.order'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
+            dumpMenuItem(true, subMenu, menuli("cart/modules/index", "<spring:message code='user.navi.product'/>"));
             subMenu = $("<li class=\"optmenu\"><a id=\"menu1\" name=\"menuItemTitle\">"+"<spring:message code='user.profile'/>"+"</a><ul class=\"menuItem\"></ul></li>").appendTo(container).children(".menuItem");
-             dumpMenuItem(true, subMenu, menuli("userinfo/modules/index", "<spring:message code='user.userinfo'/>"));
-            //dumpMenuItem(true, subMenu, menuli("flavor/modules/index", "<spring:message code='admin.navi.flavor'/>"));
+            dumpMenuItem(true, subMenu, menuli("userinfo/modules/index", "<spring:message code='user.userinfo'/>"));
             
         }
     }
     
-    executor["is_admin"]();
+    executor["is_user"]();
     
     // hide empty menu
     var subItem=$(".menu").find(".optmenu").find(".menuItem");
@@ -102,7 +102,7 @@ function loadModule(modulePath) {
     $(".prepare").show();
 
   $(".right").empty()
-    $(".right").load("${pageContext.request.contextPath}/admin/"+modulePath,function(response,status,xhr){
+    $(".right").load("${pageContext.request.contextPath}/user/"+modulePath,function(response,status,xhr){
         if(status == "success"){
             $(".prepare").hide();
         }else{

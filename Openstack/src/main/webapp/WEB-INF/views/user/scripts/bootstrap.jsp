@@ -34,7 +34,7 @@ function printMessage(msg) {
         modal: true,
         buttons: [
             {
-                text: "<spring:message code='admin.vm.dialog.close'/>",
+                text: "<spring:message code='dialog.close'/>",
                 click: function() {
                     $(this).dialog("destroy");
                 }

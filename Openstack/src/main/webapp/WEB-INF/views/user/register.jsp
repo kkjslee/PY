@@ -326,10 +326,12 @@ function register_submit() {
                     $('#tips').html(info);
                     $('#checkDialog').dialog('open');
                 }else if(data.success){
+                	window.location.href="<%=request.getContextPath()%>/user/login?reg=success";
+                	/*
                 	 $('#p3_username').html(g_username);
                      $('#p3_email').html(g_email);
                      $('#resendimg').attr('src', Server+"/RedDragonEnterprise/VerificationServlet"+'?'+Math.random());
-                     gotoPage('#main_content_2', '#main_content_3');
+                     gotoPage('#main_content_2', '#main_content_3');*/
                }
                 
             }catch(e){}

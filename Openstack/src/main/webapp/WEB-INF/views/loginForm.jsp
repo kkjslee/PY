@@ -86,8 +86,11 @@ ${request}
 						 </c:if>
 			       <div id="message" class="msg">
 				       <c:if test="${not empty param.error && param.error=='true'}">
-				            <p class="error"><spring:message code="user.login.fail"></spring:message></p>
+				            <p class="error" style="color:red"><spring:message code="user.login.fail"></spring:message></p>
 				       </c:if>
+				        <c:if test="${not empty param.reg && param.reg=='success'}">
+                            <p class="success" style="color:green"><spring:message code="user.reg.success"></spring:message></p>
+                       </c:if>
 			        </div>  
               </div> 
           </form>

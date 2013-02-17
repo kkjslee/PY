@@ -6,9 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>用户云平台</title>
-<link href="<%=request.getContextPath()%>/resource/admin/common/css/navigator.css" rel="Stylesheet" type="text/css"  />
-<script src="<%=request.getContextPath()%>/resource/common/js/jquery-1.6.4.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/admin/scripts/navinit" type="text/javascript"></script>
+<jsp:include page="../bootstrapLinks.jsp" />
+<jsp:include page="userlinks.jsp" />
+<link href="<%=request.getContextPath()%>/resource/normaluser/common/css/navigator.css" rel="Stylesheet" type="text/css"  />
+<script src="<%=request.getContextPath()%>/user/scripts/navinit" type="text/javascript"></script>
 </head>
 <body class="mainBody">
 <table>
@@ -23,7 +24,7 @@
 </td>
 
 <td style="width:100%" valign="top">
-<div class="prepare"><spring:message code="admin.prepare.module"/></div>
+<div class="prepare"><spring:message code="user.prepare.module"/></div>
 <div class="right">
 </div>
 </td>

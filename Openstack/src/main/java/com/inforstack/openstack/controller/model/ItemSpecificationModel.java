@@ -1,5 +1,7 @@
 package com.inforstack.openstack.controller.model;
 
+import java.util.Map;
+
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class ItemSpecificationModel {
@@ -25,6 +27,8 @@ public class ItemSpecificationModel {
 	private ItemMetadataModel[] metadata;
 
 	private ProfileModel profile;
+
+	private Map<String, String> details;
 
 	public ItemSpecificationModel() {
 
@@ -124,6 +128,14 @@ public class ItemSpecificationModel {
 		} else {
 			return OpenstackUtil.getMessage("product.status.disabled");
 		}
+	}
+
+	public Map<String, String> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Map<String, String> details) {
+		this.details = details;
 	}
 
 }

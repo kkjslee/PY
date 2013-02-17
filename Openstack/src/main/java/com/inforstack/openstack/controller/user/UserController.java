@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,169 +35,182 @@ import com.inforstack.openstack.utils.StringUtil;
 @RequestMapping(value = "/user")
 public class UserController {
 
-  private static final Logger log = new Logger(UserController.class);
-  private static final String BASE = "user/";
+	private static final Logger log = new Logger(UserController.class);
+	private static final String BASE = "user/";
 
-  @Autowired
-  private RootController rootController;
-  @Autowired
-  private Validator validator;
+	@Autowired
+	private RootController rootController;
+	@Autowired
+	private Validator validator;
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private UserService userService;
 
-  @Autowired
-  private KeystoneService keystoneService;
+	@Autowired
+	private KeystoneService keystoneService;
 
-  @RequestMapping(value = "/reg", method = RequestMethod.GET)
-  public String register(Model model) {
-    log.debug("visit register page");
-    model.addAttribute("users", userService.listAll());
-    return BASE + "register";
-  }
+	@RequestMapping(value = "/reg", method = RequestMethod.GET)
+	public String register(Model model) {
+		log.debug("visit register page");
+		model.addAttribute("users", userService.listAll());
+		return BASE + "register";
+	}
 
-  @RequestMapping(method = RequestMethod.GET)
-  public String home(Model model) {
-    return BASE + "home";
-  }
+	@RequestMapping(method = RequestMethod.GET)
+	public String home(Model model) {
+		return BASE + "home";
+	}
 
-  @RequestMapping(value = "/doReg", method = RequestMethod.POST, produces = "application/json")
-  public @ResponseBody
-  Map<String, Object> doRegister(@Valid UserModel userModel, BindingResult result,
-      UserTenantModel tenantModel, Model model, HttpServletRequest req) {
-    log.debug("register user");
+	@RequestMapping(value = "/modules/entry/index", method = RequestMethod.GET)
+	public String entry(Model model) {
+		return "user/modules/Entry/index";
+	}
 
-    Map<String, Object> ret = new HashMap<String, Object>();
+	@RequestMapping(value = "/scripts/navinit", method = RequestMethod.GET)
+	public String naviInit(Model model) {
+		return "user/scripts/navinit";
+	}
 
-    if (StringUtil.isNullOrEmpty(tenantModel.getTenantDisplayName())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantDisplayName.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantPhone())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantPhone.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantEmail())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantEmail.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantCountry())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantCountry.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantProvince())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantProvince.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantCity())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("tenantCity.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantAddress())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantAddress.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(tenantModel.getTenantPostcode())) {
-      ret.put(
-          "error",
-          OpenstackUtil.getMessage("tenantPsotcode.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getUsername())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("username.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getPassword())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("password.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getQuestion())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("question.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getAnswer())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("answer.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getFirstname())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("firstname.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getLastname())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("lastname.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getEmail())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("email.label") + OpenstackUtil.getMessage("not.null.empty"));
-    } else if (StringUtil.isNullOrEmpty(userModel.getPhone())
-        && StringUtil.isNullOrEmpty(userModel.getMobile())) {
-      ret.put("error",
-          OpenstackUtil.getMessage("mobile.label") + "/" + OpenstackUtil.getMessage("phone.label")
-              + OpenstackUtil.getMessage("not.null.empty"));
-    }
+	@RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
+	public String bootstrap(Model model) {
+		return "user/scripts/bootstrap";
+	}
 
-    if (ret.isEmpty() == false) {
-      return ret;
-    }
+	@RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
+	public String template(Model model) {
+		return "user/scripts/template";
+	}
 
-    ObjectError firstError = null;
+	@RequestMapping(value = "/doReg", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> doRegister(@Valid UserModel userModel,
+			BindingResult result, UserTenantModel tenantModel, Model model,
+			HttpServletRequest req) {
+		log.debug("register user");
 
-    BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(tenantModel, "tenant");
-    validator.validate(tenantModel, bindingResult);
-    if (bindingResult.hasErrors()) {
-      firstError = bindingResult.getAllErrors().get(0);
-    }
-    if (firstError == null) {
-      bindingResult = new BeanPropertyBindingResult(userModel, "user");
-      validator.validate(userModel, bindingResult);
-      if (bindingResult.hasErrors()) {
-        firstError = bindingResult.getAllErrors().get(0);
-      }
-    }
+		Map<String, Object> ret = new HashMap<String, Object>();
 
-    if (firstError != null) {
-      if (firstError instanceof FieldError) {
-        FieldError fe = ((FieldError) firstError);
-        String errorMsg = OpenstackUtil.getMessage(fe.getField() + ".label")
-            + firstError.getDefaultMessage();
-        errorMsg += "(" + OpenstackUtil.getMessage(fe.getObjectName() + ".label") + ")";
-        errorMsg += " : " + fe.getRejectedValue();
-        ret.put("error", errorMsg);
-        return ret;
-      } else {
-        ret.put("error", firstError.getDefaultMessage());
-      }
-    }
+		if (StringUtil.isNullOrEmpty(tenantModel.getTenantDisplayName())) {
+			ret.put("error",
+					OpenstackUtil.getMessage("tenantDisplayName.label")
+							+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantPhone())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantPhone.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantEmail())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantEmail.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantCountry())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantCountry.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantProvince())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantProvince.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantCity())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantCity.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantAddress())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantAddress.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(tenantModel.getTenantPostcode())) {
+			ret.put("error", OpenstackUtil.getMessage("tenantPsotcode.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getUsername())) {
+			ret.put("error", OpenstackUtil.getMessage("username.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getPassword())) {
+			ret.put("error", OpenstackUtil.getMessage("password.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getQuestion())) {
+			ret.put("error", OpenstackUtil.getMessage("question.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getAnswer())) {
+			ret.put("error", OpenstackUtil.getMessage("answer.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getFirstname())) {
+			ret.put("error", OpenstackUtil.getMessage("firstname.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getLastname())) {
+			ret.put("error", OpenstackUtil.getMessage("lastname.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getEmail())) {
+			ret.put("error", OpenstackUtil.getMessage("email.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getPhone())
+				&& StringUtil.isNullOrEmpty(userModel.getMobile())) {
+			ret.put("error",
+					OpenstackUtil.getMessage("mobile.label") + "/"
+							+ OpenstackUtil.getMessage("phone.label")
+							+ OpenstackUtil.getMessage("not.null.empty"));
+		}
 
-    User user = userModel.getUser();
-    Tenant tenant = tenantModel.getTenant();
-    tenant.setName(user.getUsername());
+		if (ret.isEmpty() == false) {
+			return ret;
+		}
 
-    boolean success = true;
-    try {
-      userService.registerUser(user, tenant, Constants.ROLE_USER);
-    } catch (Exception e) {
-      success = false;
-      log.error(e.getMessage(), e);
-    }
+		ObjectError firstError = null;
 
-    if (success == false) {
-      try {
-        keystoneService.removeUserAndTenant(user.getOpenstackUser().getId(), tenant
-            .getOpenstatckTenant().getId());
-      } catch (OpenstackAPIException e) {
-        log.error(e.getMessage(), e);
-      }
-    }
+		BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(
+				tenantModel, "tenant");
+		validator.validate(tenantModel, bindingResult);
+		if (bindingResult.hasErrors()) {
+			firstError = bindingResult.getAllErrors().get(0);
+		}
+		if (firstError == null) {
+			bindingResult = new BeanPropertyBindingResult(userModel, "user");
+			validator.validate(userModel, bindingResult);
+			if (bindingResult.hasErrors()) {
+				firstError = bindingResult.getAllErrors().get(0);
+			}
+		}
 
-    if (success) {
-      log.debug("Register user successfully");
-      ret.put("success", "success");
-    } else {
-      log.debug("Register user failed");
-      ret.put("error", "error");
-    }
+		if (firstError != null) {
+			if (firstError instanceof FieldError) {
+				FieldError fe = ((FieldError) firstError);
+				String errorMsg = OpenstackUtil.getMessage(fe.getField()
+						+ ".label")
+						+ firstError.getDefaultMessage();
+				errorMsg += "("
+						+ OpenstackUtil.getMessage(fe.getObjectName()
+								+ ".label") + ")";
+				errorMsg += " : " + fe.getRejectedValue();
+				ret.put("error", errorMsg);
+				return ret;
+			} else {
+				ret.put("error", firstError.getDefaultMessage());
+			}
+		}
 
-    return ret;
-  }
+		User user = userModel.getUser();
+		Tenant tenant = tenantModel.getTenant();
+		tenant.setName(user.getUsername());
+
+		boolean success = true;
+		try {
+			userService.registerUser(user, tenant, Constants.ROLE_USER);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(), e);
+		}
+
+		if (success == false) {
+			try {
+				keystoneService.removeUserAndTenant(user.getOpenstackUser()
+						.getId(), tenant.getOpenstatckTenant().getId());
+			} catch (OpenstackAPIException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
+
+		if (success) {
+			log.debug("Register user successfully");
+			ret.put("success", "success");
+		} else {
+			log.debug("Register user failed");
+			ret.put("error", "error");
+		}
+
+		return ret;
+	}
 
 }

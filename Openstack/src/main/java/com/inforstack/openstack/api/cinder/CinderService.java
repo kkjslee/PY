@@ -32,7 +32,9 @@ public interface CinderService {
 	
 	public Volume createVolume(Access access, String name, String description, int size, boolean bootable, String type, String zone) throws OpenstackAPIException;
 	
-	public Volume createVolumeBySnapshot(Access access, String name, String description, int size, boolean bootable, String type, String snapshot, String zone) throws OpenstackAPIException;
+	public Volume createVolumeFromSnapshot(Access access, String name, String description, int size, boolean bootable, String type, String snapshot, String zone) throws OpenstackAPIException;
+	
+	public Volume createVolumeFromVolume(Access access, String name, String description, int size, boolean bootable, String type, String source, String zone) throws OpenstackAPIException;
 	
 	public void removeVolume(Access access, String id) throws OpenstackAPIException;
 	

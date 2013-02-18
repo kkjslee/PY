@@ -220,7 +220,7 @@ public class CinderServiceImpl implements CinderService {
 	}
 
 	@Override
-	public Volume createVolumeBySnapshot(Access access, String name, String description, int size, boolean bootable, String type, String snapshot, String zone) throws OpenstackAPIException {
+	public Volume createVolumeFromSnapshot(Access access, String name, String description, int size, boolean bootable, String type, String snapshot, String zone) throws OpenstackAPIException {
 		Volume volume = null;
 		if (access != null) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMES);
@@ -234,6 +234,34 @@ public class CinderServiceImpl implements CinderService {
 				instance.setBootable(bootable);
 				instance.setType(type);
 				instance.setSnapshot(snapshot);
+				instance.setZone(zone);
+				
+				VolumeBody request = new VolumeBody();
+				request.setVolume(instance);
+				VolumeBody response = RestUtils.postForObject(url, access, request, VolumeBody.class);
+				if (response != null) {
+					volume = response.getVolume();
+				}
+			}			
+		}
+		return volume;
+	}
+	
+	@Override
+	public Volume createVolumeFromVolume(Access access, String name, String description, int size, boolean bootable, String type, String source, String zone) throws OpenstackAPIException {
+		Volume volume = null;
+		if (access != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMES);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				
+				Volume instance = new Volume();
+				instance.setName(name);
+				instance.setDescription(description);
+				instance.setSize(size);
+				instance.setBootable(bootable);
+				instance.setType(type);
+				instance.setSource(source);
 				instance.setZone(zone);
 				
 				VolumeBody request = new VolumeBody();

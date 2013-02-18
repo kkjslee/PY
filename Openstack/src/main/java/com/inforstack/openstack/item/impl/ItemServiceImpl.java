@@ -166,7 +166,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemSpecification getItemSpecification(Integer id) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao
+				.findById(id);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -175,11 +176,12 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return itemSpecification;
 	}
-	
+
 	@Override
 	public Map<String, String> getItemSpecificationDetail(Integer id) {
 		HashMap<String, String> detail = new HashMap<String, String>();
-		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao
+				.findById(id);
 		if (itemSpecification != null) {
 			int osType = itemSpecification.getOsType();
 			String refId = itemSpecification.getRefId();
@@ -194,13 +196,22 @@ public class ItemServiceImpl implements ItemService {
 					log.debug("Unknown flavor id: " + refId);
 				}
 				break;
+			case ItemSpecification.OS_TYPE_IMAGE_ID:
+				try {
+					Image image = this.imageService.getImage(refId);
+					detail.put("os_imagename", image.getName());
+				} catch (OpenstackAPIException e) {
+					log.debug("Unknown image id: " + refId);
+				}
+				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				detail.put("os_size", Integer.toString(0));
 				break;
 			}
 			List<ItemMetadata> metadataList = itemSpecification.getMetadata();
 			for (ItemMetadata metadata : metadataList) {
-				detail.put(metadata.getName().getI18nContent(), metadata.getValue().getI18nContent());
+				detail.put(metadata.getName().getI18nContent(), metadata
+						.getValue().getI18nContent());
 			}
 		}
 		return detail;

@@ -93,6 +93,7 @@ public class CartController {
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
+		clear(request, model);
 		List<ItemSpecificationModel> imgList = new ArrayList<ItemSpecificationModel>();
 		imgList = listProductsForUser(ItemSpecification.OS_TYPE_IMAGE_ID);
 		model.addAttribute("imgList", imgList);
@@ -173,6 +174,7 @@ public class CartController {
 						.floatValue());
 			}
 			cart.setAmount(amount);
+			cart.setCurrentItemUUID(cartItem.getUuid());
 			WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME,
 					cart);
 			return JSONUtil.jsonSuccess(cart);
@@ -210,7 +212,7 @@ public class CartController {
 				existItem.setPrice(cartItem.getPrice());
 				existItem.setStatus(0);
 
-				this.runRules(cart);
+				/* this.runRules(cart); */
 
 				float amount = 0;
 				CartItemModel[] items = cart.getItems();
@@ -219,6 +221,7 @@ public class CartController {
 							.floatValue());
 				}
 				cart.setAmount(amount);
+				cart.setCurrentItemUUID(cartItem.getUuid());
 				WebUtils.setSessionAttribute(request,
 						CART_SESSION_ATTRIBUTE_NAME, cart);
 				return JSONUtil.jsonSuccess(cart);
@@ -257,6 +260,7 @@ public class CartController {
 							.floatValue());
 				}
 				cart.setAmount(amount);
+				cart.setCurrentItemUUID(null);
 				WebUtils.setSessionAttribute(request,
 						CART_SESSION_ATTRIBUTE_NAME, cart);
 				return JSONUtil.jsonSuccess(cart);
@@ -373,7 +377,8 @@ public class CartController {
 				itemSpecificationModel.setRefId(itemSpecification.getRefId());
 
 				if (osType == ItemSpecification.OS_TYPE_FLAVOR_ID
-						|| osType == ItemSpecification.OS_TYPE_VOLUME_ID) {
+						|| osType == ItemSpecification.OS_TYPE_VOLUME_ID
+						|| osType == ItemSpecification.OS_TYPE_IMAGE_ID) {
 					Map<String, String> details = itemService
 							.getItemSpecificationDetail(itemSpecification
 									.getId());
@@ -401,6 +406,10 @@ public class CartController {
 							i18Details.put(
 									OpenstackUtil.getMessage("volume.size"),
 									value);
+						}
+						if (key.equals("os_imagename")) {
+							i18Details.put(OpenstackUtil
+									.getMessage("admin.image.name"), value);
 						}
 					}
 					itemSpecificationModel.setDetails(i18Details);

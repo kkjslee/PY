@@ -2,6 +2,8 @@ package com.inforstack.openstack.basic;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +37,18 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		}
 	}
 	
+	public final CriteriaBuilder createBuilder(){
+		return em.getCriteriaBuilder();
+	}
+	
 	@Override
 	public final PaginationModel<T> pagination(int pageIndex, int pageSize){
+		return pagination(pageIndex, pageSize, null, null);
+	}
+	
+	@Override
+	public final PaginationModel<T> pagination(int pageIndex, int pageSize, Predicate where,
+			Order[] orders){
 		PaginationModel<T> model = new PaginationModel<T>();
 		log.debug("getting all " + this.clz.getSimpleName() + " instance");
 		try {
@@ -42,11 +56,23 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			CriteriaQuery<Long> count = builder.createQuery(Long.class);
 			Root<T> root = count.from(this.clz);
 			count.select(builder.count(root));
+			if(where != null){
+				count.where(where);
+			}
+			if(orders != null && orders.length>0){
+				count.orderBy(orders);
+			}
 			Long total = em.createQuery(count).getSingleResult();
 			
 			CriteriaQuery<T> criteria = builder.createQuery(this.clz);
 			root = criteria.from(this.clz);
 			criteria.select(root);
+			if(where != null){
+				count.where(where);
+			}
+			if(orders != null && orders.length>0){
+				count.orderBy(orders);
+			}
 			TypedQuery<T> query = em.createQuery(criteria);
 			query.setFirstResult(pageIndex * pageSize);
 			query.setMaxResults(pageSize);

@@ -175,3 +175,12 @@
     font-size:13px;
     
 }
+.cartTotalLine{
+	text-align:right;
+	font-size:15px;
+	color:orange;
+	padding:5px;
+}
+.cartButton{
+	text-align:right;
+}

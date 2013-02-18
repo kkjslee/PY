@@ -33,9 +33,13 @@
                             <c:forEach items="${imgList}" var="img" varStatus="status">
                                 <li>
                                 <input type="hidden" value="${img.id}" name="imgId"/>
-                                <c:forEach items="${img.name}" var="i18Name">
+                                <input type="hidden" value="${img.defaultPrice}" name="defaultPrice"/>
+                                <span></span><c:forEach items="${img.name}" var="i18Name">
 							    ${i18Name.content}
-							    </c:forEach>
+							    </c:forEach> -- </span>
+							    <c:forEach items="${img.details}" var="detail">
+                                <span>${detail.key} : ${detail.value} </span>
+                                </c:forEach>
                                 </li>
                             </c:forEach>
                         </ul>
@@ -53,6 +57,7 @@
                             <c:forEach items="${flavorList}" var="flavor" varStatus="status">
                                 <li>
                                 <input type="hidden" value="${flavor.id}" name="flavorId"/>
+                                 <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
                                 <span> <c:forEach items="${flavor.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- <span>
@@ -65,7 +70,7 @@
                     </div>
 				</div>
 			</div>
-			<div class="accordion-group">
+			<!-- <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse"
                         data-parent="#accordion2" href="#collapseTwo"> <spring:message code="cart.volume.title"/></a>
@@ -76,9 +81,17 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
 		</div>
-
+        
+        <div class="cartTotalLine">
+            <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
+        </div>
+        <div class="cartButton">
+            <a class="btn btn-primary btn-large buyorder">
+		      <spring:message code="cart.buy"/>
+		    </a>
+        </div>
 	</div>
     <script>setServer("<%=request.getContextPath()%>/user/cart");</script>
 </body>

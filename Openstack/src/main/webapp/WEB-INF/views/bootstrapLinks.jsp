@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- common links used for modules-->
+<link href="<%=request.getContextPath()%>/resource/common/css/smoothness/jquery-ui-1.9.2.custom.css" rel="Stylesheet" type="text/css"  />
+
 <link href="<%=request.getContextPath()%>/resource/common/template/bootstrap2.2.1/css/bootstrap.css" rel="Stylesheet" type="text/css"  />
 <!--[if lte IE 6]>
 <link ref="<%=request.getContextPath()%>/resource/common/template/bootstrap2.2.1/css/bootstrap-ie6.css" rel="stylesheet" type="text/css" />

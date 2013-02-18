@@ -9,7 +9,6 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
-import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.quantum.Network;
 import com.inforstack.openstack.api.quantum.Port;
@@ -26,9 +25,6 @@ public class QuantumServiceImpl implements QuantumService {
 	
 	@Autowired
 	private ConfigurationDao configurationDao;
-	
-	@Autowired
-	private KeystoneService tokenService;
 	
 	public static final class Networks {
 		
@@ -82,9 +78,13 @@ public class QuantumServiceImpl implements QuantumService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORK);
 			if (endpoint != null) {
 				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				NetworkBody response = RestUtils.get(url, access, NetworkBody.class, id);
-				if (response != null) {
-					network = response.getNetwork();
+				try {
+					NetworkBody response = RestUtils.get(url, access, NetworkBody.class, id);
+					if (response != null) {
+						network = response.getNetwork();
+					}
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
 				}
 			}
 		}
@@ -191,9 +191,13 @@ public class QuantumServiceImpl implements QuantumService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SUBNET);
 			if (endpoint != null) {
 				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				SubnetBody response = RestUtils.get(url, access, SubnetBody.class, id);
-				if (response != null) {
-					subnet = response.getSubnet();
+				try {
+					SubnetBody response = RestUtils.get(url, access, SubnetBody.class, id);
+					if (response != null) {
+						subnet = response.getSubnet();
+					}
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
 				}
 			}
 		}
@@ -223,6 +227,19 @@ public class QuantumServiceImpl implements QuantumService {
 			}
 		}
 		return subnet;
+	}
+	
+	@Override
+	public void updateSubnet(Access access, Subnet subnet) throws OpenstackAPIException {
+		if (access != null && subnet != null && !subnet.getId().trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SUBNET);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				SubnetBody request = new SubnetBody();
+				request.setSubnet(subnet);
+				RestUtils.put(url, access, request, subnet.getId());
+			}
+		}
 	}
 	
 	@Override
@@ -282,9 +299,13 @@ public class QuantumServiceImpl implements QuantumService {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_PORT);
 			if (endpoint != null) {
 				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				PortBody response = RestUtils.get(url, access, PortBody.class, id);
-				if (response != null) {
-					port = response.getPort();
+				try {
+					PortBody response = RestUtils.get(url, access, PortBody.class, id);
+					if (response != null) {
+						port = response.getPort();
+					}
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
 				}
 			}
 		}

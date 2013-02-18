@@ -92,13 +92,17 @@ public class ServerServiceImpl implements ServerService {
 		Configuration endpointServer = this.configurationDao.findByName(ENDPOINT_SERVER);
 		if (access != null && endpointServer != null) {
 			String url = getEndpoint(access, Type.INTERNAL, endpointServer.getValue());
-			ServerBody response = RestUtils.get(url, access, ServerBody.class, id);
-			server = response.getServer();
-			if (flavorAndImage) {
-				Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
-				server.setFlavor(flavor);
-				Image image = this.imageService.getImage(server.getImage().getId());
-				server.setImage(image);
+			try {
+				ServerBody response = RestUtils.get(url, access, ServerBody.class, id);
+				server = response.getServer();
+				if (flavorAndImage) {
+					Flavor flavor = this.flavorService.getFlavor(server.getFlavor().getId());
+					server.setFlavor(flavor);
+					Image image = this.imageService.getImage(server.getImage().getId());
+					server.setImage(image);
+				}
+			} catch (OpenstackAPIException e) {
+				RestUtils.handleError(e);
 			}
 		}
 		return server;

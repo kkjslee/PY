@@ -32,6 +32,8 @@ public interface QuantumService {
 	
 	public Subnet createSubnet(Access access, String network, int ipVer, String cidr, AllocationPool[] pools) throws OpenstackAPIException;
 	
+	public void updateSubnet(Access access, Subnet subnet) throws OpenstackAPIException;
+	
 	public void removeSubnet(Access access, String id) throws OpenstackAPIException;
 	
 	public Port[] listPorts(Access access) throws OpenstackAPIException;

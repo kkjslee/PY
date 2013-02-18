@@ -14,6 +14,7 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
@@ -226,6 +227,15 @@ public class RestUtils {
 			template.delete(url, urlVariables);
 		} catch (Exception e) {
 			throw new OpenstackAPIException("Can not fetch data[DELETE]:" + url, e);
+		}
+	}
+	
+	public static void handleError(OpenstackAPIException e) throws OpenstackAPIException {
+		if (e.getCause() instanceof HttpClientErrorException) {
+			HttpClientErrorException httpError = (HttpClientErrorException) e.getCause();
+			if (httpError.getStatusCode().value() != 404) {
+				throw e;
+			}
 		}
 	}
 

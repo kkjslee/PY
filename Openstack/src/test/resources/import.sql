@@ -30,7 +30,14 @@ insert into Configuration(id, name, value) values(25, 'openstack.endpoint.subnet
 insert into Configuration(id, name, value) values(26, 'openstack.endpoint.subnet', 'v2.0/subnets/{subnet}');
 insert into Configuration(id, name, value) values(27, 'openstack.endpoint.ports', 'v2.0/ports');
 insert into Configuration(id, name, value) values(28, 'openstack.endpoint.port', 'v2.0/ports/{port}');
-
+insert into Configuration(id, name, value) values(29, 'openstack.endpoint.volumes', '/volumes');
+insert into Configuration(id, name, value) values(30, 'openstack.endpoint.volumes.detail', '/volumes/detail');
+insert into Configuration(id, name, value) values(31, 'openstack.endpoint.volume', '/volumes/{volume}');
+insert into Configuration(id, name, value) values(32, 'openstack.endpoint.volumetypes', '/types');
+insert into Configuration(id, name, value) values(33, 'openstack.endpoint.volumetype', '/types/{type}');
+insert into Configuration(id, name, value) values(34, 'openstack.endpoint.volumesnapshots', '/snapshots');
+insert into Configuration(id, name, value) values(35, 'openstack.endpoint.volumesnapshots.detail', '/snapshots/detail');
+insert into Configuration(id, name, value) values(36, 'openstack.endpoint.volumesnapshot', '/snapshots/{snapshot}');
 
 
 insert into Configuration(id, name, value) values(50, 'openstack.role.admin', '9cdcb290f2d0466790c64f3aa5b41cb9')

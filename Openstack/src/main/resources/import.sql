@@ -24,12 +24,20 @@ insert into Configuration(id, name, value) values(19, 'openstack.endpoint.server
 insert into Configuration(id, name, value) values(20, 'openstack.endpoint.servers.detail', '/servers/detail');
 insert into Configuration(id, name, value) values(21, 'openstack.endpoint.server', '/servers/{server}');
 insert into Configuration(id, name, value) values(22, 'openstack.endpoint.server.action', '/servers/{server}/action');
-insert into Configuration(id, name, value) values(23, 'openstack.endpoint.networks', '/networks');
-insert into Configuration(id, name, value) values(24, 'openstack.endpoint.network', '/networks/{network}');
-insert into Configuration(id, name, value) values(25, 'openstack.endpoint.subnets', '/subnets');
-insert into Configuration(id, name, value) values(26, 'openstack.endpoint.subnet', '/subnets/{subnet}');
-insert into Configuration(id, name, value) values(27, 'openstack.endpoint.ports', '/ports');
-insert into Configuration(id, name, value) values(28, 'openstack.endpoint.port', '/ports/{port}');
+insert into Configuration(id, name, value) values(23, 'openstack.endpoint.networks', 'v2.0/networks');
+insert into Configuration(id, name, value) values(24, 'openstack.endpoint.network', 'v2.0/networks/{network}');
+insert into Configuration(id, name, value) values(25, 'openstack.endpoint.subnets', 'v2.0/subnets');
+insert into Configuration(id, name, value) values(26, 'openstack.endpoint.subnet', 'v2.0/subnets/{subnet}');
+insert into Configuration(id, name, value) values(27, 'openstack.endpoint.ports', 'v2.0/ports');
+insert into Configuration(id, name, value) values(28, 'openstack.endpoint.port', 'v2.0/ports/{port}');
+insert into Configuration(id, name, value) values(29, 'openstack.endpoint.volumes', '/volumes');
+insert into Configuration(id, name, value) values(30, 'openstack.endpoint.volumes.detail', '/volumes/detail');
+insert into Configuration(id, name, value) values(31, 'openstack.endpoint.volume', '/volumes/{volume}');
+insert into Configuration(id, name, value) values(32, 'openstack.endpoint.volumetypes', '/types');
+insert into Configuration(id, name, value) values(33, 'openstack.endpoint.volumetype', '/types/{type}');
+insert into Configuration(id, name, value) values(34, 'openstack.endpoint.volumesnapshots', '/snapshots');
+insert into Configuration(id, name, value) values(35, 'openstack.endpoint.volumesnapshots.detail', '/snapshots/detail');
+insert into Configuration(id, name, value) values(36, 'openstack.endpoint.volumesnapshot', '/snapshots/{snapshot}');
 
 insert into Configuration(id, name, value) values(50, 'openstack.role.admin', 'faefa2a247154e50ba2d0489c37dd2c5');
 insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', 'd1769816ef74437a8cb41199fcf1055f');

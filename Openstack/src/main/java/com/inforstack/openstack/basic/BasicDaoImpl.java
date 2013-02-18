@@ -3,14 +3,17 @@ package com.inforstack.openstack.basic;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
@@ -28,6 +31,37 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		if (type instanceof ParameterizedType) {
 			this.clz = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
 		}
+	}
+	
+	@Override
+	public final PaginationModel<T> pagination(int pageIndex, int pageSize){
+		PaginationModel<T> model = new PaginationModel<T>();
+		log.debug("getting all " + this.clz.getSimpleName() + " instance");
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<Long> count = builder.createQuery(Long.class);
+			Root<T> root = count.from(this.clz);
+			count.select(builder.count(root));
+			Long total = em.createQuery(count).getSingleResult();
+			
+			CriteriaQuery<T> criteria = builder.createQuery(this.clz);
+			root = criteria.from(this.clz);
+			criteria.select(root);
+			TypedQuery<T> query = em.createQuery(criteria);
+			query.setFirstResult(pageIndex * pageSize);
+			query.setMaxResults(pageSize);
+			List<T> list = query.getResultList();
+			
+			log.debug("get successful");
+			model.setPageIndex(pageIndex);
+			model.setPageSize(pageSize);
+			model.setData(list);
+			model.setRecordTotal(total.intValue());
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+		}
+		
+		return model;
 	}
 
 	@Override

@@ -1,24 +1,33 @@
 package com.inforstack.openstack.utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.context.ApplicationContext;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
 import com.inforstack.openstack.controller.model.I18nModel;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.model.I18nContext;
+import com.inforstack.openstack.log.Logger;
 
 public class OpenstackUtil {
-
+	
+	private static final Logger log = new Logger(OpenstackUtil.class);
+	
 	private static ApplicationContext context;
 	private static final ThreadLocal<I18nContext> localeConext = new ThreadLocal<I18nContext>();
-
+	private static ViewResolver viewResolver;
+	
 	public static Locale getLocale(Language language) {
 		if (language == null) {
 			return null;
@@ -51,6 +60,10 @@ public class OpenstackUtil {
 		return content;
 	}
 
+	public static void setContext(ApplicationContext context) {
+		OpenstackUtil.context = context;
+	}
+	
 	public static Object getBean(String name) {
 		return context.getBean(name);
 	}
@@ -58,9 +71,15 @@ public class OpenstackUtil {
 	public static <T> T getBean(Class<T> clz) {
 		return context.getBean(clz);
 	}
-
-	public static void setContext(ApplicationContext context) {
-		OpenstackUtil.context = context;
+	
+	public static ViewResolver getViewResolver(HttpServletRequest req){
+		synchronized (OpenstackUtil.class) {
+			if(viewResolver == null){
+				viewResolver = (ViewResolver)RequestContextUtils.getWebApplicationContext(req).getBean("viewResolver");
+			}
+		}
+		
+		return viewResolver;
 	}
 
 	public static String getMessage(String key) {
@@ -106,7 +125,7 @@ public class OpenstackUtil {
 						prop.substring(index + 1));
 			}
 		} catch (Exception e) {
-			return prop;
+			return null;
 		}
 	}
 
@@ -119,12 +138,24 @@ public class OpenstackUtil {
 		return ret;
 	}
 
-	public static Map<String, Object> buildSuccessResponse(String errorMsg) {
+	public static Map<String, Object> buildErrorResponse(String errorMsg) {
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put(Constants.AJAX_RESPONSE_KEY_STATUS,
 				Constants.AJAX_RESPONSE_STATUS_ERROR);
 		ret.put(Constants.AJAX_RESPONSE_KEY_RESULT, errorMsg);
 
 		return ret;
+	}
+	
+	public static String getJspPage(String viewName, Map<String, ?> model, HttpServletRequest request, HttpServletResponse resp){
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		response.setCharacterEncoding(resp.getCharacterEncoding());
+		try {
+			getViewResolver(request).resolveViewName(viewName, getLocale()).render(model, request, response);
+			return response.getContentAsString().replaceAll("(^\\s+|\\s+$)", "");
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			return null;
+		}
 	}
 }

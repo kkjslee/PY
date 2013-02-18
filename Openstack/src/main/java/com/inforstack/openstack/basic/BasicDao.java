@@ -2,6 +2,8 @@ package com.inforstack.openstack.basic;
 
 import java.util.List;
 
+import com.inforstack.openstack.controller.model.PaginationModel;
+
 public interface BasicDao<T> {
 
 	public List<T> list();
@@ -15,5 +17,7 @@ public interface BasicDao<T> {
 	public void update(T instance);
 	
 	public void remove(T instance);
+
+	PaginationModel<T> pagination(int pageIndex, int pageSize);
 	
 }

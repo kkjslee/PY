@@ -59,7 +59,7 @@ public class Functions {
 		while(matcher.find()){
 			for(int i=0, n=matcher.groupCount(); i<n ;){
 				Object replacement = OpenstackUtil.getProperty(bean, matcher.group(++i));
-				if(replacement == null) replacement = "";
+				if(replacement == null) continue;
 				stack.push(
 					new Replacer(
 						matcher.start(), 

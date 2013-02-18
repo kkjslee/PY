@@ -1,3 +1,4 @@
+
 function isNull(value) {
     if (typeof(value) == "undefined" ||null == value|| "" == $.trim(value) || value == "null" || value.length == 0) {
         return true;
@@ -16,7 +17,7 @@ function formatDate(time){
 }
 
 function isSuccess(response){
-	if(typeof(repsonse) == 'object' && repsonse.status == 1){
+	if(typeof(response) == 'object' && response.status == 1){
 		return true;
 	}
 	
@@ -24,9 +25,67 @@ function isSuccess(response){
 }
 
 function getResult(response){
-	if(typeof(repsonse) == 'object' && repsonse.hasOwnProperty('result')){
+	if(typeof(response) == 'object' && response.hasOwnProperty('result')){
 		return response.result;
 	}
 	
 	return response;
+}
+
+/**
+ * conf.container 表单容器
+ * conf.title 表单标题
+ * conf.url 表单内容
+ * conf.buttons 表单按钮。对象或列表，包含text，click属性
+ * @param conf
+ */
+function customForm(){
+	
+	var form = null;
+	
+	this.show = function(conf){
+		if(form == null){
+			init(conf);
+		}else{
+			form.dialog();
+		}
+	};
+	
+	var init = function(conf){
+		var container = $(conf.container);
+		container.hide();
+		
+		var success = false;
+		$.ajax({
+	        type: "POST",
+	        dataType: "html",
+	        cache: false,
+	        url: conf.url,
+	        success: function(data) {
+	            try{
+					data = $.parseJSON(data);
+	            }catch(e){}
+	            var result = getResult(data);
+	        	if(isSuccess(data)){
+	        		container.html(result);
+	        		success = true;
+	            }else{
+	            	$("<span class='loadingError'>"+result+"</span>").appendTo(container);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            $("<span class='loadingError'><spring:message code='message.loading.data.error'/></span>").appendTo(container.empty());
+	        },
+	        complete : function(){
+	        	var d = container.dialog({
+	        		title : conf.title,
+	        		buttons : conf.buttons
+	        	});
+	        	
+	        	if(success == true){
+	        		form = d;
+	        	}
+	        }
+	    });
+	}
 }

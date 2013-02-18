@@ -1,18 +1,18 @@
 package com.inforstack.openstack.controller.model;
 
-public class PaginationModel {
+import java.util.List;
+
+public class PaginationModel<T> {
 	
 	private int recordTotal;
 	
 	private int pageIndex;
 	
 	private int pageSize;
+	
+	private List<T> data;
 
 	private String html;
-
-	public int getPageTotle() {
-		return Double.valueOf(Math.ceil(recordTotal/pageSize)).intValue();
-	}
 
 	public int getPageIndex() {
 		return pageIndex;
@@ -44,6 +44,14 @@ public class PaginationModel {
 
 	public void setRecordTotal(int recordTotal) {
 		this.recordTotal = recordTotal;
+	}
+
+	public List<T> getData() {
+		return data;
+	}
+
+	public void setData(List<T> data) {
+		this.data = data;
 	}
 	
 }

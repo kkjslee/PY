@@ -1,9 +1,11 @@
 package com.inforstack.openstack.controller.user;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.controller.RootController;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.controller.model.UserModel;
 import com.inforstack.openstack.controller.model.UserTenantModel;
 import com.inforstack.openstack.log.Logger;
@@ -70,6 +73,59 @@ public class UserController {
 	public String naviInit(Model model) {
 		return "user/scripts/navinit";
 	}
+  
+  @RequestMapping(value="/list", method=RequestMethod.POST, produces = "application/json")
+  public @ResponseBody Map<String, Object> listUser(int pageIndex, int pageSize, Model model,
+		  HttpServletRequest request, HttpServletResponse response){
+	  PaginationModel<User> pm = userService.pagination(pageIndex, pageSize);
+	  
+	  Map<String, String> conf = new LinkedHashMap<String, String>();
+	  conf.put("grid.username", "[plain]");
+	  conf.put("grid.email", "[button]test,delete");
+	  conf.put("test.label", "测试");
+	  conf.put("test.onclick", "if(!this.testForm){this.testForm=new customForm();}this.testForm.show({title:'test',container:$('#fc'),url:'/Openstack/user/form?id={id}', buttons: [{text: 'aaa', click:function(){alert('In form')}}]});");
+	  conf.put("delete.label", "delete");
+	  conf.put("delete.onclick", "alert('{a : {username}}')");
+	  conf.put(".datas", "users");
+	  
+	  model.addAttribute("users", pm.getData());
+	  model.addAttribute("configuration", conf);
+	  
+	  String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
+	  
+	  if(jspString == null){
+		  return OpenstackUtil.buildErrorResponse("error message");
+	  }else{
+		  Map<String, Object> result = new HashMap<String, Object>();
+		  result.put("recordTotal", pm.getRecordTotal());
+		  result.put("html", jspString);
+		  
+		  return OpenstackUtil.buildSuccessResponse(result);
+	  }
+	  
+  }
+  
+  @RequestMapping(value="/form", method=RequestMethod.POST, produces = "application/json")
+  public @ResponseBody Map<String, Object> form(Model model,
+		  HttpServletRequest request, HttpServletResponse response){
+	  User user = userService.listAll().get(0);
+	  
+	  Map<String, String> conf = new LinkedHashMap<String, String>();
+	  conf.put(".form", "start_end");
+	  conf.put("form.username", "[text]" + user.getUsername());
+	  conf.put("username.tip", "test");
+	  conf.put("form.email", "[text]" + OpenstackUtil.nulltoEmpty(user.getEmail()));
+	  
+	  model.addAttribute("configuration", conf);
+	  
+	  String jspString = OpenstackUtil.getJspPage("/templates/form.jsp?form.configuration=configuration&type=", model.asMap(), request, response);
+	  
+	  if(jspString == null){
+		  return OpenstackUtil.buildErrorResponse("error message");
+	  }else{
+		  return OpenstackUtil.buildSuccessResponse(jspString);
+	  }
+  }
 
 	@RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
 	public String bootstrap(Model model) {

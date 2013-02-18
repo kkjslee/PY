@@ -30,6 +30,12 @@ property			value				comment
 <c:if test="${conf['.pagination'] == null}">
 	<c:set target="${conf}" property=".pagination" value="pagination"></c:set>
 </c:if>
+<c:if test="${conf['.pageIndex'] == null}">
+	<c:set target="${conf}" property=".pageIndex" value="0"></c:set>
+</c:if>
+<c:if test="${conf['.pageSize'] == null}">
+	<c:set target="${conf}" property=".pageSize" value="10"></c:set>
+</c:if>
 <div id="${conf['.content']}"></div>
 <div id="${conf['.pagination']}"></div>
 <script>

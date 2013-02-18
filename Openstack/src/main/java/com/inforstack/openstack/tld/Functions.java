@@ -56,16 +56,25 @@ public class Functions {
 		Matcher matcher = pattern.matcher(string);
 		
 		Stack<Replacer> stack = new Stack<Functions.Replacer>();
-		while(matcher.find()){
+		int start = 0;
+		while(matcher.find(start)){
 			for(int i=0, n=matcher.groupCount(); i<n ;){
-				Object replacement = OpenstackUtil.getProperty(bean, matcher.group(++i));
+				String prop = matcher.group(++i);
+				if(!OpenstackUtil.isValidProperty(prop)){
+					start = matcher.start()+1;
+					continue;
+				}
+				
+				Object replacement = OpenstackUtil.getProperty(bean, prop);
 				if(replacement == null) continue;
+				
 				stack.push(
 					new Replacer(
 						matcher.start(), 
 						matcher.end(), 
 						replacement.toString())
 				);
+				start = matcher.end();
 			}
 		}
 		

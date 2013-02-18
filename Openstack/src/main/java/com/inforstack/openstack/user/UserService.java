@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
 
 public interface UserService {
+	
+	public PaginationModel<User> pagination(int pageIndex, int pageSize);
 
 	/**
 	 * get all user permissions by user id

@@ -48,19 +48,17 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 <%@ taglib prefix="f" uri="/WEB-INF/tlds/functions.tld" %>
 
 <c:set value="${requestScope[param['form.configuration']]}" var="conf"></c:set>
+<c:if test="${conf['.method'] == null}">
+	<c:set target="${conf}" property=".method" value="post"></c:set>
+</c:if>
+
 <c:if test="${conf['.form'] == 'start_end' or conf['.form'] == 'start'}">
-	<form 
+	<form method="${conf['.method']}"
 		<c:if test="${conf['.action'] != null}">
 			action="${conf['.action']}" 
 		</c:if>
 		<c:if test="${conf['.name'] != null}">
 			name="${conf['.name']}" 
-		</c:if>
-		<c:if test="${conf['.method'] != null}">
-			method="${conf['.method']}" 
-		</c:if>
-		<c:if test="${conf['.method'] == null}">
-			method="POST" 
 		</c:if>
 		<c:if test="${conf['.enctype'] != null}">
 			enctype="${conf['.enctype']}" 

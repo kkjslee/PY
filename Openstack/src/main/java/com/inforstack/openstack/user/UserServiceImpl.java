@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.security.group.SecurityGroup;
@@ -221,6 +222,11 @@ public class UserServiceImpl implements UserService {
 		
 		log.debug("Check failed");
 		return false;
+	}
+	
+	@Override
+	public PaginationModel<User> pagination(int pageIndex, int pageSize){
+		return userDao.pagination(pageIndex, pageSize);
 	}
 
 	@Override

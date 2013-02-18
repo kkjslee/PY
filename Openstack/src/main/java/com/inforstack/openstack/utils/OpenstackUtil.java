@@ -3,6 +3,7 @@ package com.inforstack.openstack.utils;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -157,5 +158,22 @@ public class OpenstackUtil {
 			log.error(e.getMessage(), e);
 			return null;
 		}
+	}
+
+	public static boolean isValidProperty(String prop) {
+		if( StringUtil.isNullOrEmpty(prop, false)) return false;
+		
+		for(int i=0,n=prop.length();i<n;i++){
+			if(Character.isJavaIdentifierPart(prop.charAt(i)) == false){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public static Object nulltoEmpty(Object o){
+		if(o==null) return "";
+		return o;
 	}
 }

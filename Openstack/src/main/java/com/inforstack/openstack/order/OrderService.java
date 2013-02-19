@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.controller.model.CartModel;
+import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
 
 public interface OrderService {
@@ -15,6 +17,8 @@ public interface OrderService {
 	 * @return
 	 */
 	public Order createOrder(Order order);
+	
+	public Order createOrder(CartModel cartModel);
 	
 	/**
 	 * create order with the necessary fields

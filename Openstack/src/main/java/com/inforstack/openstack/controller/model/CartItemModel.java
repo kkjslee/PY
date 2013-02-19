@@ -8,6 +8,8 @@ public class CartItemModel {
 	
 	private Integer itemSpecificationId;
 	
+	private Integer periodId;
+	
 	private Integer number;
 	
 	private Float price;
@@ -60,6 +62,14 @@ public class CartItemModel {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Integer getPeriodId() {
+		return periodId;
+	}
+
+	public void setPeriodId(Integer periodId) {
+		this.periodId = periodId;
 	}
 	
 }

@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.controller.model.CartItemModel;
+import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.sub.SubOrder;
@@ -50,6 +52,31 @@ public class OrderServiceImpl implements OrderService {
 		log.debug("Create order successfully");
 		
 		return order;
+	}
+	
+	public Order createOrder(CartModel cartModel){
+		log.debug("Create order form cartModel");
+		
+		OrderService self = (OrderService)OpenstackUtil.getBean("orderService");
+		Order o = self.createOrder(SecurityUtils.getTenant(), null, null, true);
+		if(o == null){
+			log.error("Create order failed");
+			throw new ApplicationRuntimeException("Create Order failed");
+		}
+		
+		for(CartItemModel itemModel : cartModel.getItems()){
+			for(int i=0,n=itemModel.getNumber();i<n;i++){
+				SubOrder so = subOrderService.createSubOrder(itemModel.getItemSpecificationId(), o.getId(), itemModel.getPeriodId());
+				if(so == null){
+					log.error("Create sub order failed");
+					throw new ApplicationRuntimeException("Create sub order failed");
+				}
+				o.getSubOrders().add(so);
+			}
+		}
+		
+		log.debug("Create order successfully");
+		return o;
 	}
 	
 	@Override

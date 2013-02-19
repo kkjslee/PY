@@ -513,6 +513,7 @@ public class CartController {
 		if(order == null){
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("cart.checkout.failed"));
 		}else{
+			WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME, null);
 			return OpenstackUtil.buildSuccessResponse(order.getId());
 		}
 	}

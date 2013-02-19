@@ -138,6 +138,8 @@ insert into Resource(id, url, permission) values (204, '/user/cart/clear', 'user
 insert into Resource(id, url, permission) values (205, '/user/cart/add', 'user');
 insert into Resource(id, url, permission) values (206, '/user/cart/update', 'user');
 insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'user');
+insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethods', 'user');
+insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');

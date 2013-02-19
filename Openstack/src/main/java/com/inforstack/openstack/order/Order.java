@@ -1,5 +1,6 @@
 package com.inforstack.openstack.order;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +54,11 @@ public class Order {
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="order")
 	private List<SubOrder> subOrders;
+	
+	private BigDecimal amount;
+	
+	private BigDecimal balance;
+	
 	
 	public String getId() {
 		return id;
@@ -124,6 +130,22 @@ public class Order {
 
 	public void setAutoPay(boolean autoPay) {
 		this.autoPay = autoPay;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 }

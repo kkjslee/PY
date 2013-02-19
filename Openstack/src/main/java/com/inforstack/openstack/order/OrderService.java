@@ -1,5 +1,6 @@
 package com.inforstack.openstack.order;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface OrderService {
 	 * @param end
 	 * @return
 	 */
-	public Order createOrder(Tenant tenant, Date begin, Date end, boolean autoPay);
+	public Order createOrder(BigDecimal amount, Tenant tenant, Date begin, Date end, boolean autoPay);
 	
 	/**
 	 * create order with the necessary fields
@@ -36,7 +37,7 @@ public interface OrderService {
 	 * @param end
 	 * @return
 	 */
-	public Order createOrder(int tenantId, Date begin, Date end, boolean autoPay);
+	public Order createOrder(BigDecimal amount, int tenantId, Date begin, Date end, boolean autoPay);
 	
 	/**
 	 * delete order

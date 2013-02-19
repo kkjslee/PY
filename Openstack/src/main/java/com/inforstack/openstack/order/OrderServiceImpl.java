@@ -1,5 +1,6 @@
 package com.inforstack.openstack.order;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +59,8 @@ public class OrderServiceImpl implements OrderService {
 		log.debug("Create order form cartModel");
 		
 		OrderService self = (OrderService)OpenstackUtil.getBean("orderService");
-		Order o = self.createOrder(SecurityUtils.getTenant(), null, null, true);
+		Order o = self.createOrder(
+				new BigDecimal(cartModel.getAmount()), SecurityUtils.getTenant(), null, null, true);
 		if(o == null){
 			log.error("Create order failed");
 			throw new ApplicationRuntimeException("Create Order failed");
@@ -80,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public Order createOrder(Tenant tenant, Date begin, Date end, boolean autoPay) {
+	public Order createOrder(BigDecimal amount, Tenant tenant, Date begin, Date end, boolean autoPay) {
 		log.debug("Create order for tenant : " + tenant.getName());
 		Date now  = new Date();
 		Order order = new Order();
@@ -98,6 +100,8 @@ public class OrderServiceImpl implements OrderService {
 		order.setStatus(Constants.ORDER_STATUS_NEW);
 		order.setAutoPay(autoPay);
 		order.setTenant(tenant);
+		order.setAmount(amount);
+		order.setBalance(amount);
 		orderDao.persist(order);
 		log.debug("Create order successfully");
 		
@@ -105,7 +109,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order createOrder(int tenantId, Date begin, Date end, boolean autoPay) {
+	public Order createOrder(BigDecimal amount, int tenantId, Date begin, Date end, boolean autoPay) {
 		log.debug("Create order for tenant : " + tenantId);
 		Tenant tenant = tenantService.findTenantById(tenantId);
 		if(tenant == null){
@@ -114,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		OrderService self = (OrderService)OpenstackUtil.getBean("orderService");
-		Order order = self.createOrder(tenant, begin, end, autoPay);
+		Order order = self.createOrder(amount, tenant, begin, end, autoPay);
 		if(order == null){
 			log.debug("Create order failed");
 		}else{

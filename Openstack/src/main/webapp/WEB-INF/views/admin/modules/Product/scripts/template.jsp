@@ -12,7 +12,7 @@ var Template_EditProduct = '\
         <span class="dialogLine ">\
             <span class="dialogLineLeft"><spring:message code="category.label"/>:</span>\
             <span class="dialogLineRight typeSelect">\
-                <select id="categoriesEditSelect">\
+                <select id="categoriesEditSelect" multiple="multiple">\
                 </select>\
            </span>\
         </span>\
@@ -36,7 +36,7 @@ var Template_EditProduct = '\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="status.label"/>:</span>\
             <span class="dialogLineRight typeSelect">\
-                 <select isos="available">\
+                 <select id="available" isos="available">\
                     <option value="true"><spring:message code="product.status.enabled"/></option>\
                     <option value="false"><spring:message code="product.status.disabled"/></option>\
                 </select>\
@@ -54,7 +54,7 @@ var Template_CreateProduct = '\
         <span class="dialogLine ">\
             <span class="dialogLineLeft"><spring:message code="category.label"/>:</span>\
             <span class="dialogLineRight typeSelect">\
-                <select id="categoriesSelect">\
+                <select id="categoriesSelect" multiple="multiple">\
                 </select>\
            </span>\
         </span>\
@@ -98,7 +98,7 @@ var Template_CreateProduct = '\
         <span class="dialogLine">\
             <span class="dialogLineLeft"><spring:message code="status.label"/>:</span>\
             <span class="dialogLineRight typeSelect">\
-                <select isos="available">\
+                <select id="available" isos="available">\
                     <option value="true"><spring:message code="product.status.enabled"/></option>\
                     <option value="false"><spring:message code="product.status.disabled"/></option>\
                 </select>\

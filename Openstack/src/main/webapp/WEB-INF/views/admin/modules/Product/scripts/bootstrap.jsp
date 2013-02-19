@@ -104,14 +104,20 @@ function showCreatProduct(){
                  } */
                  jsonData["available"] = available;
                  
+                 //todo 
                  var categoryArray = [];
                  var categorySelect = $(this).find("select[id='categoriesSelect']").val();
-                 if(categorySelect != -1){
-                    var cData = {};
-                    cData["id"] = categorySelect;
-                    categoryArray.push(cData);
+                 if(!isNull(categorySelect) && categorySelect.length >0){
+                 window.console.log("cateogry ids: "+categorySelect);
+                    for(var i=0;i<categorySelect.length;i++){
+                        var cData = {};
+                        cData["id"] = categorySelect[i];
+                        categoryArray.push(cData);
+                    }
+                    
                     jsonData["categories"] = categoryArray;
                  }
+                 
                  //ostype
                  var osType = $(this).find("select[id='osType']").val();
                  if(osType != -1){
@@ -140,7 +146,9 @@ function showCreatProduct(){
     });
     loadCategories("categoriesSelect");
     bindOSTypeSelect();
-    $("select").selectmenu();
+    $("#osType").selectmenu();
+    $("#refId").selectmenu();
+    $("#available").selectmenu();
     $(createProduct).dialog("open");
    }
 
@@ -271,13 +279,16 @@ function showEditProduct(which){
                    jsonData["available"] = available;
                    
                    var categoryArray = [];
-                   var categorySelect = $(this).find("select[id='categoriesEditSelect']").val();
-                   if(categorySelect != -1){
-                      var cData = {};
-                      cData["id"] = categorySelect;
-                      categoryArray.push(cData);
-                      jsonData["categories"] = categoryArray;
-                   }
+                   var categorySelect = $(this).find("select[id='categoriesSelect']").val();
+                  if(!isNull(categorySelect) && categorySelect.length >0){
+                    for(var i=0;i<categorySelect.length;i++){
+                        var cData = {};
+                        cData["id"] = categorySelect[i];
+                        categoryArray.push(cData);
+                    }
+                    
+                    jsonData["categories"] = categoryArray;
+                 }
                     var defaultPrice = $(this).find("input[isos='defaultPrice']").val();
                    if(!isNull(defaultPrice)){
                       jsonData["defaultPrice"] = defaultPrice;
@@ -331,9 +342,16 @@ function showEditProduct(which){
     	}
     }
     //set categoryies
-    var categories_id = $(row).find("input[isos='categories_id']").val();
+    var categories_id = new Array();
+    $(row).find("input[isos='categories_id']").each(function(e){
+        categories_id.push($(this).val());
+    });
+    window.console.log("category id edit:" + categories_id);
     loadCategories("categoriesEditSelect",categories_id);
-    $("select").selectmenu();
+    $("#osType").selectmenu();
+    $("#refId").selectmenu();
+    $("#available").selectmenu();
+    
     $(editProduct).dialog("open");
 }
 
@@ -352,10 +370,8 @@ function setRefNameCallBack(editProduct,osTypeId,data){
      }
      $(editProduct).find(".refName").text(refName);
 }
-//dataInit("<%=request.getContextPath()%>/admin" + "/image/imgList","selImageModel","createImgOption");
-//    dataInit("<%=request.getContextPath()%>/admin" + "/flavor/flavorList","selFlavorModel","createFlavorOption");
-//dataInit(url,"typeInfo");
-//now get images and flavors if necessary
+
+
 function getOSTyeList(url,selectId,optionModel){
     $.ajax({
         type: "POST",

@@ -1,8 +1,5 @@
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.LinkedHashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="f" uri="/WEB-INF/tlds/functions.tld" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,14 +9,10 @@
 <c:url value="/resource/common" var="rPath"></c:url>
 <link rel="stylesheet" href="${rPath}/css/template.css" type="text/css" />
 <link rel="stylesheet" href="${rPath}/css/register.css" type="text/css" />
-<link rel="stylesheet" href="<c:url value="/resource/admin/common/css/common.css"></c:url>" type="text/css" />
 <link type="text/css" href="${rPath}/css/smoothness/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
-<link href="<c:url value='/resource/common/css/pagination.css'/>"  rel="stylesheet" type="text/css" />
 
-<script src="<c:url value='/resource/common/js/common.js'/>" type="text/javascript" ></script>
 <script type="text/javascript" src="${rPath}/js/jquery-1.6.4.js"></script>
 <script type="text/javascript" src="${rPath}/js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="<c:url value='/resource/common/js/jquery.pagination.js'/>" type="text/javascript" ></script>
 <script type="text/javascript" src="${rPath}/js/check.js"></script>
 <script type="text/javascript" src="${rPath}/js/xml.parser.js"></script>
 <script type="text/javascript" src="${rPath}/js/jquery.blockUI.js"></script>
@@ -333,12 +326,10 @@ function register_submit() {
                     $('#tips').html(info);
                     $('#checkDialog').dialog('open');
                 }else if(data.success){
-                	window.location.href="<%=request.getContextPath()%>/user/login?reg=success";
-                	/*
                 	 $('#p3_username').html(g_username);
                      $('#p3_email').html(g_email);
                      $('#resendimg').attr('src', Server+"/RedDragonEnterprise/VerificationServlet"+'?'+Math.random());
-                     gotoPage('#main_content_2', '#main_content_3');*/
+                     gotoPage('#main_content_2', '#main_content_3');
                }
                 
             }catch(e){}
@@ -613,15 +604,11 @@ function resend() {
 <style>*{font-family:"微软雅黑";}td{vertical-align:middle;}</style>
 </head>
 
+
 <body id="body">
-<!-- 
-<c:url value='/user/list' var="paginationUrl"/>
-<jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />
-<c:set target="${pageMap}" property=".url" value="${paginationUrl}"/>
-<jsp:include page="/WEB-INF/views/templates/pagination.jsp" >
-	<jsp:param name="pagination.configuration" value="pageMap"/>
-</jsp:include>
- -->
+
+
+
 <div id="main_frame" class="reg_frame"> <!--124px-->
 
 <div style="margin:0;padding:0;border:0;position:relative;">
@@ -1181,6 +1168,6 @@ function resend() {
     <div class='ui-state-highlight ui-corner-all'><span><textarea readonly="readonly" id="agreeTxt" style='background-color:#f0f0ff;width:100%;height:340px;padding-bottom:5px;cursor:default;margin-bottom:5px;border:0;'></textarea></span></div><br/>
     <input type="button" id="closeProtocol" value="关闭" />   
 </div>
-<div id="fc"></div>
+
 </body>
 </html>

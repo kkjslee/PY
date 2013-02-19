@@ -1,21 +1,85 @@
 var Server="";
 var cart_imgSelected_UUID = "";
 var cart_flavorSelected_UUID="";
+var itemSelected = 0;
 
 $(function(){
 	setup();
-	$(".buyorder").bind("click", function(e){
-		if(validOrderCondition){
-			
-		}else{
-			printWarn("choose item first");
+	$(".submitorder").bind("click", function(e){
+		window.console.log("submit cart");
+		if(validOrderCondition()){
+			checkOutOrder(showPayMethods);
 		}
 		
 	});
+	$(".payMethodsContainer").delegate(".buyorder", "click", function(e){
+		buyOrder();
+	});
 	initUI();
 });
+
+function buyOrder(){
+	window.console.log("buy order");
+	//todo
+	window.open(Server + "/showPayMethods");
+}
+function showPayMethods(orderId){
+	$.ajax({
+        url: Server + "/showPayMethods",
+        type: "POST",
+        dataType:"html",
+        data:{
+        	orderId:orderId
+        },
+        cache: false,
+        success: function(data) {
+            try {
+            	$(".payMethodsContainer").html(data);
+            } catch(e) {
+                printMessage("Data Broken: [" + e + "]");
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            printError(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
+function checkOutOrder(callBack){
+	var pd = showProcessingDialog();
+	$.ajax({
+        url: Server + "/checkout",
+        type: "POST",
+        dataType:"json",
+        cache: false,
+        success: function(data) {
+            try {
+            	$(pd).dialog("close");
+                if(data.status == 1){
+                var orderId  = data.result;
+                $("#mainBody").remove();
+                $(".selectPayMethods").fadeIn("slow");
+                //select pay methods
+                callBack(orderId);
+                }
+                if(data.status == 0){
+                    printMessage(data.result);
+                }
+
+            } catch(e) {
+            	$(pd).dialog("close");
+                printMessage("Data Broken: [" + e + "]");
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        	 $(pd).dialog("close");
+            printError(jqXHR, textStatus, errorThrown);
+            return false;
+        }
+    });
+}
+
 function validOrderCondition(){
-	if($(".imgList").find("li.ui-selected").length < 0 || $(".flavorList").find("li.ui-selected").length){
+	if($(".imgList").find("li.ui-selected").length == 0 || $(".flavorList").find("li.ui-selected").length == 0){
 		return false;
 	}else{
 		return true;
@@ -32,16 +96,16 @@ function setup(){
 		    	var itemId = $(row).find("input[name='imgId']").val();
 		    	var price = $(row).find("input[name='defaultPrice']").val();
 		    	if(isNull(cart_imgSelected_UUID)){
-		    		
 		    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"imgId",$(row).parent());
 		    	}else if(uuid == cart_imgSelected_UUID){
-		    		
 		    		updateCartItem(itemId,uuid,price,row,"imgId");
 		    		
 		    	}else{
 		    		removeCartItem(cart_imgSelected_UUID,row,updateInputRowUUIDAttr,"imgId",$(row).parent());
 		    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"imgId",$(row).parent());
 		    	}
+		    	itemSelected++;
+		    	activeCartSubmitBtn();
 		}
 	});
 	
@@ -60,8 +124,16 @@ function setup(){
 	    		removeCartItem(cart_flavorSelected_UUID,row,updateInputRowUUIDAttr,"flavorId",$(row).parent());
 	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"flavorId",$(row).parent());
 	    	}
+	    	itemSelected++;
+	    	activeCartSubmitBtn();
 		}
 	});
+}
+
+function activeCartSubmitBtn(){
+	if(itemSelected == 2){
+		$(".cartButton").find("a").addClass("btn-success");
+	}
 }
 //category id like:imgId,flavorId
 function updateInputRowUUIDAttr(row, uuid,isUpdate,categoryId,container){
@@ -98,7 +170,6 @@ function addItemToCart(itemId,price,row,callBack,categoryId,container){
 	                	var price  = data.data.amount;
 	                	udpateAmount(price);
 	                	var uuid = data.data.currentItemUUID;
-	                	window.console.log(uuid);
 	                	if(categoryId == "imgId"){
 	                		cart_imgSelected_UUID = uuid;
 	                	}

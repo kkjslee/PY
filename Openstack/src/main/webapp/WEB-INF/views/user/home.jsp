@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>用户云平台</title>
-<jsp:include page="../bootstrapLinks.jsp" />
+<jsp:include page="../jquerybootstrap.jsp" />
 <jsp:include page="userlinks.jsp" />
 <link href="<%=request.getContextPath()%>/resource/normaluser/common/css/navigator.css" rel="Stylesheet" type="text/css"  />
 <script src="<%=request.getContextPath()%>/user/scripts/navinit" type="text/javascript"></script>
@@ -17,15 +17,20 @@
     
 <td class="left" valign="top">
     <div class="logo"><img src="${pageContext.request.contextPath}/resource/common/image/logo.png"/></div>
-    <div class="menu">
-        <ul>
-        </ul>
-    </div>
+      <div class="menu tabbable tabs-left">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" data-toggle="tab"><spring:message code='user.entry.index'/></a></li>
+			<li><a href="#" name="menuItem" isos:module="cart/modules/index" data-toggle="tab"><spring:message code='user.navi.product' /></a></li>
+		</ul>
+	</div>
 </td>
 
 <td style="width:100%" valign="top">
-<div class="prepare"><spring:message code="user.prepare.module"/></div>
 <div class="right">
+     <div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="user.entry.title"/></div>
+    <div style="padding:30px 0 10px 60px;">
+        <div style="font-family:'微软雅黑';font-size:14px;"><spring:message code="user.entry.welcome"/></script></div>
+    </div>
 </div>
 </td>
 

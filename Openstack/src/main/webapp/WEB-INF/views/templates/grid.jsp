@@ -1,6 +1,6 @@
 <%--
 property			value							comment
-.data				requestScope中的对象列表的key	列表数据
+.datas				requestScope中的对象列表的key	列表数据
 grid.<columnName>	[columnType]<sub items>			columnName为列名。
 													columnType为列类型，可选值为：
 													plain:　文本输出

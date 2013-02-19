@@ -175,3 +175,4 @@
     font-size:13px;
     
 }
+.ui-multiselect { height:35px; overflow-x:hidden; padding:2px 0 2px 14px; text-align:left }

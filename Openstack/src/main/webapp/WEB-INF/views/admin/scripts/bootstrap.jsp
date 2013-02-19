@@ -110,16 +110,18 @@ function loadCategories(selectId,categories_id){
                if (!data || data.length == 0) {
                    
                }else{
+                    $("#"+selectId).empty();
                      $.tmpl("createCategoryOption", data).appendTo("#" + selectId);
                      if(!isNull(categories_id)){
                         $("#" + selectId).val(categories_id);
                      }
-                    $("#categoriesSelect").selectmenu();
-                    //if(optionModel == "createFlavorOption"){
-                    //   bindFlavorSelect();
-                    //}
+                     $("#" + selectId).multiselect({
+                           noneSelectedText:"<spring:message code="category.multi.seltext"/>",
+						   selectedText: "<spring:message code="multi.seltext"/>",
+						   checkAllText:"<spring:message code="multi.all"/>",
+						   uncheckAllText:"<spring:message code="multi.none"/>",
+						});
                }
-                $("#" + selectId).selectmenu();
             }catch(e){printMessage("Data Broken ["+e+"]");};
         },
         error: function(jqXHR, textStatus, errorThrown) {

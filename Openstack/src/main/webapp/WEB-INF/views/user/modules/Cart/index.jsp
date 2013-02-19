@@ -88,10 +88,15 @@
             <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
         </div>
         <div class="cartButton">
-            <a class="btn btn-primary btn-large buyorder">
-		      <spring:message code="cart.buy"/>
+            <a class="btn btn-large submitorder">
+		      <spring:message code="cart.submit"/>
 		    </a>
         </div>
+	</div>
+	<div class="selectPayMethods" style="margin:30px 20px 0 20px;">
+	   <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
+	   <div class="payMethodsContainer">
+	   </div>
 	</div>
     <script>setServer("<%=request.getContextPath()%>/user/cart");</script>
 </body>

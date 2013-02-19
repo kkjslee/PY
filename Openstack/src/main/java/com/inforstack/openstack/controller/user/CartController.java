@@ -3,7 +3,6 @@ package com.inforstack.openstack.controller.user;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,14 +46,12 @@ import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
-import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.rule.Rule;
 import com.inforstack.openstack.rule.RuleService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
-import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RuleUtils;
@@ -93,7 +90,7 @@ public class CartController {
 
 	@Autowired
 	private RuleService ruleService;
-	
+
 	@Autowired
 	private OrderService orderService;
 
@@ -490,31 +487,46 @@ public class CartController {
 		}
 		return models;
 	}
-	
-	@RequestMapping(value="/checkout", method=RequestMethod.POST, produces="application/json")
-	public @ResponseBody Map<String, Object> checkout(Model model, HttpServletRequest request){
-		Object sessionAttribute = WebUtils.getSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME);
-		if( sessionAttribute==null || (sessionAttribute instanceof CartModel)==false ){
-			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("cart.empty"));
+
+	@RequestMapping(value = "/checkout", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> checkout(Model model, HttpServletRequest request) {
+		Object sessionAttribute = WebUtils.getSessionAttribute(request,
+				CART_SESSION_ATTRIBUTE_NAME);
+		if (sessionAttribute == null
+				|| (sessionAttribute instanceof CartModel) == false) {
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("cart.empty"));
 		}
-		
-		CartModel cartModel = (CartModel)sessionAttribute;
-		if(cartModel.getItems()==null || cartModel.getItems().length==0){
-			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("cart.empty"));
+
+		CartModel cartModel = (CartModel) sessionAttribute;
+		if (cartModel.getItems() == null || cartModel.getItems().length == 0) {
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("cart.empty"));
 		}
-		
+
 		Order order = null;
-		try{
+		try {
 			order = orderService.createOrder(cartModel);
-		}catch(RuntimeException re){
+		} catch (RuntimeException re) {
 			log.error("create order failed", re);
 		}
-		
-		if(order == null){
-			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("cart.checkout.failed"));
-		}else{
+
+		if (order == null) {
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("cart.checkout.failed"));
+		} else {
 			WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME, null);
 			return OpenstackUtil.buildSuccessResponse(order.getId());
 		}
 	}
+
+	@RequestMapping(value = "/showPayMethods", method = RequestMethod.POST)
+	public String showPayMethod(Model model, HttpServletRequest request,
+			Integer orderId) {
+		model.addAttribute("orderId", orderId);
+		return CART_MODULE_HOME + "/payMethods";
+
+	}
+
 }

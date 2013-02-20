@@ -33,6 +33,7 @@ import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
+import com.inforstack.openstack.utils.ValidateUtil;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -161,6 +162,66 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/forgetPswForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showForgetPasswordForm(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		Map<String, String> conf = new LinkedHashMap<String, String>();
+		conf.put(".form", "start_end");
+		conf.put("form.username", "[text]");
+		conf.put("form.email", "[text]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> resetPSW(@Valid UserModel userModel,
+			BindingResult result, Model model, HttpServletRequest request) {
+
+		Map<String, Object> ret = new HashMap<String, Object>();
+		String userName = userModel.getUsername();
+		String email = userModel.getEmail();
+		if (StringUtil.isNullOrEmpty(userName)) {
+			ret.put("error", OpenstackUtil.getMessage("username.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(email)) {
+			ret.put("error", OpenstackUtil.getMessage("email.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		}
+
+		if (ret.isEmpty() == false) {
+			return ret;
+		}
+		String errorMsg = ValidateUtil.validModel(validator, "user", userModel);
+		if (errorMsg != null) {
+			ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
+			return ret;
+		}
+		User user = userService.findByNameAndEmail(userName, email);
+		if (user == null) {
+			ret.put(Constants.JSON_ERROR_STATUS,
+					OpenstackUtil.getMessage("user.email.notexist"));
+			return ret;
+		} else {
+			ret.put(Constants.JSON_SUCCESS_STATUS,
+					OpenstackUtil.getMessage("user.password.emailsend"));
+			// TODO new password email
+			return ret;
+		}
+	}
+
 	@RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
 	public String bootstrap(Model model) {
 		return "user/scripts/bootstrap";
@@ -195,37 +256,10 @@ public class UserController {
 			return ret;
 		}
 
-		ObjectError firstError = null;
-
-		BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(
-				tenantModel, "tenant");
-		validator.validate(tenantModel, bindingResult);
-		if (bindingResult.hasErrors()) {
-			firstError = bindingResult.getAllErrors().get(0);
-		}
-		if (firstError == null) {
-			bindingResult = new BeanPropertyBindingResult(userModel, "user");
-			validator.validate(userModel, bindingResult);
-			if (bindingResult.hasErrors()) {
-				firstError = bindingResult.getAllErrors().get(0);
-			}
-		}
-
-		if (firstError != null) {
-			if (firstError instanceof FieldError) {
-				FieldError fe = ((FieldError) firstError);
-				String errorMsg = OpenstackUtil.getMessage(fe.getField()
-						+ ".label")
-						+ firstError.getDefaultMessage();
-				errorMsg += "("
-						+ OpenstackUtil.getMessage(fe.getObjectName()
-								+ ".label") + ")";
-				errorMsg += " : " + fe.getRejectedValue();
-				ret.put("error", errorMsg);
-				return ret;
-			} else {
-				ret.put("error", firstError.getDefaultMessage());
-			}
+		String errorMsg = ValidateUtil.validModel(validator, "user", userModel);
+		if (errorMsg != null) {
+			ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
+			return ret;
 		}
 
 		User user = userModel.getUser();

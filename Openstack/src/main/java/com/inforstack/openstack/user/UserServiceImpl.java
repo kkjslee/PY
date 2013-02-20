@@ -259,4 +259,19 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public User findByNameAndEmail(String userName, String email) {
+		log.debug("getting User instance with name: " + userName
+				+ "and email: " + email);
+		User user = userDao.findByNameAndEmail(userName, email);
+		if (user == null) {
+			log.debug("getting User instance with name: " + userName
+					+ "and email: " + email);
+		} else {
+			log.debug("Find user successfully");
+		}
+
+		return user;
+	}
+
 }

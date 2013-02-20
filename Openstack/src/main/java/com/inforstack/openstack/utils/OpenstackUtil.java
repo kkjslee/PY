@@ -173,7 +173,8 @@ public class OpenstackUtil {
 			return false;
 
 		for (int i = 0, n = prop.length(); i < n; i++) {
-			if (Character.isJavaIdentifierPart(prop.charAt(i)) == false) {
+			char c = prop.charAt(i);
+			if (c != '.' && Character.isJavaIdentifierPart(c) == false) {
 				return false;
 			}
 		}

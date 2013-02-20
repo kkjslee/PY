@@ -2,12 +2,11 @@ package com.inforstack.openstack.controller.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.validator.constraints.Range;
 
@@ -23,280 +22,291 @@ import com.inforstack.openstack.utils.StringUtil;
  */
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class InstanceModel {
-  private static final Logger log = new Logger(InstanceModel.class);
-  // vm uuid
-  private String vmid;
+	private static final Logger log = new Logger(InstanceModel.class);
+	// vm uuid
+	private String vmid;
 
-  @Size(min = Constants.DEFAULT_NAME_MIN_LENGTH, max = Constants.DEFAULT_NAME_MAX_LENGTH, message = "{size.not.valid}")
-  @Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
-  private String vmname;
-  // cpu number
-  @Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
-  private Integer cpus;
-  // memory size,DEFAULT UNIT MB
-  @Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
-  private Integer memory;
-  @Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
-  private Integer maxmemory;
+	@Size(min = Constants.DEFAULT_NAME_MIN_LENGTH, max = Constants.DEFAULT_NAME_MAX_LENGTH, message = "{size.not.valid}")
+	@Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
+	private String vmname;
+	// cpu number
+	@Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
+	private Integer cpus;
+	// memory size,DEFAULT UNIT MB
+	@Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
+	private Integer memory;
+	@Range(min = Constants.DEFAULT_RAM_SIZE_MIN_LIMIT, max = Constants.DEFAULT_RAM_SIZE_MAX_LIMIT, message = "{size.not.valid}")
+	private Integer maxmemory;
 
-  @Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
-  private Integer maxcpus;
+	@Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
+	private Integer maxcpus;
 
-  @Range(min = Constants.DEFAULT_DISK_SIZE_MIN_LIMIT, max = Constants.DEFAULT_DISK_SIZE_MAX_LIMIT, message = "{size.not.valid}")
-  private Integer disksize;
-  // vm create time
-  private Date starttime;
-  // vm expire time
-  private Date expiretime;
-  private Date updatetime;
-  // public up bound
-  private List<String> publicips;
-  private List<String> privateips;
+	@Range(min = Constants.DEFAULT_DISK_SIZE_MIN_LIMIT, max = Constants.DEFAULT_DISK_SIZE_MAX_LIMIT, message = "{size.not.valid}")
+	private Integer disksize;
+	// vm create time
+	private Date starttime;
+	// vm expire time
+	private Date expiretime;
+	private Date updatetime;
+	// public up bound
+	private List<String> publicips;
+	private List<String> privateips;
 
-  // vm status
-  private String status;
-  // vm status display name
-  private String statusdisplay;
-  // vm vnc access address
-  private String accesspoint;
-  private String tenantId;
-  // zone
-  private String zone;
-  private String zonedisplay;
-  // vm os type
-  private String ostype;
-  private String assignedto;
+	// vm status
+	private String status;
+	// vm status display name
+	private String statusdisplay;
+	// vm vnc access address
+	private String accesspoint;
+	private String tenantId;
+	// zone
+	private String zone;
+	private String zonedisplay;
+	// vm os type
+	private String ostype;
+	private String assignedto;
 
-  // task staus
-  private String taskStatus;
+	// task staus
+	private String taskStatus;
 
-  private String imageId;
+	private String imageId;
 
-  private String flavorId;
-  private boolean isProcessing;
-  private int powerOn;
-  // status+task+power
-  private String statusString;
+	private String flavorId;
+	private boolean isProcessing;
+	private int powerOn;
+	// status+task+power
+	private String statusString;
 
-  public InstanceModel() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
+	private Map<String, String> addresses;
 
-  public String getTenantId() {
-    return tenantId;
-  }
+	public InstanceModel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-  public void setTenantId(String tenantId) {
-    this.tenantId = tenantId;
-  }
+	public String getTenantId() {
+		return tenantId;
+	}
 
-  public String getVmid() {
-    return vmid;
-  }
+	public void setTenantId(String tenantId) {
+		this.tenantId = tenantId;
+	}
 
-  public void setVmid(String vmid) {
-    this.vmid = vmid;
-  }
+	public String getVmid() {
+		return vmid;
+	}
 
-  public String getVmname() {
-    return vmname;
-  }
+	public void setVmid(String vmid) {
+		this.vmid = vmid;
+	}
 
-  public void setVmname(String vmname) {
-    this.vmname = vmname;
-  }
+	public String getVmname() {
+		return vmname;
+	}
 
-  public Integer getCpus() {
-    return cpus;
-  }
+	public void setVmname(String vmname) {
+		this.vmname = vmname;
+	}
 
-  public void setCpus(Integer cpus) {
-    this.cpus = cpus;
-  }
+	public Integer getCpus() {
+		return cpus;
+	}
 
-  public Integer getMemory() {
-    return memory;
-  }
+	public void setCpus(Integer cpus) {
+		this.cpus = cpus;
+	}
 
-  public void setMemory(Integer memory) {
-    this.memory = memory;
-  }
+	public Integer getMemory() {
+		return memory;
+	}
 
-  public Date getStarttime() {
-    return starttime;
-  }
+	public void setMemory(Integer memory) {
+		this.memory = memory;
+	}
 
-  public void setStarttime(Date starttime) {
-    this.starttime = starttime;
-  }
+	public Date getStarttime() {
+		return starttime;
+	}
 
-  public Date getExpiretime() {
-    return expiretime;
-  }
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
 
-  public void setExpiretime(Date expiretime) {
-    this.expiretime = expiretime;
-  }
+	public Date getExpiretime() {
+		return expiretime;
+	}
 
-  public List<String> getPublicips() {
-    return publicips;
-  }
+	public void setExpiretime(Date expiretime) {
+		this.expiretime = expiretime;
+	}
 
-  public void setPublicips(List<String> publicips) {
-    this.publicips = publicips;
-  }
+	public List<String> getPublicips() {
+		return publicips;
+	}
 
-  public List<String> getPrivateips() {
-    return privateips;
-  }
+	public void setPublicips(List<String> publicips) {
+		this.publicips = publicips;
+	}
 
-  public void setPrivateips(List<String> privateips) {
-    this.privateips = privateips;
-  }
+	public List<String> getPrivateips() {
+		return privateips;
+	}
 
-  public Integer getDisksize() {
-    return disksize;
-  }
+	public void setPrivateips(List<String> privateips) {
+		this.privateips = privateips;
+	}
 
-  public void setDisksize(Integer disksize) {
-    this.disksize = disksize;
-  }
+	public Integer getDisksize() {
+		return disksize;
+	}
 
-  public Integer getMaxmemory() {
-    return maxmemory;
-  }
+	public void setDisksize(Integer disksize) {
+		this.disksize = disksize;
+	}
 
-  public void setMaxmemory(Integer maxmemory) {
-    this.maxmemory = maxmemory;
-  }
+	public Integer getMaxmemory() {
+		return maxmemory;
+	}
 
-  public Integer getMaxcpus() {
-    return maxcpus;
-  }
+	public void setMaxmemory(Integer maxmemory) {
+		this.maxmemory = maxmemory;
+	}
 
-  public void setMaxcpus(Integer maxcpus) {
-    this.maxcpus = maxcpus;
-  }
+	public Integer getMaxcpus() {
+		return maxcpus;
+	}
 
-  public String getStatusdisplay() {
-    return statusdisplay;
-  }
+	public void setMaxcpus(Integer maxcpus) {
+		this.maxcpus = maxcpus;
+	}
 
-  public void setStatusdisplay(String statusdisplay) {
-    this.statusdisplay = statusdisplay;
-  }
+	public String getStatusdisplay() {
+		return statusdisplay;
+	}
 
-  public String getAccesspoint() {
-    return accesspoint;
-  }
+	public void setStatusdisplay(String statusdisplay) {
+		this.statusdisplay = statusdisplay;
+	}
 
-  public void setAccesspoint(String accesspoint) {
-    this.accesspoint = accesspoint;
-  }
+	public String getAccesspoint() {
+		return accesspoint;
+	}
 
-  public String getZone() {
-    return zone;
-  }
+	public void setAccesspoint(String accesspoint) {
+		this.accesspoint = accesspoint;
+	}
 
-  public void setZone(String zone) {
-    this.zone = zone;
-  }
+	public String getZone() {
+		return zone;
+	}
 
-  public String getZonedisplay() {
-    return zonedisplay;
-  }
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
 
-  public void setZonedisplay(String zonedisplay) {
-    this.zonedisplay = zonedisplay;
-  }
+	public String getZonedisplay() {
+		return zonedisplay;
+	}
 
-  public String getOstype() {
-    return ostype;
-  }
+	public void setZonedisplay(String zonedisplay) {
+		this.zonedisplay = zonedisplay;
+	}
 
-  public void setOstype(String ostype) {
-    this.ostype = ostype;
-  }
+	public String getOstype() {
+		return ostype;
+	}
 
-  public String getAssignedto() {
-    return assignedto;
-  }
+	public void setOstype(String ostype) {
+		this.ostype = ostype;
+	}
 
-  public void setAssignedto(String assignedto) {
-    this.assignedto = assignedto;
-  }
+	public String getAssignedto() {
+		return assignedto;
+	}
 
-  public String getStatus() {
-    return status;
-  }
+	public void setAssignedto(String assignedto) {
+		this.assignedto = assignedto;
+	}
 
-  public void setStatus(String status) {
-    this.status = status;
-  }
+	public String getStatus() {
+		return status;
+	}
 
-  public Date getUpdatetime() {
-    return updatetime;
-  }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-  public void setUpdatetime(Date updateTime) {
-    this.updatetime = updateTime;
-  }
+	public Date getUpdatetime() {
+		return updatetime;
+	}
 
-  public String getTaskStatus() {
-    return taskStatus;
-  }
+	public void setUpdatetime(Date updateTime) {
+		this.updatetime = updateTime;
+	}
 
-  public void setTaskStatus(String taskStatus) {
-    this.taskStatus = taskStatus;
-  }
+	public String getTaskStatus() {
+		return taskStatus;
+	}
 
-  public String getImageId() {
-    return imageId;
-  }
+	public void setTaskStatus(String taskStatus) {
+		this.taskStatus = taskStatus;
+	}
 
-  public void setImageId(String imageId) {
-    this.imageId = imageId;
-  }
+	public String getImageId() {
+		return imageId;
+	}
 
-  public String getFlavorId() {
-    return flavorId;
-  }
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
 
-  public void setFlavorId(String flavorId) {
-    this.flavorId = flavorId;
-  }
+	public String getFlavorId() {
+		return flavorId;
+	}
 
-  public boolean getIsProcessing() {
-    String powerString = (powerOn == 1 ? "on" : "off");
-    this.statusString = StringUtil.joinStringWithEmpty(status, taskStatus, powerString + "")
-        .toLowerCase();
-    log.info("vm :" + vmid + " vmname: " + vmname + " current status string : " + statusString);
-    if (Constants.VM_STATUS_DONE_STRING.indexOf("|" + statusString + "|") == -1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+	public void setFlavorId(String flavorId) {
+		this.flavorId = flavorId;
+	}
 
-  public void setIsProcessing(boolean isProcessing) {
-    this.isProcessing = isProcessing;
-  }
+	public boolean getIsProcessing() {
+		String powerString = (powerOn == 1 ? "on" : "off");
+		this.statusString = StringUtil.joinStringWithEmpty(status, taskStatus,
+				powerString + "").toLowerCase();
+		log.info("vm :" + vmid + " vmname: " + vmname
+				+ " current status string : " + statusString);
+		if (Constants.VM_STATUS_DONE_STRING.indexOf("|" + statusString + "|") == -1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-  public int getPowerOn() {
-    return powerOn;
-  }
+	public void setIsProcessing(boolean isProcessing) {
+		this.isProcessing = isProcessing;
+	}
 
-  public void setPowerOn(int powerOn) {
-    this.powerOn = powerOn;
-  }
+	public int getPowerOn() {
+		return powerOn;
+	}
 
-  public String getStatusString() {
-    return statusString;
-  }
+	public void setPowerOn(int powerOn) {
+		this.powerOn = powerOn;
+	}
 
-  public void setStatusString(String statusString) {
-    this.statusString = statusString;
-  }
+	public String getStatusString() {
+		return statusString;
+	}
+
+	public void setStatusString(String statusString) {
+		this.statusString = statusString;
+	}
+
+	public Map<String, String> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Map<String, String> addresses) {
+		this.addresses = addresses;
+	}
 
 }

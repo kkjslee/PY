@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/agent")
 public class AgentController {
 
-  @RequestMapping(value = "/reg", method = RequestMethod.GET)
-  public String register(Model model) {
-    model.addAttribute("enterpoint", "user");
-    return "register";
-  }
+	@RequestMapping(value = "/reg", method = RequestMethod.GET)
+	public String register(Model model) {
+		model.addAttribute("enterpoint", "user");
+		return "register";
+	}
 }

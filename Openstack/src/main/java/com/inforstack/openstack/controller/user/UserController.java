@@ -73,59 +73,93 @@ public class UserController {
 	public String naviInit(Model model) {
 		return "user/scripts/navinit";
 	}
-  
-  @RequestMapping(value="/list", method=RequestMethod.POST, produces = "application/json")
-  public @ResponseBody Map<String, Object> listUser(int pageIndex, int pageSize, Model model,
-		  HttpServletRequest request, HttpServletResponse response){
-	  PaginationModel<User> pm = userService.pagination(pageIndex, pageSize);
-	  
-	  Map<String, String> conf = new LinkedHashMap<String, String>();
-	  conf.put("grid.username", "[plain]");
-	  conf.put("grid.email", "[button]test,delete");
-	  conf.put("test.label", "测试");
-	  conf.put("test.onclick", "if(!this.testForm){this.testForm=new customForm();}this.testForm.show({title:'test',container:$('#fc'),url:'/Openstack/user/form?id={id}', buttons: [{text: 'aaa', click:function(){alert('In form')}}]});");
-	  conf.put("delete.label", "delete");
-	  conf.put("delete.onclick", "alert('{a : {username}}')");
-	  conf.put(".datas", "users");
-	  
-	  model.addAttribute("users", pm.getData());
-	  model.addAttribute("configuration", conf);
-	  
-	  String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
-	  
-	  if(jspString == null){
-		  return OpenstackUtil.buildErrorResponse("error message");
-	  }else{
-		  Map<String, Object> result = new HashMap<String, Object>();
-		  result.put("recordTotal", pm.getRecordTotal());
-		  result.put("html", jspString);
-		  
-		  return OpenstackUtil.buildSuccessResponse(result);
-	  }
-	  
-  }
-  
-  @RequestMapping(value="/form", method=RequestMethod.POST, produces = "application/json")
-  public @ResponseBody Map<String, Object> form(Model model,
-		  HttpServletRequest request, HttpServletResponse response){
-	  User user = userService.listAll().get(0);
-	  
-	  Map<String, String> conf = new LinkedHashMap<String, String>();
-	  conf.put(".form", "start_end");
-	  conf.put("form.username", "[text]" + user.getUsername());
-	  conf.put("username.tip", "test");
-	  conf.put("form.email", "[text]" + OpenstackUtil.nulltoEmpty(user.getEmail()));
-	  
-	  model.addAttribute("configuration", conf);
-	  
-	  String jspString = OpenstackUtil.getJspPage("/templates/form.jsp?form.configuration=configuration&type=", model.asMap(), request, response);
-	  
-	  if(jspString == null){
-		  return OpenstackUtil.buildErrorResponse("error message");
-	  }else{
-		  return OpenstackUtil.buildSuccessResponse(jspString);
-	  }
-  }
+
+	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> listUser(int pageIndex, int pageSize, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		PaginationModel<User> pm = userService.pagination(pageIndex, pageSize);
+
+		Map<String, String> conf = new LinkedHashMap<String, String>();
+		conf.put("grid.username", "[plain]");
+		conf.put("grid.email", "[button]test,delete");
+		conf.put("test.label", "测试");
+		conf.put(
+				"test.onclick",
+				"if(!this.testForm){this.testForm=new customForm();}this.testForm.show({title:'test',container:$('#fc'),url:'/Openstack/user/form?id={id}', buttons: [{text: 'aaa', click:function(){alert('In form')}}]});");
+		conf.put("delete.label", "delete");
+		conf.put("delete.onclick", "alert('{a : {username}}')");
+		conf.put(".datas", "users");
+
+		model.addAttribute("users", pm.getData());
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/grid.jsp?grid.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("recordTotal", pm.getRecordTotal());
+			result.put("html", jspString);
+
+			return OpenstackUtil.buildSuccessResponse(result);
+		}
+
+	}
+
+	@RequestMapping(value = "/form", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> form(Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		User user = userService.listAll().get(0);
+
+		Map<String, String> conf = new LinkedHashMap<String, String>();
+		conf.put(".form", "start_end");
+		conf.put("form.username", "[text]" + user.getUsername());
+		conf.put("username.tip", "test");
+		conf.put("form.email",
+				"[text]" + OpenstackUtil.nulltoEmpty(user.getEmail()));
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/regForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showRegForm(Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		Map<String, String> conf = new LinkedHashMap<String, String>();
+		conf.put(".form", "start_end");
+		conf.put("form.username", "[text]");
+		conf.put("form.password", "[password]");
+		conf.put("form.confirmPassword", "[password]");
+		conf.put("form.email", "[text]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
 
 	@RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
 	public String bootstrap(Model model) {
@@ -135,6 +169,101 @@ public class UserController {
 	@RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
 	public String template(Model model) {
 		return "user/scripts/template";
+	}
+
+	@RequestMapping(value = "/userReg", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> doUserRegister(@Valid UserModel userModel,
+			BindingResult result, UserTenantModel tenantModel, Model model,
+			HttpServletRequest req) {
+		log.debug("register user");
+
+		Map<String, Object> ret = new HashMap<String, Object>();
+
+		if (StringUtil.isNullOrEmpty(userModel.getUsername())) {
+			ret.put("error", OpenstackUtil.getMessage("username.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getPassword())) {
+			ret.put("error", OpenstackUtil.getMessage("password.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		} else if (StringUtil.isNullOrEmpty(userModel.getEmail())) {
+			ret.put("error", OpenstackUtil.getMessage("email.label")
+					+ OpenstackUtil.getMessage("not.null.empty"));
+		}
+
+		if (ret.isEmpty() == false) {
+			return ret;
+		}
+
+		ObjectError firstError = null;
+
+		BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(
+				tenantModel, "tenant");
+		validator.validate(tenantModel, bindingResult);
+		if (bindingResult.hasErrors()) {
+			firstError = bindingResult.getAllErrors().get(0);
+		}
+		if (firstError == null) {
+			bindingResult = new BeanPropertyBindingResult(userModel, "user");
+			validator.validate(userModel, bindingResult);
+			if (bindingResult.hasErrors()) {
+				firstError = bindingResult.getAllErrors().get(0);
+			}
+		}
+
+		if (firstError != null) {
+			if (firstError instanceof FieldError) {
+				FieldError fe = ((FieldError) firstError);
+				String errorMsg = OpenstackUtil.getMessage(fe.getField()
+						+ ".label")
+						+ firstError.getDefaultMessage();
+				errorMsg += "("
+						+ OpenstackUtil.getMessage(fe.getObjectName()
+								+ ".label") + ")";
+				errorMsg += " : " + fe.getRejectedValue();
+				ret.put("error", errorMsg);
+				return ret;
+			} else {
+				ret.put("error", firstError.getDefaultMessage());
+			}
+		}
+
+		User user = userModel.getUser();
+		Tenant tenant = tenantModel.getTenant();
+		tenant.setName(user.getUsername());
+
+		User tempUser = userService.findByName(user.getUsername());
+		if (tempUser != null) {
+			log.warn("Register user failed for user name already exist");
+			ret.put("error",
+					OpenstackUtil.getMessage("user.alreadyexist",
+							user.getUsername()));
+			return ret;
+		}
+		boolean success = true;
+		try {
+			userService.registerUser(user, tenant, Constants.ROLE_USER);
+		} catch (Exception e) {
+			success = false;
+			log.error(e.getMessage(), e);
+			ret.put("error", e.getMessage());
+		}
+
+		if (success == false) {
+			try {
+				keystoneService.removeUserAndTenant(user.getOpenstackUser()
+						.getId(), tenant.getOpenstatckTenant().getId());
+			} catch (OpenstackAPIException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
+
+		if (success) {
+			log.debug("Register user successfully");
+			ret.put("success", OpenstackUtil.getMessage("user.reg.success"));
+		}
+
+		return ret;
 	}
 
 	@RequestMapping(value = "/doReg", method = RequestMethod.POST, produces = "application/json")

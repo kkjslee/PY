@@ -124,7 +124,7 @@ public class Constants {
 	public static final String COLUMN_PROMOTION_DISPLAYNAME = "DisplayName";
 	public static final String COLUMN_PERIOD_NAME = "Name";
 
-	public static final String VM_STATUS_DONE_STRING = "|activeoff|pausedoff|stoppedoff|suspendedoff|deletedoff|";
+	public static final String VM_STATUS_DONE_STRING = "|erroroff|activeoff|pausedoff|stoppedoff|suspendedoff|deletedoff|";
 
 	public static final int PERIOD_TYPE_YEAR = 1;
 	public static final int PERIOD_TYPE_MONTH = 2;
@@ -134,11 +134,11 @@ public class Constants {
 	public static final int PERIOD_TYPE_MINUTE = 12;
 
 	public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
-  
-  public static final int AJAX_RESPONSE_STATUS_ERROR = 0;
-  public static final int AJAX_RESPONSE_STATUS_SUCCESS = 1;
-  
-  public static final String AJAX_RESPONSE_KEY_STATUS = "status";
-  public static final String AJAX_RESPONSE_KEY_RESULT = "result";
-  
+
+	public static final int AJAX_RESPONSE_STATUS_ERROR = 0;
+	public static final int AJAX_RESPONSE_STATUS_SUCCESS = 1;
+
+	public static final String AJAX_RESPONSE_KEY_STATUS = "status";
+	public static final String AJAX_RESPONSE_KEY_RESULT = "result";
+
 }

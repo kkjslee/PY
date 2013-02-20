@@ -130,6 +130,17 @@ insert into Resource(id, url, permission) values (50, '/admin/category/listForJs
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 
+insert into Resource(id, url, permission) values (200, '/user/cart/modules/index', 'user');
+insert into Resource(id, url, permission) values (201, '/user/cart/scripts/bootstrap', 'user');
+insert into Resource(id, url, permission) values (202, '/user/cart/scripts/template', 'user');
+insert into Resource(id, url, permission) values (203, '/user/cart/create', 'user');
+insert into Resource(id, url, permission) values (204, '/user/cart/clear', 'user');
+insert into Resource(id, url, permission) values (205, '/user/cart/add', 'user');
+insert into Resource(id, url, permission) values (206, '/user/cart/update', 'user');
+insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'user');
+insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethods', 'user');
+insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
+
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (3,'name_id',NULL,'Category');
@@ -159,12 +170,12 @@ INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (16,'促
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (17,'Other 1',9,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (18,'其他1',9,2);
 
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (1,1,1);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (2,1,2);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (3,1,3);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (4,1,4);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (5,1,5);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (6,1,6);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (7,1,7);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (8,1,8);
-INSERT INTO `Category` (`id`,`enable`,`name_id`) VALUES (9,1,9);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (1,1,1,1);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (2,1,1,2);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (3,1,1,3);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (4,1,1,4);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (5,1,1,5);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (6,1,1,6);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (7,1,1,7);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (8,1,1,8);
+INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (9,1,1,9);

@@ -3,7 +3,6 @@ package com.inforstack.openstack.utils;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +21,13 @@ import com.inforstack.openstack.i18n.model.I18nContext;
 import com.inforstack.openstack.log.Logger;
 
 public class OpenstackUtil {
-	
+
 	private static final Logger log = new Logger(OpenstackUtil.class);
-	
+
 	private static ApplicationContext context;
 	private static final ThreadLocal<I18nContext> localeConext = new ThreadLocal<I18nContext>();
 	private static ViewResolver viewResolver;
-	
+
 	public static Locale getLocale(Language language) {
 		if (language == null) {
 			return null;
@@ -64,7 +63,7 @@ public class OpenstackUtil {
 	public static void setContext(ApplicationContext context) {
 		OpenstackUtil.context = context;
 	}
-	
+
 	public static Object getBean(String name) {
 		return context.getBean(name);
 	}
@@ -72,19 +71,20 @@ public class OpenstackUtil {
 	public static <T> T getBean(Class<T> clz) {
 		return context.getBean(clz);
 	}
-	
-	public static ViewResolver getViewResolver(HttpServletRequest req){
+
+	public static ViewResolver getViewResolver(HttpServletRequest req) {
 		synchronized (OpenstackUtil.class) {
-			if(viewResolver == null){
-				viewResolver = (ViewResolver)RequestContextUtils.getWebApplicationContext(req).getBean("viewResolver");
+			if (viewResolver == null) {
+				viewResolver = (ViewResolver) RequestContextUtils
+						.getWebApplicationContext(req).getBean("viewResolver");
 			}
 		}
-		
+
 		return viewResolver;
 	}
 
-	public static String getMessage(String key) {
-		return context.getMessage(key, null, getLocale());
+	public static String getMessage(String key, Object... args) {
+		return context.getMessage(key, args, getLocale());
 	}
 
 	/**
@@ -113,17 +113,22 @@ public class OpenstackUtil {
 	}
 
 	public static Object getProperty(Object o, String prop) {
-		if (prop == null || o == null) return null;
+		if (prop == null || o == null)
+			return null;
 		try {
 			int index = prop.indexOf(".");
-			if(index == -1){
-				return o.getClass().getMethod("get" + StringUtils.capitalize(prop)).invoke(o);
-			}else{
+			if (index == -1) {
+				return o.getClass()
+						.getMethod("get" + StringUtils.capitalize(prop))
+						.invoke(o);
+			} else {
 				return getProperty(
-						o.getClass().getMethod(
-								"get" + StringUtils.capitalize(prop.substring(0, index))
-						).invoke(o), 
-						prop.substring(index + 1));
+						o.getClass()
+								.getMethod(
+										"get"
+												+ StringUtils.capitalize(prop
+														.substring(0, index)))
+								.invoke(o), prop.substring(index + 1));
 			}
 		} catch (Exception e) {
 			return null;
@@ -147,13 +152,16 @@ public class OpenstackUtil {
 
 		return ret;
 	}
-	
-	public static String getJspPage(String viewName, Map<String, ?> model, HttpServletRequest request, HttpServletResponse resp){
+
+	public static String getJspPage(String viewName, Map<String, ?> model,
+			HttpServletRequest request, HttpServletResponse resp) {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		response.setCharacterEncoding(resp.getCharacterEncoding());
 		try {
-			getViewResolver(request).resolveViewName(viewName, getLocale()).render(model, request, response);
-			return response.getContentAsString().replaceAll("(^\\s+|\\s+$)", "");
+			getViewResolver(request).resolveViewName(viewName, getLocale())
+					.render(model, request, response);
+			return response.getContentAsString()
+					.replaceAll("(^\\s+|\\s+$)", "");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return null;
@@ -161,19 +169,21 @@ public class OpenstackUtil {
 	}
 
 	public static boolean isValidProperty(String prop) {
-		if( StringUtil.isNullOrEmpty(prop, false)) return false;
-		
-		for(int i=0,n=prop.length();i<n;i++){
-			if(Character.isJavaIdentifierPart(prop.charAt(i)) == false){
+		if (StringUtil.isNullOrEmpty(prop, false))
+			return false;
+
+		for (int i = 0, n = prop.length(); i < n; i++) {
+			if (Character.isJavaIdentifierPart(prop.charAt(i)) == false) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
-	public static Object nulltoEmpty(Object o){
-		if(o==null) return "";
+
+	public static Object nulltoEmpty(Object o) {
+		if (o == null)
+			return "";
 		return o;
 	}
 }

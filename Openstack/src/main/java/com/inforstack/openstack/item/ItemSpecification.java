@@ -26,6 +26,7 @@ public class ItemSpecification {
 	public static final int OS_TYPE_VOLUME_ID = 3;
 	public static final int OS_TYPE_NETWORK_ID = 4;
 	public static final int OS_TYPE_USAGE_ID = 5;
+	public static final int OS_TYPE_PERIOD_ID = 6;
 
 	public static final String OS_TYPE_NONE = "";
 	public static final String OS_TYPE_FLAVOR = "openstack.flavor";
@@ -33,6 +34,7 @@ public class ItemSpecification {
 	public static final String OS_TYPE_VOLUME = "openstack.volume";
 	public static final String OS_TYPE_NETWORK = "openstack.network";
 	public static final String OS_TYPE_USAGE = "openstack.usage";
+	public static final String OS_TYPE_PERIOD = "openstack.period";
 
 	@Id
 	@GeneratedValue

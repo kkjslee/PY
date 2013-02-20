@@ -30,6 +30,8 @@ public class Category {
 	private int nameId;
 
 	private boolean enable;
+	
+	private boolean system;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "item_category", joinColumns = { @JoinColumn(name = "category_id", insertable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "item_id", insertable = false, updatable = false) })
@@ -65,6 +67,14 @@ public class Category {
 
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	public boolean getSystem() {
+		return system;
+	}
+
+	public void setSystem(boolean system) {
+		this.system = system;
 	}
 
 	public List<ItemSpecification> getItemSpecifications() {

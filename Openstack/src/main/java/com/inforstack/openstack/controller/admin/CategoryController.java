@@ -128,6 +128,7 @@ public class CategoryController {
 			cm.setId(category.getId());
 			cm.setName(nameArray);
 			cm.setEnable(category.getEnable());
+			cm.setSystem(category.getSystem());
 
 			if (withItems) {
 				List<ItemSpecification> itemSpecifications = this.itemService
@@ -232,6 +233,7 @@ public class CategoryController {
 			cm.setId(category.getId());
 			cm.setName(name);
 			cm.setEnable(category.getEnable());
+			cm.setSystem(category.getSystem());
 
 			if (withItems) {
 				List<ItemSpecification> itemSpecifications = this.itemService

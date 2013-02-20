@@ -60,6 +60,7 @@ public class ItemController {
 			cm.setId(category.getId());
 			cm.setName(name);
 			cm.setEnable(category.getEnable());
+			cm.setSystem(category.getSystem());
 			
 			if (withItems) {
 				List<ItemSpecification> itemSpecifications = this.itemService.listItemSpecificationByCategory(category);

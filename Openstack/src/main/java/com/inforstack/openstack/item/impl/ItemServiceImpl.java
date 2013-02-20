@@ -35,6 +35,7 @@ import com.inforstack.openstack.item.ItemSpecificationDao;
 import com.inforstack.openstack.item.Price;
 import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.period.OrderPeriodService;
 import com.inforstack.openstack.utils.Constants;
 
 @Service
@@ -60,6 +61,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private I18nLinkService i18nLinkService;
+	
+	@Autowired
+	private OrderPeriodService periodService;
 
 	@Override
 	public List<Category> listAllCategory(boolean excludeDisabled) {
@@ -105,6 +109,7 @@ public class ItemServiceImpl implements ItemService {
 				category = new Category();
 				category.setEnable(model.getEnable());
 				category.setName(link);
+				category.setSystem(false);
 				category = this.categoryDao.persist(category);
 			}
 		}
@@ -115,7 +120,7 @@ public class ItemServiceImpl implements ItemService {
 	public void updateCategory(CategoryModel model) throws ApplicationException {
 		if (model.getId() != null) {
 			Category category = this.categoryDao.findById(model.getId());
-			if (category != null) {
+			if (category != null && !category.getSystem()) {
 				Integer linkId = category.getName().getId();
 				if (linkId != null) {
 					I18nModel[] i18nModels = model.getName();
@@ -142,7 +147,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void removeCategory(Integer id) throws ApplicationException {
 		Category category = this.categoryDao.findById(id);
-		if (category != null) {
+		if (category != null && !category.getSystem()) {
 			this.categoryDao.remove(category);
 		}
 	}
@@ -166,8 +171,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemSpecification getItemSpecification(Integer id) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao
-				.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -176,12 +180,11 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return itemSpecification;
 	}
-
+	
 	@Override
 	public Map<String, String> getItemSpecificationDetail(Integer id) {
 		HashMap<String, String> detail = new HashMap<String, String>();
-		ItemSpecification itemSpecification = this.itemSpecificationDao
-				.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
 		if (itemSpecification != null) {
 			int osType = itemSpecification.getOsType();
 			String refId = itemSpecification.getRefId();
@@ -196,22 +199,13 @@ public class ItemServiceImpl implements ItemService {
 					log.debug("Unknown flavor id: " + refId);
 				}
 				break;
-			case ItemSpecification.OS_TYPE_IMAGE_ID:
-				try {
-					Image image = this.imageService.getImage(refId);
-					detail.put("os_imagename", image.getName());
-				} catch (OpenstackAPIException e) {
-					log.debug("Unknown image id: " + refId);
-				}
-				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				detail.put("os_size", Integer.toString(0));
 				break;
 			}
 			List<ItemMetadata> metadataList = itemSpecification.getMetadata();
 			for (ItemMetadata metadata : metadataList) {
-				detail.put(metadata.getName().getI18nContent(), metadata
-						.getValue().getI18nContent());
+				detail.put(metadata.getName().getI18nContent(), metadata.getValue().getI18nContent());
 			}
 		}
 		return detail;
@@ -247,6 +241,12 @@ public class ItemServiceImpl implements ItemService {
 		case ItemSpecification.OS_TYPE_USAGE_ID:
 			osTypeName = ItemSpecification.OS_TYPE_USAGE;
 			break;
+		case ItemSpecification.OS_TYPE_PERIOD_ID:
+			if (this.checkPeriod(refId)) {
+				osTypeName = ItemSpecification.OS_TYPE_PERIOD;
+			} else {
+				log.debug("Unknown period id:" + refId);
+			}
 		default:
 			log.debug("Unknown ItemSpecification Type: " + model.getOsType());
 		}
@@ -562,6 +562,11 @@ public class ItemServiceImpl implements ItemService {
 			log.error("Can't get the image list from openstack");
 			throw new RuntimeException(e);
 		}
+		return success;
+	}
+	
+	private boolean checkPeriod(String id) {
+		boolean success = (this.periodService.findPeriodById(Integer.parseInt(id)) != null);
 		return success;
 	}
 

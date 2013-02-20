@@ -138,6 +138,7 @@ public class ProductController {
 				Category c = cList.get(i);
 				CategoryModel cModel = new CategoryModel();
 				cModel.setEnable(c.getEnable());
+				cModel.setSystem(c.getSystem());
 				cModel.setId(c.getId());
 				I18nModel[] cName = new I18nModel[1];
 				cName[0] = new I18nModel();

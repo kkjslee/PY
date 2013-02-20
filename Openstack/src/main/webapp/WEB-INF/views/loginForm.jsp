@@ -45,6 +45,7 @@
             		 title:'<spring:message code="user.user.signup"/>',
             		 container:$('#showRegForm'),
             		 url:'<c:url value="/user/regForm"/>',
+            		 width:260,
        				 buttons: [
        				           {   
        				        	  text: '<spring:message code="confirm.button"/>', 
@@ -60,7 +61,64 @@
        				           ]
             	 });
             	 });
+             
+             $("#userForgetPswBtn").bind("click",function(){
+                 $("#message").html("");
+                 var forPswForm=new CustomForm();
+                 forPswForm.show({
+                     title:'<spring:message code="user.getpassword"/>',
+                     container:$('#showForgetPasswordForm'),
+                     url:'<c:url value="/user/forgetPswForm"/>',
+                     width:260,
+                     buttons: [
+                               {   
+                                  text: '<spring:message code="confirm.button"/>', 
+                                  click:function(){
+                                	  resetPassword(forPswForm);
+                                  }},
+                              {
+                                text: '<spring:message code="cancel.button"/>',
+                                click: function() {
+                                	forPswForm.close();
+                                }
+                               }
+                               ]
+                 });
+                 });
          });
+		 
+		 function resetPassword(forPswForm){
+             var form = forPswForm.getForm();
+             var username = $(form).find("#username").val();
+             var email = $(form).find("#email").val();
+             if(isNull(username) || isNull(email)){
+                 alert("<spring:message code='all.required'/>");
+                 return;
+             }
+             $.ajax({
+                 type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    url:  '<c:url value="/user/resetPassword" />',
+                    data:{
+                            username: username,
+                            email: email
+                    },
+                    success: function(data) {
+                        if (data.error) {
+                            info = data.error;
+                            alert(info);
+                        }else if(data.success){
+                        	forPswForm.close();
+                            alert(data.success);
+                       }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                    },
+                    }
+                    
+                );
+         }
 		 
 		 function doUserReg(regForm){
 			 var form = regForm.getForm();
@@ -68,8 +126,8 @@
 			 var password = $(form).find("#password").val();
 			 var confirmPassword= $(form).find("#confirmPassword").val();
 			 var email = $(form).find("#email").val();
-			 if(isNull(username) || isNull(password) || isNull(confirmPassword)){
-				 alert("<spring:message code='username.password.notnull'/>");
+			 if(isNull(username) || isNull(password) || isNull(confirmPassword) || isNull(email)){
+				 alert("<spring:message code='all.required'/>");
 				 return;
 			 }
 			 if(username.length<6 || username.length>45 || password.length<6 || password.length >45){
@@ -88,7 +146,7 @@
 		            data:{
 	                        username: username,
 	                        password: password,
-	                        email: email,
+	                        email: email
 		            },
 		            success: function(data) {
 		            	if (data.error) {
@@ -106,6 +164,11 @@
 			    );
 		 }
 	</script>
+	<style>
+	#userForgetPswBtn{
+	    padding:2px 1px 2px 3px;
+	}
+	</style>
 </head>
 <body id="splash">
 ${request}
@@ -156,7 +219,8 @@ ${request}
 					<div class="modal-footer">
 						<input type="submit" id="logBtn" tabindex="3" class="logBtn btn btn-primary pull-right" value='<spring:message code="user.login.lable"/>'/>
 						<c:if test='${"user" eq enterpoint}'>
-						  	<a type="button" id="userRegBtn" href="#" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
+						  	<a id="userForgetPswBtn" href="#" onclick="return false;" class="pull-right"><spring:message code="user.forgetpassword"/></a>
+						     <a type="button" id="userRegBtn" href="#"  onclick="return false;" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
 						 </c:if>
 						 <c:if test='${"agent" eq enterpoint }'>
 						 	<a type="button" id="agentRegBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
@@ -170,6 +234,7 @@ ${request}
                        </c:if>
 			        </div>  
 			        <div id="showRegForm"></div>
+			        <div id="showForgetPasswordForm"></div>
               </div> 
           </form>
     </div> 

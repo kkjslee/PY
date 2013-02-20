@@ -42,9 +42,10 @@ function getResult(response){
 function CustomForm(){
 	
 	var form = null;
+	var inited = false;
 	
 	this.show = function(conf){
-		if(form == null){
+		if(inited == false || form == null){
 			init(conf);
 		}else{
 			form.dialog();
@@ -86,17 +87,18 @@ function CustomForm(){
 	            $("<span class='loadingError'>error</span>").appendTo(container.empty());
 	        },
 	        complete : function(){
-	        	var d = container.dialog({
+	        	form = container.dialog({
 	        		title : conf.title,
 	        		modal: true,
 	                resizable: false,
+	                width:conf.width,
 	                show: "slide",
 	                hide: "slide",
 	        		buttons : conf.buttons
 	        	});
 	        	
 	        	if(success == true){
-	        		form = d;
+	        		inited = true;
 	        	}
 	        }
 	    });

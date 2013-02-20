@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,7 +22,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" data-toggle="tab"><spring:message code='user.entry.index'/></a></li>
 			<li><a href="#" name="menuItem" isos:module="cart/modules/index" data-toggle="tab"><spring:message code='user.navi.product' /></a></li>
-			<li><a href="#" name="menuItem" isos:module="/user/doLogout" data-toggle="tab"><spring:message code='user.logout' /></a></li>
+			<li><a href="<c:url value='/user/doLogout'/>"><spring:message code='user.logout' /></a></li>
 		</ul>
 	</div>
 </td>

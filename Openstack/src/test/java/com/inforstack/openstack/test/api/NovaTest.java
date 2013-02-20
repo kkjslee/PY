@@ -186,22 +186,15 @@ public class NovaTest {
 					System.out.println("Image     : " + server.getImage().getId());
 					System.out.println("Flavor    : " + (server.getFlavor() != null ? server.getFlavor().getId() : "None"));
 					System.out.println("Addresses : {");
-					if (server.getAddresses().getPrivateList() != null) {
-						System.out.println("        Private : [");
-						for (Address address : server.getAddresses().getPrivateList()) {
+					Iterator<Entry<String, Address[]>> itAddress = server.getAddresses().entrySet().iterator();
+					while (itAddress.hasNext()) {
+						Entry<String, Address[]> entry = itAddress.next();
+						System.out.println("        " + entry.getKey() + " : [");
+						Address[] list = entry.getValue();
+						for (Address address : list) {
 							System.out.println("                {");
 							System.out.println("                        Version  : " + address.getVersion());
 							System.out.println("                        Addr     : " + address.getAddr());
-							System.out.println("                }");
-						}
-						System.out.println("        ]");
-					}
-					if (server.getAddresses().getPublicList() != null) {
-						System.out.println("        public : [");
-						for (Address address : server.getAddresses().getPublicList()) {
-							System.out.println("                {");
-							System.out.println("                Version  : " + address.getVersion());
-							System.out.println("                Addr     : " + address.getAddr());
 							System.out.println("                }");
 						}
 						System.out.println("        ]");
@@ -411,22 +404,15 @@ public class NovaTest {
 				System.out.println("Image     : " + server.getImage().getId());
 				System.out.println("Flavor    : " + server.getFlavor().getId());
 				System.out.println("Addresses : {");
-				if (server.getAddresses().getPrivateList() != null) {
-					System.out.println("        Private : [");
-					for (Address address : server.getAddresses().getPrivateList()) {
+				Iterator<Entry<String, Address[]>> itAddress = server.getAddresses().entrySet().iterator();
+				while (itAddress.hasNext()) {
+					Entry<String, Address[]> entry = itAddress.next();
+					System.out.println("        " + entry.getKey() + " : [");
+					Address[] list = entry.getValue();
+					for (Address address : list) {
 						System.out.println("                {");
 						System.out.println("                        Version  : " + address.getVersion());
 						System.out.println("                        Addr     : " + address.getAddr());
-						System.out.println("                }");
-					}
-					System.out.println("        ]");
-				}
-				if (server.getAddresses().getPublicList() != null) {
-					System.out.println("        public : [");
-					for (Address address : server.getAddresses().getPublicList()) {
-						System.out.println("                {");
-						System.out.println("                Version  : " + address.getVersion());
-						System.out.println("                Addr     : " + address.getAddr());
 						System.out.println("                }");
 					}
 					System.out.println("        ]");

@@ -160,41 +160,77 @@ public class CinderTest {
 			Assert.assertNotNull(volumes);
 			int size = volumes.length;
 			Volume volume1 = this.cinderService.createVolume(this.access, "testVolume1", "", 1, false, types[0].getId(), "nova");
-			Volume volume2 = this.cinderService.createVolumeFromSnapshot(this.access, "testVolume2", "", 1, false, types[0].getId(), "6b0a6566-a6af-4f1b-a42b-c4c833988b77", "nova");
-			Volume volume3 = this.cinderService.createVolumeFromVolume(this.access, "testVolume3", "", 1, false, types[0].getId(), volumes[0].getId(), "nova");
 			Assert.assertNotNull(volume1);
 			Assert.assertTrue(volume1.getName().equals("testVolume1"));
 			Assert.assertFalse(volume1.getId() == null || volume1.getId().isEmpty());
-			Assert.assertNotNull(volume2);
-			Assert.assertTrue(volume2.getName().equals("testVolume2"));
-			Assert.assertFalse(volume2.getId() == null || volume2.getId().isEmpty());
-			Assert.assertNotNull(volume3);
-			Assert.assertTrue(volume3.getName().equals("testVolume3"));
-			Assert.assertFalse(volume3.getId() == null || volume3.getId().isEmpty());
-			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == (size + 3)));
+			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == (size + 1)));
 			volume1 = this.cinderService.getVolume(this.access, volume1.getId());
 			while (volume1 != null && !(volume1.getStatus().equalsIgnoreCase("available") || volume1.getStatus().equalsIgnoreCase("error"))) {
 				volume1 = this.cinderService.getVolume(this.access, volume1.getId());
 			}
-			volume2 = this.cinderService.getVolume(this.access, volume2.getId());
-			while (volume2 != null && !(volume2.getStatus().equalsIgnoreCase("available") || volume2.getStatus().equalsIgnoreCase("error"))) {
-				volume2 = this.cinderService.getVolume(this.access, volume2.getId());
-			}
-			volume3 = this.cinderService.getVolume(this.access, volume3.getId());
-			while (volume3 != null && !(volume3.getStatus().equalsIgnoreCase("available") || volume3.getStatus().equalsIgnoreCase("error"))) {
-				volume3 = this.cinderService.getVolume(this.access, volume3.getId());
-			}
 			this.cinderService.removeVolume(this.access, volume1.getId());
-			this.cinderService.removeVolume(this.access, volume2.getId());
-			this.cinderService.removeVolume(this.access, volume3.getId());
 			volume1 = this.cinderService.getVolume(this.access, volume1.getId());
 			while (volume1 != null) {
 				volume1 = this.cinderService.getVolume(this.access, volume1.getId());
 			}
+			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == size));
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateAndRemoveVolumeFromSnapshot() {
+		try {
+			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			Assert.assertNotNull(types);
+			Assert.assertTrue(types.length > 0);
+			
+			Volume[] volumes = this.cinderService.listVolumes(this.access);
+			Assert.assertNotNull(volumes);
+			int size = volumes.length;
+			Volume volume2 = this.cinderService.createVolumeFromSnapshot(this.access, "testVolume2", "", 1, false, types[0].getId(), "6b0a6566-a6af-4f1b-a42b-c4c833988b77", "nova");
+			Assert.assertNotNull(volume2);
+			Assert.assertTrue(volume2.getName().equals("testVolume2"));
+			Assert.assertFalse(volume2.getId() == null || volume2.getId().isEmpty());
+			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == (size + 1)));
+			volume2 = this.cinderService.getVolume(this.access, volume2.getId());
+			while (volume2 != null && !(volume2.getStatus().equalsIgnoreCase("available") || volume2.getStatus().equalsIgnoreCase("error"))) {
+				volume2 = this.cinderService.getVolume(this.access, volume2.getId());
+			}
+			this.cinderService.removeVolume(this.access, volume2.getId());
 			volume2 = this.cinderService.getVolume(this.access, volume2.getId());
 			while (volume2 != null) {
 				volume2 = this.cinderService.getVolume(this.access, volume2.getId());
 			}
+			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == size));
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateAndRemoveVolumeFroVolume() {
+		try {
+			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			Assert.assertNotNull(types);
+			Assert.assertTrue(types.length > 0);
+			
+			Volume[] volumes = this.cinderService.listVolumes(this.access);
+			Assert.assertNotNull(volumes);
+			int size = volumes.length;
+			Volume volume3 = this.cinderService.createVolumeFromVolume(this.access, "testVolume3", "", 1, false, types[0].getId(), volumes[0].getId(), "nova");
+			Assert.assertNotNull(volume3);
+			Assert.assertTrue(volume3.getName().equals("testVolume3"));
+			Assert.assertFalse(volume3.getId() == null || volume3.getId().isEmpty());
+			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == (size + 1)));
+			volume3 = this.cinderService.getVolume(this.access, volume3.getId());
+			while (volume3 != null && !(volume3.getStatus().equalsIgnoreCase("available") || volume3.getStatus().equalsIgnoreCase("error"))) {
+				volume3 = this.cinderService.getVolume(this.access, volume3.getId());
+			}
+			this.cinderService.removeVolume(this.access, volume3.getId());
 			volume3 = this.cinderService.getVolume(this.access, volume3.getId());
 			while (volume3 != null) {
 				volume3 = this.cinderService.getVolume(this.access, volume3.getId());

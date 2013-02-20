@@ -15,7 +15,6 @@ $(function(){
 	$(".payMethodsContainer").delegate(".buyorder", "click", function(e){
 		buyOrder();
 	});
-	initUI();
 });
 
 function buyOrder(){
@@ -132,7 +131,7 @@ function setup(){
 
 function activeCartSubmitBtn(){
 	if(itemSelected == 2){
-		$(".cartButton").find("a").addClass("btn-success");
+		$(".cartButton").find("a").addClass("btn-primary");
 	}
 }
 //category id like:imgId,flavorId
@@ -262,6 +261,3 @@ function removeCartItem(UUId,row, callBack,categoryId,container){
     });
 }
 
-function initUI(){
-	 $( ".button").button();
-}

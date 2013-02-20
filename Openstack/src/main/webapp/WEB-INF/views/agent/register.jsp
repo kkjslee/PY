@@ -328,7 +328,7 @@ function register_submit() {
                 }else if(data.success){
                 	 $('#p3_username').html(g_username);
                      $('#p3_email').html(g_email);
-                     $('#resendimg').attr('src', Server+"/RedDragonEnterprise/VerificationServlet"+'?'+Math.random());
+                     $('#resendimg').attr('src', Server+"/t"+'?'+Math.random());
                      gotoPage('#main_content_2', '#main_content_3');
                }
                 

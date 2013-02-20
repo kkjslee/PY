@@ -2,13 +2,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page import="com.inforstack.openstack.utils.Constants"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><spring:message code="user.login.page.title"/></title>
+	
+	<c:url value="/resource/common" var="rPath"></c:url>
+	<c:url value="/resource/common/template/jquerybootstrap" var="bootPath"></c:url>
+	
 	<link href="<c:url value='/resource/common/css/theme_enterprise.css' />" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="${bootPath}/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
+	
+	<script type="text/javascript" src="${rPath}/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="${rPath}/js/jquery-ui-1.9.2.custom.min.js"></script>
+	
+	<script src="${rPath}/js/common.js" type="text/javascript"></script>
 	<script>
 		function changeLocale(language){
 			if(language == -1){
@@ -28,6 +37,74 @@
 		        }
 		    window.location.href=url;
 		}
+		 $(function(){
+             $("#userRegBtn").bind("click",function(){
+            	 $("#message").html("");
+            	 var regForm=new CustomForm();
+            	 regForm.show({
+            		 title:'<spring:message code="user.user.signup"/>',
+            		 container:$('#showRegForm'),
+            		 url:'<c:url value="/user/regForm"/>',
+       				 buttons: [
+       				           {   
+       				        	  text: '<spring:message code="confirm.button"/>', 
+       				        	  click:function(){
+       				        	    doUserReg(regForm);
+       				        	  }},
+       				          {
+       				            text: '<spring:message code="cancel.button"/>',
+       				            click: function() {
+       				            	regForm.close();
+       				            }
+       				           }
+       				           ]
+            	 });
+            	 });
+         });
+		 
+		 function doUserReg(regForm){
+			 var form = regForm.getForm();
+			 var username = $(form).find("#username").val();
+			 var password = $(form).find("#password").val();
+			 var confirmPassword= $(form).find("#confirmPassword").val();
+			 var email = $(form).find("#email").val();
+			 if(isNull(username) || isNull(password) || isNull(confirmPassword)){
+				 alert("<spring:message code='username.password.notnull'/>");
+				 return;
+			 }
+			 if(username.length<6 || username.length>45 || password.length<6 || password.length >45){
+                 alert("<spring:message code='username.password.notvalid'/>");
+                 return;
+             }
+			 if(password != confirmPassword){
+				 alert("<spring:message code='password.notequal'/>");
+				 return;
+			 }
+			 $.ajax({
+				 type: "POST",
+		            dataType: "json",
+		            cache: false,
+		            url:  '<c:url value="/user/userReg" />',
+		            data:{
+	                        username: username,
+	                        password: password,
+	                        email: email,
+		            },
+		            success: function(data) {
+		            	if (data.error) {
+                            info = data.error;
+                            alert(info);
+                        }else if(data.success){
+                        	regForm.close();
+                        	$("#message").html(data.success);
+                       }
+		            },
+		            error: function(jqXHR, textStatus, errorThrown) {
+		            },
+		            }
+			        
+			    );
+		 }
 	</script>
 </head>
 <body id="splash">
@@ -79,10 +156,10 @@ ${request}
 					<div class="modal-footer">
 						<input type="submit" id="logBtn" tabindex="3" class="logBtn btn btn-primary pull-right" value='<spring:message code="user.login.lable"/>'/>
 						<c:if test='${"user" eq enterpoint}'>
-						  	<a type="button" id="regBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
+						  	<a type="button" id="userRegBtn" href="#" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
 						 </c:if>
 						 <c:if test='${"agent" eq enterpoint }'>
-						 	<a type="button" id="regBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
+						 	<a type="button" id="agentRegBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
 						 </c:if>
 			       <div id="message" class="msg">
 				       <c:if test="${not empty param.error && param.error=='true'}">
@@ -92,6 +169,7 @@ ${request}
                             <p class="success" style="color:green"><spring:message code="user.reg.success"></spring:message></p>
                        </c:if>
 			        </div>  
+			        <div id="showRegForm"></div>
               </div> 
           </form>
     </div> 

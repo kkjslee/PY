@@ -216,8 +216,14 @@ function getTaskStatus(row,id){
             	  if (!data || data.length == 0) {
                       
                   }else{
-                       if(!isNull(data.privateips)){
-                        $(row).find(".pipvice").text("[" + data.privateips.join(",")+"]");
+                       if(!isNull(data.addresses)){
+                       var addresses = data.addresses;
+                       window.console.log(addresses);
+                       var ipText = "[";
+                       for(var key in addresses){
+                        ipText = ipText + key + ":" + addresses[key] + "]<br/>";
+                       }
+                        $(row).find(".pipvice").html(ipText);
                        }
                                          
                 	  if(!isNull(data.isProcessing) && data.isProcessing == true){

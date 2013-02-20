@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>系统云平台管理</title>
+<jsp:include page="../commonlinks.jsp" />
+<jsp:include page="adminlinks.jsp" /> 
 <link href="<%=request.getContextPath()%>/resource/admin/common/css/navigator.css" rel="Stylesheet" type="text/css"  />
-<script src="<%=request.getContextPath()%>/resource/common/js/jquery-1.6.4.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/scripts/navinit" type="text/javascript"></script>
 </head>
 <body class="mainBody">

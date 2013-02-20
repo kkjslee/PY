@@ -7,9 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
-<!-- <script src="<%=request.getContextPath()%>/user/cart/scripts/bootstrap" language="javascript"></script>
-<script src="<%=request.getContextPath()%>/user/cart/scripts/template" language="javascript"></script>
- -->
 <script src="<%=request.getContextPath()%>/resource/normaluser/cart/js/bootstrap.js" language="javascript"></script>
 </head>
 <body>
@@ -57,7 +54,7 @@
                             <c:forEach items="${flavorList}" var="flavor" varStatus="status">
                                 <li>
                                 <input type="hidden" value="${flavor.id}" name="flavorId"/>
-                                 <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
+                                <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
                                 <span> <c:forEach items="${flavor.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- <span>

@@ -6,8 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
-<jsp:include page="../../../commonlinks.jsp" />
-<jsp:include page="../../adminlinks.jsp" /> 
 <link href="<%=request.getContextPath()%>/resource/admin/instance/css/main.css" rel="stylesheet" type="text/css" />
 <script src="<%=request.getContextPath()%>/admin/instance/scripts/template" language="javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/instance/scripts/bootstrap" language="javascript"></script>

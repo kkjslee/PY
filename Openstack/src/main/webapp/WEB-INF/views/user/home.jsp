@@ -21,6 +21,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" data-toggle="tab"><spring:message code='user.entry.index'/></a></li>
 			<li><a href="#" name="menuItem" isos:module="cart/modules/index" data-toggle="tab"><spring:message code='user.navi.product' /></a></li>
+			<li><a href="#" name="menuItem" isos:module="/user/doLogout" data-toggle="tab"><spring:message code='user.logout' /></a></li>
 		</ul>
 	</div>
 </td>

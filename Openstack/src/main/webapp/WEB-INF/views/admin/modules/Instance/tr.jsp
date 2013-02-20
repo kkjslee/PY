@@ -17,7 +17,10 @@
     <input isos="vmName" type="hidden" value="${item.vmname}" />
     <input isos="vmAssignedTo" type="hidden" value="${item.assignedto}" />
     <div class="ititle">${item.vmname}</div>
-        <div class="pipvice vice">${item.privateips}</div>
+        <div class="pipvice vice">
+        <c:forEach items="${item.addresses}" var="address">[${address.key}:${address.value}]<br/>
+        </c:forEach>
+      </div>
     </td>
     <td class="vmUser">${item.assignedto}</td>
     <td class="vmStatus">

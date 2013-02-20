@@ -39,7 +39,7 @@ function getResult(response){
  * conf.buttons 表单按钮。对象或列表，包含text，click属性
  * @param conf
  */
-function customForm(){
+function CustomForm(){
 	
 	var form = null;
 	
@@ -50,7 +50,16 @@ function customForm(){
 			form.dialog();
 		}
 	};
+	this.close = function(){
+		
+		if(form!=null){
+			form.dialog("close");
+		}
+	};
 	
+	this.getForm = function(){
+		return form;
+	};
 	var init = function(conf){
 		var container = $(conf.container);
 		container.hide();
@@ -74,11 +83,15 @@ function customForm(){
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
-	            $("<span class='loadingError'><spring:message code='message.loading.data.error'/></span>").appendTo(container.empty());
+	            $("<span class='loadingError'>error</span>").appendTo(container.empty());
 	        },
 	        complete : function(){
 	        	var d = container.dialog({
 	        		title : conf.title,
+	        		modal: true,
+	                resizable: false,
+	                show: "slide",
+	                hide: "slide",
 	        		buttons : conf.buttons
 	        	});
 	        	

@@ -7,13 +7,3 @@
 
 <script src="<%=request.getContextPath()%>/admin/scripts/template" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/admin/scripts/bootstrap" type="text/javascript"></script>
-<%
-    String userName =  SecurityUtils.getUserName();
-%>
-<script>
-
-function getUsername(){
-	/*return "<%=userName%>";*/
-	return "admin";
-}
-</script>

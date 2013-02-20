@@ -85,7 +85,8 @@ public class Server {
 	
 	private Flavor flavor;
 	
-	private Addresses addresses;
+	//private Addresses addresses;
+	private Map<String, Address[]> addresses;
 	
 	@JsonProperty("security_groups")
 	private SecurityGroup[] securityGroups;
@@ -212,11 +213,11 @@ public class Server {
 		this.flavor = flavor;
 	}
 
-	public Addresses getAddresses() {
+	public Map<String, Address[]> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(Addresses addresses) {
+	public void setAddresses(Map<String, Address[]> addresses) {
 		this.addresses = addresses;
 	}
 

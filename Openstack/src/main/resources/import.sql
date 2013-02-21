@@ -141,6 +141,13 @@ insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'use
 insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethods', 'user');
 insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
 
+insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');
+insert into Resource(id, url, permission) values (301, '/user/instance/scripts/bootstrap', 'user');
+insert into Resource(id, url, permission) values (302, '/user/instance/getPagerInstanceList', 'user');
+insert into Resource(id, url, permission) values (303, '/user/instance/imcontrol', 'user');
+insert into Resource(id, url, permission) values (304, '/user/instance/getInstance', 'user');
+
+
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (3,'name_id',NULL,'Category');

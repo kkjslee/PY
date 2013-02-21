@@ -74,7 +74,13 @@ public class OrderServiceImpl implements OrderService {
 					log.error("Create sub order failed");
 					throw new ApplicationRuntimeException("Create sub order failed");
 				}
-				o.getSubOrders().add(so);
+				so.setPrice(BigDecimal.valueOf(itemModel.getPrice()));
+				List<SubOrder> subOrders = o.getSubOrders();
+				if (subOrders == null) {
+					subOrders = new ArrayList<SubOrder>();
+				}
+				subOrders.add(so);
+				o.setSubOrders(subOrders);
 			}
 		}
 		

@@ -19,13 +19,13 @@ import com.inforstack.openstack.order.period.OrderPeriodService;
 public class PlanController {
 	
 	@Autowired
-	private OrderPeriodService imageService;
+	private OrderPeriodService orderPeriodService;
 
 	@RequestMapping(value = "/planList", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	List<PlanModel> listPlans(Model model) {
 		List<PlanModel> planModels = new ArrayList<PlanModel>();
-		List<OrderPeriod> plans = imageService.listAll(false);
+		List<OrderPeriod> plans = orderPeriodService.listAll(false);
 		PlanModel planModel = null;
 		for (OrderPeriod plan : plans) {
 			planModel = new PlanModel();

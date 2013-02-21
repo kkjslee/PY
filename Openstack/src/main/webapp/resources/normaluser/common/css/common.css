@@ -48,7 +48,7 @@
     text-indent:2px;
 }
 .headerRow {
-    background: #fff;
+    background-color: #fff;
     -webkit-transition: all 0.5s linear;
     -o-transition: all 0.5s linear;
     -moz-transition: all 0.5s linear;

@@ -18,11 +18,11 @@
 
 <div id="mainBody" style="margin:30px 20px 0 20px;">
 
-		<div class="accordion" id="accordion2">
+		<div class="accordion" id="accordionCart">
 			<div class="accordion-group">
 				<div class="accordion-heading">
 					<a class="accordion-toggle" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapseOne"> <spring:message code="cart.image.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="ImgPriceValue"></span></span></a>
+						data-parent="#accordionCart" href="#collapseOne"> <spring:message code="cart.image.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="ImgPriceValue"></span></span></a>
 				</div>
 				<div id="collapseOne" class="accordion-body collapse in">
 					<div class="accordion-inner">
@@ -46,7 +46,7 @@
 			<div class="accordion-group">
 				<div class="accordion-heading">
 					<a class="accordion-toggle" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapseTwo"> <spring:message code="cart.flavor.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="flavorPriceValue"></span></span></a>
+						data-parent="#accordionCart" href="#collapseTwo"> <spring:message code="cart.flavor.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="flavorPriceValue"></span></span></a>
 				</div>
 				<div id="collapseTwo" class="accordion-body collapse">
 					<div class="accordion-inner ">
@@ -67,18 +67,18 @@
                     </div>
 				</div>
 			</div>
-			<!-- <div class="accordion-group">
+			<div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse"
-                        data-parent="#accordion2" href="#collapseTwo"> <spring:message code="cart.volume.title"/></a>
+                        data-parent="#accordionCart" href="#collapse3"> <spring:message code="cart.volume.title"/></a>
                 </div>
-                <div id="collapseTwo" class="accordion-body collapse">
+                <div id="collapse3" class="accordion-body collapse">
                     <div class="accordion-inner">
                         <ul class="volumeList selectable">
                         </ul>
                     </div>
                 </div>
-            </div> -->
+            </div>
 		</div>
         
         <div class="cartTotalLine">

@@ -19,6 +19,7 @@
 	overflow:hidden;
 	border-right:5px solid #E5E5E5;
 	border-bottom:5px solid #E5E5E5;
+	background-color:#F5F5F3;
 }
 .prepare {
     background-color:blue;
@@ -62,6 +63,7 @@
 }
 .menu{
 	padding:35px 0 5px 35px;
+	background-color:#EEF9FF
 }
 .tabs-left > .nav-tabs{
 	width:100%;

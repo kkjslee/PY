@@ -347,8 +347,7 @@ function showEditProduct(which){
     		url="<%=request.getContextPath()%>/admin/image/retrieveImage";
             data["imgId"] = refId;
     	}else if(parseInt(osTypeId)==6){
-    	//todo
-            url="<%=request.getContextPath()%>/admin/plan/retrievePlan";
+            url="<%=request.getContextPath()%>/admin/plan/planList";
             data["planId"] = refId;
         }
     	if(url!=""){
@@ -380,7 +379,6 @@ function setRefNameCallBack(editProduct,osTypeId,data){
 		        }else if(parseInt(osTypeId)==2){
 		            refName = data.name;
 		        }else if(parseInt(osTypeId)==6){
-		        //todo
                     refName = data.name;
                 }
                 window.console.log("ref datadat:" + data);
@@ -429,7 +427,7 @@ function bindOSTypeSelect(){
             getOSTyeList("<%=request.getContextPath()%>/admin" + "/image/imgList","refId","createImgOption");
         }else if(type == 6){
         //todo
-            getOSTyeList("plan url","refId","createPlanOption");
+            getOSTyeList("<%=request.getContextPath()%>/admin/plan/planList","refId","createPlanOption");
         }
     });
 }

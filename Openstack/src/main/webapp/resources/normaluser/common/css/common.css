@@ -189,9 +189,13 @@
 
 
 .selectable .ui-selecting { background: #FECA40; }
-.selectable .ui-selected { background: #F39814; color: white; }
+.selectable .ui-selected { background: #F39814; color: white;   border-radius: 3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    -o-border-radius:3px;
+    -ms-border-radius:3px;}
 .selectable { list-style-type: none; margin: 0; padding: 0;}
-.selectable li { margin: 3px; padding: 0.4em; height: 18px; cursor:pointer}
+.selectable li { margin: 3px; padding: 0.4em; height: 18px; line-height:18px;cursor:pointer}
 .cartPriceLabel{
     display:none;
 }

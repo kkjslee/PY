@@ -35,6 +35,7 @@ import com.inforstack.openstack.item.ItemSpecificationDao;
 import com.inforstack.openstack.item.Price;
 import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.period.OrderPeriodService;
 import com.inforstack.openstack.utils.Constants;
 
@@ -61,7 +62,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private I18nLinkService i18nLinkService;
-	
+
 	@Autowired
 	private OrderPeriodService periodService;
 
@@ -171,7 +172,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemSpecification getItemSpecification(Integer id) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao
+				.findById(id);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -180,11 +182,12 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return itemSpecification;
 	}
-	
+
 	@Override
 	public Map<String, String> getItemSpecificationDetail(Integer id) {
 		HashMap<String, String> detail = new HashMap<String, String>();
-		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao
+				.findById(id);
 		if (itemSpecification != null) {
 			int osType = itemSpecification.getOsType();
 			String refId = itemSpecification.getRefId();
@@ -199,13 +202,28 @@ public class ItemServiceImpl implements ItemService {
 					log.debug("Unknown flavor id: " + refId);
 				}
 				break;
+			case ItemSpecification.OS_TYPE_IMAGE_ID:
+				try {
+					Image image = this.imageService.getImage(refId);
+					detail.put("os_imagename", image.getName());
+				} catch (OpenstackAPIException e) {
+					log.debug("Unknown image id: " + refId);
+				}
+				break;
+			case ItemSpecification.OS_TYPE_PERIOD_ID:
+				OrderPeriod orderPeriod = this.periodService
+						.findPeriodById(Integer.valueOf(refId));
+				detail.put("os_periodname", orderPeriod.getName()
+						.getI18nContent());
+				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				detail.put("os_size", Integer.toString(0));
 				break;
 			}
 			List<ItemMetadata> metadataList = itemSpecification.getMetadata();
 			for (ItemMetadata metadata : metadataList) {
-				detail.put(metadata.getName().getI18nContent(), metadata.getValue().getI18nContent());
+				detail.put(metadata.getName().getI18nContent(), metadata
+						.getValue().getI18nContent());
 			}
 		}
 		return detail;
@@ -253,10 +271,11 @@ public class ItemServiceImpl implements ItemService {
 				osTypeName = ItemSpecification.OS_TYPE_DATACENTER;
 				break;
 			default:
-				log.debug("Unknown ItemSpecification Type: " + model.getOsType());
+				log.debug("Unknown ItemSpecification Type: "
+						+ model.getOsType());
 			}
 		} else {
-			
+
 		}
 		if (osTypeName != null) {
 			Date now = new Date();
@@ -572,9 +591,10 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return success;
 	}
-	
+
 	private boolean checkPeriod(String id) {
-		boolean success = (this.periodService.findPeriodById(Integer.parseInt(id)) != null);
+		boolean success = (this.periodService.findPeriodById(Integer
+				.parseInt(id)) != null);
 		return success;
 	}
 

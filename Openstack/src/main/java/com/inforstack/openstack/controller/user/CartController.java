@@ -23,18 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
-import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
-import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
-import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.CategoryModel;
-import com.inforstack.openstack.controller.model.FlavorModel;
 import com.inforstack.openstack.controller.model.I18nModel;
-import com.inforstack.openstack.controller.model.ImageModel;
 import com.inforstack.openstack.controller.model.ItemSpecificationModel;
 import com.inforstack.openstack.controller.model.ProfileModel;
 import com.inforstack.openstack.i18n.I18n;
@@ -46,6 +41,7 @@ import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
+import com.inforstack.openstack.order.period.OrderPeriodService;
 import com.inforstack.openstack.rule.Rule;
 import com.inforstack.openstack.rule.RuleService;
 import com.inforstack.openstack.tenant.Tenant;
@@ -56,7 +52,6 @@ import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RuleUtils;
 import com.inforstack.openstack.utils.SecurityUtils;
-import com.inforstack.openstack.utils.ValidateUtil;
 
 @Controller
 @RequestMapping(value = "/user/cart")
@@ -94,6 +89,9 @@ public class CartController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private OrderPeriodService orderPeriodService;
+
 	private final String CART_MODULE_HOME = "user/modules/Cart";
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
@@ -106,6 +104,11 @@ public class CartController {
 		List<ItemSpecificationModel> flavorModels = new ArrayList<ItemSpecificationModel>();
 		flavorModels = listProductsForUser(ItemSpecification.OS_TYPE_FLAVOR_ID);
 		model.addAttribute("flavorList", flavorModels);
+
+		List<ItemSpecificationModel> planModels = new ArrayList<ItemSpecificationModel>();
+		planModels = listProductsForUser(ItemSpecification.OS_TYPE_PERIOD_ID);
+		model.addAttribute("planList", planModels);
+
 		return CART_MODULE_HOME + "/index";
 	}
 
@@ -301,64 +304,6 @@ public class CartController {
 		}
 	}
 
-	private List<ImageModel> getImages(boolean needCheck) {
-		List<ImageModel> imgList = new ArrayList<ImageModel>();
-		try {
-			Image[] images = imageService.listImages();
-			if (images != null) {
-				ImageModel imgModel = null;
-				for (Image img : images) {
-					imgModel = new ImageModel();
-					imgModel.setImgId(img.getId());
-					imgModel.setImgName(img.getName());
-					imgModel.setCreated(img.getCreated());
-					imgModel.setMinDisk(img.getMinDisk());
-					imgModel.setMinRam(img.getMinRam());
-					imgModel.setProgress(img.getProgress());
-					imgModel.setStatus(img.getStatus());
-					imgModel.setTenant(img.getTenant());
-					imgModel.setUpdated(img.getUpdated());
-					imgModel.setUser(img.getUser());
-					if (needCheck) {
-						if (!ValidateUtil.checkValidImg(img)) {
-							continue;
-						}
-					}
-					imgList.add(imgModel);
-				}
-			}
-		} catch (OpenstackAPIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return imgList;
-	}
-
-	private List<FlavorModel> getAllFlavors(boolean needCheck) {
-		List<FlavorModel> flavorModels = new ArrayList<FlavorModel>();
-		try {
-			Flavor[] flavors = flavorService.listFlavors();
-			FlavorModel flavorModel = null;
-			for (Flavor flavor : flavors) {
-				flavorModel = new FlavorModel();
-				flavorModel.setFlavorId(flavor.getId());
-				flavorModel.setDisk(flavor.getDisk());
-				flavorModel.setFlavorName(flavor.getName());
-				flavorModel.setRam(flavor.getRam());
-				flavorModel.setVcpus(flavor.getVcpus());
-				if (needCheck) {
-					if (!ValidateUtil.checkValidFlavor(flavor)) {
-						continue;
-					}
-				}
-				flavorModels.add(flavorModel);
-			}
-		} catch (OpenstackAPIException e) {
-			e.printStackTrace();
-		}
-		return flavorModels;
-	}
-
 	private List<ItemSpecificationModel> listProductsForUser(int osType) {
 		Integer languageId = OpenstackUtil.getLanguage().getId();
 		List<ItemSpecificationModel> models = new ArrayList<ItemSpecificationModel>();
@@ -383,7 +328,8 @@ public class CartController {
 
 				if (osType == ItemSpecification.OS_TYPE_FLAVOR_ID
 						|| osType == ItemSpecification.OS_TYPE_VOLUME_ID
-						|| osType == ItemSpecification.OS_TYPE_IMAGE_ID) {
+						|| osType == ItemSpecification.OS_TYPE_IMAGE_ID
+						|| osType == ItemSpecification.OS_TYPE_PERIOD_ID) {
 					Map<String, String> details = itemService
 							.getItemSpecificationDetail(itemSpecification
 									.getId());
@@ -406,6 +352,12 @@ public class CartController {
 						if (key.equals("os_disk")) {
 							i18Details.put(OpenstackUtil
 									.getMessage("admin.flavor.rdisk"), value);
+						}
+						if (key.equals("os_periodname")) {
+							i18Details
+									.put(OpenstackUtil
+											.getMessage("plan.name.label"),
+											value);
 						}
 						if (key.equals("os_size")) {
 							i18Details.put(
@@ -517,7 +469,8 @@ public class CartController {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil
 					.getMessage("cart.checkout.failed"));
 		} else {
-			WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME, null);
+			WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME,
+					null);
 			return OpenstackUtil.buildSuccessResponse(order.getId());
 		}
 	}

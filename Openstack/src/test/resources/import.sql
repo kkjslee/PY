@@ -134,6 +134,8 @@ insert into Resource(id, url, permission) values (49, '/admin/product/create', '
 
 insert into Resource(id, url, permission) values (50, '/admin/category/listForJson', 'admin');
 
+insert into Resource(id, url, permission) values (60, '/admin/plan/planList', 'admin');
+
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 
 insert into Resource(id, url, permission) values (200, '/user/cart/modules/index', 'user');
@@ -147,6 +149,14 @@ insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'use
 insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethods', 'user');
 insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
 
+insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');
+insert into Resource(id, url, permission) values (301, '/user/instance/scripts/bootstrap', 'user');
+insert into Resource(id, url, permission) values (302, '/user/instance/getPagerInstanceList', 'user');
+insert into Resource(id, url, permission) values (303, '/user/instance/imcontrol', 'user');
+insert into Resource(id, url, permission) values (304, '/user/instance/getInstance', 'user');
+
+insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');
+
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (3,'name_id',NULL,'Category');
@@ -156,6 +166,10 @@ INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (7,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (8,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (9,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (10,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (11,'name_id',NULL,'Category');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (12,'name_id',NULL,'Category');
+
 
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (1,'OS Image',1,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (2,'操作系统镜像',1,2);
@@ -176,6 +190,13 @@ INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (16,'促
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (17,'Other 1',9,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (18,'其他1',9,2);
 
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (19,'Pay AS You Go',10,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (20,'即付即用',10,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (21,'Month',11,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (22,'包月',11,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (23,'Year',12,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (24,'包年',12,2);
+
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (1,1,1,1);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (2,1,1,2);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (3,1,1,3);
@@ -185,3 +206,7 @@ INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (6,1,1,6);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (7,1,1,7);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (8,1,1,8);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (9,1,1,9);
+
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(1, '2013-02-21 12:25:48', 0, 1, 11, 10);
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(2, '2013-02-21 12:25:48', 0, 1, 2, 11);
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(3, '2013-02-21 12:25:48', 0, 1, 1, 12);

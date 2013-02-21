@@ -15,6 +15,7 @@ import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.sub.SubOrder;
@@ -167,7 +168,7 @@ public class OrderServiceImpl implements OrderService {
 			return orders;
 		}
 	}
-
+	
 	@Override
 	public InvoiceCount payOrder(Order order, Date billingDate, BillingProcess billingProcess) {
 		log.debug("Pay order : " +order.getId() + " with billing date : " + billingDate + 
@@ -198,6 +199,40 @@ public class OrderServiceImpl implements OrderService {
 		
 		order.setStatus(Constants.ORDER_STATUS_FINISHED);
 		return true;
+	}
+
+	@Override
+	public PaginationModel<Order> findAllWithCreator(int pageIndex, int pageSize, Integer tenantId, Integer status) {
+		log.debug("Find all orders with creator by tenant : " + tenantId + ", status : " + status);
+		
+		PaginationModel<Order> pm = orderDao.findWithCreator(pageIndex, pageSize, tenantId, status);
+		if(CollectionUtil.isNullOrEmpty(pm.getData())){
+			log.debug("find failed");
+		}else{
+			for(Order o : pm.getData()){
+				o.getCreatedBy().getId();
+			}
+			log.debug("Find successfully");
+		}
+		
+		return pm;
+	}
+
+	@Override
+	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize) {
+		log.debug("Find all orders without sub orders");
+		
+		PaginationModel<Order> pm = orderDao.findAllWithoutSubOrder(pageIndex, pageSize);
+		if(CollectionUtil.isNullOrEmpty(pm.getData())){
+			log.debug("find failed");
+		}else{
+			for(Order o : pm.getData()){
+				o.getCreatedBy().getId();
+			}
+			log.debug("Find successfully");
+		}
+		
+		return pm;
 	}
 	
 }

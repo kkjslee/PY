@@ -2,10 +2,7 @@ package com.inforstack.openstack.basic;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -35,10 +32,6 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		if (type instanceof ParameterizedType) {
 			this.clz = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
 		}
-	}
-	
-	public final CriteriaBuilder createBuilder(){
-		return em.getCriteriaBuilder();
 	}
 	
 	@Override

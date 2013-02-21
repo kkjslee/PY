@@ -8,7 +8,7 @@ import javax.persistence.criteria.Predicate;
 import com.inforstack.openstack.controller.model.PaginationModel;
 
 public interface BasicDao<T> {
-
+	
 	public List<T> list();
 	
 	public T findById(Object primaryKey);
@@ -21,9 +21,9 @@ public interface BasicDao<T> {
 	
 	public void remove(T instance);
 
-	PaginationModel<T> pagination(int pageIndex, int pageSize, Predicate where,
+	public PaginationModel<T> pagination(int pageIndex, int pageSize, Predicate where,
 			Order[] orders);
 
-	PaginationModel<T> pagination(int pageIndex, int pageSize);
+	public PaginationModel<T> pagination(int pageIndex, int pageSize);
 	
 }

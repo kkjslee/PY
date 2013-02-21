@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 
@@ -58,6 +59,45 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 			log.error(re.getMessage(), re);
 			throw re;
 		}
+	}
+
+	@Override
+	public PaginationModel<Order> findWithCreator(int pageIndex, int pageSize, Integer tenantId,
+			Integer status) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Order> criteria = builder
+				.createQuery(Order.class);
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		Root<Order> root = criteria.from(Order.class);
+		if(tenantId != null){
+			predicates.add(
+					builder.equal(root.get("tenant.id"), tenantId)
+			);
+		}
+		if(status != null){
+			predicates.add(
+					builder.equal(root.get("status"), status)
+			);
+		}
+		Predicate predicate =  builder.and(predicates.toArray(new Predicate[predicates.size()]));
+		javax.persistence.criteria.Order[] orders = new javax.persistence.criteria.Order[]{
+				builder.desc(root.get("createTime"))	
+		};
+		
+		return pagination(pageIndex, pageSize, predicate, orders);
+	}
+
+	@Override
+	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Order> criteria = builder
+				.createQuery(Order.class);
+		Root<Order> root = criteria.from(Order.class);
+		javax.persistence.criteria.Order[] orders = new javax.persistence.criteria.Order[]{
+				builder.desc(root.get("createTime"))	
+		};
+		
+		return pagination(pageIndex, pageSize, null, orders);
 	}
 	
 }

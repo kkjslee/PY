@@ -7,6 +7,7 @@ import java.util.List;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.controller.model.CartModel;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
 
@@ -70,4 +71,8 @@ public interface OrderService {
 	public InvoiceCount payOrder(Order order, Date billingDate, BillingProcess billingProcess);
 
 	public boolean checkOrderFinished(Order order, Date date);
+
+	public PaginationModel<Order> findAllWithCreator(int pageIndex, int pageSize, Integer tenantId, Integer status);
+
+	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize);
 }

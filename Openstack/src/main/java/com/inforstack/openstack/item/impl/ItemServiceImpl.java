@@ -217,38 +217,45 @@ public class ItemServiceImpl implements ItemService {
 		ItemSpecification newItem = null;
 		String refId = model.getRefId();
 		String osTypeName = ItemSpecification.OS_TYPE_NONE;
-		switch (model.getOsType()) {
-		case ItemSpecification.OS_TYPE_FLAVOR_ID:
-			if (this.checkFlavor(refId)) {
-				osTypeName = ItemSpecification.OS_TYPE_FLAVOR;
-			} else {
-				log.debug("Unknown flavor id: " + refId);
+		if (model.getOsType() != null) {
+			switch (model.getOsType()) {
+			case ItemSpecification.OS_TYPE_FLAVOR_ID:
+				if (this.checkFlavor(refId)) {
+					osTypeName = ItemSpecification.OS_TYPE_FLAVOR;
+				} else {
+					log.debug("Unknown flavor id: " + refId);
+				}
+				break;
+			case ItemSpecification.OS_TYPE_IMAGE_ID:
+				if (this.checkImage(refId)) {
+					osTypeName = ItemSpecification.OS_TYPE_IMAGE;
+				} else {
+					log.debug("Unknown image id: " + refId);
+				}
+				break;
+			case ItemSpecification.OS_TYPE_VOLUME_ID:
+				osTypeName = ItemSpecification.OS_TYPE_VOLUME;
+				break;
+			case ItemSpecification.OS_TYPE_NETWORK_ID:
+				osTypeName = ItemSpecification.OS_TYPE_NETWORK;
+				break;
+			case ItemSpecification.OS_TYPE_USAGE_ID:
+				osTypeName = ItemSpecification.OS_TYPE_USAGE;
+				break;
+			case ItemSpecification.OS_TYPE_PERIOD_ID:
+				if (this.checkPeriod(refId)) {
+					osTypeName = ItemSpecification.OS_TYPE_PERIOD;
+				} else {
+					log.debug("Unknown period id:" + refId);
+				}
+			case ItemSpecification.OS_TYPE_DATACENTER_ID:
+				osTypeName = ItemSpecification.OS_TYPE_DATACENTER;
+				break;
+			default:
+				log.debug("Unknown ItemSpecification Type: " + model.getOsType());
 			}
-			break;
-		case ItemSpecification.OS_TYPE_IMAGE_ID:
-			if (this.checkImage(refId)) {
-				osTypeName = ItemSpecification.OS_TYPE_IMAGE;
-			} else {
-				log.debug("Unknown image id: " + refId);
-			}
-			break;
-		case ItemSpecification.OS_TYPE_VOLUME_ID:
-			osTypeName = ItemSpecification.OS_TYPE_VOLUME;
-			break;
-		case ItemSpecification.OS_TYPE_NETWORK_ID:
-			osTypeName = ItemSpecification.OS_TYPE_NETWORK;
-			break;
-		case ItemSpecification.OS_TYPE_USAGE_ID:
-			osTypeName = ItemSpecification.OS_TYPE_USAGE;
-			break;
-		case ItemSpecification.OS_TYPE_PERIOD_ID:
-			if (this.checkPeriod(refId)) {
-				osTypeName = ItemSpecification.OS_TYPE_PERIOD;
-			} else {
-				log.debug("Unknown period id:" + refId);
-			}
-		default:
-			log.debug("Unknown ItemSpecification Type: " + model.getOsType());
+		} else {
+			
 		}
 		if (osTypeName != null) {
 			Date now = new Date();

@@ -70,11 +70,23 @@
 			<div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse"
-                        data-parent="#accordionCart" href="#collapse3"> <spring:message code="cart.volume.title"/></a>
+                        data-parent="#accordionCart" href="#collapse3"> <spring:message code="cart.plan.title"/></a>
                 </div>
                 <div id="collapse3" class="accordion-body collapse">
                     <div class="accordion-inner">
-                        <ul class="volumeList selectable">
+                        <ul class="planList selectable">
+                            <c:forEach items="${planList}" var="plan" varStatus="status">
+                                <li>
+                                <input type="hidden" value="${plan.id}" name="planId"/>
+                                 <input type="hidden" value="${plan.defaultPrice}" name="defaultPrice"/>
+                               <span> <c:forEach items="${plan.name}" var="i18Name">
+                                ${i18Name.content}
+                                </c:forEach> -- <span>
+                                <c:forEach items="${plan.details}" var="detail">
+                                <span>${detail.key} : ${detail.value} </span>
+                                </c:forEach>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>

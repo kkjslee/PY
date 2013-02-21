@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
-<link href="<%=request.getContextPath()%>/resource/user/instance/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/resource/normaluser/instance/css/main.css" rel="stylesheet" type="text/css" />
 <script src="<%=request.getContextPath()%>/user/instance/scripts/bootstrap" language="javascript"></script>
 </head>
 <body>

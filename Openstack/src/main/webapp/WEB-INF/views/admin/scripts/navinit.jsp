@@ -28,13 +28,24 @@ function initUI() {
 function loadModule(modulePath) {
    var pd = showProcessingDialog();
    $(".right").empty()
-    $(".right").load("${pageContext.request.contextPath}/admin/"+modulePath,function(response,status,xhr){
-        $(pd).dialog("close");
-        if(status == "success"){
-        
-        }else{
-        printWarn(status);
+    $.ajax({
+        type: "get",
+        url: "${pageContext.request.contextPath}/admin/"+modulePath,
+        cache: false,
+        dataType:"html",
+        success: function(data) {
+            try{
+                $(".right").html(data);
+            }catch(e) {
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            window.console.log(jqXHR.status);
+            alert("<spring:message code="module.load.error"/>");
+        },
+        complete:function(){
+            $(pd).dialog("close");
         }
-    })
+    });
 }
 

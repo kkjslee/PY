@@ -21,10 +21,10 @@ function registerTemplate() {
 
 function setup() {
     window.document.title = '<spring:message code="admin.category.title"/>';
-    loadCategories(pageIndex, pageSize);
+    loadAllCategories(pageIndex, pageSize);
 }
 //server返回的数据html,应该为tbody中的内容，父层结构：<div id="mainBody"><table class="dataTable"><thead></thead><tbody>json返回的内容<tbody><tfoot></tfoot></table></div>
-function loadCategories(pageIndex, pageSize) {
+function loadAllCategories(pageIndex, pageSize) {
     var tableBodyContainer=$(".dataTable").find("tbody").empty();
     $("<span class='loadingTips'>"+"<spring:message code='message.loading.data'/>"+"</span>").appendTo(tableBodyContainer);
     $.ajax({
@@ -61,7 +61,7 @@ function loadCategories(pageIndex, pageSize) {
 
 function pageCallback(index,jq){
     pageIndex = index;
-	loadCategories(index, pageSize);
+	loadAllCategories(index, pageSize);
 }
 
 function showCreatCategory(){
@@ -135,7 +135,7 @@ function createCategoryItem(jsonString) {
 
                 if(data.success){
                     printMessage('<spring:message code="category.create.success"/>');
-                    loadCategories(pageIndex, pageSize);
+                    loadAllCategories(pageIndex, pageSize);
                 }
                 if(data.error){
                     printMessage(data.error);
@@ -240,7 +240,7 @@ function updateCategoryItem(jsonString) {
 
                 if(data.success){
                     printMessage('<spring:message code="update.success"/>');
-                    loadCategories(pageIndex, pageSize);
+                    loadAllCategories(pageIndex, pageSize);
                 }
                 if(data.error){
                     printMessage('<spring:message code="update.failed"/>');
@@ -282,7 +282,7 @@ function showRemoveCategory(which){
                } 
                 
                 printMessage(msg);
-                loadCategories(pageIndex, pageSize);
+                loadAllCategories(pageIndex, pageSize);
                 
             }catch(e) {
                 printMessage("Data Broken: ["+e+"]");

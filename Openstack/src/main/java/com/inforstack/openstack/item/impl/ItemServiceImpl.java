@@ -248,6 +248,7 @@ public class ItemServiceImpl implements ItemService {
 				} else {
 					log.debug("Unknown period id:" + refId);
 				}
+				break;
 			case ItemSpecification.OS_TYPE_DATACENTER_ID:
 				osTypeName = ItemSpecification.OS_TYPE_DATACENTER;
 				break;

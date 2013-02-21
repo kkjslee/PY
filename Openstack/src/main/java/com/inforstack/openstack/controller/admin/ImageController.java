@@ -196,7 +196,7 @@ public class ImageController {
 
 	@RequestMapping(value = "/retrieveImage", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	Image getVM(Model model, String imgId) {
+	Image getImage(Model model, String imgId) {
 
 		if (StringUtil.isNullOrEmpty(imgId)) {
 			return null;

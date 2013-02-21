@@ -111,6 +111,7 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 		if(period == null){
 			log.debug("Find period by id failed for no instance found");
 		}else{
+			period.getName().getId();
 			log.debug("Find period successfully");
 		}
 		

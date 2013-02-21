@@ -347,7 +347,7 @@ function showEditProduct(which){
     		url="<%=request.getContextPath()%>/admin/image/retrieveImage";
             data["imgId"] = refId;
     	}else if(parseInt(osTypeId)==6){
-            url="<%=request.getContextPath()%>/admin/plan/planList";
+            url="<%=request.getContextPath()%>/admin/plan/retrievePlan";
             data["planId"] = refId;
         }
     	if(url!=""){

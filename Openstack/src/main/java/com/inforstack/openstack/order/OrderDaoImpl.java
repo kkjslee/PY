@@ -8,8 +8,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
@@ -84,7 +82,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 				builder.desc(root.get("createTime"))	
 		};
 		
-		return pagination(pageIndex, pageSize, predicate, orders);
+		return this.getSelf().pagination(pageIndex, pageSize, predicate, orders);
 	}
 
 	@Override
@@ -97,7 +95,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 				builder.desc(root.get("createTime"))	
 		};
 		
-		return pagination(pageIndex, pageSize, null, orders);
+		return this.getSelf().pagination(pageIndex, pageSize, null, orders);
 	}
 	
 }

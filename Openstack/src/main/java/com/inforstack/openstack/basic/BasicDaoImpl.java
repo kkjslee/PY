@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 
@@ -24,30 +25,44 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Autowired
 	protected EntityManager em;
 	
-	private Class<T> clz;
+	private Class<T> modelClz;
+	
+	private Class<? extends BasicDaoImpl<T>> clz;
+	
+	private BasicDao<T> self;
 	
 	@SuppressWarnings("unchecked")
 	public BasicDaoImpl() {
+		clz = (Class<? extends BasicDaoImpl<T>>)this.getClass();
 		Type type = this.getClass().getGenericSuperclass();
 		if (type instanceof ParameterizedType) {
-			this.clz = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
+			this.modelClz = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
 		}
+	}
+	
+	protected BasicDao<T> getSelf(){
+		synchronized (this) {
+			if(self == null){
+				self = (BasicDao<T>)OpenstackUtil.getBean(clz);
+			}
+		}
+		return self;
 	}
 	
 	@Override
 	public final PaginationModel<T> pagination(int pageIndex, int pageSize){
-		return pagination(pageIndex, pageSize, null, null);
+		return getSelf().pagination(pageIndex, pageSize, null, null);
 	}
 	
 	@Override
 	public final PaginationModel<T> pagination(int pageIndex, int pageSize, Predicate where,
 			Order[] orders){
 		PaginationModel<T> model = new PaginationModel<T>();
-		log.debug("getting all " + this.clz.getSimpleName() + " instance");
+		log.debug("getting all " + this.modelClz.getSimpleName() + " instance");
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
 			CriteriaQuery<Long> count = builder.createQuery(Long.class);
-			Root<T> root = count.from(this.clz);
+			Root<T> root = count.from(this.modelClz);
 			count.select(builder.count(root));
 			if(where != null){
 				count.where(where);
@@ -57,8 +72,8 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			}
 			Long total = em.createQuery(count).getSingleResult();
 			
-			CriteriaQuery<T> criteria = builder.createQuery(this.clz);
-			root = criteria.from(this.clz);
+			CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
+			root = criteria.from(this.modelClz);
 			criteria.select(root);
 			if(where != null){
 				count.where(where);
@@ -86,11 +101,11 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Override
 	public final List<T> list() {		
 		List<T> list = null;
-		log.debug("getting all " + this.clz.getSimpleName() + " instance");
+		log.debug("getting all " + this.modelClz.getSimpleName() + " instance");
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
-			CriteriaQuery<T> criteria = builder.createQuery(this.clz);
-			Root<T> root = criteria.from(this.clz);
+			CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
+			Root<T> root = criteria.from(this.modelClz);
 			criteria.select(root);
 			list = em.createQuery(criteria).getResultList();
 			log.debug("get successful");
@@ -103,9 +118,9 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Override
 	public final T findById(Object primaryKey) {
 		T instance = null;
-		log.debug("getting " + this.clz.getSimpleName() + " instance with id: " + primaryKey);
+		log.debug("getting " + this.modelClz.getSimpleName() + " instance with id: " + primaryKey);
 		try {
-			instance = em.find(this.clz, primaryKey);
+			instance = em.find(this.modelClz, primaryKey);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
 		}
@@ -120,12 +135,12 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	@Override
 	public final T findByObject(String name, Object value) {
 		T intance = null;
-		log.debug("getting " + this.clz.getSimpleName() + " instance with " + name + ": " + value.toString());
+		log.debug("getting " + this.modelClz.getSimpleName() + " instance with " + name + ": " + value.toString());
 		if (name != null) {
 			try {
 				CriteriaBuilder builder = em.getCriteriaBuilder();
-				CriteriaQuery<T> criteria = builder.createQuery(this.clz);
-				Root<T> root = criteria.from(this.clz);
+				CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
+				Root<T> root = criteria.from(this.modelClz);
 				criteria.select(root).where(builder.equal(root.get(name), value));;
 				List<T> instances = em.createQuery(criteria).getResultList();
 				if (instances != null && instances.size() > 0) {
@@ -143,7 +158,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 
 	@Override
 	public final T persist(T instance) {
-		log.debug("persist " + this.clz.getSimpleName());
+		log.debug("persist " + this.modelClz.getSimpleName());
 		try {
 			em.persist(instance);
 		} catch (RuntimeException re){
@@ -155,7 +170,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 
 	@Override
 	public final void update(T instance) {
-		log.debug("update " + this.clz.getSimpleName());
+		log.debug("update " + this.modelClz.getSimpleName());
 		try {
 			em.merge(instance);
 		} catch (RuntimeException re){
@@ -165,7 +180,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 
 	@Override
 	public final void remove(T instance) {
-		log.debug("remove " + this.clz.getSimpleName());
+		log.debug("remove " + this.modelClz.getSimpleName());
 		try {
 			em.remove(instance);
 		} catch (RuntimeException re){

@@ -97,6 +97,9 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 			return new ArrayList<OrderPeriod>();
 		}else{
 			log.debug("List all successfully");
+			for (OrderPeriod period : pLst) {
+				period.getName().getId();
+			}
 			return pLst;
 		}
 	}

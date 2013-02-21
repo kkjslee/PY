@@ -42,7 +42,7 @@ public class OrderPeriodDaoImpl extends BasicDaoImpl<OrderPeriod> implements Ord
 				return instances;
 			}
 			log.debug("get successful");
-			return null;
+			return instances;
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
 			throw re;

@@ -15,6 +15,7 @@
     <input type="hidden" id="pageTotal" value="${pageTotal}"/>
     <input isos="id" type="hidden" value="${item.id}" />
     <input isos="enable" type="hidden" value="${item.enable}" />
+    <input isos="system" type="hidden" value="${item.system}" />
     <c:forEach items="${item.name}" var="i18Name">
     <input class="langId" lang_isos_id="${i18Name.languageId}" type="hidden" value="${i18Name.content}" />
     ${i18Name.content}<br/>
@@ -23,7 +24,7 @@
     <td class="categoryStatus">${item.enabledDesc}</td>
     <td class="categoryOperation moduleOperation">
         <span ><a class="button" href="#" onclick="showEditCategory(this);return false;"><spring:message code="edit.button" /></a></span>
-        <c:if test="item.system !='true'"><span ><a class="button" href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span></c:if>
+        <c:if test='${item.system==false}'><span ><a class="button" href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span></c:if>
     </td>
 </tr>
 </c:forEach>

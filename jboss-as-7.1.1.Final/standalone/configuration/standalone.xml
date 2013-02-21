@@ -100,7 +100,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
                 <datasource jndi-name="java:jboss/datasources/troposphere1" pool-name="troposphere">
-                    <connection-url>jdbc:mysql://192.168.1.145:3306/troposphere</connection-url>
+                    <connection-url>jdbc:mysql://192.168.1.145:3306/troposphere?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
                     <driver>com.mysql</driver>
                     <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                     <pool>

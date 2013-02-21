@@ -65,6 +65,11 @@ var Template_CreateProduct = '\
                     <option value="-1"><spring:message code="choose.label"/></option>\
                      <option value="2"><spring:message code="image.type"/></option>\
                     <option value="1"><spring:message code="flavor.type"/></option>\
+                    <option value="7"><spring:message code="datacenter.type"/></option>\
+                    <option value="6"><spring:message code="plan.type"/></option>\
+                    <option value="5"><spring:message code="usage.type"/></option>\
+                    <option value="3"><spring:message code="storage.type"/></option>\
+                    <option value="4"><spring:message code="network.type"/></option>\
                 </select>\
            </span>\
         </span>\

@@ -44,7 +44,7 @@ function printMessage(msg) {
 }
 
 function getCategoryItemDetailsById(url,data,container,osTypeId,callBack){
-    window.console.log("getting flavor details");
+    window.console.log("getting  details for :" + osTypeId);
      $.ajax({
         type: "POST",
         url: url,

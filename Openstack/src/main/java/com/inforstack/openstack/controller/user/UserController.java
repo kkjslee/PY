@@ -270,8 +270,7 @@ public class UserController {
 		if (tempUser != null) {
 			log.warn("Register user failed for user name already exist");
 			ret.put("error",
-					OpenstackUtil.getMessage("user.alreadyexist",
-							user.getUsername()));
+					OpenstackUtil.getMessage("user.alreadyexist", user.getUsername()));
 			return ret;
 		}
 		boolean success = true;

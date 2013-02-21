@@ -23,7 +23,7 @@
     <td class="categoryStatus">${item.enabledDesc}</td>
     <td class="categoryOperation moduleOperation">
         <span ><a class="button" href="#" onclick="showEditCategory(this);return false;"><spring:message code="edit.button" /></a></span>
-        <c:if test="item.system !='true'><span ><a class="button" href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span></c:if>
+        <c:if test="item.system !='true'"><span ><a class="button" href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span></c:if>
     </td>
 </tr>
 </c:forEach>

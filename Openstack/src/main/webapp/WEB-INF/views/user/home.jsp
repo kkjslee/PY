@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><spring:message code="user.entry.title"/>/title>
+<title><spring:message code="user.entry.title"/></title>
 <jsp:include page="../jquerybootstrap.jsp" />
 <jsp:include page="userlinks.jsp" />
 <link href="<%=request.getContextPath()%>/resource/normaluser/common/css/navigator.css" rel="Stylesheet" type="text/css"  />

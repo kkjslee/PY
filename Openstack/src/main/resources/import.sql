@@ -129,6 +129,7 @@ insert into Resource(id, url, permission) values (100, '/admin/product/update', 
 insert into Resource(id, url, permission) values (50, '/admin/category/listForJson', 'admin');
 
 insert into Resource(id, url, permission) values (60, '/admin/plan/planList', 'admin');
+insert into Resource(id, url, permission) values (61, '/admin/plan/retrievePlan', 'admin');
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 

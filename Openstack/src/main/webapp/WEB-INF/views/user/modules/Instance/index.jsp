@@ -32,7 +32,7 @@
         <tfoot>
             <tr class="footerRow">
             <td colspan="4" class="pagination"></td>
-            <td align="left"><a class="button" href="#" onclick="showCreatVM();return false;"><spring:message code="create.button"/></a></td>
+            <td align="left"></td>
             </tr>
         </tfoot>
     </table>

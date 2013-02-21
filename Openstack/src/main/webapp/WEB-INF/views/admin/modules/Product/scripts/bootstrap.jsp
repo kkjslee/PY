@@ -19,6 +19,7 @@ function registerTemplate() {
    $.template("editProduct", Template_EditProduct);
    $.template("createImgOption",  Template_ImgModelOption);
    $.template("createFlavorOption",  Template_FlavorModelOption);
+   $.template("createPlanOption",  Template_PlanOption);
    $.template("editPrice",  Template_EditPrice);
    $.template("createCategoryOption",  Template_CategoryModelOption);
 }
@@ -327,6 +328,8 @@ function showEditProduct(which){
         osType="<spring:message code="flavor.type"/>";
     }else if(parseInt(osType) ==2){
         osType="<spring:message code="image.type"/>";
+    } if(parseInt(osType) ==6){
+        osType="<spring:message code="plan.type"/>";
     }
      $(editProduct).find(".osType").text(osType);
    //set refId
@@ -334,12 +337,24 @@ function showEditProduct(which){
     window.console.log("refId:"+ refId);
     var refName = "";
     if(!isNull(refId)){
+       var url="";
+       var data={};
         var osTypeId = $(row).find("input[isos='osType']").val();
     	if(parseInt(osTypeId) == 1){
-    		getFlavorDetailsById(refId,editProduct,osTypeId,setRefNameCallBack);
+    		url="<%=request.getContextPath()%>/admin/flavor/getFlavorDetails";
+    		data["flavorId"] = refId;
     	}else if(parseInt(osTypeId)==2){
-    		getImageDetailsById(refId,editProduct,osTypeId,setRefNameCallBack);
+    		url="<%=request.getContextPath()%>/admin/image/retrieveImage";
+            data["imgId"] = refId;
+    	}else if(parseInt(osTypeId)==6){
+    	//todo
+            url="<%=request.getContextPath()%>/admin/plan/retrievePlan";
+            data["planId"] = refId;
+        }
+    	if(url!=""){
+    	 getCategoryItemDetailsById(url,data,editProduct,osTypeId,setRefNameCallBack)
     	}
+    	
     }
     //set categoryies
     var categories_id = new Array();
@@ -363,8 +378,11 @@ function setRefNameCallBack(editProduct,osTypeId,data){
                 if(parseInt(osTypeId) == 1){
                     refName = data.flavorName;
 		        }else if(parseInt(osTypeId)==2){
-		        refName = data.name;
-		        }
+		            refName = data.name;
+		        }else if(parseInt(osTypeId)==6){
+		        //todo
+                    refName = data.name;
+                }
                 window.console.log("ref datadat:" + data);
                 window.console.log("ref name:" + refName);
      }
@@ -409,6 +427,9 @@ function bindOSTypeSelect(){
              getOSTyeList("<%=request.getContextPath()%>/admin" + "/flavor/flavorList","refId","createFlavorOption");
         }else if(type == 2){
             getOSTyeList("<%=request.getContextPath()%>/admin" + "/image/imgList","refId","createImgOption");
+        }else if(type == 6){
+        //todo
+            getOSTyeList("plan url","refId","createPlanOption");
         }
     });
 }

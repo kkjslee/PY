@@ -2,29 +2,23 @@
   font-family:"微软雅黑" !important;
 }
 .mainBody{
-	margin:0;
-	padding:0;
-	background:white;
-	white-space:nowrap;
-	overflow:hidden;
+    margin:0;
+    padding:0;
+    background:white;
+    white-space:nowrap;
+    overflow:hidden;
 }
 .left{
-	width:245px;
-	display: inline-block;
-	background:url(image_navigator/sidebar.gif) 0 0 repeat-y;
-	height:100%;
-	overflow:hidden;
-}
-.right {
-  background:white;
-  display:block;
-  min-width:800px;
-  min-height:500px;
-  height:100%;
-  padding:0;
-  margin:0;
-  z-index:-1;
-  overflow: hidden;
+    width:245px;
+    float:left;
+    display: inline-block;
+    position: absolute;
+    height:100%;
+    left:0;
+    top:0px;
+    overflow:hidden;
+    border-right:5px solid #E5E5E5;
+    border-bottom:5px solid #E5E5E5;
 }
 .prepare {
     background-color:blue;
@@ -35,55 +29,43 @@
     text-indent:35px;
     position:absolute;
     top:0;
-    left:245px;
+    left:255px;
     width:100%;
     padding:5px;
     margin:0;
     z-index:3;
     overflow: auto;
-    -webkit-transition: all 0.5s linear;
-    -o-transition: all 0.5s linear;
-    -moz-transition: all 0.5s linear;
-    -ms-transition: all 0.5s linear;
-    transition: all 0.5s linear;
-    
-    -webkit-animation-name: "loading";
-    -webkit-animation-duration: 4s;
-    -webkit-animation-timing-function:linear;
-    -webkit-animation-iteration-count: infinite;
 }
-@-webkit-keyframes 'loading' {
-    from {
-        background: rgba(251, 158, 35, 0.8);
-    }
-    50% {
-        background: none;
-    }
-    to {
-        background: rgba(251, 158, 35, 0.8);
-    }
+.right {
+  background:white;
+  display:block;
+  position:absolute;
+  top:0;
+  left:255px;
+  min-width:800px;
+  min-height:500px;
+  height:100%;
+  padding:0;
+  margin:0;
+  z-index:-1;
+  overflow: hidden;
 }
 .logo{
-	padding:20px;
-	text-align:center;
+    padding:20px;
+    text-align:center;
 }
 .logo img{
-	max-height:120px;
+    max-height:120px;
 }
 .selected {
   color:orange !important;
 }
-
-.logout			{ cursor:pointer;display: block; line-height: 16px; padding: 8px 12px 8px 12px; background:url(image_navigator/menu_button_logout.png) top left no-repeat !important;color: black; text-decoration: none; font-weight: bold;  } 
-
-.menu			{ padding-top: 5px; width:196px; padding-left:23px;}
-.menu ul		{ font-size: 13px; padding-left:0px;}
-.menu li		{ list-style-type: none;  Padding-top:5px;}
-.menu li a		{ cursor:pointer;display: block; line-height: 16px; padding: 8px 12px 8px 12px; background:url(image_navigator/menu_button.png) top left no-repeat; color: white; text-decoration: none; font-weight: bold; }
-
-.menu ul ul		{ display:none;font-size: 12px; width: 100%; background: url(image_navigator/bck_white_10.png); margin: 4px 0 0 0; padding: 6px 0px 8px 0px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; border-radius: 3px 3px 3px 3px; }
-.menu li li		{ padding: 4px 0px 4px 0px; list-style-type:disc; color:#bbb; margin-left:25px;}
-.menu li li a		{ padding: 0 12px 0 0; background:none; font-weight: normal; color: #BBBBBB; }
-.menu li li:hover{color:white;}
-.menu li li a:hover	{ color: #FFFFFF; }
-.menu li li.active a	{ color: #FFFFFF; background:none; }
+.menu{
+    padding:35px 0 5px 35px;
+}
+.tabs-left > .nav-tabs{
+    width:100%;
+    margin-right:0;
+    border-right:0;
+    
+}

@@ -43,6 +43,31 @@ function printMessage(msg) {
     });
 }
 
+function getCategoryItemDetailsById(url,data,container,osTypeId,callBack){
+    window.console.log("getting flavor details");
+     $.ajax({
+        type: "POST",
+        url: url,
+        cache: false,
+        dataType:"json",
+        data: data,
+        success: function(data) {
+            try{
+                if(!data || data.lengh == 0){
+                    return;
+                }else{
+                     callBack(container,osTypeId,data);
+                }
+                
+            }catch(e) {
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
+
+
 function getFlavorDetailsById(id,container,osTypeId,callBack){
     window.console.log("getting flavor details");
      $.ajax({
@@ -68,6 +93,7 @@ function getFlavorDetailsById(id,container,osTypeId,callBack){
         }
     });
 }
+
 
 function getImageDetailsById(id,container,osTypeId,callBack){
  window.console.log("getting image details");

@@ -12,9 +12,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.drools.KnowledgeBase;
-import org.drools.definition.type.FactType;
-import org.drools.runtime.StatefulKnowledgeSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,7 +47,6 @@ import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
-import com.inforstack.openstack.utils.RuleUtils;
 import com.inforstack.openstack.utils.SecurityUtils;
 
 @Controller
@@ -153,39 +149,45 @@ public class CartController {
 	public @ResponseBody
 	Map<String, Object> add(HttpServletRequest request, Model model,
 			CartItemModel cartItem) {
+		
 		if (cartItem != null) {
-			cartItem.setUuid(UUID.randomUUID().toString());
-			cartItem.setStatus(0);
-
-			CartModel cart = null;
-			Object sessionAttribute = WebUtils.getSessionAttribute(request,
-					CART_SESSION_ATTRIBUTE_NAME);
-			if (sessionAttribute == null) {
-				cart = new CartModel();
-				cart.setItems(new CartItemModel[1]);
-				cart.getItems()[0] = cartItem;
-			} else {
-				cart = (CartModel) sessionAttribute;
-				CartItemModel[] oldItems = cart.getItems();
-				CartItemModel[] items = Arrays.copyOf(oldItems,
-						oldItems.length + 1);
-				items[oldItems.length] = cartItem;
-				cart.setItems(items);
+			
+			ItemSpecification itemSpecification = this.itemService.getItemSpecification(cartItem.getItemSpecificationId());
+			if (itemSpecification != null) {
+				cartItem.setUuid(UUID.randomUUID().toString());
+				cartItem.setStatus(0);
+	
+				CartModel cart = null;
+				Object sessionAttribute = WebUtils.getSessionAttribute(request,
+						CART_SESSION_ATTRIBUTE_NAME);
+				if (sessionAttribute == null) {
+					cart = new CartModel();
+					cart.setItems(new CartItemModel[1]);
+					cart.getItems()[0] = cartItem;
+				} else {
+					cart = (CartModel) sessionAttribute;
+					CartItemModel[] oldItems = cart.getItems();
+					CartItemModel[] items = Arrays.copyOf(oldItems,
+							oldItems.length + 1);
+					cartItem.setPrice(itemSpecification.getDefaultPrice());
+					items[oldItems.length] = cartItem;
+					cart.setItems(items);
+				}
+				
+				this.runRules(cart, itemSpecification);
+	
+				float amount = 0;
+				CartItemModel[] items = cart.getItems();
+				for (CartItemModel item : items) {
+					amount += (item.getNumber().intValue() * item.getPrice()
+							.floatValue());
+				}
+				cart.setAmount(amount);
+				cart.setCurrentItemUUID(cartItem.getUuid());
+				WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME,
+						cart);
+				return JSONUtil.jsonSuccess(cart);
 			}
-
-			// this.runRules(cart);
-
-			float amount = 0;
-			CartItemModel[] items = cart.getItems();
-			for (CartItemModel item : items) {
-				amount += (item.getNumber().intValue() * item.getPrice()
-						.floatValue());
-			}
-			cart.setAmount(amount);
-			cart.setCurrentItemUUID(cartItem.getUuid());
-			WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME,
-					cart);
-			return JSONUtil.jsonSuccess(cart);
 		}
 
 		return JSONUtil.jsonError(null);
@@ -220,7 +222,7 @@ public class CartController {
 				existItem.setPrice(cartItem.getPrice());
 				existItem.setStatus(0);
 
-				/* this.runRules(cart); */
+				this.runRules(cart, null);
 
 				float amount = 0;
 				CartItemModel[] items = cart.getItems();
@@ -259,7 +261,7 @@ public class CartController {
 				}
 				cart.setItems(itemList.toArray(new CartItemModel[0]));
 
-				// this.runRules(cart);
+				this.runRules(cart, null);
 
 				float amount = 0;
 				items = cart.getItems();
@@ -278,28 +280,76 @@ public class CartController {
 		return JSONUtil.jsonError(null);
 	}
 
-	private void runRules(CartModel cart) {
+	private void runRules(CartModel cart, ItemSpecification itemSpecification) {
 		User user = this.userService.findByName(SecurityUtils.getUserName());
 		Tenant tenant = null;
 		if (user != null) {
 			tenant = this.tenantService.findTenantById(SecurityUtils
 					.getTenant().getId());
 		}
+		CartItemModel[] items = cart.getItems();
+		if (itemSpecification != null && itemSpecification.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
+			for (CartItemModel item : items) {
+				ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+				switch (is.getOsType()) {
+				case ItemSpecification.OS_TYPE_IMAGE_ID:
+				case ItemSpecification.OS_TYPE_FLAVOR_ID:
+				case ItemSpecification.OS_TYPE_USAGE_ID:
+				case ItemSpecification.OS_TYPE_PERIOD_ID:
+					item.setPeriodId(Integer.parseInt(itemSpecification.getRefId()));
+					break;
+				case ItemSpecification.OS_TYPE_DATACENTER_ID:
+				case ItemSpecification.OS_TYPE_NETWORK_ID:
+				case ItemSpecification.OS_TYPE_VOLUME_ID:
+					item.setPeriodId(2);
+					break;
+				}
+			}
+		} else {
+			Integer plan = null;
+			for (CartItemModel item : items) {
+				ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+				if (is.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
+					plan = Integer.parseInt(is.getRefId());
+					break;
+				}
+			}
+			if (plan != null) {
+				for (CartItemModel item : items) {
+					ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+					switch (is.getOsType()) {
+					case ItemSpecification.OS_TYPE_IMAGE_ID:
+					case ItemSpecification.OS_TYPE_FLAVOR_ID:
+					case ItemSpecification.OS_TYPE_USAGE_ID:
+					case ItemSpecification.OS_TYPE_PERIOD_ID:
+						item.setPeriodId(plan);
+						break;
+					case ItemSpecification.OS_TYPE_DATACENTER_ID:
+					case ItemSpecification.OS_TYPE_NETWORK_ID:
+					case ItemSpecification.OS_TYPE_VOLUME_ID:
+						item.setPeriodId(2);
+						break;
+					}
+				}
+			}
+		}
 
-		List<Rule> ruleList = this.ruleService.listRuleByTypeName("promotion");
-		for (Rule rule : ruleList) {
-			try {
-				KnowledgeBase kbase = RuleUtils.readKnowledgeBase(
-						rule.getName(), rule.getLocationType(),
-						rule.getLocation());
-				FactType userType = kbase.getFactType("troposphere", "User");
-				Object userFact = userType.newInstance();
-				StatefulKnowledgeSession ksession = kbase
-						.newStatefulKnowledgeSession();
-				ksession.insert(userFact);
-				ksession.fireAllRules();
-			} catch (InstantiationException e) {
-			} catch (IllegalAccessException e) {
+		List<Rule> ruleList = this.ruleService.listRuleByTypeName("cart");
+		if (ruleList != null) {
+			for (Rule rule : ruleList) {
+//			try {
+//				KnowledgeBase kbase = RuleUtils.readKnowledgeBase(
+//						rule.getName(), rule.getLocationType(),
+//						rule.getLocation());
+//				FactType userType = kbase.getFactType("troposphere", "User");
+//				Object userFact = userType.newInstance();
+//				StatefulKnowledgeSession ksession = kbase
+//						.newStatefulKnowledgeSession();
+//				ksession.insert(userFact);
+//				ksession.fireAllRules();
+//			} catch (InstantiationException e) {
+//			} catch (IllegalAccessException e) {
+//			}
 			}
 		}
 	}

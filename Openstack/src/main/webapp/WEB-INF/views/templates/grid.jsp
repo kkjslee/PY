@@ -49,23 +49,28 @@ example:
 </c:forEach>
 
 <table style="width:100%">
-<thead><tr>
+<thead class="headerRow"><tr>
 	<c:forEach items="${map}" var="item" >
 		<c:choose>
 			<c:when test="${fn:startsWith(item.value, '[hidden]')}">
-				<td style="display: none;"></td>
+				<th style="display: none;"></th>
 			</c:when>
 			<c:otherwise>
-				<td>
+				<th>
 					${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
-				</td>
+				</th>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 </tr></thead>
 <tbody>
 	<c:forEach items="${conf['.datas']}" var="d" varStatus="status">
-		<tr>
+		<c:if test="${status.index%2 == 0}">
+			<tr class="dataRow rowOdd">
+		</c:if>
+		<c:if test="${status.index%2 != 0}">
+			<tr class="dataRow rowEve">
+		</c:if>
 			<c:forEach items="${map}" var="item">
 					<c:if test="${fn:startsWith(item.value, '[plain]')}">
 						<td>

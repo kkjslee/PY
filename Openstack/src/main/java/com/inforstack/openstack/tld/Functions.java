@@ -32,7 +32,7 @@ public class Functions {
 	}
 	
 	public static String value(String string, String defaultValue){
-		if(StringUtil.isNullOrEmpty(string, false)){
+		if(string == null){
 			return defaultValue;
 		}
 		

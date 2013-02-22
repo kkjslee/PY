@@ -25,6 +25,7 @@
             <li><a href="#" name="menuItem" isos:module="image/modules/index" data-toggle="tab"><spring:message code='admin.navi.image' /></a></li>
             <li><a href="#" name="menuItem" isos:module="category/modules/index" data-toggle="tab"><spring:message code='admin.navi.category' /></a></li>
             <li><a href="#" name="menuItem" isos:module="product/modules/index" data-toggle="tab"><spring:message code='admin.navi.product' /></a></li>
+             <li><a href="#" name="menuItem" isos:module="quantum/modules/index" data-toggle="tab"><spring:message code='admin.navi.quantum' /></a></li>
             <li><a href="<c:url value='/admin/doLogout'/>"><spring:message code='admin.navigation.menu.admin.signout' /></a></li>
         </ul>
     </div>

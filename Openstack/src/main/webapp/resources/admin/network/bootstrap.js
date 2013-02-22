@@ -4,7 +4,7 @@ function setServer(server){
 	Server = server;
 }
 $(function(){
-	$.ajax({
+	/*$.ajax({
         type: "POST",
         dataType: "html",
         cache: false,
@@ -19,5 +19,5 @@ $(function(){
         error: function(jqXHR, textStatus, errorThrown) {
             $("<span class='loadingError'>error</span>").appendTo($(".dataTable").empty());
         }
-    });
+    });*/
 });

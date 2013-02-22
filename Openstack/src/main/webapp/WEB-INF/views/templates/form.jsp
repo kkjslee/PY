@@ -197,8 +197,10 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[plain]')}">
-			<label>&nbsp;</label>
-			<span>${fn:replace(p.value, '[plain]', '')}</span>
+			<label for="${item}">
+				${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			</label>
+			<span id="${item}">${fn:replace(p.value, '[plain]', '')}</span>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[custom]')}">
 			<label>

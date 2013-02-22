@@ -149,8 +149,17 @@ insert into Resource(id, url, permission) values (301, '/user/instance/scripts/b
 insert into Resource(id, url, permission) values (302, '/user/instance/getPagerInstanceList', 'user');
 insert into Resource(id, url, permission) values (303, '/user/instance/imcontrol', 'user');
 insert into Resource(id, url, permission) values (304, '/user/instance/getInstance', 'user');
+insert into Resource(id, url, permission) values (305, '/user/instance/scripts/template', 'user');
+insert into Resource(id, url, permission) values (306, '/user/instance/showInstanceDetails', 'user');
+
 
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');
+
+
+insert into Resource(id, url, permission) values (400, '/admin/quantumn/modules/index', 'admin');
+insert into Resource(id, url, permission) values (401, '/admin/quantumn/getPagerNetworkList', 'admin');
+insert into Resource(id, url, permission) values (402, '/admin/quantumn/createnetwork', 'admin');
+insert into Resource(id, url, permission) values (403, '/admin/quantumn/createsubnet', 'admin');
 
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');

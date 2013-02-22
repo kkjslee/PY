@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +15,7 @@ import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
+import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
@@ -42,6 +41,8 @@ public class OrderServiceImpl implements OrderService {
 	private TenantService tenantService;
 	@Autowired
 	private SubOrderService subOrderService;
+	@Autowired
+	private InstanceService instanceService;
 	
 	@Override
 	public Order createOrder(Order order) {
@@ -83,7 +84,11 @@ public class OrderServiceImpl implements OrderService {
 				o.setSubOrders(subOrders);
 			}
 		}
-		
+		Integer tenantId = SecurityUtils.getTenantId();
+		Integer userId = SecurityUtils.getUserId();
+		User user = this.userService.findUserById(userId);
+		Tenant tenant = this.tenantService.findTenantById(tenantId);
+		this.instanceService.createVM(user, tenant, o.getId());
 		log.debug("Create order successfully");
 		return o;
 	}

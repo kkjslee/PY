@@ -6,7 +6,7 @@ import com.inforstack.openstack.user.User;
 
 public interface InstanceService {
 	
-	public void createVM(User user, Tenant tenant, Server server);
+	public void createVM(User user, Tenant tenant, String orderId);
 	
 	public void updateVM(User user, Tenant tenant, Server server);
 	

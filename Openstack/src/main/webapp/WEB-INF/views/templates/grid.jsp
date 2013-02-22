@@ -52,7 +52,7 @@ example:
 <thead><tr>
 	<c:forEach items="${map}" var="item" >
 		<c:choose>
-			<c:when test="${not fn:startsWith(item.value, '[hidden]')}">
+			<c:when test="${fn:startsWith(item.value, '[hidden]')}">
 				<td style="display: none;"></td>
 			</c:when>
 			<c:otherwise>

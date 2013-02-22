@@ -299,6 +299,7 @@ public class InstanceUserController {
 		conf.put(".form", "start_end");
 		conf.put("form.vmname", "[plain]" + instance.getVmname());
 		conf.put("form.statusDisplay", "[plain]" + instance.getStatusdisplay());
+		conf.put("form.imagename", "[plain]" + instance.getImageId());
 		conf.put("form.cpus", "[plain]" + instance.getCpus());
 		conf.put("form.memory", "[plain]" + instance.getMemory());
 		conf.put("form.disksize", "[plain]" + instance.getDisksize());

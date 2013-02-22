@@ -281,7 +281,72 @@ public class CartController {
 	}
 
 	private void runRules(CartModel cart, ItemSpecification itemSpecification) {
+		if (cart.getItems().length != 3) {
+			return;
+		}
+		User user = this.userService.findByName(SecurityUtils.getUserName());
+		Tenant tenant = null;
+		if (user != null) {
+			tenant = this.tenantService.findTenantById(SecurityUtils
+					.getTenant().getId());
+		}
+		CartItemModel[] items = cart.getItems();
 		
+		for (CartItemModel item : items) {
+			ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+			item.setPrice(is.getDefaultPrice());
+		}
+		
+		if (itemSpecification != null && itemSpecification.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
+			for (CartItemModel item : items) {
+				ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+				switch (is.getOsType()) {
+				case ItemSpecification.OS_TYPE_PERIOD_ID:
+					item.setPrice(0f);
+				case ItemSpecification.OS_TYPE_IMAGE_ID:
+				case ItemSpecification.OS_TYPE_FLAVOR_ID:
+				case ItemSpecification.OS_TYPE_USAGE_ID:
+					item.setPeriodId(Integer.parseInt(itemSpecification.getRefId()));
+					item.setPrice(item.getPrice() * itemSpecification.getDefaultPrice());
+					break;
+				case ItemSpecification.OS_TYPE_DATACENTER_ID:
+				case ItemSpecification.OS_TYPE_NETWORK_ID:
+				case ItemSpecification.OS_TYPE_VOLUME_ID:
+					item.setPeriodId(2);
+					break;
+				}
+			}
+		} else {
+			Integer plan = null;
+			Float price = null;
+			for (CartItemModel item : items) {
+				ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+				if (is.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
+					plan = Integer.parseInt(is.getRefId());
+					price = is.getDefaultPrice();
+					break;
+				}
+			}
+			if (plan != null) {
+				for (CartItemModel item : items) {
+					ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+					switch (is.getOsType()) {
+					case ItemSpecification.OS_TYPE_IMAGE_ID:
+					case ItemSpecification.OS_TYPE_FLAVOR_ID:
+					case ItemSpecification.OS_TYPE_USAGE_ID:
+					case ItemSpecification.OS_TYPE_PERIOD_ID:
+						item.setPeriodId(plan);
+						item.setPrice(item.getPrice() * price);
+						break;
+					case ItemSpecification.OS_TYPE_DATACENTER_ID:
+					case ItemSpecification.OS_TYPE_NETWORK_ID:
+					case ItemSpecification.OS_TYPE_VOLUME_ID:
+						item.setPeriodId(2);
+						break;
+					}
+				}
+			}
+		}
 
 		List<Rule> ruleList = this.ruleService.listRuleByTypeName("cart");
 		if (ruleList != null) {

@@ -9,6 +9,9 @@ public interface CinderService {
 	public final static String ENDPOINT_VOLUMES_DETAIL		= "openstack.endpoint.volumes.detail";
 	public final static String ENDPOINT_VOLUME				= "openstack.endpoint.volume";
 	
+	public final static String ENDPOINT_VOLUMEATTACH		= "openstack.endpoint.volumesattachment";
+	public final static String ENDPOINT_VOLUMEATTACH_DETAIL = "openstack.endpoint.volumesattachmentDetail";
+
 	public final static String ENDPOINT_VOLUMETYPES			= "openstack.endpoint.volumetypes";
 	public final static String ENDPOINT_VOLUMETYPE			= "openstack.endpoint.volumetype";
 	
@@ -37,5 +40,11 @@ public interface CinderService {
 	public Volume createVolumeFromVolume(Access access, String name, String description, int size, boolean bootable, String type, String source, String zone) throws OpenstackAPIException;
 	
 	public void removeVolume(Access access, String id) throws OpenstackAPIException;
+	
+	public VolumeAttachment attachVolume(Access access, String serverId, String volumeId, String device) throws OpenstackAPIException;
+	
+	public void detachVolume(Access access, String serverId, String attachId) throws OpenstackAPIException;
+	
+	public VolumeAttachment[] listAttachedVolumes(Access access,String serverId) throws OpenstackAPIException;
 	
 }

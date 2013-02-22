@@ -48,8 +48,8 @@ insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', 
 insert into Configuration(id, name, value) values(100, 'test.host', 'http://192.168.1.122:8080')
 insert into Configuration(id, name, value) values(101, 'test.admin.username', 'admin')
 insert into Configuration(id, name, value) values(102, 'test.admin.password', 'password')
-insert into Configuration(id, name, value) values(103, 'test.user.username', 'TestUser')
-insert into Configuration(id, name, value) values(104, 'test.user.password', 'testuser')
+insert into Configuration(id, name, value) values(103, 'test.user.username', 'default')
+insert into Configuration(id, name, value) values(104, 'test.user.password', 'password')
 
 insert into Role(id, name) values (1, 'admin')
 insert into Role(id, name) values (2, 'user')

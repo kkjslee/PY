@@ -1,8 +1,10 @@
 package com.inforstack.openstack.controller.model;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -303,6 +305,18 @@ public class InstanceModel {
 
 	public Map<String, String> getAddresses() {
 		return addresses;
+	}
+
+	public String getAddressString() {
+		Iterator<Entry<String, String>> it = addresses.entrySet().iterator();
+		String ipString = "";
+		while (it.hasNext()) {
+			Entry<String, String> entry = it.next();
+			String key = entry.getKey();
+			String values = entry.getValue();
+			ipString = "[" + key + ":" + values + "]";
+		}
+		return ipString;
 	}
 
 	public void setAddresses(Map<String, String> addresses) {

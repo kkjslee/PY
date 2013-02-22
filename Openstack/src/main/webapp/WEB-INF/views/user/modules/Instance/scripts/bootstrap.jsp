@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 var Server="<%=request.getContextPath()%>/user/instance";
 //init pager data from boostrap controller
 var pageIndex = ${requestScope.pageIndex};
@@ -174,7 +175,26 @@ function updateButtonWidthStatus(row,status){
    
 }
 
-
+function showDetails(which){
+    var data={};
+  var vmId=$(which).parents(".dataRow").first().find("input[isos='vmId']").val();
+   data["vmId"] = vmId;
+   var instanceForm=new CustomForm();
+   instanceForm.show({
+       title:'<spring:message code="instance.details.label"/>',
+       container:$('#instanceDetails'),
+       url:'<c:url value="/user/instance/showInstanceDetails"/>',
+       data:data,
+       width:300,
+       buttons: [
+                 {   
+                    text: '<spring:message code="confirm.button"/>', 
+                    click:function(){
+                     instanceForm.close();
+                    }}
+                 ]
+   });
+}
 
 function initUI(){
 	 $( ".button").button();

@@ -37,6 +37,6 @@
         </tfoot>
     </table>
 </div>
-
+<div id="instanceDetails"></div>
 </body>
 </html>

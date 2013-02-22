@@ -19,6 +19,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.cinder.Attachment;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
+import com.inforstack.openstack.api.cinder.VolumeAttachment;
 import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
@@ -154,12 +155,14 @@ public class CinderTest {
 		try {
 			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
 			Assert.assertNotNull(types);
-			Assert.assertTrue(types.length > 0);
+			//Assert.assertTrue(types.length > 0);
 			
 			Volume[] volumes = this.cinderService.listVolumes(this.access);
 			Assert.assertNotNull(volumes);
 			int size = volumes.length;
-			Volume volume1 = this.cinderService.createVolume(this.access, "testVolume1", "", 1, false, types[0].getId(), "nova");
+			String type = "";
+			if (types.length > 0) type = types[0].getId();
+			Volume volume1 = this.cinderService.createVolume(this.access, "testVolume1", "", 1, false, type, "nova");
 			Assert.assertNotNull(volume1);
 			Assert.assertTrue(volume1.getName().equals("testVolume1"));
 			Assert.assertFalse(volume1.getId() == null || volume1.getId().isEmpty());
@@ -238,6 +241,52 @@ public class CinderTest {
 			Assert.assertTrue((this.cinderService.listVolumes(this.access).length == size));
 		} catch (OpenstackAPIException e) {
 			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testListVolumesFromServer() {
+		try {
+			VolumeAttachment[] volumes = this.cinderService.listAttachedVolumes(access, "054aaa09-afaa-4043-908c-139e6ebf745e");
+			Assert.assertNotNull(volumes);
+
+			Assert.assertTrue(volumes.length == 1);
+			VolumeAttachment volume = volumes[0];
+			
+			Assert.assertTrue(volume.getVolumeId().equals("1ba9e243-3103-496f-b3aa-01e05ed9f7de"));
+			Assert.assertTrue(volume.getDevice().equals("/dev/vdttached"));
+			Assert.assertTrue(volume.getServerId().equals("054aaa09-afaa-4043-908c-139e6ebf745e"));
+			
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testAttachDetatchVolumeFromServer() {
+		try {
+			VolumeAttachment volume = this.cinderService.attachVolume(access, "054aaa09-afaa-4043-908c-139e6ebf745e", "1ba9e243-3103-496f-b3aa-01e05ed9f7de", "/dev/vdttached");
+			
+			Assert.assertTrue(volume.getVolumeId().equals("1ba9e243-3103-496f-b3aa-01e05ed9f7de"));
+			Assert.assertTrue(volume.getDevice().equals("/dev/vdttached"));
+			Assert.assertTrue(volume.getServerId().equals("054aaa09-afaa-4043-908c-139e6ebf745e"));
+			
+			this.cinderService.detachVolume(access, "054aaa09-afaa-4043-908c-139e6ebf745e", volume.getId());
+			
+			Thread.sleep(5000);
+			
+			VolumeAttachment[] volumes = this.cinderService.listAttachedVolumes(access, "054aaa09-afaa-4043-908c-139e6ebf745e");
+			Assert.assertNotNull(volumes);
+
+			Assert.assertTrue(volumes.length == 0);
+			
+			
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}

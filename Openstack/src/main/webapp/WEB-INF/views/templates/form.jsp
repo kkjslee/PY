@@ -16,7 +16,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 <itemName>.tip			string								提示信息。显示在表单元素之后
 <itemName>.label		string								表单元素的标签。如果没有使用此属性，则使用默认的key为
 															<itemName>.label的国际化信息
-<itemName>.options		requestScope中的对象列表的key		使用select，radio，checkbox时使用的属性，
+<itemName>.options		对象列表								使用select，radio，checkbox时使用的属性，
 															为可选值提供键值对，结合属性option.key和
 															option.value使用
 <itemName>.option.key	options指定列表对象的属性				可选值的键
@@ -33,7 +33,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 	<c:set target="${formMap}" property="form.status" value="[custom]<input type='text' />" />
 	<spring:message code='username.label' var="label"/>
 	<c:set target="${formMap}" property="email.label" value="${label}" />
-	<c:set target="${formMap}" property="status.options" value="dictionary" />
+	<c:set target="${formMap}" property="status.options" value="${dictionary}" />
 	<c:set target="${formMap}" property="status.option.key" value="code" />
 	<c:set target="${formMap}" property="status.option.value" value="value" />
 	<c:import url="/WEB-INF/views/templates/form.jsp">
@@ -112,7 +112,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 				<c:set var="okey" value="${conf[f:append(item, 'option.key')]}"></c:set>
 				<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
 				<span>
-					<c:forEach items="${requestScope[conf[f:append(item, '.options')]]}" var="o" varStatus="status">
+					<c:forEach items="${conf[f:append(item, '.options')]}" var="o" varStatus="status">
 						<span>
 							<input type="checkbox" id="${f:append(item, status.index)}" name="${item}"
 								value="${o[okey]}" <c:if test="${v == o[okey]}">checked</c:if> /> 
@@ -133,7 +133,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 				<c:set var="okey" value="${conf[f:append(item, 'option.key')]}"></c:set>
 				<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
 				<span>
-					<c:forEach items="${requestScope[conf[f:append(item, '.options')]]}" var="o" varStatus="status">
+					<c:forEach items="${conf[f:append(item, '.options')]}" var="o" varStatus="status">
 						<span>
 							<input type="radio" id="${f:append(item, status.index)}" name="${item}"
 								value="${o[okey]}" <c:if test="${v == o[okey]}">checked</c:if> /> 
@@ -177,7 +177,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 						<c:set var="v" value="${fn:replace(p.value, '[select]', '')}"></c:set>
 						<c:set var="okey" value="${conf[f:append(item, '.option.key')]}"></c:set>
 						<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
-						<c:forEach items="${requestScope[conf[f:append(item, '.options')]]}" var="o">
+						<c:forEach items="${conf[f:append(item, '.options')]}" var="o">
 							<option value="${o[okey]}" <c:if test="${v == o[okey]}">selected</c:if> >${o[ovalue]}</option>
 						</c:forEach>
 					</select>

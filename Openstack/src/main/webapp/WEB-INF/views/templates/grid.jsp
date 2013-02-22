@@ -1,6 +1,6 @@
 <%--
 property			value							comment
-.datas				requestScope中的对象列表的key	列表数据
+.datas				对象列表							列表数据
 grid.<columnName>	[columnType]<sub items>			columnName为列名。
 													columnType为列类型，可选值为：
 													plain:　文本输出
@@ -15,7 +15,7 @@ grid.<columnName>	[columnType]<sub items>			columnName为列名。
 <columnName>.value	html code						列输出。如果没有使用此属性，则使用列表数据中
 													对应key为<columnName>的值
 <button>.onclick	javascript code					点击按钮触发事件
-<dict>.options		requestScope中dict列表的key		dict列的可选dictionary对象列表
+<dict>.options		列表								dict列的可选dictionary对象列表
 
 example:
 	<jsp:useBean id="gridMap" class="java.util.LinkedHashMap" scope="request" />
@@ -57,7 +57,7 @@ example:
 	</c:forEach>
 </tr></thead>
 <tbody>
-	<c:forEach items="${requestScope[conf['.datas']]}" var="d" varStatus="status">
+	<c:forEach items="${conf['.datas']}" var="d" varStatus="status">
 		<tr>
 			<c:forEach items="${map}" var="item">
 					<c:if test="${fn:startsWith(item.value, '[plain]')}">
@@ -98,7 +98,7 @@ example:
 											${f:propStr(conf[f:append(item.key, '.value')], d)}
 										</c:when>
 										<c:otherwise>
-											<c:forEach items="${requestScope[conf[f:append(item.key, '.options')]]}" var="dict">
+											<c:forEach items="${conf[f:append(item.key, '.options')]}" var="dict">
 												<c:if test="${dict.code == f:getProp(d, item.key)}">
 													${dict.value}
 												</c:if>
@@ -113,7 +113,7 @@ example:
 												${f:propStr(conf[f:append(key, '.value')], d)}
 											</c:when>
 											<c:otherwise>
-												<c:forEach items="${requestScope[conf[f:append(key, '.options')]]}" var="dict">
+												<c:forEach items="${conf[f:append(key, '.options')]}" var="dict">
 													<c:if test="${dict.code == f:getProp(d, key)}">
 														${dict.value}
 													</c:if>

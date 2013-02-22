@@ -9,6 +9,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
+import com.inforstack.openstack.api.cinder.VolumeAttachment;
 import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
@@ -155,6 +156,34 @@ public class CinderServiceImpl implements CinderService {
 		}
 		
 	}
+	
+	private static final class VolumsesAttach {
+			
+		@JsonProperty("volumeAttachments")
+		private VolumeAttachment[] attachedVolumes;
+
+		public VolumeAttachment[] getVolumes() {
+			return attachedVolumes;
+		}
+		
+	}
+
+	private static final class VolumeAttachBody implements RequestBody {
+		
+		@JsonProperty("volumeAttachment")
+		private VolumeAttachment volumeAttach;
+
+		public VolumeAttachment getVolumeAttach() {
+			return volumeAttach;
+		}
+
+		public void setVolumeAttach(VolumeAttachment volumeAttach) {
+			this.volumeAttach = volumeAttach;
+		}
+		
+		
+	}
+
 
 	@Override
 	public Volume[] listVolumes(Access access) throws OpenstackAPIException {
@@ -284,6 +313,10 @@ public class CinderServiceImpl implements CinderService {
 		return RestUtils.getEndpoint(access, "cinder", type, suffix);
 	}
 	
+	private static String getnovaEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "nova", type, suffix);
+	}
+	
 	private void remove(Access access, String urlName, String id) throws OpenstackAPIException {
 		if (access != null && !id.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(urlName);
@@ -292,6 +325,69 @@ public class CinderServiceImpl implements CinderService {
 				RestUtils.delete(url, access, id);
 			}
 		}
+	}
+
+	@Override
+	public VolumeAttachment attachVolume(Access access, String serverId, String volumeId,
+			String device) throws OpenstackAPIException {
+		VolumeAttachment va = null;
+		if (access != null && serverId != null && !volumeId.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH);
+			if (endpoint != null) {
+				String url = getnovaEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				try {
+					va = new VolumeAttachment();
+					va.setDevice(device);
+					va.setVolumeId(volumeId);
+					VolumeAttachBody request = new VolumeAttachBody();
+					request.setVolumeAttach(va);
+					
+					VolumeAttachBody response = RestUtils.postForObject(url, access, request, VolumeAttachBody.class, serverId);
+					if (response != null) {
+						va = response.getVolumeAttach();
+					}
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
+				}
+			}
+		}
+		return va;
+		
+	}
+
+	@Override
+	public void detachVolume(Access access, String serverId, String attachId)
+			throws OpenstackAPIException {
+		if (access != null && serverId != null && !attachId.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH_DETAIL);
+			if (endpoint != null) {
+				String url = getnovaEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				try {
+					RestUtils.delete(url, access, serverId,attachId);
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public VolumeAttachment[] listAttachedVolumes(Access access, String serverId)
+			throws OpenstackAPIException {
+		// TODO Auto-generated method stub
+		VolumeAttachment[] volumes = null;
+		if (access != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH);
+			if (endpoint != null) {
+				String url = getnovaEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				VolumsesAttach response = RestUtils.get(url, access, VolumsesAttach.class, serverId);
+				if (response != null) {
+					volumes = response.getVolumes();
+				}
+			}
+		}
+		return volumes;
 	}
 
 }

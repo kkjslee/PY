@@ -122,7 +122,7 @@ public class QuantumController {
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.subnets", "[plain]");
-		conf.put("subnets.value", "{subnetName}");
+		conf.put("subnets.value", "{subnetNameString}");
 		conf.put("grid.shared", "[plain]");
 		conf.put("shared.value", "{shareDisplay}");
 		conf.put(".datas", nList);

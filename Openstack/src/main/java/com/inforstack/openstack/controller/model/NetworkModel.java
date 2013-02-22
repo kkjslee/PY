@@ -18,9 +18,11 @@ public class NetworkModel {
 
 	private String[] subnets;
 
+	private String[] subnetNames;
+
 	private String status;
 
-	private String subnetName;
+	private String subnetNameString;
 
 	private String shareDisplay;
 
@@ -38,22 +40,30 @@ public class NetworkModel {
 		this.shareDisplay = shareDisplay;
 	}
 
-	public String getSubnetName() {
-		subnetName = "";
-		if (subnets != null && subnets.length > 0) {
-			int length = subnets.length;
+	public String getSubnetNameString() {
+		subnetNameString = "";
+		if (subnetNames != null && subnetNames.length > 0) {
+			int length = subnetNames.length;
 			for (int i = 0; i < length; i++) {
-				subnetName = subnetName + subnets[i];
+				subnetNameString = subnetNameString + subnetNames[i];
 				if (i < length - 1) {
-					subnetName = subnetName + ",";
+					subnetNameString = subnetNameString + ",";
 				}
 			}
 		}
-		return subnetName;
+		return subnetNameString;
 	}
 
-	public void setSubnetName(String subnetName) {
-		this.subnetName = subnetName;
+	public String[] getSubnetNames() {
+		return subnetNames;
+	}
+
+	public void setSubnetNames(String[] subnetNames) {
+		this.subnetNames = subnetNames;
+	}
+
+	public void setSubnetNameString(String subnetNameString) {
+		this.subnetNameString = subnetNameString;
 	}
 
 	public NetworkModel() {

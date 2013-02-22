@@ -21,6 +21,7 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.quantum.Network;
 import com.inforstack.openstack.api.quantum.QuantumService;
+import com.inforstack.openstack.api.quantum.Subnet;
 import com.inforstack.openstack.controller.model.NetworkModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.log.Logger;
@@ -87,39 +88,55 @@ public class QuantumController {
 					nList.add(networkModel);
 				}
 			}
+
+			PagerModel<NetworkModel> page = new PagerModel<NetworkModel>(nList,
+					pageSze);
+			nList = page.getPagedData(pageIdx);
+			for (NetworkModel w : nList) {
+				String[] subnets = w.getSubnets();
+				if (subnets != null && subnets.length > 0) {
+					String[] subnetNames = new String[subnets.length];
+					for (int i=0;i<subnets.length;i++) {
+						Subnet subnet = quantumService.getSubnet(access, subnets[i]);
+						if(subnet!=null){
+							subnetNames[i] = subnet.getName();
+						}else{
+							log.debug("not find subnet with id:" +  subnets[i]);
+						}
+					}
+					w.setSubnetNames(subnetNames);
+				}
+
+			}
+			Map<String, Object> conf = new LinkedHashMap<String, Object>();
+			conf.put("grid.name", "[plain]");
+			conf.put("grid.subnets", "[plain]");
+			conf.put("subnets.value", "{subnetName}");
+			conf.put("grid.shared", "[plain]");
+			conf.put("shared.value", "{shareDisplay}");
+			conf.put(".datas", nList);
+
+			model.addAttribute("configuration", conf);
+
+			String jspString = OpenstackUtil
+					.getJspPage(
+							"/templates/grid.jsp?grid.configuration=configuration&type=",
+							model.asMap(), request, response);
+
+			if (jspString == null) {
+				return OpenstackUtil.buildErrorResponse(OpenstackUtil
+						.getMessage("order.list.loading.failed"));
+			} else {
+				Map<String, Object> result = new HashMap<String, Object>();
+				result.put("recordTotal", page.getTotalRecord());
+				result.put("html", jspString);
+
+				return OpenstackUtil.buildSuccessResponse(result);
+			}
 		} catch (OpenstackAPIException e) {
 			System.out.println(e.getMessage());
 			log.error(e.getMessage(), e);
 		}
-
-		PagerModel<NetworkModel> page = new PagerModel<NetworkModel>(nList,
-				pageSze);
-		nList = page.getPagedData(pageIdx);
-
-		Map<String, Object> conf = new LinkedHashMap<String, Object>();
-		conf.put("grid.id", "[hidden]");
-		conf.put("grid.name", "[plain]");
-		conf.put("grid.subnets", "[plain]");
-		conf.put("subnets.value", "{subnetName}");
-		conf.put("grid.shared", "[plain]");
-		conf.put("shared.value", "{shareDisplay}");
-		conf.put(".datas", nList);
-
-		model.addAttribute("configuration", conf);
-
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/grid.jsp?grid.configuration=configuration&type=",
-				model.asMap(), request, response);
-
-		if (jspString == null) {
-			return OpenstackUtil.buildErrorResponse(OpenstackUtil
-					.getMessage("order.list.loading.failed"));
-		} else {
-			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("recordTotal", page.getTotalRecord());
-			result.put("html", jspString);
-
-			return OpenstackUtil.buildSuccessResponse(result);
-		}
+		return null;
 	}
 }

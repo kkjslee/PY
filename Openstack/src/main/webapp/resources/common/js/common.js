@@ -25,11 +25,14 @@ function isSuccess(response){
 }
 
 function getResult(response){
-	if(typeof(response) == 'object' && response.hasOwnProperty('result')){
+	if(typeof(response) == 'object' && response && response.hasOwnProperty('result')){
 		return response.result;
 	}
 	
-	return response;
+	if(typeof(response) == 'string'){
+		return response;
+	}
+	return "";
 }
 
 /**

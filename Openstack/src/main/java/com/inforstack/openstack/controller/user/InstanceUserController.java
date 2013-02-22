@@ -3,11 +3,13 @@ package com.inforstack.openstack.controller.user;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,11 @@ public class InstanceUserController {
 		model.addAttribute(Constants.PAGER_PAGE_SIZE,
 				Constants.DEFAULT_PAGE_SIZE);
 		return INSTANCE_MODULE_HOME + "/scripts/bootstrap";
+	}
+
+	@RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
+	public String template(Model model) {
+		return INSTANCE_MODULE_HOME + "/scripts/template";
 	}
 
 	@RequestMapping(value = "/getPagerInstanceList", method = RequestMethod.POST)
@@ -223,6 +230,13 @@ public class InstanceUserController {
 					if (server != null) {
 						im.setTaskStatus(server.getTask());
 						im.setStatus(server.getStatus());
+						im.setVmname(server.getName());
+						im.setStatusdisplay(OpenstackUtil.getMessage(server
+								.getStatus() + ".status.vm"));
+						im.setTenantId(server.getTenant());
+						im.setStarttime(server.getCreated());
+						im.setUpdatetime(server.getUpdated());
+						im.setAssignedto(access.getUser().getUsername());
 						Map<String, Address[]> addresses = server
 								.getAddresses();
 						Iterator<Entry<String, Address[]>> it = addresses
@@ -246,6 +260,14 @@ public class InstanceUserController {
 							tempAddress.put(key, ipString);
 						}
 						im.setAddresses(tempAddress);
+						Flavor flavor = server.getFlavor();
+						if (flavor != null) {
+							im.setCpus(flavor.getVcpus());
+							im.setMaxcpus(flavor.getVcpus());
+							im.setMemory(flavor.getRam());
+							im.setMaxmemory(flavor.getRam());
+							im.setDisksize(flavor.getDisk());
+						}
 						im.setStatusdisplay(OpenstackUtil.getMessage(server
 								.getStatus() + ".status.vm"));
 					}
@@ -267,4 +289,42 @@ public class InstanceUserController {
 		}
 		return im;
 	}
+
+	@RequestMapping(value = "/showInstanceDetails", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showInstanceDetails(Model model, String vmId,
+			HttpServletRequest request, HttpServletResponse response) {
+		InstanceModel instance = retrieveInstance(model, vmId);
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.vmname", "[plain]" + instance.getVmname());
+		conf.put("form.statusDisplay", "[plain]" + instance.getStatusdisplay());
+		conf.put("form.cpus", "[plain]" + instance.getCpus());
+		conf.put("form.maxcpus", "[plain]" + instance.getMaxcpus());
+		conf.put("form.memory", "[plain]" + instance.getMemory());
+		conf.put("form.maxmemory", "[plain]" + instance.getMaxmemory());
+		conf.put("form.disksize", "[plain]" + instance.getDisksize());
+		conf.put(
+				"form.starttime",
+				"[plain]"
+						+ StringUtil.formateDateString(instance.getStarttime()));
+		conf.put(
+				"form.updatetime",
+				"[plain]"
+						+ StringUtil.formateDateString(instance.getUpdatetime()));
+		conf.put("form.addressString", "[plain]" + instance.getAddressString());
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
 }

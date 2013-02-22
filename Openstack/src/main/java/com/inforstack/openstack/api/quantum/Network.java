@@ -3,26 +3,26 @@ package com.inforstack.openstack.api.quantum;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Network {
-	
+
 	private String id;
-	
+
 	private String name;
-	
+
 	@JsonProperty("tenant_id")
 	private String tenant;
-	
+
 	@JsonProperty("admin_state_up")
 	private boolean adminStateUp;
-	
+
 	private boolean shared;
-	
+
 	@JsonProperty("router:external")
 	private boolean external;
-	
+
 	private String[] subnets;
-	
+
 	private String status;
 
 	public String getId() {
@@ -49,15 +49,15 @@ public class Network {
 		this.tenant = tenant;
 	}
 
-	public boolean isAdminStateUp() {
-		return adminStateUp;
-	}
-
 	public void setAdminStateUp(boolean adminStateUp) {
 		this.adminStateUp = adminStateUp;
 	}
 
-	public boolean isShared() {
+	public boolean getAdminStateUp() {
+		return adminStateUp;
+	}
+
+	public boolean getShared() {
 		return shared;
 	}
 
@@ -65,7 +65,7 @@ public class Network {
 		this.shared = shared;
 	}
 
-	public boolean isExternal() {
+	public boolean getExternal() {
 		return external;
 	}
 

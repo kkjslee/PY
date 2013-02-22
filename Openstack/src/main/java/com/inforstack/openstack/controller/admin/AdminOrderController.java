@@ -2,7 +2,6 @@ package com.inforstack.openstack.controller.admin;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,20 +18,22 @@ import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.utils.OpenstackUtil;
-import com.inforstack.openstack.utils.SecurityUtils;
 
 @Controller
 @RequestMapping(value = "/admin/order")
 public class AdminOrderController {
-	
+
 	@Autowired
 	private OrderService orderService;
-	
-	@RequestMapping(value="/list", method=RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> list(int pageIndex, int pageSize, Model model, HttpServletRequest request, HttpServletResponse response){
-		PaginationModel<Order> pm = orderService.findAllWithoutSubOrder(pageIndex, pageSize);
 
-		Map<String, String> conf = new LinkedHashMap<String, String>();
+	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> list(int pageIndex, int pageSize, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		PaginationModel<Order> pm = orderService.findAllWithoutSubOrder(
+				pageIndex, pageSize);
+
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.id", "[plain]");
 		conf.put("id.label", OpenstackUtil.getMessage("order.label"));
 		conf.put("grid.amount", "[plain]");
@@ -43,8 +44,8 @@ public class AdminOrderController {
 		conf.put("createdBy.value", "{createdBy.username}");
 		conf.put("grid.tenant", "{tenant.dipalyName}");
 		conf.put("grid.createTime", "[plain]");
+		conf.put(".datas", pm.getData());
 
-		model.addAttribute("orders", pm.getData());
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil.getJspPage(

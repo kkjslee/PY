@@ -81,7 +81,7 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response) {
 		PaginationModel<User> pm = userService.pagination(pageIndex, pageSize);
 
-		Map<String, String> conf = new LinkedHashMap<String, String>();
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.username", "[plain]");
 		conf.put("grid.email", "[button]test,delete");
 		conf.put("test.label", "测试");
@@ -117,7 +117,7 @@ public class UserController {
 			HttpServletResponse response) {
 		User user = userService.listAll().get(0);
 
-		Map<String, String> conf = new LinkedHashMap<String, String>();
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
 		conf.put("form.username", "[text]" + user.getUsername());
 		conf.put("username.tip", "test");
@@ -142,7 +142,7 @@ public class UserController {
 	Map<String, Object> showRegForm(Model model, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		Map<String, String> conf = new LinkedHashMap<String, String>();
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
 		conf.put("form.username", "[text]");
 		conf.put("form.password", "[password]");
@@ -167,7 +167,7 @@ public class UserController {
 	Map<String, Object> showForgetPasswordForm(Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		Map<String, String> conf = new LinkedHashMap<String, String>();
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
 		conf.put("form.username", "[text]");
 		conf.put("form.email", "[text]");
@@ -270,7 +270,8 @@ public class UserController {
 		if (tempUser != null) {
 			log.warn("Register user failed for user name already exist");
 			ret.put("error",
-					OpenstackUtil.getMessage("user.alreadyexist", user.getUsername()));
+					OpenstackUtil.getMessage("user.alreadyexist",
+							user.getUsername()));
 			return ret;
 		}
 		boolean success = true;

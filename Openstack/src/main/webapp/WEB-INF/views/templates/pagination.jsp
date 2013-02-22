@@ -36,18 +36,20 @@ property			value				comment
 <c:if test="${conf['.pageSize'] == null}">
 	<c:set target="${conf}" property=".pageSize" value="10"></c:set>
 </c:if>
-<div class="dataTable" id="${conf['.content']}"></div>
-<div class="pagination" id="${conf['.pagination']}"></div>
+<!-- <div class="dataTable" id="${conf['.content']}"></div>
+<div class="pagination" id="${conf['.pagination']}"></div> -->
+<table class="dataTable" id="${conf['.content']}">
+</table>
 <script>
 
-var pageIndex = <c:out value='${conf[".pageIndex"]}' />;
-var pageSize = <c:out value='${conf[".pageSize"]}' />;
+var g_pageIndex = <c:out value='${conf[".pageIndex"]}' />;
+var g_pageSize = <c:out value='${conf[".pageSize"]}' />;
 
 $(function(){
-	loadInstances(pageIndex, pageSize);
+	g_loadPagerDataList(g_pageIndexg_, g_pageSize);
 });
 
-function loadInstances(pageIndex, pageSize) {
+function g_loadPagerDataList(pageIndex, pageSize) {
     var target=$("#${conf['.content']}").empty();
     $("<span class='loadingTips'><spring:message code='message.loading.data'/></span>").appendTo(target);
     $.ajax({
@@ -66,8 +68,9 @@ function loadInstances(pageIndex, pageSize) {
             var result = getResult(data);
         	if(isSuccess(data)){
         		 target.html(result.html);
-                 $('#${conf[".pagination"]}').pagination(result.recordTotal, {
-                    callback: pageCallback,
+        		 $(target).append("<tfoot><tr class='footerRow'><td class='fpager' colspan='" + ${conf[".colspanLeft"]} + "'></td><td colspan='" + ${conf[".colspanRight"]} + "' class='fbuttons'></td></tr></tfoot>");
+                 $('#${conf[".content"]} .fpager').pagination(result.recordTotal, {
+                    callback: g_pageCallback,
                     prev_text: '<spring:message code="pager.previous"/>',    
                     next_text: '<spring:message code="pager.next"/>', 
                     items_per_page: pageSize,
@@ -76,8 +79,14 @@ function loadInstances(pageIndex, pageSize) {
                     current_page: pageIndex,
                     num_edge_entries: 2
                 });
+                <c:if test="${conf['.loadSuccessCall'] != null}">
+                 ${conf['.loadSuccessCall']}();
+                 </c:if>
             }else{
             	$("<span class='loadingError'>"+result+"</span>").appendTo(target.empty());
+            	 <c:if test="${conf['.loadErrorCall'] != null}">
+                 ${conf['.loadErrorCall']}();
+                 </c:if>
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -87,9 +96,9 @@ function loadInstances(pageIndex, pageSize) {
     
 }
 
-function pageCallback(index,jq){
-    pageIndex = index;
-	loadInstances(index, pageSize);
+function g_pageCallback(index,jq){
+	g_pageIndex = index;
+	g_loadPagerDataList(index, g_pageSize);
 }
 
 </script>

@@ -156,10 +156,10 @@ insert into Resource(id, url, permission) values (306, '/user/instance/showInsta
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');
 
 
-insert into Resource(id, url, permission) values (400, '/admin/quantumn/modules/index', 'admin');
-insert into Resource(id, url, permission) values (401, '/admin/quantumn/getPagerNetworkList', 'admin');
-insert into Resource(id, url, permission) values (402, '/admin/quantumn/createnetwork', 'admin');
-insert into Resource(id, url, permission) values (403, '/admin/quantumn/createsubnet', 'admin');
+insert into Resource(id, url, permission) values (400, '/admin/quantum/modules/index', 'admin');
+insert into Resource(id, url, permission) values (401, '/admin/quantum/getPagerNetworkList', 'admin');
+insert into Resource(id, url, permission) values (402, '/admin/quantum/createnetwork', 'admin');
+insert into Resource(id, url, permission) values (403, '/admin/quantum/createsubnet', 'admin');
 
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');

@@ -45,17 +45,18 @@ public class AdministratorTest {
 		String url = this.host + "/Openstack/admin/doLogin";		
 		
 		try {
-			DefaultHttpClient httpclient = new DefaultHttpClient();
 			{
+				DefaultHttpClient httpclient = new DefaultHttpClient();
 				HttpPost httpost = new HttpPost(url +
 		                "?j_username=" + username +
 		                "&j_password=" + UUID.randomUUID().toString());
 				HttpResponse response = httpclient.execute(httpost);
-				if (!HttpClientUtil.checkRedirectLocation(response, this.host, "/Openstack/admin/login?" + HttpClientUtil.getSession(response) + "error=true")) {
+				if (!HttpClientUtil.checkRedirectLocation(response, this.host, "/Openstack/admin/login;" + HttpClientUtil.getSession(response) + "?error=true")) {
 					fail("Can not redirect to relogin page when error.");
 				}
 			}
 			{
+				DefaultHttpClient httpclient = new DefaultHttpClient();
 				HttpPost httpost = new HttpPost(url +
 		                "?j_username=" + username +
 		                "&j_password=" + password);

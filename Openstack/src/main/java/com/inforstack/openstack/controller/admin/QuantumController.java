@@ -8,10 +8,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -122,16 +124,17 @@ public class QuantumController {
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.subnets", "[plain]");
-		conf.put("subnets.value", "{subnetNameString}");
+		conf.put("subnets.value", "{subnetNameString} ");
 		conf.put("grid.shared", "[plain]");
-		conf.put("shared.value", "{shareDisplay}");
+		conf.put("shared.value", "{shareDisplay} ");
 		conf.put(".datas", nList);
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/grid.jsp?grid.configuration=configuration&type=",
-				model.asMap(), request, response);
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil
@@ -144,4 +147,38 @@ public class QuantumController {
 			return OpenstackUtil.buildSuccessResponse(result);
 		}
 	}
+
+	@RequestMapping(value = "/networkForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showCreateNetworkForm(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]");
+		conf.put("form.adminStateUp", "[checkbox]true");
+		conf.put("form.shared", "[checkbox]");
+		conf.put("form.external", "[checkbox]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/createNetwork", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> createNetwork(@Valid NetworkModel networkModel,
+			BindingResult result, Model model, HttpServletRequest request) {
+
+		return null;
+	}
+
 }

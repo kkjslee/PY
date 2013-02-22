@@ -40,7 +40,8 @@ public class Functions {
 	}
 	
 	public static String getProp(Object bean, String prop){
-		if(StringUtil.isNullOrEmpty(prop, false) || bean == null) return "";
+		if(prop == null) return null;
+		if(prop.isEmpty() || bean == null) return "";
 		
 		Object ret = OpenstackUtil.getProperty(bean, prop);
 		if(ret == null) return "";
@@ -49,7 +50,8 @@ public class Functions {
 	}
 	
 	public static String propStr(String string, Object bean){
-		if(StringUtil.isNullOrEmpty(string, false) || bean == null) return "";
+		if(string == null) return null;
+		if(string.isEmpty() || bean == null) return "";
 		
 		StringBuilder builder = new StringBuilder(string);
 		Pattern pattern = Pattern.compile("\\{(.+?)\\}");

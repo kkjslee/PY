@@ -300,9 +300,7 @@ public class InstanceUserController {
 		conf.put("form.vmname", "[plain]" + instance.getVmname());
 		conf.put("form.statusDisplay", "[plain]" + instance.getStatusdisplay());
 		conf.put("form.cpus", "[plain]" + instance.getCpus());
-		conf.put("form.maxcpus", "[plain]" + instance.getMaxcpus());
 		conf.put("form.memory", "[plain]" + instance.getMemory());
-		conf.put("form.maxmemory", "[plain]" + instance.getMaxmemory());
 		conf.put("form.disksize", "[plain]" + instance.getDisksize());
 		conf.put(
 				"form.starttime",

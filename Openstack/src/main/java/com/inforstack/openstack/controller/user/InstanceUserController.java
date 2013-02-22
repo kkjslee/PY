@@ -23,6 +23,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
+import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.server.Address;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerAction;
@@ -226,7 +227,7 @@ public class InstanceUserController {
 
 				if (access != null) {
 					Server server = serverService
-							.getServer(access, vmId, false);
+							.getServer(access, vmId, true);
 					if (server != null) {
 						im.setTaskStatus(server.getTask());
 						im.setStatus(server.getStatus());
@@ -267,6 +268,10 @@ public class InstanceUserController {
 							im.setMemory(flavor.getRam());
 							im.setMaxmemory(flavor.getRam());
 							im.setDisksize(flavor.getDisk());
+						}
+						Image image = server.getImage();
+						if (image != null) {
+							im.setImageId(image.getName());
 						}
 						im.setStatusdisplay(OpenstackUtil.getMessage(server
 								.getStatus() + ".status.vm"));

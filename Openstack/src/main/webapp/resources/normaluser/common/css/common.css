@@ -43,8 +43,6 @@
     line-height: 160%;
     white-space: nowrap;
     padding: 5px 10px 4px;
-    overflow:hidden;
-    text-overflow: ellipsis;
     text-indent:2px;
 }
 .headerRow {

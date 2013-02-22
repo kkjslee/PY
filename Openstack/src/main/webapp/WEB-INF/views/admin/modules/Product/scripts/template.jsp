@@ -125,4 +125,5 @@ var Template_CreateProduct = '\
 var Template_ImgModelOption = '<option value="\${imgId}">\${imgName}</option>';
 var Template_FlavorModelOption = '<option value="\${flavorId}">\${flavorName}</option>';
 var Template_PlanOption = '<option value="\${id}">\${name}</option>';
+var Template_StorageOption = '<option value="\${id}">\${name}</option>';
 var Template_CategoryModelOption = '<option value="\${id}">\${currentLocaleName}</option>';

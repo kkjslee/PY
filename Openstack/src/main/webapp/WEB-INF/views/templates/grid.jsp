@@ -51,9 +51,16 @@ example:
 <table style="width:100%">
 <thead><tr>
 	<c:forEach items="${map}" var="item" >
-		<td>
-			${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
-		</td>
+		<c:choose>
+			<c:when test="${not fn:startsWith(item.value, '[hidden]')}">
+				<td style="display: none;"></td>
+			</c:when>
+			<c:otherwise>
+				<td>
+					${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
+				</td>
+			</c:otherwise>
+		</c:choose>
 	</c:forEach>
 </tr></thead>
 <tbody>
@@ -76,17 +83,19 @@ example:
 						</td>
 					</c:if>
 					<c:if test="${fn:startsWith(item.value, '[hidden]')}">
-						<c:set value="${fn:replace(item.value, '[hidden]', '')}" var="subItems"></c:set>
-						<c:choose>
-							<c:when test="${fn:length(subItems) == 0}">
-								<input type="hidden" id="${item.key}" value="${f:getProp(d, item.key)}"/>
-							</c:when>
-							<c:otherwise>
-								<c:forTokens items="${subItems}" delims="," var="key">
-									<input type="hidden" id="${key}" value="${f:getProp(d, key)}"/>
-								</c:forTokens>
-							</c:otherwise>
-						</c:choose>
+						<td style="display: none;">
+							<c:set value="${fn:replace(item.value, '[hidden]', '')}" var="subItems"></c:set>
+							<c:choose>
+								<c:when test="${fn:length(subItems) == 0}">
+									<input type="hidden" id="${item.key}" value="${f:getProp(d, item.key)}"/>
+								</c:when>
+								<c:otherwise>
+									<c:forTokens items="${subItems}" delims="," var="key">
+										<input type="hidden" id="${key}" value="${f:getProp(d, key)}"/>
+									</c:forTokens>
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</c:if>
 					<c:if test="${fn:startsWith(item.value, '[dict]')}">
 						<td>

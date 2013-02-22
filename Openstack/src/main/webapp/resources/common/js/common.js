@@ -71,6 +71,7 @@ function CustomForm(){
 	        dataType: "html",
 	        cache: false,
 	        url: conf.url,
+	        data:conf.data,
 	        success: function(data) {
 	            try{
 					data = $.parseJSON(data);

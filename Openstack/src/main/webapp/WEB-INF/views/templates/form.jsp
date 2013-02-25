@@ -109,19 +109,28 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
 				</label>
 				<c:set var="v" value="${fn:replace(p.value, '[checkbox]', '')}"></c:set>
-				<c:set var="okey" value="${conf[f:append(item, 'option.key')]}"></c:set>
-				<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
-				<span>
-					<c:forEach items="${conf[f:append(item, '.options')]}" var="o" varStatus="status">
-						<span>
-							<input type="checkbox" id="${f:append(item, status.index)}" name="${item}"
-								value="${o[okey]}" <c:if test="${v == o[okey]}">checked</c:if> /> 
-							<label for="${f:append(item, status.index)}">
-							${o[ovalue]}
-							</label>
-						</span>
-					</c:forEach>
-				</span>
+				<c:if test="${conf[f:append(item, '.options')] == null}">
+					<input type="checkbox" id="${item}" name="${item}" 
+						<c:if test="${v == true}">
+							checked="checked" 
+						</c:if>
+					/>
+				</c:if>
+				<c:if test="${conf[f:append(item, '.options')] != null}">
+					<c:set var="okey" value="${conf[f:append(item, 'option.key')]}"></c:set>
+					<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
+					<span>
+						<c:forEach items="${conf[f:append(item, '.options')]}" var="o" varStatus="status">
+							<span>
+								<input type="checkbox" id="${f:append(item, status.index)}" name="${item}"
+									value="${o[okey]}" <c:if test="${v == o[okey]}">checked</c:if> /> 
+								<label for="${f:append(item, status.index)}">
+								${o[ovalue]}
+								</label>
+							</span>
+						</c:forEach>
+					</span>
+				</c:if>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[radio]')}">

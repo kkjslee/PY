@@ -12,7 +12,7 @@ grid.<columnName>	[columnType]<sub items>			columnName为列名。
 													如果sub items为空， 则sub item为<columnName>
 <columnName>.label	string							列标题。如果没有使用此属性，则使用默认的key为
 													<columnName>.label的国际化信息
-<columnName>.value	html code						列输出。如果没有使用此属性，则使用列表数据中
+<columnName>.value	html code				[String类型需加 空格" ${name} "]		列输出。如果没有使用此属性，则使用列表数据中
 													对应key为<columnName>的值
 <button>.onclick	javascript code					点击按钮触发事件
 <dict>.options		列表								dict列的可选dictionary对象列表

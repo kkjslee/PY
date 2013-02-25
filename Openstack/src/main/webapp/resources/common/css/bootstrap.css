@@ -2517,6 +2517,8 @@ button.close {
 }
 .btn {
   display: inline-block;
+   width:auto;
+  overflow:visible;
   *display: inline;
   /* IE7 inline-block hack */
 

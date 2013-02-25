@@ -46,7 +46,7 @@ var g_pageIndex = <c:out value='${conf[".pageIndex"]}' />;
 var g_pageSize = <c:out value='${conf[".pageSize"]}' />;
 
 $(function(){
-	g_loadPagerDataList(g_pageIndexg_, g_pageSize);
+	g_loadPagerDataList(g_pageIndex, g_pageSize);
 });
 
 function g_loadPagerDataList(pageIndex, pageSize) {

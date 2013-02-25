@@ -25,13 +25,12 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 		log.debug("Find all order(s) by tenant id : " + tenantId + ", status : " + status);
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
-			CriteriaQuery<Order> criteria = builder
-					.createQuery(Order.class);
+			CriteriaQuery<Order> criteria = builder.createQuery(Order.class);
 			Root<Order> root = criteria.from(Order.class);
 			List<Predicate> predicates = new ArrayList<Predicate>();
 			if(tenantId != null){
 				predicates.add(
-						builder.equal(root.get("tenant.id"), tenantId)
+						builder.equal(root.get("tenant").get("id"), tenantId)
 				);
 			}
 			if(status != null){

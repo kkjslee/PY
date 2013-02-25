@@ -10,7 +10,7 @@ public class NetworkModel {
 	private String id;
 
 	@Size(min = 6, max = 45, message = "{size.not.valid}")
-	@Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
+	@Pattern(regexp = "^[0-9a-zA-Z_-]+$", message = "{not.valid}")
 	private String name;
 
 	private String tenant;
@@ -23,7 +23,7 @@ public class NetworkModel {
 
 	private String[] subnets;
 
-	private String[] subnetNames;
+	private String[] subnetNamesWithNetwork;
 
 	private String status;
 
@@ -41,16 +41,38 @@ public class NetworkModel {
 		return shareDisplay;
 	}
 
+	public String getAdminStateUpDisplay() {
+		String adminStateUpDisplay = "";
+		if (adminStateUp == false) {
+			adminStateUpDisplay = OpenstackUtil
+					.getMessage("adminstateup.not.label");
+		} else {
+			adminStateUpDisplay = OpenstackUtil
+					.getMessage("adminstateup.yes.label");
+		}
+		return adminStateUpDisplay;
+	}
+
+	public String getExternalDisplay() {
+		String externalDisplay = "";
+		if (external == false) {
+			externalDisplay = OpenstackUtil.getMessage("external.not.label");
+		} else {
+			externalDisplay = OpenstackUtil.getMessage("external.yes.label");
+		}
+		return externalDisplay;
+	}
+
 	public void setShareDisplay(String shareDisplay) {
 		this.shareDisplay = shareDisplay;
 	}
 
 	public String getSubnetNameString() {
 		subnetNameString = "";
-		if (subnetNames != null && subnetNames.length > 0) {
-			int length = subnetNames.length;
+		if (subnetNamesWithNetwork != null && subnetNamesWithNetwork.length > 0) {
+			int length = subnetNamesWithNetwork.length;
 			for (int i = 0; i < length; i++) {
-				subnetNameString = subnetNameString + subnetNames[i];
+				subnetNameString = subnetNameString + subnetNamesWithNetwork[i];
 				if (i < length - 1) {
 					subnetNameString = subnetNameString + ",";
 				}
@@ -59,12 +81,12 @@ public class NetworkModel {
 		return subnetNameString;
 	}
 
-	public String[] getSubnetNames() {
-		return subnetNames;
+	public String[] getSubnetNamesWithNetwork() {
+		return subnetNamesWithNetwork;
 	}
 
-	public void setSubnetNames(String[] subnetNames) {
-		this.subnetNames = subnetNames;
+	public void setSubnetNamesWithNetwork(String[] subnetNamesWithNetwork) {
+		this.subnetNamesWithNetwork = subnetNamesWithNetwork;
 	}
 
 	public void setSubnetNameString(String subnetNameString) {
@@ -100,7 +122,7 @@ public class NetworkModel {
 		this.tenant = tenant;
 	}
 
-	public boolean isAdminStateUp() {
+	public boolean getAdminStateUp() {
 		return adminStateUp;
 	}
 
@@ -108,7 +130,7 @@ public class NetworkModel {
 		this.adminStateUp = adminStateUp;
 	}
 
-	public boolean isShared() {
+	public boolean getShared() {
 		return shared;
 	}
 
@@ -116,7 +138,7 @@ public class NetworkModel {
 		this.shared = shared;
 	}
 
-	public boolean isExternal() {
+	public boolean getExternal() {
 		return external;
 	}
 

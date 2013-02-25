@@ -1,6 +1,7 @@
 package com.inforstack.openstack.controller.admin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -8,12 +9,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,13 +22,18 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.quantum.Network;
+import com.inforstack.openstack.api.quantum.Port;
 import com.inforstack.openstack.api.quantum.QuantumService;
 import com.inforstack.openstack.api.quantum.Subnet;
 import com.inforstack.openstack.controller.model.NetworkModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.controller.model.SubnetModel;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.utils.StringUtil;
+import com.inforstack.openstack.utils.ValidateUtil;
 
 @Controller
 @RequestMapping(value = "/admin/quantum")
@@ -41,6 +46,9 @@ public class QuantumController {
 
 	@Autowired
 	private KeystoneService keystoneService;
+
+	@Autowired
+	private Validator validator;
 
 	private final String NETWORK_MODULE_HOME = "admin/modules/Network";
 
@@ -57,13 +65,11 @@ public class QuantumController {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
-			log.info("no pageindex passed, set default value 1");
 			pageIdx = Constants.DEFAULT_PAGE_INDEX;
 		} else {
 			pageIdx = pageIndex;
 		}
 		if (pageSize == null) {
-			log.info("no page size passed, set default value 20");
 			pageSze = Constants.DEFAULT_PAGE_SIZE;
 		} else {
 			pageSze = pageSize;
@@ -102,13 +108,19 @@ public class QuantumController {
 		for (NetworkModel w : nList) {
 			String[] subnets = w.getSubnets();
 			if (subnets != null && subnets.length > 0) {
-				String[] subnetNames = new String[subnets.length];
+				String[] subnetNamesWithNetwork = new String[subnets.length];
 				for (int i = 0; i < subnets.length; i++) {
 					Subnet subnet;
 					try {
 						subnet = quantumService.getSubnet(access, subnets[i]);
 						if (subnet != null) {
-							subnetNames[i] = subnet.getName();
+
+							String name = subnet.getName();
+							if (subnet.getNetwork() != null) {
+								// TODO WITH SUBNET NAME
+								// name = name + "  " + subnet.getNetwork();
+							}
+							subnetNamesWithNetwork[i] = name;
 						} else {
 							log.debug("not find subnet with id:" + subnets[i]);
 						}
@@ -117,16 +129,27 @@ public class QuantumController {
 					}
 
 				}
-				w.setSubnetNames(subnetNames);
+				w.setSubnetNamesWithNetwork(subnetNamesWithNetwork);
 			}
 
 		}
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
+		conf.put("name.value",
+				"<a href='#' onclick='showNetWorkDetails(\"{id}\")'>{name}</a>");
 		conf.put("grid.subnets", "[plain]");
 		conf.put("subnets.value", "{subnetNameString} ");
+		conf.put("grid.adminStateUp", "[plain]");
+		conf.put("adminStateUp.value", "{adminStateUpDisplay} ");
+		conf.put("grid.status", "[plain]");
+		conf.put("status.value", "{status} ");
 		conf.put("grid.shared", "[plain]");
 		conf.put("shared.value", "{shareDisplay} ");
+		conf.put("grid.external", "[plain]");
+		conf.put("external.value", "{externalDisplay} ");
+		conf.put("grid.operation", "[button]edit,remove");
+		conf.put("edit.onclick", "showEditNetwork('{id}')");
+		conf.put("remove.onclick", "showRemoveNetwork('{id}')");
 		conf.put(".datas", nList);
 
 		model.addAttribute("configuration", conf);
@@ -148,7 +171,7 @@ public class QuantumController {
 		}
 	}
 
-	@RequestMapping(value = "/networkForm", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/showCreateNetworkForm", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> showCreateNetworkForm(Model model,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -175,10 +198,472 @@ public class QuantumController {
 
 	@RequestMapping(value = "/createNetwork", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	Map<String, Object> createNetwork(@Valid NetworkModel networkModel,
-			BindingResult result, Model model, HttpServletRequest request) {
+	Map<String, Object> createNetwork(Model model, NetworkModel networkModel,
+			HttpServletRequest request) {
 
-		return null;
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				networkModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		Access access = null;
+		Network network = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Network tmpNetwork = null;
+			try {
+				access = keystoneService.getAdminAccess();
+				if (access != null) {
+					Network[] networks = quantumService.listNetworks(access);
+					log.debug("listing networks");
+
+					for (Network n : networks) {
+						if (networkModel.getName().equals(n.getName())) {
+							tmpNetwork = n;
+							break;
+						}
+					}
+				}
+			} catch (OpenstackAPIException e) {
+				System.out.println(e.getMessage());
+				log.error(e.getMessage(), e);
+			}
+			if (tmpNetwork != null) {
+				return JSONUtil.jsonError(OpenstackUtil.getMessage(
+						"name.exists", tmpNetwork.getName()));
+			}
+			network = this.quantumService.createNetwork(access,
+					networkModel.getName(), networkModel.getAdminStateUp(),
+					networkModel.getShared(), networkModel.getExternal());
+			if (network != null) {
+				return JSONUtil.jsonSuccess(network,
+						OpenstackUtil.getMessage("network.created.success"));
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(network,
+					OpenstackUtil.getMessage("network.created.failed"));
+		}
+
+		return JSONUtil.jsonError(network,
+				OpenstackUtil.getMessage("network.created.failed"));
 	}
 
+	@RequestMapping(value = "/showEditNetworkForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showEditNetworkForm(Model model,
+			NetworkModel networkModel, HttpServletRequest request,
+			HttpServletResponse response) {
+		if (StringUtil.isNullOrEmpty(networkModel.getId(), true)) {
+			return JSONUtil.jsonError("not found");
+		}
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				networkModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		Access access = null;
+		Network network = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			if (access != null) {
+				Network[] networks = quantumService.listNetworks(access);
+				log.debug("listing networks");
+
+				for (Network n : networks) {
+					if (networkModel.getId().equals(n.getId())) {
+						network = n;
+						break;
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			System.out.println(e.getMessage());
+			log.error(e.getMessage(), e);
+		}
+		if (network == null) {
+			return JSONUtil.jsonError("not found");
+		}
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]" + network.getName());
+		conf.put("form.adminStateUp", "[checkbox]" + network.getAdminStateUp());
+		conf.put("form.shared", "[checkbox]" + network.getShared());
+		conf.put("form.external", "[checkbox]" + network.getExternal());
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/editNetwork", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> editNetwork(Model model, NetworkModel networkModel,
+			HttpServletRequest request) {
+		if (StringUtil.isNullOrEmpty(networkModel.getId(), true)) {
+			return JSONUtil.jsonError("not found");
+		}
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				networkModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		Access access = null;
+		Network network = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			try {
+				access = keystoneService.getAdminAccess();
+				if (access != null) {
+					Network[] networks = quantumService.listNetworks(access);
+					log.debug("listing networks");
+
+					for (Network n : networks) {
+						if (networkModel.getId().equals(n.getId())) {
+							network = n;
+							break;
+						}
+					}
+				}
+			} catch (OpenstackAPIException e) {
+				System.out.println(e.getMessage());
+				log.error(e.getMessage(), e);
+			}
+			if (network == null) {
+				return JSONUtil.jsonError("not found");
+			}
+			this.quantumService.updateNetwork(access, network,
+					networkModel.getName(), networkModel.getAdminStateUp(),
+					networkModel.getShared(), networkModel.getExternal());
+			return JSONUtil.jsonSuccess(network,
+					OpenstackUtil.getMessage("update.success"));
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(network,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+	}
+
+	@RequestMapping(value = "/removeNetwork", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> removeNetwork(Model model, NetworkModel networkModel,
+			HttpServletRequest request) {
+		if (StringUtil.isNullOrEmpty(networkModel.getId(), true)) {
+			return JSONUtil.jsonError("not found");
+		}
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				networkModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		Access access = null;
+		Network network = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			boolean has = false;
+			try {
+				// Tenant tenant = access.getToken().getTenant();
+				if (access != null) {
+					Network[] networks = quantumService.listNetworks(access);
+					log.debug("listing networks");
+
+					for (Network n : networks) {
+						if (networkModel.getId().equals(n.getId())) {
+							has = true;
+							break;
+						}
+					}
+				}
+			} catch (OpenstackAPIException e) {
+				System.out.println(e.getMessage());
+				log.error(e.getMessage(), e);
+			}
+			if (has) {
+				this.quantumService.removeNetwork(access, networkModel.getId());
+				return JSONUtil.jsonSuccess(network,
+						OpenstackUtil.getMessage("remove.success"));
+			} else {
+				return JSONUtil.jsonError(network,
+						OpenstackUtil.getMessage("remove.failed"));
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(network,
+					OpenstackUtil.getMessage("remove.failed"));
+		}
+
+	}
+
+	@RequestMapping(value = "/showCreateSubnetForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showCreateSubnetForm(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]");
+		conf.put("form.adminStateUp", "[checkbox]true");
+		conf.put("form.shared", "[checkbox]");
+		conf.put("form.external", "[checkbox]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/createSubnet", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> createSubnet(Model model, SubnetModel subnetModel,
+			HttpServletRequest request) {
+
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				subnetModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		Access access = null;
+		Subnet subnet = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			subnet = this.quantumService.createSubnet(access,
+					subnetModel.getNetwork(), subnetModel.getName(),
+					subnetModel.getIpVersion(), subnetModel.getCidr(),
+					subnetModel.getPools());
+			if (subnet != null) {
+				return JSONUtil.jsonSuccess(subnet,
+						OpenstackUtil.getMessage("subnet.created.success"));
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(subnet,
+					OpenstackUtil.getMessage("subnet.created.failed"));
+		}
+
+		return JSONUtil.jsonError(subnet,
+				OpenstackUtil.getMessage("subnet.created.failed"));
+	}
+
+	@RequestMapping(value = "/getNetworkDetails")
+	public String getNetworkDetails(String networkId, Model model,
+			HttpServletRequest request) {
+		if (StringUtil.isNullOrEmpty(networkId, true)) {
+			return "not found under network id:" + networkId;
+		}
+		Network networkTemp = null;
+		NetworkModel netModel = null;
+		Access access = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			// Tenant tenant = access.getToken().getTenant();
+			if (access != null) {
+				Network[] networks = quantumService.listNetworks(access);
+				log.debug("listing networks");
+
+				for (Network n : networks) {
+					if (n.getId().equals(networkId)) {
+						networkTemp = n;
+					}
+
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			System.out.println(e.getMessage());
+			log.error(e.getMessage(), e);
+		}
+
+		if (networkTemp != null) {
+			netModel = new NetworkModel();
+			netModel.setId(networkTemp.getId());
+			netModel.setName(networkTemp.getName());
+			netModel.setShared(networkTemp.getShared());
+			netModel.setStatus(networkTemp.getStatus());
+			netModel.setTenant(networkTemp.getTenant());
+			netModel.setExternal(networkTemp.getExternal());
+			netModel.setSubnets(networkTemp.getSubnets());
+			netModel.setAdminStateUp(networkTemp.getAdminStateUp());
+			model.addAttribute("network", netModel);
+		}
+		model.addAttribute("networkId", networkId);
+		return NETWORK_MODULE_HOME + "/details";
+
+	}
+
+	@RequestMapping(value = "/getPagerSubnetList", produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> getPagerSubnets(String networkId, Integer pageIndex,
+			Integer pageSize, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		if (StringUtil.isNullOrEmpty(networkId, true)) {
+			return JSONUtil.jsonError("not found");
+		}
+		int pageIdx = -1;
+		int pageSze = 0;
+		if (pageIndex == null || pageIndex == 0) {
+			pageIdx = Constants.DEFAULT_PAGE_INDEX;
+		} else {
+			pageIdx = pageIndex;
+		}
+		if (pageSize == null) {
+			pageSze = Constants.DEFAULT_PAGE_SIZE;
+		} else {
+			pageSze = pageSize;
+		}
+		Access access = null;
+		Network networkTemp = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			// Tenant tenant = access.getToken().getTenant();
+			if (access != null) {
+				Network[] networks = quantumService.listNetworks(access);
+				log.debug("listing networks");
+
+				for (Network n : networks) {
+					if (n.getId().equals(networkId)) {
+						networkTemp = n;
+					}
+
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			System.out.println(e.getMessage());
+			log.error(e.getMessage(), e);
+		}
+
+		List<Subnet> sList = new ArrayList<Subnet>();
+		if (networkTemp != null) {
+			String[] subnets = networkTemp.getSubnets();
+			if (subnets != null && subnets.length > 0) {
+				for (int i = 0; i < subnets.length; i++) {
+					Subnet subnet = null;
+					try {
+						subnet = quantumService.getSubnet(access, subnets[i]);
+						if (subnet != null) {
+							sList.add(subnet);
+						} else {
+							log.debug("not find subnet with id:" + subnets[i]);
+						}
+					} catch (OpenstackAPIException e) {
+						log.error(e.getMessage(), e);
+					}
+
+				}
+			}
+
+		}
+		PagerModel<Subnet> page = new PagerModel<Subnet>(sList, pageSze);
+		sList = page.getPagedData(pageIdx);
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put("grid.name", "[plain]");
+		conf.put("grid.cidr", "[plain]");
+		conf.put("grid.ipVersion", "[plain]");
+		conf.put("ipVersion.value", "IPv" + "{ipVersion}");
+		conf.put("grid.gateway", "[plain]");
+		conf.put("grid.operation", "[button]edit,remove");
+		conf.put("edit.onclick", "showEditSubnet('{id}')");
+		conf.put("remove.onclick", "showRemoveSubnet('{id}')");
+		conf.put(".datas", sList);
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("order.list.loading.failed"));
+		} else {
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("recordTotal", page.getTotalRecord());
+			result.put("html", jspString);
+
+			return OpenstackUtil.buildSuccessResponse(result);
+		}
+	}
+
+	@RequestMapping(value = "/getPagerPortList", produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> getPagerPorts(String networkId, Integer pageIndex,
+			Integer pageSize, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		if (StringUtil.isNullOrEmpty(networkId, true)) {
+			return JSONUtil.jsonError("not found");
+		}
+		int pageIdx = -1;
+		int pageSze = 0;
+		if (pageIndex == null || pageIndex == 0) {
+			pageIdx = Constants.DEFAULT_PAGE_INDEX;
+		} else {
+			pageIdx = pageIndex;
+		}
+		if (pageSize == null) {
+			pageSze = Constants.DEFAULT_PAGE_SIZE;
+		} else {
+			pageSze = pageSize;
+		}
+		Access access = null;
+		try {
+			access = keystoneService.getAdminAccess();
+		} catch (OpenstackAPIException e1) {
+			log.error(e1.getMessage(), e1);
+		}
+		Port[] pAllList = null;
+		List<Port> pList = new ArrayList<Port>();
+		try {
+			pAllList = quantumService.listPorts(access);
+			if (pAllList != null && pAllList.length > 0) {
+				pList = Arrays.asList(pAllList);
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+		}
+		PagerModel<Port> page = new PagerModel<Port>(pList, pageSze);
+		pList = page.getPagedData(pageIdx);
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put("grid.name", "[plain]");
+		conf.put("grid.ips", "[plain]");
+		conf.put("grid.device", "[plain]");
+		conf.put("grid.status", "[plain]");
+		conf.put("grid.adminStateUp", "[plain]");
+		conf.put("grid.operation", "[button]edit,remove");
+		conf.put("edit.onclick", "showEditPort('{id}')");
+		conf.put("remove.onclick", "showRemovePort('{id}')");
+		conf.put(".datas", pList);
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("order.list.loading.failed"));
+		} else {
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("recordTotal", page.getTotalRecord());
+			result.put("html", jspString);
+
+			return OpenstackUtil.buildSuccessResponse(result);
+		}
+	}
 }

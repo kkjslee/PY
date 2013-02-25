@@ -111,7 +111,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 				<c:set var="v" value="${fn:replace(p.value, '[checkbox]', '')}"></c:set>
 				<c:if test="${conf[f:append(item, '.options')] == null}">
 					<input type="checkbox" id="${item}" name="${item}" 
-						<c:if test="${v == true}">
+						<c:if test="${v == 'true'}">
 							checked="checked" 
 						</c:if>
 					/>

@@ -68,7 +68,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 		Root<Order> root = criteria.from(Order.class);
 		if(tenantId != null){
 			predicates.add(
-					builder.equal(root.get("tenant.id"), tenantId)
+					builder.equal(root.get("tenant").get("id"), tenantId)
 			);
 		}
 		if(status != null){

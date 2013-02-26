@@ -132,8 +132,14 @@ public class Constants {
 	public static final int PERIOD_TYPE_DAY = 5;
 	public static final int PERIOD_TYPE_HOUR = 11;
 	public static final int PERIOD_TYPE_MINUTE = 12;
-
+	
 	public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
+	
+	public static final int INSTANCE_TYPE_VM 			= 1;
+	public static final int INSTANCE_TYPE_VOLUME 		= 2;
+	public static final int INSTANCE_TYPE_IP 			= 3;
+	public static final int INSTANCE_TYPE_SNAPSHOT_VM 	= 4;
+	public static final int INSTNACE_TYPE_SNAPSHOT_VOL	= 5;
 
 	public static final int AJAX_RESPONSE_STATUS_ERROR = 0;
 	public static final int AJAX_RESPONSE_STATUS_SUCCESS = 1;

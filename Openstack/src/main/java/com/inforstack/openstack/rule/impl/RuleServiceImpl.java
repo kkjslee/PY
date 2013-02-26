@@ -27,13 +27,13 @@ public class RuleServiceImpl implements RuleService {
 	
 	@Override
 	public List<RuleType> listRuleType() {
-		return this.ruleTypeDao.list();
+		return this.ruleTypeDao.listAll();
 	}
 
 	@Override
 	public List<Rule> listRuleByTypeName(String name) {
 		List<Rule> ruleList = null;
-		List<RuleType> typeList = this.ruleTypeDao.list();
+		List<RuleType> typeList = this.ruleTypeDao.listAll();
 		for (RuleType type : typeList) {
 			if (type.getName().equalsIgnoreCase(name)) {
 				ruleList = type.getRules();

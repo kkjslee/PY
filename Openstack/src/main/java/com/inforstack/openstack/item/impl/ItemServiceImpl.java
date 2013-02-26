@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
+import com.inforstack.openstack.api.cinder.CinderService;
+import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
@@ -56,6 +58,9 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private CinderService cinderService;
 
 	@Autowired
 	private I18nService i18nService;
@@ -69,7 +74,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Category> listAllCategory(boolean excludeDisabled) {
 		List<Category> list = new ArrayList<Category>();
-		List<Category> categories = this.categoryDao.list();
+		List<Category> categories = this.categoryDao.listAll();
 		if (categories != null) {
 			for (Category category : categories) {
 				if (!excludeDisabled || category.getEnable()) {
@@ -172,8 +177,19 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemSpecification getItemSpecification(Integer id) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao
-				.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		if (itemSpecification != null) {
+			itemSpecification.getName().getId();
+			if (itemSpecification.getProfile() != null) {
+				itemSpecification.getProfile().getId();
+			}
+		}
+		return itemSpecification;
+	}
+	
+	@Override
+	public ItemSpecification getItemSpecificationFromRefId(String refId) {
+		ItemSpecification itemSpecification = this.itemSpecificationDao.findByObject("refId", refId);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -217,7 +233,14 @@ public class ItemServiceImpl implements ItemService {
 						.getI18nContent());
 				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
-				detail.put("os_size", Integer.toString(0));
+				try {
+					VolumeType volumeType = this.cinderService.getVolumeType(refId);
+					if (Integer.parseInt(volumeType.getName()) != 0) {
+						detail.put("os_size", volumeType.getName());
+					}
+				} catch (OpenstackAPIException e) {
+					log.debug("Unknown volume type id: " + refId);
+				}
 				break;
 			}
 			List<ItemMetadata> metadataList = itemSpecification.getMetadata();
@@ -248,11 +271,17 @@ public class ItemServiceImpl implements ItemService {
 				if (this.checkImage(refId)) {
 					osTypeName = ItemSpecification.OS_TYPE_IMAGE;
 				} else {
+					osTypeName = null;
 					log.debug("Unknown image id: " + refId);
 				}
 				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
-				osTypeName = ItemSpecification.OS_TYPE_VOLUME;
+				if (this.checkVolumeType(refId)) {
+					osTypeName = ItemSpecification.OS_TYPE_VOLUME;
+				} else {
+					osTypeName = null;
+					log.debug("Unknown volume type id: " + refId);
+				}
 				break;
 			case ItemSpecification.OS_TYPE_NETWORK_ID:
 				osTypeName = ItemSpecification.OS_TYPE_NETWORK;
@@ -264,6 +293,7 @@ public class ItemServiceImpl implements ItemService {
 				if (this.checkPeriod(refId)) {
 					osTypeName = ItemSpecification.OS_TYPE_PERIOD;
 				} else {
+					osTypeName = null;
 					log.debug("Unknown period id:" + refId);
 				}
 				break;
@@ -271,6 +301,7 @@ public class ItemServiceImpl implements ItemService {
 				osTypeName = ItemSpecification.OS_TYPE_DATACENTER;
 				break;
 			default:
+				osTypeName = null;
 				log.debug("Unknown ItemSpecification Type: "
 						+ model.getOsType());
 			}
@@ -597,6 +628,17 @@ public class ItemServiceImpl implements ItemService {
 				.parseInt(id)) != null);
 		return success;
 	}
+	
+	private boolean checkVolumeType(String id) {
+		boolean success = false;
+		try {
+			success = (this.cinderService.getVolumeType(id) != null);
+		} catch (OpenstackAPIException e) {
+			log.error("Can't get the volume type from openstack");
+			throw new RuntimeException(e);
+		}
+		return success;
+	}
 
 	/**
 	 * 
@@ -604,7 +646,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<ItemSpecification> listAllItemSpecification() {
 		List<ItemSpecification> list = new ArrayList<ItemSpecification>();
-		list = itemSpecificationDao.list();
+		list = itemSpecificationDao.listAll();
 		for (ItemSpecification itemSpecification : list) {
 			List<Category> categories = itemSpecification.getCategories();
 			for (Category category : categories) {

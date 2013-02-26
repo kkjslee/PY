@@ -248,7 +248,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> listAll() {
 		log.debug("List all users");
-		List<User> users = userDao.list();
+		List<User> users = userDao.listAll();
 
 		if (CollectionUtil.isNullOrEmpty(users)) {
 			log.debug("No user found");

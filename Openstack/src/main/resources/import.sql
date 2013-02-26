@@ -161,9 +161,22 @@ insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'u
 
 insert into Resource(id, url, permission) values (400, '/admin/quantum/modules/index', 'admin');
 insert into Resource(id, url, permission) values (401, '/admin/quantum/getPagerNetworkList', 'admin');
-insert into Resource(id, url, permission) values (402, '/admin/quantum/createnetwork', 'admin');
-insert into Resource(id, url, permission) values (403, '/admin/quantum/createsubnet', 'admin');
-
+insert into Resource(id, url, permission) values (402, '/admin/quantum/createNetwork', 'admin');
+insert into Resource(id, url, permission) values (403, '/admin/quantum/createSubnet', 'admin');
+insert into Resource(id, url, permission) values (404, '/admin/quantum/showCreateNetworkForm', 'admin');
+insert into Resource(id, url, permission) values (405, '/admin/quantum/showCreateSubnetForm', 'admin');
+insert into Resource(id, url, permission) values (406, '/admin/quantum/showEditNetworkForm', 'admin');
+insert into Resource(id, url, permission) values (407, '/admin/quantum/editNetwork', 'admin');
+insert into Resource(id, url, permission) values (408, '/admin/quantum/removeNetwork', 'admin');
+insert into Resource(id, url, permission) values (409, '/admin/quantum/getNetworkDetails', 'admin');
+insert into Resource(id, url, permission) values (410, '/admin/quantum/getPagerSubnetList', 'admin');
+insert into Resource(id, url, permission) values (411, '/admin/quantum/getPagerPortList', 'admin');
+insert into Resource(id, url, permission) values (412, '/admin/quantum/createPort', 'admin');
+insert into Resource(id, url, permission) values (413, '/admin/quantum/editPort', 'admin');
+insert into Resource(id, url, permission) values (414, '/admin/quantum/showEditSubnetForm', 'admin');
+insert into Resource(id, url, permission) values (415, '/admin/quantum/showEditPortForm', 'admin');
+insert into Resource(id, url, permission) values (416, '/admin/quantum/showCreatePortForm', 'admin');
+insert into Resource(id, url, permission) values (417, '/admin/quantum/editSubnet', 'admin');
 insert into Resource(id, url, permission) values (450, '/admin/cinder/modules/index', 'admin');
 insert into Resource(id, url, permission) values (451, '/admin/cinder/getPagerVolumeTypeList', 'admin');
 

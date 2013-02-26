@@ -23,26 +23,30 @@ import com.inforstack.openstack.api.quantum.Subnet.AllocationPool;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/test-context.xml"})
+@ContextConfiguration(locations = { "/test-context.xml" })
 public class QuantumTest {
-	
+
 	@Autowired
 	private QuantumService quantumService;
-	
+
 	@Autowired
 	private KeystoneService keystoneService;
-	
+
 	@Autowired
 	private ConfigurationDao configurationDao;
-	
+
 	private Access access;
 
 	@Before
 	public void setUp() throws Exception {
-		String tenant = this.configurationDao.findByName(KeystoneService.TENANT_DEMO_ID).getValue();
-		String username = this.configurationDao.findByName(KeystoneService.USER_ADMIN_NAME).getValue();
-		String password = this.configurationDao.findByName(KeystoneService.USER_ADMIN_PASS).getValue();
-		this.access = this.keystoneService.getAccess(username, password, tenant, true);
+		String tenant = this.configurationDao.findByName(
+				KeystoneService.TENANT_DEMO_ID).getValue();
+		String username = this.configurationDao.findByName(
+				KeystoneService.USER_ADMIN_NAME).getValue();
+		String password = this.configurationDao.findByName(
+				KeystoneService.USER_ADMIN_PASS).getValue();
+		this.access = this.keystoneService.getAccess(username, password,
+				tenant, true);
 	}
 
 	@After
@@ -62,19 +66,23 @@ public class QuantumTest {
 				System.out.println("ID:           " + network.getId());
 				System.out.println("Name:         " + network.getName());
 				System.out.println("Tenant:       " + network.getTenant());
-				System.out.println("AdminStateUp: " + network.isAdminStateUp());
-				System.out.println("Shared:       " + network.isShared());
+				System.out
+						.println("AdminStateUp: " + network.getAdminStateUp());
+				System.out.println("Shared:       " + network.getShared());
 				String[] subnets = network.getSubnets();
-				System.out.println("Subnet:       " + (subnets != null ? subnets.length : 0));
+				System.out.println("Subnet:       "
+						+ (subnets != null ? subnets.length : 0));
 				for (String subnetId : subnets) {
-					Subnet subnet = this.quantumService.getSubnet(access, subnetId);
+					Subnet subnet = this.quantumService.getSubnet(access,
+							subnetId);
 					System.out.println("--------------------------");
 					System.out.println("ID:           " + subnet.getId());
 					System.out.println("Name:         " + subnet.getName());
-					System.out.println("IP Ver:       " + subnet.getIpVersion());
+					System.out
+							.println("IP Ver:       " + subnet.getIpVersion());
 					System.out.println("Gateway:      " + subnet.getGateway());
 					System.out.println("CIDR:         " + subnet.getCidr());
-					System.out.println("DHCP:         " + subnet.isDhcp());
+					System.out.println("DHCP:         " + subnet.getDhcp());
 				}
 				System.out.println("\n");
 				System.out.println("Status:       " + network.getStatus());
@@ -85,23 +93,25 @@ public class QuantumTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testCreateAndRemoveNetwork() {
 		try {
 			Network[] networks = this.quantumService.listNetworks(this.access);
 			Assert.assertNotNull(networks);
 			Assert.assertTrue(networks.length > 0);
-			
-			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true, false, false);
+
+			Network network = this.quantumService.createNetwork(this.access,
+					"testNetwork", true, false, false);
 			System.out.println("------------------------");
 			System.out.println("ID:           " + network.getId());
 			System.out.println("Name:         " + network.getName());
 			System.out.println("Tenant:       " + network.getTenant());
-			System.out.println("AdminStateUp: " + network.isAdminStateUp());
-			System.out.println("Shared:       " + network.isShared());
+			System.out.println("AdminStateUp: " + network.getAdminStateUp());
+			System.out.println("Shared:       " + network.getShared());
 			String[] subnets = network.getSubnets();
-			System.out.println("Subnet:       " + (subnets != null ? subnets.length : 0));
+			System.out.println("Subnet:       "
+					+ (subnets != null ? subnets.length : 0));
 			for (String subnetId : subnets) {
 				Subnet subnet = this.quantumService.getSubnet(access, subnetId);
 				System.out.println("--------------------------");
@@ -110,7 +120,7 @@ public class QuantumTest {
 				System.out.println("IP Ver:       " + subnet.getIpVersion());
 				System.out.println("Gateway:      " + subnet.getGateway());
 				System.out.println("CIDR:         " + subnet.getCidr());
-				System.out.println("DHCP:         " + subnet.isDhcp());
+				System.out.println("DHCP:         " + subnet.getDhcp());
 			}
 			System.out.println("\n");
 			System.out.println("Status:       " + network.getStatus());
@@ -123,23 +133,25 @@ public class QuantumTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testCreateAndRemoveSubnet() {
 		try {
-			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true, false, false);
-			
+			Network network = this.quantumService.createNetwork(this.access,
+					"testNetwork", true, false, false);
+
 			Subnet[] subnets = this.quantumService.listSubnets(this.access);
 			Assert.assertNotNull(subnets);
 			Assert.assertTrue(subnets.length > 0);
-			
+
 			AllocationPool[] pools = new AllocationPool[1];
 			pools[0] = new AllocationPool();
 			pools[0].setStart("10.0.10.20");
 			pools[0].setEnd("10.0.10.250");
-			
-			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), 4, "10.0.10.0/24", pools);
-			
+
+			Subnet subnet = this.quantumService.createSubnet(access,
+					network.getId(), "testsubnet", 4, "10.0.10.0/24", pools);
+
 			Assert.assertTrue(this.quantumService.listSubnets(this.access).length == subnets.length + 1);
 			this.quantumService.removeSubnet(access, subnet.getId());
 			Assert.assertTrue(this.quantumService.listSubnets(this.access).length == subnets.length);
@@ -149,7 +161,7 @@ public class QuantumTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testListPorts() {
 		try {
@@ -163,11 +175,12 @@ public class QuantumTest {
 				System.out.println("ID:           " + port.getId());
 				System.out.println("Name:         " + port.getName());
 				System.out.println("Tenant:       " + port.getTenant());
-				System.out.println("AdminStateUp: " + port.isAdminStateUp());
+				System.out.println("AdminStateUp: " + port.getAdminStateUp());
 				System.out.println("Device:       " + port.getDevice());
-				System.out.println("MAC:          " + port.isAdminStateUp());
+				System.out.println("MAC:          " + port.getAdminStateUp());
 				IP[] subnets = port.getIps();
-				System.out.println("Fixed IP:     " + (subnets != null ? subnets.length : 0));
+				System.out.println("Fixed IP:     "
+						+ (subnets != null ? subnets.length : 0));
 				for (IP ip : subnets) {
 					System.out.println("---------------------");
 					System.out.println("Subnet:       " + ip.getSubnet());
@@ -181,19 +194,21 @@ public class QuantumTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void testCreateAndRemovePort() {
 		try {
-			Network network = this.quantumService.createNetwork(this.access, "testNetwork", true, false, false);
-			
+			Network network = this.quantumService.createNetwork(this.access,
+					"testNetwork", true, false, false);
+
 			AllocationPool[] pools = new AllocationPool[1];
 			pools[0] = new AllocationPool();
 			pools[0].setStart("10.0.10.20");
 			pools[0].setEnd("10.0.10.250");
-			
-			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), 4, "10.0.10.0/24", pools);
-			
+
+			Subnet subnet = this.quantumService.createSubnet(access,
+					network.getId(), "testsubnet", 4, "10.0.10.0/24", pools);
+
 			this.quantumService.removeSubnet(access, subnet.getId());
 			this.quantumService.removeNetwork(access, network.getId());
 		} catch (OpenstackAPIException e) {

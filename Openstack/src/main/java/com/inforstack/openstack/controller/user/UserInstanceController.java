@@ -1,12 +1,9 @@
 package com.inforstack.openstack.controller.user;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +20,7 @@ import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
-import com.inforstack.openstack.api.nova.image.Image;
-import com.inforstack.openstack.api.nova.server.Address;
+import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerAction;
 import com.inforstack.openstack.api.nova.server.ServerService;
@@ -36,6 +32,11 @@ import com.inforstack.openstack.api.nova.server.impl.SuspendServer;
 import com.inforstack.openstack.api.nova.server.impl.UnpauseServer;
 import com.inforstack.openstack.controller.model.InstanceModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.instance.Instance;
+import com.inforstack.openstack.instance.InstanceService;
+import com.inforstack.openstack.instance.VirtualMachine;
+import com.inforstack.openstack.item.ItemService;
+import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.Constants;
@@ -45,13 +46,22 @@ import com.inforstack.openstack.utils.StringUtil;
 
 @Controller
 @RequestMapping(value = "/user/instance")
-public class InstanceUserController {
+public class UserInstanceController {
 
-	private static final Logger log = new Logger(InstanceUserController.class);
+	private static final Logger log = new Logger(UserInstanceController.class);
 
 	@Autowired
+	private InstanceService instanceService;
+	
+	@Autowired
+	private ItemService itemService;
+	
+	@Autowired
 	private ServerService serverService;
-
+	
+	@Autowired
+	private FlavorService flavorService;
+	
 	@Autowired
 	private KeystoneService keystoneService;
 
@@ -77,8 +87,7 @@ public class InstanceUserController {
 	}
 
 	@RequestMapping(value = "/getPagerInstanceList", method = RequestMethod.POST)
-	public String getPagerInstances(Model model, Integer pageIndex,
-			Integer pageSize) {
+	public String getPagerInstances(Model model, Integer pageIndex, Integer pageSize) {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
@@ -94,79 +103,46 @@ public class InstanceUserController {
 			pageSze = pageSize;
 		}
 		List<InstanceModel> imList = new ArrayList<InstanceModel>();
-		try {
-			String username = SecurityUtils.getUserName();
-			String password = SecurityUtils.getUser().getPassword();
-			Tenant tenant = SecurityUtils.getTenant();
-			Access access = keystoneService.getAccess(username, password,
-					tenant.getUuid(), true);
-			// Tenant tenant = access.getToken().getTenant();
-			if (access != null) {
-				log.debug("listing server instances");
-				Server[] servers = serverService.listServers(access, true);
-				if (servers != null) {
-					InstanceModel im = null;
-					Flavor flavor = null;
-					for (Server server : servers) {
-						im = new InstanceModel();
-						im.setVmid(server.getId());
-						im.setVmname(server.getName());
-						im.setStatus(server.getStatus());
-						im.setStatusdisplay(OpenstackUtil.getMessage(server
-								.getStatus() + ".status.vm"));
-						im.setTenantId(server.getTenant());
-						im.setStarttime(server.getCreated());
-						im.setUpdatetime(server.getUpdated());
-						im.setTaskStatus(server.getTask());
-						im.setAssignedto(access.getUser().getUsername());
-						im.setAccesspoint("");
-						Map<String, Address[]> addresses = server
-								.getAddresses();
-						Iterator<Entry<String, Address[]>> it = addresses
-								.entrySet().iterator();
-						Map<String, String> tempAddress = new HashMap<String, String>();
-						while (it.hasNext()) {
-							Entry<String, Address[]> entry = it.next();
-							String key = entry.getKey();
-							Address[] values = entry.getValue();
-							String ipString = "";
-							if (values != null && values.length > 0) {
-								int length = values.length;
-								for (int i = 0; i < length; i++) {
-									ipString = ipString + values[i].getAddr();
-									if (i < length - 1) {
-										ipString = ipString + ",";
-									}
-								}
-							}
 
-							tempAddress.put(key, ipString);
-						}
-						im.setAddresses(tempAddress);
-						flavor = server.getFlavor();
-						if (flavor != null) {
-							im.setCpus(flavor.getVcpus());
-							im.setMaxcpus(flavor.getVcpus());
-							im.setMemory(flavor.getRam());
-							im.setMaxmemory(flavor.getRam());
-							im.setDisksize(flavor.getDisk());
-						}
-						im.setOstype(server.getImage().getName());
-						imList.add(im);
-					}
+		String username = SecurityUtils.getUserName();
+		Tenant tenant = SecurityUtils.getTenant();
+
+		List<VirtualMachine> vmList = this.instanceService.findVirtualMachineFromTenant(tenant);
+			
+		PagerModel<VirtualMachine> page = new PagerModel<VirtualMachine>(vmList, pageSze);
+		vmList = page.getPagedData(pageIdx);
+		if (vmList != null) {
+			for (VirtualMachine vm : vmList) {
+				Instance instance = this.instanceService.findInstanceFromUUID(vm.getUuid());
+				
+				InstanceModel im = new InstanceModel();
+				im.setVmid(vm.getUuid());
+				im.setVmname(vm.getName());
+				im.setStatus(instance.getStatus());
+				im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
+				im.setTenantId(tenant.getUuid());
+				im.setStarttime(instance.getCreateTime());
+				im.setUpdatetime(instance.getUpdateTime());
+				im.setTaskStatus(instance.getTask());
+				im.setAssignedto(username);
+				im.setAccesspoint("");
+
+				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
+				if (flavorItem != null) {
+					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
-
-				PagerModel<InstanceModel> page = new PagerModel<InstanceModel>(
-						imList, pageSze);
-				imList = page.getPagedData(pageIdx);
-				model.addAttribute("pageIndex", pageIdx);
-				model.addAttribute("pageSize", pageSze);
-				model.addAttribute("pageTotal", page.getTotalRecord());
-				model.addAttribute("dataList", imList);
+				
+				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(vm.getImage());
+				if (imageItem != null) {
+					im.setOstype(imageItem.getName().getI18nContent());
+				}
+				imList.add(im);
 			}
-		} catch (OpenstackAPIException e) {
-			System.out.println(e.getMessage());
-			log.error(e.getMessage(), e);
+			
+			model.addAttribute("pageIndex", pageIdx);
+			model.addAttribute("pageSize", pageSze);
+			model.addAttribute("pageTotal", page.getTotalRecord());
+			model.addAttribute("dataList", imList);
 		}
 		return INSTANCE_MODULE_HOME + "/tr";
 	}
@@ -219,65 +195,62 @@ public class InstanceUserController {
 		InstanceModel im = new InstanceModel();
 		if (!StringUtil.isNullOrEmpty(vmId, false)) {
 			try {
+				Instance instance = this.instanceService.findInstanceFromUUID(vmId);
+				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(vmId);
+				
 				String username = SecurityUtils.getUserName();
-				String password = SecurityUtils.getUser().getPassword();
 				Tenant tenant = SecurityUtils.getTenant();
-				Access access = keystoneService.getAccess(username, password,
-						tenant.getUuid(), true);
-
-				if (access != null) {
-					Server server = serverService
-							.getServer(access, vmId, true);
-					if (server != null) {
-						im.setTaskStatus(server.getTask());
-						im.setStatus(server.getStatus());
-						im.setVmname(server.getName());
-						im.setStatusdisplay(OpenstackUtil.getMessage(server
-								.getStatus() + ".status.vm"));
-						im.setTenantId(server.getTenant());
-						im.setStarttime(server.getCreated());
-						im.setUpdatetime(server.getUpdated());
-						im.setAssignedto(access.getUser().getUsername());
-						Map<String, Address[]> addresses = server
-								.getAddresses();
-						Iterator<Entry<String, Address[]>> it = addresses
-								.entrySet().iterator();
-						Map<String, String> tempAddress = new HashMap<String, String>();
-						while (it.hasNext()) {
-							Entry<String, Address[]> entry = it.next();
-							String key = entry.getKey();
-							Address[] values = entry.getValue();
-							String ipString = "";
-							if (values != null && values.length > 0) {
-								int length = values.length;
-								for (int i = 0; i < length; i++) {
-									ipString = ipString + values[i].getAddr();
-									if (i < length - 1) {
-										ipString = ipString + ",";
-									}
-								}
-							}
-
-							tempAddress.put(key, ipString);
-						}
-						im.setAddresses(tempAddress);
-						Flavor flavor = server.getFlavor();
-						if (flavor != null) {
-							im.setCpus(flavor.getVcpus());
-							im.setMaxcpus(flavor.getVcpus());
-							im.setMemory(flavor.getRam());
-							im.setMaxmemory(flavor.getRam());
-							im.setDisksize(flavor.getDisk());
-						}
-						Image image = server.getImage();
-						if (image != null) {
-							im.setImageId(image.getName());
-						}
-						im.setStatusdisplay(OpenstackUtil.getMessage(server
-								.getStatus() + ".status.vm"));
-					}
+				
+				im.setTaskStatus(instance.getTask());
+				im.setStatus(instance.getStatus());
+				im.setVmname(instance.getName());
+				im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
+				im.setTenantId(tenant.getUuid());
+				im.setStarttime(instance.getCreateTime());
+				im.setUpdatetime(instance.getUpdateTime());
+				im.setAssignedto(username);
+				
+				// TODO: [ricky] get addresses from db instead of openstack
+//				Map<String, Address[]> addresses = server
+//						.getAddresses();
+//				Iterator<Entry<String, Address[]>> it = addresses
+//						.entrySet().iterator();
+//				Map<String, String> tempAddress = new HashMap<String, String>();
+//				while (it.hasNext()) {
+//					Entry<String, Address[]> entry = it.next();
+//					String key = entry.getKey();
+//					Address[] values = entry.getValue();
+//					String ipString = "";
+//					if (values != null && values.length > 0) {
+//						int length = values.length;
+//						for (int i = 0; i < length; i++) {
+//							ipString = ipString + values[i].getAddr();
+//							if (i < length - 1) {
+//								ipString = ipString + ",";
+//							}
+//						}
+//					}
+//
+//					tempAddress.put(key, ipString);
+//				}
+//				im.setAddresses(tempAddress);
+				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
+				if (flavorItem != null) {
+					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
-
+				
+				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(vm.getImage());
+				if (imageItem != null) {
+					im.setImageId(imageItem.getName().getI18nContent());
+				}
+				Flavor flavor = this.flavorService.getFlavor(vm.getFlavor());
+				if (flavor != null) {
+					im.setCpus(flavor.getVcpus());
+					im.setMaxcpus(flavor.getVcpus());
+					im.setMemory(flavor.getRam());
+					im.setMaxmemory(flavor.getRam());
+					im.setDisksize(flavor.getDisk());
+				}
 			} catch (OpenstackAPIException e) {
 				System.out.println(e.getMessage());
 				if (e.getMessage().contains("404")
@@ -316,7 +289,8 @@ public class InstanceUserController {
 				"form.updatetime",
 				"[plain]"
 						+ StringUtil.formateDateString(instance.getUpdatetime()));
-		conf.put("form.addressString", "[plain]" + instance.getAddressString());
+		// TODO: [ricky]get address
+		//conf.put("form.addressString", "[plain]" + instance.getAddressString());
 
 		model.addAttribute("configuration", conf);
 

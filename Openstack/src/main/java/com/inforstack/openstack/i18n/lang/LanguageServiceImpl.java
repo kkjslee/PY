@@ -76,6 +76,6 @@ public class LanguageServiceImpl implements LanguageService {
   @Override
   public List<Language> list() {
     log.debug("Get all Languages");
-    return languageDao.list();
+    return languageDao.listAll();
   }
 }

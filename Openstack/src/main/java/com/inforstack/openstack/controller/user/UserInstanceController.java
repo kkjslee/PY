@@ -108,7 +108,7 @@ public class UserInstanceController {
 		String username = SecurityUtils.getUserName();
 		Tenant tenant = SecurityUtils.getTenant();
 
-		List<VirtualMachine> vmList = this.instanceService.findVirtualMachineFromTenant(tenant);
+		List<VirtualMachine> vmList = this.instanceService.findVirtualMachineFromTenant(tenant, null, null);
 			
 		PagerModel<VirtualMachine> page = new PagerModel<VirtualMachine>(vmList, pageSze);
 		vmList = page.getPagedData(pageIdx);

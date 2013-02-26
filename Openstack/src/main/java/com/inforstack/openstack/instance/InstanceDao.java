@@ -7,8 +7,8 @@ import com.inforstack.openstack.tenant.Tenant;
 
 public interface InstanceDao extends BasicDao<Instance> {
 
-	public List<Instance> listInstancesByTenant(Tenant tenant);
+	public List<Instance> listInstancesByTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	
-	public List<Instance> listInstancesBySubOrder(Integer subOrderId);
+	public List<Instance> listInstancesBySubOrder(Integer subOrderId, String includeStatus, String excludeStatus);
 	
 }

@@ -80,13 +80,13 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 	
 	@Override
-	public List<Instance> findInstanceFromTenant(Tenant tenant) {
+	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
 		List<Order> orderList = this.orderService.findAll(tenant.getId(), Constants.ORDER_STATUS_ACTIVE);
 		for (Order order : orderList) {
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
-				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId());
+				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), includeStatus, excludeStatus);
 				instanceList.addAll(instances);
 			}
 		}
@@ -100,11 +100,11 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 	
 	@Override
-	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant) {
+	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<VirtualMachine> virtualMachineList = new ArrayList<VirtualMachine>();
-		List<Instance> instances = this.instanceDao.listInstancesByTenant(tenant);
+		List<Instance> instances = this.instanceDao.listInstancesByTenant(tenant, includeStatus, excludeStatus);
 		for (Instance instance : instances) {
-			if (instance.getType() == Constants.INSTANCE_TYPE_VM) {
+			if (instance.getType() == Constants.INSTANCE_TYPE_VM && (includeStatus == null || instance.getStatus().equalsIgnoreCase(includeStatus))) {
 				virtualMachineList.add(this.virtualMachineDao.findByObject("uuid", instance.getUuid()));
 			}
 		}

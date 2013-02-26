@@ -198,7 +198,7 @@ public class ServerServiceImpl implements ServerService {
 										break;
 									}
 								} else {
-									self.updateServerStatus(server.getId(), "deleted", "");
+									self.updateServerStatus(server.getId(), "deleted", null);
 									break;
 								}
 								Thread.sleep(1000);

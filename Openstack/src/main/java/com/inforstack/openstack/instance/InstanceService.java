@@ -10,11 +10,11 @@ public interface InstanceService {
 	
 	public SubOrder findSubOrderFromInstance(String instanceId);
 	
-	public List<Instance> findInstanceFromTenant(Tenant tenant);
+	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	
 	public Instance findInstanceFromUUID(String uuid);
 	
-	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant);
+	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	
 	public VirtualMachine findVirtualMachineFromUUID(String uuid);
 	

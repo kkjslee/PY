@@ -34,7 +34,7 @@
     background:url("image/loading.gif") 0 0 no-repeat;
     text-indent:37px;
 }
-.vmOperation .vmstopped,.vmOperation .vmactive,.vmOperation .vmunpause,.vmOperation .vmpaused,.vmOperation .vmsuspended,.vmOperation .vmresuming{
+.vmOperation .vmstopped,.vmOperation .vmactive,.vmOperation .vmunpause,.vmOperation .vmpaused,.vmOperation .vmsuspended,.vmOperation .vmresuming,.vmOperation .vmdeleted{
     display:none;
 }
 

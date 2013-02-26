@@ -20,7 +20,7 @@ import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 
-	private static final Logger log = new Logger(BasicDaoImpl.class);
+	protected static final Logger log = new Logger(BasicDaoImpl.class);
 	
 	@Autowired
 	protected EntityManager em;
@@ -99,7 +99,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	}
 
 	@Override
-	public final List<T> list() {		
+	public final List<T> listAll() {		
 		List<T> list = null;
 		log.debug("getting all " + this.modelClz.getSimpleName() + " instance");
 		try {
@@ -107,6 +107,22 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
 			Root<T> root = criteria.from(this.modelClz);
 			criteria.select(root);
+			list = em.createQuery(criteria).getResultList();
+			log.debug("get successful");
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+		}
+		return list;
+	}
+	
+	public List<T> listByObject(String name, Object value) {
+		List<T> list = null;
+		log.debug("getting all " + this.modelClz.getSimpleName() + " instance");
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
+			Root<T> root = criteria.from(this.modelClz);
+			criteria.select(root).where(builder.equal(root.get(name), value));
 			list = em.createQuery(criteria).getResultList();
 			log.debug("get successful");
 		} catch (RuntimeException re) {
@@ -141,7 +157,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 				CriteriaBuilder builder = em.getCriteriaBuilder();
 				CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
 				Root<T> root = criteria.from(this.modelClz);
-				criteria.select(root).where(builder.equal(root.get(name), value));;
+				criteria.select(root).where(builder.equal(root.get(name), value));
 				List<T> instances = em.createQuery(criteria).getResultList();
 				if (instances != null && instances.size() > 0) {
 					log.debug("get successful");

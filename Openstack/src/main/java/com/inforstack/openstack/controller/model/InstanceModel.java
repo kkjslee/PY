@@ -31,6 +31,7 @@ public class InstanceModel {
 	@Size(min = Constants.DEFAULT_NAME_MIN_LENGTH, max = Constants.DEFAULT_NAME_MAX_LENGTH, message = "{size.not.valid}")
 	@Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
 	private String vmname;
+	
 	// cpu number
 	@Range(min = Constants.DEFAULT_CPU_NUM_MIN_LIMIT, max = Constants.DEFAULT_CPU_NUM_MAX_LIMIT, message = "{size.not.valid}")
 	private Integer cpus;
@@ -74,6 +75,8 @@ public class InstanceModel {
 	private String imageId;
 
 	private String flavorId;
+	private String flavorName;
+	
 	private boolean isProcessing;
 	private int powerOn;
 	// status+task+power
@@ -268,6 +271,14 @@ public class InstanceModel {
 
 	public void setFlavorId(String flavorId) {
 		this.flavorId = flavorId;
+	}
+
+	public String getFlavorName() {
+		return flavorName;
+	}
+
+	public void setFlavorName(String flavorName) {
+		this.flavorName = flavorName;
 	}
 
 	public boolean getIsProcessing() {

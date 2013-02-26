@@ -9,7 +9,9 @@ import com.inforstack.openstack.controller.model.PaginationModel;
 
 public interface BasicDao<T> {
 	
-	public List<T> list();
+	public List<T> listAll();
+	
+	public List<T> listByObject(String name, Object value);
 	
 	public T findById(Object primaryKey);
 	

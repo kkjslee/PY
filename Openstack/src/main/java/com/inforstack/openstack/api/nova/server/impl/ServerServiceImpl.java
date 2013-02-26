@@ -1,5 +1,7 @@
 package com.inforstack.openstack.api.nova.server.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
-import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
+import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
@@ -18,9 +20,12 @@ import com.inforstack.openstack.api.nova.server.ServerAction;
 import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
+import com.inforstack.openstack.instance.Instance;
+import com.inforstack.openstack.instance.InstanceDao;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RestUtils;
 
-@Service
+@Service("serverService")
 @Transactional
 public class ServerServiceImpl implements ServerService {
 
@@ -35,6 +40,9 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private InstanceDao instanceDao;
 	
 	public static final class Servers {
 		
@@ -109,7 +117,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public Server createServer(Access access, Server server) throws OpenstackAPIException {
+	public Server createServer(final Access access, Server server) throws OpenstackAPIException {
 		Server newServer = null;
 		Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVERS);
 		if (access != null && endpoint != null) {
@@ -119,6 +127,39 @@ public class ServerServiceImpl implements ServerService {
 			ServerBody response = RestUtils.postForObject(url, access, request, ServerBody.class);
 			newServer = response.getServer();
 			newServer = this.getServer(access, newServer.getId(), true);
+			
+			final String id = newServer.getId();
+			
+			final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
+			
+			Thread thread = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					while (true) {
+						try {
+							Server s = ServerServiceImpl.this.getServerDetail(access, id);
+							if (s != null) {
+								String status = s.getStatus();
+								String task = s.getTask();
+								self.updateServerStatus(s.getId(), status, task);
+								if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("error")) {
+									break;
+								}
+							} else {
+								break;
+							}
+							Thread.sleep(500);
+						} catch (OpenstackAPIException e) {
+							break;
+						} catch (InterruptedException e) {
+							break;
+						}
+					}
+				}
+				
+			});
+			thread.start();
 		}
 		return newServer;
 	}
@@ -143,6 +184,31 @@ public class ServerServiceImpl implements ServerService {
 				RestUtils.postForLocation(url, access, action, server.getId());
 			}
 		}
+	}
+	
+	@Override
+	public void updateServerStatus(String uuid, String status, String task) {
+		Instance instance = ServerServiceImpl.this.instanceDao.findByObject("uuid", uuid);
+		if (instance != null) {
+			instance.setStatus(status);
+			instance.setTask(task);
+			instance.setUpdateTime(new Date());
+		}
+	}
+	
+	private Server getServerDetail(Access access, String id) throws OpenstackAPIException {
+		Server server = null;
+		Configuration endpointServer = this.configurationDao.findByName(ENDPOINT_SERVER);
+		if (access != null && endpointServer != null) {
+			String url = getEndpoint(access, Type.INTERNAL, endpointServer.getValue());
+			try {
+				ServerBody response = RestUtils.get(url, access, ServerBody.class, id);
+				server = response.getServer();
+			} catch (OpenstackAPIException e) {
+				RestUtils.handleError(e);
+			}
+		}
+		return server;
 	}
 	
 	private static String getEndpoint(Access access, Type type, String suffix) {

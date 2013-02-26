@@ -3,14 +3,14 @@ package com.inforstack.openstack.api.quantum;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class Port {
-	
+
 	public static final class IP {
-		
+
 		@JsonProperty("ip_address")
 		private String ip;
-		
+
 		@JsonProperty("subnet_id")
 		private String subnet;
 
@@ -29,31 +29,31 @@ public class Port {
 		public void setSubnet(String subnet) {
 			this.subnet = subnet;
 		}
-		
+
 	}
 
 	private String id;
-	
+
 	private String name;
-	
+
 	@JsonProperty("tenant_id")
 	private String tenant;
-	
+
 	@JsonProperty("network_id")
 	private String network;
-	
+
 	@JsonProperty("device_id")
 	private String device;
-	
+
 	@JsonProperty("mac_address")
 	private String mac;
-	
+
 	@JsonProperty("fixed_ips")
 	private IP[] ips;
-	
+
 	@JsonProperty("admin_state_up")
 	private boolean adminStateUp;
-	
+
 	private String status;
 
 	public String getId() {
@@ -112,7 +112,7 @@ public class Port {
 		this.ips = ips;
 	}
 
-	public boolean isAdminStateUp() {
+	public boolean getAdminStateUp() {
 		return adminStateUp;
 	}
 
@@ -127,5 +127,5 @@ public class Port {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 }

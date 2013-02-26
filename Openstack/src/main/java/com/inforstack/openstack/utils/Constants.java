@@ -147,4 +147,7 @@ public class Constants {
 	public static final String AJAX_RESPONSE_KEY_STATUS = "status";
 	public static final String AJAX_RESPONSE_KEY_RESULT = "result";
 
+	public static final String POOLS_SPLITTER = ";";
+	public static final String IP_SPLITTER = ",";
+
 }

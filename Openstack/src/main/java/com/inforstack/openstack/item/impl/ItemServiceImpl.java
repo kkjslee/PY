@@ -221,7 +221,10 @@ public class ItemServiceImpl implements ItemService {
 			case ItemSpecification.OS_TYPE_IMAGE_ID:
 				try {
 					Image image = this.imageService.getImage(refId);
-					detail.put("os_imagename", image.getName());
+					if (image != null) {
+						detail.put("os_imagename", image.getName());
+					}
+
 				} catch (OpenstackAPIException e) {
 					log.debug("Unknown image id: " + refId);
 				}

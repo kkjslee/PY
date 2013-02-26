@@ -1,7 +1,6 @@
 package com.inforstack.openstack.controller.admin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,13 +20,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.nova.server.Server;
+import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.api.quantum.Network;
 import com.inforstack.openstack.api.quantum.Port;
 import com.inforstack.openstack.api.quantum.QuantumService;
 import com.inforstack.openstack.api.quantum.Subnet;
 import com.inforstack.openstack.controller.model.NetworkModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.controller.model.PortModel;
 import com.inforstack.openstack.controller.model.SubnetModel;
+import com.inforstack.openstack.i18n.dict.Dictionary;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.JSONUtil;
@@ -43,6 +46,9 @@ public class QuantumController {
 
 	@Autowired
 	private QuantumService quantumService;
+
+	@Autowired
+	private ServerService serverService;
 
 	@Autowired
 	private KeystoneService keystoneService;
@@ -403,63 +409,6 @@ public class QuantumController {
 
 	}
 
-	@RequestMapping(value = "/showCreateSubnetForm", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody
-	Map<String, Object> showCreateSubnetForm(Model model,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		Map<String, Object> conf = new LinkedHashMap<String, Object>();
-		conf.put(".form", "start_end");
-		conf.put("form.name", "[text]");
-		conf.put("form.adminStateUp", "[checkbox]true");
-		conf.put("form.shared", "[checkbox]");
-		conf.put("form.external", "[checkbox]");
-
-		model.addAttribute("configuration", conf);
-
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/form.jsp?form.configuration=configuration&type=",
-				model.asMap(), request, response);
-
-		if (jspString == null) {
-			return OpenstackUtil.buildErrorResponse("error message");
-		} else {
-			return OpenstackUtil.buildSuccessResponse(jspString);
-		}
-	}
-
-	@RequestMapping(value = "/createSubnet", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody
-	Map<String, Object> createSubnet(Model model, SubnetModel subnetModel,
-			HttpServletRequest request) {
-
-		String errorMsg = ValidateUtil.validModel(validator, "admin",
-				subnetModel);
-		if (errorMsg != null) {
-			return JSONUtil.jsonError(errorMsg);
-		}
-		Access access = null;
-		Subnet subnet = null;
-		try {
-			access = keystoneService.getAdminAccess();
-			subnet = this.quantumService.createSubnet(access,
-					subnetModel.getNetwork(), subnetModel.getName(),
-					subnetModel.getIpVersion(), subnetModel.getCidr(),
-					subnetModel.getPools());
-			if (subnet != null) {
-				return JSONUtil.jsonSuccess(subnet,
-						OpenstackUtil.getMessage("subnet.created.success"));
-			}
-		} catch (OpenstackAPIException e) {
-			log.error(e.getMessage(), e);
-			return JSONUtil.jsonError(subnet,
-					OpenstackUtil.getMessage("subnet.created.failed"));
-		}
-
-		return JSONUtil.jsonError(subnet,
-				OpenstackUtil.getMessage("subnet.created.failed"));
-	}
-
 	@RequestMapping(value = "/getNetworkDetails")
 	public String getNetworkDetails(String networkId, Model model,
 			HttpServletRequest request) {
@@ -573,7 +522,7 @@ public class QuantumController {
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.cidr", "[plain]");
 		conf.put("grid.ipVersion", "[plain]");
-		conf.put("ipVersion.value", "IPv" + "{ipVersion}");
+		conf.put("ipVersion.value", "IPv" + "{ipVersion} ");
 		conf.put("grid.gateway", "[plain]");
 		conf.put("grid.operation", "[button]edit,remove");
 		conf.put("edit.onclick", "showEditSubnet('{id}')");
@@ -626,26 +575,53 @@ public class QuantumController {
 			log.error(e1.getMessage(), e1);
 		}
 		Port[] pAllList = null;
-		List<Port> pList = new ArrayList<Port>();
+		List<PortModel> pList = new ArrayList<PortModel>();
+		PortModel pModel = null;
 		try {
 			pAllList = quantumService.listPorts(access);
 			if (pAllList != null && pAllList.length > 0) {
-				pList = Arrays.asList(pAllList);
+				for (Port p : pAllList) {
+					pModel = new PortModel();
+					pModel.setAdminStateUp(p.getAdminStateUp());
+					pModel.setDeviceId(p.getDevice());
+					Server server = serverService.getServer(access,
+							p.getDevice(), false);
+					if (server != null) {
+						pModel.setDeviceName(server.getName());
+					} else {
+						pModel.setDeviceName("");
+					}
+					pModel.setId(p.getId());
+					pModel.setIps(p.getIps());
+					pModel.setMac(p.getMac());
+					pModel.setName(p.getName());
+					pModel.setNetwork(p.getNetwork());
+					pModel.setStatus(p.getStatus());
+					pModel.setTenant(p.getTenant());
+					pList.add(pModel);
+
+				}
 			}
 		} catch (OpenstackAPIException e) {
 			log.error(e.getMessage(), e);
 		}
-		PagerModel<Port> page = new PagerModel<Port>(pList, pageSze);
+		PagerModel<PortModel> page = new PagerModel<PortModel>(pList, pageSze);
 		pList = page.getPagedData(pageIdx);
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.ips", "[plain]");
+		conf.put("ips.value", "{ipsDisplay} ");
 		conf.put("grid.device", "[plain]");
+		conf.put("device.value", "{deviceName} ");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.adminStateUp", "[plain]");
-		conf.put("grid.operation", "[button]edit,remove");
-		conf.put("edit.onclick", "showEditPort('{id}')");
+		conf.put("grid.operation", "[button]remove");
 		conf.put("remove.onclick", "showRemovePort('{id}')");
+		/*
+		 * conf.put("grid.operation", "[button]edit,remove");
+		 * conf.put("edit.onclick", "showEditPort('{id}')");
+		 * conf.put("remove.onclick", "showRemovePort('{id}')");
+		 */
 		conf.put(".datas", pList);
 
 		model.addAttribute("configuration", conf);
@@ -665,5 +641,502 @@ public class QuantumController {
 
 			return OpenstackUtil.buildSuccessResponse(result);
 		}
+	}
+
+	@RequestMapping(value = "/showCreatePortForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showCreatePortForm(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]");
+		conf.put("form.adminStateUp", "[checkbox]");
+		conf.put("form.deviceId", "[text]");
+		conf.put("form.deviceOwner", "[text]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/showEditPortForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showEditPortForm(Model model, String portId,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		if (StringUtil.isNullOrEmpty(portId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+		Port port = null;
+		Access access = null;
+		PortModel pModel = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Port[] portList = quantumService.listPorts(access);
+			for (int i = 0; i < portList.length; i++) {
+				if (portList[i].getId().equals(portId)) {
+					port = portList[i];
+					break;
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(portId,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+		if (port == null) {
+			log.debug("not found port id:" + portId);
+			return JSONUtil.jsonError("not found port id: " + portId);
+		} else {
+			pModel = new PortModel();
+			pModel.setAdminStateUp(port.getAdminStateUp());
+			pModel.setDeviceId(port.getDevice());
+			// TODO OWNER
+		}
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]" + pModel.getName());
+		conf.put("form.adminStateUp", "[checkbox]" + pModel.getAdminStateUp());
+		conf.put("form.deviceId", "[text]" + pModel.getDeviceId());
+		// TODO owner
+		conf.put("form.deviceOwner", "[text]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/createPort", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> createPort(Model model, PortModel portModel,
+			HttpServletRequest request) {
+
+		String errorMsg = ValidateUtil
+				.validModel(validator, "admin", portModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		if (StringUtil.isNullOrEmpty(portModel.getNetwork())) {
+			log.error("dnetwork is null");
+			return JSONUtil.jsonError("network not found");
+		}
+		Access access = null;
+		Port port = null;
+		Network network = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Network[] networks = quantumService.listNetworks(access);
+			log.debug("listing networks");
+
+			for (Network n : networks) {
+				if (n.getId().equals(portModel.getNetwork())) {
+					network = n;
+				}
+			}
+			if (network != null) {
+				Server server = null;
+				if (!StringUtil.isNullOrEmpty(portModel.getDeviceId(), true)) {
+					server = serverService.getServer(access,
+							portModel.getDeviceId(), false);
+					if (server == null) {
+						log.error("not found server:" + portModel.getDeviceId());
+						return JSONUtil.jsonError(OpenstackUtil.getMessage(
+								"device.notfound", portModel.getDeviceId()));
+					}
+
+				}
+				port = new Port();
+				port.setAdminStateUp(portModel.getAdminStateUp());
+				port.setDevice(portModel.getDeviceId());
+
+				port.setName(portModel.getName());
+				port.setNetwork(port.getNetwork());
+				// TODO OWNER
+				port = this.quantumService.createPort(access, port, server);
+				if (port.getId() != null) {
+					return JSONUtil.jsonSuccess(port,
+							OpenstackUtil.getMessage("created.success"));
+				}
+
+			} else {
+				log.error("not find network:" + portModel.getNetwork());
+				return JSONUtil.jsonError(OpenstackUtil.getMessage(
+						"network.notfound", portModel.getNetwork()));
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(portModel,
+					OpenstackUtil.getMessage("created.failed"));
+		}
+
+		return JSONUtil.jsonError(portModel,
+				OpenstackUtil.getMessage("created.failed"));
+	}
+
+	// TODO
+	@RequestMapping(value = "/editPort", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> editPort(Model model, PortModel portModel,
+			HttpServletRequest request) {
+
+		String errorMsg = ValidateUtil
+				.validModel(validator, "admin", portModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		String pId = portModel.getId();
+		if (StringUtil.isNullOrEmpty(pId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+
+		Access access = null;
+		Port port = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Server server = null;
+			if (!StringUtil.isNullOrEmpty(portModel.getDeviceId(), true)) {
+				server = serverService.getServer(access,
+						portModel.getDeviceId(), false);
+				if (server == null) {
+					log.error("not found server:" + portModel.getDeviceId());
+					return JSONUtil.jsonError(OpenstackUtil.getMessage(
+							"device.notfound", portModel.getDeviceId()));
+				}
+
+			}
+			Port[] portList = quantumService.listPorts(access);
+			for (int i = 0; i < portList.length; i++) {
+				if (portList[i].getId().equals(pId)) {
+					port = portList[i];
+					port.setAdminStateUp(portModel.getAdminStateUp());
+					port.setDevice(portModel.getDeviceId());
+					port.setName(portModel.getName());
+					// TODO owner
+					break;
+				}
+			}
+			if (port != null) {
+				// TODO UPDATE
+				// this.quantumService(access, port);
+				return JSONUtil.jsonSuccess(port,
+						OpenstackUtil.getMessage("update.success"));
+			} else {
+				log.error("not find port id:" + portModel.getId());
+				return JSONUtil.jsonError("not find port id:"
+						+ portModel.getId());
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(portModel,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+
+	}
+
+	@RequestMapping(value = "/removePort", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> removePort(Model model, String portId,
+			HttpServletRequest request) {
+
+		if (StringUtil.isNullOrEmpty(portId, true)) {
+			log.debug("not found port:" + portId);
+			return JSONUtil.jsonError("not found port from request");
+		}
+
+		Access access = null;
+		Port port = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Port[] portList = quantumService.listPorts(access);
+			for (int i = 0; i < portList.length; i++) {
+				if (portList[i].getId().equals(portId)) {
+					port = portList[i];
+					break;
+				}
+			}
+			if (port != null) {
+				this.quantumService.removeSubnet(access, portId);
+				return JSONUtil.jsonSuccess(port,
+						OpenstackUtil.getMessage("update.success"));
+			} else {
+				log.debug("not found port :" + portId);
+				return JSONUtil.jsonError("not found port :" + portId);
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(port,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+
+	}
+
+	@RequestMapping(value = "/showCreateSubnetForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showCreateSubnetForm(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		List<Dictionary> ipDic = new ArrayList<Dictionary>();
+		Dictionary dic = new Dictionary();
+		dic.setKey("4");
+		dic.setValue("IPv4");
+		ipDic.add(dic);
+
+		dic = new Dictionary();
+		dic.setKey("6");
+		dic.setValue("IPv6");
+		ipDic.add(dic);
+
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]");
+		conf.put("form.cidr", "[text]");
+		conf.put("form.ipVersion", "[select]");
+		conf.put("ipVersion.options", ipDic);
+		conf.put("form.gateway", "[text]");
+		conf.put("form.disableGateway", "[checkbox]");
+		conf.put("form.enableDHCP", "[checkbox]");
+		conf.put("form.poolString", "[textarea]");
+		conf.put("form.dnsNamesString", "[textarea]");
+		conf.put("form.hostRoutesString", "[textarea]");
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/showEditSubnetForm", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showEditSubnetForm(Model model, String subnetId,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		String sId = subnetId;
+		if (StringUtil.isNullOrEmpty(sId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+		Subnet subnet = null;
+		Access access = null;
+		SubnetModel sModel = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Subnet[] subnetList = quantumService.listSubnets(access);
+			for (int i = 0; i < subnetList.length; i++) {
+				if (subnetList[i].getId().equals(sId)) {
+					subnet = subnetList[i];
+					break;
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(subnet,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+		if (subnet == null) {
+			log.debug("not find subnet id:" + subnetId);
+			return JSONUtil.jsonError("not found subnet id:" + subnetId);
+		} else {
+			sModel = new SubnetModel();
+			sModel.setCidr(subnet.getCidr());
+			// TODO GATEWAY
+			sModel.setEnableDHCP(subnet.getDhcp());
+			sModel.setGateway(subnet.getGateway());
+			sModel.setIpVersion(subnet.getIpVersion());
+			sModel.setName(subnet.getName());
+			sModel.setNetwork(subnet.getNetwork());
+			sModel.setPools(subnet.getPools());
+			sModel.setTenant(subnet.getTenant());
+
+		}
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[text]" + sModel.getName());
+		conf.put("form.cidr", "[plain]" + sModel.getCidr());
+		conf.put("form.gateway", "[text]" + sModel.getGateway());
+		conf.put("form.disableGateway",
+				"[checkbox]" + sModel.getDisableGateway());
+		conf.put("form.enableDHCP", "[checkbox]" + sModel.getEnableDHCP());
+		conf.put("form.dnsNamesString",
+				"[textarea]" + sModel.getDnsNamesString());
+		conf.put("form.hostRoutesString",
+				"[textarea]" + sModel.getHostRoutesString());
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
+	@RequestMapping(value = "/createSubnet", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> createSubnet(Model model, SubnetModel subnetModel,
+			HttpServletRequest request) {
+
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				subnetModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		if (StringUtil.isNullOrEmpty(subnetModel.getNetwork(), true)) {
+			log.debug("not find network");
+			return JSONUtil.jsonError("not find network");
+		}
+		Access access = null;
+		Subnet subnet = null;
+		Network network = null;
+		try {
+			access = keystoneService.getAdminAccess();
+
+			if (access != null) {
+				Network[] networks = quantumService.listNetworks(access);
+				log.debug("listing networks");
+
+				for (Network n : networks) {
+					if (n.getId().equals(subnetModel.getNetwork())) {
+						network = n;
+					}
+				}
+			}
+
+			if (network != null) {
+				subnet = this.quantumService.createSubnet(access,
+						subnetModel.getNetwork(), subnetModel.getName(),
+						subnetModel.getIpVersion(), subnetModel.getCidr(),
+						subnetModel.getPoolsFormat());
+				if (subnet != null) {
+					return JSONUtil.jsonSuccess(subnet,
+							OpenstackUtil.getMessage("subnet.created.success"));
+				}
+			} else {
+				log.error("not find network:" + subnetModel.getNetwork());
+				return JSONUtil.jsonError("not find network:"
+						+ subnetModel.getNetwork());
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(subnet,
+					OpenstackUtil.getMessage("subnet.created.failed"));
+		}
+
+		return JSONUtil.jsonError(subnet,
+				OpenstackUtil.getMessage("subnet.created.failed"));
+	}
+
+	@RequestMapping(value = "/editSubnet", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> editSubnet(Model model, SubnetModel subnetModel,
+			HttpServletRequest request) {
+
+		String errorMsg = ValidateUtil.validModel(validator, "admin",
+				subnetModel);
+		if (errorMsg != null) {
+			return JSONUtil.jsonError(errorMsg);
+		}
+		String sId = subnetModel.getId();
+		if (StringUtil.isNullOrEmpty(sId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+
+		Access access = null;
+		Subnet subnet = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Subnet[] subnetList = quantumService.listSubnets(access);
+			for (int i = 0; i < subnetList.length; i++) {
+				if (subnetList[i].getId().equals(sId)) {
+					subnet = subnetList[i];
+					subnet.setDhcp(subnetModel.getEnableDHCP());
+					subnet.setGateway(subnetModel.getGateway());
+					subnet.setName(subnetModel.getName());
+					// TODO dns host routes
+					break;
+				}
+			}
+			if (subnet != null) {
+				this.quantumService.updateSubnet(access, subnet);
+				return JSONUtil.jsonSuccess(subnet,
+						OpenstackUtil.getMessage("update.success"));
+			} else {
+				log.debug("not find subnet id:" + subnetModel.getId());
+				return JSONUtil.jsonError("not find subnet"
+						+ subnetModel.getId());
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(subnet,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+
+	}
+
+	@RequestMapping(value = "/removeSubnet", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> removeSubnet(Model model, String subnetId,
+			HttpServletRequest request) {
+
+		if (StringUtil.isNullOrEmpty(subnetId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+
+		Access access = null;
+		Subnet subnet = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Subnet[] subnetList = quantumService.listSubnets(access);
+			for (int i = 0; i < subnetList.length; i++) {
+				if (subnetList[i].getId().equals(subnetId)) {
+					subnet = subnetList[i];
+					break;
+				}
+			}
+			if (subnet != null) {
+				this.quantumService.removeSubnet(access, subnetId);
+				return JSONUtil.jsonSuccess(subnet,
+						OpenstackUtil.getMessage("update.success"));
+			} else {
+				log.debug("not find subnet id:" + subnetId);
+				return JSONUtil.jsonError("not find subnet id:" + subnetId);
+			}
+
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(subnet,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+
 	}
 }

@@ -22,23 +22,32 @@ public class Instance {
 	@GeneratedValue
 	private int id;
 	
+	private int type;
+	
 	private String uuid;
 	
-	private String type;
+	private String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
+	private String status;
+	
+	private String task;
+			
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=true)
 	@JoinColumn(name="parent_id")
 	private Instance parent;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent")
 	private List<Instance> subInstance;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=true)
 	@JoinColumn(name="sub_order_id")
 	private SubOrder subOrder;
 	
 	@Column(name="create_time")
 	private Date createTime;
+	
+	@Column(name="update_time")
+	private Date updateTime;
 
 	public int getId() {
 		return id;
@@ -46,6 +55,14 @@ public class Instance {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public String getUuid() {
@@ -55,13 +72,29 @@ public class Instance {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-
-	public String getType() {
-		return type;
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTask() {
+		return task;
+	}
+
+	public void setTask(String task) {
+		this.task = task;
 	}
 
 	public Instance getParent() {
@@ -94,6 +127,14 @@ public class Instance {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.inforstack.openstack.controller.user;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,7 +216,7 @@ public class UserInstanceController {
 //						.getAddresses();
 //				Iterator<Entry<String, Address[]>> it = addresses
 //						.entrySet().iterator();
-//				Map<String, String> tempAddress = new HashMap<String, String>();
+				Map<String, String> tempAddress = new HashMap<String, String>();
 //				while (it.hasNext()) {
 //					Entry<String, Address[]> entry = it.next();
 //					String key = entry.getKey();
@@ -233,7 +234,7 @@ public class UserInstanceController {
 //
 //					tempAddress.put(key, ipString);
 //				}
-//				im.setAddresses(tempAddress);
+				im.setAddresses(tempAddress);
 				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());

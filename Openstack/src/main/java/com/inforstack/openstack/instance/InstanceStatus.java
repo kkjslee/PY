@@ -2,16 +2,10 @@ package com.inforstack.openstack.instance;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.inforstack.openstack.order.sub.SubOrder;
 
 @Entity
 public class InstanceStatus {
@@ -22,14 +16,10 @@ public class InstanceStatus {
 	
 	private String uuid;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
-	@JoinColumn(name="sub_order_id")
-	private SubOrder subOrder;
-	
 	@Column(name="update_time")
 	private Date updateTime;
 	
-	private int status;
+	private String status;
 
 	public int getId() {
 		return id;
@@ -47,14 +37,6 @@ public class InstanceStatus {
 		this.uuid = uuid;
 	}
 
-	public SubOrder getSubOrder() {
-		return subOrder;
-	}
-
-	public void setSubOrder(SubOrder subOrder) {
-		this.subOrder = subOrder;
-	}
-
 	public Date getUpdateTime() {
 		return updateTime;
 	}
@@ -63,11 +45,11 @@ public class InstanceStatus {
 		this.updateTime = updateTime;
 	}
 
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	

@@ -15,7 +15,7 @@
     </label>
 </div>
 
-<div id="mainBody" style="margin:30px 20px 0 20px;">
+<div id="mainBody" >
 
     <c:url value='/admin/quantum/getPagerNetworkList' var="paginationUrl"/>
     <jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />
@@ -119,7 +119,7 @@ function createNetWork(dataDiag){
                 }else if(data.status=="success"){
                 	printMessage(data.msg);
                 	dataDiag.close();
-                	g_loadPagerDataList(g_pageIndex, g_pageSize);
+                	g_dataTable_loadPagerDataList(g_dataTable_pageIndex, g_dataTable_pageSize);
                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -131,7 +131,7 @@ function createNetWork(dataDiag){
         );
 }
 
-function showEditNetwork(id){showEditNetworkForm
+function showEditNetwork(id){
 	var editDiag=new CustomForm();
    editDiag.show({
 	    title:'<spring:message code="admin.network.edit"/>',
@@ -188,7 +188,7 @@ function editNetWork(id,dataDiag){
                }else if(data.status=="success"){
                    printMessage(data.msg);
                    dataDiag.close();
-                   g_loadPagerDataList(g_pageIndex, g_pageSize);
+                   g_dataTable_loadPagerDataList(g_dataTable_pageIndex, g_dataTable_pageSize);
               }
            },
            error: function(jqXHR, textStatus, errorThrown) {
@@ -219,7 +219,7 @@ function showRemoveNetwork(id){
 	                }else if(data.status == "error"){
 	                   msg="<spring:message code='remove.failed'/>";
 	               } 
-	               g_loadPagerDataList(g_pageIndex, g_pageSize);
+	               g_dataTable_loadPagerDataList(g_pageIndex, g_pageSize);
 	                printMessage(msg);
 	                
 	            }catch(e) {

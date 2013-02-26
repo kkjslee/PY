@@ -17,7 +17,7 @@
     </label>
 </div>
 
-<div id="mainBody" style="margin:30px 20px 0 20px;">
+<div id="mainBody" >
     <table class="dataTable imList">
         <thead>
             <tr class="headerRow">

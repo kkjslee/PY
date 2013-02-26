@@ -15,7 +15,7 @@
     </label>
 </div>
 
-<div id="mainBody" style="margin:30px 20px 0 20px;">
+<div id="mainBody" >
 
     <c:url value='/user/order/orderList' var="paginationUrl"/>
     <jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />

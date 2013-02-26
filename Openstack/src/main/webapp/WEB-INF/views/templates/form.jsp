@@ -53,7 +53,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 </c:if>
 
 <c:if test="${conf['.form'] == 'start_end' or conf['.form'] == 'start'}">
-	<form method="${conf['.method']}"
+	<form class="customForm" method="${conf['.method']}"
 		<c:if test="${conf['.action'] != null}">
 			action="${conf['.action']}" 
 		</c:if>
@@ -199,9 +199,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
 				</label>
 				<span>
-					<textarea id="${item}" name="${item}">
-						${fn:replace(p.value, '[textarea]', '')}
-					</textarea>
+					<textarea id="${item}" name="${item}">${fn:replace(p.value, '[textarea]', '')}</textarea>
 				</span>
 			</div>
 		</c:if>

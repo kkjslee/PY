@@ -42,14 +42,11 @@ property			value				comment
 </table>
 <script>
 
-var g_pageIndex = <c:out value='${conf[".pageIndex"]}' />;
-var g_pageSize = <c:out value='${conf[".pageSize"]}' />;
+var g_${conf['.content']}_pageIndex = <c:out value='${conf[".pageIndex"]}' />;
+var g_${conf['.content']}_pageSize = <c:out value='${conf[".pageSize"]}' />;
 
-$(function(){
-	g_loadPagerDataList(g_pageIndex, g_pageSize);
-});
 
-function g_loadPagerDataList(pageIndex, pageSize) {
+var g_${conf['.content']}_loadPagerDataList = function(pageIndex, pageSize) {
     var target=$("#${conf['.content']}").empty();
     $("<span class='loadingTips'><spring:message code='message.loading.data'/></span>").appendTo(target);
     $.ajax({
@@ -70,7 +67,7 @@ function g_loadPagerDataList(pageIndex, pageSize) {
         		 target.html(result.html);
         		 $(target).append("<tfoot><tr class='footerRow'><td class='fpager' colspan='" + ${conf[".colspanLeft"]} + "'></td><td colspan='" + ${conf[".colspanRight"]} + "' class='fbuttons'></td></tr></tfoot>");
                  $('#${conf[".content"]} .fpager').pagination(result.recordTotal, {
-                    callback: g_pageCallback,
+                    callback: g_${conf['.content']}_pageCallback,
                     prev_text: '<spring:message code="pager.previous"/>',    
                     next_text: '<spring:message code="pager.next"/>', 
                     items_per_page: pageSize,
@@ -96,9 +93,15 @@ function g_loadPagerDataList(pageIndex, pageSize) {
     
 }
 
-function g_pageCallback(index,jq){
-	g_pageIndex = index;
-	g_loadPagerDataList(index, g_pageSize);
+var g_${conf['.content']}_pageCallback = function(index,jq){
+	g_${conf['.content']}_pageIndex = index;
+	g_${conf['.content']}_loadPagerDataList(index, g_${conf['.content']}_pageSize);
 }
+
+
+$(function(){
+    g_${conf['.content']}_loadPagerDataList(g_${conf['.content']}_pageIndex, g_${conf['.content']}_pageSize);
+    
+});
 
 </script>

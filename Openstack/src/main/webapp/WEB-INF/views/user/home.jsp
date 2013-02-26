@@ -13,10 +13,8 @@
 <script src="<%=request.getContextPath()%>/user/scripts/navinit" type="text/javascript"></script>
 </head>
 <body class="mainBody">
-<table>
-<tr>
-    
-<td class="left" valign="top">
+<div class="mainContainer">
+<div class="left" >
     <div class="logo"><img src="${pageContext.request.contextPath}/resource/common/image/logo.png"/></div>
       <div class="menu tabbable tabs-left">
 		<ul class="nav nav-tabs">
@@ -27,19 +25,15 @@
 			<li><a href="<c:url value='/user/doLogout'/>"><spring:message code='user.logout' /></a></li>
 		</ul>
 	</div>
-</td>
+</div>
 
-<td style="width:100%" valign="top">
 <div class="right">
      <div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="user.entry.title"/></div>
     <div style="padding:30px 0 10px 60px;">
         <div style="font-family:'微软雅黑';font-size:14px;"><spring:message code="user.entry.welcome"/></script></div>
     </div>
 </div>
-</td>
-
-</tr>
-</table>
+</div>
 
 </body>
 </html>

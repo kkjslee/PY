@@ -16,7 +16,7 @@
     </label>
 </div>
 
-<div id="mainBody" style="margin:30px 20px 0 20px;">
+<div id="mainBody" >
 
 		<div class="accordion" id="accordionCart">
 			<div class="accordion-group">
@@ -102,7 +102,7 @@
 		    </a>
         </div>
 	</div>
-	<div class="selectPayMethods" style="margin:30px 20px 0 20px;">
+	<div class="selectPayMethods" >
 	   <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
 	   <div class="payMethodsContainer">
 	   </div>

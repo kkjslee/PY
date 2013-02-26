@@ -152,6 +152,9 @@ insert into Resource(id, url, permission) values (304, '/user/instance/getInstan
 insert into Resource(id, url, permission) values (305, '/user/instance/scripts/template', 'user');
 insert into Resource(id, url, permission) values (306, '/user/instance/showInstanceDetails', 'user');
 
+insert into Resource(id, url, permission) values (350, '/user/cinder/modules/index', 'user');
+insert into Resource(id, url, permission) values (351, '/user/cinder/getPagerVolumeTypeList', 'user');
+
 
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');
 
@@ -160,6 +163,9 @@ insert into Resource(id, url, permission) values (400, '/admin/quantum/modules/i
 insert into Resource(id, url, permission) values (401, '/admin/quantum/getPagerNetworkList', 'admin');
 insert into Resource(id, url, permission) values (402, '/admin/quantum/createnetwork', 'admin');
 insert into Resource(id, url, permission) values (403, '/admin/quantum/createsubnet', 'admin');
+
+insert into Resource(id, url, permission) values (450, '/admin/cinder/modules/index', 'admin');
+insert into Resource(id, url, permission) values (451, '/admin/cinder/getPagerVolumeTypeList', 'admin');
 
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');

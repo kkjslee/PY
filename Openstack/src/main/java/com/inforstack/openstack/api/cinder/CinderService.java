@@ -19,15 +19,17 @@ public interface CinderService {
 	public final static String ENDPOINT_SNAPSHOTS_DETAIL	= "openstack.endpoint.volumesnapshots.detail";
 	public final static String ENDPOINT_SNAPSHOT			= "openstack.endpoint.volumesnapshot";
 	
-	public VolumeType[] listVolumeTypes(Access access) throws OpenstackAPIException;
+	public final static String CACHE_EXPIRE					= "openstack.cache.expire";
 	
-	public VolumeType getVolumeType(Access access, String id) throws OpenstackAPIException;
+	public VolumeType[] listVolumeTypes() throws OpenstackAPIException;
 	
-	public VolumeType createVolumeType(Access access, String name) throws OpenstackAPIException;
+	public VolumeType getVolumeType(String id) throws OpenstackAPIException;
 	
-	public void updateVolumeType(Access access, VolumeType type, String name) throws OpenstackAPIException;
+	public VolumeType createVolumeType(String name) throws OpenstackAPIException;
 	
-	public void removeVolumeType(Access access, String id) throws OpenstackAPIException;
+	public void updateVolumeType(VolumeType type, String name) throws OpenstackAPIException;
+	
+	public void removeVolumeType(String id) throws OpenstackAPIException;
 	
 	public Volume[] listVolumes(Access access) throws OpenstackAPIException;
 	

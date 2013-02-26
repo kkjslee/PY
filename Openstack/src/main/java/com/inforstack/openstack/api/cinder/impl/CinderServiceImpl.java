@@ -1,5 +1,7 @@
 package com.inforstack.openstack.api.cinder.impl;
 
+import java.util.Date;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.inforstack.openstack.api.cinder.VolumeAttachment;
 import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
+import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
 import com.inforstack.openstack.utils.RestUtils;
@@ -23,6 +26,13 @@ public class CinderServiceImpl implements CinderService {
 	
 	@Autowired
 	private ConfigurationDao configurationDao;
+	
+	@Autowired
+	private KeystoneService keystoneService;
+	
+	private static VolumeType[] cache = null;
+	
+	private static Date update = null;
 	
 	private static final class VolumeTypes {
 		
@@ -51,35 +61,43 @@ public class CinderServiceImpl implements CinderService {
 	}
 
 	@Override
-	public VolumeType[] listVolumeTypes(Access access) throws OpenstackAPIException {
+	public VolumeType[] listVolumeTypes() throws OpenstackAPIException {
 		VolumeType[] types = null;
-		if (access != null) {
-			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMETYPES);
-			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				VolumeTypes response = RestUtils.get(url, access, VolumeTypes.class);
-				if (response != null) {
-					types = response.getVolumeTypes();
+		Date now = new Date();
+		if (cache == null || update == null || now.after(update)) {
+			Access access = this.keystoneService.getAdminAccess();
+			if (access != null) {
+				Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMETYPES);
+				if (endpoint != null) {				
+					String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+					VolumeTypes response = RestUtils.get(url, access, VolumeTypes.class);
+					if (response != null) {
+						types = response.getVolumeTypes();
+						Configuration expire = this.configurationDao.findByName(CACHE_EXPIRE);
+						if (expire != null) {
+							cache = types;
+							now.setTime(now.getTime() + Integer.parseInt(expire.getValue()) * 60 * 1000);
+							update = now;
+						}
+					}
 				}
 			}
+		} else {
+			types = cache;
 		}
+		
 		return types;
 	}
 
 	@Override
-	public VolumeType getVolumeType(Access access, String id) throws OpenstackAPIException {
+	public VolumeType getVolumeType(String id) throws OpenstackAPIException {
 		VolumeType type = null;
-		if (access != null && id != null && !id.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMETYPE);
-			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				try {
-					VolumeTypeBody response = RestUtils.get(url, access, VolumeTypeBody.class, id);
-					if (response != null) {
-						type = response.getVolumeType();
-					}
-				} catch (OpenstackAPIException e) {
-					RestUtils.handleError(e);
+		VolumeType[] types = this.listVolumeTypes();
+		if (types != null) {
+			for (VolumeType t : types) {
+				if (t.getId().equalsIgnoreCase(id)) {
+					type = t;
+					break;
 				}
 			}
 		}
@@ -87,8 +105,9 @@ public class CinderServiceImpl implements CinderService {
 	}
 
 	@Override
-	public VolumeType createVolumeType(Access access, String name) throws OpenstackAPIException {
+	public VolumeType createVolumeType(String name) throws OpenstackAPIException {
 		VolumeType type = null;
+		Access access = this.keystoneService.getAdminAccess();
 		if (access != null && !name.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMETYPES);
 			if (endpoint != null) {
@@ -100,6 +119,7 @@ public class CinderServiceImpl implements CinderService {
 				VolumeTypeBody response = RestUtils.postForObject(url, access, request, VolumeTypeBody.class);
 				if (response != null) {
 					type = response.getVolumeType();
+					cache = null;
 				}
 			}
 		}
@@ -107,7 +127,8 @@ public class CinderServiceImpl implements CinderService {
 	}
 	
 	@Override
-	public void updateVolumeType(Access access, VolumeType type, String name) throws OpenstackAPIException {
+	public void updateVolumeType(VolumeType type, String name) throws OpenstackAPIException {
+		Access access = this.keystoneService.getAdminAccess();
 		if (access != null && !type.getId().trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMETYPE);
 			if (endpoint != null) {
@@ -122,13 +143,16 @@ public class CinderServiceImpl implements CinderService {
 				RestUtils.put(url, access, request, type.getId());
 				
 				type.setName(name);
+				cache = null;
 			}
 		}
 	}
 	
 	@Override
-	public void removeVolumeType(Access access, String id) throws OpenstackAPIException {
+	public void removeVolumeType(String id) throws OpenstackAPIException {
+		Access access = this.keystoneService.getAdminAccess();
 		this.remove(access, ENDPOINT_VOLUMETYPE, id);
+		cache = null;
 	}
 	
 	private static final class Volumes {

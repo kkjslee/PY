@@ -10,10 +10,14 @@ public class NumberUtil {
 	 * @return null if exception occured
 	 */
 	public static Integer getInteger(String s){
+		return getInteger(s, null);
+	}
+	
+	public static Integer getInteger(String s, Integer defaultValue){
 		try{
 			return Integer.parseInt(s);
 		}catch(Exception e){
-			return null;
+			return defaultValue;
 		}
 	}
 	

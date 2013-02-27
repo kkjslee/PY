@@ -1,5 +1,8 @@
 package com.inforstack.openstack.utils;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -7,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
@@ -15,7 +19,10 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
+import com.inforstack.openstack.configuration.ConfigurationDao;
+import com.inforstack.openstack.configuration.ConfigurationService;
 import com.inforstack.openstack.controller.model.I18nModel;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.model.I18nContext;
 import com.inforstack.openstack.log.Logger;
@@ -27,6 +34,7 @@ public class OpenstackUtil {
 	private static ApplicationContext context;
 	private static final ThreadLocal<I18nContext> localeConext = new ThreadLocal<I18nContext>();
 	private static ViewResolver viewResolver;
+	private static ConfigurationService configurationService;
 
 	public static Locale getLocale(Language language) {
 		if (language == null) {
@@ -85,6 +93,16 @@ public class OpenstackUtil {
 
 	public static String getMessage(String key, Object... args) {
 		return context.getMessage(key, args, getLocale());
+	}
+	
+	public static String getConfig(String name){
+		synchronized (OpenstackUtil.class) {
+			if(configurationService == null){
+				configurationService = getBean(ConfigurationService.class);
+			}
+		}
+		
+		return configurationService.getValueByName(name);
 	}
 
 	/**
@@ -152,6 +170,24 @@ public class OpenstackUtil {
 
 		return ret;
 	}
+	
+	public static String buildSuccessJsonString(Object result){
+		try {
+			return new ObjectMapper().writeValueAsString(buildSuccessResponse(result));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new ApplicationRuntimeException("Build success result String failed");
+		}
+	}
+	
+	public static String buildErrorsJsonString(String errorMsg){
+		try {
+			return new ObjectMapper().writeValueAsString(buildErrorResponse(errorMsg));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new ApplicationRuntimeException("Build error result String failed");
+		}
+	}
 
 	public static String getJspPage(String viewName, Map<String, ?> model,
 			HttpServletRequest request, HttpServletResponse resp) {
@@ -186,5 +222,25 @@ public class OpenstackUtil {
 		if (o == null)
 			return "";
 		return o;
+	}
+	
+	public static void close(Closeable closeable){
+		if(closeable != null){
+			try {
+				closeable.close();
+			} catch (IOException e) {
+				log.warn(e.getMessage(), e);
+			}
+		}
+	}
+
+	public static void close(Socket s) {
+		if(s != null){
+			try {
+				s.close();
+			} catch (IOException e) {
+				log.warn(e.getMessage(), e);
+			}
+		}
 	}
 }

@@ -146,7 +146,10 @@ public class Constants {
 
 	public static final String AJAX_RESPONSE_KEY_STATUS = "status";
 	public static final String AJAX_RESPONSE_KEY_RESULT = "result";
-
+	
+	public static final String CONFIG_SOCKET_IP = "socket.ip";
+	public static final String CONFIG_SOCKET_PORT = "socket.port";
+	public static final String CONFIG_SOCKET_CEILOMETER_TIMEOUT = "socket.ceilmeter.timeout";
 	public static final String POOLS_SPLITTER = ";";
 	public static final String IP_SPLITTER = ",";
 

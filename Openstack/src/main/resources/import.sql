@@ -44,6 +44,10 @@ insert into Configuration(id, name, value) values(51, 'openstack.role.reseller',
 insert into Configuration(id, name, value) values(52, 'openstack.role.member', '8321e47acbc64c3796af5b01ce969836');
 insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', '2');
 
+insert into Configuration(id, name, value) values(60, 'socket.ip', 'localhost');
+insert into Configuration(id, name, value) values(61, 'socket.port', '11533');
+insert into Configuration(id, name, value) values(62, 'socket.ceilmeter.timeout', '60');
+
 insert into Role(id, name) values (1, 'admin');
 insert into Role(id, name) values (2, 'user');
 insert into Role(id, name) values (3, 'agent');

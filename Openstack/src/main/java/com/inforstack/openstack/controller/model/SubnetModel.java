@@ -12,7 +12,7 @@ public class SubnetModel {
 	private String id;
 
 	@Size(min = 6, max = 45, message = "{size.not.valid}")
-	@Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
+	@Pattern(regexp = "^[0-9a-zA-Z_-]+$", message = "{not.valid}")
 	private String name;
 
 	private String tenant;
@@ -96,13 +96,14 @@ public class SubnetModel {
 	public AllocationPool[] getPoolsFormat() {
 		AllocationPool[] poolsTemp = null;
 		if (!StringUtil.isNullOrEmpty(poolString, true)) {
-			poolString = poolString.trim();
+			poolString = poolString.replaceAll("\\s*", "");
 			String[] poolArray = poolString.split(Constants.POOLS_SPLITTER);
 			String[] ipArray = null;
 			if (poolArray != null && poolArray.length > 0) {
 				int length = poolArray.length;
 				poolsTemp = new AllocationPool[length];
 				AllocationPool pool = null;
+				int j = 0;
 				for (int i = 0; i < length; i++) {
 					if (poolArray[i].contains(",")) {
 						ipArray = poolArray[i].split(Constants.IP_SPLITTER);
@@ -111,6 +112,8 @@ public class SubnetModel {
 							pool = new AllocationPool();
 							pool.setStart(ipArray[0]);
 							pool.setEnd(ipArray[1]);
+							poolsTemp[j] = pool;
+							j++;
 						}
 					}
 

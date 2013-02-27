@@ -1,11 +1,16 @@
 package com.inforstack.openstack.controller.model;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import com.inforstack.openstack.api.quantum.Port.IP;
 
 public class PortModel {
 
 	private String id;
 
+	@Size(min = 6, max = 45, message = "{size.not.valid}")
+	@Pattern(regexp = "^[0-9a-zA-Z_-]+$", message = "{not.valid}")
 	private String name;
 
 	private String tenant;

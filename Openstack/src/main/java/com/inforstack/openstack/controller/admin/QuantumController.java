@@ -273,15 +273,8 @@ public class QuantumController {
 		try {
 			access = keystoneService.getAdminAccess();
 			if (access != null) {
-				Network[] networks = quantumService.listNetworks(access);
-				log.debug("listing networks");
-
-				for (Network n : networks) {
-					if (networkModel.getId().equals(n.getId())) {
-						network = n;
-						break;
-					}
-				}
+				network = quantumService.getNetwork(access,
+						networkModel.getId());
 			}
 		} catch (OpenstackAPIException e) {
 			System.out.println(e.getMessage());
@@ -329,15 +322,8 @@ public class QuantumController {
 			try {
 				access = keystoneService.getAdminAccess();
 				if (access != null) {
-					Network[] networks = quantumService.listNetworks(access);
-					log.debug("listing networks");
-
-					for (Network n : networks) {
-						if (networkModel.getId().equals(n.getId())) {
-							network = n;
-							break;
-						}
-					}
+					network = quantumService.getNetwork(access,
+							networkModel.getId());
 				}
 			} catch (OpenstackAPIException e) {
 				System.out.println(e.getMessage());
@@ -374,25 +360,17 @@ public class QuantumController {
 		Network network = null;
 		try {
 			access = keystoneService.getAdminAccess();
-			boolean has = false;
 			try {
 				// Tenant tenant = access.getToken().getTenant();
 				if (access != null) {
-					Network[] networks = quantumService.listNetworks(access);
-					log.debug("listing networks");
-
-					for (Network n : networks) {
-						if (networkModel.getId().equals(n.getId())) {
-							has = true;
-							break;
-						}
-					}
+					network = quantumService.getNetwork(access,
+							networkModel.getId());
 				}
 			} catch (OpenstackAPIException e) {
 				System.out.println(e.getMessage());
 				log.error(e.getMessage(), e);
 			}
-			if (has) {
+			if (network != null) {
 				this.quantumService.removeNetwork(access, networkModel.getId());
 				return JSONUtil.jsonSuccess(network,
 						OpenstackUtil.getMessage("remove.success"));
@@ -422,15 +400,7 @@ public class QuantumController {
 			access = keystoneService.getAdminAccess();
 			// Tenant tenant = access.getToken().getTenant();
 			if (access != null) {
-				Network[] networks = quantumService.listNetworks(access);
-				log.debug("listing networks");
-
-				for (Network n : networks) {
-					if (n.getId().equals(networkId)) {
-						networkTemp = n;
-					}
-
-				}
+				networkTemp = quantumService.getNetwork(access, networkId);
 			}
 		} catch (OpenstackAPIException e) {
 			System.out.println(e.getMessage());
@@ -480,15 +450,7 @@ public class QuantumController {
 			access = keystoneService.getAdminAccess();
 			// Tenant tenant = access.getToken().getTenant();
 			if (access != null) {
-				Network[] networks = quantumService.listNetworks(access);
-				log.debug("listing networks");
-
-				for (Network n : networks) {
-					if (n.getId().equals(networkId)) {
-						networkTemp = n;
-					}
-
-				}
+				networkTemp = quantumService.getNetwork(access, networkId);
 			}
 		} catch (OpenstackAPIException e) {
 			System.out.println(e.getMessage());
@@ -524,9 +486,10 @@ public class QuantumController {
 		conf.put("grid.ipVersion", "[plain]");
 		conf.put("ipVersion.value", "IPv" + "{ipVersion} ");
 		conf.put("grid.gateway", "[plain]");
-		conf.put("grid.operation", "[button]edit,remove");
+		conf.put("grid.operation", "[button]edit,remove,detail");
 		conf.put("edit.onclick", "showEditSubnet('{id}')");
 		conf.put("remove.onclick", "showRemoveSubnet('{id}')");
+		conf.put("detail.onclick", "showSubnetDetail('{id}')");
 		conf.put(".datas", sList);
 
 		model.addAttribute("configuration", conf);
@@ -615,8 +578,9 @@ public class QuantumController {
 		conf.put("device.value", "{deviceName} ");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.adminStateUp", "[plain]");
-		conf.put("grid.operation", "[button]remove");
+		conf.put("grid.operation", "[button]remove,detail");
 		conf.put("remove.onclick", "showRemovePort('{id}')");
+		conf.put("detail.onclick", "showPortDetail('{id}')");
 		/*
 		 * conf.put("grid.operation", "[button]edit,remove");
 		 * conf.put("edit.onclick", "showEditPort('{id}')");
@@ -723,6 +687,71 @@ public class QuantumController {
 		}
 	}
 
+	@RequestMapping(value = "/showPortDetail", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showPortDetail(Model model, String portId,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		if (StringUtil.isNullOrEmpty(portId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+		Port port = null;
+		Access access = null;
+		PortModel pModel = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Port[] portList = quantumService.listPorts(access);
+			for (int i = 0; i < portList.length; i++) {
+				if (portList[i].getId().equals(portId)) {
+					port = portList[i];
+					break;
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(portId,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+		if (port == null) {
+			log.debug("not found port id:" + portId);
+			return JSONUtil.jsonError("not found port id: " + portId);
+		} else {
+			pModel = new PortModel();
+			pModel.setAdminStateUp(port.isAdminStateUp());
+			pModel.setDeviceId(port.getDevice());
+			pModel.setId(port.getId());
+			pModel.setName(port.getName());
+			pModel.setNetwork(port.getNetwork());
+			pModel.setIps(port.getIps());
+			pModel.setMac(port.getMac());
+			pModel.setStatus(port.getStatus());
+			// TODO OWNER
+		}
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[plain]" + pModel.getName());
+		conf.put("form.id", "[plain]" + pModel.getName());
+		conf.put("form.network", "[plain]" + pModel.getNetwork());
+		conf.put("form.ips", "[plain]" + pModel.getIpsDisplay());
+		conf.put("form.mac", "[plain]" + pModel.getMac());
+		conf.put("form.status", "[plain]" + pModel.getStatus());
+		conf.put("form.adminStateUp", "[plain]" + pModel.getAdminStateUp());
+		conf.put("form.deviceId", "[plain]" + pModel.getDeviceId());
+		// TODO owner
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
 	@RequestMapping(value = "/createPort", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> createPort(Model model, PortModel portModel,
@@ -742,14 +771,7 @@ public class QuantumController {
 		Network network = null;
 		try {
 			access = keystoneService.getAdminAccess();
-			Network[] networks = quantumService.listNetworks(access);
-			log.debug("listing networks");
-
-			for (Network n : networks) {
-				if (n.getId().equals(portModel.getNetwork())) {
-					network = n;
-				}
-			}
+			network = quantumService.getNetwork(access, portModel.getNetwork());
 			if (network != null) {
 				Server server = null;
 				if (!StringUtil.isNullOrEmpty(portModel.getDeviceId(), true)) {
@@ -767,7 +789,7 @@ public class QuantumController {
 				port.setDevice(portModel.getDeviceId());
 
 				port.setName(portModel.getName());
-				port.setNetwork(port.getNetwork());
+				port.setNetwork(portModel.getNetwork());
 				// TODO OWNER
 				port = this.quantumService.createPort(access, port, server);
 				if (port.getId() != null) {
@@ -874,7 +896,7 @@ public class QuantumController {
 				}
 			}
 			if (port != null) {
-				this.quantumService.removeSubnet(access, portId);
+				this.quantumService.removePort(access, portId);
 				return JSONUtil.jsonSuccess(port,
 						OpenstackUtil.getMessage("update.success"));
 			} else {
@@ -911,6 +933,8 @@ public class QuantumController {
 		conf.put("form.cidr", "[text]");
 		conf.put("form.ipVersion", "[select]");
 		conf.put("ipVersion.options", ipDic);
+		conf.put("ipVersion.option.key", "key");
+		conf.put("ipVersion.option.value", "value");
 		conf.put("form.gateway", "[text]");
 		conf.put("form.disableGateway", "[checkbox]");
 		conf.put("form.enableDHCP", "[checkbox]");
@@ -999,6 +1023,74 @@ public class QuantumController {
 		}
 	}
 
+	@RequestMapping(value = "/showSubnetDetail", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> showSubnetDetail(Model model, String subnetId,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		String sId = subnetId;
+		if (StringUtil.isNullOrEmpty(sId, true)) {
+			return JSONUtil.jsonError("not found subnet");
+		}
+		Subnet subnet = null;
+		Access access = null;
+		SubnetModel sModel = null;
+		try {
+			access = keystoneService.getAdminAccess();
+			Subnet[] subnetList = quantumService.listSubnets(access);
+			for (int i = 0; i < subnetList.length; i++) {
+				if (subnetList[i].getId().equals(sId)) {
+					subnet = subnetList[i];
+					break;
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return JSONUtil.jsonError(subnet,
+					OpenstackUtil.getMessage("update.failed"));
+		}
+		if (subnet == null) {
+			log.debug("not find subnet id:" + subnetId);
+			return JSONUtil.jsonError("not found subnet id:" + subnetId);
+		} else {
+			sModel = new SubnetModel();
+			sModel.setId(subnet.getId());
+			sModel.setCidr(subnet.getCidr());
+			sModel.setEnableDHCP(subnet.isDhcp());
+			sModel.setGateway(subnet.getGateway());
+			sModel.setIpVersion(subnet.getIpVersion());
+			sModel.setName(subnet.getName());
+			sModel.setNetwork(subnet.getNetwork());
+			sModel.setPools(subnet.getPools());
+			sModel.setTenant(subnet.getTenant());
+			// TODO DNS AND ROUTES
+		}
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.name", "[plain]" + sModel.getName());
+		conf.put("form.id", "[plain]" + sModel.getId());
+		conf.put("form.network", "[plain]" + sModel.getNetwork());
+		conf.put("form.cidr", "[plain]" + sModel.getCidr());
+		conf.put("form.gateway", "[plain]" + sModel.getGateway());
+		conf.put("form.disableGateway", "[plain]" + sModel.getDisableGateway());
+		conf.put("form.enableDHCP", "[plain]" + sModel.getEnableDHCP());
+		conf.put("form.dnsNamesString", "[plain]" + sModel.getDnsNamesString());
+		conf.put("form.hostRoutesString",
+				"[plain]" + sModel.getHostRoutesString());
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
+
 	@RequestMapping(value = "/createSubnet", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> createSubnet(Model model, SubnetModel subnetModel,
@@ -1020,14 +1112,8 @@ public class QuantumController {
 			access = keystoneService.getAdminAccess();
 
 			if (access != null) {
-				Network[] networks = quantumService.listNetworks(access);
-				log.debug("listing networks");
-
-				for (Network n : networks) {
-					if (n.getId().equals(subnetModel.getNetwork())) {
-						network = n;
-					}
-				}
+				network = quantumService.getNetwork(access,
+						subnetModel.getNetwork());
 			}
 
 			if (network != null) {

@@ -3,13 +3,13 @@ package com.inforstack.openstack.api.quantum;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Subnet {
-
+	
 	public static final class AllocationPool {
-
+		
 		private String start;
-
+		
 		private String end;
 
 		public String getStart() {
@@ -27,30 +27,30 @@ public class Subnet {
 		public void setEnd(String end) {
 			this.end = end;
 		}
-
+		
 	}
-
+	
 	private String id;
-
+	
 	private String name;
-
+	
 	@JsonProperty("tenant_id")
 	private String tenant;
-
+	
 	@JsonProperty("network_id")
 	private String network;
-
+	
 	@JsonProperty("ip_version")
 	private int ipVersion;
-
+	
 	@JsonProperty("gateway_ip")
 	private String gateway;
-
+	
 	private String cidr;
-
+	
 	@JsonProperty("enable_dhcp")
 	private boolean dhcp;
-
+	
 	@JsonProperty("allocation_pools")
 	private AllocationPool[] pools;
 
@@ -110,7 +110,7 @@ public class Subnet {
 		this.cidr = cidr;
 	}
 
-	public boolean getDhcp() {
+	public boolean isDhcp() {
 		return dhcp;
 	}
 

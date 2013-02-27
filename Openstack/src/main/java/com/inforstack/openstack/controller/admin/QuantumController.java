@@ -582,7 +582,7 @@ public class QuantumController {
 			if (pAllList != null && pAllList.length > 0) {
 				for (Port p : pAllList) {
 					pModel = new PortModel();
-					pModel.setAdminStateUp(p.getAdminStateUp());
+					pModel.setAdminStateUp(p.isAdminStateUp());
 					pModel.setDeviceId(p.getDevice());
 					Server server = serverService.getServer(access,
 							p.getDevice(), false);
@@ -698,7 +698,7 @@ public class QuantumController {
 			return JSONUtil.jsonError("not found port id: " + portId);
 		} else {
 			pModel = new PortModel();
-			pModel.setAdminStateUp(port.getAdminStateUp());
+			pModel.setAdminStateUp(port.isAdminStateUp());
 			pModel.setDeviceId(port.getDevice());
 			// TODO OWNER
 		}
@@ -964,7 +964,7 @@ public class QuantumController {
 			sModel = new SubnetModel();
 			sModel.setCidr(subnet.getCidr());
 			// TODO GATEWAY
-			sModel.setEnableDHCP(subnet.getDhcp());
+			sModel.setEnableDHCP(subnet.isDhcp());
 			sModel.setGateway(subnet.getGateway());
 			sModel.setIpVersion(subnet.getIpVersion());
 			sModel.setName(subnet.getName());

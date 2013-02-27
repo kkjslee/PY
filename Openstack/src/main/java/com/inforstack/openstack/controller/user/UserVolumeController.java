@@ -18,15 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.cinder.CinderService;
-import com.inforstack.openstack.api.cinder.Volume;
 import com.inforstack.openstack.api.cinder.VolumeType;
-import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.controller.model.AttachmentModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.controller.model.VolumeModel;
 import com.inforstack.openstack.controller.model.VolumeTypeModel;
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.instance.InstanceService;
+import com.inforstack.openstack.instance.VirtualMachine;
+import com.inforstack.openstack.instance.VolumeInstance;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.Constants;
@@ -113,7 +114,7 @@ public class UserVolumeController {
 	}
 	
 	@RequestMapping(value = "/getPagerVolumeList", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> getVolumes(HttpServletRequest request, HttpServletResponse response, Model model, Integer pageIndex, Integer pageSize) {
+	public @ResponseBody Map<String, Object> getPagerVolumeList(HttpServletRequest request, HttpServletResponse response, Model model, Integer pageIndex, Integer pageSize) {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
@@ -130,25 +131,32 @@ public class UserVolumeController {
 		}
 		
 		List<VolumeModel> vtList = new ArrayList<VolumeModel>();
-		try {
-			String username = SecurityUtils.getUserName();
-			String password = SecurityUtils.getUser().getPassword();
-			Tenant tenant = SecurityUtils.getTenant();
+		
+		Tenant tenant = SecurityUtils.getTenant();
+		
+		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VOLUME, null, null);
+
+		for (Instance instance : instanceList) {
+			String uuid = instance.getUuid();
+			VolumeInstance volume = this.instanceService.findVolumeInstanceFromUUID(uuid);
+			VolumeModel volumeModel = new VolumeModel();
+			volumeModel.setId(uuid);
+			volumeModel.setName(volume.getName());
+			volumeModel.setSize(volume.getSize());
+			volumeModel.setCreated(instance.getCreateTime());
+			volumeModel.setZone(instance.getRegion());
+			volumeModel.setStatus(instance.getStatus());
+			volumeModel.setSubOrderId(instance.getSubOrder().getId());
 			
-			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
-			
-			List<Instance> instanceList = null;//this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VOLUME);
-			for (Instance instance : instanceList) {
-				String uuid = instance.getUuid();
-				Volume volume = this.cinderService.getVolume(access, uuid);
-				VolumeModel volumeModel = new VolumeModel();
-				volumeModel.setId(volume.getId());
-				volumeModel.setName(volume.getName());
-				vtList.add(volumeModel);
+			VirtualMachine vm = volume.getVm();
+			if (vm != null) {
+				AttachmentModel attachment = new AttachmentModel();
+				attachment.setVolume(volume.getUuid());
+				attachment.setServer(vm.getName());
+				attachment.setDevice(volume.getDevice());
+				volumeModel.setAttachment(attachment);
 			}
-		} catch (OpenstackAPIException e) {
-			System.out.println(e.getMessage());
-			log.error(e.getMessage(), e);
+			vtList.add(volumeModel);
 		}
 
 		PagerModel<VolumeModel> page = new PagerModel<VolumeModel>(vtList, pageSze);

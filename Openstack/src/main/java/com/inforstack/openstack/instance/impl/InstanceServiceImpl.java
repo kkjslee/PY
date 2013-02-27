@@ -82,16 +82,30 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		List<Order> orderList = this.orderService.findAll(tenant.getId(), Constants.ORDER_STATUS_ACTIVE);
+		List<Order> orderList = this.orderService.findAll(tenant.getId(), null);
 		for (Order order : orderList) {
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
-				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), includeStatus, excludeStatus);
+				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), 0, includeStatus, excludeStatus);
 				instanceList.addAll(instances);
 			}
 		}
 		return instanceList;
 	} 
+	
+	@Override
+	public List<Instance> findInstanceFromTenant(Tenant tenant, int type, String includeStatus, String excludeStatus) {
+		List<Instance> instanceList = new ArrayList<Instance>();
+		List<Order> orderList = this.orderService.findAll(tenant.getId(), null);
+		for (Order order : orderList) {
+			List<SubOrder> subOrders = order.getSubOrders();
+			for (SubOrder subOrder : subOrders) {
+				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), type, includeStatus, excludeStatus);
+				instanceList.addAll(instances);
+			}
+		}
+		return instanceList;
+	}
 	
 	@Override
 	public Instance findInstanceFromUUID(String uuid) {
@@ -102,11 +116,9 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<VirtualMachine> virtualMachineList = new ArrayList<VirtualMachine>();
-		List<Instance> instances = this.instanceDao.listInstancesByTenant(tenant, includeStatus, excludeStatus);
+		List<Instance> instances = this.instanceDao.listInstancesByTenant(tenant, Constants.INSTANCE_TYPE_VM, includeStatus, excludeStatus);
 		for (Instance instance : instances) {
-			if (instance.getType() == Constants.INSTANCE_TYPE_VM && (includeStatus == null || instance.getStatus().equalsIgnoreCase(includeStatus))) {
-				virtualMachineList.add(this.virtualMachineDao.findByObject("uuid", instance.getUuid()));
-			}
+			virtualMachineList.add(this.virtualMachineDao.findByObject("uuid", instance.getUuid()));
 		}
 		return virtualMachineList;
 	}
@@ -114,6 +126,21 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public VirtualMachine findVirtualMachineFromUUID(String uuid) {
 		return this.virtualMachineDao.findByObject("uuid", uuid);
+	}
+	
+	@Override
+	public List<VolumeInstance> findVolumeFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
+		List<VolumeInstance> volumeList = new ArrayList<VolumeInstance>();
+		List<Instance> instances = this.instanceDao.listInstancesByTenant(tenant, Constants.INSTANCE_TYPE_VOLUME, includeStatus, excludeStatus);
+		for (Instance instance : instances) {
+			volumeList.add(this.volumeInstanceDao.findByObject("uuid", instance.getUuid()));
+		}
+		return volumeList;
+	}
+
+	@Override
+	public VolumeInstance findVolumeInstanceFromUUID(String uuid) {
+		return this.volumeInstanceDao.findByObject("uuid", uuid);
 	}
 
 	@Override

@@ -28,6 +28,8 @@ public class Instance {
 	
 	private String name;
 	
+	private String region;
+	
 	private String status;
 	
 	private String task;
@@ -79,6 +81,14 @@ public class Instance {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public String getStatus() {

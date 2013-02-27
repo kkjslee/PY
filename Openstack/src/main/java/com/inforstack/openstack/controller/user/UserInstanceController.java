@@ -108,17 +108,15 @@ public class UserInstanceController {
 		String username = SecurityUtils.getUserName();
 		Tenant tenant = SecurityUtils.getTenant();
 
-		List<VirtualMachine> vmList = this.instanceService.findVirtualMachineFromTenant(tenant, null, null);
+		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, null);
 			
-		PagerModel<VirtualMachine> page = new PagerModel<VirtualMachine>(vmList, pageSze);
-		vmList = page.getPagedData(pageIdx);
-		if (vmList != null) {
-			for (VirtualMachine vm : vmList) {
-				Instance instance = this.instanceService.findInstanceFromUUID(vm.getUuid());
-				
+		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
+		instanceList = page.getPagedData(pageIdx);
+		if (instanceList != null) {
+			for (Instance instance : instanceList) {				
 				InstanceModel im = new InstanceModel();
-				im.setVmid(vm.getUuid());
-				im.setVmname(vm.getName());
+				im.setVmid(instance.getUuid());
+				im.setVmname(instance.getName());
 				im.setStatus(instance.getStatus());
 				im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
 				im.setTenantId(tenant.getUuid());
@@ -128,6 +126,7 @@ public class UserInstanceController {
 				im.setAssignedto(username);
 				im.setAccesspoint("");
 
+				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
 				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());

@@ -19,7 +19,7 @@ import com.inforstack.openstack.tenant.Tenant;
 public class InstanceDaoImpl extends BasicDaoImpl<Instance> implements InstanceDao {
 
 	@Override
-	public List<Instance> listInstancesByTenant(Tenant tenant, String includeStatus, String excludeStatus) {
+	public List<Instance> listInstancesByTenant(Tenant tenant, int type, String includeStatus, String excludeStatus) {
 		List<Instance> list = null;
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -27,6 +27,11 @@ public class InstanceDaoImpl extends BasicDaoImpl<Instance> implements InstanceD
 			Root<Instance> root = criteria.from(Instance.class);
 			List<Predicate> predicates = new ArrayList<Predicate>();
 			predicates.add(builder.equal(root.get("subOrder").get("order").get("tenant").get("id"), tenant.getId()));
+			if (type != 0) {
+				predicates.add(
+					builder.equal(root.get("type"), type)
+				);
+			}
 			if(includeStatus != null){
 				predicates.add(
 					builder.equal(root.get("status"), includeStatus)
@@ -46,7 +51,7 @@ public class InstanceDaoImpl extends BasicDaoImpl<Instance> implements InstanceD
 	}
 	
 	@Override
-	public List<Instance> listInstancesBySubOrder(Integer subOrderId, String includeStatus, String excludeStatus) {
+	public List<Instance> listInstancesBySubOrder(Integer subOrderId, int type, String includeStatus, String excludeStatus) {
 		List<Instance> list = null;
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -54,6 +59,11 @@ public class InstanceDaoImpl extends BasicDaoImpl<Instance> implements InstanceD
 			Root<Instance> root = criteria.from(Instance.class);
 			List<Predicate> predicates = new ArrayList<Predicate>();
 			predicates.add(builder.equal(root.get("subOrder").get("id"), subOrderId));
+			if (type != 0) {
+				predicates.add(
+					builder.equal(root.get("type"), type)
+				);
+			}
 			if(includeStatus != null){
 				predicates.add(
 					builder.equal(root.get("status"), includeStatus)

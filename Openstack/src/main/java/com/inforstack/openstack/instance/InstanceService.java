@@ -12,11 +12,17 @@ public interface InstanceService {
 	
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	
+	public List<Instance> findInstanceFromTenant(Tenant tenant, int type, String includeStatus, String excludeStatus);
+	
 	public Instance findInstanceFromUUID(String uuid);
 	
 	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	
 	public VirtualMachine findVirtualMachineFromUUID(String uuid);
+	
+	public List<VolumeInstance> findVolumeFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
+	
+	public VolumeInstance findVolumeInstanceFromUUID(String uuid);
 	
 	public void createVM(User user, Tenant tenant, String orderId);
 	

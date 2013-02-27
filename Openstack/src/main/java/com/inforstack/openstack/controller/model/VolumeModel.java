@@ -1,25 +1,16 @@
 package com.inforstack.openstack.controller.model;
 
 import java.util.Date;
-import java.util.Map;
 
 public class VolumeModel {
 
 	private String id;
 	
-	private String subOrderId;
+	private Integer subOrderId;
 	
 	private String name;
 
-	private String description;
-	
 	private Integer size;
-	
-	private boolean bootable;
-	
-	private String type;
-	
-	private Map<String, String> metadata;
 	
 	private String zone;
 	
@@ -31,7 +22,7 @@ public class VolumeModel {
 	
 	private String status;
 	
-	private AttachmentModel[] attachments;
+	private AttachmentModel attachment;
 	
 	public String getId() {
 		return id;
@@ -41,11 +32,11 @@ public class VolumeModel {
 		this.id = id;
 	}
 
-	public String getSubOrderId() {
+	public Integer getSubOrderId() {
 		return subOrderId;
 	}
 
-	public void setSubOrderId(String subOrderId) {
+	public void setSubOrderId(Integer subOrderId) {
 		this.subOrderId = subOrderId;
 	}
 
@@ -57,44 +48,12 @@ public class VolumeModel {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public Integer getSize() {
 		return size;
 	}
 
 	public void setSize(Integer size) {
 		this.size = size;
-	}
-
-	public boolean isBootable() {
-		return bootable;
-	}
-
-	public void setBootable(boolean bootable) {
-		this.bootable = bootable;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Map<String, String> getMetadata() {
-		return metadata;
-	}
-
-	public void setMetadata(Map<String, String> metadata) {
-		this.metadata = metadata;
 	}
 
 	public String getZone() {
@@ -137,12 +96,12 @@ public class VolumeModel {
 		this.status = status;
 	}
 
-	public AttachmentModel[] getAttachments() {
-		return attachments;
+	public AttachmentModel getAttachment() {
+		return attachment;
 	}
 
-	public void setAttachments(AttachmentModel[] attachments) {
-		this.attachments = attachments;
+	public void setAttachment(AttachmentModel attachment) {
+		this.attachment = attachment;
 	}
 	
 }

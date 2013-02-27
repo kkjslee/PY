@@ -224,7 +224,6 @@ public class ItemServiceImpl implements ItemService {
 					if (image != null) {
 						detail.put("os_imagename", image.getName());
 					}
-
 				} catch (OpenstackAPIException e) {
 					log.debug("Unknown image id: " + refId);
 				}

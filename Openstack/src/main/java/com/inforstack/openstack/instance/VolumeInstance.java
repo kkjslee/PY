@@ -1,8 +1,12 @@
 package com.inforstack.openstack.instance;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity(name="Volume")
 public class VolumeInstance {
@@ -16,6 +20,12 @@ public class VolumeInstance {
 	private String name;
 	
 	private int size;
+	
+	private String device;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	@JoinColumn
+	private VirtualMachine vm;
 
 	public int getId() {
 		return id;
@@ -47,6 +57,22 @@ public class VolumeInstance {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public String getDevice() {
+		return device;
+	}
+
+	public void setDevice(String device) {
+		this.device = device;
+	}
+
+	public VirtualMachine getVm() {
+		return vm;
+	}
+
+	public void setVm(VirtualMachine vm) {
+		this.vm = vm;
 	}
 	
 }

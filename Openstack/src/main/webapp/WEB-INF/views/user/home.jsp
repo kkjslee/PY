@@ -21,7 +21,8 @@
 			<li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" data-toggle="tab"><spring:message code='user.entry.index'/></a></li>
 			<li><a href="#" name="menuItem" isos:module="cart/modules/index" data-toggle="tab"><spring:message code='user.navi.product' /></a></li>
 			<li><a href="#" name="menuItem" isos:module="instance/modules/index" data-toggle="tab"><spring:message code='user.navi.instance' /></a></li>
-            
+            <li><a href="#" name="menuItem" isos:module="cinder/modules/index" data-toggle="tab"><spring:message code='user.navi.volume' /></a></li>
+          
 			<li><a href="<c:url value='/user/doLogout'/>"><spring:message code='user.logout' /></a></li>
 		</ul>
 	</div>

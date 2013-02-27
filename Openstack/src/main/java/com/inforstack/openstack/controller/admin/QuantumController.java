@@ -92,11 +92,11 @@ public class QuantumController {
 				NetworkModel networkModel = null;
 				for (Network n : networks) {
 					networkModel = new NetworkModel();
-					networkModel.setAdminStateUp(n.getAdminStateUp());
-					networkModel.setExternal(n.getExternal());
+					networkModel.setAdminStateUp(n.isAdminStateUp());
+					networkModel.setExternal(n.isExternal());
 					networkModel.setId(n.getId());
 					networkModel.setName(n.getName());
-					networkModel.setShared(n.getShared());
+					networkModel.setShared(n.isShared());
 					networkModel.setStatus(n.getStatus());
 					networkModel.setSubnets(n.getSubnets());
 					networkModel.setTenant(n.getTenant());
@@ -293,9 +293,9 @@ public class QuantumController {
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
 		conf.put("form.name", "[text]" + network.getName());
-		conf.put("form.adminStateUp", "[checkbox]" + network.getAdminStateUp());
-		conf.put("form.shared", "[checkbox]" + network.getShared());
-		conf.put("form.external", "[checkbox]" + network.getExternal());
+		conf.put("form.adminStateUp", "[checkbox]" + network.isAdminStateUp());
+		conf.put("form.shared", "[checkbox]" + network.isShared());
+		conf.put("form.external", "[checkbox]" + network.isExternal());
 
 		model.addAttribute("configuration", conf);
 
@@ -441,12 +441,12 @@ public class QuantumController {
 			netModel = new NetworkModel();
 			netModel.setId(networkTemp.getId());
 			netModel.setName(networkTemp.getName());
-			netModel.setShared(networkTemp.getShared());
+			netModel.setShared(networkTemp.isShared());
 			netModel.setStatus(networkTemp.getStatus());
 			netModel.setTenant(networkTemp.getTenant());
-			netModel.setExternal(networkTemp.getExternal());
+			netModel.setExternal(networkTemp.isExternal());
 			netModel.setSubnets(networkTemp.getSubnets());
-			netModel.setAdminStateUp(networkTemp.getAdminStateUp());
+			netModel.setAdminStateUp(networkTemp.isAdminStateUp());
 			model.addAttribute("network", netModel);
 		}
 		model.addAttribute("networkId", networkId);

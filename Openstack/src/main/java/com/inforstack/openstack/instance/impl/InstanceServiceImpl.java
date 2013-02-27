@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
+import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
@@ -240,15 +241,28 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 	
 	private Volume getVolumeFromOrder(Order order) {
-		Volume volume = new Volume();
+		Volume volume = null;
+		
+		VolumeType vt = null;
+		
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
 			if (osType == ItemSpecification.OS_TYPE_VOLUME_ID) {
 				String refId = subOrder.getItem().getRefId();
-				volume.setType(refId);
+				try {
+					vt = this.cinderService.getVolumeType(refId);
+				} catch (OpenstackAPIException e) {
+				}
 				break;
 			}
+		}
+		
+		if (vt != null) {
+			volume = new Volume();
+			volume.setName("New Volume");
+			volume.setType(vt.getId());
+			volume.setSize(Integer.parseInt(vt.getName()));
 		}
 		return volume;
 	}

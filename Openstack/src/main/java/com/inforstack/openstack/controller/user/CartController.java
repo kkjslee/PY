@@ -273,7 +273,7 @@ public class CartController {
 	}
 
 	private void runRules(CartModel cart, ItemSpecification itemSpecification) {
-		if (cart.getItems().length != 3) {
+		if (cart.getItems().length != 4) {
 			return;
 		}
 		User user = this.userService.findByName(SecurityUtils.getUserName());

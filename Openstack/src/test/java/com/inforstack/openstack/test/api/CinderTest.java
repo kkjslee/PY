@@ -55,7 +55,7 @@ public class CinderTest {
 	@Test
 	public void testListVolumeTypes() {
 		try {
-			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			VolumeType[] types = this.cinderService.listVolumeTypes();
 			Assert.assertNotNull(types);
 			Assert.assertTrue(types.length > 0);
 			System.out.println("\n\n\n");
@@ -84,16 +84,16 @@ public class CinderTest {
 	@Test
 	public void testCreateAndRemoveVolumeType() {
 		try {
-			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			VolumeType[] types = this.cinderService.listVolumeTypes();
 			Assert.assertNotNull(types);
 			int size = types.length;
-			VolumeType type = this.cinderService.createVolumeType(this.access, "testVolumeType");
+			VolumeType type = this.cinderService.createVolumeType("testVolumeType");
 			Assert.assertNotNull(type);
 			Assert.assertTrue(type.getName().equals("testVolumeType"));
 			Assert.assertFalse(type.getId() == null || type.getId().isEmpty());
-			Assert.assertTrue((this.cinderService.listVolumeTypes(this.access).length == (size + 1)));
-			this.cinderService.removeVolumeType(this.access, type.getId());
-			Assert.assertTrue((this.cinderService.listVolumeTypes(this.access).length == size));
+			Assert.assertTrue((this.cinderService.listVolumeTypes().length == (size + 1)));
+			this.cinderService.removeVolumeType(type.getId());
+			Assert.assertTrue((this.cinderService.listVolumeTypes().length == size));
 		} catch (OpenstackAPIException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -153,7 +153,7 @@ public class CinderTest {
 	@Test
 	public void testCreateAndRemoveVolume() {
 		try {
-			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			VolumeType[] types = this.cinderService.listVolumeTypes();
 			Assert.assertNotNull(types);
 			//Assert.assertTrue(types.length > 0);
 			
@@ -186,7 +186,7 @@ public class CinderTest {
 	@Test
 	public void testCreateAndRemoveVolumeFromSnapshot() {
 		try {
-			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			VolumeType[] types = this.cinderService.listVolumeTypes();
 			Assert.assertNotNull(types);
 			Assert.assertTrue(types.length > 0);
 			
@@ -217,7 +217,7 @@ public class CinderTest {
 	@Test
 	public void testCreateAndRemoveVolumeFroVolume() {
 		try {
-			VolumeType[] types = this.cinderService.listVolumeTypes(this.access);
+			VolumeType[] types = this.cinderService.listVolumeTypes();
 			Assert.assertNotNull(types);
 			Assert.assertTrue(types.length > 0);
 			

@@ -53,11 +53,11 @@ public class Network {
 		this.adminStateUp = adminStateUp;
 	}
 
-	public boolean getAdminStateUp() {
+	public boolean isAdminStateUp() {
 		return adminStateUp;
 	}
 
-	public boolean getShared() {
+	public boolean isShared() {
 		return shared;
 	}
 
@@ -65,7 +65,7 @@ public class Network {
 		this.shared = shared;
 	}
 
-	public boolean getExternal() {
+	public boolean isExternal() {
 		return external;
 	}
 

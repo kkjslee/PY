@@ -138,7 +138,7 @@ public class QuantumTest {
 			pools[0].setStart("10.0.10.20");
 			pools[0].setEnd("10.0.10.250");
 			
-			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), 4, "10.0.10.0/24", pools);
+			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), "TestSubnet", 4, "10.0.10.0/24", pools);
 			
 			Assert.assertTrue(this.quantumService.listSubnets(this.access).length == subnets.length + 1);
 			this.quantumService.removeSubnet(access, subnet.getId());
@@ -192,7 +192,7 @@ public class QuantumTest {
 			pools[0].setStart("10.0.10.20");
 			pools[0].setEnd("10.0.10.250");
 			
-			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), 4, "10.0.10.0/24", pools);
+			Subnet subnet = this.quantumService.createSubnet(access, network.getId(), "Test SubNet", 4, "10.0.10.0/24", pools);
 			
 			this.quantumService.removeSubnet(access, subnet.getId());
 			this.quantumService.removeNetwork(access, network.getId());

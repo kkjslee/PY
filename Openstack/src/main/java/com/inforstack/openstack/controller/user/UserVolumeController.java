@@ -36,24 +36,27 @@ import com.inforstack.openstack.utils.SecurityUtils;
 @Controller
 @RequestMapping(value = "/user/cinder")
 public class UserVolumeController {
-	
+
 	private static final Logger log = new Logger(UserVolumeController.class);
-	
-	private final String CINDER_MODULE_HOME = "user/modules/cinder";
-	
+
+	private final String CINDER_MODULE_HOME = "user/modules/Cinder";
+
 	@Autowired
 	private InstanceService instanceService;
 
 	@Autowired
 	private CinderService cinderService;
-	
+
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
 		return CINDER_MODULE_HOME + "/index";
 	}
-	
+
 	@RequestMapping(value = "/getPagerVolumeTypeList", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> getVolumeTypes(HttpServletRequest request, HttpServletResponse response, Model model, Integer pageIndex, Integer pageSize) {
+	public @ResponseBody
+	Map<String, Object> getVolumeTypes(HttpServletRequest request,
+			HttpServletResponse response, Model model, Integer pageIndex,
+			Integer pageSize) {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
@@ -68,7 +71,7 @@ public class UserVolumeController {
 		} else {
 			pageSze = pageSize;
 		}
-		
+
 		List<VolumeTypeModel> vtmList = new ArrayList<VolumeTypeModel>();
 		try {
 			VolumeType[] volumeTypes = this.cinderService.listVolumeTypes();
@@ -85,9 +88,10 @@ public class UserVolumeController {
 			log.error(e.getMessage(), e);
 		}
 
-		PagerModel<VolumeTypeModel> page = new PagerModel<VolumeTypeModel>(vtmList, pageSze);
+		PagerModel<VolumeTypeModel> page = new PagerModel<VolumeTypeModel>(
+				vtmList, pageSze);
 		vtmList = page.getPagedData(pageIdx);
-		
+
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.shared", "[plain]");
@@ -96,10 +100,14 @@ public class UserVolumeController {
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						model.asMap(), request, response);
 
 		if (jspString == null) {
-			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("order.list.loading.failed"));
 		} else {
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("recordTotal", page.getTotalRecord());
@@ -108,9 +116,12 @@ public class UserVolumeController {
 			return OpenstackUtil.buildSuccessResponse(result);
 		}
 	}
-	
+
 	@RequestMapping(value = "/getPagerVolumeList", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> getPagerVolumeList(HttpServletRequest request, HttpServletResponse response, Model model, Integer pageIndex, Integer pageSize) {
+	public @ResponseBody
+	Map<String, Object> getPagerVolumeList(HttpServletRequest request,
+			HttpServletResponse response, Model model, Integer pageIndex,
+			Integer pageSize) {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
@@ -125,16 +136,19 @@ public class UserVolumeController {
 		} else {
 			pageSze = pageSize;
 		}
-		
+
 		List<VolumeModel> vtList = new ArrayList<VolumeModel>();
-		
+
 		Tenant tenant = SecurityUtils.getTenant();
-		
-		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VOLUME, null, null);
+
+		List<Instance> instanceList = this.instanceService
+				.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VOLUME,
+						null, null);
 
 		for (Instance instance : instanceList) {
 			String uuid = instance.getUuid();
-			VolumeInstance volume = this.instanceService.findVolumeInstanceFromUUID(uuid);
+			VolumeInstance volume = this.instanceService
+					.findVolumeInstanceFromUUID(uuid);
 			VolumeModel volumeModel = new VolumeModel();
 			volumeModel.setId(uuid);
 			volumeModel.setName(volume.getName());
@@ -143,7 +157,7 @@ public class UserVolumeController {
 			volumeModel.setZone(instance.getRegion());
 			volumeModel.setStatus(instance.getStatus());
 			volumeModel.setSubOrderId(instance.getSubOrder().getId());
-			
+
 			VirtualMachine vm = volume.getVm();
 			if (vm != null) {
 				AttachmentModel attachment = new AttachmentModel();
@@ -151,25 +165,37 @@ public class UserVolumeController {
 				attachment.setServer(vm.getName());
 				attachment.setDevice(volume.getDevice());
 				volumeModel.setAttachment(attachment);
+			} else {
+				AttachmentModel attachment = new AttachmentModel();
+				attachment.setServer("");
+				volumeModel.setAttachment(attachment);
+
 			}
 			vtList.add(volumeModel);
 		}
 
-		PagerModel<VolumeModel> page = new PagerModel<VolumeModel>(vtList, pageSze);
+		PagerModel<VolumeModel> page = new PagerModel<VolumeModel>(vtList,
+				pageSze);
 		vtList = page.getPagedData(pageIdx);
-		
+
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
-		conf.put("grid.shared", "[plain]");
-		conf.put("shared.value", "{shareDisplay} ");
+		conf.put("grid.size", "[plain]");
+		conf.put("size.value", "{size}GB ");
+		conf.put("grid.status", "[plain]");
+		conf.put("grid.attachTo", "[plain]");
+		conf.put("attachTo.value", "{attachment.server} ");
 		conf.put(".datas", vtList);
-
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						model.asMap(), request, response);
 
 		if (jspString == null) {
-			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil
+					.getMessage("order.list.loading.failed"));
 		} else {
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("recordTotal", page.getTotalRecord());
@@ -178,5 +204,5 @@ public class UserVolumeController {
 			return OpenstackUtil.buildSuccessResponse(result);
 		}
 	}
-	
+
 }

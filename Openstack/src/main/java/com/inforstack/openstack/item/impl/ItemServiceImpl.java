@@ -58,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ImageService imageService;
-	
+
 	@Autowired
 	private CinderService cinderService;
 
@@ -177,7 +177,8 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ItemSpecification getItemSpecification(Integer id) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao.findById(id);
+		ItemSpecification itemSpecification = this.itemSpecificationDao
+				.findById(id);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -186,10 +187,11 @@ public class ItemServiceImpl implements ItemService {
 		}
 		return itemSpecification;
 	}
-	
+
 	@Override
 	public ItemSpecification getItemSpecificationFromRefId(String refId) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao.findByObject("refId", refId);
+		ItemSpecification itemSpecification = this.itemSpecificationDao
+				.findByObject("refId", refId);
 		if (itemSpecification != null) {
 			itemSpecification.getName().getId();
 			if (itemSpecification.getProfile() != null) {
@@ -211,9 +213,17 @@ public class ItemServiceImpl implements ItemService {
 			case ItemSpecification.OS_TYPE_FLAVOR_ID:
 				try {
 					Flavor flavor = this.flavorService.getFlavor(refId);
-					detail.put("os_cpu", Integer.toString(flavor.getVcpus()));
-					detail.put("os_memory", Integer.toString(flavor.getRam()));
-					detail.put("os_disk", Integer.toString(flavor.getDisk()));
+					if (flavor != null) {
+						detail.put("os_cpu",
+								Integer.toString(flavor.getVcpus()));
+						detail.put("os_memory",
+								Integer.toString(flavor.getRam()));
+						detail.put("os_disk",
+								Integer.toString(flavor.getDisk()));
+					} else {
+						log.error("not find flavor with id:" + refId);
+					}
+
 				} catch (OpenstackAPIException e) {
 					log.debug("Unknown flavor id: " + refId);
 				}
@@ -223,6 +233,8 @@ public class ItemServiceImpl implements ItemService {
 					Image image = this.imageService.getImage(refId);
 					if (image != null) {
 						detail.put("os_imagename", image.getName());
+					} else {
+						log.error("not find image with id:" + refId);
 					}
 				} catch (OpenstackAPIException e) {
 					log.debug("Unknown image id: " + refId);
@@ -231,15 +243,26 @@ public class ItemServiceImpl implements ItemService {
 			case ItemSpecification.OS_TYPE_PERIOD_ID:
 				OrderPeriod orderPeriod = this.periodService
 						.findPeriodById(Integer.valueOf(refId));
-				detail.put("os_periodname", orderPeriod.getName()
-						.getI18nContent());
+				if (orderPeriod != null) {
+					detail.put("os_periodname", orderPeriod.getName()
+							.getI18nContent());
+				} else {
+					log.error("not find order period with id:" + refId);
+				}
+
 				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				try {
-					VolumeType volumeType = this.cinderService.getVolumeType(refId);
-					if (Integer.parseInt(volumeType.getName()) != 0) {
-						detail.put("os_size", volumeType.getName());
+					VolumeType volumeType = this.cinderService
+							.getVolumeType(refId);
+					if (volumeType != null && volumeType.getName() != null) {
+						if (Integer.parseInt(volumeType.getName()) != 0) {
+							detail.put("os_size", volumeType.getName());
+						}
+					} else {
+						log.error("not find volume type with id:" + refId);
 					}
+
 				} catch (OpenstackAPIException e) {
 					log.debug("Unknown volume type id: " + refId);
 				}
@@ -630,7 +653,7 @@ public class ItemServiceImpl implements ItemService {
 				.parseInt(id)) != null);
 		return success;
 	}
-	
+
 	private boolean checkVolumeType(String id) {
 		boolean success = false;
 		try {

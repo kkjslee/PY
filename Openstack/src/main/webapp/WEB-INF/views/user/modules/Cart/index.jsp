@@ -26,7 +26,7 @@
 				</div>
 				<div id="collapseOne" class="accordion-body collapse in">
 					<div class="accordion-inner">
-                        <ul class="imgList selectable">
+                        <ul class="imgList selectable" isos="img">
                             <c:forEach items="${imgList}" var="img" varStatus="status">
                                 <li>
                                 <input type="hidden" value="${img.id}" name="imgId"/>
@@ -50,7 +50,7 @@
 				</div>
 				<div id="collapseTwo" class="accordion-body collapse">
 					<div class="accordion-inner ">
-                        <ul class="flavorList selectable">
+                        <ul class="flavorList selectable" isos="flavor">
                             <c:forEach items="${flavorList}" var="flavor" varStatus="status">
                                 <li>
                                 <input type="hidden" value="${flavor.id}" name="flavorId"/>
@@ -74,7 +74,7 @@
                 </div>
                 <div id="collapse3" class="accordion-body collapse">
                     <div class="accordion-inner">
-                        <ul class="planList selectable">
+                        <ul class="planList selectable" isos="plan">
                             <c:forEach items="${planList}" var="plan" varStatus="status">
                                 <li>
                                 <input type="hidden" value="${plan.id}" name="planId"/>
@@ -83,30 +83,6 @@
                                 ${i18Name.content}
                                 </c:forEach> -- <span>
                                 <c:forEach items="${plan.details}" var="detail">
-                                <span>${detail.key} : ${detail.value} </span>
-                                </c:forEach>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse"
-                        data-parent="#accordionCart" href="#collapse3"> <spring:message code="cart.volume.title"/></a>
-                </div>
-                <div id="collapse3" class="accordion-body collapse">
-                    <div class="accordion-inner">
-                        <ul class="planList selectable">
-                            <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
-                                <li>
-                                <input type="hidden" value="${volumeType.id}" name="volumeTypeId"/>
-                                 <input type="hidden" value="${volumeType.defaultPrice}" name="defaultPrice"/>
-                               <span> <c:forEach items="${volumeType.name}" var="i18Name">
-                                ${i18Name.content}
-                                </c:forEach> -- <span>
-                                <c:forEach items="${volumeType.details}" var="detail">
                                 <span>${detail.key} : ${detail.value} </span>
                                 </c:forEach>
                                 </li>

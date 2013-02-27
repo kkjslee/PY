@@ -21,7 +21,7 @@
     <jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />
     <c:set target="${pageMap}" property=".content" value="dataTable"/>
     <c:set target="${pageMap}" property=".pageIndex" value="0"/>
-    <c:set target="${pageMap}" property=".pageSize" value="2"/>
+    <c:set target="${pageMap}" property=".pageSize" value="20"/>
     <c:set target="${pageMap}" property=".pagination" value="pagination"/>
     <c:set target="${pageMap}" property=".colspanLeft" value="4"/>
     <c:set target="${pageMap}" property=".colspanRight" value="3"/>
@@ -201,7 +201,7 @@ function editNetWork(id,dataDiag){
 }
 
 function showRemoveNetwork(id){
-	 if(!confirm("<spring:message code='remove.confirm'/>")) return;
+	 if(!confirm("<spring:message code='network.remove.confirm'/>")) return;
 	 var pd=showProcessingDialog();
 	    $.ajax({
 	        type: "POST",
@@ -219,7 +219,7 @@ function showRemoveNetwork(id){
 	                }else if(data.status == "error"){
 	                   msg="<spring:message code='remove.failed'/>";
 	               } 
-	               g_dataTable_loadPagerDataList(g_pageIndex, g_pageSize);
+	               g_dataTable_loadPagerDataList(g_dataTable_pageIndex, g_dataTable_pageSize);
 	                printMessage(msg);
 	                
 	            }catch(e) {

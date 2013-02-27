@@ -95,9 +95,9 @@ function createSubnet(dataDiag){
      var gateway = $(form).find("#gateway").val();
      var disableGateway = $(form).find("#disableGateway").is(":checked");
      var enableDHCP = $(form).find("#enableDHCP").is(":checked");
-     var poolString = $(form).find("#poolString").text();
-     var dnsNamesString = $(form).find("#dnsNamesString").text();
-     var hostRoutesString = $(form).find("#hostRoutesString").text();
+     var poolString = $(form).find("#poolString").val();
+     var dnsNamesString = $(form).find("#dnsNamesString").val();
+     var hostRoutesString = $(form).find("#hostRoutesString").val();
      if(isNull(name)){
          alert("<spring:message code='name.required.label'/>");
          return;
@@ -107,7 +107,7 @@ function createSubnet(dataDiag){
          type: "POST",
             dataType: "json",
             cache: false,
-            url:  '<c:url value="/admin/quantum/createNetwork" />',
+            url:  '<c:url value="/admin/quantum/createSubnet" />',
             data:{
                     network:netWorkId,
                     name: name,
@@ -166,6 +166,46 @@ function showEditSubnet(id){
     });
 }
 
+function showPortDetail(id){
+    var detailDiag=new CustomForm();
+   detailDiag.show({
+        title:'<spring:message code="port.details"/>',
+        container:$('#showEditPortForm'),
+        url:'<c:url value="/admin/quantum/showPortDetail"/>',
+        width:260,
+        data:{
+            portId:id
+        },
+        buttons: [
+                  {   
+                     text: '<spring:message code="confirm.button"/>', 
+                     click:function(){
+                    	 detailDiag.close();
+                     }}
+                  ]
+    });
+}
+
+function showSubnetDetail(id){
+    var detailDiag=new CustomForm();
+   detailDiag.show({
+        title:'<spring:message code="subnet.details"/>',
+        container:$('#showEditSubnetForm'),
+        url:'<c:url value="/admin/quantum/showSubnetDetail"/>',
+        width:260,
+        data:{
+            subnetId:id
+        },
+        buttons: [
+                  {   
+                     text: '<spring:message code="confirm.button"/>', 
+                     click:function(){
+                         detailDiag.close();
+                     }}
+                  ]
+    });
+}
+
 function editSubnet(id,dataDiag){
     var form = dataDiag.getForm();
     var name = $(form).find("#name").val();
@@ -185,6 +225,7 @@ function editSubnet(id,dataDiag){
            cache: false,
            url:  '<c:url value="/admin/quantum/editSubnet" />',
            data:{
+        	   id:id,
                name: name,
                gateway: gateway,
                disableGateway:disableGateway,
@@ -213,7 +254,7 @@ function editSubnet(id,dataDiag){
 }
 
 function showRemoveSubnet(id){
-     if(!confirm("<spring:message code='remove.confirm'/>")) return;
+     if(!confirm("<spring:message code='subnet.remove.confirm'/>")) return;
      var pd=showProcessingDialog();
         $.ajax({
             type: "POST",
@@ -300,7 +341,7 @@ function createPort(dataDiag){
                 }else if(data.status=="success"){
                     printMessage(data.msg);
                     dataDiag.close();
-                    g_dataTable_loadPagerDataList(g_dataTable_pageIndex, g_dataTable_pageSize);
+                    g_dataTable2_loadPagerDataList(g_dataTable2_pageIndex, g_dataTable2_pageSize);
                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -358,6 +399,7 @@ function editPort(id,dataDiag){
            cache: false,
            url:  '<c:url value="/admin/quantum/editPort" />',
            data:{
+        	   id:id,
                name: name,
                cidr: cidr,
                gateway: gateway,
@@ -374,7 +416,7 @@ function editPort(id,dataDiag){
                }else if(data.status=="success"){
                    printMessage(data.msg);
                    dataDiag.close();
-                   g_dataTable_loadPagerDataList(g_dataTable_pageIndex, g_dataTable_pageSize);
+                   g_dataTable2_loadPagerDataList(g_dataTable2_pageIndex, g_dataTable2_pageSize);
               }
            },
            error: function(jqXHR, textStatus, errorThrown) {
@@ -405,7 +447,7 @@ function showRemovePort(id){
                     }else if(data.status == "error"){
                        msg="<spring:message code='remove.failed'/>";
                    } 
-                   g_dataTable_loadPagerDataList(g_dataTable_pageIndex, g_dataTable_pageSize);
+                   g_dataTable2_loadPagerDataList(g_dataTable2_pageIndex, g_dataTable2_pageSize);
                     printMessage(msg);
                     
                 }catch(e) {

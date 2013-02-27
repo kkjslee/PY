@@ -379,15 +379,12 @@ function showEditPort(id){
     });
 }
 
-//
 function editPort(id,dataDiag){
+	alert("to do");
+	return ;
     var form = dataDiag.getForm();
     var name = $(form).find("#name").val();
-    var gateway = $(form).find("#gateway").val();
-    var disableGateway = $(form).find("#disableGateway").is(":checked");
-    var enableDHCP = $(form).find("#enableDHCP").is(":checked");
-    var dnsNamesString = $(form).find("#dnsNamesString").val();
-    var hostRoutesString = $(form).find("#hostRoutesString").val();
+    var adminStateUp = $(form).find("#adminStateUp").is(":checked");
     if(isNull(name)){
         alert("<spring:message code='name.required.label'/>");
         return;
@@ -401,12 +398,7 @@ function editPort(id,dataDiag){
            data:{
         	   id:id,
                name: name,
-               cidr: cidr,
-               gateway: gateway,
-               disableGateway:disableGateway,
-               enableDHCP:enableDHCP,
-               dnsNamesString:dnsNamesString,
-               hostRoutesString:hostRoutesString
+               adminStateUp:adminStateUp
            },
            success: function(data) {
                pd.dialog("destroy");

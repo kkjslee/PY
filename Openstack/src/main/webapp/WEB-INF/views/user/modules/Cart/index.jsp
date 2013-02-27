@@ -17,108 +17,91 @@
 </div>
 
 <div id="mainBody" >
-
-		<div class="accordion" id="accordionCart">
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse"
-						data-parent="#accordionCart" href="#collapseOne"> <spring:message code="cart.image.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="ImgPriceValue"></span></span></a>
-				</div>
-				<div id="collapseOne" class="accordion-body collapse in">
-					<div class="accordion-inner">
-                        <ul class="imgList selectable" isos="img">
-                            <c:forEach items="${imgList}" var="img" varStatus="status">
-                                <li>
-                                <input type="hidden" value="${img.id}" name="imgId"/>
+    <div id="cartCheck">
+        <table>
+        <thead><tr><th class="cartLabel"></th><th class="cartCategory"></th></tr></thead>
+        <tbody>
+        <tr>
+            <td><spring:message code="cart.image.title"/></td>
+            <td>
+                <select class="imgList selectable" isos="img">
+                <option value="-1" selected><--></option>
+                    <c:forEach items="${imgList}" var="img" varStatus="status">
+                                <option value="${img.id}">
                                 <input type="hidden" value="${img.defaultPrice}" name="defaultPrice"/>
-                                <span></span><c:forEach items="${img.name}" var="i18Name">
-							    ${i18Name.content}
-							    </c:forEach> -- </span>
-							    <c:forEach items="${img.details}" var="detail">
-                                <span>${detail.key} : ${detail.value} </span>
+                                <c:forEach items="${img.name}" var="i18Name">
+                                ${i18Name.content}
+                                </c:forEach> -- 
+                                <c:forEach items="${img.details}" var="detail">
+                                ${detail.key} : ${detail.value}
                                 </c:forEach>
-                                </li>
+                                </option>
                             </c:forEach>
-                        </ul>
-                    </div>
-				</div>
-			</div>
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse"
-						data-parent="#accordionCart" href="#collapseTwo"> <spring:message code="cart.flavor.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="flavorPriceValue"></span></span></a>
-				</div>
-				<div id="collapseTwo" class="accordion-body collapse">
-					<div class="accordion-inner ">
-                        <ul class="flavorList selectable" isos="flavor">
-                            <c:forEach items="${flavorList}" var="flavor" varStatus="status">
-                                <li>
-                                <input type="hidden" value="${flavor.id}" name="flavorId"/>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><spring:message code="cart.flavor.title"/></td>
+            <td>
+                <select class="flavorList selectable" isos="flavor">
+                <option value="-1" selected><--></option>
+                    <c:forEach items="${flavorList}" var="flavor" varStatus="status">
+                                <option value="${img.id}">
                                 <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
-                                <span> <c:forEach items="${flavor.name}" var="i18Name">
+                                <c:forEach items="${flavor.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach> -- <span>
+                                </c:forEach> -- 
                                 <c:forEach items="${flavor.details}" var="detail">
-                                <span>${detail.key} : ${detail.value} / </span>
+                                ${detail.key} : ${detail.value}
                                 </c:forEach>
-                                </li>
+                                </option>
                             </c:forEach>
-                        </ul>
-                    </div>
-				</div>
-			</div>
-			<div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse"
-                        data-parent="#accordionCart" href="#collapse3"> <spring:message code="cart.plan.title"/></a>
-                </div>
-                <div id="collapse3" class="accordion-body collapse">
-                    <div class="accordion-inner">
-                        <ul class="planList selectable" isos="plan">
-                            <c:forEach items="${planList}" var="plan" varStatus="status">
-                                <li>
-                                <input type="hidden" value="${plan.id}" name="planId"/>
-                                 <input type="hidden" value="${plan.defaultPrice}" name="defaultPrice"/>
-                               <span> <c:forEach items="${plan.name}" var="i18Name">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><spring:message code="cart.plan.title"/></td>
+            <td>
+                <select class="planList selectable" isos="plan">
+                 <option value="-1" selected><--></option>
+                    <c:forEach items="${planList}" var="plan" varStatus="status">
+                                <option value="${plan.id}">
+                                <input type="hidden" value="${plan.defaultPrice}" name="defaultPrice"/>
+                                <c:forEach items="${plan.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach> -- <span>
+                                </c:forEach> -- 
                                 <c:forEach items="${plan.details}" var="detail">
-                                <span>${detail.key} : ${detail.value} </span>
+                                ${detail.key} : ${detail.value}
                                 </c:forEach>
-                                </li>
+                                </option>
                             </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse"
-                        data-parent="#accordionCart" href="#collapse4"> <spring:message code="cart.volume.title"/></a>
-                </div>
-                <div id="collapse4" class="accordion-body collapse">
-                    <div class="accordion-inner">
-                        <ul class="volumeTypeList selectable" isos="volumeType">
-                            <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
-                                <li>
-                                <input type="hidden" value="${volumeType.id}" name="volumeTypeId"/>
-                                 <input type="hidden" value="${volumeType.defaultPrice}" name="defaultPrice"/>
-                               <span> <c:forEach items="${volumeType.name}" var="i18Name">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><spring:message code="cart.volume.title"/></td>
+            <td>
+                <select class="volumeTypeList selectable" isos="volumeType">
+                <option value="-1" selected><spring:message code="cancel.button"/></option>
+                    <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
+                                <option value="${volumeType.id}">
+                                <input type="hidden" value="${volumeType.defaultPrice}" name="defaultPrice"/>
+                                <c:forEach items="${volumeType.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach> -- <span>
+                                </c:forEach> -- 
                                 <c:forEach items="${volumeType.details}" var="detail">
-                                <span>${detail.key} : ${detail.value} </span>
+                                ${detail.key} : ${detail.value}
                                 </c:forEach>
-                                </li>
+                                </option>
                             </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-		</div>
-        
+                </select>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+	
+	
         <div class="cartTotalLine">
             <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
         </div>

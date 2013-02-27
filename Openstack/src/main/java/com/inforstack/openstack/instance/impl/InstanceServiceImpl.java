@@ -166,7 +166,7 @@ public class InstanceServiceImpl implements InstanceService {
 						
 						Volume volume = this.getVolumeFromOrder(order);
 						if (volume != null && volume.getType() != null && !volume.getType().isEmpty()) {
-							newVolume = new Volume();//this.cinderService.createVolume(access, volume.getName(), volume.getDescription(), vo, bootable, type, zone)
+							newVolume = this.cinderService.createVolume(access, volume.getName(), "", volume.getSize(), false, volume.getType(), volume.getZone());
 							if (newVolume != null) {
 								this.bindVolumeToSubOrder(newVolume, order);
 								if (server.getId() != null && !server.getId().isEmpty()) {
@@ -262,7 +262,11 @@ public class InstanceServiceImpl implements InstanceService {
 			volume = new Volume();
 			volume.setName("New Volume");
 			volume.setType(vt.getId());
-			volume.setSize(Integer.parseInt(vt.getName()));
+			// TODO: 
+			//volume.setSize(Integer.parseInt(vt.getName()));
+			volume.setSize(1);
+			// TODO: set zone from order
+			volume.setZone("nova");
 		}
 		return volume;
 	}
@@ -295,9 +299,12 @@ public class InstanceServiceImpl implements InstanceService {
 			switch (osType) {
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				subOrder.setUuid(volume.getId());
-				this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), subOrder);
 				VolumeInstance vi = new VolumeInstance();
-				vi.setSize(volume.getSize());
+				vi.setUuid(volume.getId());
+				vi.setName(volume.getName());
+				vi.setSize(volume.getSize());		
+				this.volumeInstanceDao.persist(vi);
+				this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), subOrder);
 				break;
 			}
 		}

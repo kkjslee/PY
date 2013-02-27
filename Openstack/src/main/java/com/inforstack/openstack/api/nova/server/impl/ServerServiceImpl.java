@@ -259,7 +259,7 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Override
 	public void updateServerStatus(String uuid, String status, String task) {
-		Instance instance = ServerServiceImpl.this.instanceDao.findByObject("uuid", uuid);
+		Instance instance = this.instanceDao.findByObject("uuid", uuid);
 		if (instance != null) {
 			Date now = new Date();
 			String oldStatus = instance.getStatus();

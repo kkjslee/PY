@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.VolumeType;
-import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.controller.model.AttachmentModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.controller.model.VolumeModel;
@@ -45,9 +44,6 @@ public class UserVolumeController {
 	@Autowired
 	private InstanceService instanceService;
 
-	@Autowired
-	private KeystoneService keystoneService;
-	
 	@Autowired
 	private CinderService cinderService;
 	

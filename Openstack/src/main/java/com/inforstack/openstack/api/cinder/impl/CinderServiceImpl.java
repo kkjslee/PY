@@ -18,9 +18,14 @@ import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
+import com.inforstack.openstack.instance.Instance;
+import com.inforstack.openstack.instance.InstanceDao;
+import com.inforstack.openstack.instance.InstanceStatus;
+import com.inforstack.openstack.instance.InstanceStatusDao;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RestUtils;
 
-@Service
+@Service("cinderService")
 @Transactional
 public class CinderServiceImpl implements CinderService {
 	
@@ -29,6 +34,12 @@ public class CinderServiceImpl implements CinderService {
 	
 	@Autowired
 	private KeystoneService keystoneService;
+	
+	@Autowired
+	private InstanceDao instanceDao;
+	
+	@Autowired
+	private InstanceStatusDao instanceStatusDao;
 	
 	private static VolumeType[] cache = null;
 	
@@ -227,26 +238,11 @@ public class CinderServiceImpl implements CinderService {
 	
 	@Override
 	public Volume getVolume(Access access, String id) throws OpenstackAPIException {
-		Volume volume = null;
-		if (access != null && id != null && !id.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUME);
-			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				try {
-					VolumeBody response = RestUtils.get(url, access, VolumeBody.class, id);
-					if (response != null) {
-						volume = response.getVolume();
-					}
-				} catch (OpenstackAPIException e) {
-					RestUtils.handleError(e);
-				}
-			}
-		}
-		return volume;
+		return this.getVolumeDetail(access, id);
 	}
 	
 	@Override
-	public Volume createVolume(Access access, String name, String description, int size, boolean bootable, String type, String zone) throws OpenstackAPIException {
+	public Volume createVolume(final Access access, String name, String description, int size, boolean bootable, String type, String zone) throws OpenstackAPIException {
 		Volume volume = null;
 		if (access != null) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMES);
@@ -266,6 +262,38 @@ public class CinderServiceImpl implements CinderService {
 				VolumeBody response = RestUtils.postForObject(url, access, request, VolumeBody.class);
 				if (response != null) {
 					volume = response.getVolume();
+					
+					final String id = volume.getId();
+					
+					final CinderService self = (CinderService) OpenstackUtil.getBean("cinderService");
+					
+					Thread thread = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							while (true) {
+								try {
+									Volume s = CinderServiceImpl.this.getVolumeDetail(access, id);
+									if (s != null) {
+										String status = s.getStatus();
+										self.updateVolumeStatus(s.getId(), status);
+										if (status.equalsIgnoreCase("available") || status.equalsIgnoreCase("error")) {
+											break;
+										}
+									} else {
+										break;
+									}
+									Thread.sleep(500);
+								} catch (OpenstackAPIException e) {
+									break;
+								} catch (InterruptedException e) {
+									break;
+								}
+							}
+						}
+						
+					}, "Creating Volume " + volume.getId());
+					thread.start();
 				}
 			}			
 		}
@@ -329,31 +357,62 @@ public class CinderServiceImpl implements CinderService {
 	}
 	
 	@Override
-	public void removeVolume(Access access, String id) throws OpenstackAPIException {
-		this.remove(access, ENDPOINT_VOLUME, id);		
-	}
-	
-	private static String getEndpoint(Access access, Type type, String suffix) {
-		return RestUtils.getEndpoint(access, "cinder", type, suffix);
-	}
-	
-	private static String getnovaEndpoint(Access access, Type type, String suffix) {
-		return RestUtils.getEndpoint(access, "nova", type, suffix);
-	}
-	
-	private void remove(Access access, String urlName, String id) throws OpenstackAPIException {
-		if (access != null && !id.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao.findByName(urlName);
-			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				RestUtils.delete(url, access, id);
+	public void removeVolume(final Access access, final String id) throws OpenstackAPIException {
+		this.remove(access, ENDPOINT_VOLUME, id);
+		
+		final CinderService self = (CinderService) OpenstackUtil.getBean("cinderService");
+		
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (true) {
+					try {
+						Volume s = CinderServiceImpl.this.getVolumeDetail(access, id);
+						if (s != null) {
+							String status = s.getStatus();
+							self.updateVolumeStatus(s.getId(), status);
+							if (status.equalsIgnoreCase("error")) {
+								break;
+							}
+						} else {
+							self.updateVolumeStatus(id, "deleted");
+							break;
+						}
+						Thread.sleep(500);
+					} catch (OpenstackAPIException e) {
+						break;
+					} catch (InterruptedException e) {
+						break;
+					}
+				}
 			}
+			
+		}, "Creating Volume " + id);
+		thread.start();
+	}
+	
+	@Override
+	public void updateVolumeStatus(String uuid, String status) {
+		Instance instance = this.instanceDao.findByObject("uuid", uuid);
+		if (instance != null) {
+			Date now = new Date();
+			String oldStatus = instance.getStatus();
+			if (!oldStatus.equals(status)) {
+				InstanceStatus instanceStatus = new InstanceStatus();
+				instanceStatus.setUuid(uuid);
+				instanceStatus.setStatus(status);
+				instanceStatus.setUpdateTime(now);				
+				this.instanceStatusDao.persist(instanceStatus);
+			}
+			instance.setStatus(status);
+			instance.setTask(null);
+			instance.setUpdateTime(now);
 		}
 	}
-
+	
 	@Override
-	public VolumeAttachment attachVolume(Access access, String serverId, String volumeId,
-			String device) throws OpenstackAPIException {
+	public VolumeAttachment attachVolume(Access access, String serverId, String volumeId, String device) throws OpenstackAPIException {
 		VolumeAttachment va = null;
 		if (access != null && serverId != null && !volumeId.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH);
@@ -375,13 +434,11 @@ public class CinderServiceImpl implements CinderService {
 				}
 			}
 		}
-		return va;
-		
+		return va;		
 	}
 
 	@Override
-	public void detachVolume(Access access, String serverId, String attachId)
-			throws OpenstackAPIException {
+	public void detachVolume(Access access, String serverId, String attachId) throws OpenstackAPIException {
 		if (access != null && serverId != null && !attachId.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH_DETAIL);
 			if (endpoint != null) {
@@ -397,9 +454,7 @@ public class CinderServiceImpl implements CinderService {
 	}
 
 	@Override
-	public VolumeAttachment[] listAttachedVolumes(Access access, String serverId)
-			throws OpenstackAPIException {
-		// TODO Auto-generated method stub
+	public VolumeAttachment[] listAttachedVolumes(Access access, String serverId) throws OpenstackAPIException {
 		VolumeAttachment[] volumes = null;
 		if (access != null) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH);
@@ -412,6 +467,43 @@ public class CinderServiceImpl implements CinderService {
 			}
 		}
 		return volumes;
+	}
+	
+	private static String getEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "cinder", type, suffix);
+	}
+	
+	private static String getnovaEndpoint(Access access, Type type, String suffix) {
+		return RestUtils.getEndpoint(access, "nova", type, suffix);
+	}
+	
+	private void remove(Access access, String urlName, String id) throws OpenstackAPIException {
+		if (access != null && !id.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(urlName);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				RestUtils.delete(url, access, id);
+			}
+		}
+	}
+	
+	private Volume getVolumeDetail(Access access, String id) throws OpenstackAPIException {
+		Volume volume = null;
+		if (access != null && id != null && !id.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUME);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				try {
+					VolumeBody response = RestUtils.get(url, access, VolumeBody.class, id);
+					if (response != null) {
+						volume = response.getVolume();
+					}
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
+				}
+			}
+		}
+		return volume;
 	}
 
 }

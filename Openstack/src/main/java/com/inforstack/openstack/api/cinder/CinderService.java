@@ -43,6 +43,8 @@ public interface CinderService {
 	
 	public void removeVolume(Access access, String id) throws OpenstackAPIException;
 	
+	public void updateVolumeStatus(String uuid, String status);
+	
 	public VolumeAttachment attachVolume(Access access, String serverId, String volumeId, String device) throws OpenstackAPIException;
 	
 	public void detachVolume(Access access, String serverId, String attachId) throws OpenstackAPIException;

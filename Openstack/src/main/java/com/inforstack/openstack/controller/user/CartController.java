@@ -36,15 +36,11 @@ import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriodService;
-import com.inforstack.openstack.rule.Rule;
 import com.inforstack.openstack.rule.RuleService;
-import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
-import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
-import com.inforstack.openstack.utils.SecurityUtils;
 
 @Controller
 @RequestMapping(value = "/user/cart")
@@ -253,7 +249,7 @@ public class CartController {
 				}
 				cart.setItems(itemList.toArray(new CartItemModel[0]));
 
-				//this.runRules(cart, null);
+				this.runRules(cart, null);
 
 				float amount = 0;
 				items = cart.getItems();
@@ -273,76 +269,56 @@ public class CartController {
 	}
 
 	private void runRules(CartModel cart, ItemSpecification itemSpecification) {
-		if (cart.getItems().length != 4) {
-			return;
-		}
-		User user = this.userService.findByName(SecurityUtils.getUserName());
-		Tenant tenant = null;
-		if (user != null) {
-			tenant = this.tenantService.findTenantById(SecurityUtils
-					.getTenant().getId());
-		}
+//		User user = this.userService.findByName(SecurityUtils.getUserName());
+//		Tenant tenant = null;
+//		if (user != null) {
+//			tenant = this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
+//		}
+		
 		CartItemModel[] items = cart.getItems();
 		
 		for (CartItemModel item : items) {
 			ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
 			item.setPrice(is.getDefaultPrice());
 		}
-		
+		String period = null;
+		float priceFactor = 1;
 		if (itemSpecification != null && itemSpecification.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
-			for (CartItemModel item : items) {
-				ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
-				switch (is.getOsType()) {
-				case ItemSpecification.OS_TYPE_PERIOD_ID:
-					item.setPrice(0f);
-				case ItemSpecification.OS_TYPE_IMAGE_ID:
-				case ItemSpecification.OS_TYPE_FLAVOR_ID:
-				case ItemSpecification.OS_TYPE_USAGE_ID:
-					item.setPeriodId(Integer.parseInt(itemSpecification.getRefId()));
-					item.setPrice(item.getPrice() * itemSpecification.getDefaultPrice());
-					break;
-				case ItemSpecification.OS_TYPE_DATACENTER_ID:
-				case ItemSpecification.OS_TYPE_NETWORK_ID:
-				case ItemSpecification.OS_TYPE_VOLUME_ID:
-					item.setPeriodId(2);
-					break;
-				}
-			}
+			period = itemSpecification.getRefId();
+			priceFactor = itemSpecification.getDefaultPrice();
 		} else {
-			Integer plan = null;
-			Float price = null;
-			for (CartItemModel item : items) {
-				ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
-				if (is.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
-					plan = Integer.parseInt(is.getRefId());
-					price = is.getDefaultPrice();
-					break;
-				}
+			ItemSpecification planItem = this.getPlan(cart);
+			if (planItem != null) {
+				period = planItem.getRefId();
+				priceFactor = planItem.getDefaultPrice();
 			}
-			if (plan != null) {
-				for (CartItemModel item : items) {
-					ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
-					switch (is.getOsType()) {
-					case ItemSpecification.OS_TYPE_IMAGE_ID:
-					case ItemSpecification.OS_TYPE_FLAVOR_ID:
-					case ItemSpecification.OS_TYPE_USAGE_ID:
-					case ItemSpecification.OS_TYPE_PERIOD_ID:
-						item.setPeriodId(plan);
-						item.setPrice(item.getPrice() * price);
-						break;
-					case ItemSpecification.OS_TYPE_DATACENTER_ID:
-					case ItemSpecification.OS_TYPE_NETWORK_ID:
-					case ItemSpecification.OS_TYPE_VOLUME_ID:
-						item.setPeriodId(2);
-						break;
-					}
-				}
+		}
+		
+		Integer periodId = ((period != null) ? Integer.parseInt(period) : 2);
+		for (CartItemModel item : items) {
+			ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+			switch (is.getOsType()) {
+			case ItemSpecification.OS_TYPE_PERIOD_ID:
+				item.setPeriodId(periodId);
+				item.setPrice(0f);
+				break;
+			case ItemSpecification.OS_TYPE_IMAGE_ID:
+			case ItemSpecification.OS_TYPE_FLAVOR_ID:
+			case ItemSpecification.OS_TYPE_USAGE_ID:
+				item.setPeriodId(periodId);
+				item.setPrice(item.getPrice() * priceFactor);
+				break;
+			case ItemSpecification.OS_TYPE_DATACENTER_ID:
+			case ItemSpecification.OS_TYPE_NETWORK_ID:
+			case ItemSpecification.OS_TYPE_VOLUME_ID:
+				item.setPeriodId(2);
+				break;
 			}
 		}
 
-		List<Rule> ruleList = this.ruleService.listRuleByTypeName("cart");
-		if (ruleList != null) {
-			for (Rule rule : ruleList) {
+//		List<Rule> ruleList = this.ruleService.listRuleByTypeName("cart");
+//		if (ruleList != null) {
+//			for (Rule rule : ruleList) {
 //			try {
 //				KnowledgeBase kbase = RuleUtils.readKnowledgeBase(
 //						rule.getName(), rule.getLocationType(),
@@ -356,8 +332,21 @@ public class CartController {
 //			} catch (InstantiationException e) {
 //			} catch (IllegalAccessException e) {
 //			}
+//			}
+//		}
+	}
+	
+	private ItemSpecification getPlan(CartModel cart) {
+		ItemSpecification planItem = null;
+		CartItemModel[] cartItems = cart.getItems();
+		for (CartItemModel cartItem : cartItems) {
+			ItemSpecification item = this.itemService.getItemSpecification(cartItem.getItemSpecificationId());
+			if (item.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
+				planItem = item;
+				break;
 			}
 		}
+		return planItem;
 	}
 
 	private List<ItemSpecificationModel> listProductsForUser(int osType) {

@@ -177,6 +177,13 @@ insert into Resource(id, url, permission) values (414, '/admin/quantum/showEditS
 insert into Resource(id, url, permission) values (415, '/admin/quantum/showEditPortForm', 'admin');
 insert into Resource(id, url, permission) values (416, '/admin/quantum/showCreatePortForm', 'admin');
 insert into Resource(id, url, permission) values (417, '/admin/quantum/editSubnet', 'admin');
+insert into Resource(id, url, permission) values (418, '/admin/quantum/removePort', 'admin');
+insert into Resource(id, url, permission) values (419, '/admin/quantum/removeSubnet', 'admin');
+insert into Resource(id, url, permission) values (420, '/admin/quantum/showSubnetDetail', 'admin');
+insert into Resource(id, url, permission) values (421, '/admin/quantum/showPortDetail', 'admin');
+
+
+
 insert into Resource(id, url, permission) values (450, '/admin/cinder/modules/index', 'admin');
 insert into Resource(id, url, permission) values (451, '/admin/cinder/getPagerVolumeTypeList', 'admin');
 

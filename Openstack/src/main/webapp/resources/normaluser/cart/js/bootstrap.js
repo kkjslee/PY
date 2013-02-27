@@ -2,6 +2,7 @@ var Server="";
 var cart_imgSelected_UUID = "";
 var cart_flavorSelected_UUID="";
 var cart_planSelected_UUID="";
+var cart_volumeTypeSelected_UUID="";
 var itemSelected = 0;
 
 $(function(){
@@ -102,6 +103,9 @@ function setup(){
 			}
 			else if(itemCategory == "plan"){
 				itemUUID = cart_planSelected_UUID;
+			}
+			else if (itemCategory == "volumeType") {
+				itemUUID = cart_volumeTypeSelected_UUID;
 			}
 			
 			bindTableSelect(itemCategory,"defaultPrice",itemUUID);

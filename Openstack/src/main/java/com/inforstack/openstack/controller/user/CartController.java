@@ -294,7 +294,7 @@ public class CartController {
 			}
 		}
 		
-		Integer periodId = ((period != null) ? Integer.parseInt(period) : 2);
+		Integer periodId = ((period != null) ? Integer.parseInt(period) : 3);
 		for (CartItemModel item : items) {
 			ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
 			switch (is.getOsType()) {
@@ -310,6 +310,8 @@ public class CartController {
 				break;
 			case ItemSpecification.OS_TYPE_DATACENTER_ID:
 			case ItemSpecification.OS_TYPE_NETWORK_ID:
+				item.setPeriodId(3);
+				break;
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				item.setPeriodId(2);
 				break;

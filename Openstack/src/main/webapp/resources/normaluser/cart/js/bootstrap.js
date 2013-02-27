@@ -3,7 +3,6 @@ var cart_imgSelected_UUID = "";
 var cart_flavorSelected_UUID="";
 var cart_planSelected_UUID="";
 var cart_volumeTypeSelected_UUID="";
-var itemSelected = 0;
 
 $(function(){
 	setup();
@@ -80,96 +79,37 @@ function checkOutOrder(callBack){
 }
 
 function validOrderCondition(){
-	if($(".imgList").find("li.ui-selected").length == 0 || $(".flavorList").find("li.ui-selected").length == 0||$(".planList").find("li.ui-selected").length == 0){
+	if($(".imgList").val()==-1 || $(".flavorList").val()==-1 || $(".planList").val()==-1 ){
 		return false;
 	}else{
 		return true;
 	}
+	
 }
 //this should be called first in jsp file
 function setServer(server){
 	Server = server;
 }
 function setup(){
-	$(".accordion-inner").each(function(e){
-		var inner = $(this).find("ul.selectable");
-		if(typeof($(inner).attr("isos") != "undefined")){
-			var itemCategory = $(inner).attr("isos");
-
-			bindTableSelect(itemCategory,"defaultPrice");
-		}
+	$(".selectable").each(function(e){
+		$(this).change(function(e){
+			if(typeof($(this).attr("isos") != "undefined")){
+				var itemCategory = $(this).attr("isos");
+				var itemValue = $(this).val();
+				var itemPrice =  $(this).find("input[name='defaultPrice']").val();
+				
+				sendCartRequest(itemCategory,itemValue,itemPrice);
+			}
+		})
+		
 		
 	});
 	
-	/*$(".imgList").tableSelect({
-		onClick: function(row) {
-		    	var uuid = $(row).find("input[name='imgId']").attr("uuid");
-		    	var itemId = $(row).find("input[name='imgId']").val();
-		    	var price = $(row).find("input[name='defaultPrice']").val();
-		    	if(isNull(cart_imgSelected_UUID)){
-		    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"imgId",$(row).parent());
-		    	}else if(uuid == cart_imgSelected_UUID){
-		    		updateCartItem(itemId,uuid,price,row,"imgId");
-		    		
-		    	}else{
-		    		removeCartItem(cart_imgSelected_UUID,row,updateInputRowUUIDAttr,"imgId",$(row).parent());
-		    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"imgId",$(row).parent());
-		    	}
-		    	itemSelected++;
-		    	activeCartSubmitBtn();
-		}
-	});
-	
-	$(".flavorList").tableSelect({
-		onClick: function(row) {
-			var uuid = $(row).find("input[name='flavorId']").attr("uuid");
-	    	var itemId = $(row).find("input[name='flavorId']").val();
-	    	var price = $(row).find("input[name='defaultPrice']").val();
-	    	if(isNull(cart_flavorSelected_UUID)){
-	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"flavorId",$(row).parent());
-	    	}else if(uuid == cart_flavorSelected_UUID){
-	    		
-	    		updateCartItem(itemId,uuid,price,row,"flavorId");
-	    		
-	    	}else{
-	    		removeCartItem(cart_flavorSelected_UUID,row,updateInputRowUUIDAttr,"flavorId",$(row).parent());
-	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"flavorId",$(row).parent());
-	    	}
-	    	itemSelected++;
-	    	activeCartSubmitBtn();
-		}
-	});
-	
-	$(".planList").tableSelect({
-		onClick: function(row) {
-			var uuid = $(row).find("input[name='planId']").attr("uuid");
-	    	var itemId = $(row).find("input[name='planId']").val();
-	    	var price = $(row).find("input[name='defaultPrice']").val();
-	    	if(isNull(cart_planSelected_UUID)){
-	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"planId",$(row).parent());
-	    	}else if(uuid == cart_planSelected_UUID){
-	    		
-	    		updateCartItem(itemId,uuid,price,row,"planId");
-	    		
-	    	}else{
-	    		removeCartItem(cart_planSelected_UUID,row,updateInputRowUUIDAttr,"planId",$(row).parent());
-	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,"planId",$(row).parent());
-	    	}
-	    	itemSelected++;
-	    	activeCartSubmitBtn();
-		}
-	});*/
 }
 
-//args:("plan","defaultPrice",cart_planSelected_UUID)
-function bindTableSelect(itemCategory,priceId){
-	$("."+itemCategory + "List").tableSelect({
-		onClick: function(row) {
-			var uuid = $(row).find("input[name='" +itemCategory +"Id']").attr("uuid");
-	    	var itemId = $(row).find("input[name='" +itemCategory +"Id']").val();
-	    	var price = $(row).find("input[name='" +priceId +"']").val();
-	    	var toAdd = false;
-	    	var toId= "";
+function sendCartRequest(itemCategory,itemId,itemPrice){
+			var toAdd = false;
+			var toRemove = true;
 			if(itemCategory == "img"){
 				if(isNull(cart_imgSelected_UUID)){
 					toAdd = true;
@@ -195,101 +135,25 @@ function bindTableSelect(itemCategory,priceId){
 					toId = cart_volumeTypeSelected_UUID;
 				}
 			}
-				
 			
 	    	if(toAdd){
-	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,itemCategory,$(row).parent());
-	    	}else{
-	    		removeCartItem(toId,row,updateInputRowUUIDAttr,itemCategory,$(row).parent());
-	    		addItemToCart(itemId,price,row,updateInputRowUUIDAttr,itemCategory,$(row).parent());
+	    		addItemToCart(itemId,itemPrice,itemCategory);
+	    	}else if(itemCategory !="volumeType" && itemId != -1){
+	    		updateCartItem(itemId);
+	    	}else if(itemId==-1){
+	    		removeCartItem(cart_volumeTypeSelected_UUID,itemCategory);
 	    	}
-	    	itemSelected++;
 	    	activeCartSubmitBtn();
-		}
-	});
 }
 
-function activeCartSubmitBtn(){
-	if(itemSelected == 3){
-		$(".cartButton").find("a").addClass("btn-primary");
-	}
-}
-//category id like:imgId,flavorId
-function updateInputRowUUIDAttr(row, uuid,isUpdate,categoryId,container){
-	if(!isNull(categoryId)){
-		
-		var item = $(container).find(row).find("input[name='" + categoryId + "Id']");
-		if(isUpdate){
-			$(item).attr("uuid",uuid);
-		}else{
-			$(item).removeAttr("uuid");
-			setCategorySelctedIdValue(categoryId, "");
-		}
-	}else{
-		alert("category id not defined");
-	}
-}
-
-function setCategorySelctedIdValue(itemCategory,value){
-	if(itemCategory == "img"){
-		cart_imgSelected_UUID = value;
-	}else if(itemCategory == "flavor" ){
-		cart_flavorSelected_UUID = value;
-	}if(itemCategory == "plan"){
-		cart_planSelected_UUID = value;
-	}if(itemCategory == "volumeType"){
-		cart_volumeTypeSelected_UUID = value;
-	}
-}
-function udpateAmount(price){
-	$(".cartTotal").text(price);
-}
-function addItemToCart(itemId,price,row,callBack,categoryId,container){
-		$.ajax({
-	        url: Server + "/add",
-	        type: "POST",
-	        dataType:"json",
-	        data: {
-	        	itemSpecificationId:itemId,
-	        	price:price,
-	        	number:1
-	        },
-	        cache: false,
-	        success: function(data) {
-	            try {
-
-	                if(data.status == "success"){
-	                	var price  = data.data.amount;
-	                	udpateAmount(price);
-	                	var uuid = data.data.currentItemUUID;
-	                	setCategorySelctedIdValue(categoryId,uuid);	                	
-	                	callBack(row,uuid,true,categoryId,container);
-	                }
-	                if(data.status == "error"){
-	                    printMessage(data.msg);
-	                }
-
-	            } catch(e) {
-	                printMessage("Data Broken: [" + e + "]");
-	            }
-	        },
-	        error: function(jqXHR, textStatus, errorThrown) {
-	            printError(jqXHR, textStatus, errorThrown);
-	            return false;
-	        }
-	    });
-}
-
-
-function updateCartItem(itemId,UUId,price,row){
+function addItemToCart(itemId,itemPrice,itemCategory);{
 	$.ajax({
-        url: Server + "/update",
+        url: Server + "/add",
         type: "POST",
         dataType:"json",
         data: {
-        	uuid:UUId,
-        	price:price,
         	itemSpecificationId:itemId,
+        	price:price,
         	number:1
         },
         cache: false,
@@ -299,6 +163,8 @@ function updateCartItem(itemId,UUId,price,row){
                 if(data.status == "success"){
                 	var price  = data.data.amount;
                 	udpateAmount(price);
+                	var uuid = data.data.currentItemUUID;
+                	setCategorySelctedIdValue(categoryId,uuid);	                	
                 }
                 if(data.status == "error"){
                     printMessage(data.msg);
@@ -315,36 +181,93 @@ function updateCartItem(itemId,UUId,price,row){
     });
 }
 
-function removeCartItem(UUId,row, callBack,categoryId,container){
-	$.ajax({
-        url: Server + "/remove",
-        type: "POST",
-        dataType:"json",
-        data: {
-        	uuid:UUId
-        },
-        cache: false,
-        success: function(data) {
-            try {
 
-                if(data.status == "success"){
-                	var price  = data.data.amount;
-                	udpateAmount(price);
-                	//remove uuid  
-                	callBack(row,data.data.currentItemUUID,false,categoryId,container);
-                }
-                if(data.status == "error"){
-                    printMessage(data.msg);
-                }
+function updateCartItem(itemId){
+$.ajax({
+    url: Server + "/update",
+    type: "POST",
+    dataType:"json",
+    data: {
+    	itemSpecificationId:itemId,
+    },
+    cache: false,
+    success: function(data) {
+        try {
 
-            } catch(e) {
-                printMessage("Data Broken: [" + e + "]");
+            if(data.status == "success"){
+            	var price  = data.data.amount;
+            	udpateAmount(price);
+            	var uuid = data.data.currentItemUUID;
+            	setCategorySelctedIdValue(categoryId,uuid);	
             }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            printError(jqXHR, textStatus, errorThrown);
-            return false;
+            if(data.status == "error"){
+                printMessage(data.msg);
+            }
+
+        } catch(e) {
+            printMessage("Data Broken: [" + e + "]");
         }
-    });
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        printError(jqXHR, textStatus, errorThrown);
+        return false;
+    }
+});
 }
+
+function removeCartItem(toId,itemCategory){
+$.ajax({
+    url: Server + "/remove",
+    type: "POST",
+    dataType:"json",
+    data: {
+    	uuid:UUId
+    },
+    cache: false,
+    success: function(data) {
+        try {
+
+            if(data.status == "success"){
+            	var price  = data.data.amount;
+            	udpateAmount(price);
+            	setCategorySelctedIdValue(categoryId, "");
+            }
+            if(data.status == "error"){
+                printMessage(data.msg);
+            }
+
+        } catch(e) {
+            printMessage("Data Broken: [" + e + "]");
+        }
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        printError(jqXHR, textStatus, errorThrown);
+        return false;
+    }
+});
+}
+
+function activeCartSubmitBtn(){
+	if(validOrderCondition()){
+		$(".cartButton").find("a").addClass("btn-primary");
+	}else{
+		$(".cartButton").find("a").removeClass("btn-primary");
+	}
+}
+
+function setCategorySelctedIdValue(itemCategory,value){
+	if(itemCategory == "img"){
+		cart_imgSelected_UUID = value;
+	}else if(itemCategory == "flavor" ){
+		cart_flavorSelected_UUID = value;
+	}else if(itemCategory == "plan"){
+		cart_planSelected_UUID = value;
+	}else if(itemCategory == "volumeType"){
+		cart_volumeTypeSelected_UUID = value;
+	}
+}
+function udpateAmount(price){
+	$(".cartTotal").text(price);
+}
+
 

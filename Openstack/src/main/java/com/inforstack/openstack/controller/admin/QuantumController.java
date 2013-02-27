@@ -578,7 +578,8 @@ public class QuantumController {
 		conf.put("device.value", "{deviceName} ");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.adminStateUp", "[plain]");
-		conf.put("grid.operation", "[button]remove,detail");
+		conf.put("grid.operation", "[button]edit,remove,detail");
+		conf.put("edit.onclick", "showEditPort('{id}')");
 		conf.put("remove.onclick", "showRemovePort('{id}')");
 		conf.put("detail.onclick", "showPortDetail('{id}')");
 		/*
@@ -844,18 +845,10 @@ public class QuantumController {
 				}
 
 			}
-			Port[] portList = quantumService.listPorts(access);
-			for (int i = 0; i < portList.length; i++) {
-				if (portList[i].getId().equals(pId)) {
-					port = portList[i];
-					port.setAdminStateUp(portModel.getAdminStateUp());
-					port.setDevice(portModel.getDeviceId());
-					port.setName(portModel.getName());
-					// TODO owner
-					break;
-				}
-			}
+			port = quantumService.getPort(access, pId);
 			if (port != null) {
+				port.setAdminStateUp(portModel.getAdminStateUp());
+				port.setName(portModel.getName());
 				// TODO UPDATE
 				// this.quantumService(access, port);
 				return JSONUtil.jsonSuccess(port,
@@ -888,13 +881,7 @@ public class QuantumController {
 		Port port = null;
 		try {
 			access = keystoneService.getAdminAccess();
-			Port[] portList = quantumService.listPorts(access);
-			for (int i = 0; i < portList.length; i++) {
-				if (portList[i].getId().equals(portId)) {
-					port = portList[i];
-					break;
-				}
-			}
+			port = quantumService.getPort(access, portId);
 			if (port != null) {
 				this.quantumService.removePort(access, portId);
 				return JSONUtil.jsonSuccess(port,

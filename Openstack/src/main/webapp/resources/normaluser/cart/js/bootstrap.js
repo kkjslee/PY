@@ -90,7 +90,26 @@ function setServer(server){
 	Server = server;
 }
 function setup(){
-	$(".imgList").tableSelect({
+	$(".accordion-inner").each(function(e){
+		var inner = $(this).find("ul.selectable");
+		if(typeof($(inner).attr("isos") != "undefined")){
+			var itemCategory = $(inner).attr("isos");
+			var itemUUID = "";
+			if(itemCategory == "img"){
+				itemUUID = cart_imgSelected_UUID;
+			}else if(itemCategory == "flavor"){
+				itemUUID = cart_flavorSelected_UUID;
+			}
+			else if(itemCategory == "plan"){
+				itemUUID = cart_planSelected_UUID;
+			}
+			
+			bindTableSelect(itemCategory,"defaultPrice",itemUUID);
+		}
+		
+	});
+	
+	/*$(".imgList").tableSelect({
 		onClick: function(row) {
 		    	var uuid = $(row).find("input[name='imgId']").attr("uuid");
 		    	var itemId = $(row).find("input[name='imgId']").val();
@@ -147,6 +166,31 @@ function setup(){
 	    	itemSelected++;
 	    	activeCartSubmitBtn();
 		}
+	});*/
+}
+
+//args:("plan","defaultPrice",cart_planSelected_UUID)
+function bindTableSelect(itemCategory,priceId,itemUUID){
+	$("."+itemCategory + "List").tableSelect({
+		onClick: function(row) {
+			var uuid = $(row).find("input[name='" +itemCategory +"Id']").attr("uuid");
+	    	var itemId = $(row).find("input[name='" +itemCategory +"Id']").val();
+	    	window.console.log("itemId:" + itemId);
+	    	var price = $(row).find("input[name='" +priceId +"']").val();
+	    	window.console.log("priceId:" + price);
+	    	if(isNull(itemUUID)){
+	    		addItemToCart(itemUUID,itemId,price,row,updateInputRowUUIDAttr,itemCategory+"Id",$(row).parent());
+	    	}else if(uuid == itemUUID){
+	    		
+	    		updateCartItem(itemId,uuid,price,row,itemCategory+"Id");
+	    		
+	    	}else{
+	    		removeCartItem(itemUUID,row,updateInputRowUUIDAttr,itemCategory+"Id",$(row).parent());
+	    		addItemToCart(itemUUID,itemId,price,row,updateInputRowUUIDAttr,itemCategory+"Id",$(row).parent());
+	    	}
+	    	itemSelected++;
+	    	activeCartSubmitBtn();
+		}
 	});
 }
 
@@ -172,7 +216,7 @@ function updateInputRowUUIDAttr(row, uuid,isUpdate,categoryId,container){
 function udpateAmount(price){
 	$(".cartTotal").text(price);
 }
-function addItemToCart(itemId,price,row,callBack,categoryId,container){
+function addItemToCart(itemUUID,itemId,price,row,callBack,categoryId,container){
 		$.ajax({
 	        url: Server + "/add",
 	        type: "POST",
@@ -190,17 +234,8 @@ function addItemToCart(itemId,price,row,callBack,categoryId,container){
 	                	var price  = data.data.amount;
 	                	udpateAmount(price);
 	                	var uuid = data.data.currentItemUUID;
-	                	if(categoryId == "imgId"){
-	                		cart_imgSelected_UUID = uuid;
-	                	}
-	                	if(categoryId == "flavorId"){
-	                		cart_flavorSelected_UUID= uuid;
-	                	}
-	                	if(categoryId == "planId"){
-	                		cart_planSelected_UUID= uuid;
-	                	}
+	                	itemUUID = uuid;
 	                	callBack(row,uuid,true,categoryId,container);
-	                	//add uuid attr
 	                }
 	                if(data.status == "error"){
 	                    printMessage(data.msg);

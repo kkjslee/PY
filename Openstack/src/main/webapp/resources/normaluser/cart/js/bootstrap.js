@@ -96,57 +96,71 @@ function setup(){
 			if(typeof($(this).attr("isos") != "undefined")){
 				var itemCategory = $(this).attr("isos");
 				var itemValue = $(this).val();
-				var itemPrice =  $(this).find("input[name='defaultPrice']").val();
+				window.console.log("sel itemid: "+itemValue);
+				var itemPrice = 0;
+				if(typeof($(this).find("option:selected").attr("defaultprice"))!="undefined"){
+					itemPrice =  $(this).find("option:selected").attr("defaultprice");
+				}
 				
+				window.console.log("sel itemprice: " +itemPrice);
 				sendCartRequest(itemCategory,itemValue,itemPrice);
 			}
-		})
+		});
 	});
 	
 }
 
 function sendCartRequest(itemCategory,itemId,itemPrice){
 			var toAdd = false;
-			if(itemId !=-1){
+			var toUUID = "";
 				if(itemCategory == "img"){
 					if(isNull(cart_imgSelected_UUID)){
 						toAdd = true;
+					}else{
+						window.console.log("page img uuid:" + cart_imgSelected_UUID);
+						toUUID = cart_imgSelected_UUID;
 					}
 				}else if(itemCategory == "flavor"){
 					if(isNull(cart_flavorSelected_UUID)){
 						toAdd = true;
+					}else{
+						toUUID = cart_flavorSelected_UUID;
 					}
 				}else if(itemCategory == "plan"){
 					if(isNull(cart_planSelected_UUID)){
 						toAdd = true;
+					}else{
+						toUUID = cart_planSelected_UUID;
 					}
 				}else if(itemCategory == "volumeType"){
 					if(isNull(cart_volumeTypeSelected_UUID)){
 						toAdd = true;
+					}else{
+						toUUID = cart_volumeTypeSelected_UUID;
 					}
 				}
-			}
-			
-			
-			
-	    	if(toAdd){
+			window.console.log("to UUID" + toUUID);
+	    	if(itemId!=-1 && toAdd){
 	    		addItemToCart(itemId,itemPrice,itemCategory);
-	    	}else if(itemId!=-1){
-	    		updateCartItem(itemId);
-	    	}else if(itemId==-1){
-	    		removeCartItem(itemId,itemCategory);
+	    		window.console.log("add itemid: " + itemId);
+	    	}else if(itemId!=-1 && toUUID!=""){
+	    		window.console.log("update with last uuid:" + toUUID + " new itemid:" + itemId);
+	    		updateCartItem(itemId,toUUID,itemPrice,itemCategory);
+	    	}else if(itemId==-1  && toUUID!=""){
+	    		window.console.log("remove uuid:" + toUUID);
+	    		removeCartItem(toUUID,itemCategory);
 	    	}
 	    	activeCartSubmitBtn();
 }
 
-function addItemToCart(itemId,itemPrice,itemCategory);{
+function addItemToCart(itemId,itemPrice,itemCategory){
 	$.ajax({
         url: Server + "/add",
         type: "POST",
         dataType:"json",
         data: {
         	itemSpecificationId:itemId,
-        	price:price,
+        	price:itemPrice,
         	number:1
         },
         cache: false,
@@ -157,7 +171,8 @@ function addItemToCart(itemId,itemPrice,itemCategory);{
                 	var price  = data.data.amount;
                 	udpateAmount(price);
                 	var uuid = data.data.currentItemUUID;
-                	setCategorySelctedIdValue(categoryId,uuid);	                	
+                	window.console.log("set "+ itemCategory + " with uuid: " + uuid);
+                	setCategorySelctedIdValue(itemCategory,uuid);	                	
                 }
                 if(data.status == "error"){
                     printMessage(data.msg);
@@ -175,13 +190,15 @@ function addItemToCart(itemId,itemPrice,itemCategory);{
 }
 
 
-function updateCartItem(itemId){
+function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 $.ajax({
     url: Server + "/update",
     type: "POST",
     dataType:"json",
     data: {
     	itemSpecificationId:itemId,
+    	uuid:uuid,
+    	price:itemPrice
     },
     cache: false,
     success: function(data) {
@@ -191,7 +208,7 @@ $.ajax({
             	var price  = data.data.amount;
             	udpateAmount(price);
             	var uuid = data.data.currentItemUUID;
-            	setCategorySelctedIdValue(categoryId,uuid);	
+            	setCategorySelctedIdValue(itemCategory,uuid);	
             }
             if(data.status == "error"){
                 printMessage(data.msg);
@@ -214,7 +231,7 @@ $.ajax({
     type: "POST",
     dataType:"json",
     data: {
-    	uuid:UUId
+    	uuid:toId
     },
     cache: false,
     success: function(data) {
@@ -223,7 +240,7 @@ $.ajax({
             if(data.status == "success"){
             	var price  = data.data.amount;
             	udpateAmount(price);
-            	setCategorySelctedIdValue(categoryId, "");
+            	setCategorySelctedIdValue(itemCategory, "");
             }
             if(data.status == "error"){
                 printMessage(data.msg);

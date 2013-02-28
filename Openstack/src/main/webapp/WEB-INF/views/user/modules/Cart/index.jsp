@@ -18,17 +18,16 @@
 
 <div id="mainBody" >
     <div id="cartCheck">
-        <table>
+        <table class="table">
         <thead><tr><th class="cartLabel"></th><th class="cartCategory"></th></tr></thead>
         <tbody>
         <tr>
-            <td><spring:message code="cart.image.title"/></td>
-            <td>
+            <td class="cartLabel"><spring:message code="cart.image.title"/>: </td>
+            <td class="cartCategory">
                 <select class="imgList selectable" isos="img">
-                <option value="-1" selected><--></option>
+                <option value="-1" selected><spring:message code="choose.label"/></option>
                     <c:forEach items="${imgList}" var="img" varStatus="status">
-                                <option value="${img.id}">
-                                <input type="hidden" value="${img.defaultPrice}" name="defaultPrice"/>
+                                <option value="${img.id}" defaultprice="${img.defaultPrice}">
                                 <c:forEach items="${img.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- 
@@ -41,13 +40,12 @@
             </td>
         </tr>
         <tr>
-            <td><spring:message code="cart.flavor.title"/></td>
-            <td>
+            <td class="cartLabel"><spring:message code="cart.flavor.title"/>: </td>
+            <td class="cartCategory">
                 <select class="flavorList selectable" isos="flavor">
-                <option value="-1" selected><--></option>
+                <option value="-1" selected><spring:message code="choose.label"/></option>
                     <c:forEach items="${flavorList}" var="flavor" varStatus="status">
-                                <option value="${img.id}">
-                                <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
+                                <option value="${flavor.id}" defaultprice="${flavor.defaultPrice}">
                                 <c:forEach items="${flavor.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- 
@@ -60,13 +58,12 @@
             </td>
         </tr>
         <tr>
-            <td><spring:message code="cart.plan.title"/></td>
-            <td>
+            <td class="cartLabel"><spring:message code="cart.plan.title"/>: </td>
+            <td class="cartCategory">
                 <select class="planList selectable" isos="plan">
-                 <option value="-1" selected><--></option>
+                 <option value="-1" selected><spring:message code="choose.label"/></option>
                     <c:forEach items="${planList}" var="plan" varStatus="status">
-                                <option value="${plan.id}">
-                                <input type="hidden" value="${plan.defaultPrice}" name="defaultPrice"/>
+                                <option value="${plan.id}" defaultprice="${plan.defaultPrice}">
                                 <c:forEach items="${plan.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- 
@@ -79,13 +76,12 @@
             </td>
         </tr>
         <tr>
-            <td><spring:message code="cart.volume.title"/></td>
-            <td>
+            <td class="cartLabel"><spring:message code="cart.volume.title"/>: </td>
+            <td class="cartCategory">
                 <select class="volumeTypeList selectable" isos="volumeType">
-                <option value="-1" selected><spring:message code="cancel.button"/></option>
+                <option value="-1" selected><spring:message code="choose.label"/></option>
                     <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
-                                <option value="${volumeType.id}">
-                                <input type="hidden" value="${volumeType.defaultPrice}" name="defaultPrice"/>
+                                <option value="${volumeType.id}" defaultprice="${volumeType.defaultPrice}">
                                 <c:forEach items="${volumeType.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- 

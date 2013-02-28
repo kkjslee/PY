@@ -208,3 +208,16 @@
 .ui-dialog .ui-dialog-title{
 	padding:1px;
 }
+.table th, .table td{
+	border-top:0 none;
+	border-bottom:1px solid #DDDDDD;
+}
+.table .cartLabel{
+	width:30%;
+	text-align:right;
+}
+.table .cartCategory{
+	width:70%;
+	text-align:left;
+	text-index:8px;
+}

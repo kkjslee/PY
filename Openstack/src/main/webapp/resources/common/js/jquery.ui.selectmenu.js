@@ -1,22 +1,17 @@
  /*
- * jQuery UI selectmenu dev version * jQuery UI selectmenu 1.2.1 version
+ * jQuery UI Selectmenu version 1.3.0
  *
- * Copyright (c) 2009 AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT (MIT-LICENSE.txt)
- * and GPL (GPL-LICENSE.txt) licenses.
+ * Copyright (c) 2009-2010 filament group, http://filamentgroup.com
+ * Copyright (c) 2010-2012 Felix Nagel, http://www.felixnagel.com
+ * Licensed under the MIT (MIT-LICENSE.txt)
  *
- * http://docs.jquery.com/UI
  * https://github.com/fnagel/jquery-ui/wiki/Selectmenu
  */
 
 (function($) {
 
 $.widget("ui.selectmenu", {
-	getter: "value",
-	version: "1.9",
-	eventPrefix: "selectmenu",
 	options: {
-		transferClasses: true,
 		appendTo: "body",
 		typeAhead: 1000,
 		style: 'dropdown',
@@ -39,7 +34,7 @@ $.widget("ui.selectmenu", {
 		var self = this, o = this.options;
 
 		// set a default id value, generate a new random one if not set by developer
-		var selectmenuId = (this.element.attr( 'id' ) || 'ui-selectmenu-' + Math.random().toString( 16 ).slice( 2, 10 )).replace(':', '\\:');
+		var selectmenuId = (this.element.attr( 'id' ) || 'ui-selectmenu-' + Math.random().toString( 16 ).slice( 2, 10 )).replace(/(:|\.)/g,'')
 
 		// quick array of button and menu id's
 		this.ids = [ selectmenuId, selectmenuId + '-button', selectmenuId + '-menu' ];
@@ -283,7 +278,7 @@ $.widget("ui.selectmenu", {
 			var opt = $(this);
 			selectOptionData.push({
 				value: opt.attr('value'),
-				text: self._formatText(opt.text()),
+				text: self._formatText(opt.text(), opt),
 				selected: opt.attr('selected'),
 				disabled: opt.attr('disabled'),
 				classes: opt.attr('class'),
@@ -319,7 +314,13 @@ $.widget("ui.selectmenu", {
 				if ( selectOptionData[ i ].typeahead ) {
 					thisAAttr[ 'typeahead' ] = selectOptionData[ i ].typeahead;
 				}
-				var thisA = $('<a/>', thisAAttr);
+				var thisA = $('<a/>', thisAAttr)
+					.bind('focus.selectmenu', function() {
+						$(this).parent().mouseover();
+					})
+					.bind('blur.selectmenu', function() {
+						$(this).parent().mouseout();
+					});
 				var thisLi = $('<li/>', thisLiAttr)
 					.append(thisA)
 					.data('index', i)
@@ -327,12 +328,8 @@ $.widget("ui.selectmenu", {
 					.data('optionClasses', selectOptionData[i].classes || '')
 					.bind("mouseup.selectmenu", function(event) {
 						if (self._safemouseup && !self._disabled(event.currentTarget) && !self._disabled($( event.currentTarget ).parents( "ul>li." + self.widgetBaseClass + "-group " )) ) {
-							var changed = $(this).data('index') != self._selectedIndex();
 							self.index($(this).data('index'));
 							self.select(event);
-							if (changed) {
-								self.change(event);
-							}
 							self.close(event, true);
 						}
 						return false;
@@ -340,16 +337,16 @@ $.widget("ui.selectmenu", {
 					.bind("click.selectmenu", function() {
 						return false;
 					})
-					.bind('mouseover.selectmenu focus.selectmenu', function(e) {
+					.bind('mouseover.selectmenu', function() {
 						// no hover if diabled
-						if (!$(e.currentTarget).hasClass(self.namespace + '-state-disabled') && !$(e.currentTarget).parent("ul").parent("li").hasClass(self.namespace + '-state-disabled')) {
+						if (!$(this).hasClass(self.namespace + '-state-disabled') && !$(this).parent("ul").parent("li").hasClass(self.namespace + '-state-disabled')) {
 							self._selectedOptionLi().addClass(activeClass);
 							self._focusedOptionLi().removeClass(self.widgetBaseClass + '-item-focus ui-state-hover');
 							$(this).removeClass('ui-state-active').addClass(self.widgetBaseClass + '-item-focus ui-state-hover');
 						}
 					})
-					.bind('mouseout.selectmenu blur.selectmenu', function() {
-						if ($(this).is(self._selectedOptionLi().selector)) {
+					.bind('mouseout.selectmenu', function() {
+						if ($(this).is(self._selectedOptionLi())) {
 							$(this).addClass(activeClass);
 						}
 						$(this).removeClass(self.widgetBaseClass + '-item-focus ui-state-hover');
@@ -408,12 +405,6 @@ $.widget("ui.selectmenu", {
 			.toggleClass( 'ui-icon-triangle-1-s', isDropDown )
 			.toggleClass( 'ui-icon-triangle-2-n-s', !isDropDown );
 
-		// transfer classes to selectmenu and list
-		if ( o.transferClasses ) {
-			var transferClasses = this.element.attr( 'class' ) || '';
-			this.newelement.add( this.list ).addClass( transferClasses );
-		}
-
 		// set menu width to either menuWidth option value, width option value, or select width
 		if ( o.style == 'dropdown' ) {
 			this.list.width( o.menuWidth ? o.menuWidth : o.width );
@@ -440,7 +431,7 @@ $.widget("ui.selectmenu", {
 		}
 
 		// update value
-		this.index( this._selectedIndex() );
+		this._refreshValue();
 
 		// set selected item so movefocus has intial state
 		this._selectedOptionLi().addClass(this.widgetBaseClass + '-item-focus');
@@ -561,6 +552,7 @@ $.widget("ui.selectmenu", {
 		if ( self.newelement.attr("aria-disabled") != 'true' ) {
 			self._closeOthers(event);
 			self.newelement.addClass('ui-state-active');
+
 			self.list.attr('aria-hidden', false);
 			self.listWrap.addClass( self.widgetBaseClass + '-open' );
 
@@ -631,9 +623,9 @@ $.widget("ui.selectmenu", {
 		}
 	},
 
-	_formatText: function(text) {
+	_formatText: function(text, opt) {
 		if (this.options.format) {
-			text = this.options.format(text);
+			text = this.options.format(text, opt);
 		} else if (this.options.escapeHtml) {
 			text = $('<div />').text(text).html();
 		}
@@ -761,7 +753,6 @@ $.widget("ui.selectmenu", {
 			return $(elem).hasClass( this.namespace + '-state-disabled' );
 	},
 
-
 	_disableOption: function(index) {
 			var optionElem = this._optionLis.eq(index);
 			if (optionElem) {
@@ -798,11 +789,12 @@ $.widget("ui.selectmenu", {
 			}
 	},
 
-	index: function(newValue) {
+	index: function(newIndex) {
 		if (arguments.length) {
-			if (!this._disabled($(this._optionLis[newValue]))) {
-				this.element[0].selectedIndex = newValue;
+			if (!this._disabled($(this._optionLis[newIndex])) && newIndex != this._selectedIndex()) {
+				this.element[0].selectedIndex = newIndex;
 				this._refreshValue();
+				this.change();
 			} else {
 				return false;
 			}
@@ -812,9 +804,10 @@ $.widget("ui.selectmenu", {
 	},
 
 	value: function(newValue) {
-		if (arguments.length) {
+		if (arguments.length && newValue != this.element[0].value) {
 			this.element[0].value = newValue;
 			this._refreshValue();
+			this.change();
 		} else {
 			return this.element[0].value;
 		}
@@ -863,6 +856,7 @@ $.widget("ui.selectmenu", {
 			var _offset = "0 " + ( this.list.offset().top  - selected.offset().top - ( this.newelement.outerHeight() + selected.outerHeight() ) / 2);
 		}
 		this.listWrap
+			.removeAttr('style')
 			.zIndex( this.element.zIndex() + 1 )
 			.position({
 				// set options for position plugin
@@ -870,7 +864,7 @@ $.widget("ui.selectmenu", {
 				my: o.positionOptions.my,
 				at: o.positionOptions.at,
 				offset: o.positionOptions.offset || _offset,
-				collision: o.positionOptions.collision || o.style == "popup" ? 'fit' :'flip'
+				collision: o.positionOptions.collision || (o.style == "popup" ? 'fit' :'flip')
 			});
 	}
 });

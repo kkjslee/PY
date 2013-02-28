@@ -29,8 +29,16 @@
          ${item.status}
     </td>
     <td class="flavorOperation moduleOperation">
-        <!-- <span ><a class="button" href="#" onclick="showEditFlavor(this);return false;"><spring:message code="edit.button" /></a></span> -->
-        <span ><a class="button" href="#" onclick="removeFlavor(this);return false;"><spring:message code="remove.button" /></a></span>
+       <div class="btn-group">
+         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <spring:message code="common.operation" />
+             <span class="caret"></span>
+         </a>
+         <ul class="dropdown-menu">
+         <li><a  href="#" onclick="removeFlavor(this);return false;"><spring:message code="remove.button" /></a></li>
+         </ul>
+       </div>
+        <!-- <span ><a  href="#" onclick="showEditFlavor(this);return false;"><spring:message code="edit.button" /></a></span> -->
     </td>
 </tr>
 </c:forEach>

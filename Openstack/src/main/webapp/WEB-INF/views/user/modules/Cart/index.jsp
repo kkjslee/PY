@@ -19,8 +19,14 @@
 <div id="mainBody" >
     <div id="cartCheck">
         <table class="table">
-        <thead><tr><th class="cartLabel"></th><th class="cartCategory"></th></tr></thead>
         <tbody>
+        <tr>
+            <td class="cartLabel"><spring:message code="cart.name.title"/>: </td>
+            <td class="cartCategory">
+                <input type="text" name="name" id="name" maxlength="40"/>
+            </td>
+            <td colspan="2"></td>
+       </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.image.title"/>: </td>
             <td class="cartCategory">
@@ -38,6 +44,7 @@
                             </c:forEach>
                 </select>
             </td>
+            <td colspan="2"></td>
         </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.flavor.title"/>: </td>
@@ -56,6 +63,7 @@
                             </c:forEach>
                 </select>
             </td>
+             <td colspan="2"></td>
         </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.plan.title"/>: </td>
@@ -74,6 +82,7 @@
                             </c:forEach>
                 </select>
             </td>
+             <td colspan="2"></td>
         </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.volume.title"/>: </td>
@@ -91,6 +100,12 @@
                                 </option>
                             </c:forEach>
                 </select>
+            </td>
+            <td width="18%" style="text-align:left;">
+                <spring:message code="volume.name"/>: <input type="text" name="volumeName" style="width:80px" id="volumeName" maxlength="40"/>
+            </td>
+            <td width="22%" style="text-align:left;">
+                 <spring:message code="volume.location"/>: <input type="text" name="volumeLocation" style="width:110px" id="volumeLocation" maxlength="90"/>
             </td>
         </tr>
         </tbody>
@@ -112,6 +127,6 @@
 	   <div class="payMethodsContainer">
 	   </div>
 	</div>
-    <script>setServer("<%=request.getContextPath()%>/user/cart");</script>
+    <script>setServer("<%=request.getContextPath()%>/user/cart");$("select").selectmenu();</script>
 </body>
 </html>

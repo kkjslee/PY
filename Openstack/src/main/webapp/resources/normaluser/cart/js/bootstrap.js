@@ -3,7 +3,10 @@ var cart_imgSelected_UUID = "";
 var cart_flavorSelected_UUID="";
 var cart_planSelected_UUID="";
 var cart_volumeTypeSelected_UUID="";
-
+//this should be called first in jsp file
+function setServer(server){
+	Server = server;
+}
 $(function(){
 	setup();
 	$(".submitorder").bind("click", function(e){
@@ -86,10 +89,7 @@ function validOrderCondition(){
 	}
 	
 }
-//this should be called first in jsp file
-function setServer(server){
-	Server = server;
-}
+
 function setup(){
 	$(".selectable").each(function(e){
 		$(this).change(function(e){
@@ -154,6 +154,15 @@ function sendCartRequest(itemCategory,itemId,itemPrice){
 }
 
 function addItemToCart(itemId,itemPrice,itemCategory){
+	var name = "";
+	var extra = "";
+	if(itemCategory == "flavor"){
+		name = $("#name").val();
+	}
+	if(itemCategory =="volumeType"){
+		name=$("#volumeName").val();
+		extra = $("#volumeLocation").val();
+	}
 	$.ajax({
         url: Server + "/add",
         type: "POST",
@@ -161,6 +170,8 @@ function addItemToCart(itemId,itemPrice,itemCategory){
         data: {
         	itemSpecificationId:itemId,
         	price:itemPrice,
+        	extra:extra,
+        	name:name,
         	number:1
         },
         cache: false,
@@ -191,6 +202,15 @@ function addItemToCart(itemId,itemPrice,itemCategory){
 
 
 function updateCartItem(itemId,uuid, itemPrice,itemCategory){
+	var name = "";
+	var extra = "";
+	if(itemCategory == "flavor"){
+		name = $("#name").val();
+	}
+	if(itemCategory =="volumeType"){
+		name=$("#volumeName").val();
+		extra = $("#volumeLocation").val();
+	}
 $.ajax({
     url: Server + "/update",
     type: "POST",
@@ -198,6 +218,8 @@ $.ajax({
     data: {
     	itemSpecificationId:itemId,
     	uuid:uuid,
+    	extra:extra,
+    	name:name,
     	price:itemPrice
     },
     cache: false,

@@ -46,14 +46,25 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="f" uri="/WEB-INF/tlds/functions.tld" %>
-
+<style>
+#customForm .control-label{
+    width:140px;
+    padding-top:0;
+}
+#customForm .controls{
+    margin-left:150px;
+}
+#customForm .control-group{
+    margin-bottom:10px;
+}
+</style>
 <c:set value="${requestScope[param['form.configuration']]}" var="conf"></c:set>
 <c:if test="${conf['.method'] == null}">
 	<c:set target="${conf}" property=".method" value="post"></c:set>
 </c:if>
 
 <c:if test="${conf['.form'] == 'start_end' or conf['.form'] == 'start'}">
-	<form class="customForm" method="${conf['.method']}"
+	<form id="customForm" class="form-horizontal" method="${conf['.method']}"
 		<c:if test="${conf['.action'] != null}">
 			action="${conf['.action']}" 
 		</c:if>
@@ -70,45 +81,49 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 	<c:if test="${fn:startsWith(p.key, 'form.')}">
 		<c:set value="${fn:replace(p.key, 'form.', '')}" var="item"/>
 		<c:if test="${fn:startsWith(p.value,'[text]')}">
-			<div>
-				<label for="${item}"> 
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div class="control-group">
+				<label  class="control-label" for="${item}"> 
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
-				<span>
-					<input type="text" id="${item}" name="${item}" value="${fn:replace(p.value, '[text]', '')}"/>
-				</span>
+				<div class="controls">
+					<input type="text" id="${item}" name="${item}" <c:if test="${conf[f:append(item, '.title')] != null}">
+            title="${conf[f:append(item, '.title')]}" </c:if> value="${fn:replace(p.value, '[text]', '')}"/>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[password]')}">
-			<div>
-				<label for="${item}">
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div class="control-group">
+				<label  class="control-label"  for="${item}">
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
-				<span>
-					<input type="password" id="${item}" name="${item}" value="${fn:replace(p.value, '[password]', '')}"/>
-				</span>
+				<div class="controls">
+					<input type="password" id="${item}" name="${item}"  <c:if test="${conf[f:append(item, '.title')] != null}">
+            title="${conf[f:append(item, '.title')]}" </c:if> value="${fn:replace(p.value, '[password]', '')}"/>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[file]')}">
-			<div>
-				<label for="${item}">
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div class="control-group">
+				<label  class="control-label"  for="${item}">
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
-				<span>
-					<input type="file" id="${item}" name="${item}"/>
+				<div class="controls">
+					<input type="file" id="${item}" name="${item}"   <c:if test="${conf[f:append(item, '.title')] != null}">
+            title="${conf[f:append(item, '.title')]}" </c:if> />
 					<span> ${fn:replace(p.value, '[file]', '')} </span>
-				</span>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[hidden]')}">
 			 <input type="hidden" id="${item}" name="${item} " value="${fn:replace(p.value, '[hidden]', '')}"/>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[checkbox]')}">
-			<div>
-				<label>
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div class="control-group">
+				<label class="control-label"  >
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
 				<c:set var="v" value="${fn:replace(p.value, '[checkbox]', '')}"></c:set>
+				<div class="controls">
 				<c:if test="${conf[f:append(item, '.options')] == null}">
 					<input type="checkbox" id="${item}" name="${item}" 
 						<c:if test="${v == 'true'}">
@@ -117,6 +132,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 					/>
 				</c:if>
 				<c:if test="${conf[f:append(item, '.options')] != null}">
+				    <div  class="controls">
 					<c:set var="okey" value="${conf[f:append(item, 'option.key')]}"></c:set>
 					<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
 					<span>
@@ -130,18 +146,20 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 							</span>
 						</c:forEach>
 					</span>
+					</div>
 				</c:if>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[radio]')}">
-			<div>
-				<label>
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div class="control-group">
+				<label class="control-label"  >
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
 				<c:set var="v" value="${fn:replace(p.value, '[radio]', '')}"></c:set>
 				<c:set var="okey" value="${conf[f:append(item, 'option.key')]}"></c:set>
 				<c:set var="ovalue" value="${conf[f:append(item, '.option.value')]}"></c:set>
-				<span>
+				<div  class="controls">
 					<c:forEach items="${conf[f:append(item, '.options')]}" var="o" varStatus="status">
 						<span>
 							<input type="radio" id="${f:append(item, status.index)}" name="${item}"
@@ -151,37 +169,43 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 							</label>
 						</span>
 					</c:forEach>
-				</span>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[submit]')}">
-			<label for="${item}">&nbsp;</label>
-			<span>
+		  <div  class="control-group">
+			<label class="control-label"  for="${item}">&nbsp;</label>
+			<div  class="controls">
 				<input type="submit" id="${item}" name="${item}" value="${fn:replace(p.value, '[submit]', '')}"/>
-			</span>
+			</div>
+		</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[reset]')}">
-			<label for="${item}">&nbsp;</label>
-			<span>
+		  <div  class="control-group">
+			<label class="control-label"  for="${item}">&nbsp;</label>
+			<div  class="controls">
 				<input type="reset" id="${item}" name="${item}" value="${fn:replace(p.value, '[reset]', '')}"/>
-			</span>
+			</div>
+			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[button]')}">
-			<label for="${item}">
+		  <div  class="control-group">
+			<label class="control-label"  for="${item}">
 				<c:if test="${conf[f:append(item, '.label')] != null }">
-					${conf[f:append(item, '.label')]}
+					${conf[f:append(item, '.label')]}:
 				</c:if>
 			</label>
-			<span>
+			<div  class="controls">
 				<input type="button" id="${item}" name="${item}" value="${fn:replace(p.value, '[button]', '')}"/>
-			</span>
+			</div>
+			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[select]')}" >
-			<div>
-				<label for="${item}">
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div  class="control-group">
+				<label class="control-label"  for="${item}">
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
-				<span>
+				<div  class="controls">
 					<select id="${item}" name="${item}" >
 						<c:set var="v" value="${fn:replace(p.value, '[select]', '')}"></c:set>
 						<c:set var="okey" value="${conf[f:append(item, '.option.key')]}"></c:set>
@@ -190,41 +214,50 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 							<option value="${o[okey]}" <c:if test="${v == o[okey]}">selected</c:if> >${o[ovalue]}</option>
 						</c:forEach>
 					</select>
-				</span>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[textarea]')}" >
-			<div>
-				<label for="${item}">
-					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+			<div class="control-group">
+				<label class="control-label"   for="${item}">
+					${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 				</label>
-				<span>
-					<textarea id="${item}" name="${item}">${fn:replace(p.value, '[textarea]', '')}</textarea>
-				</span>
+				<div  class="controls">
+					<textarea id="${item}" name="${item}"   <c:if test="${conf[f:append(item, '.title')] != null}">
+            title="${conf[f:append(item, '.title')]}" </c:if> >${fn:replace(p.value, '[textarea]', '')}</textarea>
+				</div>
 			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[plain]')}">
-			<label for="${item}">
-				${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}
+		<div  class="control-group">
+			<label class="control-label"  for="${item}">
+				${f:label(conf[f:append(item, '.label')], f:append(item, '.label'))}:
 			</label>
-			<span id="${item}">${fn:replace(p.value, '[plain]', '')}</span>
+			<div id="${item}"  class="controls">${fn:replace(p.value, '[plain]', '')}</div>
+			</div>
 		</c:if>
 		<c:if test="${fn:startsWith(p.value, '[custom]')}">
-			<label>
+		<div  class="control-group">
+			<label class="control-label"  >
 				<c:if test="${conf[f:append(item, '.label')] != null }">
-					${conf[f:append(item, '.label')]}
+					${conf[f:append(item, '.label')]}:
 				</c:if>
 			</label>
-			<span>
+			<div class="controls">
 				${fn:replace(p.value, '[custom]', '')}
-			</span>
+			</div>
+			</div>
 		</c:if>
 		
 		<c:if test="${conf[f:append(item, '.tip')] != null}">
-			<span>${conf[f:append(item, '.tip')]}</span>
+			<div class="formtip">${conf[f:append(item, '.tip')]}</div>
 		</c:if>
 	</c:if>
 </c:forEach>
 <c:if test="${conf['.form'] == 'start_end' or conf['.form'] == 'end'}">
 	</form>
 </c:if>
+<script>
+$( "#customForm" ).tooltip();
+$("select").selectmenu();
+</script>

@@ -23,8 +23,16 @@
     </td>
     <td class="categoryStatus">${item.enabledDesc}</td>
     <td class="categoryOperation moduleOperation">
-        <span ><a class="button" href="#" onclick="showEditCategory(this);return false;"><spring:message code="edit.button" /></a></span>
-        <c:if test='${item.system==false}'><span ><a class="button" href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span></c:if>
+    <div class="btn-group">
+         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <spring:message code="common.operation" />
+             <span class="caret"></span>
+         </a>
+         <ul class="dropdown-menu">
+            <li> <a href="#" onclick="showEditCategory(this);return false;"><spring:message code="edit.button" /></a></li>
+            <li> <c:if test='${item.system==false}'><span ><a href="#" onclick="showRemoveCategory(this);return false;"><spring:message code="remove.button" /></a></span></c:if></li>
+         </ul>
+    </div>
     </td>
 </tr>
 </c:forEach>

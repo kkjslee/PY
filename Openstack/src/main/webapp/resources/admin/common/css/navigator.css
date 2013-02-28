@@ -7,7 +7,6 @@
     background:white;
 }
 .mainContainer{
-	overflow:hidden;
 }
 .left{
     width:245px;
@@ -22,13 +21,13 @@
 }
 .right {
   background:white;
-  min-width:800px;
   min-height:500px;
   height:100%;
   padding:0;
   margin:0;
   position:absolute;;
   left:255px;
+  min-width:800px;
   top:0;
 }
 .logo{

@@ -37,7 +37,15 @@
          ${item.minDisk}
     </td>
     <td class="imageOperation moduleOperation">
-    <span ><a class="button" href="#" onclick="showImageDetails(this);return false;"><spring:message code="detail.button" /></a></span>
+     <div class="btn-group">
+         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <spring:message code="common.operation" />
+             <span class="caret"></span>
+         </a>
+         <ul class="dropdown-menu">
+         <li><a  href="#" onclick="showImageDetails(this);return false;"><spring:message code="detail.button" /></a></li>
+         </ul>
+     </div>
     </td>
 </tr>
 </c:forEach>

@@ -30,8 +30,16 @@
     <td class="productPrice">${item.enabledDesc}</td>
     <td class="productPrice">${item.defaultPrice}</td>
     <td class="productOperation moduleOperation">
-        <span ><a class="button" href="#" onclick="showEditProduct(this);return false;"><spring:message code="edit.button" /></a></span>
-        <span ><a class="button" href="#" onclick="showEditPrice(this);return false;"><spring:message code="editPrice.button" /></a></span>
+     <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+           <spring:message code="common.operation" />
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+           <li><a href="#" onclick="showEditProduct(this);return false;"><spring:message code="edit.button" /></a></li>
+           <li><a href="#" onclick="showEditPrice(this);return false;"><spring:message code="editPrice.button" /></a></li>
+           </ul>
+       </div>
     </td>
 </tr>
 </c:forEach>

@@ -5,7 +5,7 @@
     <c:if test="${not empty network}">
     <jsp:useBean id="formMap" class="java.util.LinkedHashMap" scope="request" />
     <c:set target="${formMap}" property=".form" value="start_end" />
-    <c:set target="${formMap}" property=".title" value="<spring:message code='network.details.label'>" />
+    <c:set target="${formMap}" property=".title" value="<spring:message code='network.details.label'/>" />
     <c:set target="${formMap}" property="form.id" value="[plain]${network.id}" />
     <c:set target="${formMap}" property="form.idhidden" value="[hidden]${network.id}" />
     <c:set target="${formMap}" property="idhidden.label" value=" " />
@@ -70,7 +70,7 @@ function showCreatSubnet(){
         title:'<spring:message code="admin.subnet.create"/>',
         container:$('#showCreateSubnetForm'),
         url:'<c:url value="/admin/quantum/showCreateSubnetForm"/>',
-        width:320,
+        width:420,
         buttons: [
                   {   
                      text: '<spring:message code="confirm.button"/>', 
@@ -146,7 +146,7 @@ function showEditSubnet(id){
         title:'<spring:message code="admin.subnet.edit"/>',
         container:$('#showEditSubnetForm'),
         url:'<c:url value="/admin/quantum/showEditSubnetForm"/>',
-        width:320,
+        width:420,
         data:{
         	subnetId:id
         },
@@ -172,7 +172,7 @@ function showPortDetail(id){
         title:'<spring:message code="port.details"/>',
         container:$('#showEditPortForm'),
         url:'<c:url value="/admin/quantum/showPortDetail"/>',
-        width:320,
+        width:420,
         data:{
             portId:id
         },
@@ -192,7 +192,7 @@ function showSubnetDetail(id){
         title:'<spring:message code="subnet.details"/>',
         container:$('#showEditSubnetForm'),
         url:'<c:url value="/admin/quantum/showSubnetDetail"/>',
-        width:320,
+        width:420,
         data:{
             subnetId:id
         },
@@ -293,7 +293,7 @@ function showCreatPort(){
         title:'<spring:message code="admin.port.create"/>',
         container:$('#showCreatePortForm'),
         url:'<c:url value="/admin/quantum/showCreatePortForm"/>',
-        width:320,
+        width:420,
         buttons: [
                   {   
                      text: '<spring:message code="confirm.button"/>', 
@@ -359,7 +359,7 @@ function showEditPort(id){
         title:'<spring:message code="admin.port.edit"/>',
         container:$('#showEditPortForm'),
         url:'<c:url value="/admin/quantum/showEditPortForm"/>',
-        width:320,
+        width:420,
         data:{
             portId:id
         },

@@ -24,7 +24,7 @@ function setup() {
     window.document.title = '<spring:message code="admin.instance.title"/>';
     loadInstances(pageIndex, pageSize);
 }
-//server返回的数据html,应该为tbody中的内容，父层结构：<div id="mainBody"><table class="dataTable"><thead></thead><tbody>json返回的内容<tbody><tfoot></tfoot></table></div>
+//server返回的数据html,应该为tbody中的内容，父层结构：<div id="mainBody"><table class="dataTable  table table-striped table-hover"><thead></thead><tbody>json返回的内容<tbody><tfoot></tfoot></table></div>
 function loadInstances(pageIndex, pageSize) {
     var tableBodyContainer=$(".dataTable").find("tbody").empty();
     $("<span class='loadingTips'>"+"<spring:message code='message.loading.data'/>"+"</span>").appendTo(tableBodyContainer);
@@ -114,7 +114,7 @@ function showCreatVM(){
     }]).appendTo("#mainBody");
 
     createVM = $(createVM).dialog({
-        title: "<span class=\"ui-icon ui-icon-circle-plus smallIcon\"></span><spring:message code="vm.create.title"/>",
+        title: "<spring:message code="vm.create.title"/>",
         modal: true,
         autoOpen: false,
         resizable: false,

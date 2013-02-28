@@ -76,7 +76,7 @@ function showEditFlavor(which){
     }]).appendTo("#mainBody");
 
     editFlavor = $(editFlavor).dialog({
-        title: '<span class=\"ui-icon ui-icon-circle-plus smallIcon\"></span><spring:message code="flavor.edit.title"/>',
+        title: '<spring:message code="flavor.edit.title"/>',
         modal: true,
         autoOpen: false,
         resizable: false,
@@ -136,7 +136,7 @@ function showCreatFlavor(){
         id: "addFlavor"
     }]).appendTo("#mainBody");
 	addFlavor = $(addFlavor).dialog({
-        title: "<span class=\"ui-icon ui-icon-circle-plus smallIcon\"></span><spring:message code='flavor.add.title'/>",
+        title: "<spring:message code='flavor.add.title'/>",
         modal: true,
         autoOpen: false,
         resizable: false,

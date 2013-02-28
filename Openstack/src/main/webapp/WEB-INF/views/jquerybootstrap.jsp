@@ -15,8 +15,10 @@
 <link ref="${bootIEPath}/css/ie.css" rel="stylesheet" type="text/css" />
 <link type="text/css" href="${bootPath}/css/jquery.ui.1.9.2.ie.css" rel="stylesheet" />
 <![endif]-->
-
+<link href="${rPath}/css/jquery.ui.selectmenu.css" rel="Stylesheet" type="text/css"  />
 <link href="${rPath}/css/pagination.css" rel="Stylesheet" type="text/css"  />
+<link href="${rPath}/css/jquery.multiselect.css" rel="Stylesheet" type="text/css"  />
+<link href="${rPath}/css/common.css" rel="Stylesheet" type="text/css"  />
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -35,7 +37,9 @@
 <script src="${rPath}/js/check.js" type="text/javascript"></script>
 <script src="${rPath}/js/common.js" type="text/javascript"></script>
 <script src="${rPath}/js/jquery.tableSelect.js" language="javascript"></script>
- 
+<script src="${rPath}/js/jquery.ui.position.js" type="text/javascript"></script>
+<script src="${rPath}/js/jquery.ui.selectmenu.js" type="text/javascript"></script>
+ <script src="${rPath}/js/jquery.multiselect.min.js" type="text/javascript"></script>
 <!--[if lte IE 6]>
  <script src="${bootIEPath}/js/bootstrap-ie.js" type="text/javascript"></script>
 <![endif]-->

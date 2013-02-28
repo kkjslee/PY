@@ -18,7 +18,7 @@
 </div>
 
 <div id="mainBody" >
-	<table class="dataTable imList">
+	<table class="dataTable imList  table table-striped table-hover">
         <thead>
             <tr class="headerRow">
                 <th class="categoryName"><spring:message code="category.name.label" /> </th>
@@ -31,7 +31,10 @@
         <tfoot>
             <tr class="footerRow">
             <td colspan="2" class="pagination"></td>
-            <td align="left"><a class="button" href="#" onclick="showCreatCategory();return false;"><spring:message code="create.button"/></a></td>
+            <td align="left">
+            <a class="button" href="#" onclick="showCreatCategory();return false;"><spring:message code="create.button"/>
+            </a>
+            </td>
             </tr>
         </tfoot>
     </table>

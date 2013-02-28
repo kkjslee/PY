@@ -18,7 +18,7 @@
 </div>
 
 <div id="mainBody" >
-    <table class="dataTable ">
+    <table class="dataTable  table table-striped table-hover">
         <thead>
             <tr class="headerRow">
                 <th class="flavorName"><spring:message code="admin.flavor.name" /> </th>

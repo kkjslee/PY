@@ -45,7 +45,7 @@
             		 title:'<spring:message code="user.user.signup"/>',
             		 container:$('#showRegForm'),
             		 url:'<c:url value="/user/regForm"/>',
-            		 width:260,
+            		 width:420,
        				 buttons: [
        				           {   
        				        	  text: '<spring:message code="confirm.button"/>', 
@@ -69,7 +69,7 @@
                      title:'<spring:message code="user.getpassword"/>',
                      container:$('#showForgetPasswordForm'),
                      url:'<c:url value="/user/forgetPswForm"/>',
-                     width:260,
+                     width:420,
                      buttons: [
                                {   
                                   text: '<spring:message code="confirm.button"/>', 

@@ -37,9 +37,10 @@ example:
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="f" uri="/WEB-INF/tlds/functions.tld" %>
-
 <c:set value="${requestScope[param['grid.configuration']]}" var="conf"></c:set>
 
+<c:url value="/resource/common" var="rPath"></c:url>
+<c:url value="/resource/common/template/jquerybootstrap" var="bootPath"></c:url>
 <jsp:useBean id="map" class="java.util.LinkedHashMap"></jsp:useBean>
 <c:forEach items="${conf}" var="p" >
 	<c:if test="${fn:startsWith(p.key, 'grid.')}">
@@ -140,7 +141,13 @@ example:
 						</td>
 					</c:if>
 					<c:if test="${fn:startsWith(item.value, '[button]')}">
-						<td>
+						<td><div class="btn-group">
+                                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                           <spring:message code="common.operation" />
+                                            <span class="caret"></span>
+                                          </a>
+                                          <ul class="dropdown-menu">
+                                         
 							<c:set value="${fn:replace(item.value, '[button]', '')}" var="subItems"></c:set>
 							<c:choose>
 								<c:when test="${fn:length(subItems) == 0}">
@@ -149,9 +156,11 @@ example:
 											${f:propStr(conf[f:append(item.key, '.value')], d)}
 										</c:when>
 										<c:otherwise>
-											<input type="button" 
-													value="${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}" 
-													onclick="${f:propStr(conf[f:append(item.key, '.onclick')], d)}" />
+										<li>
+											<a href="#" onclick="${f:propStr(conf[f:append(item.key, '.onclick')], d)};return false;" >
+													${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
+											</a>
+										</li>
 										</c:otherwise>
 									</c:choose>
 								</c:when>
@@ -162,14 +171,18 @@ example:
 												${f:propStr(conf[f:append(key, '.value')], d)}
 											</c:when>
 											<c:otherwise>
-												<input type="button" 
-													value="${f:label(conf[f:append(key, '.label')], f:append(key, '.label'))}" 
-													onclick="${f:propStr(conf[f:append(key, '.onclick')], d)}" />
+											<li>
+                                            <a href="#" onclick="${f:propStr(conf[f:append(key, '.onclick')], d)};return false;" >
+                                                    ${f:label(conf[f:append(key, '.label')], f:append(key, '.label'))}
+                                            </a>
+                                        </li>
 											</c:otherwise>
 										</c:choose>
 									</c:forTokens>
 								</c:otherwise>
 							</c:choose>
+							  </ul>
+                                        </div>
 						</td>
 					</c:if>
 			</c:forEach>

@@ -18,7 +18,7 @@
 </div>
 
 <div id="mainBody" >
-    <table class="dataTable imList">
+    <table class="dataTable imList  table table-striped table-hover">
         <thead>
             <tr class="headerRow">
                 <th class="imageName"><spring:message code="admin.image.name" /> </th>

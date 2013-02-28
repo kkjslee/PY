@@ -5,8 +5,6 @@
 	margin:0;
 	padding:0;
 	background:white;
-	white-space:nowrap;
-	overflow:hidden;
 }
 .left{
     width:245px;
@@ -21,7 +19,6 @@
 }
 .right {
   background:white;
-  min-width:800px;
   min-height:500px;
   height:100%;
   padding:0;
@@ -29,6 +26,8 @@
   position:absolute;;
   left:255px;
   top:0;
+  padding-right:5px;
+  min-width:800px;
 }
 .logo{
 	padding:20px;

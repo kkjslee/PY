@@ -52,7 +52,6 @@ function showNetWorkDetails(id){
 	        },
 	        success: function(data) {
 	            try{
-	            	$("#banner").text("<spring:message code="network.details.label"/>");
 	                $("#mainBody").html(data);
 	            }catch(e) {
 	            }
@@ -72,7 +71,7 @@ function showCreatNetWork(){
         title:'<spring:message code="admin.network.create"/>',
         container:$('#showCreateNetworkForm'),
         url:'<c:url value="/admin/quantum/showCreateNetworkForm"/>',
-        width:260,
+        width:420,
         buttons: [
                   {   
                      text: '<spring:message code="confirm.button"/>', 
@@ -137,7 +136,7 @@ function showEditNetwork(id){
 	    title:'<spring:message code="admin.network.edit"/>',
 	    container:$('#showEditNetworkForm'),
 	    url:'<c:url value="/admin/quantum/showEditNetworkForm"/>',
-	    width:260,
+	    width:420,
 	    data:{
            id:id
         },

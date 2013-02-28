@@ -33,15 +33,23 @@
          ${item.ostype}
     </td>
     <td class="vmOperation moduleOperation">
-        <span class="ope vmstopped" <c:if test='${item.status=="stopped"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'poweron','<spring:message code='poweron.button'/>');return false;"><spring:message code="poweron.button" /></a></span>
-        <span class="ope vmactive"  <c:if test='${item.status=="active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'poweroff','<spring:message code='poweroff.button'/>');return false;"><spring:message code="poweroff.button" /></a></span>
-        <span class="ope vmunpause"  <c:if test='${item.status=="unpause" || item.status == "active"}'> style="display:block"   </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'pause','<spring:message code='pause.button'/>');return false;"><spring:message code="pause.button" /></a></span>
-        <span class="ope vmpaused" <c:if test='${item.status=="paused"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'unpause','<spring:message code='unpause.button'/>');return false;"><spring:message code="unpause.button" /></a></span>
-        <span class="ope vmsuspended"  <c:if test='${item.status=="suspended"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'resume','<spring:message code='resume.button'/>');return false;"><spring:message code="resume.button" /></a></span>
-        <span class="ope vmresuming"    <c:if test='${item.status=="resuming" || item.status == "active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'suspend','<spring:message code='suspend.button'/>');return false;"><spring:message code="suspend.button" /></a></span>
-        <span <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></span>
-        <span <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'removevm','<spring:message code='remove.button'/>');return false;"><spring:message code="remove.button" /></a></span>
-    </td>
+	   <div class="btn-group">
+	          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	           <spring:message code="common.operation" />
+	            <span class="caret"></span>
+	          </a>
+	          <ul class="dropdown-menu">
+	           <li class="ope vmstopped" <c:if test='${item.status=="stopped"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'poweron','<spring:message code='poweron.button'/>');return false;"><spring:message code="poweron.button" /></a></li>
+		        <li class="ope vmactive"  <c:if test='${item.status=="active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'poweroff','<spring:message code='poweroff.button'/>');return false;"><spring:message code="poweroff.button" /></a></li>
+		        <li class="ope vmunpause"  <c:if test='${item.status=="unpause" || item.status == "active"}'> style="display:block"   </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'pause','<spring:message code='pause.button'/>');return false;"><spring:message code="pause.button" /></a></li>
+		        <li class="ope vmpaused" <c:if test='${item.status=="paused"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'unpause','<spring:message code='unpause.button'/>');return false;"><spring:message code="unpause.button" /></a></li>
+		        <li class="ope vmsuspended"  <c:if test='${item.status=="suspended"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'resume','<spring:message code='resume.button'/>');return false;"><spring:message code="resume.button" /></a></li>
+		        <li class="ope vmresuming"    <c:if test='${item.status=="resuming" || item.status == "active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'suspend','<spring:message code='suspend.button'/>');return false;"><spring:message code="suspend.button" /></a></li>
+		        <li <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></li>
+		        <li <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'removevm','<spring:message code='remove.button'/>');return false;"><spring:message code="remove.button" /></a></li>
+	          </ul>
+	    </div>
+        </td>
 </tr>
 </c:forEach>
 </c:when>

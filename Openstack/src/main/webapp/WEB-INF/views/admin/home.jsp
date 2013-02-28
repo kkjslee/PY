@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>系统云平台管理</title>
-<jsp:include page="../commonlinks.jsp" />
+<jsp:include page="../jquerybootstrap.jsp" />
 <jsp:include page="adminlinks.jsp" /> 
 <link href="<%=request.getContextPath()%>/resource/admin/common/css/navigator.css" rel="Stylesheet" type="text/css"  />
 <script src="<%=request.getContextPath()%>/admin/scripts/navinit" type="text/javascript"></script>

@@ -81,7 +81,7 @@ function showImageDetails(which){
     }]).appendTo("#mainBody");
 
     imageDetails = $(imageDetails).dialog({
-        title: '<span class=\"ui-icon ui-icon-circle-plus smallIcon\"></span><spring:message code="image.details.title"/>',
+        title: '<spring:message code="image.details.title"/>',
         modal: true,
         autoOpen: false,
         resizable: false,

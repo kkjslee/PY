@@ -15,6 +15,7 @@ import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
+import com.inforstack.openstack.instance.AttributeMap;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.sub.SubOrder;
@@ -82,8 +83,11 @@ public class OrderServiceImpl implements OrderService {
 				}
 				subOrders.add(so);
 				o.setSubOrders(subOrders);
+				AttributeMap.getInstance().put(so.getId(), "name", itemModel.getName());
+				AttributeMap.getInstance().put(so.getId(), "extra", itemModel.getExtra());
 			}
 		}
+		// TODO: create instances after checkout
 		Integer tenantId = SecurityUtils.getTenantId();
 		Integer userId = SecurityUtils.getUserId();
 		User user = this.userService.findUserById(userId);

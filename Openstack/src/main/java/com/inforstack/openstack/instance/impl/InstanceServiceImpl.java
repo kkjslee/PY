@@ -17,6 +17,7 @@ import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.instance.AttachTaskService;
+import com.inforstack.openstack.instance.AttributeMap;
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.instance.InstanceDao;
 import com.inforstack.openstack.instance.InstanceService;
@@ -173,7 +174,7 @@ public class InstanceServiceImpl implements InstanceService {
 							newVolume = this.cinderService.createVolume(access, volume.getName(), "", volume.getSize(), false, volume.getType(), volume.getZone());
 							if (newVolume != null) {
 								// TODO: [ricky] get device name from order
-								String deviceName = "/dev/vdtest";
+								String deviceName = newVolume.getDescription();
 								vi = this.bindVolumeToSubOrder(newVolume, order, vm, deviceName);
 								if (server.getId() != null && !server.getId().isEmpty()) {
 									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
@@ -220,22 +221,33 @@ public class InstanceServiceImpl implements InstanceService {
 		Server server = null;
 		String imageRef = null;
 		String flavorRef = null;
+		String serverName = "New Instance";
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
 			String refId = subOrder.getItem().getRefId();
 			switch (osType) {
-			case ItemSpecification.OS_TYPE_IMAGE_ID:
-				imageRef = refId;
-				break;
-			case ItemSpecification.OS_TYPE_FLAVOR_ID:
-				flavorRef = refId;
-				break;
+				case ItemSpecification.OS_TYPE_IMAGE_ID: {
+					imageRef = refId;
+					String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
+					if (name != null) {
+						serverName = name;
+					}
+					break;
+				}
+				case ItemSpecification.OS_TYPE_FLAVOR_ID: {
+					flavorRef = refId;
+					String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
+					if (name != null) {
+						serverName = name;
+					}
+					break;
+				}
 			}
 		}
 		if (imageRef != null && flavorRef != null) {
 			server = new Server();
-			server.setName("New Instance");
+			server.setName(serverName);
 			server.setImageRef(imageRef);
 			server.setFlavorRef(flavorRef);
 		}
@@ -246,7 +258,8 @@ public class InstanceServiceImpl implements InstanceService {
 		Volume volume = null;
 		
 		VolumeType vt = null;
-		
+		String volumeName = "New Volume";
+		String description = "/dev/test";
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
@@ -256,14 +269,23 @@ public class InstanceServiceImpl implements InstanceService {
 					vt = this.cinderService.getVolumeType(refId);
 				} catch (OpenstackAPIException e) {
 				}
+				String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
+				if (name != null) {
+					volumeName = name;
+				}
+				String extra = AttributeMap.getInstance().get(subOrder.getId(), "extra");
+				if (extra != null) {
+					description = extra;
+				}
 				break;
 			}
 		}
 		
 		if (vt != null) {
 			volume = new Volume();
-			volume.setName("New Volume");
+			volume.setName(volumeName);
 			volume.setType(vt.getId());
+			volume.setDescription(description);
 			// TODO: 
 			//volume.setSize(Integer.parseInt(vt.getName()));
 			volume.setSize(1);

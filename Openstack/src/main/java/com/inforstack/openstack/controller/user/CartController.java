@@ -88,7 +88,7 @@ public class CartController {
 		List<ItemSpecificationModel> planModels = new ArrayList<ItemSpecificationModel>();
 		planModels = listProductsForUser(ItemSpecification.OS_TYPE_PERIOD_ID);
 		model.addAttribute("planList", planModels);
-		
+
 		List<ItemSpecificationModel> volumeTypeModels = new ArrayList<ItemSpecificationModel>();
 		volumeTypeModels = listProductsForUser(ItemSpecification.OS_TYPE_VOLUME_ID);
 		model.addAttribute("volumeTypeList", volumeTypeModels);
@@ -137,14 +137,15 @@ public class CartController {
 	public @ResponseBody
 	Map<String, Object> add(HttpServletRequest request, Model model,
 			CartItemModel cartItem) {
-		
+
 		if (cartItem != null) {
-			
-			ItemSpecification itemSpecification = this.itemService.getItemSpecification(cartItem.getItemSpecificationId());
+
+			ItemSpecification itemSpecification = this.itemService
+					.getItemSpecification(cartItem.getItemSpecificationId());
 			if (itemSpecification != null) {
 				cartItem.setUuid(UUID.randomUUID().toString());
 				cartItem.setStatus(0);
-	
+
 				CartModel cart = null;
 				Object sessionAttribute = WebUtils.getSessionAttribute(request,
 						CART_SESSION_ATTRIBUTE_NAME);
@@ -161,9 +162,9 @@ public class CartController {
 					items[oldItems.length] = cartItem;
 					cart.setItems(items);
 				}
-				
+
 				this.runRules(cart, itemSpecification);
-	
+
 				float amount = 0;
 				CartItemModel[] items = cart.getItems();
 				for (CartItemModel item : items) {
@@ -172,8 +173,8 @@ public class CartController {
 				}
 				cart.setAmount(amount);
 				cart.setCurrentItemUUID(cartItem.getUuid());
-				WebUtils.setSessionAttribute(request, CART_SESSION_ATTRIBUTE_NAME,
-						cart);
+				WebUtils.setSessionAttribute(request,
+						CART_SESSION_ATTRIBUTE_NAME, cart);
 				return JSONUtil.jsonSuccess(cart);
 			}
 		}
@@ -187,42 +188,54 @@ public class CartController {
 			CartItemModel cartItem) {
 
 		if (cartItem != null) {
-			CartItemModel existItem = null;
-			CartModel cart = null;
-			Object sessionAttribute = WebUtils.getSessionAttribute(request,
-					CART_SESSION_ATTRIBUTE_NAME);
-			if (sessionAttribute != null) {
-				cart = (CartModel) sessionAttribute;
-				CartItemModel[] items = cart.getItems();
-				for (CartItemModel item : items) {
-					if (item.getUuid().equalsIgnoreCase(cartItem.getUuid())) {
-						existItem = item;
-						break;
+			ItemSpecification itemSpecification = this.itemService
+					.getItemSpecification(cartItem.getItemSpecificationId());
+			if (itemSpecification != null) {
+				CartItemModel existItem = null;
+				CartModel cart = null;
+				Object sessionAttribute = WebUtils.getSessionAttribute(request,
+						CART_SESSION_ATTRIBUTE_NAME);
+				if (sessionAttribute != null) {
+					cart = (CartModel) sessionAttribute;
+					CartItemModel[] items = cart.getItems();
+					for (CartItemModel item : items) {
+						if (item.getUuid().equalsIgnoreCase(cartItem.getUuid())) {
+							existItem = item;
+							break;
+						}
 					}
 				}
-			}
 
-			if (existItem != null) {
-				existItem.setName(cartItem.getName());
-				existItem.setItemSpecificationId(cartItem
-						.getItemSpecificationId());
-				existItem.setNumber(cartItem.getNumber());
-				existItem.setPrice(cartItem.getPrice());
-				existItem.setStatus(0);
+				if (existItem != null) {
+					if (cartItem.getName() != null) {
+						existItem.setName(cartItem.getName());
+					}
+					if (cartItem.getItemSpecificationId() != null) {
+						existItem.setItemSpecificationId(cartItem
+								.getItemSpecificationId());
+					}
+					if (cartItem.getNumber() != null) {
+						existItem.setNumber(cartItem.getNumber());
+					}
+					if (cartItem.getPrice() != null) {
+						existItem.setPrice(cartItem.getPrice());
+					}
+					existItem.setStatus(0);
 
-				this.runRules(cart, null);
+					this.runRules(cart, null);
 
-				float amount = 0;
-				CartItemModel[] items = cart.getItems();
-				for (CartItemModel item : items) {
-					amount += (item.getNumber().intValue() * item.getPrice()
-							.floatValue());
+					float amount = 0;
+					CartItemModel[] items = cart.getItems();
+					for (CartItemModel item : items) {
+						amount += (item.getNumber().intValue() * item
+								.getPrice().floatValue());
+					}
+					cart.setAmount(amount);
+					cart.setCurrentItemUUID(cartItem.getUuid());
+					WebUtils.setSessionAttribute(request,
+							CART_SESSION_ATTRIBUTE_NAME, cart);
+					return JSONUtil.jsonSuccess(cart);
 				}
-				cart.setAmount(amount);
-				cart.setCurrentItemUUID(cartItem.getUuid());
-				WebUtils.setSessionAttribute(request,
-						CART_SESSION_ATTRIBUTE_NAME, cart);
-				return JSONUtil.jsonSuccess(cart);
 			}
 		}
 
@@ -269,21 +282,24 @@ public class CartController {
 	}
 
 	private void runRules(CartModel cart, ItemSpecification itemSpecification) {
-//		User user = this.userService.findByName(SecurityUtils.getUserName());
-//		Tenant tenant = null;
-//		if (user != null) {
-//			tenant = this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
-//		}
-		
+		// User user = this.userService.findByName(SecurityUtils.getUserName());
+		// Tenant tenant = null;
+		// if (user != null) {
+		// tenant =
+		// this.tenantService.findTenantById(SecurityUtils.getTenant().getId());
+		// }
+
 		CartItemModel[] items = cart.getItems();
-		
+
 		for (CartItemModel item : items) {
-			ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+			ItemSpecification is = this.itemService.getItemSpecification(item
+					.getItemSpecificationId());
 			item.setPrice(is.getDefaultPrice());
 		}
 		String period = null;
 		float priceFactor = 1;
-		if (itemSpecification != null && itemSpecification.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
+		if (itemSpecification != null
+				&& itemSpecification.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
 			period = itemSpecification.getRefId();
 			priceFactor = itemSpecification.getDefaultPrice();
 		} else {
@@ -293,10 +309,11 @@ public class CartController {
 				priceFactor = planItem.getDefaultPrice();
 			}
 		}
-		
+
 		Integer periodId = ((period != null) ? Integer.parseInt(period) : 3);
 		for (CartItemModel item : items) {
-			ItemSpecification is = this.itemService.getItemSpecification(item.getItemSpecificationId());
+			ItemSpecification is = this.itemService.getItemSpecification(item
+					.getItemSpecificationId());
 			switch (is.getOsType()) {
 			case ItemSpecification.OS_TYPE_PERIOD_ID:
 				item.setPeriodId(periodId);
@@ -318,31 +335,32 @@ public class CartController {
 			}
 		}
 
-//		List<Rule> ruleList = this.ruleService.listRuleByTypeName("cart");
-//		if (ruleList != null) {
-//			for (Rule rule : ruleList) {
-//			try {
-//				KnowledgeBase kbase = RuleUtils.readKnowledgeBase(
-//						rule.getName(), rule.getLocationType(),
-//						rule.getLocation());
-//				FactType userType = kbase.getFactType("troposphere", "User");
-//				Object userFact = userType.newInstance();
-//				StatefulKnowledgeSession ksession = kbase
-//						.newStatefulKnowledgeSession();
-//				ksession.insert(userFact);
-//				ksession.fireAllRules();
-//			} catch (InstantiationException e) {
-//			} catch (IllegalAccessException e) {
-//			}
-//			}
-//		}
+		// List<Rule> ruleList = this.ruleService.listRuleByTypeName("cart");
+		// if (ruleList != null) {
+		// for (Rule rule : ruleList) {
+		// try {
+		// KnowledgeBase kbase = RuleUtils.readKnowledgeBase(
+		// rule.getName(), rule.getLocationType(),
+		// rule.getLocation());
+		// FactType userType = kbase.getFactType("troposphere", "User");
+		// Object userFact = userType.newInstance();
+		// StatefulKnowledgeSession ksession = kbase
+		// .newStatefulKnowledgeSession();
+		// ksession.insert(userFact);
+		// ksession.fireAllRules();
+		// } catch (InstantiationException e) {
+		// } catch (IllegalAccessException e) {
+		// }
+		// }
+		// }
 	}
-	
+
 	private ItemSpecification getPlan(CartModel cart) {
 		ItemSpecification planItem = null;
 		CartItemModel[] cartItems = cart.getItems();
 		for (CartItemModel cartItem : cartItems) {
-			ItemSpecification item = this.itemService.getItemSpecification(cartItem.getItemSpecificationId());
+			ItemSpecification item = this.itemService
+					.getItemSpecification(cartItem.getItemSpecificationId());
 			if (item.getOsType() == ItemSpecification.OS_TYPE_PERIOD_ID) {
 				planItem = item;
 				break;

@@ -101,47 +101,40 @@ function setup(){
 				sendCartRequest(itemCategory,itemValue,itemPrice);
 			}
 		})
-		
-		
 	});
 	
 }
 
 function sendCartRequest(itemCategory,itemId,itemPrice){
 			var toAdd = false;
-			var toRemove = true;
-			if(itemCategory == "img"){
-				if(isNull(cart_imgSelected_UUID)){
-					toAdd = true;
-				}else{
-					toId = cart_imgSelected_UUID;
-				}
-			}else if(itemCategory == "flavor"){
-				if(isNull(cart_flavorSelected_UUID)){
-					toAdd = true;
-				}else{
-					toId = cart_flavorSelected_UUID;
-				}
-			}else if(itemCategory == "plan"){
-				if(isNull(cart_planSelected_UUID)){
-					toAdd = true;
-				}else{
-					toId = cart_planSelected_UUID;
-				}
-			}else if(itemCategory == "volumeType"){
-				if(isNull(cart_volumeTypeSelected_UUID)){
-					toAdd = true;
-				}else{
-					toId = cart_volumeTypeSelected_UUID;
+			if(itemId !=-1){
+				if(itemCategory == "img"){
+					if(isNull(cart_imgSelected_UUID)){
+						toAdd = true;
+					}
+				}else if(itemCategory == "flavor"){
+					if(isNull(cart_flavorSelected_UUID)){
+						toAdd = true;
+					}
+				}else if(itemCategory == "plan"){
+					if(isNull(cart_planSelected_UUID)){
+						toAdd = true;
+					}
+				}else if(itemCategory == "volumeType"){
+					if(isNull(cart_volumeTypeSelected_UUID)){
+						toAdd = true;
+					}
 				}
 			}
 			
+			
+			
 	    	if(toAdd){
 	    		addItemToCart(itemId,itemPrice,itemCategory);
-	    	}else if(itemCategory !="volumeType" && itemId != -1){
+	    	}else if(itemId!=-1){
 	    		updateCartItem(itemId);
 	    	}else if(itemId==-1){
-	    		removeCartItem(cart_volumeTypeSelected_UUID,itemCategory);
+	    		removeCartItem(itemId,itemCategory);
 	    	}
 	    	activeCartSubmitBtn();
 }

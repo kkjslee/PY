@@ -160,6 +160,8 @@ insert into Resource(id, url, permission) values (306, '/user/instance/showInsta
 
 insert into Resource(id, url, permission) values (350, '/user/cinder/modules/index', 'user');
 insert into Resource(id, url, permission) values (351, '/user/cinder/getPagerVolumeTypeList', 'user');
+insert into Resource(id, url, permission) values (352, '/user/cinder/getPagerVolumeList', 'user');
+
 
 
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');

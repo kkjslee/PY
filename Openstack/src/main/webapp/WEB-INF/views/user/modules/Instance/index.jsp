@@ -21,9 +21,11 @@
         <thead>
             <tr class="headerRow">
                 <th class="vmName"><spring:message code="admin.vm.name" /> </th>
-                <th class="vmUser"><spring:message code="admin.vm.user" /> </th>
                 <th class="vmStatus"><spring:message code="admin.vm.status" /> </th>
-                <th class="vmOstype"><spring:message code="admin.vm.ostype" /> </th>
+                <th class="vmStatus"><spring:message code="user.vm.flavor" /> </th>
+                <th class="vmStatus"><spring:message code="admin.vm.ostype" /> </th>
+                <th class="vmStatus"><spring:message code="user.vm.period" /> </th>
+                <th class="vmStatus"><spring:message code="user.vm.create_time" /> </th>
                 <th class="vmOperation"> </th>
             </tr>
         </thead>

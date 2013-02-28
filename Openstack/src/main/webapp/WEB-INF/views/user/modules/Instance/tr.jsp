@@ -22,16 +22,18 @@
         </c:forEach>
       </div>
     </td>
-    <td class="vmUser">${item.assignedto}</td>
     <td class="vmStatus">
         <div class="ititle statusTitle">${item.statusdisplay}</div>
         <c:if test='${item.isProcessing == true}'>
         <div class="statusVice vice"><c:if test='${not empty item.taskStatus}'>${item.taskStatus} </c:if></div>
        </c:if>
     </td>
-    <td class="vmOstype">
-         ${item.ostype}
-    </td>
+    
+    <td class="vmFlavor">${item.flavorName}</td>
+    <td class="vmOstype">${item.ostype}</td>
+    <td class="vmPeriod">${item.period}</td>
+    <td class="vmStartTime">${item.starttime}</td>
+    
     <td class="vmOperation moduleOperation">
         <div class="btn-group">
 		  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

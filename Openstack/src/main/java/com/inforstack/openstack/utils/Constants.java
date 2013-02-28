@@ -150,6 +150,7 @@ public class Constants {
 	public static final String CONFIG_SOCKET_IP = "socket.ip";
 	public static final String CONFIG_SOCKET_PORT = "socket.port";
 	public static final String CONFIG_SOCKET_CEILOMETER_TIMEOUT = "socket.ceilmeter.timeout";
+	public static final String CONFIG_SOCKET_TIMESTAMP_TOLERANCE = "socket.timestamp.tolerance";
 	public static final String POOLS_SPLITTER = ";";
 	public static final String IP_SPLITTER = ",";
 	

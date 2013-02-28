@@ -49,6 +49,7 @@ insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', 
 insert into Configuration(id, name, value) values(60, 'socket.ip', 'localhost');
 insert into Configuration(id, name, value) values(61, 'socket.port', '11533');
 insert into Configuration(id, name, value) values(62, 'socket.ceilmeter.timeout', '60');
+insert into Configuration(id, name, value) values(63, 'socket.timestamp.tolerance', '3000');
 
 insert into Role(id, name) values (1, 'admin');
 insert into Role(id, name) values (2, 'user');

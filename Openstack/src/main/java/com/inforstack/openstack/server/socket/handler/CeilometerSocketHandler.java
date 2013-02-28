@@ -47,11 +47,9 @@ public class CeilometerSocketHandler extends SocketHanlder {
 				
 				DomainUsage domainUsage = parse(str);
 				if(domainUsage != null){
-					if(DOMAIN_USAGE_SERVICE.exists(domainUsage)){
-						System.out.println("1111111111111111111");
-						continue;
+					if(!DOMAIN_USAGE_SERVICE.exists(domainUsage)){
+						DOMAIN_USAGE_SERVICE.add(domainUsage);
 					}
-					DOMAIN_USAGE_SERVICE.add(domainUsage);
 					writer.println(OpenstackUtil.buildSuccessJsonString("Uploaded successfully!"));
 				}else{
 					break;

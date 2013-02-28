@@ -22,6 +22,7 @@ import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.CryptoUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService {
 		user.setStatus(Constants.USER_STATUS_VALID);
 		user.setAgeing(Constants.USER_AGEING_ACTIVE);
 		user.setCreateTime(new Date());
-		user.setPassword(OpenstackUtil.md5(user.getPassword()));
+		user.setPassword(CryptoUtil.md5(user.getPassword()));
 		userDao.persist(user);
 
 		user.setOpenstackUser(keystoneService.createUser(user.getUsername(),

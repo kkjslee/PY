@@ -13,13 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.inforstack.openstack.api.keystone.KeystoneService.Role;
-import com.inforstack.openstack.configuration.ConfigurationDao;
 import com.inforstack.openstack.configuration.ConfigurationService;
 import com.inforstack.openstack.controller.model.I18nModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
@@ -124,10 +122,6 @@ public class OpenstackUtil {
 			throw new IllegalArgumentException("Passed roleId is not valid : "
 					+ roleId);
 		}
-	}
-
-	public static String md5(String s) {
-		return new MessageDigestPasswordEncoder("md5").encodePassword(s, null);
 	}
 
 	public static Object getProperty(Object o, String prop) {

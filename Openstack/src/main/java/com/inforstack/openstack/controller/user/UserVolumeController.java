@@ -158,7 +158,7 @@ public class UserVolumeController {
 			volumeModel.setStatus(instance.getStatus());
 			volumeModel.setSubOrderId(instance.getSubOrder().getId());
 
-			VirtualMachine vm = volume.getVm();
+			VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(volume.getVm());
 			if (vm != null) {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());

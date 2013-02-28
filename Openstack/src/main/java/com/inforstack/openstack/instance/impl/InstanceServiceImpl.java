@@ -157,11 +157,13 @@ public class InstanceServiceImpl implements InstanceService {
 				if (access != null) {
 					Order order = this.orderService.findOrderById(orderId);
 					if (order != null) {
+						VirtualMachine vm = null;
+						VolumeInstance vi = null;
 						Server server = this.getServerFromOrder(order);
 						if (server != null) {
 							newServer = this.serverService.createServer(access, server);
 							if (newServer != null) {
-								this.bindServerToSubOrder(newServer, order);
+								vm = this.bindServerToSubOrder(newServer, order);
 								server = newServer;
 							}
 						}
@@ -172,10 +174,9 @@ public class InstanceServiceImpl implements InstanceService {
 							if (newVolume != null) {
 								// TODO: [ricky] get device name from order
 								String deviceName = "/dev/vdtest";
-								String vmId = (server != null ? server.getId() : null);
-								this.bindVolumeToSubOrder(newVolume, order, vmId, deviceName);
+								vi = this.bindVolumeToSubOrder(newVolume, order, vm, deviceName);
 								if (server.getId() != null && !server.getId().isEmpty()) {
-									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, server.getId(), newVolume.getId(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
+									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
 								}
 							}
 						}
@@ -272,13 +273,14 @@ public class InstanceServiceImpl implements InstanceService {
 		return volume;
 	}
 	
-	private void bindServerToSubOrder(Server server, Order order) {
+	private VirtualMachine bindServerToSubOrder(Server server, Order order) {
+		VirtualMachine vm = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
 			switch (osType) {
 			case ItemSpecification.OS_TYPE_PERIOD_ID:
-				VirtualMachine vm = new VirtualMachine();
+				vm = new VirtualMachine();
 				vm.setUuid(server.getId());
 				vm.setName(server.getName());
 				vm.setImage(server.getImage().getId());
@@ -291,21 +293,23 @@ public class InstanceServiceImpl implements InstanceService {
 				break;
 			}
 		}
+		return vm;
 	}
 	
-	private void bindVolumeToSubOrder(Volume volume, Order order, String vmId, String device) {
+	private VolumeInstance bindVolumeToSubOrder(Volume volume, Order order, VirtualMachine vm, String device) {
+		VolumeInstance vi = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
 			switch (osType) {
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				subOrder.setUuid(volume.getId());
-				VolumeInstance vi = new VolumeInstance();
+				vi = new VolumeInstance();
 				vi.setUuid(volume.getId());
 				vi.setName(volume.getName());
 				vi.setSize(volume.getSize());
-				if (vmId != null && device != null) {
-					vi.setVmId(vmId);
+				if (vm != null && device != null) {
+					vi.setVm(vm.getUuid());
 					vi.setDevice(device);
 				}
 				this.volumeInstanceDao.persist(vi);
@@ -313,6 +317,7 @@ public class InstanceServiceImpl implements InstanceService {
 				break;
 			}
 		}
+		return vi;
 	}
 	
 //	private void bindNetworkToSubOrder(Network network, Order order) {

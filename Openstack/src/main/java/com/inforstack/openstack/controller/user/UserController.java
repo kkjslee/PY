@@ -151,9 +151,10 @@ public class UserController {
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/form.jsp?form.configuration=configuration&type=",
-				model.asMap(), request, response);
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/nojsForm.jsp?form.configuration=configuration&type=",
+						model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse("error message");
@@ -174,9 +175,10 @@ public class UserController {
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/form.jsp?form.configuration=configuration&type=",
-				model.asMap(), request, response);
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/nojsForm.jsp?form.configuration=configuration&type=",
+						model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse("error message");

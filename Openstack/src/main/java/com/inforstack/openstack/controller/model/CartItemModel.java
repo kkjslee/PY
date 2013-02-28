@@ -6,6 +6,8 @@ public class CartItemModel {
 
 	private String name;
 	
+	private String extra;
+	
 	private Integer itemSpecificationId;
 	
 	private Integer periodId;
@@ -30,6 +32,14 @@ public class CartItemModel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+
+	public void setExtra(String extra) {
+		this.extra = extra;
 	}
 
 	public Integer getItemSpecificationId() {

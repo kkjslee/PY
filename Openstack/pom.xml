@@ -353,7 +353,12 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.2.3</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>140</version>
+		</dependency>
     </dependencies>
 
     <build>

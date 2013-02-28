@@ -83,6 +83,8 @@ public class InstanceModel {
 	private String statusString;
 
 	private Map<String, String> addresses;
+	
+	private String period;
 
 	public InstanceModel() {
 		super();
@@ -332,6 +334,14 @@ public class InstanceModel {
 
 	public void setAddresses(Map<String, String> addresses) {
 		this.addresses = addresses;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 
 }

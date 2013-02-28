@@ -39,6 +39,8 @@ import com.inforstack.openstack.instance.VirtualMachine;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.period.OrderPeriod;
+import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -65,6 +67,9 @@ public class UserInstanceController {
 	
 	@Autowired
 	private KeystoneService keystoneService;
+	
+	@Autowired
+	private SubOrderService subOrderService;
 
 	private final String INSTANCE_MODULE_HOME = "user/modules/Instance";
 
@@ -125,7 +130,10 @@ public class UserInstanceController {
 				im.setTaskStatus(instance.getTask());
 				im.setAssignedto(username);
 				im.setAccesspoint("");
-
+				
+				OrderPeriod period = this.instanceService.getInstancePeriod(instance.getId());
+				im.setPeriod(period.getName().getI18nContent());
+				
 				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
 				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
 				if (flavorItem != null) {

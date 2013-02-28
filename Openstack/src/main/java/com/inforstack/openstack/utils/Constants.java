@@ -152,5 +152,13 @@ public class Constants {
 	public static final String CONFIG_SOCKET_CEILOMETER_TIMEOUT = "socket.ceilmeter.timeout";
 	public static final String POOLS_SPLITTER = ";";
 	public static final String IP_SPLITTER = ",";
+	
+	public static final int ATTACH_TASK_TYPE_VOLUME		= 1;
+	public static final int ATTACH_TASK_TYPE_IP			= 2;
+	
+	public static final int ATTACH_TASK_STATUS_NEW			= 0;
+	public static final int ATTACH_TASK_STATUS_PROCESSING	= 1;
+	public static final int ATTACH_TASK_STATUS_COMPLETE		= 2;
+	public static final int ATTACH_TASK_STATUS_ERROR		= 3;
 
 }

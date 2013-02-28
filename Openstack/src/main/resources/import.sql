@@ -38,6 +38,8 @@ insert into Configuration(id, name, value) values(33, 'openstack.endpoint.volume
 insert into Configuration(id, name, value) values(34, 'openstack.endpoint.volumesnapshots', '/snapshots');
 insert into Configuration(id, name, value) values(35, 'openstack.endpoint.volumesnapshots.detail', '/snapshots/detail');
 insert into Configuration(id, name, value) values(36, 'openstack.endpoint.volumesnapshot', '/snapshots/{snapshot}');
+insert into Configuration(id, name, value) values(37, 'openstack.endpoint.volumesattachment', '/servers/{server}/os-volume_attachments');
+insert into Configuration(id, name, value) values(38, 'openstack.endpoint.volumesattachmentDetail', '/servers/{server}/os-volume_attachments/{attachment}');
 
 insert into Configuration(id, name, value) values(50, 'openstack.role.admin', 'faefa2a247154e50ba2d0489c37dd2c5');
 insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', 'd1769816ef74437a8cb41199fcf1055f');

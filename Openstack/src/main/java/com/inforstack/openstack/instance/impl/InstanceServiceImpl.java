@@ -16,11 +16,11 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerService;
+import com.inforstack.openstack.instance.AttachTaskService;
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.instance.InstanceDao;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.instance.InstanceStatusDao;
-import com.inforstack.openstack.instance.UserActionDao;
 import com.inforstack.openstack.instance.VirtualMachine;
 import com.inforstack.openstack.instance.VirtualMachineDao;
 import com.inforstack.openstack.instance.VolumeInstance;
@@ -28,6 +28,7 @@ import com.inforstack.openstack.instance.VolumeInstanceDao;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
+import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.tenant.Tenant;
@@ -48,11 +49,8 @@ public class InstanceServiceImpl implements InstanceService {
 	private VolumeInstanceDao volumeInstanceDao;
 	
 	@Autowired
-	private UserActionDao userActionDao;
-	
-	@Autowired
 	private InstanceStatusDao instanceStatusDao;
-	
+		
 	@Autowired
 	private KeystoneService keystoneService;
 	
@@ -68,16 +66,20 @@ public class InstanceServiceImpl implements InstanceService {
 	@Autowired
 	private SubOrderService subOrderService;
 	
+	@Autowired
+	private AttachTaskService attachTaskService;
+	
 	@Override
-	public SubOrder findSubOrderFromInstance(String instanceId) {
-		SubOrder subOrder = null;
-		if (instanceId != null && !instanceId.trim().isEmpty()) {
-			Instance instance = this.instanceDao.findById(instanceId);
-			if (instance != null) {
-				subOrder = instance.getSubOrder();
-			}
+	public OrderPeriod getInstancePeriod(int id) {
+		OrderPeriod period = null;
+		Instance instance = this.instanceDao.findById(id);
+		if (instance != null) {
+			SubOrder subOrder = instance.getSubOrder();
+			subOrder = this.subOrderService.findSubOrderById(subOrder.getId());
+			period = subOrder.getOrderPeriod();
+			period.getName().getId();
 		}
-		return subOrder;
+		return period;
 	}
 	
 	@Override
@@ -154,7 +156,7 @@ public class InstanceServiceImpl implements InstanceService {
 				access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
 				if (access != null) {
 					Order order = this.orderService.findOrderById(orderId);
-					if (order != null) {						
+					if (order != null) {
 						Server server = this.getServerFromOrder(order);
 						if (server != null) {
 							newServer = this.serverService.createServer(access, server);
@@ -168,9 +170,12 @@ public class InstanceServiceImpl implements InstanceService {
 						if (volume != null && volume.getType() != null && !volume.getType().isEmpty()) {
 							newVolume = this.cinderService.createVolume(access, volume.getName(), "", volume.getSize(), false, volume.getType(), volume.getZone());
 							if (newVolume != null) {
-								this.bindVolumeToSubOrder(newVolume, order);
+								// TODO: [ricky] get device name from order
+								String deviceName = "/dev/vdtest";
+								String vmId = (server != null ? server.getId() : null);
+								this.bindVolumeToSubOrder(newVolume, order, vmId, deviceName);
 								if (server.getId() != null && !server.getId().isEmpty()) {
-									// TODO: [ricky]attach volume after server started
+									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, server.getId(), newVolume.getId(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
 								}
 							}
 						}
@@ -189,14 +194,10 @@ public class InstanceServiceImpl implements InstanceService {
 
 	@Override
 	public void updateVM(User user, Tenant tenant, String serverId, String name) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeVolumeAndIP) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	private void registerInstance(int type, String id, String name, SubOrder subOrder) {
@@ -292,7 +293,7 @@ public class InstanceServiceImpl implements InstanceService {
 		}
 	}
 	
-	private void bindVolumeToSubOrder(Volume volume, Order order) {
+	private void bindVolumeToSubOrder(Volume volume, Order order, String vmId, String device) {
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
@@ -302,7 +303,11 @@ public class InstanceServiceImpl implements InstanceService {
 				VolumeInstance vi = new VolumeInstance();
 				vi.setUuid(volume.getId());
 				vi.setName(volume.getName());
-				vi.setSize(volume.getSize());		
+				vi.setSize(volume.getSize());
+				if (vmId != null && device != null) {
+					vi.setVmId(vmId);
+					vi.setDevice(device);
+				}
 				this.volumeInstanceDao.persist(vi);
 				this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), subOrder);
 				break;

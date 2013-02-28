@@ -2,13 +2,13 @@ package com.inforstack.openstack.instance;
 
 import java.util.List;
 
-import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 
 public interface InstanceService {
 	
-	public SubOrder findSubOrderFromInstance(String instanceId);
+	public OrderPeriod getInstancePeriod(int id);
 	
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	

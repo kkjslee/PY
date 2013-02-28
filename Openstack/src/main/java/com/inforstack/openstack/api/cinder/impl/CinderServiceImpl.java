@@ -412,7 +412,7 @@ public class CinderServiceImpl implements CinderService {
 	}
 	
 	@Override
-	public VolumeAttachment attachVolume(Access access, String serverId, String volumeId, String device) throws OpenstackAPIException {
+	public VolumeAttachment attachVolume(final Access access, String serverId, final String volumeId, String device) throws OpenstackAPIException {
 		VolumeAttachment va = null;
 		if (access != null && serverId != null && !volumeId.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH);
@@ -428,6 +428,34 @@ public class CinderServiceImpl implements CinderService {
 					VolumeAttachBody response = RestUtils.postForObject(url, access, request, VolumeAttachBody.class, serverId);
 					if (response != null) {
 						va = response.getVolumeAttach();
+						
+						final CinderService self = (CinderService) OpenstackUtil.getBean("cinderService");
+						
+						Thread thread = new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+								while (true) {
+									try {
+										Volume s = CinderServiceImpl.this.getVolumeDetail(access, volumeId);
+										if (s != null) {
+											String status = s.getStatus();
+											self.updateVolumeStatus(s.getId(), status);
+											if (status.equalsIgnoreCase("error") || status.equalsIgnoreCase("in-use") || status.equalsIgnoreCase("available")) {
+												break;
+											}
+										}
+										Thread.sleep(500);
+									} catch (OpenstackAPIException e) {
+										break;
+									} catch (InterruptedException e) {
+										break;
+									}
+								}
+							}
+							
+						}, "Attaching Volume " + volumeId);
+						thread.start();
 					}
 				} catch (OpenstackAPIException e) {
 					RestUtils.handleError(e);

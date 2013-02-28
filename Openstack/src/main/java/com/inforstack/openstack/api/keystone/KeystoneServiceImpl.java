@@ -24,6 +24,8 @@ public class KeystoneServiceImpl implements KeystoneService {
 	@Autowired
 	private ConfigurationDao configurationDao;
 	
+	private static final int hour = 1000 * 60 * 60;
+	
 	@Override
 	public Access getAccess(String name, String pass, String tenant, boolean apply) throws OpenstackAPIException {		
 		Access access = null;
@@ -36,7 +38,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 				}
 			}
 		}
-		if (access == null && apply) {
+		if (access == null && apply && pass != null) {
 			access = applyAccess(name, pass, tenant);
 		}
 		return access;
@@ -45,7 +47,7 @@ public class KeystoneServiceImpl implements KeystoneService {
 	@Override
 	public boolean isExpired(Access access) {
 		boolean expired = true;
-		if (access != null && access.getToken().getExpires().after(new Date())) {
+		if (access != null && access.getToken().getExpires().after(new Date(System.currentTimeMillis() - hour))) {
 			expired = false;
 		}
 		return expired;

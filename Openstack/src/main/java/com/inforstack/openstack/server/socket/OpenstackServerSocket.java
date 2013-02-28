@@ -129,7 +129,7 @@ public class OpenstackServerSocket {
 					}
 					
 					OpenstackUtil.close(s);
-				} catch (IOException e) {
+				} catch (Exception e) {
 					log.error(e.getMessage(), e);
 					OpenstackUtil.close(s);
 				}

@@ -33,7 +33,7 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="4" class="pagination"></td>
+            <td colspan="6" class="pagination"></td>
             <td align="left"></td>
             </tr>
         </tfoot>

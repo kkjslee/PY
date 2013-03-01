@@ -97,7 +97,7 @@ public class Constants {
 
 	public static final int DEFAULT_PAGE_INDEX = 0;
 	// for test
-	public static final int DEFAULT_PAGE_SIZE = 5;
+	public static final int DEFAULT_PAGE_SIZE = 10;
 
 	public static final String PAGER_PAGE_INDEX = "pageIndex";
 	public static final String PAGER_PAGE_SIZE = "pageSize";
@@ -132,34 +132,34 @@ public class Constants {
 	public static final int PERIOD_TYPE_DAY = 5;
 	public static final int PERIOD_TYPE_HOUR = 11;
 	public static final int PERIOD_TYPE_MINUTE = 12;
-	
+
 	public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
-	
-	public static final int INSTANCE_TYPE_VM 			= 1;
-	public static final int INSTANCE_TYPE_VOLUME 		= 2;
-	public static final int INSTANCE_TYPE_IP 			= 3;
-	public static final int INSTANCE_TYPE_SNAPSHOT_VM 	= 4;
-	public static final int INSTNACE_TYPE_SNAPSHOT_VOL	= 5;
+
+	public static final int INSTANCE_TYPE_VM = 1;
+	public static final int INSTANCE_TYPE_VOLUME = 2;
+	public static final int INSTANCE_TYPE_IP = 3;
+	public static final int INSTANCE_TYPE_SNAPSHOT_VM = 4;
+	public static final int INSTNACE_TYPE_SNAPSHOT_VOL = 5;
 
 	public static final int AJAX_RESPONSE_STATUS_ERROR = 0;
 	public static final int AJAX_RESPONSE_STATUS_SUCCESS = 1;
 
 	public static final String AJAX_RESPONSE_KEY_STATUS = "status";
 	public static final String AJAX_RESPONSE_KEY_RESULT = "result";
-	
+
 	public static final String CONFIG_SOCKET_IP = "socket.ip";
 	public static final String CONFIG_SOCKET_PORT = "socket.port";
 	public static final String CONFIG_SOCKET_CEILOMETER_TIMEOUT = "socket.ceilmeter.timeout";
 	public static final String CONFIG_SOCKET_TIMESTAMP_TOLERANCE = "socket.timestamp.tolerance";
 	public static final String POOLS_SPLITTER = ";";
 	public static final String IP_SPLITTER = ",";
-	
-	public static final int ATTACH_TASK_TYPE_VOLUME		= 1;
-	public static final int ATTACH_TASK_TYPE_IP			= 2;
-	
-	public static final int ATTACH_TASK_STATUS_NEW			= 0;
-	public static final int ATTACH_TASK_STATUS_PROCESSING	= 1;
-	public static final int ATTACH_TASK_STATUS_COMPLETE		= 2;
-	public static final int ATTACH_TASK_STATUS_ERROR		= 3;
+
+	public static final int ATTACH_TASK_TYPE_VOLUME = 1;
+	public static final int ATTACH_TASK_TYPE_IP = 2;
+
+	public static final int ATTACH_TASK_STATUS_NEW = 0;
+	public static final int ATTACH_TASK_STATUS_PROCESSING = 1;
+	public static final int ATTACH_TASK_STATUS_COMPLETE = 2;
+	public static final int ATTACH_TASK_STATUS_ERROR = 3;
 
 }

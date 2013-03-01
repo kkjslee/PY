@@ -1,5 +1,6 @@
 package com.inforstack.openstack.instance;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.user.User;
 
 @Entity
 public class Instance {
@@ -39,11 +43,17 @@ public class Instance {
 	private Instance parent;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parent")
-	private List<Instance> subInstance;
+	private List<Instance> subInstance = new ArrayList<Instance>();
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=true)
-	@JoinColumn(name="sub_order_id")
-	private SubOrder subOrder;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "instance")
+	private List<SubOrder> subOrders = new ArrayList<SubOrder>();
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinTable(name="user_instance",
+		joinColumns = { @JoinColumn(name="instance_id", insertable=false, updatable = false) },
+		inverseJoinColumns = { @JoinColumn(name= "user_id", insertable=false, updatable = false) }
+	)
+	private List<User> users = new ArrayList<User>();
 	
 	@Column(name="create_time")
 	private Date createTime;
@@ -123,14 +133,6 @@ public class Instance {
 		this.subInstance = subInstance;
 	}
 
-	public SubOrder getSubOrder() {
-		return subOrder;
-	}
-
-	public void setSubOrder(SubOrder subOrder) {
-		this.subOrder = subOrder;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -146,5 +148,20 @@ public class Instance {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	
+
+	public List<SubOrder> getSubOrders() {
+		return subOrders;
+	}
+
+	public void setSubOrders(List<SubOrder> subOrders) {
+		this.subOrders = subOrders;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 }

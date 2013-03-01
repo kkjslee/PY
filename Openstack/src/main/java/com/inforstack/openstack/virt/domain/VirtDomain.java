@@ -47,9 +47,6 @@ public class VirtDomain {
 	)
 	private List<User> users = new ArrayList<User>();
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="virtDomain")
-	private List<SubOrder> subOrders = new ArrayList<SubOrder>();
-	
 	private Date createTime;
 
 	public Integer getId() {

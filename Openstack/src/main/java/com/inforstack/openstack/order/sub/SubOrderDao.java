@@ -8,4 +8,6 @@ public interface SubOrderDao extends BasicDao<SubOrder> {
 
 	public List<SubOrder> find(String orderId, Integer status, Integer periodId);
 
+	public SubOrder fetchOneByInstanceId(int id);
+
 }

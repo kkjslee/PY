@@ -1,5 +1,6 @@
 package com.inforstack.openstack.order.sub;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -47,5 +48,9 @@ public interface SubOrderService {
 	public List<Period> calcPeriod(SubOrder subOrder, Date billingDate, Date endLimit);
 
 	public InvoiceCount paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
+
+	public BigDecimal getPrice(SubOrder subOrder, Period period);
+
+	public SubOrder findFirstSubOrderByInstanceId(int id);
 	
 }

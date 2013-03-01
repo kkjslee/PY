@@ -35,6 +35,9 @@ public class OrderPeriod {
 	@Column(name="create_time")
 	private Date createTime;
 	
+	@Column(name="pay_as_you_go")
+	private boolean payAsYouGo;
+	
 	private boolean deleted;
 
 	public Integer getId() {
@@ -84,5 +87,12 @@ public class OrderPeriod {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
-	
+
+	public boolean getPayAsYouGo() {
+		return payAsYouGo;
+	}
+
+	public void setPayAsYouGo(boolean payAsYouGo) {
+		this.payAsYouGo = payAsYouGo;
+	}
 }

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.period.OrderPeriod;
@@ -50,8 +51,8 @@ public class SubOrder {
 	private String uuid;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="virt_domain_id")
-	private VirtDomain virtDomain;
+	@JoinColumn(name="instance_id")
+	private Instance instance;
 	
 	public Integer getId() {
 		return id;
@@ -125,12 +126,12 @@ public class SubOrder {
 		this.uuid = uuid;
 	}
 
-	public VirtDomain getVirtDomain() {
-		return virtDomain;
+	public Instance getInstance() {
+		return instance;
 	}
 
-	public void setVirtDomain(VirtDomain virtDomain) {
-		this.virtDomain = virtDomain;
+	public void setInstance(Instance instance) {
+		this.instance = instance;
 	}
 	
 }

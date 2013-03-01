@@ -188,10 +188,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 		List<Period> periods = self.calcPeriod(subOrder,billingDate, order.getActiveEnd());
 		for(int i=0, size=periods.size();i<size;){
 			Period period = periods.get(i);
-			BigDecimal price = subOrder.getPrice();
-			if(!period.wholePeriod()){
-				price = price.multiply(period.percentInPeriod());
-			}
+			BigDecimal price = self.getPrice(subOrder, period);
 			Invoice invoice = invoiceService.createInvoice(period.getStart(), period.getEnd(), price, order.getTenant(), subOrder, order, billingProcess);
 			if(order.getAutoPay()){
 				paymentService.applyPayment(invoice);
@@ -216,6 +213,25 @@ public class SubOrderServiceImpl implements SubOrderService {
 		
 		return ic;
 	}
-	
-	
+
+	@Override
+	public BigDecimal getPrice(SubOrder subOrder, Period period) {
+		BigDecimal price = null;
+		if(subOrder.getOrderPeriod().getPayAsYouGo()){
+			
+		}else{
+			price =  subOrder.getPrice();
+			if(period.wholePeriod() == false){
+				price = price.multiply(period.percentInPeriod());
+			}
+		}
+		
+		return price;
+	}
+
+	@Override
+	public SubOrder findFirstSubOrderByInstanceId(int id) {
+		return subOrderDao.fetchOneByInstanceId(id);
+	}
+
 }

@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.SecurityUtils;
@@ -90,11 +91,11 @@ public class User {
 	private Date createTime;
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinTable(name="user_domain",
+	@JoinTable(name="user_instance",
 		joinColumns = { @JoinColumn(name="user_id", insertable=false, updatable = false) },
-		inverseJoinColumns = { @JoinColumn(name= "domain_id", insertable=false, updatable = false) }
+		inverseJoinColumns = { @JoinColumn(name= "instance_id", insertable=false, updatable = false) }
 	)
-	private List<VirtDomain> virtDomains = new ArrayList<VirtDomain>();
+	private List<Instance> instances = new ArrayList<Instance>();
 	
 	@Transient
 	private com.inforstack.openstack.api.keystone.User openstackUser;
@@ -275,12 +276,12 @@ public class User {
 		this.defaultTenant = defaultTenant;
 	}
 
-	public List<VirtDomain> getVirtDomains() {
-		return virtDomains;
+	public List<Instance> getInstances() {
+		return instances;
 	}
 
-	public void setVirtDomains(List<VirtDomain> virtDomains) {
-		this.virtDomains = virtDomains;
+	public void setInstances(List<Instance> instances) {
+		this.instances = instances;
 	}
 
 	public String getUuid() {

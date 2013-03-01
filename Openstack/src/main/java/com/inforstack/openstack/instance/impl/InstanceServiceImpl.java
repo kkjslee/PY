@@ -72,14 +72,9 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	@Override
 	public OrderPeriod getInstancePeriod(int id) {
-		OrderPeriod period = null;
-		Instance instance = this.instanceDao.findById(id);
-		if (instance != null) {
-			SubOrder subOrder = instance.getSubOrder();
-			subOrder = this.subOrderService.findSubOrderById(subOrder.getId());
-			period = subOrder.getOrderPeriod();
-			period.getName().getId();
-		}
+		SubOrder subOrder = this.subOrderService.findFirstSubOrderByInstanceId(id);
+		OrderPeriod period = subOrder.getOrderPeriod();
+		period.getName().getId();
 		return period;
 	}
 	
@@ -202,19 +197,19 @@ public class InstanceServiceImpl implements InstanceService {
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeVolumeAndIP) {
 	}
 	
-	private void registerInstance(int type, String id, String name, SubOrder subOrder) {
+	private Instance registerInstance(int type, String id, String name) {
 		Date now = new Date();
 		Instance instance = new Instance();
 		instance.setType(type);
 		instance.setUuid(id);
 		instance.setName(name);
-		instance.setSubOrder(subOrder);
 		instance.setCreateTime(now);
 		instance.setUpdateTime(now);
 		instance.setStatus("new");
 		instance.setTask("");
 		
 		this.instanceDao.persist(instance);
+		return instance;
 	}
 	
 	private Server getServerFromOrder(Order order) {
@@ -308,7 +303,8 @@ public class InstanceServiceImpl implements InstanceService {
 				vm.setImage(server.getImage().getId());
 				vm.setFlavor(server.getFlavor().getId());
 				this.virtualMachineDao.persist(vm);
-				this.registerInstance(Constants.INSTANCE_TYPE_VM, server.getId(), server.getName(), subOrder);
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VM, server.getId(), server.getName());
+				subOrder.setInstance(instance);
 			case ItemSpecification.OS_TYPE_FLAVOR_ID:
 			case ItemSpecification.OS_TYPE_IMAGE_ID:
 				subOrder.setUuid(server.getId());
@@ -335,7 +331,8 @@ public class InstanceServiceImpl implements InstanceService {
 					vi.setDevice(device);
 				}
 				this.volumeInstanceDao.persist(vi);
-				this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), subOrder);
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName());
+				subOrder.setInstance(instance);
 				break;
 			}
 		}

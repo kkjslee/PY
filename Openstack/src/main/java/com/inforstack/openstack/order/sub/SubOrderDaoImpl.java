@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -37,7 +38,7 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 			List<Predicate> predicates = new ArrayList<Predicate>();
 			if(!StringUtil.isNullOrEmpty(orderId)){
 				predicates.add(
-						builder.equal(root.get("order.id"), orderId)
+						builder.equal(root.get("order").get("id"), orderId)
 				);
 			}
 			if(status != null){
@@ -47,7 +48,7 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 			}
 			if(periodId != null){
 				predicates.add(
-						builder.equal(root.get("orderPeriod.id"), periodId)
+						builder.equal(root.get("orderPeriod").get("id"), periodId)
 				);
 			}
 			if(predicates.isEmpty()){
@@ -64,6 +65,31 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 			}
 			log.debug("Find successful");
 			return instances;
+		} catch (RuntimeException re) {
+			log.error(re.getMessage(), re);
+			throw re;
+		}
+	}
+
+	@Override
+	public SubOrder fetchOneByInstanceId(int instanceId) {
+		log.debug("Find one sub order by instance id : " + instanceId);
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<SubOrder> criteria = builder
+					.createQuery(SubOrder.class);
+			Root<SubOrder> root = criteria.from(SubOrder.class);
+			criteria.select(root).where(
+					builder.equal(root.get("instance").get("id"), instanceId)
+			);
+			
+			List<SubOrder> instances = em.createQuery(criteria).setMaxResults(1).getResultList();
+			if(CollectionUtil.isNullOrEmpty(instances)){
+				log.debug("No record found");
+				return null;
+			}
+			log.debug("Find successfully");
+			return instances.get(0);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
 			throw re;

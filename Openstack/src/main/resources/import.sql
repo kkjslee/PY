@@ -249,10 +249,10 @@ INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (7,1,1,7);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (8,1,1,8);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (9,1,1,9);
 
-INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(1, '2013-02-21 12:25:48', 0, 1, 11, 10);
-INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(2, '2013-02-21 12:25:48', 0, 1, 5, 11);
-INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(3, '2013-02-21 12:25:48', 0, 1, 2, 12);
-INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id) values(4, '2013-02-21 12:25:48', 0, 1, 1, 13);
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id, pay_as_you_go) values(1, '2013-02-21 12:25:48', 0, 1, 11, 10, true);
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id, pay_as_you_go) values(2, '2013-02-21 12:25:48', 0, 1, 5, 11, false);
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id, pay_as_you_go) values(3, '2013-02-21 12:25:48', 0, 1, 2, 12, false);
+INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, name_id, pay_as_you_go) values(4, '2013-02-21 12:25:48', 0, 1, 1, 13, false);
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (14,'name_id',NULL,'ItemSpecification');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (15,'name_id',NULL,'ItemSpecification');

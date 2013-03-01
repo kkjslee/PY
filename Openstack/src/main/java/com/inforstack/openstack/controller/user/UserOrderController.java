@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
+import com.inforstack.openstack.i18n.dict.DictionaryService;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
+import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 
@@ -26,6 +28,8 @@ public class UserOrderController {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private DictionaryService dictionaryService;
 	private final String ORDER_MODULE_HOME = "user/modules/Order";
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
@@ -47,8 +51,16 @@ public class UserOrderController {
 		conf.put("id.label", OpenstackUtil.getMessage("order.label"));
 		conf.put("grid.amount", "[plain]");
 		conf.put("grid.balance", "[plain]");
-		conf.put("grid.autoPay", "[plain]");
-		conf.put("grid.status", "[plain]");
+		conf.put("grid.autoPay", "[dict]");
+		conf.put("autoPay.options", 
+				dictionaryService.findDictsByKeyAndLanguageId(
+						Constants.DICTIONARY_KEY_TRUE_FALSE, 
+						OpenstackUtil.getLanguage().getId()));
+		conf.put("grid.status", "[dict]");
+		conf.put("status.options", 
+				dictionaryService.findDictsByKeyAndLanguageId(
+						Constants.DICTIONARY_KEY_ORDER_STATUS, 
+						OpenstackUtil.getLanguage().getId()));
 		conf.put("grid.createdBy", "[plain]");
 		conf.put("createdBy.value", "{createdBy.username} ");
 		conf.put("grid.createTime", "[plain]");

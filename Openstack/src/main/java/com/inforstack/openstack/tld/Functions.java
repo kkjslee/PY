@@ -1,5 +1,6 @@
 package com.inforstack.openstack.tld;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -37,6 +38,16 @@ public class Functions {
 		}
 		
 		return string;
+	}
+	
+
+	public static String money(String string){
+		try{
+			double d = new Double(string);
+			return new DecimalFormat("#.00").format(d);
+		}catch(RuntimeException re){
+			return string;
+		}
 	}
 	
 	public static String getProp(Object bean, String prop){

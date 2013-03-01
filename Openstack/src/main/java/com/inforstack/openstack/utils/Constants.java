@@ -134,6 +134,8 @@ public class Constants {
 	public static final int PERIOD_TYPE_MINUTE = 12;
 
 	public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
+	public static final String DICTIONARY_KEY_ORDER_STATUS = "order.status";
+	public static final String DICTIONARY_KEY_TRUE_FALSE = "true.false";
 
 	public static final int INSTANCE_TYPE_VM = 1;
 	public static final int INSTANCE_TYPE_VOLUME = 2;

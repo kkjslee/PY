@@ -49,4 +49,10 @@
         <function-class>com.inforstack.openstack.tld.Functions</function-class>
         <function-signature>java.lang.String propStr(java.lang.String, java.lang.Object)</function-signature>
     </function>
+    
+     <function>
+        <name>money</name>
+        <function-class>com.inforstack.openstack.tld.Functions</function-class>
+        <function-signature>java.lang.String money(java.lang.String)</function-signature>
+    </function>
 </taglib>

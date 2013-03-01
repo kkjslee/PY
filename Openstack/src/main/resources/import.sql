@@ -73,6 +73,22 @@ insert into Dictionary(id, dict_key, code, language_id, value) values (9, 'perio
 insert into Dictionary(id, dict_key, code, language_id, value) values (10, 'period.type', '11', 2, '小时');
 insert into Dictionary(id, dict_key, code, language_id, value) values (11, 'period.hour', '12', 1, 'Minute');
 insert into Dictionary(id, dict_key, code, language_id, value) values (12, 'period.hour', '12', 2, '分钟');
+insert into Dictionary(id, dict_key, code, language_id, value) values (13, 'order.status', '1', 1, 'New');
+insert into Dictionary(id, dict_key, code, language_id, value) values (14, 'order.status', '1', 2, '新建');
+insert into Dictionary(id, dict_key, code, language_id, value) values (15, 'order.status', '2', 1, 'Processing');
+insert into Dictionary(id, dict_key, code, language_id, value) values (16, 'order.status', '2', 2, '处理中');
+insert into Dictionary(id, dict_key, code, language_id, value) values (17, 'order.status', '3', 1, 'Ready');
+insert into Dictionary(id, dict_key, code, language_id, value) values (18, 'order.status', '3', 2, '就绪');
+insert into Dictionary(id, dict_key, code, language_id, value) values (19, 'order.status', '4', 1, 'Active');
+insert into Dictionary(id, dict_key, code, language_id, value) values (20, 'order.status', '4', 2, '有效');
+insert into Dictionary(id, dict_key, code, language_id, value) values (21, 'order.status', '5', 1, 'Finished');
+insert into Dictionary(id, dict_key, code, language_id, value) values (22, 'order.status', '5', 2, '完成');
+insert into Dictionary(id, dict_key, code, language_id, value) values (23, 'order.status', '6', 1, 'Cancelled');
+insert into Dictionary(id, dict_key, code, language_id, value) values (24, 'order.status', '6', 2, '取消');
+insert into Dictionary(id, dict_key, code, language_id, value) values (25, 'true.false', 'true', 1, 'Yes');
+insert into Dictionary(id, dict_key, code, language_id, value) values (26, 'true.false', 'true', 2, '是');
+insert into Dictionary(id, dict_key, code, language_id, value) values (27, 'true.false', 'false', 1, 'No');
+insert into Dictionary(id, dict_key, code, language_id, value) values (28, 'true.false', 'false', 2, '否');
 
 insert into Resource(id, url, permission) values (1, '/admin', 'admin');
 

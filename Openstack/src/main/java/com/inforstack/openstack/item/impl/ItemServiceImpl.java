@@ -30,12 +30,16 @@ import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.i18n.link.I18nLinkService;
 import com.inforstack.openstack.item.Category;
 import com.inforstack.openstack.item.CategoryDao;
+import com.inforstack.openstack.item.DataCenterDao;
+import com.inforstack.openstack.item.FlavorDao;
+import com.inforstack.openstack.item.ImageDao;
 import com.inforstack.openstack.item.ItemMetadata;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.ItemSpecificationDao;
 import com.inforstack.openstack.item.Price;
 import com.inforstack.openstack.item.Profile;
+import com.inforstack.openstack.item.VolumeTypeDao;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.period.OrderPeriodService;
@@ -52,6 +56,18 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemSpecificationDao itemSpecificationDao;
+	
+	@Autowired
+	private DataCenterDao dataCenterDao;
+	
+	@Autowired
+	private FlavorDao flavorDao;
+	
+	@Autowired
+	private ImageDao imageDao;
+	
+	@Autowired
+	private VolumeTypeDao volumeTypeDao;
 
 	@Autowired
 	private FlavorService flavorService;
@@ -681,6 +697,64 @@ public class ItemServiceImpl implements ItemService {
 			itemSpecification.getName().getI18ns();
 		}
 		return list;
+	}
+
+	@Override
+	public Flavor getOpenStackFlavor(int dataCenterId, String itemId) throws ApplicationException {
+		Flavor flavor = null;
+		String refId = this.flavorDao.getFlavorRefId(dataCenterId, itemId);
+		if (refId != null) {
+			try {
+				flavor = this.flavorService.getFlavor(refId);
+			} catch (OpenstackAPIException e) {
+			}
+		}
+		return flavor;
+	}
+	
+	@Override
+	public List<Flavor> listOpenStackFlavor(int dataCenterId) throws ApplicationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void createFlavor(String name, int vcpus, int ram, int disk)
+			throws ApplicationException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeFlavor(String flavorId) throws ApplicationException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Image getOpenStackImage(int dataCenterId, String itemId) throws ApplicationException {
+		Image image = null;
+		String refId = this.imageDao.getImageRefId(dataCenterId, itemId);
+		if (refId != null) {
+			try {
+				image = this.imageService.getImage(refId);
+			} catch (OpenstackAPIException e) {
+			}
+		}
+		return image;
+	}
+
+	@Override
+	public VolumeType getOpenStackVolumeType(int dataCenterId, String itemId) throws ApplicationException {
+		VolumeType volumeType = null;
+		String refId = this.volumeTypeDao.getVolumeRefId(dataCenterId, itemId);
+		if (refId != null) {
+			try {
+				volumeType = this.cinderService.getVolumeType(refId);
+			} catch (OpenstackAPIException e) {
+			}
+		}
+		return volumeType;
 	}
 
 }

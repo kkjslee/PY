@@ -37,5 +37,17 @@ public interface ItemService {
 	public void updateItemSpecificationPrice(PriceModel model) throws ApplicationException;
 
 	public void removeItemSpecification(Integer id) throws ApplicationException;
-
+	
+	public com.inforstack.openstack.api.nova.flavor.Flavor getOpenStackFlavor(int dataCenterId, String itemId) throws ApplicationException;
+	
+	public List<com.inforstack.openstack.api.nova.flavor.Flavor> listOpenStackFlavor(int dataCenterId) throws ApplicationException;
+	
+	public void createFlavor(String name, int vcpus, int ram, int disk) throws ApplicationException;
+	
+	public void removeFlavor(String flavorId) throws ApplicationException;
+	
+	public com.inforstack.openstack.api.nova.image.Image getOpenStackImage(int dataCenterId, String itemId) throws ApplicationException;
+	
+	public com.inforstack.openstack.api.cinder.VolumeType getOpenStackVolumeType(int dataCenterId, String itemId) throws ApplicationException;
+	
 }

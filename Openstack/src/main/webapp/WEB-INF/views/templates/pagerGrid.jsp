@@ -88,6 +88,23 @@ example:
 							</c:choose>
 						</td>
 					</c:if>
+					<c:if test="${fn:startsWith(item.value, '[money]')}">
+                        <td>
+                            <c:set value="${fn:replace(item.value, '[plain]', '')}" var="subItems"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:length(subItems) == 0}">
+                                    <c:set var="value" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"></c:set>
+                                    <span>${f:money(value)}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forTokens items="${subItems}" delims="," var="key">
+                                        <c:set var="value" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"></c:set>
+                                        <span>${f:money(value)}</span>
+                                    </c:forTokens>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
 					<c:if test="${fn:startsWith(item.value, '[hidden]')}">
 						<td style="display: none;">
 							<c:set value="${fn:replace(item.value, '[hidden]', '')}" var="subItems"></c:set>
@@ -114,7 +131,7 @@ example:
 										</c:when>
 										<c:otherwise>
 											<c:forEach items="${conf[f:append(item.key, '.options')]}" var="dict">
-												<c:if test="${dict.code == f:getProp(d, item.key)}">
+												<c:if test="${f:append(dict.code, '') == f:getProp(d, item.key)}">
 													${dict.value}
 												</c:if>
 											</c:forEach>

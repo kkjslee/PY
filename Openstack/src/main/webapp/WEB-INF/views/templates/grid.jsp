@@ -92,7 +92,7 @@ example:
 							<c:set value="${fn:replace(item.value, '[plain]', '')}" var="subItems"></c:set>
 							<c:choose>
 								<c:when test="${fn:length(subItems) == 0}">
-									<c:set var="value" value="${${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}}"></c:set>
+									<c:set var="value" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"></c:set>
 									<span>${f:money(value)}</span>
 								</c:when>
 								<c:otherwise>

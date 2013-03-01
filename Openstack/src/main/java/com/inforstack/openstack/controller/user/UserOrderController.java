@@ -42,18 +42,18 @@ public class UserOrderController {
 		PaginationModel<Order> pm = orderService.findAllWithCreator(pageIndex,
 				pageSize, SecurityUtils.getTenantId(), null);
 
-		Map<String, String> conf = new LinkedHashMap<String, String>();
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.id", "[plain]");
 		conf.put("id.label", OpenstackUtil.getMessage("order.label"));
 		conf.put("grid.amount", "[plain]");
-		conf.put("grid.banlance", "[plain]");
+		conf.put("grid.balance", "[plain]");
 		conf.put("grid.autoPay", "[plain]");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.createdBy", "[plain]");
 		conf.put("createdBy.value", "{createdBy.username} ");
 		conf.put("grid.createTime", "[plain]");
+		conf.put(".datas", pm.getData());
 
-		model.addAttribute("orders", pm.getData());
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil

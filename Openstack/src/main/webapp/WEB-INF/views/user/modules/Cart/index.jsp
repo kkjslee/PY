@@ -25,7 +25,6 @@
             <td class="cartCategory">
                 <input type="text" name="name" id="name" maxlength="40"/>
             </td>
-            <td colspan="2"></td>
        </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.image.title"/>: </td>
@@ -44,7 +43,6 @@
                             </c:forEach>
                 </select>
             </td>
-            <td colspan="2"></td>
         </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.flavor.title"/>: </td>
@@ -63,7 +61,6 @@
                             </c:forEach>
                 </select>
             </td>
-             <td colspan="2"></td>
         </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.plan.title"/>: </td>
@@ -82,7 +79,6 @@
                             </c:forEach>
                 </select>
             </td>
-             <td colspan="2"></td>
         </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.volume.title"/>: </td>
@@ -100,33 +96,50 @@
                                 </option>
                             </c:forEach>
                 </select>
-            </td>
-            <td width="18%" style="text-align:left;">
-                <spring:message code="volume.name"/>: <input type="text" name="volumeName" style="width:80px" id="volumeName" maxlength="40"/>
-            </td>
-            <td width="22%" style="text-align:left;">
+                <span style="margin-left:15px;">
+                     <spring:message code="volume.name"/>: <input type="text" name="volumeName" style="width:80px" id="volumeName" maxlength="40"/>
+                </span>
+                <span style="margin-left:15px;">
                  <spring:message code="volume.location"/>: <input type="text" name="volumeLocation" style="width:110px" id="volumeLocation" maxlength="90"/>
+                </span>
+            </td>
             </td>
         </tr>
+        <tr>
+            <td class="cartLabel"><spring:message code="cart.network.title"/>: </td>
+            <td class="cartCategory">
+                <select class="networkList selectable" isos="network">
+                 <option value="-1" selected><spring:message code="choose.label"/></option>
+                    <c:forEach items="${networkList}" var="network" varStatus="status">
+                                <option value="${network.id}" defaultprice="${network.defaultPrice}">
+                                <c:forEach items="${network.name}" var="i18Name">
+                                ${i18Name.content}
+                                </c:forEach>
+                                </option>
+                            </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        <td class="cartLabel"></td><td class="cartCategory"> <div class="cartTotalLine">
+            <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
+        </div></td>
+        </tr>
+        <tr><td class="cartLabel"></td><td class="cartCategory"><div class="cartButton">
+            <a class="btn btn-large submitorder">
+              <spring:message code="cart.submit"/>
+            </a>
+        </div></td></tr>
         </tbody>
         </table>
     </div>
-	
-	
-        <div class="cartTotalLine">
-            <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
-        </div>
-        <div class="cartButton">
-            <a class="btn btn-large submitorder">
-		      <spring:message code="cart.submit"/>
-		    </a>
-        </div>
+        
 	</div>
 	<div class="selectPayMethods" >
 	   <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
 	   <div class="payMethodsContainer">
 	   </div>
 	</div>
-    <script>setServer("<%=request.getContextPath()%>/user/cart");$("select").selectmenu();</script>
+    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="instance.name.required"/>','<spring:message code="volumeType.name.required"/>');$("select").selectmenu();</script>
 </body>
 </html>

@@ -3,9 +3,14 @@ var cart_imgSelected_UUID = "";
 var cart_flavorSelected_UUID="";
 var cart_planSelected_UUID="";
 var cart_volumeTypeSelected_UUID="";
+var cart_networkSelected_UUID="";
+var instangMsg = "";
+var volumeMsg = "";
 //this should be called first in jsp file
-function setServer(server){
+function setServer(server,_instangMsg, _volumeMsg){
 	Server = server;
+	instangMsg = _instangMsg;
+	volumeMsg = _volumeMsg;
 }
 $(function(){
 	setup();
@@ -138,6 +143,12 @@ function sendCartRequest(itemCategory,itemId,itemPrice){
 					}else{
 						toUUID = cart_volumeTypeSelected_UUID;
 					}
+				}else if(itemCategory == "network"){
+					if(isNull(cart_networkSelected_UUID)){
+						toAdd = true;
+					}else{
+						toUUID = cart_networkSelected_UUID;
+					}
 				}
 			window.console.log("to UUID" + toUUID);
 	    	if(itemId!=-1 && toAdd){
@@ -158,9 +169,17 @@ function addItemToCart(itemId,itemPrice,itemCategory){
 	var extra = "";
 	if(itemCategory == "flavor"){
 		name = $("#name").val();
+		if(isNull(name)){
+			printMessage(instangMsg);
+			return;
+		}
 	}
 	if(itemCategory =="volumeType"){
 		name=$("#volumeName").val();
+		if(isNull(name)){
+			printMessage(volumeMsg);
+			return;
+		}
 		extra = $("#volumeLocation").val();
 	}
 	$.ajax({
@@ -296,6 +315,8 @@ function setCategorySelctedIdValue(itemCategory,value){
 		cart_planSelected_UUID = value;
 	}else if(itemCategory == "volumeType"){
 		cart_volumeTypeSelected_UUID = value;
+	}else if(itemCategory == "network"){
+		cart_networkSelected_UUID = value;
 	}
 }
 function udpateAmount(price){

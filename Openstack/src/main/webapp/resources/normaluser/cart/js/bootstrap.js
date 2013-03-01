@@ -4,6 +4,7 @@ var cart_flavorSelected_UUID="";
 var cart_planSelected_UUID="";
 var cart_volumeTypeSelected_UUID="";
 var cart_networkSelected_UUID="";
+var cart_dataCenterSelected_UUID="";
 var instangMsg = "";
 var volumeMsg = "";
 //this should be called first in jsp file
@@ -148,6 +149,12 @@ function sendCartRequest(itemCategory,itemId,itemPrice){
 						toAdd = true;
 					}else{
 						toUUID = cart_networkSelected_UUID;
+					}
+				}else if(itemCategory == "dataCenter"){
+					if(isNull(cart_dataCenterSelected_UUID)){
+						toAdd = true;
+					}else{
+						toUUID = cart_dataCenterSelected_UUID;
 					}
 				}
 			window.console.log("to UUID" + toUUID);
@@ -321,6 +328,8 @@ function setCategorySelctedIdValue(itemCategory,value){
 		cart_volumeTypeSelected_UUID = value;
 	}else if(itemCategory == "network"){
 		cart_networkSelected_UUID = value;
+	}else if(itemCategory == "dataCenter"){
+		cart_dataCenterSelected_UUID = value;
 	}
 }
 function udpateAmount(price){

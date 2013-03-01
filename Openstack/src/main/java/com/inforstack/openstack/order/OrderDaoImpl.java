@@ -81,7 +81,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 				builder.desc(root.get("createTime"))	
 		};
 		
-		return this.getSelf().pagination(pageIndex, pageSize, predicate, orders);
+		return this.getSelf().pagination(pageIndex, pageSize, criteria);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 				builder.desc(root.get("createTime"))	
 		};
 		
-		return this.getSelf().pagination(pageIndex, pageSize, null, orders);
+		return this.getSelf().pagination(pageIndex, pageSize, criteria);
 	}
 	
 }

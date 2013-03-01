@@ -51,12 +51,11 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	
 	@Override
 	public final PaginationModel<T> pagination(int pageIndex, int pageSize){
-		return getSelf().pagination(pageIndex, pageSize, null, null);
+		return getSelf().pagination(pageIndex, pageSize, null);
 	}
 	
 	@Override
-	public final PaginationModel<T> pagination(int pageIndex, int pageSize, Predicate where,
-			Order[] orders){
+	public final PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<? extends Object> query){
 		PaginationModel<T> model = new PaginationModel<T>();
 		log.debug("getting all " + this.modelClz.getSimpleName() + " instance");
 		try {
@@ -64,10 +63,12 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			CriteriaQuery<Long> count = builder.createQuery(Long.class);
 			Root<T> root = count.from(this.modelClz);
 			count.select(builder.count(root));
+			Predicate where = query==null? null : query.getRestriction();
 			if(where != null){
 				count.where(where);
 			}
-			if(orders != null && orders.length>0){
+			List<Order> orders = query==null? null : query.getOrderList();
+			if(orders != null && orders.size()>0){
 				count.orderBy(orders);
 			}
 			Long total = em.createQuery(count).getSingleResult();
@@ -78,13 +79,13 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			if(where != null){
 				count.where(where);
 			}
-			if(orders != null && orders.length>0){
+			if(orders != null && orders.size()>0){
 				count.orderBy(orders);
 			}
-			TypedQuery<T> query = em.createQuery(criteria);
-			query.setFirstResult(pageIndex * pageSize);
-			query.setMaxResults(pageSize);
-			List<T> list = query.getResultList();
+			TypedQuery<T> typedQuery = em.createQuery(criteria);
+			typedQuery.setFirstResult(pageIndex * pageSize);
+			typedQuery.setMaxResults(pageSize);
+			List<T> list = typedQuery.getResultList();
 			
 			log.debug("get successful");
 			model.setPageIndex(pageIndex);

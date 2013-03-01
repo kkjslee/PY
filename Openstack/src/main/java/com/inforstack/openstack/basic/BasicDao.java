@@ -2,6 +2,7 @@ package com.inforstack.openstack.basic;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 
@@ -23,8 +24,7 @@ public interface BasicDao<T> {
 	
 	public void remove(T instance);
 
-	public PaginationModel<T> pagination(int pageIndex, int pageSize, Predicate where,
-			Order[] orders);
+	public PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<? extends Object> query);
 
 	public PaginationModel<T> pagination(int pageIndex, int pageSize);
 	

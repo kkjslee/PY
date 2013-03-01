@@ -1,5 +1,4 @@
 @CHARSET "UTF-8";
-
  a{outline:none;blr:expression(this.onFocus=this.blur());}
 .dataTable{
 }

@@ -64,9 +64,8 @@ body {
 	vertical-algin:middle;
 }
 .banner{
-	width: 100%; left: 255px; height: 50px; background-color: #F2F2F2;
+	width: 100%; left: 250px; height: 50px;
 	border-bottom:1px solid #E5E5E5;
-	margin-left:-5px;
 }
 .banner label{
 	display:inline;

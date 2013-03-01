@@ -1,10 +1,15 @@
 * {
   font-family:"微软雅黑" !important;
 }
+#mainBody{
+    margin:20px 0 0 0 ;
+}
 .mainBody{
 	margin:0;
 	padding:0;
 	background:white;
+}
+.mainContainer{
 }
 .left{
     width:245px;
@@ -24,7 +29,7 @@
   padding:0;
   margin:0;
   position:absolute;;
-  left:255px;
+  left:250px;
   top:0;
   padding-right:5px;
   min-width:800px;
@@ -48,4 +53,7 @@
 	margin-right:0;
 	border-right:0;
 	
+}
+.table{
+	table-layout:fixed;
 }

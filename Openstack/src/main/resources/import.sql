@@ -151,6 +151,10 @@ insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'use
 insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethods', 'user');
 insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
 
+insert into Resource(id, url, permission) values (210, '/user/cart/modules/ip', 'user');
+insert into Resource(id, url, permission) values (211, '/user/cart/modules/volume', 'user');
+
+
 insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');
 insert into Resource(id, url, permission) values (301, '/user/instance/scripts/bootstrap', 'user');
 insert into Resource(id, url, permission) values (302, '/user/instance/getPagerInstanceList', 'user');
@@ -193,6 +197,12 @@ insert into Resource(id, url, permission) values (421, '/admin/quantum/showPortD
 
 insert into Resource(id, url, permission) values (450, '/admin/cinder/modules/index', 'admin');
 insert into Resource(id, url, permission) values (451, '/admin/cinder/getPagerVolumeTypeList', 'admin');
+
+insert into Resource(id, url, permission) values (500, '/user/order/getPagerOrderList', 'user');
+insert into Resource(id, url, permission) values (501, '/user/order/modules/index', 'user');
+
+insert into Resource(id, url, permission) values (600, '/admin/order/getPagerOrderList', 'admin');
+insert into Resource(id, url, permission) values (601, '/admin/order/modules/index', 'admin');
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');

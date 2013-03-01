@@ -44,6 +44,7 @@ import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.period.OrderPeriodService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Service
 @Transactional
@@ -755,6 +756,20 @@ public class ItemServiceImpl implements ItemService {
 			}
 		}
 		return volumeType;
+	}
+
+	@Override
+	public List<Image> listOpenStackImage(int dataCenterId) throws ApplicationException {
+		List<Image> images = new ArrayList<Image>();
+		ItemService self = (ItemService) OpenstackUtil.getBean(ItemService.class);
+		List<com.inforstack.openstack.item.Image> imageList = this.dataCenterDao.findById(dataCenterId).getImages();
+		for (com.inforstack.openstack.item.Image imageEntity : imageList) {
+			Image image = self.getOpenStackImage(dataCenterId, imageEntity.getUuid());
+			if (image != null) {
+				images.add(image);
+			}
+		}
+		return images;
 	}
 
 }

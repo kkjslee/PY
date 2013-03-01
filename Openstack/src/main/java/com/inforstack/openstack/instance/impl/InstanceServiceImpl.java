@@ -26,6 +26,8 @@ import com.inforstack.openstack.instance.VirtualMachine;
 import com.inforstack.openstack.instance.VirtualMachineDao;
 import com.inforstack.openstack.instance.VolumeInstance;
 import com.inforstack.openstack.instance.VolumeInstanceDao;
+import com.inforstack.openstack.item.DataCenterDao;
+import com.inforstack.openstack.item.ImageDao;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
@@ -51,6 +53,12 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	@Autowired
 	private InstanceStatusDao instanceStatusDao;
+	
+	@Autowired
+	private DataCenterDao dataCenterDao;
+	
+	@Autowired
+	private ImageDao imageDao;
 		
 	@Autowired
 	private KeystoneService keystoneService;
@@ -220,6 +228,7 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	private Server getServerFromOrder(Order order) {
 		Server server = null;
+		String dataCenterRef = null;
 		String imageRef = null;
 		String flavorRef = null;
 		String serverName = "New Instance";
@@ -228,10 +237,18 @@ public class InstanceServiceImpl implements InstanceService {
 			int osType = subOrder.getItem().getOsType();
 			String refId = subOrder.getItem().getRefId();
 			switch (osType) {
+				case ItemSpecification.OS_TYPE_DATACENTER_ID: {
+					dataCenterRef = refId;
+					String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
+					if (name != null && !name.isEmpty()) {
+						serverName = name;
+					}
+					break;
+				}
 				case ItemSpecification.OS_TYPE_IMAGE_ID: {
 					imageRef = refId;
 					String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
-					if (name != null) {
+					if (name != null && !name.isEmpty()) {
 						serverName = name;
 					}
 					break;
@@ -239,14 +256,15 @@ public class InstanceServiceImpl implements InstanceService {
 				case ItemSpecification.OS_TYPE_FLAVOR_ID: {
 					flavorRef = refId;
 					String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
-					if (name != null) {
+					if (name != null && !name.isEmpty()) {
 						serverName = name;
 					}
 					break;
 				}
 			}
 		}
-		if (imageRef != null && flavorRef != null) {
+		if (dataCenterRef != null && imageRef != null && flavorRef != null) {
+			imageRef = this.imageDao.getImageRefId(Integer.parseInt(dataCenterRef), imageRef);
 			server = new Server();
 			server.setName(serverName);
 			server.setImageRef(imageRef);

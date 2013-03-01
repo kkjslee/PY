@@ -77,6 +77,11 @@ public class CartController {
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
 		clear(request, model);
+		
+		List<ItemSpecificationModel> dataCenterList = new ArrayList<ItemSpecificationModel>();
+		dataCenterList = listProductsForUser(ItemSpecification.OS_TYPE_DATACENTER_ID);
+		model.addAttribute("dataCenterList", dataCenterList);
+		
 		List<ItemSpecificationModel> imgList = new ArrayList<ItemSpecificationModel>();
 		imgList = listProductsForUser(ItemSpecification.OS_TYPE_IMAGE_ID);
 		model.addAttribute("imgList", imgList);
@@ -331,6 +336,7 @@ public class CartController {
 					.getItemSpecificationId());
 			switch (is.getOsType()) {
 			case ItemSpecification.OS_TYPE_PERIOD_ID:
+			case ItemSpecification.OS_TYPE_DATACENTER_ID:
 				item.setPeriodId(periodId);
 				item.setPrice(0f);
 				break;
@@ -340,7 +346,6 @@ public class CartController {
 				item.setPeriodId(periodId);
 				item.setPrice(item.getPrice() * priceFactor);
 				break;
-			case ItemSpecification.OS_TYPE_DATACENTER_ID:
 			case ItemSpecification.OS_TYPE_NETWORK_ID:
 				item.setPeriodId(3);
 				break;

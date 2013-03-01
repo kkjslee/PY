@@ -46,6 +46,8 @@ public interface ItemService {
 	
 	public void removeFlavor(String flavorId) throws ApplicationException;
 	
+	public List<com.inforstack.openstack.api.nova.image.Image> listOpenStackImage(int dataCenterId) throws ApplicationException;
+	
 	public com.inforstack.openstack.api.nova.image.Image getOpenStackImage(int dataCenterId, String itemId) throws ApplicationException;
 	
 	public com.inforstack.openstack.api.cinder.VolumeType getOpenStackVolumeType(int dataCenterId, String itemId) throws ApplicationException;

@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.inforstack.openstack.api.OpenstackAPIException;
-import com.inforstack.openstack.api.keystone.Access;
-import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.image.Image;
-import com.inforstack.openstack.api.nova.image.ImageService;
 import com.inforstack.openstack.controller.model.ImageModel;
 import com.inforstack.openstack.controller.model.PagerModel;
+import com.inforstack.openstack.exception.ApplicationException;
+import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.StringUtil;
@@ -34,11 +32,8 @@ public class ImageController {
 	private static final Logger log = new Logger(ImageController.class);
 
 	@Autowired
-	private ImageService imageService;
-
-	@Autowired
-	private KeystoneService keystoneService;
-
+	private ItemService itemService;
+	
 	@Autowired
 	private Validator validator;
 
@@ -110,7 +105,7 @@ public class ImageController {
 			boolean needCheck) {
 		List<ImageModel> imgList = new ArrayList<ImageModel>();
 		try {
-			Image[] images = imageService.listImages();
+			List<Image> images = this.itemService.listOpenStackImage(1);
 			if (images != null) {
 				ImageModel imgModel = null;
 				for (Image img : images) {
@@ -141,7 +136,7 @@ public class ImageController {
 				model.addAttribute("pageTotal", page.getTotalRecord());
 				model.addAttribute("dataList", imgList);
 			}
-		} catch (OpenstackAPIException e) {
+		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -154,9 +149,9 @@ public class ImageController {
 	List<ImageModel> listImages(Model model) {
 		List<ImageModel> imgModels = new ArrayList<ImageModel>();
 		try {
-			Image[] imgs = imageService.listImages();
+			List<Image> images = this.itemService.listOpenStackImage(1);
 			ImageModel imgModel = null;
-			for (Image img : imgs) {
+			for (Image img : images) {
 				if (ValidateUtil.checkValidImg(img)) {
 					imgModel = new ImageModel();
 					imgModel.setImgId(img.getId());
@@ -165,7 +160,7 @@ public class ImageController {
 				}
 
 			}
-		} catch (OpenstackAPIException e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
 
@@ -182,14 +177,13 @@ public class ImageController {
 			ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
 			return ret;
 		}
-		try {
-			Access access = keystoneService.getAdminAccess();
-			// to do
+//		try {
+//			// to do
 			ret.put(Constants.JSON_SUCCESS_STATUS, "success");
-		} catch (OpenstackAPIException e) {
-			ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
-			return ret;
-		}
+//		} catch (ApplicationException e) {
+//			ret.put(Constants.JSON_ERROR_STATUS, e.getMessage());
+//			return ret;
+//		}
 
 		return ret;
 	}
@@ -203,8 +197,8 @@ public class ImageController {
 		}
 		Image image = null;
 		try {
-			image = imageService.getImage(imgId);
-		} catch (OpenstackAPIException e) {
+			image = this.itemService.getOpenStackImage(1, imgId);
+		} catch (ApplicationException e) {
 			return null;
 		}
 		// to do

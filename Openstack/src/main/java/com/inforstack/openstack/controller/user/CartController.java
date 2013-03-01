@@ -92,6 +92,10 @@ public class CartController {
 		List<ItemSpecificationModel> volumeTypeModels = new ArrayList<ItemSpecificationModel>();
 		volumeTypeModels = listProductsForUser(ItemSpecification.OS_TYPE_VOLUME_ID);
 		model.addAttribute("volumeTypeList", volumeTypeModels);
+		
+		List<ItemSpecificationModel> networkModels = new ArrayList<ItemSpecificationModel>();
+		networkModels = listProductsForUser(ItemSpecification.OS_TYPE_NETWORK_ID);
+		model.addAttribute("networkList", networkModels);
 
 		return CART_MODULE_HOME + "/index";
 	}

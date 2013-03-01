@@ -99,8 +99,13 @@ public class InstanceServiceImpl implements InstanceService {
 		for (Order order : orderList) {
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
-				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), type, includeStatus, excludeStatus);
-				instanceList.addAll(instances);
+				Instance instance = subOrder.getInstance();
+				if (instance != null && instance.getType() == type) {
+					if ((includeStatus == null || instance.getStatus().equalsIgnoreCase(includeStatus)) && (excludeStatus == null || !instance.getStatus().equalsIgnoreCase(excludeStatus))) {
+						instance.getSubOrders().get(0);
+						instanceList.add(instance);
+					}
+				}
 			}
 		}
 		return instanceList;

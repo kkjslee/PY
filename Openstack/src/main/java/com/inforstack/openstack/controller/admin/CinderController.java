@@ -167,7 +167,7 @@ public class CinderController {
 			volumeModel.setCreated(instance.getCreateTime());
 			volumeModel.setZone(instance.getRegion());
 			volumeModel.setStatus(instance.getStatus());
-			volumeModel.setSubOrderId(instance.getSubOrder().getId());
+			volumeModel.setSubOrderId(instance.getSubOrders().get(0).getId());
 
 			VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(volume.getVm());
 			if (vm != null) {

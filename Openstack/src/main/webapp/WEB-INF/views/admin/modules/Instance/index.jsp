@@ -18,7 +18,7 @@
 </div>
 
 <div id="mainBody" >
-	<table class="dataTable imList  table table-striped table-hover">
+	<table class="dataTable imList  table  table-striped table-hover">
         <thead>
             <tr class="headerRow">
                 <th class="vmName"><spring:message code="admin.vm.name" /> </th>

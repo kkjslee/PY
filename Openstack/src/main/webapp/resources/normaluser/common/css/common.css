@@ -16,7 +16,6 @@
 .dialogLine {
     display:block;
     line-height:28px;
-    margin-bottom:3px;
     overflow:hidden;
 }
 .dialogLineLeft {
@@ -110,9 +109,15 @@
 .ui-dialog .ui-dialog-title{
 	padding:1px;
 }
+.ui-multiselect { height:35px; overflow-x:hidden; padding:2px 0 2px 14px; text-align:left }
+.table{
+	border:1px solid #DDD;
+}
+
 .table th, .table td{
 	border-top:0 none;
 	border-bottom:1px solid #DDDDDD;
+	padding:6px;
 }
 .table .cartLabel{
 	width:30%;

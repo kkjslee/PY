@@ -18,6 +18,11 @@
 	<script type="text/javascript" src="${rPath}/js/jquery-ui-1.9.2.custom.min.js"></script>
 	
 	<script src="${rPath}/js/common.js" type="text/javascript"></script>
+	<style>
+	.green{
+	   color:red;
+	}
+	</style>
 	<script>
 		function changeLocale(language){
 			if(language == -1){
@@ -154,6 +159,7 @@
                             alert(info);
                         }else if(data.success){
                         	regForm.close();
+                        	$("#message").attr("class","green");
                         	$("#message").html(data.success);
                        }
 		            },
@@ -170,7 +176,8 @@
 	}
 	</style>
 </head>
-<body id="splash">
+<body >
+<div id="splash">
 ${request}
 	<div class="container">
 		<div class="row large-rounded">
@@ -240,5 +247,6 @@ ${request}
     </div> 
    </div> 
   </div> 
+  </div>
  </body>
 </html>

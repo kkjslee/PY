@@ -2,7 +2,7 @@
   font-family:"微软雅黑" !important;
 }
 #mainBody{
-    margin:20px 0 0 0 ;
+    margin:20px 0 0 15px;
 }
 .mainBody{
     margin:0;
@@ -54,5 +54,4 @@
     
 }
 .table{
-    table-layout:fixed;
 }

@@ -1,20 +1,5 @@
 @CHARSET "UTF-8";
 
-.flavorName{
-    width:30%;
-}
-.flavorVcpus{
-    width:15%;
-}
-.flavorRam{
-    width:15%;  
-}
-.flavorRdisk{
-    width:15%
-}
-.flavorOperation{
-    width:25%;
-}
 .flavorDetails{
     display:none;
 }

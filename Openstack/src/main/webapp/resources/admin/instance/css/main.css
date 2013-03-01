@@ -1,9 +1,3 @@
-.vmName{width:20%;}
-.vmUser {width:15%;}
-.vmStatus {width:15%;}
-.vmOstype {width:20%;}
-.vmOperation {width:30%}
-.vmOperation span{display:inline-block;} 
 .statusVice{
 	background:url("image/loading.gif") 0 0 no-repeat;
 	text-indent:37px;

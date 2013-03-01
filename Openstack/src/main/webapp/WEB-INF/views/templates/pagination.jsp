@@ -38,7 +38,7 @@ property			value				comment
 </c:if>
 <!-- <div class="dataTable" id="${conf['.content']}"></div>
 <div class="pagination" id="${conf['.pagination']}"></div> -->
-<table class="dataTable table table-striped table-hover" id="${conf['.content']}">
+<table class="dataTable table  table-striped table-hover" id="${conf['.content']}">
 </table>
 <script>
 

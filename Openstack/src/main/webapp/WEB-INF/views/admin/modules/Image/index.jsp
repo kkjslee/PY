@@ -18,7 +18,7 @@
 </div>
 
 <div id="mainBody" >
-    <table class="dataTable imList  table table-striped table-hover">
+    <table class="dataTable imList  table  table-striped table-hover">
         <thead>
             <tr class="headerRow">
                 <th class="imageName"><spring:message code="admin.image.name" /> </th>
@@ -33,7 +33,7 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="6" class="pagination"></td>
+            <td colspan="5" class="pagination"></td>
             <td align="left"></td>
             </tr>
         </tfoot>

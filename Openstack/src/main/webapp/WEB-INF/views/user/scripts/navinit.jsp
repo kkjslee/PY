@@ -43,6 +43,7 @@ function loadModule(modulePath) {
         cache: false,
         dataType:"html",
         success: function(data) {
+         $(pd).dialog("close");
             try{
                 $(".right").html(data);
             }catch(e) {
@@ -50,11 +51,11 @@ function loadModule(modulePath) {
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
+         $(pd).dialog("close");
             window.console.log(jqXHR.status);
             alert("<spring:message code="module.load.error"/>");
         },
         complete:function(){
-            $(pd).dialog("close");
         }
     });
 }

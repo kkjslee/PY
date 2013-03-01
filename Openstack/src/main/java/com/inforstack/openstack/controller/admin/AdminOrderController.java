@@ -46,7 +46,7 @@ public class AdminOrderController {
 		conf.put("grid.id", "[plain]");
 		conf.put("id.label", OpenstackUtil.getMessage("order.label"));
 		conf.put("grid.amount", "[plain]");
-		conf.put("grid.banlance", "[plain]");
+		conf.put("grid.balance", "[plain]");
 		conf.put("grid.autoPay", "[plain]");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.createdBy", "[plain]");

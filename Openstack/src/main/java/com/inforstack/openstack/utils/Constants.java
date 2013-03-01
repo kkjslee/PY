@@ -97,7 +97,7 @@ public class Constants {
 
 	public static final int DEFAULT_PAGE_INDEX = 0;
 	// for test
-	public static final int DEFAULT_PAGE_SIZE = 10;
+	public static final int DEFAULT_PAGE_SIZE = 15;
 
 	public static final String PAGER_PAGE_INDEX = "pageIndex";
 	public static final String PAGER_PAGE_SIZE = "pageSize";

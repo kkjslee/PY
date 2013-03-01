@@ -26,10 +26,19 @@ public class AdminOrderController {
 	@Autowired
 	private OrderService orderService;
 
-	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json")
+	private final String ORDER_MODULE_HOME = "admin/modules/Order";
+
+	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
+	public String redirectModule(Model model, HttpServletRequest request) {
+		return ORDER_MODULE_HOME + "/index";
+
+	}
+
+	@RequestMapping(value = "/getPagerOrderList", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	Map<String, Object> list(int pageIndex, int pageSize, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+	Map<String, Object> getPagerOrderList(int pageIndex, int pageSize,
+			Model model, HttpServletRequest request,
+			HttpServletResponse response) {
 		PaginationModel<Order> pm = orderService.findAllWithoutSubOrder(
 				pageIndex, pageSize);
 
@@ -41,16 +50,17 @@ public class AdminOrderController {
 		conf.put("grid.autoPay", "[plain]");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.createdBy", "[plain]");
-		conf.put("createdBy.value", "{createdBy.username}");
-		conf.put("grid.tenant", "{tenant.dipalyName}");
+		conf.put("createdBy.value", "{createdBy.username} ");
+		conf.put("grid.tenant", "{tenant.dipalyName} ");
 		conf.put("grid.createTime", "[plain]");
 		conf.put(".datas", pm.getData());
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/grid.jsp?grid.configuration=configuration&type=",
-				model.asMap(), request, response);
+		String jspString = OpenstackUtil
+				.getJspPage(
+						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil

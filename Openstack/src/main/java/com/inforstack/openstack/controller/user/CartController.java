@@ -92,7 +92,7 @@ public class CartController {
 		List<ItemSpecificationModel> volumeTypeModels = new ArrayList<ItemSpecificationModel>();
 		volumeTypeModels = listProductsForUser(ItemSpecification.OS_TYPE_VOLUME_ID);
 		model.addAttribute("volumeTypeList", volumeTypeModels);
-		
+
 		List<ItemSpecificationModel> networkModels = new ArrayList<ItemSpecificationModel>();
 		networkModels = listProductsForUser(ItemSpecification.OS_TYPE_NETWORK_ID);
 		model.addAttribute("networkList", networkModels);
@@ -105,9 +105,20 @@ public class CartController {
 		return CART_MODULE_HOME + "/scripts/bootstrap";
 	}
 
-	@RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
-	public String template(Model model) {
-		return CART_MODULE_HOME + "/scripts/template";
+	@RequestMapping(value = "/modules/ip", method = RequestMethod.GET)
+	public String buyIp(Model model) {
+		List<ItemSpecificationModel> networkModels = new ArrayList<ItemSpecificationModel>();
+		networkModels = listProductsForUser(ItemSpecification.OS_TYPE_NETWORK_ID);
+		model.addAttribute("networkList", networkModels);
+		return CART_MODULE_HOME + "/ip";
+	}
+
+	@RequestMapping(value = "/modules/volume", method = RequestMethod.GET)
+	public String buyVolume(Model model) {
+		List<ItemSpecificationModel> volumeTypeModels = new ArrayList<ItemSpecificationModel>();
+		volumeTypeModels = listProductsForUser(ItemSpecification.OS_TYPE_VOLUME_ID);
+		model.addAttribute("volumeTypeList", volumeTypeModels);
+		return CART_MODULE_HOME + "/volume";
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")

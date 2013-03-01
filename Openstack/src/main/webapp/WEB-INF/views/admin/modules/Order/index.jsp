@@ -11,17 +11,17 @@
 <body>
 <div class="banner">
     <label>
-        <span id="banner" ></span>
+        <span id="banner" ><spring:message code="admin.order.title"/></span>
     </label>
 </div>
 
 <div id="mainBody" >
 
-    <c:url value='/user/order/orderList' var="paginationUrl"/>
+    <c:url value='/admin/order/getPagerOrderList' var="paginationUrl"/>
     <jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />
     <c:set target="${pageMap}" property=".content" value="dataTable"/>
     <c:set target="${pageMap}" property=".pageIndex" value="0"/>
-    <c:set target="${pageMap}" property=".pageSize" value="20"/>
+    <c:set target="${pageMap}" property=".pageSize" value="15"/>
     <c:set target="${pageMap}" property=".pagination" value="pagination"/>
     <c:set target="${pageMap}" property=".url" value="${paginationUrl}"/>
     <jsp:include page="/WEB-INF/views/templates/pagination.jsp" >

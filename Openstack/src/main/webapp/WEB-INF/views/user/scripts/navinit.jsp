@@ -28,14 +28,6 @@ function initUI() {
 function loadModule(modulePath) {
    var pd = showProcessingDialog();
    $(".right").empty()
-    /*$(".right").load("${pageContext.request.contextPath}/user/"+modulePath,function(response,status,xhr){
-        $(pd).dialog("close");
-        if(status == "success"){
-        
-        }else{
-        alert("error");
-        }
-    })*/
     
     $.ajax({
         type: "get",

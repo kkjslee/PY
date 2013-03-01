@@ -1,15 +1,9 @@
 var Server="";
-var cart_imgSelected_UUID = "";
-var cart_flavorSelected_UUID="";
-var cart_planSelected_UUID="";
 var cart_volumeTypeSelected_UUID="";
-var cart_networkSelected_UUID="";
-var instangMsg = "";
 var volumeMsg = "";
 //this should be called first in jsp file
-function setServer(server,_instangMsg, _volumeMsg){
+function setServer(server,_volumeMsg){
 	Server = server;
-	instangMsg = _instangMsg;
 	volumeMsg = _volumeMsg;
 }
 $(function(){
@@ -87,7 +81,7 @@ function checkOutOrder(callBack){
 }
 
 function validOrderCondition(){
-	if($(".imgList").val()==-1 || $(".flavorList").val()==-1 || $(".planList").val()==-1 ){
+	if($(".volumeTypeList").val()==-1){
 		return false;
 	}else{
 		return true;
@@ -101,13 +95,11 @@ function setup(){
 			if(typeof($(this).attr("isos") != "undefined")){
 				var itemCategory = $(this).attr("isos");
 				var itemValue = $(this).val();
-				window.console.log("sel itemid: "+itemValue);
 				var itemPrice = 0;
 				if(typeof($(this).find("option:selected").attr("defaultprice"))!="undefined"){
 					itemPrice =  $(this).find("option:selected").attr("defaultprice");
 				}
 				
-				window.console.log("sel itemprice: " +itemPrice);
 				sendCartRequest(itemCategory,itemValue,itemPrice);
 			}
 		});
@@ -118,36 +110,11 @@ function setup(){
 function sendCartRequest(itemCategory,itemId,itemPrice){
 			var toAdd = false;
 			var toUUID = "";
-				if(itemCategory == "img"){
-					if(isNull(cart_imgSelected_UUID)){
-						toAdd = true;
-					}else{
-						window.console.log("page img uuid:" + cart_imgSelected_UUID);
-						toUUID = cart_imgSelected_UUID;
-					}
-				}else if(itemCategory == "flavor"){
-					if(isNull(cart_flavorSelected_UUID)){
-						toAdd = true;
-					}else{
-						toUUID = cart_flavorSelected_UUID;
-					}
-				}else if(itemCategory == "plan"){
-					if(isNull(cart_planSelected_UUID)){
-						toAdd = true;
-					}else{
-						toUUID = cart_planSelected_UUID;
-					}
-				}else if(itemCategory == "volumeType"){
+				if(itemCategory == "volumeType"){
 					if(isNull(cart_volumeTypeSelected_UUID)){
 						toAdd = true;
 					}else{
 						toUUID = cart_volumeTypeSelected_UUID;
-					}
-				}else if(itemCategory == "network"){
-					if(isNull(cart_networkSelected_UUID)){
-						toAdd = true;
-					}else{
-						toUUID = cart_networkSelected_UUID;
 					}
 				}
 			window.console.log("to UUID" + toUUID);
@@ -167,17 +134,11 @@ function sendCartRequest(itemCategory,itemId,itemPrice){
 function addItemToCart(itemId,itemPrice,itemCategory){
 	var name = "";
 	var extra = "";
-	if(itemCategory == "flavor"){
-		name = $("#name").val();
-		if(isNull(name)){
-			printMessage(instangMsg);
-			return;
-		}
-	}
 	if(itemCategory =="volumeType"){
 		name=$("#volumeName").val();
 		if(isNull(name)){
 			printMessage(volumeMsg);
+			$(".volumeTypeList").selectmenu("value", "-1");
 			return;
 		}
 		extra = $("#volumeLocation").val();
@@ -223,51 +184,49 @@ function addItemToCart(itemId,itemPrice,itemCategory){
 function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 	var name = "";
 	var extra = "";
-	if(itemCategory == "flavor"){
-		name = $("#name").val();
-	}
 	if(itemCategory =="volumeType"){
 		name=$("#volumeName").val();
 		if(isNull(name)){
 			printMessage(volumeMsg);
+			$(".volumeTypeList").selectmenu("value", "-1");
 			return;
 		}
 		extra = $("#volumeLocation").val();
 	}
-$.ajax({
-    url: Server + "/update",
-    type: "POST",
-    dataType:"json",
-    data: {
-    	itemSpecificationId:itemId,
-    	uuid:uuid,
-    	extra:extra,
-    	name:name,
-    	price:itemPrice
-    },
-    cache: false,
-    success: function(data) {
-        try {
-
-            if(data.status == "success"){
-            	var price  = data.data.amount;
-            	udpateAmount(price);
-            	var uuid = data.data.currentItemUUID;
-            	setCategorySelctedIdValue(itemCategory,uuid);	
-            }
-            if(data.status == "error"){
-                printMessage(data.msg);
-            }
-
-        } catch(e) {
-            printMessage("Data Broken: [" + e + "]");
-        }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        printError(jqXHR, textStatus, errorThrown);
-        return false;
-    }
-});
+	$.ajax({
+	    url: Server + "/update",
+	    type: "POST",
+	    dataType:"json",
+	    data: {
+	    	itemSpecificationId:itemId,
+	    	uuid:uuid,
+	    	extra:extra,
+	    	name:name,
+	    	price:itemPrice
+	    },
+	    cache: false,
+	    success: function(data) {
+	        try {
+	
+	            if(data.status == "success"){
+	            	var price  = data.data.amount;
+	            	udpateAmount(price);
+	            	var uuid = data.data.currentItemUUID;
+	            	setCategorySelctedIdValue(itemCategory,uuid);	
+	            }
+	            if(data.status == "error"){
+	                printMessage(data.msg);
+	            }
+	
+	        } catch(e) {
+	            printMessage("Data Broken: [" + e + "]");
+	        }
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	        printError(jqXHR, textStatus, errorThrown);
+	        return false;
+	    }
+	});
 }
 
 function removeCartItem(toId,itemCategory){
@@ -311,16 +270,8 @@ function activeCartSubmitBtn(){
 }
 
 function setCategorySelctedIdValue(itemCategory,value){
-	if(itemCategory == "img"){
-		cart_imgSelected_UUID = value;
-	}else if(itemCategory == "flavor" ){
-		cart_flavorSelected_UUID = value;
-	}else if(itemCategory == "plan"){
-		cart_planSelected_UUID = value;
-	}else if(itemCategory == "volumeType"){
+	if(itemCategory == "volumeType"){
 		cart_volumeTypeSelected_UUID = value;
-	}else if(itemCategory == "network"){
-		cart_networkSelected_UUID = value;
 	}
 }
 function udpateAmount(price){

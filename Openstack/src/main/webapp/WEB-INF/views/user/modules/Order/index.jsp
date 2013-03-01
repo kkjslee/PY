@@ -6,19 +6,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<script src="<%=request.getContextPath()%>/resource/normaluser/order/js/bootstrap.js" language="javascript"></script>
+<title><spring:message code="user.order.title"/></title>
 </head>
 <body>
 <div class="banner">
-    <label>
-        <span id="banner" ></span>
-    </label>
+      <span id="banner" ><spring:message code="user.order.title"/></span>
 </div>
 
 <div id="mainBody" >
 
-    <c:url value='/user/order/orderList' var="paginationUrl"/>
+    <c:url value='/user/order/getPagerOrderList' var="paginationUrl"/>
     <jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />
     <c:set target="${pageMap}" property=".content" value="dataTable"/>
     <c:set target="${pageMap}" property=".pageIndex" value="0"/>

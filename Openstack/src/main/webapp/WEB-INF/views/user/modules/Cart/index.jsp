@@ -11,9 +11,7 @@
 </head>
 <body>
 <div class="banner">
-    <label>
         <span id="banner" ></span>
-    </label>
 </div>
 
 <div id="mainBody" >

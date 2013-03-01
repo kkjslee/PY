@@ -67,6 +67,10 @@ body {
 .banner{
 	width: 100%; left: 250px; height: 50px;
 	border-bottom:1px solid #E5E5E5;
+	line-height: 50px;
+    vertical-align: middle;
+    font-size: 19px;
+    padding: 0 15px;
 }
 .banner label{
 	display:inline;

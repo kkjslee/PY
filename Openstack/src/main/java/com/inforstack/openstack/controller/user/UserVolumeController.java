@@ -163,7 +163,6 @@ public class UserVolumeController {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());
 				attachment.setServer(vm.getName());
-				attachment.setDevice(volume.getDevice());
 				volumeModel.setAttachment(attachment);
 			} else {
 				AttachmentModel attachment = new AttachmentModel();

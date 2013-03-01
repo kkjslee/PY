@@ -164,7 +164,7 @@ public class InstanceServiceImpl implements InstanceService {
 						if (server != null) {
 							newServer = this.serverService.createServer(access, server);
 							if (newServer != null) {
-								vm = this.bindServerToSubOrder(newServer, order);
+								vm = this.bindServerToSubOrder(newServer, order, tenant);
 								server = newServer;
 							}
 						}
@@ -175,7 +175,7 @@ public class InstanceServiceImpl implements InstanceService {
 							if (newVolume != null) {
 								// TODO: [ricky] get device name from order
 								String deviceName = newVolume.getDescription();
-								vi = this.bindVolumeToSubOrder(newVolume, order, vm, deviceName);
+								vi = this.bindVolumeToSubOrder(newVolume, order, vm, tenant);
 								if (server.getId() != null && !server.getId().isEmpty()) {
 									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
 								}
@@ -202,7 +202,7 @@ public class InstanceServiceImpl implements InstanceService {
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeVolumeAndIP) {
 	}
 	
-	private Instance registerInstance(int type, String id, String name) {
+	private Instance registerInstance(int type, String id, String name, Tenant tenant) {
 		Date now = new Date();
 		Instance instance = new Instance();
 		instance.setType(type);
@@ -212,6 +212,7 @@ public class InstanceServiceImpl implements InstanceService {
 		instance.setUpdateTime(now);
 		instance.setStatus("new");
 		instance.setTask("");
+		instance.setTenant(tenant);
 		
 		this.instanceDao.persist(instance);
 		return instance;
@@ -295,7 +296,7 @@ public class InstanceServiceImpl implements InstanceService {
 		return volume;
 	}
 	
-	private VirtualMachine bindServerToSubOrder(Server server, Order order) {
+	private VirtualMachine bindServerToSubOrder(Server server, Order order, Tenant tenant) {
 		VirtualMachine vm = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
@@ -308,7 +309,7 @@ public class InstanceServiceImpl implements InstanceService {
 				vm.setImage(server.getImage().getId());
 				vm.setFlavor(server.getFlavor().getId());
 				this.virtualMachineDao.persist(vm);
-				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VM, server.getId(), server.getName());
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VM, server.getId(), server.getName(), tenant);
 				subOrder.setInstance(instance);
 			case ItemSpecification.OS_TYPE_FLAVOR_ID:
 			case ItemSpecification.OS_TYPE_IMAGE_ID:
@@ -319,7 +320,7 @@ public class InstanceServiceImpl implements InstanceService {
 		return vm;
 	}
 	
-	private VolumeInstance bindVolumeToSubOrder(Volume volume, Order order, VirtualMachine vm, String device) {
+	private VolumeInstance bindVolumeToSubOrder(Volume volume, Order order, VirtualMachine vm, Tenant tenant) {
 		VolumeInstance vi = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
@@ -331,12 +332,11 @@ public class InstanceServiceImpl implements InstanceService {
 				vi.setUuid(volume.getId());
 				vi.setName(volume.getName());
 				vi.setSize(volume.getSize());
-				if (vm != null && device != null) {
+				if (vm != null) {
 					vi.setVm(vm.getUuid());
-					vi.setDevice(device);
 				}
 				this.volumeInstanceDao.persist(vi);
-				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName());
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), tenant);
 				subOrder.setInstance(instance);
 				break;
 			}

@@ -174,7 +174,6 @@ public class CinderController {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());
 				attachment.setServer(vm.getName());
-				attachment.setDevice(volume.getDevice());
 				volumeModel.setAttachment(attachment);
 			}
 			vtList.add(volumeModel);

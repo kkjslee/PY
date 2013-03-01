@@ -5,8 +5,6 @@ public class AttachmentModel {
 
 	private String id;
 	
-	private String device;
-	
 	private String server;
 	
 	private String volume;
@@ -17,14 +15,6 @@ public class AttachmentModel {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getDevice() {
-		return device;
-	}
-
-	public void setDevice(String device) {
-		this.device = device;
 	}
 
 	public String getServer() {

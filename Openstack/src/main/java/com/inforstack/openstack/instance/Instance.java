@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 
 @Entity
@@ -37,6 +38,10 @@ public class Instance {
 	private String status;
 	
 	private String task;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=false)
+	@JoinColumn(name="tenant_id")
+	private Tenant tenant;
 			
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=true)
 	@JoinColumn(name="parent_id")
@@ -115,6 +120,14 @@ public class Instance {
 
 	public void setTask(String task) {
 		this.task = task;
+	}
+
+	public Tenant getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(Tenant tenant) {
+		this.tenant = tenant;
 	}
 
 	public Instance getParent() {

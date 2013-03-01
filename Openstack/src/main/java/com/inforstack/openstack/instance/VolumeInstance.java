@@ -17,8 +17,6 @@ public class VolumeInstance {
 	
 	private int size;
 	
-	private String device;
-	
 	private String vm;
 
 	public int getId() {
@@ -51,14 +49,6 @@ public class VolumeInstance {
 
 	public void setSize(int size) {
 		this.size = size;
-	}
-
-	public String getDevice() {
-		return device;
-	}
-
-	public void setDevice(String device) {
-		this.device = device;
 	}
 
 	public String getVm() {

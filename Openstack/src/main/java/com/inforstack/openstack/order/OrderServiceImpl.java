@@ -84,7 +84,6 @@ public class OrderServiceImpl implements OrderService {
 				subOrders.add(so);
 				o.setSubOrders(subOrders);
 				AttributeMap.getInstance().put(so.getId(), "name", itemModel.getName());
-				AttributeMap.getInstance().put(so.getId(), "extra", itemModel.getExtra());
 			}
 		}
 		// TODO: create instances after checkout

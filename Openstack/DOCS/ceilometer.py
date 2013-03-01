@@ -220,10 +220,12 @@ class UploaderThread(threading.Thread):
         session = None
         try:
             session = get_session()
-            datas = self._unsendedDatas(session)
+            rows = self._unsendedRows(session)
             
-            for data in datas:
-                print data.id
+            for row in rows:
+                data = self._findById(row[0], session)
+                if not data:
+                    continue
                 l_data = self._last(data.instance_uuid, session)
                 increment = self._calcIncrement(data, l_data)
                 increment["logTime"] = data.log_time
@@ -242,12 +244,17 @@ class UploaderThread(threading.Thread):
             if uploader:
                 uploader.closeSocket()
 
-    def _unsendedDatas(self, session):
+    def _unsendedRows(self, session):
         return session.execute(
-                    session.query(DomainInfo).\
+                    session.query(DomainInfo.id).\
                     filter_by(deleted=False).\
                     order_by(DomainInfo.log_time.asc())
                 )
+
+    def _findById(self, domainInfoId, session):
+        return session.query(DomainInfo).\
+                    filter_by(id=domainInfoId, deleted=False).\
+                    first()
     
     def _last(self, instance_uuid, session):
         """

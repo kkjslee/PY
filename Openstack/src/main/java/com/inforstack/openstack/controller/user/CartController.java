@@ -77,11 +77,11 @@ public class CartController {
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
 		clear(request, model);
-		
+
 		List<ItemSpecificationModel> dataCenterList = new ArrayList<ItemSpecificationModel>();
 		dataCenterList = listProductsForUser(ItemSpecification.OS_TYPE_DATACENTER_ID);
 		model.addAttribute("dataCenterList", dataCenterList);
-		
+
 		List<ItemSpecificationModel> imgList = new ArrayList<ItemSpecificationModel>();
 		imgList = listProductsForUser(ItemSpecification.OS_TYPE_IMAGE_ID);
 		model.addAttribute("imgList", imgList);
@@ -115,6 +115,11 @@ public class CartController {
 		List<ItemSpecificationModel> networkModels = new ArrayList<ItemSpecificationModel>();
 		networkModels = listProductsForUser(ItemSpecification.OS_TYPE_NETWORK_ID);
 		model.addAttribute("networkList", networkModels);
+
+		List<ItemSpecificationModel> dataCenterList = new ArrayList<ItemSpecificationModel>();
+		dataCenterList = listProductsForUser(ItemSpecification.OS_TYPE_DATACENTER_ID);
+		model.addAttribute("dataCenterList", dataCenterList);
+
 		return CART_MODULE_HOME + "/ip";
 	}
 
@@ -123,6 +128,11 @@ public class CartController {
 		List<ItemSpecificationModel> volumeTypeModels = new ArrayList<ItemSpecificationModel>();
 		volumeTypeModels = listProductsForUser(ItemSpecification.OS_TYPE_VOLUME_ID);
 		model.addAttribute("volumeTypeList", volumeTypeModels);
+
+		List<ItemSpecificationModel> dataCenterList = new ArrayList<ItemSpecificationModel>();
+		dataCenterList = listProductsForUser(ItemSpecification.OS_TYPE_DATACENTER_ID);
+		model.addAttribute("dataCenterList", dataCenterList);
+
 		return CART_MODULE_HOME + "/volume";
 	}
 

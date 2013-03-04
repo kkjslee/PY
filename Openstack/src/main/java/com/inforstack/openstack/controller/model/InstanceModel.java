@@ -85,6 +85,8 @@ public class InstanceModel {
 	private Map<String, String> addresses;
 	
 	private String period;
+	
+	private String region;
 
 	public InstanceModel() {
 		super();
@@ -342,6 +344,14 @@ public class InstanceModel {
 
 	public void setPeriod(String period) {
 		this.period = period;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 }

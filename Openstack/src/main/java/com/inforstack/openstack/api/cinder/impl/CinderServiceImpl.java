@@ -12,6 +12,7 @@ import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
 import com.inforstack.openstack.api.cinder.VolumeAttachment;
+import com.inforstack.openstack.api.cinder.VolumeSnapshot;
 import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
@@ -177,6 +178,17 @@ public class CinderServiceImpl implements CinderService {
 		
 	}
 	
+	private static final class VolumeSnapshots {
+		
+		@JsonProperty("snapshots")
+		private VolumeSnapshot[] volumeSnapshots;
+
+		public VolumeSnapshot[] getVolumeSnapshots() {
+			return volumeSnapshots;
+		}
+		
+	}
+	
 	private static final class VolumeBody implements RequestBody {
 		
 		@JsonProperty("volume")
@@ -191,6 +203,22 @@ public class CinderServiceImpl implements CinderService {
 		}
 		
 	}
+	
+	private static final class VolumeSnapshotBody implements RequestBody {
+		
+		@JsonProperty("snapshot")
+		private VolumeSnapshot snapshot;
+
+		public VolumeSnapshot getSnapshot() {
+			return snapshot;
+		}
+
+		public void setSnapshot(VolumeSnapshot snapshot) {
+			this.snapshot = snapshot;
+		}
+			
+	}
+
 	
 	private static final class VolumsesAttach {
 			
@@ -532,6 +560,87 @@ public class CinderServiceImpl implements CinderService {
 			}
 		}
 		return volume;
+	}
+
+	@Override
+	public VolumeSnapshot createVolumeSnapshot(Access access, String volumeID, String name,
+			String description, boolean force) throws OpenstackAPIException {
+		
+		VolumeSnapshot volumeSnapshot = null;
+		if (access != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SNAPSHOTS);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				
+				volumeSnapshot = new VolumeSnapshot();
+				volumeSnapshot.setVolume_id(volumeID);
+				volumeSnapshot.setDisplay_name(name);
+				volumeSnapshot.setDisplay_description(description);
+				volumeSnapshot.setForce(force);
+				
+				VolumeSnapshotBody request = new VolumeSnapshotBody();
+				request.setSnapshot(volumeSnapshot);
+				VolumeSnapshotBody response = RestUtils.postForObject(url, access, request, VolumeSnapshotBody.class);
+				if (response != null) {
+					volumeSnapshot = response.getSnapshot();
+				}
+			}			
+		}
+		return volumeSnapshot;
+	}
+
+	@Override
+	public VolumeSnapshot[] listVolumeSnapshots(Access access)
+			throws OpenstackAPIException {
+		VolumeSnapshot[] volumeSnapshots = null;
+		if (access != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SNAPSHOTS);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				VolumeSnapshots response = RestUtils.get(url, access, VolumeSnapshots.class);
+				if (response != null) {
+					volumeSnapshots = response.getVolumeSnapshots();
+				}
+			}
+		}
+		return volumeSnapshots;
+	}
+
+	@Override
+	public VolumeSnapshot getDetailVolumeSnapshot(Access access,
+			String volumeSnapshotID) throws OpenstackAPIException {
+		VolumeSnapshot volumeSnapshot = null;
+		if (access != null && volumeSnapshotID != null && !volumeSnapshotID.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SNAPSHOT);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				try {
+					VolumeSnapshotBody response = RestUtils.get(url, access, VolumeSnapshotBody.class, volumeSnapshotID);
+					if (response != null) {
+						volumeSnapshot = response.getSnapshot();
+					}
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
+				}
+			}
+		}
+		return volumeSnapshot;
+	}
+
+	@Override
+	public void deletelVolumeSnapshot(Access access,
+			String volumeSnapshotID) throws OpenstackAPIException {
+		if (access != null && volumeSnapshotID != null && !volumeSnapshotID.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SNAPSHOT);
+			if (endpoint != null) {
+				String url = getnovaEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				try {
+					RestUtils.delete(url, access, volumeSnapshotID);
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
+				}
+			}
+		}
 	}
 
 }

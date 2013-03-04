@@ -14,138 +14,176 @@
         <span id="banner" ></span>
 </div>
 
-<div id="mainBody" >
-    <div id="cartCheck">
-        <table class="table">
-        <tbody>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.name.title"/>: </td>
-            <td class="cartCategory">
-                <input type="text" name="name" id="name" maxlength="40"/>
-            </td>
-       </tr>
-       <tr>
-            <td class="cartLabel"><spring:message code="cart.datacenter.title"/>: </td>
-            <td class="cartCategory">
-                <select class="dataCenterList selectable" isos="dataCenter">
-                <option value="-1" selected><spring:message code="choose.label"/></option>
-                    <c:forEach items="${dataCenterList}" var="dataCenter" varStatus="status">
-                                <option value="${dataCenter.id}" defaultprice="${dataCenter.defaultPrice}">
-                                <c:forEach items="${dataCenter.name}" var="i18Name">
+<div id="mainBody" class="cartForm form-horizontal" >
+    <div class="control-group">
+         <label  class="control-label" for="name"><spring:message code="cart.name.title"/>: </label>
+         <div class="controls">
+             <input type="text" id="name" name="name" rel="tooltip" data-placement="right" title="<spring:message code='name.format.tip'/>"/>
+         </div>
+    </div>
+    <div class="accordion" id="accordionCart">
+		    <div class="accordion-group">
+		                <div class="accordion-heading">
+		                    <a class="accordion-toggle" data-toggle="collapse"
+		                        data-parent="#accordionCart" href="#collapse0"> <spring:message code="cart.datacenter.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class=""></span></span></a>
+		                </div>
+		                <div id="collapse0" class="accordion-body collapse in">
+		                    <div class="accordion-inner">
+		                        <ul class="dataCenterList selectable cartRequired" isos="dataCenter">
+		                            <c:forEach items="${dataCenterList}" var="dataCenter" varStatus="status">
+		                                <li>
+		                                <input type="hidden" value="${dataCenter.id}" name="dataCenterId"/>
+		                                <input type="hidden" value="${dataCenter.defaultPrice}" name="defaultPrice"/>
+		                                <span><c:forEach items="${dataCenter.name}" var="i18Name">
+		                                ${i18Name.content}
+		                                </c:forEach></span>
+		                                </li>
+		                            </c:forEach>
+		                        </ul>
+		                    </div>
+		                </div>
+		     </div>
+		            
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                        data-parent="#accordionCart" href="#collapseOne"> <spring:message code="cart.image.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="ImgPriceValue"></span></span></a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <ul class="imgList selectable cartRequired" isos="img">
+                            <c:forEach items="${imgList}" var="img" varStatus="status">
+                                <li>
+                                <input type="hidden" value="${img.id}" name="imgId"/>
+                                <input type="hidden" value="${img.defaultPrice}" name="defaultPrice"/>
+                                <span><c:forEach items="${img.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach>
-                                </option>
-                            </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.image.title"/>: </td>
-            <td class="cartCategory">
-                <select class="imgList selectable" isos="img">
-                <option value="-1" selected><spring:message code="choose.label"/></option>
-                    <c:forEach items="${imgList}" var="img" varStatus="status">
-                                <option value="${img.id}" defaultprice="${img.defaultPrice}">
-                                <c:forEach items="${img.name}" var="i18Name">
-                                ${i18Name.content}
-                                </c:forEach> -- 
+                                </c:forEach> -- </span>
                                 <c:forEach items="${img.details}" var="detail">
-                                ${detail.key} : ${detail.value}
+                                <span>${detail.key} : ${detail.value} </span>
                                 </c:forEach>
-                                </option>
+                                </li>
                             </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.flavor.title"/>: </td>
-            <td class="cartCategory">
-                <select class="flavorList selectable" isos="flavor">
-                <option value="-1" selected><spring:message code="choose.label"/></option>
-                    <c:forEach items="${flavorList}" var="flavor" varStatus="status">
-                                <option value="${flavor.id}" defaultprice="${flavor.defaultPrice}">
-                                <c:forEach items="${flavor.name}" var="i18Name">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                        data-parent="#accordionCart" href="#collapseTwo"> <spring:message code="cart.flavor.title"/><span class="cartPriceLabel"><spring:message code="price.label"/>:<span class="flavorPriceValue"></span></span></a>
+                </div>
+                <div id="collapseTwo" class="accordion-body collapse">
+                    <div class="accordion-inner ">
+                        <ul class="flavorList selectable cartRequired" isos="flavor">
+                            <c:forEach items="${flavorList}" var="flavor" varStatus="status">
+                                <li>
+                                <input type="hidden" value="${flavor.id}" name="flavorId"/>
+                                <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
+                                <span> <c:forEach items="${flavor.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach> -- 
+                                </c:forEach> -- </span>
                                 <c:forEach items="${flavor.details}" var="detail">
-                                ${detail.key} : ${detail.value}
+                                <span>${detail.key} : ${detail.value} / </span>
                                 </c:forEach>
-                                </option>
+                                </li>
                             </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.plan.title"/>: </td>
-            <td class="cartCategory">
-                <select class="planList selectable" isos="plan">
-                 <option value="-1" selected><spring:message code="choose.label"/></option>
-                    <c:forEach items="${planList}" var="plan" varStatus="status">
-                                <option value="${plan.id}" defaultprice="${plan.defaultPrice}">
-                                <c:forEach items="${plan.name}" var="i18Name">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                        data-parent="#accordionCart" href="#collapse3"> <spring:message code="cart.plan.title"/></a>
+                </div>
+                <div id="collapse3" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <ul class="planList selectable cartRequired" isos="plan">
+                            <c:forEach items="${planList}" var="plan" varStatus="status">
+                                <li>
+                                <input type="hidden" value="${plan.id}" name="planId"/>
+                                 <input type="hidden" value="${plan.defaultPrice}" name="defaultPrice"/>
+                               <span> <c:forEach items="${plan.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach> -- 
+                                </c:forEach> -- </span>
                                 <c:forEach items="${plan.details}" var="detail">
-                                ${detail.key} : ${detail.value}
+                                <span>${detail.key} : ${detail.value} </span>
                                 </c:forEach>
-                                </option>
+                                </li>
                             </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.volume.title"/>: </td>
-            <td class="cartCategory">
-                <select class="volumeTypeList selectable" isos="volumeType">
-                <option value="-1" selected><spring:message code="choose.label"/></option>
-                    <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
-                                <option value="${volumeType.id}" defaultprice="${volumeType.defaultPrice}">
-                                <c:forEach items="${volumeType.name}" var="i18Name">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                        data-parent="#accordionCart" href="#collapse4"> <spring:message code="cart.volume.title"/></a>
+                </div>
+                <div id="collapse4" class="accordion-body collapse">
+                
+                <div class="control-group">
+                 <label  class="control-label" for="name"><spring:message code="volume.name"/>: </label>
+		         <div class="controls">
+		             <input type="text" id="volumeName" name="volumeName" rel="tooltip" data-placement="right" title="<spring:message code='name.format.tip'/>"/>
+		         </div>
+		          </div>
+                 <div class="accordion-inner">
+                        <ul class="volumeTypeList selectable" isos="volumeType">
+                            <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
+                                <li>
+                                <input type="hidden" value="${volumeType.id}" name="volumeTypeId"/>
+                                 <input type="hidden" value="${volumeType.defaultPrice}" name="defaultPrice"/>
+                               <span> <c:forEach items="${volumeType.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach> -- 
+                                </c:forEach> -- </span>
                                 <c:forEach items="${volumeType.details}" var="detail">
-                                ${detail.key} : ${detail.value}
+                                <span>${detail.key} : ${detail.value} </span>
                                 </c:forEach>
-                                </option>
+                                 <a href="#" class="li-remove">X</a>
+                                </li>
                             </c:forEach>
-                </select>
-                <span style="margin-left:15px;">
-                     <spring:message code="volume.name"/>: <input type="text" name="volumeName" style="width:80px" id="volumeName" maxlength="40"/>
-                </span>
-                <span style="margin-left:15px;">
-                 <spring:message code="volume.location"/>: <input type="text" name="volumeLocation" style="width:110px" id="volumeLocation" maxlength="90"/>
-                </span>
-            </td>
-            </td>
-        </tr>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.network.title"/>: </td>
-            <td class="cartCategory">
-                <select class="networkList selectable" isos="network">
-                 <option value="-1" selected><spring:message code="choose.label"/></option>
-                    <c:forEach items="${networkList}" var="network" varStatus="status">
-                                <option value="${network.id}" defaultprice="${network.defaultPrice}">
-                                <c:forEach items="${network.name}" var="i18Name">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+              
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse"
+                        data-parent="#accordionCart" href="#collapse5"> <spring:message code="cart.network.title"/></a>
+                </div>
+                <div id="collapse5" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <ul class="networkList selectable" isos="network">
+                            <c:forEach items="${networkList}" var="network" varStatus="status">
+                                <li>
+                                <input type="hidden" value="${network.id}" name="networkId"/>
+                                 <input type="hidden" value="${network.defaultPrice}" name="defaultPrice"/>
+                               <span> <c:forEach items="${network.name}" var="i18Name">
                                 ${i18Name.content}
-                                </c:forEach>
-                                </option>
+                                </c:forEach></span>
+                                <a href="#" onclick="return false;" class="li-remove">X</a>
+                                </li>
                             </c:forEach>
-                </select>
-            </td>
-        </tr>
-        <tr>
-        <td class="cartLabel"></td><td class="cartCategory"> <div class="cartTotalLine">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+       <div class="cartTotalLine">
             <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
-        </div></td>
-        </tr>
-        <tr><td class="cartLabel"></td><td class="cartCategory"><div class="cartButton">
+        </div>
+        <div class="cartButton">
             <a class="btn btn-large submitorder">
               <spring:message code="cart.submit"/>
             </a>
-        </div></td></tr>
-        </tbody>
-        </table>
-    </div>
+        </div>
+        </div>
         
 	</div>
 	<div class="selectPayMethods" >

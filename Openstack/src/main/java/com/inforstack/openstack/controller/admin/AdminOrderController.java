@@ -45,7 +45,6 @@ public class AdminOrderController {
 			HttpServletResponse response) {
 		PaginationModel<Order> pm = orderService.findAllWithoutSubOrder(
 				pageIndex, pageSize);
-
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.id", "[plain]");
 		conf.put("id.label", OpenstackUtil.getMessage("order.label"));
@@ -59,17 +58,18 @@ public class AdminOrderController {
 								.getLanguage().getId()));
 		conf.put("grid.createdBy", "[plain]");
 		conf.put("createdBy.value", "{createdBy.username} ");
-		conf.put("grid.tenant", "{tenant.dipalyName} ");
+		conf.put("grid.tenant", "[plain]");
+		conf.put("tenant.value", "{tenant.dipalyName} ");
+
 		conf.put("grid.createTime", "[plain]");
 		conf.put(".datas", pm.getData());
 		conf.put(".forPager", true);
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil
-				.getJspPage(
-						"/templates/grid.jsp?grid.configuration=configuration&type=",
-						model.asMap(), request, response);
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/grid.jsp?grid.configuration=configuration&type=",
+				model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil

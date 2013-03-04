@@ -24,6 +24,9 @@
 		<class>com.inforstack.openstack.order.sub.SubOrder</class>
 		<class>com.inforstack.openstack.order.Order</class>
 		<class>com.inforstack.openstack.order.period.OrderPeriod</class>
+		<class>com.inforstack.openstack.instance.Instance</class>
+		<class>com.inforstack.openstack.instance.VirtualMachine</class>
+		<class>com.inforstack.openstack.instance.VolumeInstance</class>
         <properties>
 	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         	<property name="hibernate.show_sql" value="false" />

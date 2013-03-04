@@ -148,13 +148,12 @@ public class UserController {
 		conf.put("form.password", "[password]");
 		conf.put("form.confirmPassword", "[password]");
 		conf.put("form.email", "[text]");
-
+		conf.put(".usejs", false);
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil
-				.getJspPage(
-						"/templates/nojsForm.jsp?form.configuration=configuration&type=",
-						model.asMap(), request, response);
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse("error message");
@@ -172,13 +171,13 @@ public class UserController {
 		conf.put(".form", "start_end");
 		conf.put("form.username", "[text]");
 		conf.put("form.email", "[text]");
+		conf.put(".usejs", false);
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil
-				.getJspPage(
-						"/templates/nojsForm.jsp?form.configuration=configuration&type=",
-						model.asMap(), request, response);
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse("error message");

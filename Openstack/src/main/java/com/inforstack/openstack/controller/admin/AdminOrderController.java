@@ -53,21 +53,22 @@ public class AdminOrderController {
 		conf.put("grid.balance", "[plain]");
 		conf.put("grid.autoPay", "[plain]");
 		conf.put("grid.status", "[dict]");
-		conf.put("status.options", 
-				dictionaryService.findDictsByKeyAndLanguageId(
-						Constants.DICTIONARY_KEY_ORDER_STATUS, 
-						OpenstackUtil.getLanguage().getId()));
+		conf.put("status.options", dictionaryService
+				.findDictsByKeyAndLanguageId(
+						Constants.DICTIONARY_KEY_ORDER_STATUS, OpenstackUtil
+								.getLanguage().getId()));
 		conf.put("grid.createdBy", "[plain]");
 		conf.put("createdBy.value", "{createdBy.username} ");
 		conf.put("grid.tenant", "{tenant.dipalyName} ");
 		conf.put("grid.createTime", "[plain]");
 		conf.put(".datas", pm.getData());
+		conf.put(".forPager", true);
 
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {

@@ -96,13 +96,15 @@ public class UserVolumeController {
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.shared", "[plain]");
 		conf.put("shared.value", "{shareDisplay} ");
+		conf.put(".forPager", true);
+
 		conf.put(".datas", vtmList);
 
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {
@@ -158,7 +160,8 @@ public class UserVolumeController {
 			volumeModel.setStatus(instance.getStatus());
 			volumeModel.setSubOrderId(instance.getSubOrders().get(0).getId());
 
-			VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(volume.getVm());
+			VirtualMachine vm = this.instanceService
+					.findVirtualMachineFromUUID(volume.getVm());
 			if (vm != null) {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());
@@ -184,12 +187,14 @@ public class UserVolumeController {
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.attachTo", "[plain]");
 		conf.put("attachTo.value", "{attachment.server} ");
+		conf.put(".forPager", true);
 		conf.put(".datas", vtList);
+
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {

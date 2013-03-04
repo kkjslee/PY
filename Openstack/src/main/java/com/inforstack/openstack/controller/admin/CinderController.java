@@ -89,12 +89,13 @@ public class CinderController {
 		conf.put("grid.shared", "[plain]");
 		conf.put("shared.value", "{shareDisplay} ");
 		conf.put(".datas", vtmList);
+		conf.put(".forPager", true);
 
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {
@@ -169,7 +170,8 @@ public class CinderController {
 			volumeModel.setStatus(instance.getStatus());
 			volumeModel.setSubOrderId(instance.getSubOrders().get(0).getId());
 
-			VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(volume.getVm());
+			VirtualMachine vm = this.instanceService
+					.findVirtualMachineFromUUID(volume.getVm());
 			if (vm != null) {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());
@@ -191,11 +193,13 @@ public class CinderController {
 		conf.put("grid.attachTo", "[plain]");
 		conf.put("attachTo.value", "{attachment.server} ");
 		conf.put(".datas", vtList);
+		conf.put(".forPager", true);
+
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {

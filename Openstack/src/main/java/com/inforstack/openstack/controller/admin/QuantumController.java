@@ -156,13 +156,15 @@ public class QuantumController {
 		conf.put("grid.operation", "[button]edit,remove");
 		conf.put("edit.onclick", "showEditNetwork('{id}')");
 		conf.put("remove.onclick", "showRemoveNetwork('{id}')");
+		conf.put(".forPager", true);
+
 		conf.put(".datas", nList);
 
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {
@@ -490,13 +492,15 @@ public class QuantumController {
 		conf.put("edit.onclick", "showEditSubnet('{id}')");
 		conf.put("remove.onclick", "showRemoveSubnet('{id}')");
 		conf.put("detail.onclick", "showSubnetDetail('{id}')");
+		conf.put(".forPager", true);
+
 		conf.put(".datas", sList);
 
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil
 				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
+						"/templates/grid.jsp?grid.configuration=configuration&type=",
 						model.asMap(), request, response);
 
 		if (jspString == null) {
@@ -588,13 +592,12 @@ public class QuantumController {
 		 * conf.put("remove.onclick", "showRemovePort('{id}')");
 		 */
 		conf.put(".datas", pList);
-
+		conf.put(".forPager", true);
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil
-				.getJspPage(
-						"/templates/pagerGrid.jsp?grid.configuration=configuration&type=",
-						model.asMap(), request, response);
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/grid.jsp?grid.configuration=configuration&type=",
+				model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil

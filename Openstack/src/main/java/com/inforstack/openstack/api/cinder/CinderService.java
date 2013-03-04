@@ -51,4 +51,12 @@ public interface CinderService {
 	
 	public VolumeAttachment[] listAttachedVolumes(Access access,String serverId) throws OpenstackAPIException;
 	
+	public VolumeSnapshot createVolumeSnapshot(Access access, String volumeID, String name, String description, boolean force) throws OpenstackAPIException;
+	
+	public VolumeSnapshot[] listVolumeSnapshots(Access access) throws OpenstackAPIException;
+	
+	public VolumeSnapshot getDetailVolumeSnapshot(Access access, String volumeSnapshotID) throws OpenstackAPIException;
+	
+	public void deletelVolumeSnapshot(Access access, String volumeSnapshotID) throws OpenstackAPIException;
+	
 }

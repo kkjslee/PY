@@ -273,6 +273,10 @@ public class ItemServiceImpl implements ItemService {
 					Image image = this.imageService.getImage(refId);
 					if (image != null) {
 						detail.put("os_imagename", image.getName());
+						com.inforstack.openstack.item.Image img = this.imageDao.findByObject("refId", refId);
+						if (img != null) {
+							detail.put("os_family", img.getFamily());
+						}
 					} else {
 						log.error("not find image with id:" + refId);
 					}

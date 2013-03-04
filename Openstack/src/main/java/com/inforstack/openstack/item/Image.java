@@ -22,6 +22,8 @@ public class Image {
 	private DataCenter dataCenter;
 	
 	private String refId;
+	
+	private String family;
 
 	public int getId() {
 		return id;
@@ -53,6 +55,14 @@ public class Image {
 
 	public void setRefId(String refId) {
 		this.refId = refId;
+	}
+
+	public String getFamily() {
+		return family;
+	}
+
+	public void setFamily(String family) {
+		this.family = family;
 	}
 	
 }

@@ -23,6 +23,8 @@ public class ImageModel {
   @Size(min = Constants.DEFAULT_NAME_MIN_LENGTH, max = Constants.DEFAULT_NAME_MAX_LENGTH, message = "{size.not.valid}")
   @Pattern(regexp = "^[0-9a-zA-Z_]+$", message = "{not.valid}")
   private String imgName;
+  
+  private String family;
 
   private Date created;
 
@@ -70,7 +72,15 @@ public class ImageModel {
     this.imgName = imgName;
   }
 
-  public Date getCreated() {
+  public String getFamily() {
+	return family;
+}
+
+public void setFamily(String family) {
+	this.family = family;
+}
+
+public Date getCreated() {
     return created;
   }
 

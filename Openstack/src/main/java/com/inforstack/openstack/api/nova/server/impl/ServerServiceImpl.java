@@ -225,6 +225,7 @@ public class ServerServiceImpl implements ServerService {
 				RestUtils.postForLocation(url, access, action, server.getId());
 				
 				final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
+				self.updateServerStatus(server.getId(), "pending", "pending");
 				Thread thread = new Thread(new Runnable() {
 
 					@Override
@@ -242,7 +243,7 @@ public class ServerServiceImpl implements ServerService {
 								} else {
 									break;
 								}
-								Thread.sleep(1000);
+								Thread.sleep(500);
 							} catch (OpenstackAPIException e) {
 								break;
 							} catch (InterruptedException e) {
@@ -271,7 +272,7 @@ public class ServerServiceImpl implements ServerService {
 				this.instanceStatusDao.persist(instanceStatus);
 			}
 			instance.setStatus(status);
-			instance.setTask(task);
+			instance.setTask(task != null ? task : "");
 			instance.setUpdateTime(now);
 		}
 	}

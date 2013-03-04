@@ -128,6 +128,9 @@ public class UserInstanceController {
 				im.setAssignedto(username);
 				im.setAccesspoint("");
 				
+				log.info(instance.getStatus());
+				log.info(instance.getTask());
+				
 				DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
 				im.setRegion(dataCenter.getName().getI18nContent());
 				

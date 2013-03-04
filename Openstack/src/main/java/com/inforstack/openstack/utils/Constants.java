@@ -168,4 +168,11 @@ public class Constants {
 	public static final int ATTACH_TASK_STATUS_COMPLETE = 2;
 	public static final int ATTACH_TASK_STATUS_ERROR = 3;
 
+	public static final String IMAGE_FAMILY_WINDOWS = "windows";
+	public static final String IMAGE_FAMILY_REDHAT = "redhat";
+	public static final String IMAGE_FAMILY_CENTOS = "centos";
+	public static final String IMAGE_FAMILY_UBUNTU = "ubuntu";
+	public static final String IMAGE_FAMILY_MACOS = "macos";
+	public static final String IMAGE_FAMILY_OTHER = "other";
+	
 }

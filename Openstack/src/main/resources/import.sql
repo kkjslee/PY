@@ -330,7 +330,7 @@ INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (68,'数
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (59,'Data Center B',30,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (60,'数据中心B',30,2);
 
-INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (1,1,'2013-02-25 11:06:14',0,14,2,'7429ca38-5a99-438c-a94d-1dddfcb41414','2013-02-25 11:06:14',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (1,1,'2013-02-25 11:06:14',0,14,2,'1','2013-02-25 11:06:14',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (2,1,'2013-02-25 11:06:42',0,15,7,'1','2013-02-25 11:06:42',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (3,1,'2013-02-25 11:07:01',0,16,7,'2','2013-02-25 11:07:01',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (4,1,'2013-02-25 11:07:33',1,17,1,'1','2013-02-25 11:07:33',NULL);
@@ -342,8 +342,8 @@ INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`nam
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (10,1,'2013-02-25 11:10:08',1,23,6,'3','2013-02-25 11:10:08',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (11,1,'2013-02-25 11:10:29',10,24,6,'4','2013-02-25 11:10:29',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (12,1,'2013-02-25 11:10:55',50,25,4,NULL,'2013-02-25 11:10:55',NULL);
-INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (13,1,'2013-02-25 11:11:19',5,26,3,'716f6bc2-827c-440a-85ad-cfc5f4d42708','2013-02-25 11:11:19',NULL);
-INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (14,1,'2013-02-25 11:11:44',10,27,3,'6030b0fb-506c-4f80-942f-65388461318b','2013-02-25 11:11:44',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (13,1,'2013-02-25 11:11:19',5,26,3,'1','2013-02-25 11:11:19',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (14,1,'2013-02-25 11:11:44',10,27,3,'2','2013-02-25 11:11:44',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (15,1,'2013-02-25 11:12:06',0.01,28,5,NULL,'2013-02-25 11:12:06',NULL);
 
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (1,'2013-02-25 11:06:14','2013-02-25 11:06:14',0,1);

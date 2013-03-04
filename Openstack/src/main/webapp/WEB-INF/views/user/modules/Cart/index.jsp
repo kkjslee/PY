@@ -31,7 +31,7 @@
 		                    <div class="accordion-inner">
 		                        <ul class="dataCenterList selectable cartRequired" isos="dataCenter">
 		                            <c:forEach items="${dataCenterList}" var="dataCenter" varStatus="status">
-		                                <li>
+		                                <li  <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
 		                                <input type="hidden" value="${dataCenter.id}" name="dataCenterId"/>
 		                                <input type="hidden" value="${dataCenter.defaultPrice}" name="defaultPrice"/>
 		                                <span><c:forEach items="${dataCenter.name}" var="i18Name">
@@ -53,7 +53,7 @@
                     <div class="accordion-inner">
                         <ul class="imgList selectable cartRequired" isos="img">
                             <c:forEach items="${imgList}" var="img" varStatus="status">
-                                <li>
+                                <li <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
                                 <input type="hidden" value="${img.id}" name="imgId"/>
                                 <input type="hidden" value="${img.defaultPrice}" name="defaultPrice"/>
                                 <span><c:forEach items="${img.name}" var="i18Name">
@@ -77,7 +77,7 @@
                     <div class="accordion-inner ">
                         <ul class="flavorList selectable cartRequired" isos="flavor">
                             <c:forEach items="${flavorList}" var="flavor" varStatus="status">
-                                <li>
+                                <li <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
                                 <input type="hidden" value="${flavor.id}" name="flavorId"/>
                                 <input type="hidden" value="${flavor.defaultPrice}" name="defaultPrice"/>
                                 <span> <c:forEach items="${flavor.name}" var="i18Name">
@@ -101,7 +101,7 @@
                     <div class="accordion-inner">
                         <ul class="planList selectable cartRequired" isos="plan">
                             <c:forEach items="${planList}" var="plan" varStatus="status">
-                                <li>
+                                <li <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
                                 <input type="hidden" value="${plan.id}" name="planId"/>
                                  <input type="hidden" value="${plan.defaultPrice}" name="defaultPrice"/>
                                <span> <c:forEach items="${plan.name}" var="i18Name">
@@ -132,7 +132,7 @@
                  <div class="accordion-inner">
                         <ul class="volumeTypeList selectable" isos="volumeType">
                             <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
-                                <li>
+                                <li <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
                                 <input type="hidden" value="${volumeType.id}" name="volumeTypeId"/>
                                  <input type="hidden" value="${volumeType.defaultPrice}" name="defaultPrice"/>
                                <span> <c:forEach items="${volumeType.name}" var="i18Name">
@@ -159,7 +159,7 @@
                     <div class="accordion-inner">
                         <ul class="networkList selectable" isos="network">
                             <c:forEach items="${networkList}" var="network" varStatus="status">
-                                <li>
+                                <li <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
                                 <input type="hidden" value="${network.id}" name="networkId"/>
                                  <input type="hidden" value="${network.defaultPrice}" name="defaultPrice"/>
                                <span> <c:forEach items="${network.name}" var="i18Name">

@@ -141,6 +141,9 @@ function getTaskStatus(row,id){
                        for(var key in addresses){
                         ipText = ipText + key + ":" + addresses[key] + "]<br/>";
                        }
+                       if(ipText == "["){
+                         ipText = "";
+                       }
                         $(row).find(".pipvice").html(ipText);
                        }
                                          
@@ -167,6 +170,8 @@ function updateButtonWidthStatus(row,status){
      if(status =="active"){
         $(row).find(".vmunpause").show();
         $(row).find(".vmresuming").show();
+        $(row).find(".vmdeleted").show();
+        
      }
      if(status == "deleted"){
         $(row).fadeOut("slow");

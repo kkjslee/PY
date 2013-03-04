@@ -57,6 +57,6 @@
 </c:forEach>
 </c:when>
 <c:otherwise>
-    <tr><td colspan="5"><spring:message code="data.norecords"/></td></tr>
+    <tr><td colspan="7"><spring:message code="data.norecords"/></td></tr>
 </c:otherwise>
 </c:choose>

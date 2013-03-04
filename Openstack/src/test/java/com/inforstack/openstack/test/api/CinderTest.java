@@ -2,6 +2,7 @@ package com.inforstack.openstack.test.api;
 
 import static org.junit.Assert.fail;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -20,6 +21,7 @@ import com.inforstack.openstack.api.cinder.Attachment;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
 import com.inforstack.openstack.api.cinder.VolumeAttachment;
+import com.inforstack.openstack.api.cinder.VolumeSnapshot;
 import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
@@ -283,6 +285,70 @@ public class CinderTest {
 			Assert.assertTrue(volumes.length == 0);
 			
 			
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testCreateSnapshotFromVolume() {
+		try {
+			String volumeID = "fbe3b847-1976-4f3b-8ad4-8f728df439c7";
+			String snapshotName = "unitTest";
+			String snapshotDesc = "for unit Test Purpose";
+					
+			VolumeSnapshot volumeSnapshot = this.cinderService.createVolumeSnapshot(access, volumeID,snapshotName,snapshotDesc,true);
+			
+			Assert.assertTrue(volumeSnapshot.getVolume_id().equals(volumeID));
+			Assert.assertTrue(volumeSnapshot.getDisplay_name().equals(snapshotName));
+			Assert.assertTrue(volumeSnapshot.getDisplay_description().equals(snapshotDesc));
+			
+			this.cinderService.deletelVolumeSnapshot(access, volumeSnapshot.getId());
+						
+		} catch (OpenstackAPIException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testListVolumeSnapshot() {
+		try {
+			String volumeID = "fbe3b847-1976-4f3b-8ad4-8f728df439c7";
+			String snapshotName = "Unit Test";
+			String snapshotDesc = "for unit Test Purpose";
+					
+			VolumeSnapshot volumeSnapshot = this.cinderService.createVolumeSnapshot(access, volumeID,snapshotName,snapshotDesc,true);
+			
+			Assert.assertTrue(volumeSnapshot.getVolume_id().equals(volumeID));
+			Assert.assertTrue(volumeSnapshot.getDisplay_name().equals(snapshotName));
+			Assert.assertTrue(volumeSnapshot.getDisplay_description().equals(snapshotDesc));
+			
+			VolumeSnapshot[] volumeSnapshots = this.cinderService.listVolumeSnapshots(access);
+			
+			Assert.assertTrue(volumeSnapshots.length == 2);
+			
+			Assert.assertTrue(volumeSnapshots[1].getSize() == 10);
+			
+			Date now = new Date();
+			
+			Assert.assertTrue(volumeSnapshots[1].getCreated_at().getYear() == now.getYear());
+			
+			Assert.assertTrue(volumeSnapshots[1].getCreated_at().getMonth() == now.getMonth());
+
+			Assert.assertTrue(volumeSnapshots[1].getCreated_at().getDate() == now.getDate());
+			
+			volumeSnapshot = this.cinderService.getDetailVolumeSnapshot(access, volumeSnapshots[1].getId());
+			
+			Assert.assertTrue(volumeSnapshots[1].equals(volumeSnapshot));
+
+			this.cinderService.deletelVolumeSnapshot(access, volumeSnapshot.getId());
+						
 		} catch (OpenstackAPIException e) {
 			fail(e.getMessage());
 			e.printStackTrace();

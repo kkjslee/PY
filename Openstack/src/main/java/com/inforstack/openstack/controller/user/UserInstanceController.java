@@ -41,7 +41,6 @@ import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.period.OrderPeriod;
-import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -69,9 +68,6 @@ public class UserInstanceController {
 	@Autowired
 	private KeystoneService keystoneService;
 	
-	@Autowired
-	private SubOrderService subOrderService;
-
 	private final String INSTANCE_MODULE_HOME = "user/modules/Instance";
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)

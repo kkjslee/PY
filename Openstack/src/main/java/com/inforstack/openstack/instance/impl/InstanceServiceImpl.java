@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.ScrollableResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
+import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
@@ -213,7 +213,7 @@ public class InstanceServiceImpl implements InstanceService {
 								if (newVolume != null) {
 									String deviceName = newVolume.getDescription();
 									vi = this.bindVolumeToSubOrder(newVolume, order, vm, dataCenterRef, tenant);
-									if (server.getId() != null && !server.getId().isEmpty()) {
+									if (server != null && server.getId() != null && !server.getId().isEmpty()) {
 										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
 									}
 								}
@@ -350,15 +350,20 @@ public class InstanceServiceImpl implements InstanceService {
 		if (dataCenterRef != null && volumeTypeRef != null) {
 			int dataCenterId = Integer.parseInt(dataCenterRef);
 			volumeTypeRef = this.volumeTypeDao.getVolumeRefId(dataCenterId, volumeTypeRef);
-			volume = new Volume();
-			volume.setName(volumeName);
-			volume.setType(volumeTypeRef);
-			volume.setDescription(description);
-			// TODO: 
-			//volume.setSize(Integer.parseInt(vt.getName()));
-			volume.setSize(1);
-			// TODO: set zone from order
-			volume.setZone("nova");
+			VolumeType vt = null;
+			try {
+				vt = this.cinderService.getVolumeType(volumeTypeRef);
+			} catch (OpenstackAPIException e) {
+			}
+			
+			if (vt != null) {
+				volume = new Volume();
+				volume.setName(volumeName);
+				volume.setType(volumeTypeRef);
+				volume.setDescription(description);
+				volume.setSize(Integer.parseInt(vt.getName()));
+				volume.setSize(1);
+			}
 		}
 		return volume;
 	}

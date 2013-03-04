@@ -27,6 +27,7 @@ import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.instance.VirtualMachine;
 import com.inforstack.openstack.instance.VolumeInstance;
+import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.Constants;
@@ -156,22 +157,26 @@ public class UserVolumeController {
 			volumeModel.setName(volume.getName());
 			volumeModel.setSize(volume.getSize());
 			volumeModel.setCreated(instance.getCreateTime());
-			volumeModel.setZone(instance.getRegion());
 			volumeModel.setStatus(instance.getStatus());
 			volumeModel.setSubOrderId(instance.getSubOrders().get(0).getId());
+			
+			DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+			volumeModel.setZone(dataCenter.getName().getI18nContent());
 
-			VirtualMachine vm = this.instanceService
-					.findVirtualMachineFromUUID(volume.getVm());
+			String vmId = volume.getVm();
+			VirtualMachine vm = null;
+			if (vmId != null && !vmId.trim().isEmpty()) {
+				vm = this.instanceService.findVirtualMachineFromUUID(vmId);
+			}
 			if (vm != null) {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());
 				attachment.setServer(vm.getName());
-				volumeModel.setAttachment(attachment);
+				volumeModel.setAttachment(attachment);	
 			} else {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setServer("");
 				volumeModel.setAttachment(attachment);
-
 			}
 			vtList.add(volumeModel);
 		}
@@ -186,6 +191,9 @@ public class UserVolumeController {
 		conf.put("size.value", "{size}GB ");
 		conf.put("grid.status", "[plain]");
 		conf.put("grid.attachTo", "[plain]");
+		conf.put("grid.zone", "[plain]");
+		conf.put("zone.value", "{zone} ");
+		conf.put("zone.label", "区域");
 		conf.put("attachTo.value", "{attachment.server} ");
 		conf.put(".forPager", true);
 		conf.put(".datas", vtList);

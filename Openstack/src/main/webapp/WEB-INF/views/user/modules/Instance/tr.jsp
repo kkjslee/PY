@@ -20,6 +20,7 @@
         <div class="pipvice vice">
         <c:forEach items="${item.addresses}" var="address">[${address.key}:${address.value}]<br/>
         </c:forEach>
+        ${item.region}
       </div>
     </td>
     <td class="vmStatus">

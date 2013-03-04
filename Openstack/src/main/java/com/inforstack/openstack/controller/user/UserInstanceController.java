@@ -36,6 +36,7 @@ import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.instance.VirtualMachine;
+import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.log.Logger;
@@ -131,16 +132,19 @@ public class UserInstanceController {
 				im.setAssignedto(username);
 				im.setAccesspoint("");
 				
-				OrderPeriod period = this.instanceService.getInstancePeriod(instance.getId());
+				DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+				im.setRegion(dataCenter.getName().getI18nContent());
+				
+				OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
 				im.setPeriod(period.getName().getI18nContent());
 				
 				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
-				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
+				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
 				
-				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(vm.getImage());
+				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
 				if (imageItem != null) {
 					im.setOstype(imageItem.getName().getI18nContent());
 				}
@@ -242,12 +246,12 @@ public class UserInstanceController {
 //					tempAddress.put(key, ipString);
 //				}
 				im.setAddresses(tempAddress);
-				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(vm.getFlavor());
+				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
 				
-				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(vm.getImage());
+				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
 				if (imageItem != null) {
 					im.setImageId(imageItem.getName().getI18nContent());
 				}

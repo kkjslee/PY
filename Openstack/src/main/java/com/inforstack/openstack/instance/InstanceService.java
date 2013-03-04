@@ -2,13 +2,16 @@ package com.inforstack.openstack.instance;
 
 import java.util.List;
 
+import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 
 public interface InstanceService {
 	
-	public OrderPeriod getInstancePeriod(int id);
+	public DataCenter getDataCenterFromInstance(Instance instance);
+	
+	public OrderPeriod getPeriodFromInstance(Instance stance);
 	
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	

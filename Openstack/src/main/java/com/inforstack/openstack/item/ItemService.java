@@ -26,7 +26,7 @@ public interface ItemService {
 
 	public ItemSpecification getItemSpecification(Integer id);
 	
-	public ItemSpecification getItemSpecificationFromRefId(String refId);
+	public ItemSpecification getItemSpecificationFromRefId(int osType, String refId);
 	
 	public Map<String, String> getItemSpecificationDetail(Integer id);
 

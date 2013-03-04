@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.Volume;
-import com.inforstack.openstack.api.cinder.VolumeType;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
@@ -27,9 +26,12 @@ import com.inforstack.openstack.instance.VirtualMachine;
 import com.inforstack.openstack.instance.VirtualMachineDao;
 import com.inforstack.openstack.instance.VolumeInstance;
 import com.inforstack.openstack.instance.VolumeInstanceDao;
+import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.item.DataCenterDao;
+import com.inforstack.openstack.item.FlavorDao;
 import com.inforstack.openstack.item.ImageDao;
 import com.inforstack.openstack.item.ItemSpecification;
+import com.inforstack.openstack.item.VolumeTypeDao;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriod;
@@ -60,6 +62,12 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	@Autowired
 	private ImageDao imageDao;
+	
+	@Autowired
+	private FlavorDao flavorDao;
+	
+	@Autowired
+	private VolumeTypeDao volumeTypeDao;
 		
 	@Autowired
 	private KeystoneService keystoneService;
@@ -80,8 +88,19 @@ public class InstanceServiceImpl implements InstanceService {
 	private AttachTaskService attachTaskService;
 	
 	@Override
-	public OrderPeriod getInstancePeriod(int id) {
-		SubOrder subOrder = this.subOrderService.findFirstSubOrderByInstanceId(id);
+	public DataCenter getDataCenterFromInstance(Instance instance) {
+		DataCenter dataCenter = null;
+		int dataCenterId = Integer.parseInt(instance.getRegion());
+		dataCenter = this.dataCenterDao.findById(dataCenterId);
+		if (dataCenter != null) {
+			dataCenter.getName().getId();
+		}
+		return dataCenter;
+	}
+	
+	@Override
+	public OrderPeriod getPeriodFromInstance(Instance instance) {
+		SubOrder subOrder = this.subOrderService.findFirstSubOrderByInstanceId(instance.getId());
 		OrderPeriod period = subOrder.getOrderPeriod();
 		period.getName().getId();
 		return period;
@@ -173,26 +192,28 @@ public class InstanceServiceImpl implements InstanceService {
 				if (access != null) {
 					Order order = this.orderService.findOrderById(orderId);
 					if (order != null) {
-						VirtualMachine vm = null;
-						VolumeInstance vi = null;
-						Server server = this.getServerFromOrder(order);
-						if (server != null) {
-							newServer = this.serverService.createServer(access, server);
-							if (newServer != null) {
-								vm = this.bindServerToSubOrder(newServer, order, tenant);
-								server = newServer;
+						String dataCenterRef = this.getDataCenterFromOrder(order);
+						if (dataCenterRef != null) {
+							VirtualMachine vm = null;
+							VolumeInstance vi = null;
+							Server server = this.getServerFromOrder(order);
+							if (server != null) {
+								newServer = this.serverService.createServer(access, server);
+								if (newServer != null) {
+									vm = this.bindServerToSubOrder(newServer, order, dataCenterRef, tenant);
+									server = newServer;
+								}
 							}
-						}
-						
-						Volume volume = this.getVolumeFromOrder(order);
-						if (volume != null && volume.getType() != null && !volume.getType().isEmpty()) {
-							newVolume = this.cinderService.createVolume(access, volume.getName(), "", volume.getSize(), false, volume.getType(), volume.getZone());
-							if (newVolume != null) {
-								// TODO: [ricky] get device name from order
-								String deviceName = newVolume.getDescription();
-								vi = this.bindVolumeToSubOrder(newVolume, order, vm, tenant);
-								if (server.getId() != null && !server.getId().isEmpty()) {
-									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
+							
+							Volume volume = this.getVolumeFromOrder(order);
+							if (volume != null && volume.getType() != null && !volume.getType().isEmpty()) {
+								newVolume = this.cinderService.createVolume(access, volume.getName(), "", volume.getSize(), false, volume.getType(), volume.getZone());
+								if (newVolume != null) {
+									String deviceName = newVolume.getDescription();
+									vi = this.bindVolumeToSubOrder(newVolume, order, vm, dataCenterRef, tenant);
+									if (server.getId() != null && !server.getId().isEmpty()) {
+										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
+									}
 								}
 							}
 						}
@@ -217,7 +238,7 @@ public class InstanceServiceImpl implements InstanceService {
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeVolumeAndIP) {
 	}
 	
-	private Instance registerInstance(int type, String id, String name, Tenant tenant) {
+	private Instance registerInstance(int type, String id, String name, String dataCenterRef, Tenant tenant) {
 		Date now = new Date();
 		Instance instance = new Instance();
 		instance.setType(type);
@@ -227,10 +248,24 @@ public class InstanceServiceImpl implements InstanceService {
 		instance.setUpdateTime(now);
 		instance.setStatus("new");
 		instance.setTask("");
+		instance.setRegion(dataCenterRef);
 		instance.setTenant(tenant);
 		
 		this.instanceDao.persist(instance);
 		return instance;
+	}
+	
+	private String getDataCenterFromOrder(Order order) {
+		String dataCenterRef = null;
+		List<SubOrder> subOrders = order.getSubOrders();
+		for (SubOrder subOrder : subOrders) {
+			int osType = subOrder.getItem().getOsType();
+			String refId = subOrder.getItem().getRefId();
+			if (osType == ItemSpecification.OS_TYPE_DATACENTER_ID) {
+				dataCenterRef = refId;
+			}
+		}
+		return dataCenterRef;
 	}
 	
 	private Server getServerFromOrder(Order order) {
@@ -271,11 +306,15 @@ public class InstanceServiceImpl implements InstanceService {
 			}
 		}
 		if (dataCenterRef != null && imageRef != null && flavorRef != null) {
-			imageRef = this.imageDao.getImageRefId(Integer.parseInt(dataCenterRef), imageRef);
-			server = new Server();
-			server.setName(serverName);
-			server.setImageRef(imageRef);
-			server.setFlavorRef(flavorRef);
+			int dataCenterId = Integer.parseInt(dataCenterRef);
+			imageRef = this.imageDao.getImageRefId(dataCenterId, imageRef);
+			flavorRef = this.flavorDao.getFlavorRefId(dataCenterId, flavorRef);
+			if (flavorRef != null && imageRef != null) {
+				server = new Server();
+				server.setName(serverName);
+				server.setImageRef(imageRef);
+				server.setFlavorRef(flavorRef);
+			}
 		}
 		return server;
 	}
@@ -283,34 +322,35 @@ public class InstanceServiceImpl implements InstanceService {
 	private Volume getVolumeFromOrder(Order order) {
 		Volume volume = null;
 		
-		VolumeType vt = null;
 		String volumeName = "New Volume";
 		String description = "/dev/test";
+		String dataCenterRef = null;
+		String volumeTypeRef = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
 			int osType = subOrder.getItem().getOsType();
-			if (osType == ItemSpecification.OS_TYPE_VOLUME_ID) {
-				String refId = subOrder.getItem().getRefId();
-				try {
-					vt = this.cinderService.getVolumeType(refId);
-				} catch (OpenstackAPIException e) {
+			String refId = subOrder.getItem().getRefId();
+			switch (osType) {
+				case ItemSpecification.OS_TYPE_DATACENTER_ID: {
+					dataCenterRef = refId;
+					break;
 				}
-				String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
-				if (name != null) {
-					volumeName = name;
+				case ItemSpecification.OS_TYPE_VOLUME_ID: {
+					volumeTypeRef = refId;
+					String name = AttributeMap.getInstance().get(subOrder.getId(), "name");
+					if (name != null) {
+						volumeName = name;
+					}
+					break;
 				}
-				String extra = AttributeMap.getInstance().get(subOrder.getId(), "extra");
-				if (extra != null) {
-					description = extra;
-				}
-				break;
 			}
-		}
-		
-		if (vt != null) {
+		}		
+		if (dataCenterRef != null && volumeTypeRef != null) {
+			int dataCenterId = Integer.parseInt(dataCenterRef);
+			volumeTypeRef = this.volumeTypeDao.getVolumeRefId(dataCenterId, volumeTypeRef);
 			volume = new Volume();
 			volume.setName(volumeName);
-			volume.setType(vt.getId());
+			volume.setType(volumeTypeRef);
 			volume.setDescription(description);
 			// TODO: 
 			//volume.setSize(Integer.parseInt(vt.getName()));
@@ -321,7 +361,7 @@ public class InstanceServiceImpl implements InstanceService {
 		return volume;
 	}
 	
-	private VirtualMachine bindServerToSubOrder(Server server, Order order, Tenant tenant) {
+	private VirtualMachine bindServerToSubOrder(Server server, Order order, String dataCenterRef, Tenant tenant) {
 		VirtualMachine vm = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
@@ -334,10 +374,11 @@ public class InstanceServiceImpl implements InstanceService {
 				vm.setImage(server.getImage().getId());
 				vm.setFlavor(server.getFlavor().getId());
 				this.virtualMachineDao.persist(vm);
-				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VM, server.getId(), server.getName(), tenant);
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VM, server.getId(), server.getName(), dataCenterRef, tenant);
 				subOrder.setInstance(instance);
 			case ItemSpecification.OS_TYPE_FLAVOR_ID:
 			case ItemSpecification.OS_TYPE_IMAGE_ID:
+			case ItemSpecification.OS_TYPE_DATACENTER_ID:
 				subOrder.setUuid(server.getId());
 				break;
 			}
@@ -345,7 +386,7 @@ public class InstanceServiceImpl implements InstanceService {
 		return vm;
 	}
 	
-	private VolumeInstance bindVolumeToSubOrder(Volume volume, Order order, VirtualMachine vm, Tenant tenant) {
+	private VolumeInstance bindVolumeToSubOrder(Volume volume, Order order, VirtualMachine vm, String dataCenterRef, Tenant tenant) {
 		VolumeInstance vi = null;
 		List<SubOrder> subOrders = order.getSubOrders();
 		for (SubOrder subOrder : subOrders) {
@@ -361,7 +402,7 @@ public class InstanceServiceImpl implements InstanceService {
 					vi.setVm(vm.getUuid());
 				}
 				this.volumeInstanceDao.persist(vi);
-				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), tenant);
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), dataCenterRef, tenant);
 				subOrder.setInstance(instance);
 				break;
 			}

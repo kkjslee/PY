@@ -206,13 +206,36 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemSpecification getItemSpecificationFromRefId(String refId) {
-		ItemSpecification itemSpecification = this.itemSpecificationDao
-				.findByObject("refId", refId);
-		if (itemSpecification != null) {
-			itemSpecification.getName().getId();
-			if (itemSpecification.getProfile() != null) {
-				itemSpecification.getProfile().getId();
+	public ItemSpecification getItemSpecificationFromRefId(int osType, String refId) {
+		ItemSpecification itemSpecification = null;
+		String uuid = null;
+		switch (osType) {
+			case ItemSpecification.OS_TYPE_FLAVOR_ID: {
+				com.inforstack.openstack.item.Flavor flavor = this.flavorDao.findByObject("refId", refId);
+				if (flavor != null) {
+					uuid = flavor.getUuid();
+				}
+				break;
+			}
+			case ItemSpecification.OS_TYPE_IMAGE_ID: {
+				com.inforstack.openstack.item.Image image = this.imageDao.findByObject("refId", refId);
+				if (image != null) {
+					uuid = image.getUuid();
+				}
+				break;
+			}
+		}
+		if (uuid != null) {
+			List<ItemSpecification> itemSpecifications = this.itemSpecificationDao.listByObject("osType", osType);
+			for (ItemSpecification is : itemSpecifications) {
+				if (is.getRefId().equalsIgnoreCase(uuid)) {
+					itemSpecification = is;
+					itemSpecification.getName().getId();
+					if (itemSpecification.getProfile() != null) {
+						itemSpecification.getProfile().getId();
+					}
+					break;
+				}
 			}
 		}
 		return itemSpecification;

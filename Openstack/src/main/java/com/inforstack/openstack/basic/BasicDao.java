@@ -3,8 +3,6 @@ package com.inforstack.openstack.basic;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Predicate;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
 

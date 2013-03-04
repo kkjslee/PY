@@ -24,6 +24,21 @@
                 <input type="text" name="name" id="name" maxlength="40"/>
             </td>
        </tr>
+       <tr>
+            <td class="cartLabel"><spring:message code="cart.datacenter.title"/>: </td>
+            <td class="cartCategory">
+                <select class="dataCenterList selectable" isos="dataCenter">
+                <option value="-1" selected><spring:message code="choose.label"/></option>
+                    <c:forEach items="${dataCenterList}" var="dataCenter" varStatus="status">
+                                <option value="${dataCenter.id}" defaultprice="${dataCenter.defaultPrice}">
+                                <c:forEach items="${dataCenter.name}" var="i18Name">
+                                ${i18Name.content}
+                                </c:forEach>
+                                </option>
+                            </c:forEach>
+                </select>
+            </td>
+        </tr>
         <tr>
             <td class="cartLabel"><spring:message code="cart.image.title"/>: </td>
             <td class="cartCategory">

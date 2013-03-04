@@ -383,8 +383,8 @@ INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (9,'4','4',2)
 INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',2);
 
 
-INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (1,'1','7429ca38-5a99-438c-a94d-1dddfcb41414',1);
-INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (2,'1','7429ca38-5a99-438c-a94d-1dddfcb41414',2);
+INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`,`family`) VALUES (1,'1','7429ca38-5a99-438c-a94d-1dddfcb41414',1,'other');
+INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`,`family`) VALUES (2,'1','7429ca38-5a99-438c-a94d-1dddfcb41414',2,'other');
 
 INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (1,'1','716f6bc2-827c-440a-85ad-cfc5f4d42708',1);
 INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (2,'2','6030b0fb-506c-4f80-942f-65388461318b',1);

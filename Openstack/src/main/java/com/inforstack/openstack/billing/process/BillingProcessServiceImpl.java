@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.conf.BillingProcessConfiguration;
 import com.inforstack.openstack.billing.process.result.BillingProcessResult;
@@ -123,12 +124,12 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		BillingProcess bp = self.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
 		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
 		
-		ScrollableResults orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
-		orders.beforeFirst();
-		while(orders.next()){
-			Order order = (Order)orders.get(0);
+		CursorResult<Order> orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
+		while(orders.hasNext()){
+			Order order = orders.getNext();
 			self.processOrder(order.getId(), bp, bpr);
 		}
+		orders.close();
 		
 		if( conf != null){
 			Calendar calendar = Calendar.getInstance();

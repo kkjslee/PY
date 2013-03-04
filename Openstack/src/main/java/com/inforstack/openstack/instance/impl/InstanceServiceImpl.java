@@ -16,6 +16,7 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerService;
+import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.instance.AttachTaskService;
 import com.inforstack.openstack.instance.AttributeMap;
 import com.inforstack.openstack.instance.Instance;
@@ -109,28 +110,28 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		ScrollableResults orders = this.orderService.findAll(tenant.getId(), null);
+		CursorResult<Order> orders = this.orderService.findAll(tenant.getId(), null);
 		
-		orders.beforeFirst();
-		while(orders.next()){
-			Order order = (Order)orders.get(0);
+		while(orders.hasNext()){
+			Order order = orders.getNext();
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), 0, includeStatus, excludeStatus);
 				instanceList.addAll(instances);
 			}
 		}
+		orders.close();
+		
 		return instanceList;
 	} 
 	
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, int type, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		ScrollableResults orders = this.orderService.findAll(tenant.getId(), null);
+		CursorResult<Order> orders = this.orderService.findAll(tenant.getId(), null);
 		
-		orders.beforeFirst();
-		while (orders.next()) {
-			Order order = (Order)orders.get(0);
+		while (orders.hasNext()) {
+			Order order = orders.getNext();
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				Instance instance = subOrder.getInstance();
@@ -142,6 +143,7 @@ public class InstanceServiceImpl implements InstanceService {
 				}
 			}
 		}
+		orders.close();
 		return instanceList;
 	}
 	

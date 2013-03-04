@@ -8,12 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.ScrollableResults;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
@@ -201,5 +201,51 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			log.error(re.getMessage(), re);
 		}
 	}
-
+	
+	
+	public static class CursorResult<K>{
+		private ScrollableResults results;
+		private Session session;
+		private K cache;
+		
+		public CursorResult(ScrollableResults results, Session session){
+			results.beforeFirst();
+			this.results = results;
+			this.session = session;
+		}
+		
+		public boolean hasNext(){
+			return results.next();
+		}
+		
+		public K getCurrent(){
+			return cache;
+		}
+		
+		@SuppressWarnings("unchecked")
+		public K getNext(){
+			clearCache();
+			setCache((K)results.get(0));
+			return getCache();
+		}
+		
+		public void close(){
+			clearCache();
+			results.close();
+		}
+		
+		private void clearCache(){
+			if(cache != null){
+				session.evict(cache);
+			}
+		}
+		
+		private void setCache(K cache){
+			this.cache = cache;
+		}
+		
+		private K getCache() {
+			return this.cache;
+		}
+	}
 }

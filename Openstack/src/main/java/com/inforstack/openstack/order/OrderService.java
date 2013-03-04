@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.ScrollableResults;
 
+import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.controller.model.CartModel;
@@ -63,7 +64,7 @@ public interface OrderService {
 	 * @param status
 	 * @return
 	 */
-	public ScrollableResults findAll(Integer tenantId, Integer status);
+	public CursorResult<Order> findAll(Integer tenantId, Integer status);
 	
 	/**
 	 * 

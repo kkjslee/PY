@@ -30,7 +30,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 	private static final Logger log = new Logger(OrderDaoImpl.class);
 	
 	@Override
-	public ScrollableResults find(Integer tenantId, Integer status) {
+	public CursorResult<Order> find(Integer tenantId, Integer status) {
 		log.debug("Find all order(s) by tenant id : " + tenantId + ", status : " + status);
 		try {
 			List<Criterion> criterions = new ArrayList<Criterion>();
@@ -54,16 +54,16 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 				}
 			}
 			
-			Criteria criteria = ((Session) em.getDelegate())
-					.getSessionFactory().getCurrentSession()
-					.createCriteria(Order.class);
+			Session session = ((Session) em.getDelegate())
+					.getSessionFactory().getCurrentSession();
+			Criteria criteria = session.createCriteria(Order.class);
 			if(criterion != null){
 				criteria.add(criterion);
 			}
 			
 			ScrollableResults results = criteria.scroll();
 			log.debug("Find successful");
-			return results;
+			return new CursorResult<Order>(results, session);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
 			throw re;

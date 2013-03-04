@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.controller.model.CartItemModel;
@@ -174,9 +175,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ScrollableResults findAll(Integer tenantId, Integer status) {
+	public CursorResult<Order> findAll(Integer tenantId, Integer status) {
 		log.debug("Find all orders by tenant : " + tenantId + ", status : " + status);
-		ScrollableResults results = orderDao.find(tenantId, status);
+		CursorResult<Order> results = orderDao.find(tenantId, status);
 		log.debug("Find successfully");
 		return results;
 	}

@@ -29,7 +29,7 @@
                             </c:forEach>
                 </select>  
          </div> <br/>
-         <label  class="control-label"><spring:message code="cart.volume.title"/>: </label>
+         <label  class="control-label"><spring:message code="cart.network.title"/>: </label>
          <div class="controls">
              <select class="networkList selectable" isos="network">
                 <option value="-1" selected><spring:message code="choose.label"/></option>

@@ -257,7 +257,9 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 <c:if test="${conf['.form'] == 'start_end' or conf['.form'] == 'end'}">
 	</form>
 </c:if>
+<c:if test="${conf['.usejs'] == null || conf['.usejs'] == true}" >
 <script>
 $( "#customForm" ).tooltip();
 $("select").selectmenu();
 </script>
+</c:if>

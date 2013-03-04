@@ -47,150 +47,167 @@ example:
 		<c:set target="${map}" property="${item}" value="${p.value}"></c:set>
 	</c:if>
 </c:forEach>
+<c:if test="${conf['.forPager'] != null && conf['.forPager'] == true}">
+    <table style="width:100%">
+</c:if>
 
-<table style="width:100%">
 <thead class="headerRow"><tr>
-	<c:forEach items="${map}" var="item" >
-		<c:choose>
-			<c:when test="${fn:startsWith(item.value, '[hidden]')}">
-				<th style="display: none;"></th>
-			</c:when>
-			<c:otherwise>
-				<th>
-					${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
-				</th>
-			</c:otherwise>
-		</c:choose>
-	</c:forEach>
+    <c:forEach items="${map}" var="item" >
+        <c:choose>
+            <c:when test="${fn:startsWith(item.value, '[hidden]')}">
+                <th style="display: none;"></th>
+            </c:when>
+            <c:otherwise>
+                <th>
+                    ${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
+                </th>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
 </tr></thead>
 <tbody>
-	<c:forEach items="${conf['.datas']}" var="d" varStatus="status">
-		<c:if test="${status.index%2 == 0}">
-			<tr class="dataRow rowOdd">
-		</c:if>
-		<c:if test="${status.index%2 != 0}">
-			<tr class="dataRow rowEve">
-		</c:if>
-			<c:forEach items="${map}" var="item">
-					<c:if test="${fn:startsWith(item.value, '[plain]')}">
-						<td>
-							<c:set value="${fn:replace(item.value, '[plain]', '')}" var="subItems"></c:set>
-							<c:choose>
-								<c:when test="${fn:length(subItems) == 0}">
-									<span>${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}</span>
-								</c:when>
-								<c:otherwise>
-									<c:forTokens items="${subItems}" delims="," var="key">
-										<span>${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}</span>
-									</c:forTokens>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</c:if>
-					<c:if test="${fn:startsWith(item.value, '[money]')}">
-						<td>
-							<c:set value="${fn:replace(item.value, '[plain]', '')}" var="subItems"></c:set>
-							<c:choose>
-								<c:when test="${fn:length(subItems) == 0}">
-									<c:set var="value" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"></c:set>
-									<span>${f:money(value)}</span>
-								</c:when>
-								<c:otherwise>
-									<c:forTokens items="${subItems}" delims="," var="key">
-										<c:set var="value" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"></c:set>
-										<span>${f:money(value)}</span>
-									</c:forTokens>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</c:if>
-					<c:if test="${fn:startsWith(item.value, '[hidden]')}">
-						<td style="display: none;">
-							<c:set value="${fn:replace(item.value, '[hidden]', '')}" var="subItems"></c:set>
-							<c:choose>
-								<c:when test="${fn:length(subItems) == 0}">
-									<input type="hidden" id="${item.key}" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"/>
-								</c:when>
-								<c:otherwise>
-									<c:forTokens items="${subItems}" delims="," var="key">
-										<input type="hidden" id="${key}" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"/>
-									</c:forTokens>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</c:if>
-					<c:if test="${fn:startsWith(item.value, '[dict]')}">
-						<td>
-							<c:set value="${fn:replace(item.value, '[dict]', '')}" var="subItems"></c:set>
-							<c:choose>
-								<c:when test="${fn:length(subItems) == 0}">
-									<c:choose>
-										<c:when test="${conf[f:append(item.key, '.value')] != null}">
-											${f:propStr(conf[f:append(item.key, '.value')], d)}
-										</c:when>
-										<c:otherwise>
-											<c:forEach items="${conf[f:append(item.key, '.options')]}" var="dict">
-												<c:if test="${f:append(dict.code, '') == f:getProp(d, item.key)}">
-													${dict.value}
-												</c:if>
-											</c:forEach>
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									<c:forTokens items="${subItems}" delims="," var="key">
-										<c:choose>
-											<c:when test="${conf[f:append(key, '.value')] != null}">
-												${f:propStr(conf[f:append(key, '.value')], d)}
-											</c:when>
-											<c:otherwise>
-												<c:forEach items="${conf[f:append(key, '.options')]}" var="dict">
-													<c:if test="${dict.code == f:getProp(d, key)}">
-														${dict.value}
-													</c:if>
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
-									</c:forTokens>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</c:if>
-					<c:if test="${fn:startsWith(item.value, '[button]')}">
-						<td>
-							<c:set value="${fn:replace(item.value, '[button]', '')}" var="subItems"></c:set>
-							<c:choose>
-								<c:when test="${fn:length(subItems) == 0}">
-									<c:choose>
-										<c:when test="${conf[f:append(item.key, '.value')] != null}">
-											${f:propStr(conf[f:append(item.key, '.value')], d)}
-										</c:when>
-										<c:otherwise>
-											<input type="button" 
-													value="${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}" 
-													onclick="${f:propStr(conf[f:append(item.key, '.onclick')], d)}" />
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									<c:forTokens items="${subItems}" delims="," var="key">
-										<c:choose>
-											<c:when test="${conf[f:append(key, '.value')] != null}">
-												${f:propStr(conf[f:append(key, '.value')], d)}
-											</c:when>
-											<c:otherwise>
-												<input type="button" 
-													value="${f:label(conf[f:append(key, '.label')], f:append(key, '.label'))}" 
-													onclick="${f:propStr(conf[f:append(key, '.onclick')], d)}" />
-											</c:otherwise>
-										</c:choose>
-									</c:forTokens>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</c:if>
-			</c:forEach>
-		</tr>
-	</c:forEach>
+    <c:forEach items="${conf['.datas']}" var="d" varStatus="status">
+        <c:if test="${status.index%2 == 0}">
+            <tr class="dataRow rowOdd">
+        </c:if>
+        <c:if test="${status.index%2 != 0}">
+            <tr class="dataRow rowEve">
+        </c:if>
+            <c:forEach items="${map}" var="item">
+                    <c:if test="${fn:startsWith(item.value, '[plain]')}">
+                        <td>
+                            <c:set value="${fn:replace(item.value, '[plain]', '')}" var="subItems"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:length(subItems) == 0}">
+                                ${f:propStr(null, d) }
+                                    <span>${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forTokens items="${subItems}" delims="," var="key">
+                                        <span>${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}</span>
+                                    </c:forTokens>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
+                    <c:if test="${fn:startsWith(item.value, '[money]')}">
+                        <td>
+                            <c:set value="${fn:replace(item.value, '[plain]', '')}" var="subItems"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:length(subItems) == 0}">
+                                    <c:set var="value" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"></c:set>
+                                    <span>${f:money(value)}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forTokens items="${subItems}" delims="," var="key">
+                                        <c:set var="value" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"></c:set>
+                                        <span>${f:money(value)}</span>
+                                    </c:forTokens>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
+                    <c:if test="${fn:startsWith(item.value, '[hidden]')}">
+                        <td style="display: none;">
+                            <c:set value="${fn:replace(item.value, '[hidden]', '')}" var="subItems"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:length(subItems) == 0}">
+                                    <input type="hidden" id="${item.key}" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forTokens items="${subItems}" delims="," var="key">
+                                        <input type="hidden" id="${key}" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"/>
+                                    </c:forTokens>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
+                    <c:if test="${fn:startsWith(item.value, '[dict]')}">
+                        <td>
+                            <c:set value="${fn:replace(item.value, '[dict]', '')}" var="subItems"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:length(subItems) == 0}">
+                                    <c:choose>
+                                        <c:when test="${conf[f:append(item.key, '.value')] != null}">
+                                            ${f:propStr(conf[f:append(item.key, '.value')], d)}
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach items="${conf[f:append(item.key, '.options')]}" var="dict">
+                                                <c:if test="${f:append(dict.code, '') == f:getProp(d, item.key)}">
+                                                    ${dict.value}
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forTokens items="${subItems}" delims="," var="key">
+                                        <c:choose>
+                                            <c:when test="${conf[f:append(key, '.value')] != null}">
+                                                ${f:propStr(conf[f:append(key, '.value')], d)}
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="${conf[f:append(key, '.options')]}" var="dict">
+                                                    <c:if test="${dict.code == f:getProp(d, key)}">
+                                                        ${dict.value}
+                                                    </c:if>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forTokens>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
+                    <c:if test="${fn:startsWith(item.value, '[button]')}">
+                        <td><div class="btn-group">
+                                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                           <spring:message code="common.operation" />
+                                            <span class="caret"></span>
+                                          </a>
+                                          <ul class="dropdown-menu">
+                                         
+                            <c:set value="${fn:replace(item.value, '[button]', '')}" var="subItems"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:length(subItems) == 0}">
+                                    <c:choose>
+                                        <c:when test="${conf[f:append(item.key, '.value')] != null}">
+                                            ${f:propStr(conf[f:append(item.key, '.value')], d)}
+                                        </c:when>
+                                        <c:otherwise>
+                                        <li>
+                                            <a href="#" onclick="${f:propStr(conf[f:append(item.key, '.onclick')], d)};return false;" >
+                                                    ${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
+                                            </a>
+                                        </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forTokens items="${subItems}" delims="," var="key">
+                                        <c:choose>
+                                            <c:when test="${conf[f:append(key, '.value')] != null}">
+                                                ${f:propStr(conf[f:append(key, '.value')], d)}
+                                            </c:when>
+                                            <c:otherwise>
+                                            <li>
+                                            <a href="#" onclick="${f:propStr(conf[f:append(key, '.onclick')], d)};return false;" >
+                                                    ${f:label(conf[f:append(key, '.label')], f:append(key, '.label'))}
+                                            </a>
+                                        </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forTokens>
+                                </c:otherwise>
+                            </c:choose>
+                              </ul>
+                                        </div>
+                        </td>
+                    </c:if>
+            </c:forEach>
+        </tr>
+    </c:forEach>
 </tbody>
+<c:if test="${conf['.forPager'] != null && conf['.forPager'] == true}">
 </table>
+</c:if>

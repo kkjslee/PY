@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -178,7 +176,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 	}
 
 	@Override
-	public InvoiceCount paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess) {
+	public InvoiceCount billingProcessSubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess) {
 		log.debug("Pay sub order : " + subOrder.getId() + " with bill date : " + billingDate + 
 				", billing process : " + billingProcess==null?null:billingProcess.getId());
 		

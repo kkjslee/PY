@@ -2,8 +2,6 @@ package com.inforstack.openstack.billing.process.result;
 
 import java.math.BigDecimal;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;

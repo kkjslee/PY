@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.ScrollableResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,8 +90,11 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		List<Order> orderList = this.orderService.findAll(tenant.getId(), null);
-		for (Order order : orderList) {
+		ScrollableResults orders = this.orderService.findAll(tenant.getId(), null);
+		
+		orders.beforeFirst();
+		while(orders.next()){
+			Order order = (Order)orders.get(0);
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), 0, includeStatus, excludeStatus);
@@ -103,8 +107,11 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, int type, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		List<Order> orderList = this.orderService.findAll(tenant.getId(), null);
-		for (Order order : orderList) {
+		ScrollableResults orders = this.orderService.findAll(tenant.getId(), null);
+		
+		orders.beforeFirst();
+		while (orders.next()) {
+			Order order = (Order)orders.get(0);
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				Instance instance = subOrder.getInstance();

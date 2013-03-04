@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.ScrollableResults;
+
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.controller.model.CartModel;
@@ -61,18 +63,19 @@ public interface OrderService {
 	 * @param status
 	 * @return
 	 */
-	public List<Order> findAll(Integer tenantId, Integer status);
+	public ScrollableResults findAll(Integer tenantId, Integer status);
 	
 	/**
 	 * 
 	 * @param order
 	 * @param periodType
 	 */
-	public InvoiceCount payOrder(Order order, Date billingDate, BillingProcess billingProcess);
+	public InvoiceCount orderBillingProcess(Order order, Date billingDate, BillingProcess billingProcess);
 
 	public boolean checkOrderFinished(Order order, Date date);
 
 	public PaginationModel<Order> findAllWithCreator(int pageIndex, int pageSize, Integer tenantId, Integer status);
 
 	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize);
+
 }

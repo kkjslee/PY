@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.Scrollable;
+
+import org.hibernate.ScrollableResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -171,29 +174,29 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findAll(Integer tenantId, Integer status) {
+	public ScrollableResults findAll(Integer tenantId, Integer status) {
 		log.debug("Find all orders by tenant : " + tenantId + ", status : " + status);
-		List<Order> orders = orderDao.find(tenantId, status);
-		if(CollectionUtil.isNullOrEmpty(orders)){
-			log.debug("find failed");
-			return new ArrayList<Order>();
-		}else{
-			log.debug("Find successfully");
-			return orders;
-		}
+		ScrollableResults results = orderDao.find(tenantId, status);
+		log.debug("Find successfully");
+		return results;
 	}
 	
 	@Override
-	public InvoiceCount payOrder(Order order, Date billingDate, BillingProcess billingProcess) {
-		log.debug("Pay order : " +order.getId() + " with billing date : " + billingDate + 
+	public InvoiceCount orderBillingProcess(Order order, Date billingDate, BillingProcess billingProcess) {
+		log.debug("Billing process for order : " +order.getId() + " with billing date : " + billingDate + 
 				", billing process : " + billingProcess==null?null:billingProcess.getId());
+		
+		Integer periodId = null;
+		if(billingProcess != null && billingProcess.getBillingProcessConfiguration() != null){
+			periodId = billingProcess.getBillingProcessConfiguration().getPeriodType();
+		}
 		List<SubOrder> subOrders = subOrderService.findSubOrders(
 				order.getId(), 
 				Constants.SUBORDER_STATUS_AVAILABLE,
-				billingProcess==null? null : billingProcess.getBillingProcessConfiguration().getPeriodType());
+				periodId);
 		InvoiceCount ic = new InvoiceCount();
 		for(SubOrder so : subOrders){
-			InvoiceCount sic = subOrderService.paySubOrder(so, billingDate, billingProcess);
+			InvoiceCount sic = subOrderService.billingProcessSubOrder(so, billingDate, billingProcess);
 			ic.addInvoiceTotal(sic.getInvoiceTotal());
 			ic.addBalance(ic.getBalance());
 		}

@@ -24,7 +24,7 @@ public interface BasicDao<T> {
 	
 	public void remove(T instance);
 
-	public PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<? extends Object> query);
+	public PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<T> query);
 
 	public PaginationModel<T> pagination(int pageIndex, int pageSize);
 	

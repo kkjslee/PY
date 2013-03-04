@@ -47,7 +47,7 @@ public interface SubOrderService {
 	 */
 	public List<Period> calcPeriod(SubOrder subOrder, Date billingDate, Date endLimit);
 
-	public InvoiceCount paySubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
+	public InvoiceCount billingProcessSubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
 
 	public BigDecimal getPrice(SubOrder subOrder, Period period);
 

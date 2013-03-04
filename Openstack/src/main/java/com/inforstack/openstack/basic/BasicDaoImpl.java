@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
@@ -55,34 +56,30 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	}
 	
 	@Override
-	public final PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<? extends Object> query){
+	public final PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<T> query){
 		PaginationModel<T> model = new PaginationModel<T>();
 		log.debug("getting all " + this.modelClz.getSimpleName() + " instance");
+		
 		try {
+			Root<?> passedRoot = query.getRoots().iterator().next();
+			String alias = passedRoot.getAlias();
+			if(alias == null){
+				alias = this.modelClz.getSimpleName();
+				passedRoot.alias(alias);
+			}
+			
 			CriteriaBuilder builder = em.getCriteriaBuilder();
 			CriteriaQuery<Long> count = builder.createQuery(Long.class);
 			Root<T> root = count.from(this.modelClz);
+			root.alias(alias);
 			count.select(builder.count(root));
 			Predicate where = query==null? null : query.getRestriction();
 			if(where != null){
 				count.where(where);
 			}
-			List<Order> orders = query==null? null : query.getOrderList();
-			if(orders != null && orders.size()>0){
-				count.orderBy(orders);
-			}
 			Long total = em.createQuery(count).getSingleResult();
 			
-			CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
-			root = criteria.from(this.modelClz);
-			criteria.select(root);
-			if(where != null){
-				count.where(where);
-			}
-			if(orders != null && orders.size()>0){
-				count.orderBy(orders);
-			}
-			TypedQuery<T> typedQuery = em.createQuery(criteria);
+			TypedQuery<T> typedQuery = em.createQuery(query);
 			typedQuery.setFirstResult(pageIndex * pageSize);
 			typedQuery.setMaxResults(pageSize);
 			List<T> list = typedQuery.getResultList();

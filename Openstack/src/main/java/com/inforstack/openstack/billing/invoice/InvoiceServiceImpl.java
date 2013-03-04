@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +12,6 @@ import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
-import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;

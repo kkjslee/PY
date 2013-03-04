@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.payment.Payment;
@@ -62,15 +63,6 @@ public class Invoice {
 	@JoinColumn(name="billing_process_id")
 	private BillingProcess billingProcess;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinTable(name = "billing_payment", 
-			joinColumns = { @JoinColumn(name = "billing_id", insertable=false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "payment_id", insertable=false, updatable = false) }
-	)
-	private List<Payment> payments;
-	
-	private String uuid;
-
 	public Integer getId() {
 		return id;
 	}
@@ -151,14 +143,6 @@ public class Invoice {
 		this.order = order;
 	}
 
-	public List<Payment> getPayments() {
-		return payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
-
 	public BigDecimal getAmount() {
 		return amount;
 	}
@@ -175,12 +159,4 @@ public class Invoice {
 		this.balance = balance;
 	}
 
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-	
 }

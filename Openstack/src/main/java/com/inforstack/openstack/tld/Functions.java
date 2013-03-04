@@ -81,8 +81,7 @@ public class Functions {
 
 				Object replacement = OpenstackUtil.getProperty(bean, prop);
 				if (replacement == null) {
-					start = matcher.start() + 1;
-					continue;
+					replacement = "";
 				}
 
 				stack.push(new Replacer(matcher.start(), matcher.end(),

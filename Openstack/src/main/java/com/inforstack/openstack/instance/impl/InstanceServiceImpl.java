@@ -416,6 +416,11 @@ public class InstanceServiceImpl implements InstanceService {
 		}
 		return vi;
 	}
+
+	@Override
+	public Instance findInstanceById(Integer instanceId) {
+		return instanceDao.findById(instanceId);
+	}
 	
 //	private void bindNetworkToSubOrder(Network network, Order order) {
 //		List<SubOrder> subOrders = order.getSubOrders();

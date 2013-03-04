@@ -31,11 +31,15 @@ public class Constants {
 	public static final int PAYMENT_STATUS_PROCESSING = 2;
 	public static final int PAYMENT_STATUS_ERROR = 3;
 	public static final int PAYMENT_STATUS_OK = 4;
-	public static final int PAYMENT_STATUS_USEDUP = 5;
 
 	public static final int PAYMENT_TYPE_TOPUP = 1;
 	public static final int PAYMENT_TYPE_REFUND = 2;
-	public static final int PAYMENT_TYPE_POINT = 3;
+	public static final int PAYMENT_TYPE_POINTS = 3;
+	public static final int PAYMENT_TYPE_PAYOUT = 3;
+	
+	public static final int ACCOUNT_STATUS_ACTIVE = 1;
+	public static final int ACCOUNT_STATUS_INACTIVE = 2;
+	public static final int ACCOUNT_STATUS_DELETED = 3;
 
 	public static final int INVOICE_STATUS_NEW = 1;
 	public static final int INVOICE_STATUS_UPPAID = 2;

@@ -97,4 +97,23 @@ public class InvoiceServiceImpl implements InvoiceService {
 		return invoices;
 	}
 
+	@Override
+	public BigDecimal payAmount(Invoice invoice, BigDecimal payAmount) {
+		if(invoice.getBalance().compareTo(payAmount) < 0){
+			log.warn("Payment is bigger than invoie amount");
+		}
+		invoice.setBalance(invoice.getBalance().subtract(payAmount));
+		return invoice.getBalance();
+	}
+
+	@Override
+	public void paid(Invoice invoice) {
+		invoice.setStatus(Constants.INVOICE_STATUS_PAID);
+	}
+
+	@Override
+	public void unpaid(Invoice invoice) {
+		invoice.setStatus(Constants.INVOICE_STATUS_UPPAID);
+	}
+
 }

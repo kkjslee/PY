@@ -32,5 +32,7 @@ public interface InstanceService {
 	public void updateVM(User user, Tenant tenant, String serverId, String name);
 	
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeVolumeAndIP);
+
+	public Instance findInstanceById(Integer instanceId);
 	
 }

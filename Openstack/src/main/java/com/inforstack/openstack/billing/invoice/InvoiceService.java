@@ -53,5 +53,11 @@ public interface InvoiceService {
 	 * @return
 	 */
 	public List<Invoice> findInvoice(Date from, Date to);
+
+	public BigDecimal payAmount(Invoice invoice, BigDecimal payAmount);
+
+	public void paid(Invoice invoice);
+
+	public void unpaid(Invoice invoice);
 	
 }

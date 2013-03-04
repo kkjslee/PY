@@ -53,4 +53,8 @@ public class NumberUtil {
 		
 		return bd1.subtract(bd2);
 	}
+	
+	public static String leftPaddingZero(int number, int len){
+		return StringUtil.leftPadding(number + "", '0', len);
+	}
 }

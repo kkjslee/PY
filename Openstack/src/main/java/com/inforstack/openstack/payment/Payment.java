@@ -12,7 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.payment.account.Account;
+import com.inforstack.openstack.payment.method.PaymentMethod;
 
 @Entity
 public class Payment {
@@ -23,18 +24,17 @@ public class Payment {
 	
 	private BigDecimal amount;
 	
-	private BigDecimal balance;
-	
 	private int type;
 	
 	private int status;
 	
-	@Column(name="tenant_id", insertable=false, updatable=false)
-	private Integer tenantId;
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="account_id")
+	private Account account;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="tenant_id")
-	private Tenant tenant;
+	@JoinColumn(name="method_id")
+	private PaymentMethod method;
 	
 	@Column(name="create_time")
 	private Date createTime;
@@ -55,14 +55,6 @@ public class Payment {
 		this.amount = amount;
 	}
 
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
-
 	public int getType() {
 		return type;
 	}
@@ -79,36 +71,28 @@ public class Payment {
 		this.status = status;
 	}
 
-	public Integer getTenantId() {
-		return tenantId;
-	}
-
-	public void setTenantId(Integer tenantId) {
-		this.tenantId = tenantId;
-	}
-
-	/**
-	 * transient
-	 * @return
-	 */
-	public Tenant getTenant() {
-		return tenant;
-	}
-
-	/**
-	 * transient
-	 * @param tenant
-	 */
-	public void setTenant(Tenant tenant) {
-		this.tenant = tenant;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public PaymentMethod getMethod() {
+		return method;
+	}
+
+	public void setMethod(PaymentMethod method) {
+		this.method = method;
 	}
 	
 }

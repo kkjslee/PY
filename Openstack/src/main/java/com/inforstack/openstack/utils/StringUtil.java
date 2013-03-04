@@ -69,4 +69,16 @@ public class StringUtil {
 
 		return format.format(date);
 	}
+	
+	public static String leftPadding(String s, char c, int length){
+		if(s == null){
+			s = "";
+		}
+		StringBuilder ret = new StringBuilder();
+		for(int i=0, n=(length-s.length());i<n;i++){
+			ret.append(c);
+		}
+		ret.append(s);
+		return ret.toString();
+	}
 }

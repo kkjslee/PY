@@ -2,17 +2,17 @@ package com.inforstack.openstack.payment;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
+import com.inforstack.openstack.billing.invoice.InvoiceService;
+import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
-import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.payment.account.Account;
+import com.inforstack.openstack.payment.account.AccountService;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -24,6 +24,12 @@ public class PaymentServiceImpl implements PaymentService {
 	private static final Logger log = new Logger(PaymentServiceImpl.class);
 	@Autowired
 	private PaymentDao paymentDao;
+	@Autowired
+	private AccountService accountService;
+	@Autowired
+	private InvoiceService invoiceService;
+	@Autowired
+	private InstanceService instanceService;
 	@Autowired
 	private TenantService tenantService;
 	
@@ -40,46 +46,47 @@ public class PaymentServiceImpl implements PaymentService {
 		return payment;
 	}
 	
+	public Payment createPayment(double amount, int type, int tenantId, Integer instaceId) {
+		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
+		return self.createPayment(new BigDecimal(amount), type, tenantId, instaceId);
+	}
+	
 	@Override
-	public Payment createPayment(Tenant tenant, double amount, boolean isRefund, int type) {
-		if(tenant==null){
-			log.info("Create payment failed for passed tenant is null");
-			return null;
+	public Payment createPayment(BigDecimal amount, int type, int tenantId, Integer instaceId) {
+		Account account = null;
+		if(instaceId != null){
+			account = accountService.findOrCreateActiveAccount(
+					tenantService.findTenantById(tenantId), 
+					instanceService.findInstanceById(instaceId));
+		}else{
+			account = accountService.findOrCreateActiveAccount(
+					tenantService.findTenantById(tenantId), null);
 		}
 		
-		log.debug("Create payment for tenant : " + tenant.getName());
+		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
+		return self.createPayment(amount, type, account);
+	}
+	
+	@Override
+	public Payment createPayment(BigDecimal amount, int type, Account account) {
+		log.debug("Create payment for type : " + type + ", amount : " + amount + " for account : " + account.getId());
 		Payment payment = new Payment();
-		BigDecimal amoutBD = new BigDecimal(amount);
-		payment.setAmount(amoutBD);
-		payment.setBalance(amoutBD);
+		payment.setAmount(amount);
 		payment.setCreateTime(new Date());
 		payment.setType(type);
 		payment.setStatus(Constants.PAYMENT_STATUS_NEW);
-		payment.setTenant(tenant);
+		payment.setAccount(account);
 		
 		paymentDao.persist(payment);
 		log.debug("Create payment successfully");
 		return payment;
 	}
-
+	
 	@Override
-	public Payment createPayment(int tenantId, double amount,
-			boolean isRefund, int type) {
-		log.debug("Create payment for tenant : " + tenantId);
-		Tenant tenant = tenantService.findTenantById(tenantId);
-		if(tenant == null){
-			log.info("Create payment failed for no tenant found by id : " + tenantId);
-			return null;
-		}
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		Payment payment = self.createPayment(tenant, amount, isRefund, type);
-		
-		if(payment == null){
-			log.debug("Create payment failed");
-		}else{
-			log.debug("Create payment successfully");
-		}
-		return payment;
+	public void paidSuccessfully(Payment payment){
+		payment.setStatus(Constants.PAYMENT_STATUS_OK);
+		accountService.changeAccount(payment.getAccount(), payment.getAmount(), 
+				payment.getType() != Constants.PAYMENT_TYPE_TOPUP);
 	}
 
 	@Override
@@ -100,31 +107,39 @@ public class PaymentServiceImpl implements PaymentService {
 	public BigDecimal applyPayment(Invoice invoice) {
 		log.debug("Apply payment to invoice : " + invoice.getId());
 		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		BigDecimal balance = self.applyPayment(invoice, invoice.getSubOrder().getType());
+		BigDecimal balance = self.applyPayment(invoice, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
 		log.debug("apply payment successfully");
 		return balance;
 	}
 
 	@Override
-	public BigDecimal applyPayment(Invoice invoice, int type) {
-		log.debug("Apply payment to invoice : " + invoice.getId() + ", sub order type : " + type);
-		String paymentUuid = null;
-		if(Constants.SUBORDER_TYPE_POSTPAID == type){
-			paymentUuid = invoice.getUuid();
-		}
-		List<Payment> payments = paymentDao.findAvailablePayments(invoice.getTenant(), paymentUuid);
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		for(Payment payment : payments){
-			BigDecimal balance = self.applyPayment(invoice, payment);
-			if(balance.equals(BigDecimal.ZERO)){
-				break;
-			}
+	public BigDecimal applyPayment(Invoice invoice, boolean payasyougo) {
+		log.debug("Apply payment to invoice : " + invoice.getId() + ", payasyougo : " + payasyougo);
+		Account account = null;
+		if(payasyougo){
+			account = accountService.findOrCreateActiveAccount(invoice.getTenant(), invoice.getSubOrder().getInstance());
+		}else{
+			account = accountService.findOrCreateActiveAccount(invoice.getTenant(), null);
 		}
 		
-		int val = invoice.getBalance().compareTo(BigDecimal.ZERO);
+		BigDecimal payAmount = null;
+		if(account.getBalance().compareTo(invoice.getBalance()) >= 0){
+			payAmount = invoice.getBalance();
+		}else{
+			payAmount = account.getBalance();
+		}
+		
+		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
+		Payment payment = self.createPayment(payAmount.negate(), Constants.PAYMENT_TYPE_PAYOUT, account);
+		BigDecimal balance = invoiceService.payAmount(invoice, payAmount);
+		self.paidSuccessfully(payment);
+		
+		int val = balance.compareTo(BigDecimal.ZERO);
 		if(val == 0){
+			invoiceService.paid(invoice);
 			log.debug("Payment successfully applied to invoice : " + invoice);
 		}else if(val > 0){
+			invoiceService.unpaid(invoice);
 			log.debug("Invoice payment not finished");
 		}else{
 			log.error("Invoice banlance is less than zero");
@@ -133,28 +148,4 @@ public class PaymentServiceImpl implements PaymentService {
 		return invoice.getBalance();
 	}
 	
-	@Override
-	public BigDecimal applyPayment(Invoice invoice, Payment payment){
-		log.debug("Apply payment : " + payment.getId() + " to invoice : " + invoice.getId());
-		BigDecimal pb = payment.getBalance();
-		BigDecimal iv = invoice.getBalance();
-		BigDecimal balance = iv.subtract(pb);
-		if(balance.compareTo(BigDecimal.ZERO) > 0){
-			payment.setStatus(Constants.PAYMENT_STATUS_USEDUP);
-			payment.setBalance(BigDecimal.ZERO);
-			invoice.setBalance(balance);
-		}else if(balance.compareTo(BigDecimal.ZERO) == 0){
-			payment.setStatus(Constants.PAYMENT_STATUS_USEDUP);
-			invoice.setStatus(Constants.INVOICE_STATUS_PAID);
-			payment.setBalance(BigDecimal.ZERO);
-			invoice.setBalance(BigDecimal.ZERO);
-		}else{
-			invoice.setStatus(Constants.INVOICE_STATUS_PAID);
-			payment.setBalance(balance.abs());
-			invoice.setBalance(BigDecimal.ZERO);
-		}
-		log.debug("Apply payment to invoice successfully");
-		
-		return invoice.getBalance();
-	}
 }

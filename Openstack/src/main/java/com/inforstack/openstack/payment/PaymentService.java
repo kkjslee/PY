@@ -3,7 +3,7 @@ package com.inforstack.openstack.payment;
 import java.math.BigDecimal;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
-import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.payment.account.Account;
 
 public interface PaymentService {
 
@@ -16,23 +16,16 @@ public interface PaymentService {
 	
 	/**
 	 * Create payment with necessary fileds
-	 * @param tenant
 	 * @param amount
 	 * @param isRefund
 	 * @param type
 	 * @return
 	 */
-	public Payment createPayment(Tenant tenant, double amount, boolean isRefund, int type);
+	public Payment createPayment(double amount, int type, int tenantId, Integer instaceId);
 	
-	/**
-	 *  Create payment with necessary fileds
-	 * @param tenantId
-	 * @param amount
-	 * @param isRefund
-	 * @param type
-	 * @return
-	 */
-	public Payment createPayment(int tenantId, double amount, boolean isRefund, int type);
+	Payment createPayment(BigDecimal amount, int type, int tenantId, Integer instaceId);
+	
+	Payment createPayment(BigDecimal amount, int type, Account account);
 	
 	/**
 	 * process payment
@@ -52,12 +45,8 @@ public interface PaymentService {
 	 * @param invoice
 	 * @param type sub order type : perpaid or postpaid
 	 */
-	public BigDecimal applyPayment(Invoice invoice, int type);
+	public BigDecimal applyPayment(Invoice invoice, boolean payasyougo);
 
-	/**
-	 * apply selected payment to invoice
-	 * @param invoice
-	 * @param payment
-	 */
-	public BigDecimal applyPayment(Invoice invoice, Payment payment);
+	void paidSuccessfully(Payment payment);
+
 }

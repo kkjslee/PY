@@ -134,3 +134,17 @@
 	border:0 none;
 	vertical-align: middle;
 }
+
+#accordionCart .accordion-heading .accordion-toggle .cartItemSel{
+	float:right;
+}
+.cartItemSel .cartName{
+	
+}
+.li-remove{
+	display:none;float:right;padding-right:5px;color:white;padding-left:5px; display:block;
+}
+.ui-selected .li-remove{
+	display:block;
+	color:white;
+}

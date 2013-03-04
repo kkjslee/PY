@@ -30,9 +30,17 @@
 					$(this).removeClass(clickedClass);
 				});
 				$(this).addClass(clickedClass);
-				if (options.onClick) {
-					options.onClick(this);
-				}
+				if(options.cancelTag){
+					var src = ev.srcElement || ev.target;
+					if(src.tagName.toLowerCase() != options.cancelTag){
+						if (options.onClick) {
+							options.onClick(this);
+						}
+					}
+				}else if (options.onClick) {
+						options.onClick(this);
+					}
+				
 			
 			});
 			$(this).dblclick(function() {

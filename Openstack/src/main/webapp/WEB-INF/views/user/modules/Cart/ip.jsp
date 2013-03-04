@@ -16,13 +16,23 @@
 
 <div id="mainBody" >
     <div id="cartCheck">
-        <table class="table">
-        <tbody>
-        <tr>
-            <td class="cartLabel"><spring:message code="cart.network.title"/>: </td>
-            <td class="cartCategory">
-                <select class="networkList selectable" isos="network">
-                 <option value="-1" selected><spring:message code="choose.label"/></option>
+         <label  class="control-label"><spring:message code="cart.datacenter.title"/>: </label>
+         <div class="controls">
+             <select class="dataCenterList selectable" isos="dataCenter">
+                <option value="-1" selected><spring:message code="choose.label"/></option>
+                    <c:forEach items="${dataCenterList}" var="dataCenter" varStatus="status">
+                                <option value="${dataCenter.id}" defaultprice="${dataCenter.defaultPrice}">
+                                <c:forEach items="${dataCenter.name}" var="i18Name">
+                                ${i18Name.content}
+                                </c:forEach>
+                                </option>
+                            </c:forEach>
+                </select>  
+         </div> <br/>
+         <label  class="control-label"><spring:message code="cart.volume.title"/>: </label>
+         <div class="controls">
+             <select class="networkList selectable" isos="network">
+                <option value="-1" selected><spring:message code="choose.label"/></option>
                     <c:forEach items="${networkList}" var="network" varStatus="status">
                                 <option value="${network.id}" defaultprice="${network.defaultPrice}">
                                 <c:forEach items="${network.name}" var="i18Name">
@@ -30,9 +40,10 @@
                                 </c:forEach>
                                 </option>
                             </c:forEach>
-                </select>
-            </td>
-        </tr>
+                </select>  
+         </div>
+         
+         
         <tr>
         <td class="cartLabel"></td><td class="cartCategory"> <div class="cartTotalLine">
             <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>

@@ -16,18 +16,27 @@
 
 <div id="mainBody" >
     <div id="cartCheck">
-        <table class="table">
-        <tbody>
-         <tr>
-            <td class="cartLabel"><span style="margin-left:15px;">
-                     <spring:message code="volume.name"/>: <input type="text" name="volumeName" style="width:80px" id="volumeName" maxlength="40"/>
-                </span>
-                <span style="margin-left:15px;">
-                 <spring:message code="volume.location"/>: <input type="text" name="volumeLocation" style="width:110px" id="volumeLocation" maxlength="90"/>
-                </span></td>
-            <td class="cartCategory">
-                 <spring:message code="cart.volume.title"/>: 
-                <select class="volumeTypeList selectable" isos="volumeType">
+    <div class="control-group">
+         <label  class="control-label" for="volumeName"><spring:message code="volume.name"/>: </label>
+         <div class="controls">
+             <input type="text" id="volumeName" name="volumeName" rel="tooltip" maxlength="40" data-placement="right" title="<spring:message code='name.format.tip'/>"/>
+         </div>
+         <label  class="control-label"><spring:message code="cart.datacenter.title"/>: </label>
+         <div class="controls">
+             <select class="dataCenterList selectable" isos="dataCenter">
+                <option value="-1" selected><spring:message code="choose.label"/></option>
+                    <c:forEach items="${dataCenterList}" var="dataCenter" varStatus="status">
+                                <option value="${dataCenter.id}" defaultprice="${dataCenter.defaultPrice}">
+                                <c:forEach items="${dataCenter.name}" var="i18Name">
+                                ${i18Name.content}
+                                </c:forEach>
+                                </option>
+                            </c:forEach>
+                </select>  
+         </div> <br/>
+         <label  class="control-label"><spring:message code="cart.volume.title"/>: </label>
+         <div class="controls">
+             <select class="volumeTypeList selectable" isos="volumeType">
                 <option value="-1" selected><spring:message code="choose.label"/></option>
                     <c:forEach items="${volumeTypeList}" var="volumeType" varStatus="status">
                                 <option value="${volumeType.id}" defaultprice="${volumeType.defaultPrice}">
@@ -39,25 +48,19 @@
                                 </c:forEach>
                                 </option>
                             </c:forEach>
-                </select>
-            </td>
-            </td>
-        </tr>
-        <tr>
-        <td class="cartLabel"></td><td class="cartCategory"> <div class="cartTotalLine">
+                </select>  
+         </div>
+    </div>
+    <div class="cartTotalLine">
             <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
-        </div></td>
-        </tr>
-        <tr><td class="cartLabel"></td><td class="cartCategory"><div class="cartButton">
+        </div>
+        <div class="cartButton">
             <a class="btn btn-large submitorder">
               <spring:message code="cart.submit"/>
             </a>
-        </div></td></tr>
-        </tbody>
-        </table>
+        </div>
     </div>
         
-    </div>
     <div class="selectPayMethods" >
        <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
        <div class="payMethodsContainer">

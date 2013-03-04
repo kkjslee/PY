@@ -1,5 +1,6 @@
 var Server="";
 var cart_volumeTypeSelected_UUID="";
+var cart_dataCenterSelected_UUID="";
 var volumeMsg = "";
 //this should be called first in jsp file
 function setServer(server,_volumeMsg){
@@ -81,7 +82,7 @@ function checkOutOrder(callBack){
 }
 
 function validOrderCondition(){
-	if($(".volumeTypeList").val()==-1){
+	if($(".volumeTypeList").val()==-1 || $(".dataCenterList").val()==-1){
 		return false;
 	}else{
 		return true;
@@ -116,6 +117,12 @@ function sendCartRequest(itemCategory,itemId,itemPrice){
 					}else{
 						toUUID = cart_volumeTypeSelected_UUID;
 					}
+				}else if(itemCategory == "dataCenter"){
+					if(isNull(cart_dataCenterSelected_UUID)){
+						toAdd = true;
+					}else{
+						toUUID = cart_dataCenterSelected_UUID;
+					}
 				}
 			window.console.log("to UUID" + toUUID);
 	    	if(itemId!=-1 && toAdd){
@@ -130,19 +137,20 @@ function sendCartRequest(itemCategory,itemId,itemPrice){
 	    	}
 	    	activeCartSubmitBtn();
 }
-
+function cancelSelect(itemCategory){
+	$("." + itemCategory + "List").selectmenu("value", "-1");
+}
 function addItemToCart(itemId,itemPrice,itemCategory){
 	var name = "";
-	var extra = "";
 	if(itemCategory =="volumeType"){
 		name=$("#volumeName").val();
 		if(isNull(name)){
 			printMessage(volumeMsg);
-			$(".volumeTypeList").selectmenu("value", "-1");
+			cancelSelect("volumeType");
 			return;
 		}
-		extra = $("#volumeLocation").val();
 	}
+	var pd = showProcessingDialog();
 	$.ajax({
         url: Server + "/add",
         type: "POST",
@@ -150,14 +158,13 @@ function addItemToCart(itemId,itemPrice,itemCategory){
         data: {
         	itemSpecificationId:itemId,
         	price:itemPrice,
-        	extra:extra,
         	name:name,
         	number:1
         },
         cache: false,
         success: function(data) {
             try {
-
+            	 $(pd).dialog("close");
                 if(data.status == "success"){
                 	var price  = data.data.amount;
                 	udpateAmount(price);
@@ -166,6 +173,7 @@ function addItemToCart(itemId,itemPrice,itemCategory){
                 	setCategorySelctedIdValue(itemCategory,uuid);	                	
                 }
                 if(data.status == "error"){
+               	 cancelSelect(itemCategory);
                     printMessage(data.msg);
                 }
 
@@ -174,6 +182,8 @@ function addItemToCart(itemId,itemPrice,itemCategory){
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
+        	$(pd).dialog("close");
+        	cancelSelect(itemCategory);
             printError(jqXHR, textStatus, errorThrown);
             return false;
         }
@@ -183,16 +193,15 @@ function addItemToCart(itemId,itemPrice,itemCategory){
 
 function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 	var name = "";
-	var extra = "";
 	if(itemCategory =="volumeType"){
 		name=$("#volumeName").val();
 		if(isNull(name)){
 			printMessage(volumeMsg);
-			$(".volumeTypeList").selectmenu("value", "-1");
+			cancelSelect("volumeType");
 			return;
 		}
-		extra = $("#volumeLocation").val();
 	}
+	var pd = showProcessingDialog();
 	$.ajax({
 	    url: Server + "/update",
 	    type: "POST",
@@ -200,14 +209,13 @@ function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 	    data: {
 	    	itemSpecificationId:itemId,
 	    	uuid:uuid,
-	    	extra:extra,
 	    	name:name,
 	    	price:itemPrice
 	    },
 	    cache: false,
 	    success: function(data) {
 	        try {
-	
+	        	 $(pd).dialog("close");
 	            if(data.status == "success"){
 	            	var price  = data.data.amount;
 	            	udpateAmount(price);
@@ -215,6 +223,7 @@ function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 	            	setCategorySelctedIdValue(itemCategory,uuid);	
 	            }
 	            if(data.status == "error"){
+	           	 cancelSelect(itemCategory);
 	                printMessage(data.msg);
 	            }
 	
@@ -223,6 +232,8 @@ function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 	        }
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
+	    	$(pd).dialog("close");
+	    	cancelSelect(itemCategory);
 	        printError(jqXHR, textStatus, errorThrown);
 	        return false;
 	    }
@@ -230,35 +241,39 @@ function updateCartItem(itemId,uuid, itemPrice,itemCategory){
 }
 
 function removeCartItem(toId,itemCategory){
-$.ajax({
-    url: Server + "/remove",
-    type: "POST",
-    dataType:"json",
-    data: {
-    	uuid:toId
-    },
-    cache: false,
-    success: function(data) {
-        try {
-
-            if(data.status == "success"){
-            	var price  = data.data.amount;
-            	udpateAmount(price);
-            	setCategorySelctedIdValue(itemCategory, "");
-            }
-            if(data.status == "error"){
-                printMessage(data.msg);
-            }
-
-        } catch(e) {
-            printMessage("Data Broken: [" + e + "]");
-        }
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        printError(jqXHR, textStatus, errorThrown);
-        return false;
-    }
-});
+	var pd = showProcessingDialog();
+	$.ajax({
+	    url: Server + "/remove",
+	    type: "POST",
+	    dataType:"json",
+	    data: {
+	    	uuid:toId
+	    },
+	    cache: false,
+	    success: function(data) {
+	        try {
+	        	 $(pd).dialog("close");
+	            if(data.status == "success"){
+	            	var price  = data.data.amount;
+	            	udpateAmount(price);
+	            	setCategorySelctedIdValue(itemCategory, "");
+	            }
+	            if(data.status == "error"){
+	           	 cancelSelect(itemCategory);
+	                printMessage(data.msg);
+	            }
+	
+	        } catch(e) {
+	            printMessage("Data Broken: [" + e + "]");
+	        }
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	    	$(pd).dialog("close");
+	    	cancelSelect(itemCategory);
+	        printError(jqXHR, textStatus, errorThrown);
+	        return false;
+	    }
+	});
 }
 
 function activeCartSubmitBtn(){
@@ -272,6 +287,8 @@ function activeCartSubmitBtn(){
 function setCategorySelctedIdValue(itemCategory,value){
 	if(itemCategory == "volumeType"){
 		cart_volumeTypeSelected_UUID = value;
+	}else if(itemCategory == "dataCenter"){
+		cart_dataCenterSelected_UUID = value;
 	}
 }
 function udpateAmount(price){

@@ -87,6 +87,8 @@ public class InstanceModel {
 	private String period;
 	
 	private String region;
+	
+	private AttachmentModel attachmentModel;
 
 	public InstanceModel() {
 		super();
@@ -352,6 +354,14 @@ public class InstanceModel {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public AttachmentModel getAttachmentModel() {
+		return attachmentModel;
+	}
+
+	public void setAttachmentModel(AttachmentModel attachmentModel) {
+		this.attachmentModel = attachmentModel;
 	}
 
 }

@@ -31,6 +31,7 @@ import com.inforstack.openstack.api.nova.server.impl.StartServer;
 import com.inforstack.openstack.api.nova.server.impl.StopServer;
 import com.inforstack.openstack.api.nova.server.impl.SuspendServer;
 import com.inforstack.openstack.api.nova.server.impl.UnpauseServer;
+import com.inforstack.openstack.controller.model.AttachmentModel;
 import com.inforstack.openstack.controller.model.InstanceModel;
 import com.inforstack.openstack.controller.model.PagerModel;
 import com.inforstack.openstack.instance.Instance;
@@ -110,6 +111,7 @@ public class UserInstanceController {
 		String username = SecurityUtils.getUserName();
 		Tenant tenant = SecurityUtils.getTenant();
 
+		// TODO: [rqshao] filter for virtual machines
 		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, null);
 			
 		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
@@ -222,6 +224,21 @@ public class UserInstanceController {
 				im.setStarttime(instance.getCreateTime());
 				im.setUpdatetime(instance.getUpdateTime());
 				im.setAssignedto(username);
+				
+				List<Instance> subInstances = instance.getSubInstance();
+				if (subInstances.size() > 0) {
+					for (Instance subInstance : subInstances) {
+						switch (subInstance.getType()) {
+							case Constants.INSTANCE_TYPE_VOLUME: {
+								AttachmentModel am = new AttachmentModel();
+								am.setId(subInstance.getUuid());
+								am.setVolume(subInstance.getName());
+								im.setAttachmentModel(am);
+								break;
+							}
+						}
+					}
+				}
 				
 				// TODO: [ricky] get addresses from db instead of openstack
 //				Map<String, Address[]> addresses = server

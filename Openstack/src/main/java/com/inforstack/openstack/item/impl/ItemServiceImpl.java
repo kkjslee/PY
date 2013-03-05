@@ -640,7 +640,7 @@ public class ItemServiceImpl implements ItemService {
 				List<Price> prices = itemSpecification.getPrices();
 				prices.add(price);
 				itemSpecification.setPrices(prices);
-				// TODO: a new price not default price
+				// TODO: [ricky]a new price not default price
 				itemSpecification
 						.setDefaultPrice(model.getValue().floatValue());
 

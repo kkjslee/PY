@@ -42,6 +42,7 @@ public class MailTemplateDaoImpl extends BasicDaoImpl<MailTemplate> implements M
 						builder.and(predicates.toArray(new Predicate[predicates.size()]))
 				);
 			}
+			criteria.orderBy(builder.asc(root.get("language")));
 			List<MailTemplate> instances = em.createQuery(criteria).getResultList();
 			if(CollectionUtil.isNullOrEmpty(instances)){
 				log.debug("No record found");

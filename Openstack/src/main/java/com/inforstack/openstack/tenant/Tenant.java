@@ -46,6 +46,9 @@ public class Tenant {
 	
 	private String postcode;
 	
+	@Column(name="default_language")
+	private int defaultLanguage;
+	
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn
 	private I18nLink description;
@@ -271,6 +274,14 @@ public class Tenant {
 		this.agentId = agentId;
 	}
 	
+	public int getDefaultLanguage() {
+		return defaultLanguage;
+	}
+
+	public void setDefaultLanguage(int defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
+	}
+
 	public com.inforstack.openstack.api.keystone.Tenant getOpenstatckTenant() {
 		return openstatckTenant;
 	}

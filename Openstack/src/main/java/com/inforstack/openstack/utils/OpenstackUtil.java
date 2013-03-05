@@ -6,6 +6,9 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -124,23 +127,30 @@ public class OpenstackUtil {
 		}
 	}
 
-	public static Object getProperty(Object o, String prop) {
-		if (prop == null || o == null)
+	public static Object getProperty(Object beanOrMap, String prop) {
+		if (prop == null || beanOrMap == null)
 			return null;
 		try {
 			int index = prop.indexOf(".");
 			if (index == -1) {
-				return o.getClass()
-						.getMethod("get" + StringUtils.capitalize(prop))
-						.invoke(o);
+				if(beanOrMap instanceof Map){
+					return ((Map<?, ?>)beanOrMap).get(prop);
+				}else{
+					return beanOrMap.getClass()
+							.getMethod("get" + StringUtils.capitalize(prop))
+							.invoke(beanOrMap);
+				}
 			} else {
-				return getProperty(
-						o.getClass()
-								.getMethod(
-										"get"
-												+ StringUtils.capitalize(prop
-														.substring(0, index)))
-								.invoke(o), prop.substring(index + 1));
+				if(beanOrMap instanceof Map){
+					return getProperty(
+							((Map<?, ?>)beanOrMap).get(prop), prop.substring(index + 1));
+				}else{
+					return getProperty(
+							beanOrMap.getClass()
+									.getMethod(
+											"get"+ StringUtils.capitalize(prop.substring(0, index)))
+									.invoke(beanOrMap), prop.substring(index + 1));
+				}
 			}
 		} catch (Exception e) {
 			return null;
@@ -211,6 +221,46 @@ public class OpenstackUtil {
 
 		return true;
 	}
+	
+	public static String setProperty(String string, Object beanOrMap){
+		if (StringUtil.isNullOrEmpty(string, false) || beanOrMap == null)
+			return "";
+
+		StringBuilder builder = new StringBuilder(string);
+		Pattern pattern = Pattern.compile("\\{(.+?)\\}");
+		Matcher matcher = pattern.matcher(string);
+
+		Stack<Replacer> stack = new Stack<Replacer>();
+		int start = 0;
+		while (matcher.find(start)) {
+			for (int i = 0, n = matcher.groupCount(); i < n;) {
+				String prop = matcher.group(++i);
+				if (!OpenstackUtil.isValidProperty(prop)) {
+					start = matcher.start() + 1;
+					continue;
+				}
+
+				Object replacement = OpenstackUtil.getProperty(beanOrMap, prop);
+				if (replacement == null) {
+					replacement = "";
+				}
+
+				stack.push(new Replacer(matcher.start(), matcher.end(),
+						replacement.toString()));
+				start = matcher.end();
+			}
+		}
+
+		while (!stack.empty()) {
+			Replacer replacer = stack.pop();
+			builder.replace(replacer.getStart(), replacer.getEnd(),
+					replacer.getReplacement());
+		}
+
+		return builder.toString();
+	
+	}
+	
 
 	public static Object nulltoEmpty(Object o) {
 		if (o == null)
@@ -236,5 +286,31 @@ public class OpenstackUtil {
 				log.warn(e.getMessage(), e);
 			}
 		}
+	}
+	
+	
+	static class Replacer {
+		private int start;
+		private int end;
+		private String replacement;
+
+		Replacer(int start, int end, String replacement) {
+			this.start = start;
+			this.end = end;
+			this.replacement = replacement;
+		}
+
+		public int getStart() {
+			return start;
+		}
+
+		public int getEnd() {
+			return end;
+		}
+
+		public String getReplacement() {
+			return replacement;
+		}
+
 	}
 }

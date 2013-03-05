@@ -8,14 +8,11 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.util.NumberUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.mail.conf.MailConfigation;
@@ -25,9 +22,11 @@ import com.inforstack.openstack.mail.template.MailTemplateService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.CryptoUtil;
 import com.inforstack.openstack.utils.NumberUtil;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
-@Service
+@Service("mailService")
+@Transactional
 public class MailServiceImpl implements MailService {
 	
 	private static final Logger log = new Logger(MailServiceImpl.class);
@@ -44,6 +43,7 @@ public class MailServiceImpl implements MailService {
 		return mailDao.findById(mailId);
 	}
 	
+	@Override
 	public Mail findMailByCode(String code){
 		return mailDao.findByObject("code", code);
 	}
@@ -76,12 +76,20 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Async
-	public void sendMail(String mailCode, String toMail, Map<String, String> propertise){
-		Mail mail = this.findMailByCode(mailCode);
-		if(mail == null) return;
+	public void sendMail(String mailCode, String toMail, int language, Map<String, Object> propertise){
+		MailService self = (MailService)OpenstackUtil.getBean("mailService");
+		Mail mail = self.findMailByCode(mailCode);
+		if(mail == null) {
+			log.warn("No mail found for mailCode : " + mailCode);
+			return;
+		}
 		
 		MailConfigation sender = mail.getSender();
-		MailTemplate tempalte = this.findMailTempalte(mail.getId(), 1);
+		MailTemplate tempalte = self.findMailTempalte(mail.getId(), language);
+		if(sender == null || tempalte == null){
+			log.warn("Cannot find sender or template for mailCode : " + mailCode);
+			return;
+		}
 		
 		try{
 			JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -101,10 +109,13 @@ public class MailServiceImpl implements MailService {
 			helper.setFrom(sender.getUsername());
 			helper.setTo(toMail);
 			helper.setSubject(tempalte.getTitle());
+			String head = OpenstackUtil.setProperty(tempalte.getHead(), propertise);
+			String body = OpenstackUtil.setProperty(tempalte.getBody(), propertise);
+			String signature = OpenstackUtil.setProperty(tempalte.getSignature(), propertise);
 			if(tempalte.getType() == Constants.MAILTEMPALTE_TYPE_HTML){
-				helper.setText("<p>"+tempalte.getHead() + "</p><p>" + tempalte.getBody() + "</p><br/><p>" + tempalte.getSignature() + "</p>", true);
+				helper.setText("<p>"+ head + "</p><p>" +body + "</p><br/><p>" + signature + "</p>", true);
 			}else{
-				helper.setText(tempalte.getHead() + "\n" + tempalte.getBody() + "\n\n" + tempalte.getSignature());
+				helper.setText(head + "\n" + body + "\n\n" + signature);
 			}
 			mailSender.send(helper.getMimeMessage());
 		}catch(IOException ioe){

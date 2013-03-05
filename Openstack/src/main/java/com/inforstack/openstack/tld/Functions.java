@@ -2,9 +2,6 @@ package com.inforstack.openstack.tld;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
@@ -62,65 +59,7 @@ public class Functions {
 	}
 
 	public static String propStr(String string, Object bean) {
-		if (StringUtil.isNullOrEmpty(string, false) || bean == null)
-			return "";
-
-		StringBuilder builder = new StringBuilder(string);
-		Pattern pattern = Pattern.compile("\\{(.+?)\\}");
-		Matcher matcher = pattern.matcher(string);
-
-		Stack<Replacer> stack = new Stack<Functions.Replacer>();
-		int start = 0;
-		while (matcher.find(start)) {
-			for (int i = 0, n = matcher.groupCount(); i < n;) {
-				String prop = matcher.group(++i);
-				if (!OpenstackUtil.isValidProperty(prop)) {
-					start = matcher.start() + 1;
-					continue;
-				}
-
-				Object replacement = OpenstackUtil.getProperty(bean, prop);
-				if (replacement == null) {
-					replacement = "";
-				}
-
-				stack.push(new Replacer(matcher.start(), matcher.end(),
-						replacement.toString()));
-				start = matcher.end();
-			}
-		}
-
-		while (!stack.empty()) {
-			Replacer replacer = stack.pop();
-			builder.replace(replacer.getStart(), replacer.getEnd(),
-					replacer.getReplacement());
-		}
-
-		return builder.toString();
+		return OpenstackUtil.setProperty(string, bean);
 	}
 
-	static class Replacer {
-		private int start;
-		private int end;
-		private String replacement;
-
-		Replacer(int start, int end, String replacement) {
-			this.start = start;
-			this.end = end;
-			this.replacement = replacement;
-		}
-
-		public int getStart() {
-			return start;
-		}
-
-		public int getEnd() {
-			return end;
-		}
-
-		public String getReplacement() {
-			return replacement;
-		}
-
-	}
 }

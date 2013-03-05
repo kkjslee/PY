@@ -3,8 +3,6 @@ package com.inforstack.openstack.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.codec.binary.Hex;
-
 public class StringUtil {
 
 	public static final boolean isNullOrEmpty(String s) {
@@ -81,4 +79,5 @@ public class StringUtil {
 		ret.append(s);
 		return ret.toString();
 	}
+
 }

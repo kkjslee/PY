@@ -20,7 +20,6 @@ import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.SecurityUtils;
-import com.inforstack.openstack.virt.domain.VirtDomain;
 
 @Entity
 public class User {
@@ -59,6 +58,9 @@ public class User {
 	private String question;
 	
 	private String answer;
+	
+	@Column(name="default_language")
+	private int defaultLanguage;
 
 	@Column(name="role_id")
 	private int roleId;
@@ -292,6 +294,14 @@ public class User {
 		this.uuid = uuid;
 	}
 	
+	public int getDefaultLanguage() {
+		return defaultLanguage;
+	}
+
+	public void setDefaultLanguage(int defaultLanguage) {
+		this.defaultLanguage = defaultLanguage;
+	}
+
 	public com.inforstack.openstack.api.keystone.User getOpenstackUser() {
 		if( openstackUser == null ){
 			com.inforstack.openstack.api.keystone.User ou =  new com.inforstack.openstack.api.keystone.User();

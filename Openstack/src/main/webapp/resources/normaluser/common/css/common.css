@@ -151,3 +151,16 @@
 .uEven{
 	background-color:#f9f9f9;
 }
+.selectable li a:hover{
+	color:white;
+}
+.selectPayMethods{
+	text-align:center;
+}
+.cartSubmitted{
+	font-size:15px;
+	color:green
+}
+.payMethodsContainer{
+	text-align:left;
+}

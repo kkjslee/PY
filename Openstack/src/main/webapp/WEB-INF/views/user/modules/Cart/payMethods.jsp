@@ -12,7 +12,7 @@
     </li>
 </ul>
  <div class="cartButton">
-        <a class="btn btn-primary btn-large buyorder">
+        <a class="btn  btn-warning btn-large buyorder">
           <spring:message code="cart.buy"/>
         </a>
 </div>

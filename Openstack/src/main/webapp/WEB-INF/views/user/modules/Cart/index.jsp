@@ -56,11 +56,17 @@
                                 <li <c:if test="${status.index%2!=0}">class="uEven"</c:if> <c:if test="${status.index%2!=0}">class="uOdd"</c:if>>
                                 <input type="hidden" value="${img.id}" name="imgId"/>
                                 <input type="hidden" value="${img.defaultPrice}" name="defaultPrice"/>
-                                <span><c:forEach items="${img.name}" var="i18Name">
+                                 <c:forEach items="${img.details}" var="detail0">
+                                <c:if test="${detail0.key == 'os_family'}">
+                                <img src="<%=request.getContextPath()%>/resource/common/image/os/${detail0.value}"/>
+                                </c:if>
+                                </c:forEach><span><c:forEach items="${img.name}" var="i18Name">
                                 ${i18Name.content}
                                 </c:forEach> -- </span>
                                 <c:forEach items="${img.details}" var="detail">
-                                <span>${detail.key} : ${detail.value} </span>
+                                <c:if test="${detail.key != 'os_family'}">
+                                 <span>${detail.key} : ${detail.value} </span>
+                                </c:if>
                                 </c:forEach>
                                 </li>
                             </c:forEach>
@@ -187,10 +193,11 @@
         
 	</div>
 	<div class="selectPayMethods" >
-	   <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
+	   <img src="<%=request.getContextPath()%>/resource/common/image/check.png"/> <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
 	   <div class="payMethodsContainer">
+	       <jsp include="payMethods.jsp"/>
 	   </div>
 	</div>
-    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="instance.name.required"/>','<spring:message code="volumeType.name.required"/>');$("select").selectmenu();</script>
+    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="instance.name.required"/>','<spring:message code="volumeType.name.required"/>','<spring:message code="paymethod.name.required"/>');$("select").selectmenu();</script>
 </body>
 </html>

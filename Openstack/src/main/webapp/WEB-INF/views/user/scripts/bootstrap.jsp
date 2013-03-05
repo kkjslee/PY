@@ -4,6 +4,7 @@
 $(function() {
     
      $.template("messageBoxTemplate", Template_MessageBox);
+       $.template("confirmBoxTemplate", Template_ConfirmBox);
          
 });
 
@@ -43,3 +44,31 @@ function printMessage(msg) {
     });
 }
 
+
+function jConfirm(msg, callback,call2){
+   return $.tmpl("confirmBoxTemplate", [{
+        message: msg
+    }]).appendTo("#mainBody").dialog({
+        modal: true,
+        resizable: false,
+        buttons: [
+        {
+            text: "<s:text name='confirm.button'/>",
+            click: function() {
+             $(this).dialog("destroy");
+            callback.call();
+            }
+        },
+        {
+            text: "<s:text name='cancel'/>",
+            click: function() {
+               if(typeof(call2)!="undefined"){
+                call2.call();
+               }else{
+               $(this).dialog("destroy");
+               }
+                
+            }
+        }]
+    });
+}

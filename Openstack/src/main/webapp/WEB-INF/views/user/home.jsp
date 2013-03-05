@@ -16,19 +16,75 @@
 <div class="mainContainer">
 <div class="left" >
     <div class="logo"><img src="${pageContext.request.contextPath}/resource/common/image/logo.png"/></div>
-      <div class="menu tabbable tabs-left">
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" data-toggle="tab"><spring:message code='user.entry.index'/></a></li>
-			<li><a href="#" name="menuItem" isos:module="cart/modules/index" data-toggle="tab"><spring:message code='user.navi.product' /></a></li>
-			<li><a href="#" name="menuItem" isos:module="instance/modules/index" data-toggle="tab"><spring:message code='user.navi.instance' /></a></li>
-            <li><a href="#" name="menuItem" isos:module="cinder/modules/index" data-toggle="tab"><spring:message code='user.navi.volume' /></a></li>
-            <li><a href="#" name="menuItem" isos:module="cart/modules/ip" data-toggle="tab"><spring:message code='user.cart.ip' /></a></li>
-            <li><a href="#" name="menuItem" isos:module="cart/modules/volume" data-toggle="tab"><spring:message code='user.cart.volume' /></a></li>
-            <li><a href="#" name="menuItem" isos:module="order/modules/index" data-toggle="tab"><spring:message code='user.navi.order' /></a></li>
-          
-			<li><a href="<c:url value='/user/doLogout'/>"><spring:message code='user.logout' /></a></li>
-		</ul>
-	</div>
+      <div id="sidebar" class="menu">
+        <div id="sidebar_menu" class="accordion">
+        
+            <div class="accordion-group">
+                  <div class="accordion-heading">
+                     <a class="accordion-toggle" href="#" name="menuItem" isos:module="modules/entry/index"><spring:message code='user.entry.index'/></a>
+                   </div>
+            </div>
+            <div class="accordion-group">
+                 <div class="accordion-heading">
+                    <a href="#collapse1" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.apply'/></a>
+                 </div>
+                 <div id="collapse1" class="accordion-body collapse">
+                    <ul class="accordion-inner">
+                        <li><a href="#" name="menuItem" isos:module="cart/modules/volume"><spring:message code='user.cart.volume' /></a></li>
+                        <li><a href="#" name="menuItem" isos:module="cart/modules/ip" ><spring:message code='user.cart.ip' /></a></li>
+                        <li><a href="#" name="menuItem" isos:module="cinder/modules/index" ><spring:message code='user.navi.volume' /></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-group">
+                 <div class="accordion-heading">
+                    <a href="#collapse2" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.myproduct'/></a>
+                 </div>
+                 <div id="collapse2" class="accordion-body collapse">
+                    <ul class="accordion-inner">
+                        <li><a href="#" name="menuItem" isos:module="instance/modules/index"><spring:message code='user.navi.instance' /></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-group">
+                 <div class="accordion-heading">
+                    <a href="#collapse3" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.ordermgr'/></a>
+                 </div>
+                 <div id="collapse3" class="accordion-body collapse">
+                    <ul class="accordion-inner">
+                        <li><a href="#" name="menuItem" isos:module="order/modules/index"><spring:message code='user.navi.order' /></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-group">
+                 <div class="accordion-heading">
+                    <a href="#collapse4" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.financemgr'/></a>
+                 </div>
+                 <div id="collapse4" class="accordion-body collapse">
+                    <ul class="accordion-inner">
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-group">
+                 <div class="accordion-heading">
+                    <a href="#collapse5" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.accountmgr'/></a>
+                 </div>
+                 <div id="collapse5" class="accordion-body collapse">
+                    <ul class="accordion-inner">
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-group">
+                 <div class="accordion-heading">
+                    <a  class="accordion-toggle" href="<c:url value='/user/doLogout'/>"><spring:message code='user.logout' /></a>
+                 </div>
+                 <div  class="accordion-body collapse">
+                    <ul class="accordion-inner">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="right">

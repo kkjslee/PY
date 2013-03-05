@@ -4,7 +4,7 @@
 $(function() {
     
      $.template("messageBoxTemplate", Template_MessageBox);
-       $.template("confirmBoxTemplate", Template_ConfirmBox);
+     $.template("confirmBoxTemplate", Template_ConfirmBox);
          
 });
 
@@ -53,7 +53,7 @@ function jConfirm(msg, callback,call2){
         resizable: false,
         buttons: [
         {
-            text: "<s:text name='confirm.button'/>",
+            text: "<spring:message code='confirm.button'/>",
             click: function() {
               $(this).dialog("destroy");
              if(typeof(callback)!="undefined"){
@@ -62,7 +62,7 @@ function jConfirm(msg, callback,call2){
             }
         },
         {
-            text: "<s:text name='cancel'/>",
+            text: "<spring:message code='cancel.button'/>",
             click: function() {
                if(typeof(call2)!="undefined"){
                 call2.call();

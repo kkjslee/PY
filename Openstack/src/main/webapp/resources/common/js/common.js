@@ -96,8 +96,6 @@ function CustomForm(){
 	        		modal: true,
 	                resizable: false,
 	                width:conf.width,
-	                show: "slide",
-	                hide: "slide",
 	        		buttons : conf.buttons
 	        	});
 	        	

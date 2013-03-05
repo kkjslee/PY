@@ -21,6 +21,8 @@
     <c:set target="${pageMap}" property=".pageIndex" value="0"/>
     <c:set target="${pageMap}" property=".pageSize" value="20"/>
     <c:set target="${pageMap}" property=".pagination" value="pagination"/>
+      <c:set target="${pageMap}" property=".colspanLeft" value="4"/>
+    <c:set target="${pageMap}" property=".colspanRight" value="3"/>
     <c:set target="${pageMap}" property=".url" value="${paginationUrl}"/>
     <jsp:include page="/WEB-INF/views/templates/pagination.jsp" >
         <jsp:param name="pagination.configuration" value="pageMap"/>

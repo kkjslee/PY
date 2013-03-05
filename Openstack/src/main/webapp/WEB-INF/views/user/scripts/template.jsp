@@ -7,7 +7,7 @@ var Template_MessageBox = '\
 ';
 
 var Template_ConfirmBox = '\
-<div title="<s:text name="dialog.title.tips"/>">\
+<div title="<spring:message code="dialog.title.tips"/>">\
     <p class="message">{{html message}}</p>\
 </div>\
 ';

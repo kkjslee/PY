@@ -259,7 +259,20 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 </c:if>
 <c:if test="${conf['.usejs'] == null || conf['.usejs'] == true}" >
 <script>
-$( "#customForm" ).tooltip();
-$("select").selectmenu();
+	$("#customForm").tooltip({
+		position: {
+	        my: "left+15 left",
+	        at: "right center",
+	        using: function( position, feedback ) {
+	            $( this ).css( position );
+	            $( "<div>" )
+	            .addClass( "arrow left" )
+	            .addClass( feedback.vertical )
+	            .addClass( feedback.horizontal )
+	            .appendTo( this );
+	        }
+	    }
+	});
+	$("select").selectmenu();
 </script>
 </c:if>

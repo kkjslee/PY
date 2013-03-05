@@ -2,6 +2,8 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page import="com.inforstack.openstack.utils.SecurityUtils"%>
 <!-- admin common link for modules -->
+<link href="<%=request.getContextPath()%>/resource/common/css/common.css" rel="Stylesheet" type="text/css"  />
+
 <link href="<%=request.getContextPath()%>/resource/admin/common/css/common.css" rel="Stylesheet" type="text/css"  />
 <script src="<%=request.getContextPath()%>/resource/admin/common/js/common.js" type="text/javascript"></script>
 

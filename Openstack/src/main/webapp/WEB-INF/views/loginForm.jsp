@@ -8,16 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><spring:message code="user.login.page.title"/></title>
 	
-	<c:url value="/resource/common" var="rPath"></c:url>
-	<c:url value="/resource/common/template/jquerybootstrap" var="bootPath"></c:url>
-	
+	<jsp:include page="jquerybootstrap.jsp" />
 	<link href="<c:url value='/resource/common/css/theme_enterprise.css' />" rel="stylesheet" type="text/css" />
-	<link type="text/css" href="${bootPath}/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" />
-	
-	<script type="text/javascript" src="${rPath}/js/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="${rPath}/js/jquery-ui-1.9.2.custom.min.js"></script>
-	
-	<script src="${rPath}/js/common.js" type="text/javascript"></script>
+		
+	<script src="<%=request.getContextPath()%>/user/scripts/template" type="text/javascript"></script>
+	<script src="<%=request.getContextPath()%>/user/scripts/bootstrap" type="text/javascript"></script>
+		
 	<style>
 	.green{
 	   color:red;
@@ -143,6 +139,7 @@
 				 alert("<spring:message code='password.notequal'/>");
 				 return;
 			 }
+			 var pd=showProcessingDialog();
 			 $.ajax({
 				 type: "POST",
 		            dataType: "json",
@@ -154,6 +151,7 @@
 	                        email: email
 		            },
 		            success: function(data) {
+		            	  pd.dialog("destroy");
 		            	if (data.error) {
                             info = data.error;
                             alert(info);
@@ -164,6 +162,7 @@
                        }
 		            },
 		            error: function(jqXHR, textStatus, errorThrown) {
+		            	  pd.dialog("destroy");
 		            },
 		            }
 			        
@@ -195,14 +194,14 @@ ${request}
 						<spring:message code="system.name" />
 					</h3>
 				</div>
-				<form action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm" method="post">
+				<form id="logonForm" action="<c:url value='/${enterpoint}/doLogin' />" name="logonForm" method="post">
 					<div class="modal-body clearfix">
 						<fieldset>
 							<div class="control-group form-field clearfix">
 								<label for="id_username"><spring:message code="user.name.lable" /></label>
 								<span class="help-block"></span>
 								<div class="input">
-									<input id="j_username" class="iwidth" type="text" name="j_username" maxlength="40" />
+									<input id="j_username"  class="iwidth" type="text" name="j_username" maxlength="40" />
 								</div>
 							</div>
 							<div class="control-group form-field clearfix">
@@ -248,5 +247,6 @@ ${request}
    </div> 
   </div> 
   </div>
+  <script>$("select").selectmenu();</script>
  </body>
 </html>

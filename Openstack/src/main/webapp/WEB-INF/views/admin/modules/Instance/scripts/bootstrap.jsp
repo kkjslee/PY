@@ -221,7 +221,10 @@ function getTaskStatus(row,id){
                        window.console.log(addresses);
                        var ipText = "[";
                        for(var key in addresses){
-                        ipText = ipText + key + ":" + addresses[key] + "]<br/>";
+                         ipText = ipText + key + ":" + addresses[key] + "]<br/>";
+                       }
+                       if(ipText == "["){
+                         ipText = "";
                        }
                         $(row).find(".pipvice").html(ipText);
                        }

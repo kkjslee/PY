@@ -30,8 +30,8 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="2" class="pagination"></td>
-            <td align="left">
+            <td colspan="2" class="pagination fpager"></td>
+            <td align="left" class="fbuttons">
             <a class="button" href="#" onclick="showCreatCategory();return false;"><spring:message code="create.button"/>
             </a>
             </td>

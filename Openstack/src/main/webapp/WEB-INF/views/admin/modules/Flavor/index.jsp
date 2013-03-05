@@ -33,8 +33,8 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="5" class="pagination"></td>
-            <td align="left"><a class="button" href="#" onclick="showCreatFlavor();return false;"><spring:message code="create.button"/></a></td>
+            <td colspan="5" class="pagination fpager"></td>
+            <td class="fbuttons"><a class="button" href="#" onclick="showCreatFlavor();return false;"><spring:message code="create.button"/></a></td>
             </tr>
         </tfoot>
     </table>

@@ -33,8 +33,8 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="5" class="pagination"></td>
-            <td align="left"></td>
+            <td colspan="5" class="pagination fpager"></td>
+            <td class="fbuttons"></td>
             </tr>
         </tfoot>
     </table>

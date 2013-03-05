@@ -55,8 +55,10 @@ function jConfirm(msg, callback,call2){
         {
             text: "<s:text name='confirm.button'/>",
             click: function() {
-             $(this).dialog("destroy");
-            callback.call();
+              $(this).dialog("destroy");
+             if(typeof(callback)!="undefined"){
+                callback.call();
+               }
             }
         },
         {

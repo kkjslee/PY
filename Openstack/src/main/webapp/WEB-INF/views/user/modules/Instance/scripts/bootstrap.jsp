@@ -15,6 +15,7 @@ $(function(){
 });
 
 function registerTemplate() {
+     $.template("removeTip2", Template_RemoveTips2);
 }
 
 function setup() {
@@ -60,13 +61,87 @@ function pageCallback(index,jq){
     pageIndex = index;
 	loadInstances(index, pageSize);
 }
+function showRemoveTips1(which){
+    var vmid=$(which).parents(".dataRow").first().find("input[isos='vmId']").val();
+    var vmname=$(which).parents(".dataRow").first().find("input[isos='vmName']").val();
+    jConfirm("<spring:message code='instance.remove.tip1'/>",function(){
+        showRemoveTips2(vmid);
+    });
+}
+
+function showRemoveTips2(vmid){
+	var removeTip2 = $.tmpl("removeTip2", [{
+	        id: "removeTip2"
+	    }]).appendTo("#mainBody");
+	
+	    removeTip2 = $(removeTip2).dialog({
+	        title: '<spring:message code="dialog.title.tips"/>',
+	        modal: true,
+	        autoOpen: false,
+	        resizable: false,
+	        show: "slide",
+	        hide: "slide",
+	        width: "400px",
+	        buttons: [
+	        {
+	            text: '<spring:message code="confirm.button"/>',
+	            click: function() {
+	                $(this).dialog("destroy");
+	                window.console.log("remove vm id:" + vmid);
+	                removeInstance(vmid,true);
+	            }
+	        },{
+                text: '<spring:message code="cancel.button"/>',
+                click: function() {
+                    $(this).dialog("destroy");
+                    window.console.log("remove vm id:" + vmid);
+                    removeInstance(vmid,false);
+                }
+            }]
+	    });
+}
+
+function removeInstance(vmid,_freeResource){
+    var pd=showProcessingDialog();
+    $.ajax({
+        type: "POST",
+        url: Server+"/imcontrol",
+        cache: false,
+        data: {
+            executecommand: "removevm",
+            vmid: vmid,
+            freeResources:_freeResource
+        },
+        success: function(data) {
+            pd.dialog("destroy");
+            try{
+                var msg="";
+                switch(data.status) {
+                    case "done": msg="<spring:message code='operation.request.submited'/>".sprintf("<spring:message code='remove.button'/>");
+                    break;
+                    case "error": ;
+                    case "exception": msg="<spring:message code='operation.request.error'/>";break;
+                }
+                
+                printMessage(msg);
+                loadInstances(pageIndex, pageSize)
+                
+            }catch(e) {
+                printMessage("Data Broken: ["+e+"]");
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            pd.dialog("destroy");
+            printError(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
 
 function ctlInstance(which, command, opeDesc) {
     var vmid=$(which).parents(".dataRow").first().find("input[isos='vmId']").val();
     var vmname=$(which).parents(".dataRow").first().find("input[isos='vmName']").val();
     
     if(!confirm("<spring:message code='operation.confirm'/>".sprintf(opeDesc, vmname))) return;
-    
     var pd=showProcessingDialog();
     $.ajax({
         type: "POST",
@@ -74,7 +149,8 @@ function ctlInstance(which, command, opeDesc) {
         cache: false,
         data: {
             executecommand: command,
-            vmid: vmid
+            vmid: vmid,
+            freeResources:false
         },
         success: function(data) {
             pd.dialog("destroy");

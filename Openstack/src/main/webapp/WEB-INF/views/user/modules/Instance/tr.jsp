@@ -49,7 +49,7 @@
 	        <li class="ope vmsuspended"  <c:if test='${item.status=="suspended"}'> style="display:block" </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'resume','<spring:message code='resume.button'/>');return false;"><spring:message code="resume.button" /></a></li>
 	        <li class="ope vmresuming"    <c:if test='${item.status=="resuming" || item.status == "active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'suspend','<spring:message code='suspend.button'/>');return false;"><spring:message code="suspend.button" /></a></li>
 	        <li <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></li>
-	        <li class="ope vmdeleted"  <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'removevm','<spring:message code='remove.button'/>');return false;"><spring:message code="remove.button" /></a></li>
+	        <li class="ope vmdeleted"  <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showRemoveTips1(this);return false;"><spring:message code="remove.button" /></a></li>
 		  </ul>
         </div>
         </td>

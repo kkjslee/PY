@@ -7,7 +7,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.bouncycastle.util.encoders.Hex;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
+import org.springframework.security.crypto.codec.Base64;
 
 import com.inforstack.openstack.log.Logger;
 
@@ -52,4 +54,52 @@ public class CryptoUtil {
 		 return null;
 	}
 	
+	public static String xorHex(String string, String xor){
+		if(string == null ){
+			return string;
+		}
+		if(xor == null){
+			xor = "";
+		}
+		
+		StringBuilder builder = new StringBuilder();
+		
+		if(xor.length()>0){
+			for(int i=0, n=string.length(); i<n;i++){
+				int j = i % xor.length();
+				char c1 = string.charAt(i);
+				char c2 = xor.charAt(j);
+				builder.append((char)(c1^c2));
+			}
+		}else{
+			builder.append(string);
+		}
+		
+		return new String(Hex.encode(builder.toString().getBytes()));
+	}
+	
+	public static String hexXor(String hex, String xor){
+		if(hex == null ){
+			return hex;
+		}
+		if(xor == null){
+			xor = "";
+		}
+		
+		String s = new String(Hex.decode(hex.getBytes()));
+		StringBuilder builder = new StringBuilder();
+		
+		if(xor.length()>0){
+			for(int i=0, n=s.length(); i<n;i++){
+				int j = i % xor.length();
+				char c1 = s.charAt(i);
+				char c2 = xor.charAt(j);
+				builder.append((char)(c1^c2));
+			}
+		}else{
+			builder.append(s);
+		}
+		
+		return builder.toString();
+	}
 }

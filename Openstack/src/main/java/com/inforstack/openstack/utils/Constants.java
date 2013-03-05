@@ -68,6 +68,9 @@ public class Constants {
 	public static final int VIRTDOMAIN_STATUS_SUSPENDED = 5;
 	public static final int VIRTDOMAIN_STATUS_ERROR = 6;
 	public static final int VIRTDOMAIN_STATUS_DELETED = 7;
+	
+	public static final int MAILTEMPALTE_TYPE_TEXT = 1;
+	public static final int MAILTEMPALTE_TYPE_HTML = 2;
 
 	public static final int IMG_PROGRESS_ACTIVE = 100;
 	public static final String IMG_STATUS_ACTIVE = "ACTIVE";

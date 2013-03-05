@@ -145,10 +145,11 @@ public class UserController {
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
 		conf.put("form.username", "[text]");
+		conf.put("username.title", OpenstackUtil.getMessage("username.tip"));
 		conf.put("form.password", "[password]");
+		conf.put("password.title", OpenstackUtil.getMessage("password.tip"));
 		conf.put("form.confirmPassword", "[password]");
 		conf.put("form.email", "[text]");
-		conf.put(".usejs", false);
 		model.addAttribute("configuration", conf);
 
 		String jspString = OpenstackUtil.getJspPage(
@@ -171,7 +172,6 @@ public class UserController {
 		conf.put(".form", "start_end");
 		conf.put("form.username", "[text]");
 		conf.put("form.email", "[text]");
-		conf.put(".usejs", false);
 
 		model.addAttribute("configuration", conf);
 

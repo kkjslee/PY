@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.util.WebUtils;
 
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.i18n.model.I18nContext;
+import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.web.resolver.CustomSessionLocaleResolver;
 
 /**
@@ -34,7 +37,9 @@ public class CustomLocaleChangeInterceptor extends HandlerInterceptorAdapter {
 
 	private String paramName = DEFAULT_PARAM_NAME;
 	private LanguageService languageService;
-
+	
+	private static final String USER_INITIALIZED_KEY = CustomLocaleChangeInterceptor.class.getName() + ".custom.initialized";
+	
 	/**
 	 * Set the name of the parameter that contains a locale specification
 	 * in a locale change request. Default is "locale".
@@ -63,8 +68,18 @@ public class CustomLocaleChangeInterceptor extends HandlerInterceptorAdapter {
 		
 		String languageCode = request.getParameter(this.paramName);
 		if (languageCode != null) {
+			WebUtils.setSessionAttribute(request, USER_INITIALIZED_KEY, true);
 			Language language = languageService.findById(languageCode);
 			setLanguage(language, request, response);
+		}else if(!Boolean.TRUE.equals(WebUtils.getSessionAttribute(request, USER_INITIALIZED_KEY))){
+			User user = SecurityUtils.getUser();
+			if(user != null){
+				WebUtils.setSessionAttribute(request, USER_INITIALIZED_KEY, true);
+				Integer language = user.getDefaultLanguage();
+				if(language != null){
+					languageCode = language.toString();
+				}
+			}
 		}
 		
 		Locale locale = localeResolver.resolveLocale(request);

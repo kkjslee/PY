@@ -10,13 +10,14 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.mail.conf.MailConfigation;
 import com.inforstack.openstack.mail.conf.MailConfigationService;
+import com.inforstack.openstack.mail.task.MailTask;
+import com.inforstack.openstack.mail.task.MailTaskService;
 import com.inforstack.openstack.mail.template.MailTemplate;
 import com.inforstack.openstack.mail.template.MailTemplateService;
 import com.inforstack.openstack.utils.Constants;
@@ -37,6 +38,8 @@ public class MailServiceImpl implements MailService {
 	private MailTemplateService mailTemplateService;
 	@Autowired
 	private MailConfigationService mailConfigationService;
+	@Autowired
+	private MailTaskService mailTaskService;
 	
 	@Override
 	public Mail findMailById(int mailId){
@@ -75,19 +78,42 @@ public class MailServiceImpl implements MailService {
 		return this.updateMailSender(mailId, sender);
 	}
 	
-	@Async
-	public void sendMail(String mailCode, String toMail, int language, Map<String, Object> propertise){
+	public MailTask addMailTask(String mailCode, String toMail, int language, Map<String, Object> propertise, int priority){
 		MailService self = (MailService)OpenstackUtil.getBean("mailService");
 		Mail mail = self.findMailByCode(mailCode);
 		if(mail == null) {
-			log.warn("No mail found for mailCode : " + mailCode);
-			return;
+			log.error("No mail found for mailCode : " + mailCode);
+			return null;
 		}
 		
-		MailConfigation sender = mail.getSender();
 		MailTemplate tempalte = self.findMailTempalte(mail.getId(), language);
-		if(sender == null || tempalte == null){
-			log.warn("Cannot find sender or template for mailCode : " + mailCode);
+		if(tempalte == null){
+			log.error("Cannot find template for mailCode : " + mailCode);
+			return null;
+		}
+		
+		StringBuilder text = new StringBuilder();
+		String head = OpenstackUtil.setProperty(tempalte.getHead(), propertise);
+		String body = OpenstackUtil.setProperty(tempalte.getBody(), propertise);
+		String signature = OpenstackUtil.setProperty(tempalte.getSignature(), propertise);
+		if(tempalte.getType() == Constants.MAILTEMPALTE_TYPE_HTML){
+			text.append("<p>").append(head).append("</p><p>")
+				.append(body).append("</p><br/><p>")
+				.append(signature).append("</p>");
+		}else{
+			text.append(head).append("\n").
+				append(body).append("\n\n")
+				.append(signature);
+		}
+		
+		return mailTaskService.createMailtask(mail.getSender(), toMail, tempalte.getTitle(), text.toString(), 
+				(tempalte.getType() == Constants.MAILTEMPALTE_TYPE_HTML), priority);
+	}
+	
+	public void sendMail(MailTask mailTask){
+		MailConfigation sender =mailTask.getSender();
+		if(sender == null){
+			log.error("Cannot find sender for mailTask : " + mailTask.getId());
 			return;
 		}
 		
@@ -107,17 +133,12 @@ public class MailServiceImpl implements MailService {
 			
 			MimeMessageHelper helper = new MimeMessageHelper(mailSender.createMimeMessage());
 			helper.setFrom(sender.getUsername());
-			helper.setTo(toMail);
-			helper.setSubject(tempalte.getTitle());
-			String head = OpenstackUtil.setProperty(tempalte.getHead(), propertise);
-			String body = OpenstackUtil.setProperty(tempalte.getBody(), propertise);
-			String signature = OpenstackUtil.setProperty(tempalte.getSignature(), propertise);
-			if(tempalte.getType() == Constants.MAILTEMPALTE_TYPE_HTML){
-				helper.setText("<p>"+ head + "</p><p>" +body + "</p><br/><p>" + signature + "</p>", true);
-			}else{
-				helper.setText(head + "\n" + body + "\n\n" + signature);
-			}
+			helper.setTo(mailTask.getMailTo());
+			helper.setSubject(mailTask.getSubject());
+			helper.setText(mailTask.getText(), mailTask.getHtml());
 			mailSender.send(helper.getMimeMessage());
+			
+			mailTaskService.deleteTask(mailTask);
 		}catch(IOException ioe){
 			log.error("Error occured while loading mail properties", ioe);
 		}catch(MessagingException me){

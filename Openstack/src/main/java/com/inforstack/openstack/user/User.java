@@ -60,7 +60,7 @@ public class User {
 	private String answer;
 	
 	@Column(name="default_language")
-	private int defaultLanguage;
+	private Integer defaultLanguage;
 
 	@Column(name="role_id")
 	private int roleId;
@@ -294,11 +294,11 @@ public class User {
 		this.uuid = uuid;
 	}
 	
-	public int getDefaultLanguage() {
+	public Integer getDefaultLanguage() {
 		return defaultLanguage;
 	}
 
-	public void setDefaultLanguage(int defaultLanguage) {
+	public void setDefaultLanguage(Integer defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
 	}
 

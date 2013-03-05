@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name="mail_configuration")
+@Entity
+@Table(name="mail_configuration")
 public class MailConfigation {
 	
 	@Id

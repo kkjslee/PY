@@ -47,7 +47,7 @@ public class Tenant {
 	private String postcode;
 	
 	@Column(name="default_language")
-	private int defaultLanguage;
+	private Integer defaultLanguage;
 	
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn
@@ -274,11 +274,11 @@ public class Tenant {
 		this.agentId = agentId;
 	}
 	
-	public int getDefaultLanguage() {
+	public Integer getDefaultLanguage() {
 		return defaultLanguage;
 	}
 
-	public void setDefaultLanguage(int defaultLanguage) {
+	public void setDefaultLanguage(Integer defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
 	}
 

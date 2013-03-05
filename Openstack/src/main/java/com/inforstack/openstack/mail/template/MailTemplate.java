@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.mail.Mail;
 
-@Entity(name="mail_template")
+@Entity
+@Table(name="mail_template")
 public class MailTemplate {
 	
 	@Id

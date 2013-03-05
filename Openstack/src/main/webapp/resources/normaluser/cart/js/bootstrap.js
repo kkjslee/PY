@@ -332,7 +332,6 @@ function udpateAmount(price){
 
 function buyOrder(){
 	window.console.log("buy order");
-	//todo
 	if(validOrderPay()){
 		window.open(Server + "/buyorder?orderId="+$("#orderId").val());
 	}else{

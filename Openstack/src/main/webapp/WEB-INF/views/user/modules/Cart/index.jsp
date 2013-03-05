@@ -195,7 +195,6 @@
 	<div class="selectPayMethods" >
 	   <img src="<%=request.getContextPath()%>/resource/common/image/check.png"/> <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
 	   <div class="payMethodsContainer">
-	       <jsp include="payMethods.jsp"/>
 	   </div>
 	</div>
     <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="instance.name.required"/>','<spring:message code="volumeType.name.required"/>','<spring:message code="paymethod.name.required"/>');$("select").selectmenu();</script>

@@ -53,19 +53,19 @@
     </div>
     <div class="cartTotalLine">
             <spring:message code="cart.total.label"/> : ￥ <span class="cartTotal">0</span>
-        </div>
-        <div class="cartButton">
+     </div>
+     <div class="cartButton">
             <a class="btn btn-large submitorder">
               <spring:message code="cart.submit"/>
             </a>
-        </div>
+     </div>
     </div>
-        
-    <div class="selectPayMethods" >
-       <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
+  </div>      
+   <div class="selectPayMethods" >
+       <img src="<%=request.getContextPath()%>/resource/common/image/check.png"/> <p class="cartSubmitted"><spring:message code="cart.submitted"/></p>
        <div class="payMethodsContainer">
        </div>
     </div>
-    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="volumeType.name.required"/>');$("select").selectmenu();</script>
+    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="volumeType.name.required"/>','<spring:message code="paymethod.name.required"/>');$("select").selectmenu();</script>
 </body>
 </html>

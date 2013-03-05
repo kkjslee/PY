@@ -1,9 +1,11 @@
 var Server="";
 var cart_networkSelected_UUID="";
 var cart_dataCenterSelected_UUID="";
+var selPayMsg =  "";
 //this should be called first in jsp file
-function setServer(server){
+function setServer(server,_selPayMsg){
 	Server = server;
+	selPayMsg = _selPayMsg;
 }
 $(function(){
 	setup();
@@ -14,15 +16,26 @@ $(function(){
 		}
 		
 	});
-	$(".payMethodsContainer").delegate(".buyorder", "click", function(e){
+	$(".selectPayMethods").delegate(".buyorder", "click", function(e){
 		buyOrder();
 	});
 });
 
 function buyOrder(){
 	window.console.log("buy order");
-	//todo
-	window.open(Server + "/showPayMethods");
+	if(validOrderPay()){
+		window.open(Server + "/buyorder?orderId="+$("#orderId").val());
+	}else{
+		printMessage(selPayMsg);
+	}
+}
+function validOrderPay(){
+	if(!isNull($("input[name='payMethod']:checked").val())){
+		window.console.log("paymethod :" + $("input[name='payMethod']:checked").val());
+		return true;
+	}else{
+		return false;
+	}
 }
 function showPayMethods(orderId){
 	$.ajax({
@@ -35,6 +48,8 @@ function showPayMethods(orderId){
         cache: false,
         success: function(data) {
             try {
+            	 $("#mainBody").remove();
+                 $(".selectPayMethods").fadeIn("slow");
             	$(".payMethodsContainer").html(data);
             } catch(e) {
                 printMessage("Data Broken: [" + e + "]");
@@ -57,9 +72,6 @@ function checkOutOrder(callBack){
             	$(pd).dialog("close");
                 if(data.status == 1){
                 var orderId  = data.result;
-                $("#mainBody").remove();
-                $(".selectPayMethods").fadeIn("slow");
-                //select pay methods
                 callBack(orderId);
                 }
                 if(data.status == 0){

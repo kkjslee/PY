@@ -389,7 +389,7 @@ public class CinderServiceImpl implements CinderService {
 		this.remove(access, ENDPOINT_VOLUME, id);
 		
 		final CinderService self = (CinderService) OpenstackUtil.getBean("cinderService");
-		
+		self.updateVolumeStatus(id, "pending");
 		Thread thread = new Thread(new Runnable() {
 
 			@Override
@@ -458,7 +458,7 @@ public class CinderServiceImpl implements CinderService {
 						va = response.getVolumeAttach();
 						
 						final CinderService self = (CinderService) OpenstackUtil.getBean("cinderService");
-						
+						self.updateVolumeStatus(volumeId, "pending");
 						Thread thread = new Thread(new Runnable() {
 
 							@Override
@@ -494,13 +494,40 @@ public class CinderServiceImpl implements CinderService {
 	}
 
 	@Override
-	public void detachVolume(Access access, String serverId, String attachId) throws OpenstackAPIException {
+	public void detachVolume(final Access access, String serverId, final String attachId) throws OpenstackAPIException {
 		if (access != null && serverId != null && !attachId.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_VOLUMEATTACH_DETAIL);
 			if (endpoint != null) {
 				String url = getnovaEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				try {
-					RestUtils.delete(url, access, serverId,attachId);
+					RestUtils.delete(url, access, serverId, attachId);
+					final CinderService self = (CinderService) OpenstackUtil.getBean("cinderService");
+					self.updateVolumeStatus(attachId, "pending");
+					Thread thread = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							while (true) {
+								try {
+									Volume s = CinderServiceImpl.this.getVolumeDetail(access, attachId);
+									if (s != null) {
+										String status = s.getStatus();
+										self.updateVolumeStatus(s.getId(), status);
+										if (status.equalsIgnoreCase("error") || status.equalsIgnoreCase("in-use") || status.equalsIgnoreCase("available")) {
+											break;
+										}
+									}
+									Thread.sleep(500);
+								} catch (OpenstackAPIException e) {
+									break;
+								} catch (InterruptedException e) {
+									break;
+								}
+							}
+						}
+						
+					}, "Detaching Volume " + attachId);
+					thread.start();
 				} catch (OpenstackAPIException e) {
 					RestUtils.handleError(e);
 				}

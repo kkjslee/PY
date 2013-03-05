@@ -211,10 +211,9 @@ public class InstanceServiceImpl implements InstanceService {
 							if (volume != null && volume.getType() != null && !volume.getType().isEmpty()) {
 								newVolume = this.cinderService.createVolume(access, volume.getName(), "", volume.getSize(), false, volume.getType(), volume.getZone());
 								if (newVolume != null) {
-									String deviceName = newVolume.getDescription();
 									vi = this.bindVolumeToSubOrder(newVolume, order, vm, dataCenterRef, tenant);
 									if (server != null && server.getId() != null && !server.getId().isEmpty()) {
-										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), deviceName, user.getUsername(), user.getPassword(), tenant.getUuid());
+										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), user.getUsername(), user.getPassword(), tenant.getUuid());
 									}
 								}
 							}
@@ -237,7 +236,38 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 
 	@Override
-	public void removeVM(User user, Tenant tenant, String serverId, boolean freeVolumeAndIP) {
+	public void removeVM(User user, Tenant tenant, String serverId, boolean freeAttachedResouces) {
+		Instance instance = this.instanceDao.findByObject("uuid", serverId);
+		if (instance != null && instance.getType() == Constants.INSTANCE_TYPE_VM) {
+			Access access = null;
+			try {
+				access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
+				if (access != null) {
+					List<Instance> subInstances = instance.getSubInstance();
+					if (subInstances.size() > 0) {
+						for (Instance subInstance : subInstances) {
+							int type = subInstance.getType();
+							String attachId = subInstance.getUuid();
+							switch (type) {
+								case Constants.INSTANCE_TYPE_VOLUME: {
+									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_VOLUME, serverId, attachId, user.getUsername(), user.getPassword(), tenant.getUuid());
+									break;
+								}
+								case Constants.INSTANCE_TYPE_IP: {
+									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_IP, serverId, attachId, user.getUsername(), user.getPassword(), tenant.getUuid());
+									break;
+								}
+							}
+						}
+					}
+					Server server = new Server();
+					server.setId(serverId);					
+					this.serverService.removeServer(access, server);
+				}
+			} catch (OpenstackAPIException e) {
+				
+			}
+		}
 	}
 	
 	private Instance registerInstance(int type, String id, String name, String dataCenterRef, Tenant tenant) {
@@ -325,7 +355,6 @@ public class InstanceServiceImpl implements InstanceService {
 		Volume volume = null;
 		
 		String volumeName = "New Volume";
-		String description = "/dev/test";
 		String dataCenterRef = null;
 		String volumeTypeRef = null;
 		List<SubOrder> subOrders = order.getSubOrders();
@@ -360,7 +389,6 @@ public class InstanceServiceImpl implements InstanceService {
 				volume = new Volume();
 				volume.setName(volumeName);
 				volume.setType(volumeTypeRef);
-				volume.setDescription(description);
 				volume.setSize(Integer.parseInt(vt.getName()));
 				volume.setSize(1);
 			}
@@ -406,10 +434,19 @@ public class InstanceServiceImpl implements InstanceService {
 				vi.setName(volume.getName());
 				vi.setSize(volume.getSize());
 				if (vm != null) {
-					vi.setVm(vm.getUuid());
+					vi.setVm(vm.getUuid());					
 				}
 				this.volumeInstanceDao.persist(vi);
 				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_VOLUME, volume.getId(), volume.getName(), dataCenterRef, tenant);
+				if (vm != null) {
+					Instance parentInstance = this.instanceDao.findByObject("uuid", vm.getUuid());
+					List<Instance> subInstances = parentInstance.getSubInstance();
+					subInstances.add(instance);
+					parentInstance.setSubInstance(subInstances);
+					instance.setParent(parentInstance);
+					this.instanceDao.persist(instance);
+					this.instanceDao.persist(parentInstance);
+				}
 				subOrder.setInstance(instance);
 				break;
 			}

@@ -252,7 +252,7 @@ public class ItemServiceImpl implements ItemService {
 			switch (osType) {
 			case ItemSpecification.OS_TYPE_FLAVOR_ID:
 				try {
-					Flavor flavor = this.flavorService.getFlavor(refId);
+					Flavor flavor = this.flavorService.getFlavor(this.flavorDao.getFlavorRefId(1, refId));
 					if (flavor != null) {
 						detail.put("os_cpu",
 								Integer.toString(flavor.getVcpus()));
@@ -270,7 +270,7 @@ public class ItemServiceImpl implements ItemService {
 				break;
 			case ItemSpecification.OS_TYPE_IMAGE_ID:
 				try {
-					Image image = this.imageService.getImage(refId);
+					Image image = this.imageService.getImage(this.imageDao.getImageRefId(1, refId));
 					if (image != null) {
 						detail.put("os_imagename", image.getName());
 						com.inforstack.openstack.item.Image img = this.imageDao.findByObject("refId", refId);
@@ -298,7 +298,7 @@ public class ItemServiceImpl implements ItemService {
 			case ItemSpecification.OS_TYPE_VOLUME_ID:
 				try {
 					VolumeType volumeType = this.cinderService
-							.getVolumeType(refId);
+							.getVolumeType(this.volumeTypeDao.getVolumeRefId(1, refId));
 					if (volumeType != null && volumeType.getName() != null) {
 						if (Integer.parseInt(volumeType.getName()) != 0) {
 							detail.put("os_size", volumeType.getName());

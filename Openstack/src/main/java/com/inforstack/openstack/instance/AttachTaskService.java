@@ -14,7 +14,7 @@ public interface AttachTaskService {
 	
 	public List<AttachTask> listCompletedTasks();
 	
-	public void addTask(int type, String vmId, String attachmentId, String extra, String user, String pass, String tenant);
+	public void addTask(int type, String vmId, String attachmentId, String user, String pass, String tenant);
 	
 	public void handleTask();
 

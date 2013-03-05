@@ -182,7 +182,7 @@ public class ServerServiceImpl implements ServerService {
 				RestUtils.delete(url, access, server.getId());
 				
 				final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
-				
+				self.updateServerStatus(server.getId(), "pending", "pending");
 				Thread thread = new Thread(new Runnable() {
 
 					@Override

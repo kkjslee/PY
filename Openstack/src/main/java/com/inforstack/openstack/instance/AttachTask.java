@@ -24,8 +24,6 @@ public class AttachTask {
 	@Column(name="attachment_id")
 	private String attachmentId;
 	
-	private String extra;
-	
 	@Column(name="create_time")
 	private Date createTime;
 	
@@ -76,14 +74,6 @@ public class AttachTask {
 
 	public void setAttachmentId(String attachmentId) {
 		this.attachmentId = attachmentId;
-	}
-
-	public String getExtra() {
-		return extra;
-	}
-
-	public void setExtra(String extra) {
-		this.extra = extra;
 	}
 
 	public Date getCreateTime() {

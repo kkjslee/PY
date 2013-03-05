@@ -160,7 +160,7 @@ public class UserInstanceController {
 
 	@RequestMapping(value = "/imcontrol", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	String controlInstance(Model model, String executecommand, String vmid) {
+	String controlInstance(Model model, String executecommand, String vmid, Boolean freeResources) {
 		try {
 			String username = SecurityUtils.getUserName();
 			String password = SecurityUtils.getUser().getPassword();
@@ -186,7 +186,9 @@ public class UserInstanceController {
 				} else if (executecommand.equals("poweron")) {
 					action = new StartServer();
 				} else if (executecommand.equals("removevm")) {
-					serverService.removeServer(access, server);
+					//serverService.removeServer(access, server);
+					boolean free = (freeResources == null || freeResources.booleanValue());
+					this.instanceService.removeVM(SecurityUtils.getUser(), tenant, server.getId(), free);
 				}
 
 				if (action != null) {

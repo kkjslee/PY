@@ -93,13 +93,12 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 	}
 	
 	@Override
-	public void addTask(int type, String vmId, String attachmentId, String extra, String user, String pass, String tenant) {
+	public void addTask(int type, String vmId, String attachmentId, String user, String pass, String tenant) {
 		AttachTask task = new AttachTask();
 		task.setType(type);
 		task.setStatus(Constants.ATTACH_TASK_STATUS_NEW);
 		task.setServerId(vmId);
 		task.setAttachmentId(attachmentId);
-		task.setExtra(extra);
 		task.setCreateTime(new Date());
 		task.setUser(user);
 		task.setPass(pass);
@@ -120,36 +119,59 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 			String pass = task.getPass();
 			String tenant = task.getTenant();
 			switch (type) {
-			case Constants.ATTACH_TASK_TYPE_VOLUME:
-				try {
-					Access access = this.keystoneService.getAccess(user, pass, tenant, true);
-					if (access != null) {
-						Instance vm = this.instanceDao.findByObject("uuid", serverId);
-						if (vm != null && vm.getStatus().equalsIgnoreCase("active")) {
-							Instance volume = this.instanceDao.findByObject("uuid", attachId);
-							if (volume != null && volume.getStatus().equalsIgnoreCase("available")) {
-								task.setUpdateTime(now);
-								task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
-								VolumeAttachment va = this.cinderService.attachVolume(access, serverId, attachId, task.getExtra());
-								if (va.getId() != null && !va.getId().trim().isEmpty()) {
+				case Constants.ATTACH_TASK_TYPE_VOLUME: {
+					try {
+						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
+						if (access != null) {
+							Instance vm = this.instanceDao.findByObject("uuid", serverId);
+							if (vm != null && vm.getStatus().equalsIgnoreCase("active")) {
+								Instance volume = this.instanceDao.findByObject("uuid", attachId);
+								if (volume != null && volume.getStatus().equalsIgnoreCase("available")) {
+									task.setUpdateTime(now);
+									task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
+									VolumeAttachment va = this.cinderService.attachVolume(access, serverId, attachId, null);
+									if (va.getId() != null && !va.getId().trim().isEmpty()) {
+										task.setUpdateTime(now);
+										task.setStatus(Constants.ATTACH_TASK_STATUS_COMPLETE);
+										log.info("Attach volume[" + attachId + "] to vm[" + serverId + "]");
+									} else {
+										task.setUpdateTime(now);
+										task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
+										log.error("Can't attach volume[" + attachId + "] to vm[" + serverId + "]");
+									}
+								}
+							}												
+						}
+					} catch (OpenstackAPIException e) {
+						task.setUpdateTime(now);
+						task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
+						log.error("Can't attach volume[" + attachId + "] to vm[" + serverId + "]", e);
+					}
+					break;
+				}
+				case Constants.DETACH_TASK_TYPE_VOLUME:
+					try {
+						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
+						if (access != null) {
+							Instance vm = this.instanceDao.findByObject("uuid", serverId);
+							if (vm != null && vm.getStatus().equalsIgnoreCase("deleted")) {
+								Instance volume = this.instanceDao.findByObject("uuid", attachId);
+								if (volume != null && volume.getStatus().equalsIgnoreCase("in-use")) {
+									task.setUpdateTime(now);
+									task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
+									this.cinderService.removeVolume(access, attachId);
 									task.setUpdateTime(now);
 									task.setStatus(Constants.ATTACH_TASK_STATUS_COMPLETE);
-									log.info("Attach volume[" + attachId + "] to vm[" + serverId + "]");
-								} else {
-									task.setUpdateTime(now);
-									task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
-									log.error("Can't attach volume[" + attachId + "] to vm[" + serverId + "]");
 								}
-							}
-						}												
+							}												
+						}
+					} catch (OpenstackAPIException e) {
+						task.setUpdateTime(now);
+						task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
+						log.error("Can't attach volume[" + attachId + "] to vm[" + serverId + "]", e);
 					}
-				} catch (OpenstackAPIException e) {
-					task.setUpdateTime(now);
-					task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
-					log.error("Can't attach volume[" + attachId + "] to vm[" + serverId + "]", e);
-				}
-				break;
-			}
+					break;
+				}				
 		}
 	}
 

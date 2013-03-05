@@ -463,6 +463,10 @@ public class CartController {
 							i18Details.put(OpenstackUtil
 									.getMessage("admin.image.name"), value);
 						}
+						if (key.equals("os_family")) {
+							i18Details.put("os_family", value);
+						}
+
 					}
 					itemSpecificationModel.setDetails(i18Details);
 				}
@@ -572,7 +576,7 @@ public class CartController {
 
 	@RequestMapping(value = "/showPayMethods", method = RequestMethod.POST)
 	public String showPayMethod(Model model, HttpServletRequest request,
-			Integer orderId) {
+			String orderId) {
 		model.addAttribute("orderId", orderId);
 		return CART_MODULE_HOME + "/payMethods";
 	}

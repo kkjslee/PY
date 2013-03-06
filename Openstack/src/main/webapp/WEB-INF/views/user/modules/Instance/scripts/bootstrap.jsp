@@ -70,6 +70,7 @@ function showRemoveTips1(which){
 }
 
 function showRemoveTips2(vmid){
+window.console.log(" tip 2");
 	var removeTip2 = $.tmpl("removeTip2", [{
 	        id: "removeTip2"
 	    }]).appendTo("#mainBody");

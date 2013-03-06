@@ -56,7 +56,9 @@ function jConfirm(msg, callback,call2){
             text: "<spring:message code='confirm.button'/>",
             click: function() {
               $(this).dialog("destroy");
+              
              if(typeof(callback)!="undefined"){
+             window.console.log("ok tip 1");
                 callback.call();
                }
             }

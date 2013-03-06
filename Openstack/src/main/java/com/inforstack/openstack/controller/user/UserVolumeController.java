@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +31,11 @@ import com.inforstack.openstack.instance.VolumeInstance;
 import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Controller
 @RequestMapping(value = "/user/cinder")
@@ -47,7 +50,7 @@ public class UserVolumeController {
 
 	@Autowired
 	private CinderService cinderService;
-
+	
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
 		return CINDER_MODULE_HOME + "/index";
@@ -215,6 +218,27 @@ public class UserVolumeController {
 
 			return OpenstackUtil.buildSuccessResponse(result);
 		}
+	}
+	
+	@RequestMapping(value = "/volumecontrol", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody String controlVolume(Model model, String executecommand, String volumeId, String serverId, Boolean freeResources) {
+		try {
+			if (!StringUtil.isNullOrEmpty(executecommand) && !StringUtils.isNullOrEmpty(volumeId)) {
+				User user = SecurityUtils.getUser();
+				Tenant tenant = SecurityUtils.getTenant();
+				if (executecommand.equals("attach")) {
+					this.instanceService.attachVolume(user, tenant, volumeId, serverId);
+				} else if (executecommand.equals("detach")) {
+					this.instanceService.detachVolume(user, tenant, volumeId, serverId);
+				} else if (executecommand.equals("remove")) {
+					this.instanceService.removeVolume(user, tenant, volumeId);
+				}
+			}
+		} catch (RuntimeException e) {
+			return Constants.JSON_STATUS_EXCEPTION;
+		}
+
+		return Constants.JSON_STATUS_DONE;
 	}
 
 }

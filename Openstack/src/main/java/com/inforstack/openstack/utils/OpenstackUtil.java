@@ -74,11 +74,19 @@ public class OpenstackUtil {
 	}
 
 	public static Object getBean(String name) {
-		return context.getBean(name);
+		Object bean = null;
+		if (context != null) {
+			bean = context.getBean(name);
+		}
+		return bean;
 	}
 
 	public static <T> T getBean(Class<T> clz) {
-		return context.getBean(clz);
+		T bean = null;
+		if (context != null) {
+			bean = context.getBean(clz);
+		}
+		return bean;
 	}
 
 	public static ViewResolver getViewResolver(HttpServletRequest req) {

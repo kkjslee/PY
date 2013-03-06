@@ -139,36 +139,37 @@ public class ServerServiceImpl implements ServerService {
 			
 			final String id = newServer.getId();
 			
-			final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
-			
-			Thread thread = new Thread(new Runnable() {
+			final ServerService self = (ServerService) OpenstackUtil.getBean(ServerService.class);
+			if (self != null) {
+				Thread thread = new Thread(new Runnable() {
 
-				@Override
-				public void run() {
-					while (true) {
-						try {
-							Server s = ServerServiceImpl.this.getServerDetail(access, id);
-							if (s != null) {
-								String status = s.getStatus();
-								String task = s.getTask();
-								self.updateServerStatus(s.getId(), status, task);
-								if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("error")) {
+					@Override
+					public void run() {
+						while (true) {
+							try {
+								Server s = ServerServiceImpl.this.getServerDetail(access, id);
+								if (s != null) {
+									String status = s.getStatus();
+									String task = s.getTask();
+									self.updateServerStatus(s.getId(), status, task);
+									if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("error")) {
+										break;
+									}
+								} else {
 									break;
 								}
-							} else {
+								Thread.sleep(1000);
+							} catch (OpenstackAPIException e) {
+								break;
+							} catch (InterruptedException e) {
 								break;
 							}
-							Thread.sleep(1000);
-						} catch (OpenstackAPIException e) {
-							break;
-						} catch (InterruptedException e) {
-							break;
 						}
 					}
-				}
-				
-			}, "Creating server " + server.getId());
-			thread.start();
+					
+				}, "Creating server " + server.getId());
+				thread.start();
+			}
 		}
 		return newServer;
 	}
@@ -182,36 +183,38 @@ public class ServerServiceImpl implements ServerService {
 				RestUtils.delete(url, access, server.getId());
 				
 				final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
-				self.updateServerStatus(server.getId(), "pending", "pending");
-				Thread thread = new Thread(new Runnable() {
+				if (self != null) {
+					self.updateServerStatus(server.getId(), "pending", "pending");
+					Thread thread = new Thread(new Runnable() {
 
-					@Override
-					public void run() {
-						while (true) {
-							try {
-								Server s = ServerServiceImpl.this.getServerDetail(access, server.getId());
-								if (s != null) {
-									String status = s.getStatus();
-									String task = s.getTask();
-									self.updateServerStatus(s.getId(), status, task);
-									if (status.equalsIgnoreCase("error")) {
+						@Override
+						public void run() {
+							while (true) {
+								try {
+									Server s = ServerServiceImpl.this.getServerDetail(access, server.getId());
+									if (s != null) {
+										String status = s.getStatus();
+										String task = s.getTask();
+										self.updateServerStatus(s.getId(), status, task);
+										if (status.equalsIgnoreCase("error")) {
+											break;
+										}
+									} else {
+										self.updateServerStatus(server.getId(), "deleted", null);
 										break;
 									}
-								} else {
-									self.updateServerStatus(server.getId(), "deleted", null);
+									Thread.sleep(1000);
+								} catch (OpenstackAPIException e) {
+									break;
+								} catch (InterruptedException e) {
 									break;
 								}
-								Thread.sleep(1000);
-							} catch (OpenstackAPIException e) {
-								break;
-							} catch (InterruptedException e) {
-								break;
 							}
 						}
-					}
-					
-				}, "Removing server " + server.getId());
-				thread.start();
+						
+					}, "Removing server " + server.getId());
+					thread.start();
+				}
 			}
 		}
 	}
@@ -225,35 +228,37 @@ public class ServerServiceImpl implements ServerService {
 				RestUtils.postForLocation(url, access, action, server.getId());
 				
 				final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
-				self.updateServerStatus(server.getId(), "pending", "pending");
-				Thread thread = new Thread(new Runnable() {
+				if (self != null) {
+					self.updateServerStatus(server.getId(), "pending", "pending");
+					Thread thread = new Thread(new Runnable() {
 
-					@Override
-					public void run() {
-						while (true) {
-							try {
-								Server s = ServerServiceImpl.this.getServerDetail(access, server.getId());
-								if (s != null) {
-									String status = s.getStatus();
-									String task = s.getTask();
-									self.updateServerStatus(s.getId(), status, task);
-									if (task == null || task.equalsIgnoreCase("none")) {
+						@Override
+						public void run() {
+							while (true) {
+								try {
+									Server s = ServerServiceImpl.this.getServerDetail(access, server.getId());
+									if (s != null) {
+										String status = s.getStatus();
+										String task = s.getTask();
+										self.updateServerStatus(s.getId(), status, task);
+										if (task == null || task.equalsIgnoreCase("none")) {
+											break;
+										}
+									} else {
 										break;
 									}
-								} else {
+									Thread.sleep(500);
+								} catch (OpenstackAPIException e) {
+									break;
+								} catch (InterruptedException e) {
 									break;
 								}
-								Thread.sleep(500);
-							} catch (OpenstackAPIException e) {
-								break;
-							} catch (InterruptedException e) {
-								break;
 							}
 						}
-					}
-					
-				}, "Updating server " + server.getId());
-				thread.start();
+						
+					}, "Updating server " + server.getId());
+					thread.start();
+				}
 			}
 		}
 	}

@@ -97,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
 		Integer userId = SecurityUtils.getUserId();
 		User user = this.userService.findUserById(userId);
 		Tenant tenant = this.tenantService.findTenantById(tenantId);
-		this.instanceService.createVM(user, tenant, o.getId());
+		this.instanceService.createInstance(user, tenant, o.getId());
 		log.debug("Create order successfully");
 		return o;
 	}

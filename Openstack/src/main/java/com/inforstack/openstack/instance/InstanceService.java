@@ -27,12 +27,18 @@ public interface InstanceService {
 	
 	public VolumeInstance findVolumeInstanceFromUUID(String uuid);
 	
-	public void createVM(User user, Tenant tenant, String orderId);
+	public void createInstance(User user, Tenant tenant, String orderId);
 	
 	public void updateVM(User user, Tenant tenant, String serverId, String name);
 	
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeAttachedResouces);
 
 	public Instance findInstanceById(Integer instanceId);
+	
+	public void attachVolume(User user, Tenant tenant, String volumeId, String serverId);
+	
+	public void detachVolume(User user, Tenant tenant, String volumeId, String serverId);
+	
+	public void removeVolume(User user, Tenant tenant, String volumeId);
 	
 }

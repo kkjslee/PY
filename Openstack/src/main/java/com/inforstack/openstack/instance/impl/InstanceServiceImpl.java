@@ -184,7 +184,7 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 
 	@Override
-	public void createVM(User user, Tenant tenant, String orderId) {
+	public void createInstance(User user, Tenant tenant, String orderId) {
 		if (orderId != null && !orderId.trim().isEmpty()) {
 			Access access = null;
 			Server newServer = null;
@@ -457,6 +457,73 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public Instance findInstanceById(Integer instanceId) {
 		return instanceDao.findById(instanceId);
+	}
+
+	@Override
+	public void attachVolume(User user, Tenant tenant, String volumeId, String serverId) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		try {
+			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			if (access != null) {
+				Instance volInstance = this.instanceDao.findByObject("uuid", volumeId);
+				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
+				if (volInstance != null && volInstance.getType() == Constants.INSTANCE_TYPE_VOLUME && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
+					if (volInstance.getStatus().equalsIgnoreCase("available")) {
+						VolumeInstance vi = this.volumeInstanceDao.findByObject("uuid", volumeId);
+						vi.setVm(serverId);
+						this.volumeInstanceDao.persist(vi);
+						this.cinderService.attachVolume(access, serverId, volumeId, null);
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void detachVolume(User user, Tenant tenant, String volumeId, String serverId) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		try {
+			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			if (access != null) {
+				Instance volInstance = this.instanceDao.findByObject("uuid", volumeId);
+				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
+				if (volInstance != null && volInstance.getType() == Constants.INSTANCE_TYPE_VOLUME && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
+					if (volInstance.getStatus().equalsIgnoreCase("in-use")) {
+						VolumeInstance vi = this.volumeInstanceDao.findByObject("uuid", volumeId);
+						if (vi.getVm().equalsIgnoreCase(serverId)) {
+							vi.setVm(null);
+							this.volumeInstanceDao.persist(vi);
+							this.cinderService.detachVolume(access, serverId, volumeId);
+						}
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void removeVolume(User user, Tenant tenant, String volumeId) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		try {
+			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			if (access != null) {
+				Instance volInstance = this.instanceDao.findByObject("uuid", volumeId);
+				if (volInstance != null && volInstance.getType() == Constants.INSTANCE_TYPE_VOLUME) {
+					if (!volInstance.getStatus().equalsIgnoreCase("in-use")) {
+						this.cinderService.removeVolume(access, volumeId);
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 //	private void bindNetworkToSubOrder(Network network, Order order) {

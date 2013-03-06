@@ -10,10 +10,20 @@ function initUI() {
     
     // set up menu
     var menu=$("body").find(".menu");
+    $(".accordion-heading a").hover(
+		function () {
+		$(this).animate({paddingLeft:"15px"}, {queue:false});
+		$(this).css({"color":"#FFF"});
+		},
+		function () {
+		$(this).animate({paddingLeft:"10px"}, {queue:false});
+		$(this).css({"color":"#BBB"});
+		}
+	); 
 
     $("a[name='menuItem']").each(function(){
         $(this).bind("click", function(){
-           $(".menu").find("li").removeClass("active");
+           $(".menu").find(".accordion-inner li").removeClass("active");
             $(this).parent().addClass("active");
             var modulePath=$(this).attr("isos:module");
             loadModule(modulePath);

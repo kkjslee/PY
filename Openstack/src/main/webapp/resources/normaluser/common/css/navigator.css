@@ -12,15 +12,16 @@
 .mainContainer{
 }
 .left{
-    width:245px;
+    width:214px;
     display: inline-block;
     height:100%;
-    border-right:5px solid #E5E5E5;
-    border-bottom:5px solid #E5E5E5;
+    border-right:0 none;
     background-color:#F5F5F3;
-   positon:absolute;
+   position:absolute;
+   background:url(image_navigator/left_bg.gif) 0 0 repeat-y;
    left:0;
    top:0;
+   overflow:hidden;
 }
 .right {
   background:white;
@@ -29,13 +30,13 @@
   padding:0;
   margin:0;
   position:absolute;;
-  left:250px;
+  left:220px;
   top:0;
   padding-right:5px;
   min-width:800px;
 }
 .logo{
-	padding:20px;
+	padding:20px 0;
 	text-align:center;
 }
 .logo img{
@@ -45,8 +46,36 @@
   color:orange !important;
 }
 .menu{
-	padding:35px 0 5px 35px;
-	background-color:#EEF9FF
+	padding:0;
+	height:100%;
+}
+
+.menu           { padding-top: 5px; width:214px;height:100%;}
+.menu .accordion-group        { font-size: 13px; padding-left:0px;}
+.menu .accordion-heading        { list-style-type: none;  padding:0 0 0 15px;height:45px;line-height:45px;padding-left:20px;}
+.menu .accordion-heading a      { cursor:pointer;display: block;width:150xp;padding-left:10px;height:45px; line-height: 45px; font-size: 14px;font-family: ARIAL,'微软雅黑','黑体'; text-decoration: none; color:#BBB; }
+.menu .accordion-heading a:hover{color:#FFF;}
+.menu .accordion-body     { background:url('image_navigator/menu_bg.gif');font-size: 12px; width: 100%;margin:0;}
+.menu .accordion-body li     { padding: 0px; list-style:none; color:#bbb;}
+.menu .accordion-body a       { padding-left:30px; background:none; font-weight: normal; color: #BBBBBB;height:35px;line-height:35px; }
+.menu .accordion-body,.selected,.d{position:relative;}
+.menu .accordion-body img,.selected img,.d img {position:absolute;left:23px;top:5px;}
+.menu  li:hover{color:white;}
+.menu .accordion-body a:hover { color: #FFFFFF; text-decoration:none;}
+.menu .active{ background: url("image_navigator/menu_current.gif") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    padding-left: 15px;}
+.menu .active a    { color: #FFFFFF; background:none; }
+.menu .accordion-group{
+	border:0 none;
+}
+.menu .accordion-inner{
+	border:0 none;
+    padding:0;
+    margin:0;
+}
+.menu .accordion-heading .accordion-toggle{
+	display:inline;
 }
 .tabs-left > .nav-tabs{
 	width:100%;

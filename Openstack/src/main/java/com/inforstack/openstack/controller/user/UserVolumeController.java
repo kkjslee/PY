@@ -50,7 +50,7 @@ public class UserVolumeController {
 
 	@Autowired
 	private CinderService cinderService;
-	
+
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
 		return CINDER_MODULE_HOME + "/index";
@@ -106,10 +106,9 @@ public class UserVolumeController {
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil
-				.getJspPage(
-						"/templates/grid.jsp?grid.configuration=configuration&type=",
-						model.asMap(), request, response);
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/grid.jsp?grid.configuration=configuration&type=",
+				model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil
@@ -162,8 +161,9 @@ public class UserVolumeController {
 			volumeModel.setCreated(instance.getCreateTime());
 			volumeModel.setStatus(instance.getStatus());
 			volumeModel.setSubOrderId(instance.getSubOrders().get(0).getId());
-			
-			DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+
+			DataCenter dataCenter = this.instanceService
+					.getDataCenterFromInstance(instance);
 			volumeModel.setZone(dataCenter.getName().getI18nContent());
 
 			String vmId = volume.getVm();
@@ -175,10 +175,12 @@ public class UserVolumeController {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setVolume(volume.getUuid());
 				attachment.setServer(vm.getName());
-				volumeModel.setAttachment(attachment);	
+				attachment.setId(vm.getUuid());
+				volumeModel.setAttachment(attachment);
 			} else {
 				AttachmentModel attachment = new AttachmentModel();
 				attachment.setServer("");
+				attachment.setId("");
 				volumeModel.setAttachment(attachment);
 			}
 			vtList.add(volumeModel);
@@ -190,23 +192,32 @@ public class UserVolumeController {
 
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
+		conf.put("grid.statusV", "[hidden]");
+		conf.put("statusV.label", " ");
+		conf.put("statusV.value", "${status} ");
 		conf.put("grid.size", "[plain]");
 		conf.put("size.value", "{size}GB ");
 		conf.put("grid.status", "[plain]");
+		conf.put("status.value", "${statusDisplay} ");
 		conf.put("grid.attachTo", "[plain]");
 		conf.put("grid.zone", "[plain]");
 		conf.put("zone.value", "{zone} ");
-		conf.put("zone.label", "区域");
 		conf.put("attachTo.value", "{attachment.server} ");
+		conf.put("grid.operation", "[button]attach,detach");
+		conf.put("attach.onclick", "showDetachorAttachVolume('attach',"
+				+ OpenstackUtil.getMessage("attach.label")
+				+ ",{id}','{attachment.id}', this)");
+		conf.put("detach.onclick", "showDetachorAttachVolume('detach',"
+				+ OpenstackUtil.getMessage("detach.label")
+				+ "'{id}','{attachment.id}',this)");
 		conf.put(".forPager", true);
 		conf.put(".datas", vtList);
 
 		model.addAttribute("configuration", conf);
 
-		String jspString = OpenstackUtil
-				.getJspPage(
-						"/templates/grid.jsp?grid.configuration=configuration&type=",
-						model.asMap(), request, response);
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/grid.jsp?grid.configuration=configuration&type=",
+				model.asMap(), request, response);
 
 		if (jspString == null) {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil
@@ -219,17 +230,22 @@ public class UserVolumeController {
 			return OpenstackUtil.buildSuccessResponse(result);
 		}
 	}
-	
+
 	@RequestMapping(value = "/volumecontrol", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody String controlVolume(Model model, String executecommand, String volumeId, String serverId, Boolean freeResources) {
+	public @ResponseBody
+	String controlVolume(Model model, String executecommand, String volumeId,
+			String serverId) {
 		try {
-			if (!StringUtil.isNullOrEmpty(executecommand) && !StringUtils.isNullOrEmpty(volumeId)) {
+			if (!StringUtil.isNullOrEmpty(executecommand)
+					&& !StringUtils.isNullOrEmpty(volumeId)) {
 				User user = SecurityUtils.getUser();
 				Tenant tenant = SecurityUtils.getTenant();
 				if (executecommand.equals("attach")) {
-					this.instanceService.attachVolume(user, tenant, volumeId, serverId);
+					this.instanceService.attachVolume(user, tenant, volumeId,
+							serverId);
 				} else if (executecommand.equals("detach")) {
-					this.instanceService.detachVolume(user, tenant, volumeId, serverId);
+					this.instanceService.detachVolume(user, tenant, volumeId,
+							serverId);
 				} else if (executecommand.equals("remove")) {
 					this.instanceService.removeVolume(user, tenant, volumeId);
 				}

@@ -2,28 +2,30 @@ package com.inforstack.openstack.controller.model;
 
 import java.util.Date;
 
+import com.inforstack.openstack.utils.OpenstackUtil;
+
 public class VolumeModel {
 
 	private String id;
-	
+
 	private Integer subOrderId;
-	
+
 	private String name;
 
 	private Integer size;
-	
+
 	private String zone;
-	
+
 	private String snapshot;
-	
+
 	private String source;
-	
+
 	private Date created;
-	
+
 	private String status;
-	
+
 	private AttachmentModel attachment;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -103,5 +105,13 @@ public class VolumeModel {
 	public void setAttachment(AttachmentModel attachment) {
 		this.attachment = attachment;
 	}
-	
+
+	public String getStatusDisplay() {
+		if (status != null) {
+			return OpenstackUtil.getMessage(status + ".label");
+		} else {
+			return null;
+		}
+	}
+
 }

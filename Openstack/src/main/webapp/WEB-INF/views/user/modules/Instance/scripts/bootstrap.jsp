@@ -62,14 +62,19 @@ function pageCallback(index,jq){
 	loadInstances(index, pageSize);
 }
 function showRemoveTips1(which){
-    var vmid=$(which).parents(".dataRow").first().find("input[isos='vmId']").val();
-    var vmname=$(which).parents(".dataRow").first().find("input[isos='vmName']").val();
+    var row = $(which).parents(".dataRow").first();
+    var vmid=$(row).find("input[isos='vmId']").val();
+    var vmname=$(row).find("input[isos='vmName']").val();
+    var vmVolume = $(row).find("input[isos='vmVolume']").val();
+    if(isNull(vmVolume)){
+        vmVolume ="";
+    }
     jConfirm("<spring:message code='instance.remove.tip1'/>",function(){
-        showRemoveTips2(vmid);
+        showRemoveTips2(vmid,vmVolume);
     });
 }
 
-function showRemoveTips2(vmid){
+function showRemoveTips2(vmid,vmVolume){
 	var removeTip2 = $.tmpl("removeTip2", [{
 	        id: "removeTip2"
 	    }]).appendTo("#mainBody");
@@ -79,6 +84,7 @@ function showRemoveTips2(vmid){
 	        modal: true,
 	        resizable: false,
 	        show: "slide",
+	        autoOpen: false,
 	        hide: "slide",
 	        width: "400px",
 	        buttons: [
@@ -96,6 +102,8 @@ function showRemoveTips2(vmid){
                 }
             }]
 	    });
+	     $(removeTip2).find(".vmVolume").html(vmVolume);
+	    $(removeTip2).dialog("open");
 }
 
 function removeInstance(vmid,_freeResource){

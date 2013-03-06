@@ -15,6 +15,9 @@
     <input type="hidden" id="pageTotal" value="${pageTotal}"/>
     <input isos="vmId" type="hidden" value="${item.vmid}" />
     <input isos="vmName" type="hidden" value="${item.vmname}" />
+    <c:if test="${not empty attachmentModel}">
+        <input isos="vmVolume" type="hidden" value="${attachmentModel.volume}" />
+    </c:if>
     <input isos="vmAssignedTo" type="hidden" value="${item.assignedto}" />
     <div class="ititle">${item.vmname}</div>
         <div class="pipvice vice">

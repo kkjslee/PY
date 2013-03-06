@@ -19,7 +19,6 @@ import javax.persistence.Transient;
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.promotion.Promotion;
 import com.inforstack.openstack.user.User;
-import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.SecurityUtils;
 
 @Entity

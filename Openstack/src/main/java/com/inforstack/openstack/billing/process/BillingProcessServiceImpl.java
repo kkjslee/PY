@@ -3,9 +3,7 @@ package com.inforstack.openstack.billing.process;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-import org.hibernate.ScrollableResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,7 +125,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		CursorResult<Order> orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
 		while(orders.hasNext()){
 			Order order = orders.getNext();
-			self.processOrder(order.getId(), bp, bpr);
+			this.processOrder(order.getId(), bp, bpr);
 		}
 		orders.close();
 		
@@ -152,7 +150,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		BillingProcess bp = self.createBillingProcess(null, new Date(), SecurityUtils.getUser());
 		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
 		
-		self.processOrder(orderId, bp, bpr);
+		this.processOrder(orderId, bp, bpr);
 		
 		bp.setEndTime(new Date());
 		bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
@@ -161,23 +159,27 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		return bpr;
 	}
 	
-	@Override
 	public void processOrder(String orderId, BillingProcess bp, BillingProcessResult bpr){
 		Order order = orderService.findOrderById(orderId);
-		InvoiceCount oic = orderService.orderBillingProcess(order, new Date(), bp);
-		if(!BigDecimal.ZERO.equals(oic.getInvoiceTotal())){
-			bpr.setOrderTotal(
-					NumberUtil.add(bpr.getOrderTotal(), 1)
-			);
-			bpr.setInvoiceTotal(
-					NumberUtil.add(bpr.getInvoiceTotal(), oic.getInvoiceTotal())
-			);
-			bpr.setUnPaidTotal(
-					NumberUtil.add(bpr.getUnPaidTotal(), oic.getBalance())
-			);
-			bpr.setPaidTotal(
-					NumberUtil.minus(bpr.getInvoiceTotal(), bpr.getUnPaidTotal())
-			);
+		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus()) 
+				|| new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
+			
+			InvoiceCount oic = orderService.orderBillingProcess(order, new Date(), bp);
+			if(!BigDecimal.ZERO.equals(oic.getInvoiceTotal())){
+				bpr.setOrderTotal(
+						NumberUtil.add(bpr.getOrderTotal(), 1)
+				);
+				bpr.setInvoiceTotal(
+						NumberUtil.add(bpr.getInvoiceTotal(), oic.getInvoiceTotal())
+				);
+				bpr.setUnPaidTotal(
+						NumberUtil.add(bpr.getUnPaidTotal(), oic.getBalance())
+				);
+				bpr.setPaidTotal(
+						NumberUtil.minus(bpr.getInvoiceTotal(), bpr.getUnPaidTotal())
+				);
+			}
 		}
 	}
+
 }

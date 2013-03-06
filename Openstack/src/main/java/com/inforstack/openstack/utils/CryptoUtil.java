@@ -9,7 +9,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
-import org.springframework.security.crypto.codec.Base64;
 
 import com.inforstack.openstack.log.Logger;
 

@@ -22,7 +22,7 @@ public class MailTask {
 	@GeneratedValue
 	private Integer id;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
 	@JoinColumn(name="sender")
 	private MailConfigation sender;
 	

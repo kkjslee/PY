@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
+import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
+import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.billing.process.BillingProcessService;
 import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
@@ -21,6 +24,7 @@ import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
+import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
@@ -45,6 +49,12 @@ public class OrderServiceImpl implements OrderService {
 	private SubOrderService subOrderService;
 	@Autowired
 	private InstanceService instanceService;
+	@Autowired
+	private InvoiceService invoiceService;
+	@Autowired
+	private PaymentService paymentService;
+	@Autowired
+	private BillingProcessService billingProcessService;
 
 	@Override
 	public Order createOrder(Order order) {
@@ -162,6 +172,7 @@ public class OrderServiceImpl implements OrderService {
 					+ orderId);
 			return null;
 		}
+		billingProcessService.runBillingProcessForOrder(order.getId());
 		order.setStatus(Constants.ORDER_STATUS_CALLELED);
 
 		log.debug("Change order status successfully");
@@ -204,31 +215,57 @@ public class OrderServiceImpl implements OrderService {
 			periodId = billingProcess.getBillingProcessConfiguration()
 					.getPeriodType();
 		}
-		List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
-				Constants.SUBORDER_STATUS_AVAILABLE, periodId);
+		
 		InvoiceCount ic = new InvoiceCount();
-		for (SubOrder so : subOrders) {
-			InvoiceCount sic = subOrderService.billingProcessSubOrder(so,
-					billingDate, billingProcess);
-			ic.addInvoiceTotal(sic.getInvoiceTotal());
-			ic.addBalance(ic.getBalance());
+		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus())){
+			Invoice invoice = invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
+			if(order.getAutoPay()){
+				paymentService.applyPayment(invoice);
+			}
+			ic.addInvoiceTotal(invoice.getAmount());
+			ic.addBalance(invoice.getBalance());
+		}else if(new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
+			List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
+					Constants.SUBORDER_STATUS_AVAILABLE, periodId);
+			for (SubOrder so : subOrders) {
+				InvoiceCount sic = subOrderService.billingProcessSubOrder(so,
+						billingDate, billingProcess);
+				ic.addInvoiceTotal(sic.getInvoiceTotal());
+				ic.addBalance(ic.getBalance());
+			}
+			log.debug("Pay order successfully");
 		}
-		log.debug("Pay order successfully");
-
+		
+		this.checkOrderStatus(order);
+		
 		return ic;
 	}
 
 	@Override
-	public boolean checkOrderFinished(Order order, Date date) {
-		List<SubOrder> subOrders = order.getSubOrders();
-		for (SubOrder subOrder : subOrders) {
-			if (subOrder.getStatus() == Constants.SUBORDER_STATUS_AVAILABLE) {
-				return false;
+	public int checkOrderStatus(Order order) {
+		if(Constants.ORDER_STATUS_NEW.equals(order.getStatus()) ||
+				Constants.ORDER_STATUS_UNPAID.equals(order.getStatus()) ||
+				Constants.ORDER_STATUS_CALLELED.equals(order.getStatus()) ||
+				Constants.ORDER_STATUS_FINISHED.equals(order.getStatus()) ||
+				Constants.ORDER_STATUS_PROCESSING.equals(order.getStatus()) ||
+				Constants.ORDER_STATUS_READY.equals(order.getStatus())
+				){
+			return order.getStatus();
+		}else if(Constants.ORDER_STATUS_ACTIVE.equals(order.getStatus())){
+			List<SubOrder> subOrders = order.getSubOrders();
+			for (SubOrder subOrder : subOrders) {
+				if (Constants.SUBORDER_STATUS_AVAILABLE.equals(subOrder.getStatus()) || 
+						Constants.SUBORDER_STATUS_ERROR.equals(subOrder.getStatus()) ||
+						Constants.SUBORDER_STATUS_NEW.equals(subOrder.getStatus())) {
+					return Constants.ORDER_STATUS_ACTIVE;
+				}
 			}
-		}
 
-		order.setStatus(Constants.ORDER_STATUS_FINISHED);
-		return true;
+			order.setStatus(Constants.ORDER_STATUS_FINISHED);
+			return Constants.ORDER_STATUS_FINISHED;
+		}else{
+			throw new ApplicationRuntimeException("Unsupported order status : " + order.getStatus());
+		}
 	}
 
 	@Override

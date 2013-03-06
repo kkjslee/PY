@@ -198,7 +198,6 @@ public class SubOrderServiceImpl implements SubOrderService {
 			if(i == size){
 				if(order.getActiveEnd() != null && !period.getEnd().before(order.getActiveEnd())){
 					subOrder.setStatus(Constants.SUBORDER_STATUS_END);
-					orderService.checkOrderFinished(order, period.getEnd());
 				}else{
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTime(subOrder.getNextBillingDate());

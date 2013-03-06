@@ -5,74 +5,85 @@ public class Constants {
 	public static final String SESSION_ATTRIBUTE_NAME_AGENT = Constants.class
 			.getName() + ".Agent";
 
-	public static final int USER_STATUS_INVALID = 0;
-	public static final int USER_STATUS_VALID = 1;
+	public static final Integer USER_STATUS_INVALID = 0;
+	public static final Integer USER_STATUS_VALID = 1;
 
-	public static final int USER_AGEING_ACTIVE = 1;
-	public static final int USER_AGEING_DELETED = 2;
+	public static final Integer USER_AGEING_ACTIVE = 1;
+	public static final Integer USER_AGEING_DELETED = 2;
 
-	public static final int ORDER_STATUS_NEW = 1;
-	public static final int ORDER_STATUS_PROCESSING = 2;
-	public static final int ORDER_STATUS_READY = 3;
-	public static final int ORDER_STATUS_ACTIVE = 4;
-	public static final int ORDER_STATUS_FINISHED = 5;
-	public static final int ORDER_STATUS_CALLELED = 6;
+	public static final Integer ORDER_STATUS_NEW = 1;
+	public static final Integer ORDER_STATUS_UNPAID = 2;
+	public static final Integer ORDER_STATUS_PROCESSING = 3;
+	public static final Integer ORDER_STATUS_READY = 4;
+	public static final Integer ORDER_STATUS_ACTIVE = 5;
+	public static final Integer ORDER_STATUS_FINISHED =6;
+	public static final Integer ORDER_STATUS_CALLELED = 7;
 
-	public static final int SUBORDER_STATUS_NEW = 1;
-	public static final int SUBORDER_STATUS_AVAILABLE = 2;
-	public static final int SUBORDER_STATUS_END = 3;
-	public static final int SUBORDER_STATUS_ERROR = 4;
-	public static final int SUBORDER_STATUS_DELETED = 5;
+	public static final Integer SUBORDER_STATUS_NEW = 1;
+	public static final Integer SUBORDER_STATUS_AVAILABLE = 2;
+	public static final Integer SUBORDER_STATUS_END = 3;
+	public static final Integer SUBORDER_STATUS_ERROR = 4;
+	public static final Integer SUBORDER_STATUS_DELETED = 5;
 
-	public static final int SUBORDER_TYPE_PREPAID = 1;
-	public static final int SUBORDER_TYPE_POSTPAID = 2;
+	public static final Integer SUBORDER_TYPE_PREPAID = 1;
+	public static final Integer SUBORDER_TYPE_POSTPAID = 2;
 
-	public static final int PAYMENT_STATUS_NEW = 1;
-	public static final int PAYMENT_STATUS_PROCESSING = 2;
-	public static final int PAYMENT_STATUS_ERROR = 3;
-	public static final int PAYMENT_STATUS_OK = 4;
+	public static final Integer PAYMENT_STATUS_NEW = 1;
+	public static final Integer PAYMENT_STATUS_PROCESSING = 2;
+	public static final Integer PAYMENT_STATUS_ERROR = 3;
+	public static final Integer PAYMENT_STATUS_OK = 4;
 
-	public static final int PAYMENT_TYPE_TOPUP = 1;
-	public static final int PAYMENT_TYPE_REFUND = 2;
-	public static final int PAYMENT_TYPE_POINTS = 3;
-	public static final int PAYMENT_TYPE_PAYOUT = 3;
+	public static final Integer PAYMENT_TYPE_TOPUP = 1;
+	public static final Integer PAYMENT_TYPE_REFUND = 2;
+	public static final Integer PAYMENT_TYPE_POINTS = 3;
+	public static final Integer PAYMENT_TYPE_PAYOUT = 3;
 	
-	public static final int ACCOUNT_STATUS_ACTIVE = 1;
-	public static final int ACCOUNT_STATUS_INACTIVE = 2;
-	public static final int ACCOUNT_STATUS_DELETED = 3;
+	public static final Integer ACCOUNT_STATUS_ACTIVE = 1;
+	public static final Integer ACCOUNT_STATUS_INACTIVE = 2;
+	public static final Integer ACCOUNT_STATUS_DELETED = 3;
 
-	public static final int INVOICE_STATUS_NEW = 1;
-	public static final int INVOICE_STATUS_UPPAID = 2;
-	public static final int INVOICE_STATUS_PAID = 3;
-	public static final int INVOICE_STATUS_OVERDUE = 4;
-	public static final int INVOICE_STATUS_DELETED = 5;
+	public static final Integer INVOICE_STATUS_NEW = 1;
+	public static final Integer INVOICE_STATUS_UPPAID = 2;
+	public static final Integer INVOICE_STATUS_PAID = 3;
+	public static final Integer INVOICE_STATUS_OVERDUE = 4;
+	public static final Integer INVOICE_STATUS_DELETED = 5;
 
-	public static final int BILLINGPROCESS_STATUS_NEW = 1;
-	public static final int BILLINGPROCESS_STATUS_WAITING = 2;
-	public static final int BILLINGPROCESS_STATUS_PROCESSING = 3;
-	public static final int BILLINGPROCESS_STATUS_SUCCESS = 4;
-	public static final int BILLINGPROCESS_STATUS_PART_SUCCESS = 5;
-	public static final int BILLINGPROCESS_STATUS_FAILED = 6;
+	public static final Integer BILLINGPROCESS_STATUS_NEW = 1;
+	public static final Integer BILLINGPROCESS_STATUS_WAITING = 2;
+	public static final Integer BILLINGPROCESS_STATUS_PROCESSING = 3;
+	public static final Integer BILLINGPROCESS_STATUS_SUCCESS = 4;
+	public static final Integer BILLINGPROCESS_STATUS_PART_SUCCESS = 5;
+	public static final Integer BILLINGPROCESS_STATUS_FAILED = 6;
 
-	public static final int TENANT_AGEING_ACTIVE = 1;
-	public static final int TENANT_AGEING_DELETED = 2;
+	public static final Integer TENANT_AGEING_ACTIVE = 1;
+	public static final Integer TENANT_AGEING_DELETED = 2;
 
-	public static final int REPORT_TYPE_BIllING_PROCESS = 1;
+	public static final Integer REPORT_TYPE_BIllING_PROCESS = 1;
 
-	public static final int REPORT_STATUS_ERROR = 1;
+	public static final Integer REPORT_STATUS_ERROR = 1;
 
-	public static final int VIRTDOMAIN_STATUS_RUNNING = 1;
-	public static final int VIRTDOMAIN_STATUS_INPROCESS = 2;
-	public static final int VIRTDOMAIN_STATUS_PAUSED = 3;
-	public static final int VIRTDOMAIN_STATUS_STOPPED = 4;
-	public static final int VIRTDOMAIN_STATUS_SUSPENDED = 5;
-	public static final int VIRTDOMAIN_STATUS_ERROR = 6;
-	public static final int VIRTDOMAIN_STATUS_DELETED = 7;
+	public static final Integer VIRTDOMAIN_STATUS_RUNNING = 1;
+	public static final Integer VIRTDOMAIN_STATUS_INPROCESS = 2;
+	public static final Integer VIRTDOMAIN_STATUS_PAUSED = 3;
+	public static final Integer VIRTDOMAIN_STATUS_STOPPED = 4;
+	public static final Integer VIRTDOMAIN_STATUS_SUSPENDED = 5;
+	public static final Integer VIRTDOMAIN_STATUS_ERROR = 6;
+	public static final Integer VIRTDOMAIN_STATUS_DELETED = 7;
 	
-	public static final int MAILTEMPALTE_TYPE_TEXT = 1;
-	public static final int MAILTEMPALTE_TYPE_HTML = 2;
+	public static final Integer MAILTEMPALTE_TYPE_TEXT = 1;
+	public static final Integer MAILTEMPALTE_TYPE_HTML = 2;
+	
+	public static final Integer MAILTASK_priority_LOW = 10;
+	public static final Integer MAILTASK_priority_MEDIUM = 20;
+	public static final Integer MAILTASK_priority_HIGH = 30;
+	
+	public static final Integer PAYMENTMETHODPROPERTY_TYPE_PROP = 1;
+	public static final Integer PAYMENTMETHODPROPERTY_TYPE_PARAM = 2;
+	public static final Integer PAYMENTMETHODPROPERTY_TYPE_METHOD_PARAM = 3;
+	
+	public static final String PAYMENTMETHODPROPERTY_NAME_PRICE = "price";
 
-	public static final int IMG_PROGRESS_ACTIVE = 100;
+	public static final Integer IMG_PROGRESS_ACTIVE = 100;
 	public static final String IMG_STATUS_ACTIVE = "ACTIVE";
 
 	public static final String IMG_METADATA_KEY_KERNEL = "kernel_id";
@@ -102,16 +113,16 @@ public class Constants {
 	public static final int DEFAULT_NAME_MIN_LENGTH = 3;
 	public static final int DEFAULT_NAME_MAX_LENGTH = 45;
 
-	public static final int DEFAULT_PAGE_INDEX = 0;
+	public static final Integer DEFAULT_PAGE_INDEX = 0;
 	// for test
-	public static final int DEFAULT_PAGE_SIZE = 15;
+	public static final Integer DEFAULT_PAGE_SIZE = 15;
 
 	public static final String PAGER_PAGE_INDEX = "pageIndex";
 	public static final String PAGER_PAGE_SIZE = "pageSize";
 
-	public static final int ROLE_ADMIN = 1;
-	public static final int ROLE_USER = 2;
-	public static final int ROLE_AGENT = 3;
+	public static final Integer ROLE_ADMIN = 1;
+	public static final Integer ROLE_USER = 2;
+	public static final Integer ROLE_AGENT = 3;
 
 	public static final int LANGUAGE_EN = 1;
 	public static final int LANGUAGE_CH = 2;
@@ -133,12 +144,12 @@ public class Constants {
 
 	public static final String VM_STATUS_DONE_STRING = "|erroroff|activeoff|pausedoff|stoppedoff|suspendedoff|deletedoff|";
 
-	public static final int PERIOD_TYPE_YEAR = 1;
-	public static final int PERIOD_TYPE_MONTH = 2;
-	public static final int PERIOD_TYPE_WEEK = 4;
-	public static final int PERIOD_TYPE_DAY = 5;
-	public static final int PERIOD_TYPE_HOUR = 11;
-	public static final int PERIOD_TYPE_MINUTE = 12;
+	public static final Integer PERIOD_TYPE_YEAR = 1;
+	public static final Integer PERIOD_TYPE_MONTH = 2;
+	public static final Integer PERIOD_TYPE_WEEK = 4;
+	public static final Integer PERIOD_TYPE_DAY = 5;
+	public static final Integer PERIOD_TYPE_HOUR = 11;
+	public static final Integer PERIOD_TYPE_MINUTE = 12;
 
 	public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
 	public static final String DICTIONARY_KEY_ORDER_STATUS = "order.status";
@@ -150,8 +161,8 @@ public class Constants {
 	public static final int INSTANCE_TYPE_SNAPSHOT_VM = 4;
 	public static final int INSTNACE_TYPE_SNAPSHOT_VOL = 5;
 
-	public static final int AJAX_RESPONSE_STATUS_ERROR = 0;
-	public static final int AJAX_RESPONSE_STATUS_SUCCESS = 1;
+	public static final Integer AJAX_RESPONSE_STATUS_ERROR = 0;
+	public static final Integer AJAX_RESPONSE_STATUS_SUCCESS = 1;
 
 	public static final String AJAX_RESPONSE_KEY_STATUS = "status";
 	public static final String AJAX_RESPONSE_KEY_RESULT = "result";
@@ -168,10 +179,10 @@ public class Constants {
 	public static final int DETACH_TASK_TYPE_VOLUME = 11;
 	public static final int DETACH_TASK_TYPE_IP = 12;
 
-	public static final int ATTACH_TASK_STATUS_NEW = 0;
-	public static final int ATTACH_TASK_STATUS_PROCESSING = 1;
-	public static final int ATTACH_TASK_STATUS_COMPLETE = 2;
-	public static final int ATTACH_TASK_STATUS_ERROR = 3;
+	public static final Integer ATTACH_TASK_STATUS_NEW = 0;
+	public static final Integer ATTACH_TASK_STATUS_PROCESSING = 1;
+	public static final Integer ATTACH_TASK_STATUS_COMPLETE = 2;
+	public static final Integer ATTACH_TASK_STATUS_ERROR = 3;
 
 	public static final String IMAGE_FAMILY_WINDOWS = "windows";
 	public static final String IMAGE_FAMILY_REDHAT = "redhat";

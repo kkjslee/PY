@@ -1,6 +1,7 @@
 package com.inforstack.openstack.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class NumberUtil {
 
@@ -56,5 +57,9 @@ public class NumberUtil {
 	
 	public static String leftPaddingZero(int number, int len){
 		return StringUtil.leftPadding(number + "", '0', len);
+	}
+	
+	public static String formatMoney(double money){
+		return new DecimalFormat("#.00").format(money);
 	}
 }

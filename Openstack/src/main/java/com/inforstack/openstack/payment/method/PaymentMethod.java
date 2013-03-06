@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
-import com.inforstack.openstack.payment.method.prop.PaymentMethodProperties;
+import com.inforstack.openstack.payment.method.prop.PaymentMethodProperty;
 
 @Entity
 @Table(name="payment_method")
@@ -34,7 +34,7 @@ public class PaymentMethod {
 	private String endpoint;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="method")
-	private List<PaymentMethodProperties> propertise;
+	private List<PaymentMethodProperty> propertise;
 	
 	public Integer getId() {
 		return id;
@@ -66,6 +66,22 @@ public class PaymentMethod {
 
 	public void setEndpoint(String endpoint) {
 		this.endpoint = endpoint;
+	}
+
+	public I18nLink getText() {
+		return text;
+	}
+
+	public void setText(I18nLink text) {
+		this.text = text;
+	}
+
+	public List<PaymentMethodProperty> getPropertise() {
+		return propertise;
+	}
+
+	public void setPropertise(List<PaymentMethodProperty> propertise) {
+		this.propertise = propertise;
 	}
 	
 }

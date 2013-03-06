@@ -4,8 +4,6 @@ import java.util.Date;
 
 import com.inforstack.openstack.billing.process.conf.BillingProcessConfiguration;
 import com.inforstack.openstack.billing.process.result.BillingProcessResult;
-import com.inforstack.openstack.order.Order;
-import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 
 public interface BillingProcessService {
@@ -53,8 +51,6 @@ public interface BillingProcessService {
 
 	public BillingProcessResult runBillingProcess(Integer tenantId);
 
-	BillingProcessResult runBillingProcessForOrder(String orderId);
-
-	void processOrder(String orderId, BillingProcess bp,
-			BillingProcessResult bpr);
+	public BillingProcessResult runBillingProcessForOrder(String orderId);
+	
 }

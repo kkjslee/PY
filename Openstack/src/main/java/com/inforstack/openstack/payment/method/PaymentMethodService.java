@@ -2,6 +2,8 @@ package com.inforstack.openstack.payment.method;
 
 import java.util.List;
 
+import com.inforstack.openstack.payment.method.prop.PaymentMethodProperty;
+
 public interface PaymentMethodService {
 	
 	/**
@@ -9,8 +11,10 @@ public interface PaymentMethodService {
 	 * @param paymentMethodId
 	 * @return
 	 */
-	public PaymentMethod findPaymentMethodById(int paymentMethodId);
+	public PaymentMethod findPaymentMethodByType(int type);
 
 	public List<PaymentMethod> listAll();
+
+	List<PaymentMethodProperty> findParams(int paymentMethodId, double price);
 
 }

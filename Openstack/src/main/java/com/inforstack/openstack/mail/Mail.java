@@ -24,11 +24,11 @@ public class Mail {
 	
 	private String code;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
 	@JoinColumn(name="sender")
 	private MailConfigation sender;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="mail")
+	@OneToMany(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY, mappedBy="mail")
 	private List<MailTemplate> tempaltes;
 
 	public Integer getId() {

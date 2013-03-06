@@ -73,7 +73,7 @@ public interface OrderService {
 	 */
 	public InvoiceCount orderBillingProcess(Order order, Date billingDate, BillingProcess billingProcess);
 
-	public boolean checkOrderFinished(Order order, Date date);
+	public int checkOrderStatus(Order order);
 
 	public PaginationModel<Order> findAllWithCreator(int pageIndex, int pageSize, Integer tenantId, Integer status);
 

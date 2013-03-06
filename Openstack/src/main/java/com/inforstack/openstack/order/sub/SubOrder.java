@@ -17,7 +17,6 @@ import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.period.OrderPeriod;
-import com.inforstack.openstack.virt.domain.VirtDomain;
 
 @Entity
 @Table(name="sub_order")

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><script>
 var Server="<%=request.getContextPath()%>/user/instance";
 //init pager data from boostrap controller
 var pageIndex = ${requestScope.pageIndex};
@@ -70,7 +70,6 @@ function showRemoveTips1(which){
 }
 
 function showRemoveTips2(vmid){
-window.console.log(" tip 2");
 	var removeTip2 = $.tmpl("removeTip2", [{
 	        id: "removeTip2"
 	    }]).appendTo("#mainBody");
@@ -78,7 +77,6 @@ window.console.log(" tip 2");
 	    removeTip2 = $(removeTip2).dialog({
 	        title: '<spring:message code="dialog.title.tips"/>',
 	        modal: true,
-	        autoOpen: false,
 	        resizable: false,
 	        show: "slide",
 	        hide: "slide",

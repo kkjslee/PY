@@ -12,11 +12,11 @@
 .mainContainer{
 }
 .left{
-    width:214px;
-    display: inline-block;
-    height:100%;
-    border-right:0 none;
-    background-color:#F5F5F3;
+   width:214px;
+   display: inline-block;
+   height:100%;
+   border-right:0 none;
+   background-color:#F5F5F3;
    position:absolute;
    background:url(image_navigator/left_bg.gif) 0 0 repeat-y;
    left:0;

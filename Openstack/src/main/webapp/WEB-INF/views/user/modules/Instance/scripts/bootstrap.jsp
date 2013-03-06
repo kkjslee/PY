@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 var Server="<%=request.getContextPath()%>/user/instance";
 //init pager data from boostrap controller
 var pageIndex = ${requestScope.pageIndex};

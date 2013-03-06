@@ -28,6 +28,9 @@ public class DataCenter {
 	@Column(name="name_id", insertable=false, updatable=false)
 	private int nameId;
 	
+	@Column(name="external_network")
+	private String externalNet;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dataCenter")
 	private List<Flavor> flavors;
 	

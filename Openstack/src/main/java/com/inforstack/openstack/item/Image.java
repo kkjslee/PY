@@ -1,6 +1,7 @@
 package com.inforstack.openstack.item;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Image {
 	@JoinColumn(name="data_center_id")
 	private DataCenter dataCenter;
 	
+	@Column(name="ref_id")
 	private String refId;
 	
 	private String family;

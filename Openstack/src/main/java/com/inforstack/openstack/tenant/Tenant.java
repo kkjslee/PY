@@ -19,6 +19,8 @@ import javax.persistence.Transient;
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.promotion.Promotion;
 import com.inforstack.openstack.user.User;
+import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.SecurityUtils;
 
 @Entity
 public class Tenant {
@@ -283,7 +285,17 @@ public class Tenant {
 	}
 
 	public com.inforstack.openstack.api.keystone.Tenant getOpenstatckTenant() {
-		return openstatckTenant;
+		if( openstatckTenant == null ){
+			com.inforstack.openstack.api.keystone.Tenant tenant = new com.inforstack.openstack.api.keystone.Tenant();
+			
+			tenant.setId(this.uuid);
+			tenant.setEnabled(SecurityUtils.isTenantEnable(this));
+			tenant.setName(this.name);
+			
+			return tenant;
+		}else{
+			return openstatckTenant;
+		}
 	}
 
 	public void setOpenstatckTenant(

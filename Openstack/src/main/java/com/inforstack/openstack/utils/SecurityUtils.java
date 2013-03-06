@@ -139,8 +139,14 @@ public class SecurityUtils {
 	public static boolean isUserEnabled(User user){
 		if(user==null) return false;
 		
-		return user.getStatus() == Constants.USER_STATUS_VALID
-				&& user.getAgeing() == Constants.USER_AGEING_ACTIVE;
+		return new Integer(Constants.USER_STATUS_VALID).equals(user.getStatus())
+				&& new Integer(Constants.USER_AGEING_ACTIVE).equals(user.getAgeing());
+	}
+	
+	public static boolean isTenantEnable(Tenant tenant){
+		if(tenant==null) return false;
+		
+		return new Integer(Constants.TENANT_AGEING_ACTIVE).equals(tenant.getAgeing());
 	}
 	
 	public static boolean isAdminTenant(Tenant tenant){

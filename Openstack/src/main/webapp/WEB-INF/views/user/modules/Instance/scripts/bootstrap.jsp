@@ -93,8 +93,6 @@ function showRemoveTips2(vmid){
                 text: '<spring:message code="cancel.button"/>',
                 click: function() {
                     $(this).dialog("destroy");
-                    window.console.log("remove vm id:" + vmid);
-                    removeInstance(vmid,false);
                 }
             }]
 	    });
@@ -249,7 +247,6 @@ function updateButtonWidthStatus(row,status){
         
      }
      if(status == "deleted"){
-        $(row).fadeOut("slow");
      }
     }
    

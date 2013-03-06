@@ -33,6 +33,7 @@ import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.utils.StringUtil;
@@ -54,6 +55,11 @@ public class UserVolumeController {
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
 	public String redirectModule(Model model, HttpServletRequest request) {
 		return CINDER_MODULE_HOME + "/index";
+	}
+
+	@RequestMapping(value = "/modules/template", method = RequestMethod.GET)
+	public String template(Model model) {
+		return CINDER_MODULE_HOME + "/template";
 	}
 
 	@RequestMapping(value = "/getPagerVolumeTypeList", method = RequestMethod.POST, produces = "application/json")
@@ -192,24 +198,25 @@ public class UserVolumeController {
 
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put("grid.name", "[plain]");
+		conf.put("grid.id", "[hidden]");
 		conf.put("grid.statusV", "[hidden]");
 		conf.put("statusV.label", " ");
-		conf.put("statusV.value", "${status} ");
+		conf.put("statusV.value", "{status}");
 		conf.put("grid.size", "[plain]");
 		conf.put("size.value", "{size}GB ");
 		conf.put("grid.status", "[plain]");
-		conf.put("status.value", "${statusDisplay} ");
+		conf.put("status.value", "{statusDisplay} ");
 		conf.put("grid.attachTo", "[plain]");
 		conf.put("grid.zone", "[plain]");
 		conf.put("zone.value", "{zone} ");
 		conf.put("attachTo.value", "{attachment.server} ");
 		conf.put("grid.operation", "[button]attach,detach");
-		conf.put("attach.onclick", "showDetachorAttachVolume('attach',"
+		conf.put("attach.onclick", "showDetachorAttachVolume('attach','"
 				+ OpenstackUtil.getMessage("attach.label")
-				+ ",{id}','{attachment.id}', this)");
-		conf.put("detach.onclick", "showDetachorAttachVolume('detach',"
+				+ "','{id}','{attachment.id}', this)");
+		conf.put("detach.onclick", "showDetachorAttachVolume('detach','"
 				+ OpenstackUtil.getMessage("detach.label")
-				+ "'{id}','{attachment.id}',this)");
+				+ "','{id}','{attachment.id}',this)");
 		conf.put(".forPager", true);
 		conf.put(".datas", vtList);
 
@@ -233,8 +240,11 @@ public class UserVolumeController {
 
 	@RequestMapping(value = "/volumecontrol", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	String controlVolume(Model model, String executecommand, String volumeId,
-			String serverId) {
+	Map<String, Object> controlVolume(Model model, String executecommand,
+			String volumeId, String serverId) {
+		if (StringUtil.isNullOrEmpty(serverId)) {
+			return JSONUtil.jsonError("server is null");
+		}
 		try {
 			if (!StringUtil.isNullOrEmpty(executecommand)
 					&& !StringUtils.isNullOrEmpty(volumeId)) {
@@ -251,10 +261,31 @@ public class UserVolumeController {
 				}
 			}
 		} catch (RuntimeException e) {
-			return Constants.JSON_STATUS_EXCEPTION;
+			return JSONUtil.jsonError(e.getMessage());
 		}
 
-		return Constants.JSON_STATUS_DONE;
+		return JSONUtil.jsonSuccess(null, "success");
 	}
 
+	/**
+	 * mostly for status
+	 * 
+	 * @param model
+	 * @param uuid
+	 * @return
+	 */
+	@RequestMapping(value = "/getVolumeDetail", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> getVolume(Model model, String uuid) {
+		Instance vi = instanceService.findInstanceFromUUID(uuid);
+		VolumeModel volumeModel = new VolumeModel();
+		if (vi != null) {
+			volumeModel.setId(vi.getUuid());
+			volumeModel.setStatus(vi.getStatus());
+			return JSONUtil.jsonSuccess(volumeModel);
+		} else {
+			return JSONUtil.jsonError("not found");
+		}
+
+	}
 }

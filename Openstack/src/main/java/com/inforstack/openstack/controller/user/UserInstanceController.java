@@ -112,7 +112,7 @@ public class UserInstanceController {
 		Tenant tenant = SecurityUtils.getTenant();
 
 		// TODO: [rqshao] filter for virtual machines
-		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, null);
+		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
 			
 		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
 		instanceList = page.getPagedData(pageIdx);

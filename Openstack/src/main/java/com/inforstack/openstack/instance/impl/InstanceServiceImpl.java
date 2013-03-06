@@ -16,6 +16,7 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerService;
+import com.inforstack.openstack.api.quantum.QuantumService;
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.instance.AttachTaskService;
 import com.inforstack.openstack.instance.AttributeMap;
@@ -33,6 +34,8 @@ import com.inforstack.openstack.item.FlavorDao;
 import com.inforstack.openstack.item.ImageDao;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.VolumeTypeDao;
+import com.inforstack.openstack.network.Network;
+import com.inforstack.openstack.network.NetworkService;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriod;
@@ -78,6 +81,12 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	@Autowired
 	private CinderService cinderService;
+	
+	@Autowired
+	private QuantumService quantumService;
+	
+	@Autowired
+	private NetworkService networkService;
 	
 	@Autowired
 	private OrderService orderService;
@@ -150,6 +159,10 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public Instance findInstanceFromUUID(String uuid) {
 		Instance instance = this.instanceDao.findByObject("uuid", uuid);
+		List<Instance> subInstances = instance.getSubInstance();
+		for (Instance subInstance : subInstances) {
+			subInstance.getId();
+		}
 		return instance;
 	}
 	
@@ -196,10 +209,34 @@ public class InstanceServiceImpl implements InstanceService {
 					if (order != null) {
 						String dataCenterRef = this.getDataCenterFromOrder(order);
 						if (dataCenterRef != null) {
+							DataCenter dataCenter = this.dataCenterDao.findById(Integer.parseInt(dataCenterRef));
 							VirtualMachine vm = null;
 							VolumeInstance vi = null;
 							Server server = this.getServerFromOrder(order);
 							if (server != null) {
+								String tenantName = tenant.getName();
+								
+								List<Network> networks = this.networkService.listNetworksFromTenant(tenant, dataCenter.getId());
+								Network network = null;
+								if (networks.isEmpty()) {
+									network = this.networkService.createNetwork(user, tenant, tenantName + "_" + dataCenterRef + "_private", dataCenter);
+								} else {
+									for (Network n : networks) {
+										if (n.getName().equalsIgnoreCase(null)) {
+											network = n;
+											break;
+										}
+									}
+									if (network == null) {
+										network = this.networkService.createNetwork(user, tenant, tenant.getName() + "_" + dataCenterRef + "_private", dataCenter);
+									}
+								}
+								if (network != null) {
+									com.inforstack.openstack.api.nova.server.Server.Network[] osNetworks = new com.inforstack.openstack.api.nova.server.Server.Network[1];
+									osNetworks[0] = new com.inforstack.openstack.api.nova.server.Server.Network();
+									osNetworks[0].setUuid(network.getUuid());
+									server.setNetworks(osNetworks);
+								}
 								newServer = this.serverService.createServer(access, server);
 								if (newServer != null) {
 									vm = this.bindServerToSubOrder(newServer, order, dataCenterRef, tenant);

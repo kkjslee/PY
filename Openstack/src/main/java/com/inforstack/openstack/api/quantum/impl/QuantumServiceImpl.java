@@ -10,13 +10,17 @@ import com.inforstack.openstack.api.RequestBody;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.Access.Service.EndPoint.Type;
 import com.inforstack.openstack.api.nova.server.Server;
+import com.inforstack.openstack.api.quantum.FloatingIP;
 import com.inforstack.openstack.api.quantum.Network;
 import com.inforstack.openstack.api.quantum.Port;
 import com.inforstack.openstack.api.quantum.QuantumService;
+import com.inforstack.openstack.api.quantum.Router;
+import com.inforstack.openstack.api.quantum.Router.Gateway;
 import com.inforstack.openstack.api.quantum.Subnet;
 import com.inforstack.openstack.api.quantum.Subnet.AllocationPool;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RestUtils;
 
 @Service
@@ -59,11 +63,9 @@ public class QuantumServiceImpl implements QuantumService {
 	public Network[] listNetworks(Access access) throws OpenstackAPIException {
 		Network[] networks = null;
 		if (access != null) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_NETWORKS);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORKS);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				Networks response = RestUtils.get(url, access, Networks.class);
 				if (response != null) {
 					networks = response.getNetworks();
@@ -74,18 +76,14 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public Network getNetwork(Access access, String id)
-			throws OpenstackAPIException {
+	public Network getNetwork(Access access, String id) throws OpenstackAPIException {
 		Network network = null;
 		if (access != null && !id.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_NETWORK);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORK);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				try {
-					NetworkBody response = RestUtils.get(url, access,
-							NetworkBody.class, id);
+					NetworkBody response = RestUtils.get(url, access, NetworkBody.class, id);
 					if (response != null) {
 						network = response.getNetwork();
 					}
@@ -98,16 +96,12 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public Network createNetwork(Access access, String name,
-			boolean adminStateUp, boolean shared, boolean external)
-			throws OpenstackAPIException {
+	public Network createNetwork(Access access, String name, boolean adminStateUp, boolean shared, boolean external) throws OpenstackAPIException {
 		Network network = null;
 		if (access != null && !name.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_NETWORKS);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORKS);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				Network networkInstance = new Network();
 				networkInstance.setName(name);
 				networkInstance.setAdminStateUp(adminStateUp);
@@ -115,8 +109,7 @@ public class QuantumServiceImpl implements QuantumService {
 				networkInstance.setExternal(external);
 				NetworkBody request = new NetworkBody();
 				request.setNetwork(networkInstance);
-				NetworkBody response = RestUtils.postForObject(url, access,
-						request, NetworkBody.class);
+				NetworkBody response = RestUtils.postForObject(url, access, request, NetworkBody.class);
 				if (response != null) {
 					network = response.getNetwork();
 				}
@@ -126,16 +119,11 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public void updateNetwork(Access access, Network network, String name,
-			boolean adminStateUp, boolean shared, boolean external)
-			throws OpenstackAPIException {
-		if (access != null && network != null
-				&& !network.getId().trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_NETWORK);
+	public void updateNetwork(Access access, Network network, String name, boolean adminStateUp, boolean shared, boolean external) throws OpenstackAPIException {
+		if (access != null && network != null && !network.getId().trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_NETWORK);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				Network networkInstance = new Network();
 				networkInstance.setName(name);
 				networkInstance.setAdminStateUp(adminStateUp);
@@ -153,8 +141,7 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public void removeNetwork(Access access, String id)
-			throws OpenstackAPIException {
+	public void removeNetwork(Access access, String id) throws OpenstackAPIException {
 		this.remove(access, ENDPOINT_NETWORK, id);
 	}
 
@@ -191,11 +178,9 @@ public class QuantumServiceImpl implements QuantumService {
 	public Subnet[] listSubnets(Access access) throws OpenstackAPIException {
 		Subnet[] subnets = null;
 		if (access != null) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_SUBNETS);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SUBNETS);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				Subnets response = RestUtils.get(url, access, Subnets.class);
 				if (response != null) {
 					subnets = response.getSubnets();
@@ -206,18 +191,14 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public Subnet getSubnet(Access access, String id)
-			throws OpenstackAPIException {
+	public Subnet getSubnet(Access access, String id) throws OpenstackAPIException {
 		Subnet subnet = null;
 		if (access != null && !id.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_SUBNET);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SUBNET);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				try {
-					SubnetBody response = RestUtils.get(url, access,
-							SubnetBody.class, id);
+					SubnetBody response = RestUtils.get(url, access, SubnetBody.class, id);
 					if (response != null) {
 						subnet = response.getSubnet();
 					}
@@ -230,18 +211,13 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public Subnet createSubnet(Access access, String network, String name,
-			int ipVer, String cidr, AllocationPool[] pools)
-			throws OpenstackAPIException {
+	public Subnet createSubnet(Access access, String network, String name, int ipVer, String cidr, AllocationPool[] pools) throws OpenstackAPIException {
 		Subnet subnet = null;
-		if (access != null && !network.trim().isEmpty()
-				&& (ipVer == 4 || ipVer == 6)) {
+		if (access != null && !network.trim().isEmpty() && (ipVer == 4 || ipVer == 6)) {
 			if (this.getNetwork(access, network) != null) {
-				Configuration endpoint = this.configurationDao
-						.findByName(ENDPOINT_SUBNETS);
+				Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SUBNETS);
 				if (endpoint != null) {
-					String url = getEndpoint(access, Type.INTERNAL,
-							endpoint.getValue());
+					String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 					Subnet subnetInstance = new Subnet();
 					subnetInstance.setNetwork(network);
 					subnetInstance.setName(name);
@@ -250,8 +226,7 @@ public class QuantumServiceImpl implements QuantumService {
 					subnetInstance.setPools(pools);
 					SubnetBody request = new SubnetBody();
 					request.setSubnet(subnetInstance);
-					SubnetBody response = RestUtils.postForObject(url, access,
-							request, SubnetBody.class);
+					SubnetBody response = RestUtils.postForObject(url, access, request, SubnetBody.class);
 					if (response != null) {
 						subnet = response.getSubnet();
 					}
@@ -262,15 +237,11 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public void updateSubnet(Access access, Subnet subnet)
-			throws OpenstackAPIException {
-		if (access != null && subnet != null
-				&& !subnet.getId().trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_SUBNET);
+	public void updateSubnet(Access access, Subnet subnet) throws OpenstackAPIException {
+		if (access != null && subnet != null && !subnet.getId().trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SUBNET);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				SubnetBody request = new SubnetBody();
 				request.setSubnet(subnet);
 				RestUtils.put(url, access, request, subnet.getId());
@@ -279,8 +250,7 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public void removeSubnet(Access access, String id)
-			throws OpenstackAPIException {
+	public void removeSubnet(Access access, String id) throws OpenstackAPIException {
 		this.remove(access, ENDPOINT_SUBNET, id);
 	}
 
@@ -317,11 +287,9 @@ public class QuantumServiceImpl implements QuantumService {
 	public Port[] listPorts(Access access) throws OpenstackAPIException {
 		Port[] ports = null;
 		if (access != null) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_PORTS);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_PORTS);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				Ports response = RestUtils.get(url, access, Ports.class);
 				if (response != null) {
 					ports = response.getPorts();
@@ -335,14 +303,11 @@ public class QuantumServiceImpl implements QuantumService {
 	public Port getPort(Access access, String id) throws OpenstackAPIException {
 		Port port = null;
 		if (access != null && !id.trim().isEmpty()) {
-			Configuration endpoint = this.configurationDao
-					.findByName(ENDPOINT_PORT);
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_PORT);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				try {
-					PortBody response = RestUtils.get(url, access,
-							PortBody.class, id);
+					PortBody response = RestUtils.get(url, access, PortBody.class, id);
 					if (response != null) {
 						port = response.getPort();
 					}
@@ -355,20 +320,16 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public Port createPort(Access access, Port port, Server server)
-			throws OpenstackAPIException {
+	public Port createPort(Access access, Port port, Server server) throws OpenstackAPIException {
 		Port newPort = null;
 		if (access != null) {
 			if (this.getNetwork(access, port.getNetwork()) != null) {
-				Configuration endpoint = this.configurationDao
-						.findByName(ENDPOINT_PORTS);
+				Configuration endpoint = this.configurationDao.findByName(ENDPOINT_PORTS);
 				if (endpoint != null) {
-					String url = getEndpoint(access, Type.INTERNAL,
-							endpoint.getValue());
+					String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 					PortBody request = new PortBody();
 					request.setPort(port);
-					PortBody response = RestUtils.postForObject(url, access,
-							request, PortBody.class);
+					PortBody response = RestUtils.postForObject(url, access, request, PortBody.class);
 					if (response != null) {
 						newPort = response.getPort();
 					}
@@ -379,22 +340,181 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 
 	@Override
-	public void removePort(Access access, String id)
-			throws OpenstackAPIException {
+	public void removePort(Access access, String id) throws OpenstackAPIException {
 		this.remove(access, ENDPOINT_PORT, id);
+	}
+	
+	public static final class Routers {
+
+		private Router[] routers;
+
+		public Router[] getRouters() {
+			return routers;
+		}
+
+		public void setRouters(Router[] routers) {
+			this.routers = routers;
+		}
+
+	}
+
+	private static final class RouterBody implements RequestBody {
+
+		@JsonProperty("router")
+		private Router router;
+
+		public Router getRouter() {
+			return this.router;
+		}
+
+		public void setRouter(Router router) {
+			this.router = router;
+		}
+
+	}
+	
+	@Override
+	public Router createRouter(Access access, String name) throws OpenstackAPIException {
+		Router newPort = null;
+		if (access != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_ROUTERS);
+			Configuration external = this.configurationDao.findByName(EXTERNAL_NETWORK_ID);
+			if (endpoint != null && external != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				Gateway gateway = new Gateway();
+				gateway.setNetwork(external.getValue());
+				Router router = new Router();
+				router.setName(name);
+				router.setAdminStateUp(true);
+				router.setGateway(gateway);
+				RouterBody request = new RouterBody();
+				request.setRouter(router);
+				RouterBody response = RestUtils.postForObject(url, access, request, RouterBody.class);
+				if (response != null) {
+					newPort = response.getRouter();
+				}
+			}
+		}
+		return newPort;
+	}
+	
+	private static final class AddInterfaceBody implements RequestBody {
+
+		@JsonProperty("subnet_id")
+		private String subnet;
+
+		public void setSubnet(String subnet) {
+			this.subnet = subnet;
+		}
+
+	}
+	
+	@Override
+	public void addInterface(Access access, Router router, Subnet subnet) throws OpenstackAPIException {
+		if (access != null && router != null && subnet != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_ROUTER_INTERFACE_ADD);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				AddInterfaceBody request = new AddInterfaceBody();
+				request.setSubnet(subnet.getId());
+				RestUtils.put(url, access, request, router.getId());
+			}
+		}
+	}
+	
+	private static final class FloatingIPBody implements RequestBody {
+
+		@JsonProperty("floatingip")
+		private FloatingIP floatingIP;
+
+		public FloatingIP getFloatingIP() {
+			return floatingIP;
+		}
+
+		public void setFloatingIP(FloatingIP floatingIP) {
+			this.floatingIP = floatingIP;
+		}
+
+	}
+	
+	@Override
+	public FloatingIP associateFloatingIP(Access access, Server server) throws OpenstackAPIException {
+		FloatingIP floatingIP = null;
+		if (access != null && server != null) {
+			QuantumService self = OpenstackUtil.getBean(QuantumService.class);
+			Network[] networks = self.listNetworks(access);
+			for (Network network : networks) {
+				if (network.getName().endsWith("_private")) {
+					Port[] ports = self.listPorts(access);
+					for (Port port : ports) {
+						if (port.getNetwork().equalsIgnoreCase(network.getId()) && port.getDevice().equalsIgnoreCase(server.getId())) {
+							Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLOATINGIPS);
+							Configuration external = this.configurationDao.findByName(EXTERNAL_NETWORK_ID);
+							if (endpoint != null && external != null) {
+								String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+								FloatingIP newFloatingIP = new FloatingIP();
+								newFloatingIP.setFloatingNetwork(external.getValue());
+								newFloatingIP.setPort(port.getId());
+								FloatingIPBody request = new FloatingIPBody();
+								request.setFloatingIP(newFloatingIP);
+								FloatingIPBody response = RestUtils.postForObject(url, access, request, FloatingIPBody.class);
+								if (response != null) {
+									floatingIP = response.getFloatingIP();
+								}
+							}
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+		return floatingIP;
+	}
+	
+	@Override
+	public void associateFloatingIP(Access access, Server server, String uuid) throws OpenstackAPIException {
+		if (access != null && server != null) {
+			QuantumService self = OpenstackUtil.getBean(QuantumService.class);
+			Network[] networks = self.listNetworks(access);
+			for (Network network : networks) {
+				if (network.getName().endsWith("_private")) {
+					Port[] ports = self.listPorts(access);
+					for (Port port : ports) {
+						if (port.getNetwork().equalsIgnoreCase(network.getId()) && port.getDevice().equalsIgnoreCase(server.getId())) {
+							Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLOATINGIP);
+							Configuration external = this.configurationDao.findByName(EXTERNAL_NETWORK_ID);
+							if (endpoint != null && external != null) {
+								String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+								FloatingIP newFloatingIP = new FloatingIP();
+								newFloatingIP.setPort(port.getId());
+								FloatingIPBody request = new FloatingIPBody();
+								request.setFloatingIP(newFloatingIP);
+								RestUtils.put(url, access, request, uuid);
+							}
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+
+	@Override
+	public void disassociateFloatingIP(Access access, String uuid) throws OpenstackAPIException {
+		this.remove(access, ENDPOINT_FLOATINGIP, uuid);
 	}
 
 	private static String getEndpoint(Access access, Type type, String suffix) {
 		return RestUtils.getEndpoint(access, "quantum", type, suffix);
 	}
 
-	private void remove(Access access, String urlName, String id)
-			throws OpenstackAPIException {
+	private void remove(Access access, String urlName, String id) throws OpenstackAPIException {
 		if (access != null && !id.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(urlName);
 			if (endpoint != null) {
-				String url = getEndpoint(access, Type.INTERNAL,
-						endpoint.getValue());
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				RestUtils.delete(url, access, id);
 			}
 		}

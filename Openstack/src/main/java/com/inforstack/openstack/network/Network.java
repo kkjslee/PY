@@ -1,4 +1,6 @@
-package com.inforstack.openstack.instance;
+package com.inforstack.openstack.network;
+
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -7,12 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Entity
-public class VirtualLan {
-	
+public class Network {
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -21,13 +26,16 @@ public class VirtualLan {
 	
 	private String name;
 	
-	private boolean first;
-	
-	private String cidr;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "network")
+	private List<Subnet> subnets;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional=true)
 	@JoinColumn(name="tenant_id")
 	private Tenant tenant;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="dataCenter_id")
+	private DataCenter dataCenter;
 
 	public int getId() {
 		return id;
@@ -53,20 +61,12 @@ public class VirtualLan {
 		this.name = name;
 	}
 
-	public boolean isFirst() {
-		return first;
+	public List<Subnet> getSubnets() {
+		return subnets;
 	}
 
-	public void setFirst(boolean first) {
-		this.first = first;
-	}
-
-	public String getCidr() {
-		return cidr;
-	}
-
-	public void setCidr(String cidr) {
-		this.cidr = cidr;
+	public void setSubnets(List<Subnet> subnets) {
+		this.subnets = subnets;
 	}
 
 	public Tenant getTenant() {
@@ -77,4 +77,12 @@ public class VirtualLan {
 		this.tenant = tenant;
 	}
 
+	public DataCenter getDataCenter() {
+		return dataCenter;
+	}
+
+	public void setDataCenter(DataCenter dataCenter) {
+		this.dataCenter = dataCenter;
+	}
+	
 }

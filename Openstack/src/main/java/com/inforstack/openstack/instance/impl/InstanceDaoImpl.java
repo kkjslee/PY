@@ -32,7 +32,7 @@ public class InstanceDaoImpl extends BasicDaoImpl<Instance> implements InstanceD
 					builder.equal(root.get("type"), type)
 				);
 			}
-			if(includeStatus != null){
+			if (includeStatus != null) {
 				predicates.add(
 					builder.equal(root.get("status"), includeStatus)
 				);

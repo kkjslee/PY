@@ -53,7 +53,7 @@
 .menu           { padding-top: 5px; width:214px;height:100%;}
 .menu .accordion-group        { font-size: 13px; padding-left:0px;}
 .menu .accordion-heading        { list-style-type: none;  padding:0 0 0 15px;height:45px;line-height:45px;padding-left:20px;}
-.menu .accordion-heading a      { cursor:pointer;display: block;width:150xp;padding-left:10px;height:45px; line-height: 45px; font-size: 13px;font-family: Arial,'微软雅黑','黑体'; text-decoration: none; color:#BBB; }
+.menu .accordion-heading a      { cursor:pointer;display: block;white-space:nowrap;width:150xp;padding-left:10px;height:45px; line-height: 45px; font-size: 13px;font-family: Arial,'微软雅黑','黑体'; text-decoration: none; color:#BBB; }
 .menu .accordion-heading a:hover{color:#FFF;}
 .menu .accordion-body     { background:url('image_navigator/menu_bg.gif');font-size: 12px; width: 100%;margin:0;}
 .menu .accordion-body li     { padding: 0px; list-style:none; color:#bbb;}

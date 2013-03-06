@@ -80,11 +80,11 @@ example:
                             <c:choose>
                                 <c:when test="${fn:length(subItems) == 0}">
                                 ${f:propStr(null, d) }
-                                    <span>${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}</span>
+                                    <span name="${item.key}">${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}</span>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forTokens items="${subItems}" delims="," var="key">
-                                        <span>${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}</span>
+                                        <span name="${key}">${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}</span>
                                     </c:forTokens>
                                 </c:otherwise>
                             </c:choose>
@@ -112,11 +112,11 @@ example:
                             <c:set value="${fn:replace(item.value, '[hidden]', '')}" var="subItems"></c:set>
                             <c:choose>
                                 <c:when test="${fn:length(subItems) == 0}">
-                                    <input type="hidden" id="${item.key}" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"/>
+                                    <input type="hidden" name="${item.key}" id="${item.key}" value="${f:value(f:propStr(conf[f:append(item.key, '.value')], d), f:getProp(d, item.key))}"/>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forTokens items="${subItems}" delims="," var="key">
-                                        <input type="hidden" id="${key}" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"/>
+                                        <input type="hidden" name="${key}" id="${key}" value="${f:value(f:propStr(conf[f:append(key, '.value')], d), f:getProp(d, key))}"/>
                                     </c:forTokens>
                                 </c:otherwise>
                             </c:choose>

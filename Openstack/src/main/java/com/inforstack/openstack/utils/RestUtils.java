@@ -233,9 +233,10 @@ public class RestUtils {
 	public static void handleError(OpenstackAPIException e) throws OpenstackAPIException {
 		if (e.getCause() instanceof HttpClientErrorException) {
 			HttpClientErrorException httpError = (HttpClientErrorException) e.getCause();
-			if (httpError.getStatusCode().value() != 404) {
-				throw e;
-			}
+			int code = httpError.getStatusCode().value();
+			if (code != 404) {
+				throw new OpenstackAPIException(code, e.getMessage(), e);
+			} 
 		}
 	}
 

@@ -160,7 +160,7 @@ example:
                         </td>
                     </c:if>
                     <c:if test="${fn:startsWith(item.value, '[button]')}">
-                        <td><div class="btn-group">
+                        <td class="operationBtns"><div class="btn-group">
                                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                                            <spring:message code="common.operation" />
                                             <span class="caret"></span>
@@ -172,10 +172,10 @@ example:
                                 <c:when test="${fn:length(subItems) == 0}">
                                     <c:choose>
                                         <c:when test="${conf[f:append(item.key, '.value')] != null}">
-                                            ${f:propStr(conf[f:append(item.key, '.value')], d)}
+                                             <li>${f:propStr(conf[f:append(item.key, '.value')], d)}</li>
                                         </c:when>
                                         <c:otherwise>
-                                        <li>
+                                        <li name="${item.key}">
                                             <a href="#" onclick="${f:propStr(conf[f:append(item.key, '.onclick')], d)};return false;" >
                                                     ${f:label(conf[f:append(item.key, '.label')], f:append(item.key, '.label'))}
                                             </a>
@@ -187,14 +187,14 @@ example:
                                     <c:forTokens items="${subItems}" delims="," var="key">
                                         <c:choose>
                                             <c:when test="${conf[f:append(key, '.value')] != null}">
-                                                ${f:propStr(conf[f:append(key, '.value')], d)}
+                                                 <li>${f:propStr(conf[f:append(key, '.value')], d)}</li>
                                             </c:when>
                                             <c:otherwise>
-                                            <li>
+                                            <li name="${key}">
                                             <a href="#" onclick="${f:propStr(conf[f:append(key, '.onclick')], d)};return false;" >
                                                     ${f:label(conf[f:append(key, '.label')], f:append(key, '.label'))}
                                             </a>
-                                        </li>
+                                            </li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forTokens>

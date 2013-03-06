@@ -77,12 +77,12 @@ var g_${conf['.content']}_loadPagerDataList = function(pageIndex, pageSize) {
                     num_edge_entries: 2
                 });
                 <c:if test="${conf['.loadSuccessCall'] != null}">
-                 ${conf['.loadSuccessCall']}();
+                 ${conf['.loadSuccessCall']}.call();
                  </c:if>
             }else{
             	$("<span class='loadingError'>"+result+"</span>").appendTo(target.empty());
             	 <c:if test="${conf['.loadErrorCall'] != null}">
-                 ${conf['.loadErrorCall']}();
+                 ${conf['.loadErrorCall']}.call();
                  </c:if>
             }
         },

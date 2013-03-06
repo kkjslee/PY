@@ -240,15 +240,19 @@ public class KeystoneServiceImpl implements KeystoneService {
 			Access adminAccess = this.getAdminAccess();
 			if (adminAccess != null) {
 				String url = getEndpoint(adminAccess, Type.ADMIN, endpointTenant.getValue());
-				Tenant newTenant = new Tenant();
-				newTenant.setName(name);
-				newTenant.setDescription(description);
-				newTenant.setEnabled(enable);
-				
-				TenantBody body = new TenantBody();
-				body.setTenant(newTenant);
-				body = RestUtils.postForObject(url, adminAccess, body, TenantBody.class);
-				tenant = body.getTenant();
+				try {
+					Tenant newTenant = new Tenant();
+					newTenant.setName(name);
+					newTenant.setDescription(description);
+					newTenant.setEnabled(enable);
+					
+					TenantBody body = new TenantBody();
+					body.setTenant(newTenant);
+					body = RestUtils.postForObject(url, adminAccess, body, TenantBody.class);
+					tenant = body.getTenant();
+				} catch (OpenstackAPIException e) {
+					RestUtils.handleError(e);
+				}
 			}
 		}
 		return tenant;

@@ -21,11 +21,11 @@
             <div class="accordion-group">
                   <div class="accordion-heading">
                       <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/dashboard.gif"/>
-                      <a href="#collapse0" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu">
+                      <a href="#ncollapse0" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu">
                         <spring:message code='user.entry.index'/>
                       </a>
                    </div>
-                   <div id="collapse0" class="accordion-body collapse in">
+                   <div id="ncollapse0" class="accordion-body collapse in">
                     <ul class="accordion-inner">
                         <li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" ><spring:message code='user.entry.home' /></a></li>
                     </ul>
@@ -34,11 +34,11 @@
             <div class="accordion-group">
                  <div class="accordion-heading">
                     <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/notes.gif"/>
-                    <a href="#collapse1" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
+                    <a href="#ncollapse1" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
                         <spring:message code='user.navi.apply'/>
                     </a>
                  </div>
-                 <div id="collapse1" class="accordion-body collapse">
+                 <div id="ncollapse1" class="accordion-body collapse">
                     <ul class="accordion-inner">
                         <li><a href="#" name="menuItem" isos:module="cart/modules/index" ><spring:message code='user.navi.product' /></a></li>
                         <li><a href="#" name="menuItem" isos:module="cart/modules/volume"><spring:message code='user.cart.volume' /></a></li>
@@ -48,9 +48,9 @@
             </div>
             <div class="accordion-group">
                  <div class="accordion-heading">
-                    <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/posts.gif"/><a href="#collapse2" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.myproduct'/></a>
+                    <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/posts.gif"/><a href="#ncollapse2" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" ><spring:message code='user.navi.myproduct'/></a>
                  </div>
-                 <div id="collapse2" class="accordion-body collapse">
+                 <div id="ncollapse2" class="accordion-body collapse">
                     <ul class="accordion-inner">
                         <li><a href="#" name="menuItem" isos:module="instance/modules/index"><spring:message code='user.navi.instance' /></a></li>
                         <li><a href="#" name="menuItem" isos:module="cinder/modules/index"><spring:message code='user.navi.volume' /></a></li>
@@ -60,11 +60,11 @@
             <div class="accordion-group">
                  <div class="accordion-heading">
                     <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/order.gif"/>
-                    <a href="#collapse3" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
+                    <a href="#ncollapse3" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
                         <spring:message code='user.navi.ordermgr'/>
                     </a>
                  </div>
-                 <div id="collapse3" class="accordion-body collapse">
+                 <div id="ncollapse3" class="accordion-body collapse">
                     <ul class="accordion-inner">
                         <li><a href="#" name="menuItem" isos:module="order/modules/index"><spring:message code='user.navi.order' /></a></li>
                     </ul>
@@ -73,11 +73,11 @@
              <div class="accordion-group">
                  <div class="accordion-heading">
                     <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/coin.gif"/>
-                    <a href="#collapse4" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
+                    <a href="#ncollapse4" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
                      <spring:message code='user.navi.financemgr'/>
                     </a>
                  </div>
-                 <div id="collapse4" class="accordion-body collapse">
+                 <div id="ncollapse4" class="accordion-body collapse">
                     <ul class="accordion-inner">
                        <li><a href="#" name="menuItem" isos:module="order/modules/index">todo</a></li>
                     </ul>
@@ -86,11 +86,11 @@
             <div class="accordion-group">
                  <div class="accordion-heading">
                     <img src="<%=request.getContextPath()%>/resource/normaluser/common/css/image_navigator/acc.gif"/>
-                    <a href="#collapse5" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
+                    <a href="#ncollapse5" class="accordion-toggle" data-toggle="collapse" data-parent="#sidebar_menu" >
                         <spring:message code='user.navi.accountmgr'/>
                     </a>
                  </div>
-                 <div id="collapse5" class="accordion-body collapse">
+                 <div id="ncollapse5" class="accordion-body collapse">
                     <ul class="accordion-inner">
                           <li><a href="#" name="menuItem" isos:module="order/modules/index">todo</a></li>
                     </ul>

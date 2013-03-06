@@ -278,10 +278,15 @@ public class UserController {
 		boolean success = true;
 		try {
 			userService.registerUser(user, tenant, Constants.ROLE_USER);
-		} catch (Exception e) {
+		} catch (OpenstackAPIException e) {
 			success = false;
-			log.error(e.getMessage(), e);
-			ret.put("error", e.getMessage());
+			if (e.getCode() == 409) {
+				ret.put("error",
+						OpenstackUtil.getMessage("user.alreadyexist",
+								user.getUsername()));
+			}
+			log.error(e.getMessage());
+
 		}
 
 		if (success == false) {

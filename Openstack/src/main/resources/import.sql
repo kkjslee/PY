@@ -155,8 +155,6 @@ insert into Resource(id, url, permission) values (30, '/admin/flavor/nameCheck',
 
 insert into Resource(id, url, permission) values (31, '/user', 'user');
 insert into Resource(id, url, permission) values (32, '/user/scripts/navinit', 'user');
-insert into Resource(id, url, permission) values (33, '/user/scripts/bootstrap', 'user');
-insert into Resource(id, url, permission) values (34, '/user/scripts/template', 'user');
 insert into Resource(id, url, permission) values (35, '/user/modules/entry/index', 'user');
 
 insert into Resource(id, url, permission) values (36, '/admin/category/modules/index', 'admin');
@@ -205,11 +203,14 @@ insert into Resource(id, url, permission) values (303, '/user/instance/imcontrol
 insert into Resource(id, url, permission) values (304, '/user/instance/getInstance', 'user');
 insert into Resource(id, url, permission) values (305, '/user/instance/scripts/template', 'user');
 insert into Resource(id, url, permission) values (306, '/user/instance/showInstanceDetails', 'user');
+insert into Resource(id, url, permission) values (307, '/user/instance/getInstancesWidthStatus', 'user');
 
 insert into Resource(id, url, permission) values (350, '/user/cinder/modules/index', 'user');
 insert into Resource(id, url, permission) values (351, '/user/cinder/getPagerVolumeTypeList', 'user');
 insert into Resource(id, url, permission) values (352, '/user/cinder/getPagerVolumeList', 'user');
 insert into Resource(id, url, permission) values (353, '/user/cinder/volumecontrol', 'user');
+insert into Resource(id, url, permission) values (354, '/user/cinder/getVolumeDetail', 'user');
+insert into Resource(id, url, permission) values (355, '/user/cinder/modules/template', 'user');
 
 
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');

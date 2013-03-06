@@ -28,7 +28,7 @@ public class PaymentMethod {
 	private String icon;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(name="text")
 	private I18nLink text;
 	
 	private String endpoint;

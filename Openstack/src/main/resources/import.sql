@@ -76,6 +76,8 @@ insert into Configuration(id, name, value) values(61, 'socket.port', '11533');
 insert into Configuration(id, name, value) values(62, 'socket.ceilmeter.timeout', '60');
 insert into Configuration(id, name, value) values(63, 'socket.timestamp.tolerance', '3000');
 
+insert into Configuration(id, name, value) values(70, 'openstack.network.external', 'c7e5ab7b-3b70-440c-88fd-580272bfae30');
+
 insert into Role(id, name) values (1, 'admin');
 insert into Role(id, name) values (2, 'user');
 insert into Role(id, name) values (3, 'agent');
@@ -176,6 +178,8 @@ insert into Resource(id, url, permission) values (50, '/admin/category/listForJs
 
 insert into Resource(id, url, permission) values (60, '/admin/plan/planList', 'admin');
 insert into Resource(id, url, permission) values (61, '/admin/plan/retrievePlan', 'admin');
+insert into Resource(id, url, permission) values (62, '/admin/modules/entry/edit', 'admin');
+insert into Resource(id, url, permission) values (63, '/admin/modules/entry/save', 'admin');
 
 insert into Resource(id, url, permission) values (70, '/shopcart', 'user');
 
@@ -189,9 +193,9 @@ insert into Resource(id, url, permission) values (206, '/user/cart/update', 'use
 insert into Resource(id, url, permission) values (207, '/user/cart/remove', 'user');
 insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethods', 'user');
 insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
-
 insert into Resource(id, url, permission) values (210, '/user/cart/modules/ip', 'user');
 insert into Resource(id, url, permission) values (211, '/user/cart/modules/volume', 'user');
+insert into Resource(id, url, permission) values (212, '/user/cart/showOrderDetails', 'user');
 
 
 insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');

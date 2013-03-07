@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -120,13 +121,26 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
 			CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
 			Root<T> root = criteria.from(this.modelClz);
-			criteria.select(root).where(builder.equal(root.get(name), value));
+			criteria.select(root).where(builder.equal(buildPath(root, name), value));
 			list = em.createQuery(criteria).getResultList();
 			log.debug("get successful");
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
 		}
 		return list;
+	}
+	
+	private Path<T> buildPath(Root<T> root, String name){
+		Path<T> ret = null;
+		for(String split : name.split("\\.")){
+			if(ret == null){
+				ret = root.get(split);
+			}else{
+				ret = ret.get(split);
+			}
+		}
+		
+		return ret;
 	}
 
 	@Override
@@ -155,7 +169,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 				CriteriaBuilder builder = em.getCriteriaBuilder();
 				CriteriaQuery<T> criteria = builder.createQuery(this.modelClz);
 				Root<T> root = criteria.from(this.modelClz);
-				criteria.select(root).where(builder.equal(root.get(name), value));
+				criteria.select(root).where(builder.equal(buildPath(root, name), value));
 				List<T> instances = em.createQuery(criteria).getResultList();
 				if (instances != null && instances.size() > 0) {
 					log.debug("get successful");
@@ -200,8 +214,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		} catch (RuntimeException re){
 			log.error(re.getMessage(), re);
 		}
-	}
-	
+	} 
 	
 	public static class CursorResult<K>{
 		private ScrollableResults results;

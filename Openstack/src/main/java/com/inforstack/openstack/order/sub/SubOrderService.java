@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.order.period.OrderPeriod;
 
 public interface SubOrderService {
 	
@@ -31,7 +32,7 @@ public interface SubOrderService {
 	 * @param status
 	 * @return
 	 */
-	public List<SubOrder> findSubOrders(String orderId, Integer status, Integer periodId);
+	public List<SubOrder> findSubOrders(String orderId, List<Integer> statuses, List<Integer> orderPeriods);
 	
 	/**
 	 * delete sub order by id

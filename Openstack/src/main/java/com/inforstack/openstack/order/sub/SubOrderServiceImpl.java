@@ -78,9 +78,9 @@ public class SubOrderServiceImpl implements SubOrderService {
 	}
 
 	@Override
-	public List<SubOrder> findSubOrders(String orderId, Integer status, Integer periodId) {
-		log.debug("Find all sub orders by order id : " + orderId + ", status : " + status);
-		List<SubOrder> subOrders = subOrderDao.find(orderId, status, periodId);
+	public List<SubOrder> findSubOrders(String orderId, List<Integer> statuses, List<Integer> orderPeriods) {
+		log.debug("Find all sub orders by order id : " + orderId + ", status : " + statuses + ", periods : " + orderPeriods);
+		List<SubOrder> subOrders = subOrderDao.find(orderId, statuses, orderPeriods);
 		if(CollectionUtil.isNullOrEmpty(subOrders)){
 			log.debug("No instance found");
 			return new ArrayList<SubOrder>();

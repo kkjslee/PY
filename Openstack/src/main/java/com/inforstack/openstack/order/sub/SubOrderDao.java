@@ -6,7 +6,7 @@ import com.inforstack.openstack.basic.BasicDao;
 
 public interface SubOrderDao extends BasicDao<SubOrder> {
 
-	public List<SubOrder> find(String orderId, Integer status, Integer periodId);
+	public List<SubOrder> find(String orderId, List<Integer> statuses, List<Integer> orderPeriods);
 
 	public SubOrder fetchOneByInstanceId(int id);
 

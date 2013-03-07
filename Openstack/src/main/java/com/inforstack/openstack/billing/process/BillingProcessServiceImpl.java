@@ -3,6 +3,8 @@ package com.inforstack.openstack.billing.process;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,9 @@ import com.inforstack.openstack.utils.SecurityUtils;
 public class BillingProcessServiceImpl implements BillingProcessService {
 
 	private static final Logger log = new Logger(BillingProcessServiceImpl.class);
+	private static final ReentrantReadWriteLock scheduleLock = new ReentrantReadWriteLock();
+	private static final ReentrantReadWriteLock executeLock = new ReentrantReadWriteLock();
+	
 	@Autowired
 	private BillingProcessDao billingProcessDao;
 	@Autowired
@@ -142,7 +147,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		
 		return bpr;
 	}
-	;
+	
 	@Override
 	public BillingProcessResult runBillingProcessForOrder(String orderId) {
 		log.debug("Running billing process for order : " + orderId);
@@ -159,25 +164,48 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		return bpr;
 	}
 	
+	@Override
 	public void processOrder(String orderId, BillingProcess bp, BillingProcessResult bpr){
-		Order order = orderService.findOrderById(orderId);
-		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus()) 
-				|| new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
-			
-			InvoiceCount oic = orderService.orderBillingProcess(order, new Date(), bp);
-			if(!BigDecimal.ZERO.equals(oic.getInvoiceTotal())){
-				bpr.setOrderTotal(
-						NumberUtil.add(bpr.getOrderTotal(), 1)
-				);
-				bpr.setInvoiceTotal(
-						NumberUtil.add(bpr.getInvoiceTotal(), oic.getInvoiceTotal())
-				);
-				bpr.setUnPaidTotal(
-						NumberUtil.add(bpr.getUnPaidTotal(), oic.getBalance())
-				);
-				bpr.setPaidTotal(
-						NumberUtil.minus(bpr.getInvoiceTotal(), bpr.getUnPaidTotal())
-				);
+		Lock lock = null;
+		try{
+			Order order = orderService.findOrderById(orderId);
+			if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus()) 
+					|| new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
+				
+				Date billingDate = null;
+				if(bp != null && bp.getBillingProcessConfiguration() != null) {
+					executeLock.writeLock().lock();
+					scheduleLock.readLock().lock();
+					lock = scheduleLock.readLock();
+					executeLock.writeLock().unlock();
+					billingDate = bp.getBillingProcessConfiguration().getNextBillingDate();
+				}else{
+					executeLock.readLock().lock();
+					lock = executeLock.readLock();
+					scheduleLock.writeLock().lock();
+					scheduleLock.writeLock().unlock();
+					billingDate = new Date();
+				}
+					
+				InvoiceCount oic = orderService.orderBillingProcess(order, billingDate, bp);
+				if(!BigDecimal.ZERO.equals(oic.getInvoiceTotal())){
+					bpr.setOrderTotal(
+							NumberUtil.add(bpr.getOrderTotal(), 1)
+					);
+					bpr.setInvoiceTotal(
+							NumberUtil.add(bpr.getInvoiceTotal(), oic.getInvoiceTotal())
+					);
+					bpr.setUnPaidTotal(
+							NumberUtil.add(bpr.getUnPaidTotal(), oic.getBalance())
+					);
+					bpr.setPaidTotal(
+							NumberUtil.minus(bpr.getInvoiceTotal(), bpr.getUnPaidTotal())
+					);
+				}
+			}
+		}finally{
+			if(lock != null){
+				lock.unlock();
 			}
 		}
 	}

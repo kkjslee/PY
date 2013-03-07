@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,8 +25,8 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 	private EntityManager em;
 	
 	@Override
-	public List<SubOrder> find(String orderId, Integer status, Integer periodId) {
-		log.debug("Find all sub order(s) by order id : " + orderId + ", status : " + status + ", period id : " + periodId);
+	public List<SubOrder> find(String orderId, List<Integer> statuses, List<Integer> orderPeriods) {
+		log.debug("Find all sub order(s) by order id : " + orderId + ", statuses : " + statuses + ", periods : " + orderPeriods);
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
 			CriteriaQuery<SubOrder> criteria = builder
@@ -41,14 +38,14 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 						builder.equal(root.get("order").get("id"), orderId)
 				);
 			}
-			if(status != null){
+			if(statuses != null){
 				predicates.add(
-						builder.equal(root.get("status"), status)
+						root.get("order").in(statuses)
 				);
 			}
-			if(periodId != null){
+			if(orderPeriods != null){
 				predicates.add(
-						builder.equal(root.get("orderPeriod").get("id"), periodId)
+						root.get("orderPeriod").get("id").in(orderPeriods)
 				);
 			}
 			if(predicates.isEmpty()){

@@ -22,6 +22,7 @@ import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.instance.AttributeMap;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.payment.PaymentService;
@@ -209,11 +210,10 @@ public class OrderServiceImpl implements OrderService {
 				+ ", billing process : " + billingProcess == null ? null
 				: billingProcess.getId());
 
-		Integer periodId = null;
+		List<OrderPeriod> ops = null;
 		if (billingProcess != null
 				&& billingProcess.getBillingProcessConfiguration() != null) {
-			periodId = billingProcess.getBillingProcessConfiguration()
-					.getPeriodType();
+			ops = billingProcess.getBillingProcessConfiguration().getOrderPeriods();
 		}
 		
 		InvoiceCount ic = new InvoiceCount();
@@ -225,8 +225,18 @@ public class OrderServiceImpl implements OrderService {
 			ic.addInvoiceTotal(invoice.getAmount());
 			ic.addBalance(invoice.getBalance());
 		}else if(new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
+			List<Integer> statuses = new ArrayList<Integer>();
+			statuses.add(Constants.SUBORDER_STATUS_AVAILABLE);
+			List<Integer> orderPeriods = null;
+			if(ops != null){
+				orderPeriods = new ArrayList<Integer>();
+				for(OrderPeriod op : ops){
+					orderPeriods.add(op.getId());
+				}
+			}
+			
 			List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
-					Constants.SUBORDER_STATUS_AVAILABLE, periodId);
+					statuses, orderPeriods);
 			for (SubOrder so : subOrders) {
 				InvoiceCount sic = subOrderService.billingProcessSubOrder(so,
 						billingDate, billingProcess);

@@ -48,4 +48,6 @@ public interface OrderPeriodService {
 	 * @return
 	 */
 	public OrderPeriod findPeriodById(int periodId);
+
+	List<OrderPeriod> findPeriodsByProcessId(int billingProcessConfigId);
 }

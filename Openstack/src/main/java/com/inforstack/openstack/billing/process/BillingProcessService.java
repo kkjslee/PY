@@ -52,5 +52,8 @@ public interface BillingProcessService {
 	public BillingProcessResult runBillingProcess(Integer tenantId);
 
 	public BillingProcessResult runBillingProcessForOrder(String orderId);
+
+	void processOrder(String orderId, BillingProcess bp,
+			BillingProcessResult bpr);
 	
 }

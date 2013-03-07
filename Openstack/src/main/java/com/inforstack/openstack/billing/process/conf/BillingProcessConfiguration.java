@@ -1,12 +1,19 @@
 package com.inforstack.openstack.billing.process.conf;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.inforstack.openstack.order.period.OrderPeriod;
 
 @Entity
 @Table(name="billing_process_conf")
@@ -29,6 +36,9 @@ public class BillingProcessConfiguration {
 	
 	@Column(name="create_time")
 	private Date createTime;
+	
+	@OneToMany(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY, mappedBy="processConfig")
+	private List<OrderPeriod> orderPeriods = new ArrayList<OrderPeriod>();
 
 	public Integer getId() {
 		return id;
@@ -77,5 +87,12 @@ public class BillingProcessConfiguration {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
+
+	public List<OrderPeriod> getOrderPeriods() {
+		return orderPeriods;
+	}
+
+	public void setOrderPeriods(List<OrderPeriod> orderPeriods) {
+		this.orderPeriods = orderPeriods;
+	}
 }

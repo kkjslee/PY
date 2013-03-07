@@ -9,9 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.inforstack.openstack.billing.process.conf.BillingProcessConfiguration;
 import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
@@ -37,6 +39,10 @@ public class OrderPeriod {
 	
 	@Column(name="pay_as_you_go")
 	private boolean payAsYouGo;
+	
+	@ManyToOne(cascade=CascadeType.REFRESH, fetch=FetchType.LAZY)
+	@JoinColumn(name="process_config_id")
+	private BillingProcessConfiguration processConfig;
 	
 	private boolean deleted;
 
@@ -95,4 +101,13 @@ public class OrderPeriod {
 	public void setPayAsYouGo(boolean payAsYouGo) {
 		this.payAsYouGo = payAsYouGo;
 	}
+
+	public BillingProcessConfiguration getProcessConfig() {
+		return processConfig;
+	}
+
+	public void setProcessConfig(BillingProcessConfiguration processConfig) {
+		this.processConfig = processConfig;
+	}
+	
 }

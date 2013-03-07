@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +14,6 @@ import com.inforstack.openstack.i18n.dict.DictionaryService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
-import com.inforstack.openstack.utils.MapUtil;
 
 @Service
 @Transactional
@@ -116,6 +113,16 @@ public class OrderPeriodServiceImpl implements OrderPeriodService {
 		}
 		
 		return period;
+	}
+	
+	@Override
+	public List<OrderPeriod> findPeriodsByProcessId(int billingProcessConfigId){
+		List<OrderPeriod> ops = periodDao.listByObject("processConfig.id", billingProcessConfigId);
+		if(ops == null){
+			ops = new ArrayList<OrderPeriod>();
+		}
+		
+		return ops;
 	}
 
 }

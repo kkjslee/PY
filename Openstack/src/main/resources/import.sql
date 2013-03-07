@@ -476,8 +476,8 @@ INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (4,1,2,'2'
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',5);
 
 insert into payment_method(id, type, icon, text, endpoint) values (1, 1, null, 40, '');
-insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '');
-insert into payment_method(id, type, icon, text, endpoint) values (3, 3, null, 42, null);
+insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '{host}/user/pay/payInvoice?invoiceId={invoice.id}');
+insert into payment_method(id, type, icon, text, endpoint) values (3, 3, null, 42, '');
 
 insert into payment_method_property(id, method_id, type, name, value) values (1, 1, 2, 'service', 'create_direct_pay_by_user');
 insert into payment_method_property(id, method_id, type, name, value) values (2, 1, 2, 'partner', '');
@@ -485,7 +485,7 @@ insert into payment_method_property(id, method_id, type, name, value) values (3,
 insert into payment_method_property(id, method_id, type, name, value) values (4, 1, 2, 'sign_type', 'MD5');
 insert into payment_method_property(id, method_id, type, name, value) values (5, 1, 3, 'sign', 'com.inforstack.openstack.payment.method.prop.builder.AlipaySignParamBuilder.build');
 insert into payment_method_property(id, method_id, type, name, value) values (6, 1, 2, 'return_url', '');
-insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{order.id}');
+insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{invoice.id}');
 insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{order.id}');
 insert into payment_method_property(id, method_id, type, name, value) values (9, 1, 2, 'payment_type', '1');
 insert into payment_method_property(id, method_id, type, name, value) values (10, 1, 2, 'seller_id', '');

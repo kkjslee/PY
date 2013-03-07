@@ -37,6 +37,8 @@ public interface PaymentService {
 	 */
 	public Payment processPayment(int paymentId);
 	
+	public BigDecimal applyPayment(int invoiceId);
+	
 	/**
 	 * apply payments to invoice
 	 * @param invoice

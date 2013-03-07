@@ -3,7 +3,6 @@ package com.inforstack.openstack.payment;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
-import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.payment.account.Account;
 import com.inforstack.openstack.payment.account.AccountService;
 import com.inforstack.openstack.payment.method.PaymentMethod;
@@ -112,6 +110,21 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setStatus(Constants.PAYMENT_STATUS_PROCESSING);
 		log.debug("Process payment status successfully");
 		return payment;
+	}
+	
+	@Override
+	public BigDecimal applyPayment(int invoiceId) {
+		log.debug("Apply payment to invoice : " + invoiceId);
+		Invoice invoice = invoiceService.findInvoice(invoiceId);
+		if(invoice == null){
+			log.error("No invoice found by id : " + invoiceId);
+			throw new ApplicationRuntimeException("No invoice found");
+		}
+		
+		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
+		BigDecimal balance = self.applyPayment(invoice, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
+		log.debug("apply payment successfully");
+		return balance;
 	}
 
 	@Override

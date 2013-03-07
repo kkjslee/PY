@@ -56,7 +56,16 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	
 	@Override
 	public List<PaymentMethod> listAll(){
-		return paymentMethodDao.listAll();
+		List<PaymentMethod> pms = paymentMethodDao.listAll();
+		if(pms == null){
+			pms = new ArrayList<PaymentMethod>();
+		}
+		
+		for(PaymentMethod pm : pms){
+			pm.getText().getId();
+		}
+		
+		return pms;
 	}
 	
 	@Override

@@ -195,7 +195,6 @@ insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethod
 insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
 insert into Resource(id, url, permission) values (210, '/user/cart/modules/ip', 'user');
 insert into Resource(id, url, permission) values (211, '/user/cart/modules/volume', 'user');
-insert into Resource(id, url, permission) values (212, '/user/cart/showOrderDetails', 'user');
 
 
 insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');
@@ -219,6 +218,8 @@ insert into Resource(id, url, permission) values (361, '/user/network/getPagerIP
 insert into Resource(id, url, permission) values (362, '/user/network/ipcontrol', 'user');
 insert into Resource(id, url, permission) values (363, '/user/network/getIPDetail', 'user');
 insert into Resource(id, url, permission) values (364, '/user/network/getIPDetail', 'user');
+insert into Resource(id, url, permission) values (365, '/user/network/ip/index', 'user');
+insert into Resource(id, url, permission) values (366, '/user/network/modules/template', 'user');
 
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');
 
@@ -250,6 +251,7 @@ insert into Resource(id, url, permission) values (451, '/admin/cinder/getPagerVo
 
 insert into Resource(id, url, permission) values (500, '/user/order/getPagerOrderList', 'user');
 insert into Resource(id, url, permission) values (501, '/user/order/modules/index', 'user');
+insert into Resource(id, url, permission) values (502, '/user/order/showOrderDetails', 'user');
 
 insert into Resource(id, url, permission) values (600, '/admin/order/getPagerOrderList', 'admin');
 insert into Resource(id, url, permission) values (601, '/admin/order/modules/index', 'admin');

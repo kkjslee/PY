@@ -14,6 +14,7 @@
     <td class="vmName"><!-- to be compatible with ie6,hidden input should be place in td element  -->
     <input type="hidden" id="pageTotal" value="${pageTotal}"/>
     <input isos="vmId" type="hidden" value="${item.vmid}" />
+    <input isos="vnc" type="hidden" value="${item.vnc}" />
     <input isos="vmName" type="hidden" value="${item.vmname}" />
     <c:if test="${not empty attachmentModel}">
         <input isos="vmVolume" type="hidden" value="${attachmentModel.volume}" />
@@ -53,6 +54,7 @@
 	        <li class="ope vmresuming"    <c:if test='${item.status=="resuming" || item.status == "active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'suspend','<spring:message code='suspend.button'/>');return false;"><spring:message code="suspend.button" /></a></li>
 	        <li <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></li>
 	        <li class="ope vmdeleted"  <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showRemoveTips1(this);return false;"><spring:message code="remove.button" /></a></li>
+		    <li class="ope vmvnc"  style="display:block" ><a class="button" href="#" onclick="openVNC(this);return false;"><spring:message code="vnc.button" /></a></li>
 		  </ul>
         </div>
         </td>

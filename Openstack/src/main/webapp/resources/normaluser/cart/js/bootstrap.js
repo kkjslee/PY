@@ -299,13 +299,6 @@ function removeCartItem(toId,row, callBack,itemCategory,container,removeCall){
 	});
 }
 
-function activeCartSubmitBtn(){
-	if(validOrderCondition()){
-		$(".cartButton").find("a").addClass("btn-primary");
-	}else{
-		$(".cartButton").find("a").removeClass("btn-primary");
-	}
-}
 
 function setCategorySelctedIdValue(itemCategory,value){
 	if(itemCategory == "img"){
@@ -324,11 +317,6 @@ function setCategorySelctedIdValue(itemCategory,value){
 	
 	
 }
-function udpateAmount(price){
-	$(".cartTotal").text(price);
-}
-
-
 
 function buyOrder(){
 	var orderId= $("#orderId").val();
@@ -341,13 +329,17 @@ function buyOrder(){
 	
 }
 
-function showPayDetails(){
+function showPayDetails(_orderId,_payId){
 	var createDiag=new CustomForm();
 	createDiag.show({
         title:'<spring:message code="user.order.details"/>',
         container:$('#showOrderDetails'),
-        url:'<c:url value="/user/cart/showOrderDetails"/>',
+        url:'<c:url value="/user/order/showOrderDetails"/>',
         width:420,
+        data:{
+        	orderId:_orderId,
+        	payId:_payId
+        },
         buttons: [
                   {   
                      text: '<spring:message code="confirm.button"/>', 
@@ -366,19 +358,13 @@ function showPayDetails(){
 
 function payOrder(dataDiag){
 	var form = dataDiag.getForm();
-    var payurl = $(form).find("#payurl").val();
+    var payurl = $(form).find("#endpoint").val();
     dataDiag.close();
-    window.open(payurl);
+    if(!isNull(payurl)){
+    	 window.open(payurl);
+    }
 }
 
-function validOrderPay(){
-	if(!isNull($("input[name='payMethod']:checked").val())){
-		window.console.log("paymethod :" + $("input[name='payMethod']:checked").val());
-		return true;
-	}else{
-		return false;
-	}
-}
 function showPayMethods(orderId){
 	$.ajax({
         url: Server + "/showPayMethods",
@@ -442,4 +428,27 @@ function validOrderCondition(){
 		};
 	});
 	return valid;
+}
+
+
+function validOrderPay(){
+	if(!isNull($("input[name='payMethod']:checked").val())){
+		window.console.log("paymethod :" + $("input[name='payMethod']:checked").val());
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function udpateAmount(price){
+	$(".cartTotal").text(price);
+}
+
+
+function activeCartSubmitBtn(){
+	if(validOrderCondition()){
+		$(".cartButton").find("a").addClass("btn-primary");
+	}else{
+		$(".cartButton").find("a").removeClass("btn-primary");
+	}
 }

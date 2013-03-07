@@ -73,7 +73,11 @@ function showRemoveTips1(which){
         showRemoveTips2(vmid,vmVolume);
     });
 }
-
+function openVNC(which){
+    var row = $(which).parents(".dataRow").first();
+    var vnc=$(row).find("input[isos='vnc']").val();
+    window.open(vnc);
+}
 function showRemoveTips2(vmid,vmVolume){
 	var removeTip2 = $.tmpl("removeTip2", [{
 	        id: "removeTip2"
@@ -253,7 +257,7 @@ function updateButtonWidthStatus(row,status){
         $(row).find(".vmunpause").show();
         $(row).find(".vmresuming").show();
         $(row).find(".vmdeleted").show();
-        
+        $(row).find(".vmvnc").show();
      }
      if(status == "deleted"){
      }

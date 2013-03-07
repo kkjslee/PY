@@ -19,6 +19,8 @@ import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.i18n.dict.DictionaryService;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
+import com.inforstack.openstack.payment.method.PaymentMethod;
+import com.inforstack.openstack.payment.method.PaymentMethodService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
@@ -31,6 +33,9 @@ public class UserOrderController {
 	private OrderService orderService;
 	@Autowired
 	private DictionaryService dictionaryService;
+	
+	@Autowired
+	private PaymentMethodService paymentMethodService;
 	private final String ORDER_MODULE_HOME = "user/modules/Order";
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
@@ -100,5 +105,46 @@ public class UserOrderController {
 		}catch(RuntimeException re){
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.pay.failed"));
 		}
+	}
+	
+	@RequestMapping(value = "/showOrderDetails", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody 
+		Map<String, Object>  getOrderDetails(Model model, 
+			String orderId, Integer payId, HttpServletRequest request,HttpServletResponse response) {
+		try{
+
+			Map<String, Object> property = new HashMap<String, Object>();
+			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, request.getContextPath());
+			String endpoint = orderService.payOrder(orderId, payId, property);
+			Order order = orderService.findOrderById(orderId);
+			PaymentMethod paymethod = paymentMethodService.findPaymentMethodById(payId);
+			Map<String, Object> conf = new LinkedHashMap<String, Object>();
+			conf.put(".form", "start_end");
+			conf.put(".title", OpenstackUtil.getMessage("user.order.pay"));
+			conf.put("form.endpoint", "[hidden]");
+			conf.put("endpoint.value", endpoint);
+			
+			conf.put("form.amount", "[plain]");
+			conf.put("amount.label", OpenstackUtil.getMessage("user.order.amount"));
+			conf.put("amount.value", order.getAmount());
+			conf.put("form.paymethod", "[custom]<label class='" + paymethod.getIcon() + "'></label>");
+			model.addAttribute("configuration", conf);
+
+			String jspString = OpenstackUtil.getJspPage(
+					"/templates/form.jsp?form.configuration=configuration&type=",
+					model.asMap(), request, response);
+
+			if (jspString == null) {
+				return OpenstackUtil.buildErrorResponse("error message");
+			} else {
+				return OpenstackUtil.buildSuccessResponse(jspString);
+			}
+			
+		}catch(ApplicationRuntimeException are){
+			return OpenstackUtil.buildErrorResponse(are.getMessage());
+		}catch(RuntimeException re){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.pay.failed"));
+		}
+		
 	}
 }

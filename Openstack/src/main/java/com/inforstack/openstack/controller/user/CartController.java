@@ -591,26 +591,4 @@ public class CartController {
 		return CART_MODULE_HOME + "/payMethods";
 	}
 	
-	@RequestMapping(value = "/showOrderDetails", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody 
-		Map<String, Object>  getOrderDetails(Model model, 
-			String orderId, Integer payId, HttpServletRequest request,HttpServletResponse response) {
-		
-		Map<String, Object> conf = new LinkedHashMap<String, Object>();
-		conf.put(".form", "start_end");
-		conf.put("form.username", "[plain]");
-		conf.put("form.email", "[plain]");
-
-		model.addAttribute("configuration", conf);
-
-		String jspString = OpenstackUtil.getJspPage(
-				"/templates/form.jsp?form.configuration=configuration&type=",
-				model.asMap(), request, response);
-
-		if (jspString == null) {
-			return OpenstackUtil.buildErrorResponse("error message");
-		} else {
-			return OpenstackUtil.buildSuccessResponse(jspString);
-		}
-	}
 }

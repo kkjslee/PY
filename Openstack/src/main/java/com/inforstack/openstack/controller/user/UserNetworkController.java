@@ -39,7 +39,7 @@ public class UserNetworkController {
 
 	private static final Logger log = new Logger(UserNetworkController.class);
 
-	private final String NETWORK_MODULE_HOME = "user/modules/network";
+	private final String NETWORK_MODULE_HOME = "user/modules/Network";
 
 	@Autowired
 	private InstanceService instanceService;
@@ -106,6 +106,23 @@ public class UserNetworkController {
 		conf.put("grid.name", "[plain]");
 		conf.put("grid.id", "[hidden]");
 		conf.put("grid.statusV", "[hidden]");
+		conf.put("statusV.value", "{status}");
+		conf.put("grid.status", "[plain]");
+		conf.put("status.value", "{statusDisplay} ");
+		conf.put("grid.created", "[plain]");
+		conf.put("created.label", OpenstackUtil.getMessage("createTime.label"));
+		conf.put(".forPager", true);
+		conf.put("grid.operation", "[button]associate,disassociate,remove");
+		conf.put("associate.onclick", "showAssociateOrDe('associate','"
+				+ OpenstackUtil.getMessage("associate.label")
+				+ "','{id}','{vm}', this)");
+		conf.put("disassociate.onclick", "showAssociateOrDe('disassociate','"
+				+ OpenstackUtil.getMessage("disassociate.label")
+				+ "','{id}','{vm}',this)");
+		conf.put("remove.onclick", "showAssociateOrDe('remove','"
+				+ OpenstackUtil.getMessage("remove.label")
+				+ "','{id}','{vm}',this)");
+		conf.put(".datas", ipList);
 
 		model.addAttribute("configuration", conf);
 

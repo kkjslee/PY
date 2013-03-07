@@ -2,6 +2,8 @@ package com.inforstack.openstack.controller.model;
 
 import java.util.Date;
 
+import com.inforstack.openstack.utils.OpenstackUtil;
+
 public class IPModel {
 
 	private String id;
@@ -72,6 +74,14 @@ public class IPModel {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getStatusDisplay() {
+		if (status != null) {
+			return OpenstackUtil.getMessage(status + ".label");
+		} else {
+			return null;
+		}
 	}
 	
 }

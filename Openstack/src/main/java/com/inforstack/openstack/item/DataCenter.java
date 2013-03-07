@@ -80,4 +80,12 @@ public class DataCenter {
 		this.images = images;
 	}
 
+	public String getExternalNet() {
+		return externalNet;
+	}
+
+	public void setExternalNet(String externalNet) {
+		this.externalNet = externalNet;
+	}
+
 }

@@ -76,8 +76,6 @@ insert into Configuration(id, name, value) values(61, 'socket.port', '11533');
 insert into Configuration(id, name, value) values(62, 'socket.ceilmeter.timeout', '60');
 insert into Configuration(id, name, value) values(63, 'socket.timestamp.tolerance', '3000');
 
-insert into Configuration(id, name, value) values(70, 'openstack.network.external', 'c7e5ab7b-3b70-440c-88fd-580272bfae30');
-
 insert into Role(id, name) values (1, 'admin');
 insert into Role(id, name) values (2, 'user');
 insert into Role(id, name) values (3, 'agent');
@@ -212,9 +210,13 @@ insert into Resource(id, url, permission) values (353, '/user/cinder/volumecontr
 insert into Resource(id, url, permission) values (354, '/user/cinder/getVolumeDetail', 'user');
 insert into Resource(id, url, permission) values (355, '/user/cinder/modules/template', 'user');
 
+insert into Resource(id, url, permission) values (360, '/user/network/modules/index', 'user');
+insert into Resource(id, url, permission) values (361, '/user/network/getPagerIPList', 'user');
+insert into Resource(id, url, permission) values (362, '/user/network/ipcontrol', 'user');
+insert into Resource(id, url, permission) values (363, '/user/network/getIPDetail', 'user');
+insert into Resource(id, url, permission) values (364, '/user/network/getIPDetail', 'user');
 
 insert into Resource(id, url, permission) values (380, '/user/plan/planList', 'user');
-
 
 insert into Resource(id, url, permission) values (400, '/admin/quantum/modules/index', 'admin');
 insert into Resource(id, url, permission) values (401, '/admin/quantum/getPagerNetworkList', 'admin');

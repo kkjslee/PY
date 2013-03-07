@@ -16,10 +16,13 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerService;
+import com.inforstack.openstack.api.quantum.FloatingIP;
 import com.inforstack.openstack.api.quantum.QuantumService;
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.instance.AttachTaskService;
 import com.inforstack.openstack.instance.AttributeMap;
+import com.inforstack.openstack.instance.IP;
+import com.inforstack.openstack.instance.IPDao;
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.instance.InstanceDao;
 import com.inforstack.openstack.instance.InstanceService;
@@ -33,6 +36,7 @@ import com.inforstack.openstack.item.DataCenterDao;
 import com.inforstack.openstack.item.FlavorDao;
 import com.inforstack.openstack.item.ImageDao;
 import com.inforstack.openstack.item.ItemSpecification;
+import com.inforstack.openstack.item.NetworkTypeDao;
 import com.inforstack.openstack.item.VolumeTypeDao;
 import com.inforstack.openstack.network.Network;
 import com.inforstack.openstack.network.NetworkService;
@@ -59,6 +63,9 @@ public class InstanceServiceImpl implements InstanceService {
 	private VolumeInstanceDao volumeInstanceDao;
 	
 	@Autowired
+	private IPDao ipDao;
+	
+	@Autowired
 	private InstanceStatusDao instanceStatusDao;
 	
 	@Autowired
@@ -72,6 +79,9 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	@Autowired
 	private VolumeTypeDao volumeTypeDao;
+	
+	@Autowired
+	private NetworkTypeDao networkTypeDao;
 		
 	@Autowired
 	private KeystoneService keystoneService;
@@ -109,6 +119,14 @@ public class InstanceServiceImpl implements InstanceService {
 
 		public void setExtenal(String extenal) {
 			this.extenal = extenal;
+		}
+
+		public boolean isWeb() {
+			return web;
+		}
+
+		public void setWeb(boolean web) {
+			this.web = web;
 		}
 		
 	}
@@ -211,6 +229,21 @@ public class InstanceServiceImpl implements InstanceService {
 	public VolumeInstance findVolumeInstanceFromUUID(String uuid) {
 		return this.volumeInstanceDao.findByObject("uuid", uuid);
 	}
+	
+	@Override
+	public List<IP> findIPFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
+		List<IP> ipList = new ArrayList<IP>();
+		List<Instance> instances = this.instanceDao.listInstancesByTenant(tenant, Constants.INSTANCE_TYPE_IP, includeStatus, excludeStatus);
+		for (Instance instance : instances) {
+			ipList.add(this.ipDao.findByObject("uuid", instance.getUuid()));
+		}
+		return ipList;
+	}
+
+	@Override
+	public IP findIPFromUUID(String uuid) {
+		return this.ipDao.findByObject("uuid", uuid);
+	}
 
 	@Override
 	public void createInstance(User user, Tenant tenant, String orderId) {
@@ -228,6 +261,7 @@ public class InstanceServiceImpl implements InstanceService {
 							DataCenter dataCenter = this.dataCenterDao.findById(Integer.parseInt(dataCenterRef));
 							VirtualMachine vm = null;
 							VolumeInstance vi = null;
+							IP ip = null;
 							Server server = this.getServerFromOrder(order);
 							if (server != null) {
 								String tenantName = tenant.getName();
@@ -269,6 +303,17 @@ public class InstanceServiceImpl implements InstanceService {
 									if (server != null && server.getId() != null && !server.getId().isEmpty()) {
 										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), user.getUsername(), user.getPassword(), tenant.getUuid());
 									}
+								}
+							}
+							
+							IPConfig ipConfig = this.getIPFromOrder(order);
+							if (ipConfig != null) {
+								FloatingIP floatingIP = this.quantumService.createFloatingIP(access, ipConfig.getExtenal());
+								if (floatingIP != null) {
+									ip = this.bindIPToSubOrder(floatingIP, order, vm, dataCenterRef, tenant);
+								}
+								if (server != null && server.getId() != null && !server.getId().isEmpty()) {
+									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_IP, vm.getUuid(), ip.getUuid(), user.getUsername(), user.getPassword(), tenant.getUuid());
 								}
 							}
 						}
@@ -469,6 +514,8 @@ public class InstanceServiceImpl implements InstanceService {
 			DataCenter dataCenter = this.dataCenterDao.findById(dataCenterId);
 			if (dataCenter != null) {
 				ipConfig = new IPConfig();
+				ipConfig.setExtenal(dataCenter.getExternalNet());
+				ipConfig.setWeb(this.networkTypeDao.isWebSite(dataCenterId, ipRef));
 			}
 		}
 		return ipConfig;
@@ -530,6 +577,38 @@ public class InstanceServiceImpl implements InstanceService {
 			}
 		}
 		return vi;
+	}
+	
+	private IP bindIPToSubOrder(FloatingIP floatingIP, Order order, VirtualMachine vm, String dataCenterRef, Tenant tenant) {
+		IP ip = null;
+		List<SubOrder> subOrders = order.getSubOrders();
+		for (SubOrder subOrder : subOrders) {
+			int osType = subOrder.getItem().getOsType();
+			switch (osType) {
+			case ItemSpecification.OS_TYPE_NETWORK_ID:
+				subOrder.setUuid(floatingIP.getId());
+				ip = new IP();
+				ip.setUuid(floatingIP.getId());
+				if (vm != null) {
+					ip.setVm(vm.getUuid());					
+				}
+				this.ipDao.persist(ip);
+				Instance instance = this.registerInstance(Constants.INSTANCE_TYPE_IP, floatingIP.getId(), "", dataCenterRef, tenant);
+				instance.setStatus("available");
+				if (vm != null) {
+					Instance parentInstance = this.instanceDao.findByObject("uuid", vm.getUuid());
+					List<Instance> subInstances = parentInstance.getSubInstance();
+					subInstances.add(instance);
+					parentInstance.setSubInstance(subInstances);
+					instance.setParent(parentInstance);
+					this.instanceDao.persist(parentInstance);
+				}
+				this.instanceDao.persist(instance);
+				subOrder.setInstance(instance);
+				break;
+			}
+		}
+		return ip;
 	}
 
 	@Override
@@ -604,17 +683,71 @@ public class InstanceServiceImpl implements InstanceService {
 		}
 	}
 	
-//	private void bindNetworkToSubOrder(Network network, Order order) {
-//		List<SubOrder> subOrders = order.getSubOrders();
-//		for (SubOrder subOrder : subOrders) {
-//			int osType = subOrder.getItem().getOsType();
-//			switch (osType) {
-//			case ItemSpecification.OS_TYPE_NETWORK_ID:
-//				subOrder.setUuid(network.getId());
-//				this.registerInstance(Constants.INSTANCE_TYPE_IP, network.getId(), subOrder);
-//				break;
-//			}
-//		}
-//	}
+	@Override
+	public void associateIP(User user, Tenant tenant, String ipId, String serverId) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		try {
+			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			if (access != null) {
+				Instance ipInstance = this.instanceDao.findByObject("uuid", ipId);
+				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
+				if (ipInstance != null && ipInstance.getType() == Constants.INSTANCE_TYPE_IP && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
+					if (ipInstance.getStatus().equalsIgnoreCase("available")) {
+						IP ip = this.ipDao.findByObject("uuid", ipId);
+						ip.setVm(serverId);
+						this.ipDao.persist(ip);
+						this.quantumService.associateFloatingIP(access, serverId, ipId);
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void disassociateIP(User user, Tenant tenant, String ipId, String serverId) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		try {
+			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			if (access != null) {
+				Instance ipInstance = this.instanceDao.findByObject("uuid", ipId);
+				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
+				if (ipInstance != null && ipInstance.getType() == Constants.INSTANCE_TYPE_IP && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
+					if (ipInstance.getStatus().equalsIgnoreCase("in-use")) {
+						IP ip = this.ipDao.findByObject("uuid", ipId);
+						if (ip.getVm().equalsIgnoreCase(serverId)) {
+							ip.setVm(null);
+							this.ipDao.persist(ip);
+							this.quantumService.disassociateFloatingIP(access, ipId);
+						}
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void removeIP(User user, Tenant tenant, String ipId) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		try {
+			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			if (access != null) {
+				Instance ipInstance = this.instanceDao.findByObject("uuid", ipId);
+				if (ipInstance != null && ipInstance.getType() == Constants.INSTANCE_TYPE_IP) {
+					if (!ipInstance.getStatus().equalsIgnoreCase("in-use")) {
+						
+					}
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 }

@@ -27,6 +27,10 @@ public interface InstanceService {
 	
 	public VolumeInstance findVolumeInstanceFromUUID(String uuid);
 	
+	public List<IP> findIPFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
+	
+	public IP findIPFromUUID(String uuid);
+	
 	public void createInstance(User user, Tenant tenant, String orderId);
 	
 	public void updateVM(User user, Tenant tenant, String serverId, String name);
@@ -40,5 +44,11 @@ public interface InstanceService {
 	public void detachVolume(User user, Tenant tenant, String volumeId, String serverId);
 	
 	public void removeVolume(User user, Tenant tenant, String volumeId);
+	
+	public void associateIP(User user, Tenant tenant, String ipId, String serverId);
+	
+	public void disassociateIP(User user, Tenant tenant, String ipId, String serverId);
+	
+	public void removeIP(User user, Tenant tenant, String ipId);
 	
 }

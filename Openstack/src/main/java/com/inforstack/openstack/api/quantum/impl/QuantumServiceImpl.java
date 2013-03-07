@@ -1,5 +1,7 @@
 package com.inforstack.openstack.api.quantum.impl;
 
+import java.util.Date;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,10 @@ import com.inforstack.openstack.api.quantum.Subnet;
 import com.inforstack.openstack.api.quantum.Subnet.AllocationPool;
 import com.inforstack.openstack.configuration.Configuration;
 import com.inforstack.openstack.configuration.ConfigurationDao;
+import com.inforstack.openstack.instance.Instance;
+import com.inforstack.openstack.instance.InstanceDao;
+import com.inforstack.openstack.instance.InstanceStatus;
+import com.inforstack.openstack.instance.InstanceStatusDao;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RestUtils;
 
@@ -29,6 +35,12 @@ public class QuantumServiceImpl implements QuantumService {
 
 	@Autowired
 	private ConfigurationDao configurationDao;
+	
+	@Autowired
+	private InstanceDao instanceDao;
+	
+	@Autowired
+	private InstanceStatusDao instanceStatusDao;
 
 	public static final class Networks {
 
@@ -438,34 +450,22 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 	
 	@Override
-	public FloatingIP associateFloatingIP(Access access, Server server) throws OpenstackAPIException {
+	public FloatingIP createFloatingIP(Access access, String external) throws OpenstackAPIException {
 		FloatingIP floatingIP = null;
-		if (access != null && server != null) {
-			QuantumService self = OpenstackUtil.getBean(QuantumService.class);
-			Network[] networks = self.listNetworks(access);
-			for (Network network : networks) {
-				if (network.getName().endsWith("_private")) {
-					Port[] ports = self.listPorts(access);
-					for (Port port : ports) {
-						if (port.getNetwork().equalsIgnoreCase(network.getId()) && port.getDevice().equalsIgnoreCase(server.getId())) {
-							Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLOATINGIPS);
-							Configuration external = this.configurationDao.findByName(EXTERNAL_NETWORK_ID);
-							if (endpoint != null && external != null) {
-								String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-								FloatingIP newFloatingIP = new FloatingIP();
-								newFloatingIP.setFloatingNetwork(external.getValue());
-								newFloatingIP.setPort(port.getId());
-								FloatingIPBody request = new FloatingIPBody();
-								request.setFloatingIP(newFloatingIP);
-								FloatingIPBody response = RestUtils.postForObject(url, access, request, FloatingIPBody.class);
-								if (response != null) {
-									floatingIP = response.getFloatingIP();
-								}
-							}
-							break;
-						}
-					}
-					break;
+		if (access != null && external != null && !external.isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLOATINGIPS);
+			if (endpoint != null && external != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				
+				FloatingIP newFloatingIP = new FloatingIP();
+				newFloatingIP.setFloatingNetwork(external);
+				
+				FloatingIPBody request = new FloatingIPBody();
+				request.setFloatingIP(newFloatingIP);
+				
+				FloatingIPBody response = RestUtils.postForObject(url, access, request, FloatingIPBody.class);
+				if (response != null) {
+					floatingIP = response.getFloatingIP();
 				}
 			}
 		}
@@ -473,7 +473,7 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 	
 	@Override
-	public void associateFloatingIP(Access access, Server server, String uuid) throws OpenstackAPIException {
+	public void associateFloatingIP(Access access, String server, String uuid) throws OpenstackAPIException {
 		if (access != null && server != null) {
 			QuantumService self = OpenstackUtil.getBean(QuantumService.class);
 			Network[] networks = self.listNetworks(access);
@@ -481,16 +481,24 @@ public class QuantumServiceImpl implements QuantumService {
 				if (network.getName().endsWith("_private")) {
 					Port[] ports = self.listPorts(access);
 					for (Port port : ports) {
-						if (port.getNetwork().equalsIgnoreCase(network.getId()) && port.getDevice().equalsIgnoreCase(server.getId())) {
+						if (port.getNetwork().equalsIgnoreCase(network.getId()) && port.getDevice().equalsIgnoreCase(server)) {
 							Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLOATINGIP);
-							Configuration external = this.configurationDao.findByName(EXTERNAL_NETWORK_ID);
-							if (endpoint != null && external != null) {
+							if (endpoint != null) {
 								String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 								FloatingIP newFloatingIP = new FloatingIP();
 								newFloatingIP.setPort(port.getId());
 								FloatingIPBody request = new FloatingIPBody();
 								request.setFloatingIP(newFloatingIP);
 								RestUtils.put(url, access, request, uuid);
+								
+								Instance instance = this.instanceDao.findByObject("uuid", uuid);
+								instance.setStatus("in-use");
+								this.instanceDao.persist(instance);
+								InstanceStatus status = new InstanceStatus();
+								status.setUuid(uuid);
+								status.setStatus("associate");
+								status.setUpdateTime(new Date());
+								this.instanceStatusDao.persist(status);
 							}
 							break;
 						}
@@ -500,10 +508,57 @@ public class QuantumServiceImpl implements QuantumService {
 			}
 		}
 	}
+	
+	private static final class DisassociateIPBody implements RequestBody {
+
+		@JsonProperty("floatingip")
+		private DisassociateIP floatingIP;
+
+		public void setFloatingIP(DisassociateIP floatingIP) {
+			this.floatingIP = floatingIP;
+		}
+
+	}
+	
+	private static final class DisassociateIP {	
+		
+		@JsonProperty("port_id")
+		private Object port = null;
+	}
 
 	@Override
 	public void disassociateFloatingIP(Access access, String uuid) throws OpenstackAPIException {
-		this.remove(access, ENDPOINT_FLOATINGIP, uuid);
+		if (access != null) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_FLOATINGIP);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				DisassociateIPBody request = new DisassociateIPBody();
+				request.setFloatingIP(new DisassociateIP());
+				RestUtils.put(url, access, request, uuid);
+				
+				Instance instance = this.instanceDao.findByObject("uuid", uuid);
+				instance.setStatus("available");
+				this.instanceDao.persist(instance);
+				InstanceStatus status = new InstanceStatus();
+				status.setUuid(uuid);
+				status.setStatus("disassociate");
+				status.setUpdateTime(new Date());
+				this.instanceStatusDao.persist(status);
+			}
+		}
+	}
+	
+	@Override
+	public void removeFloatingIP(Access access, String id) throws OpenstackAPIException {
+		this.remove(access, ENDPOINT_FLOATINGIP, id);
+		Instance instance = this.instanceDao.findByObject("uuid", id);
+		instance.setStatus("deleted");
+		this.instanceDao.persist(instance);
+		InstanceStatus status = new InstanceStatus();
+		status.setUuid(id);
+		status.setStatus("deleted");
+		status.setUpdateTime(new Date());
+		this.instanceStatusDao.persist(status);
 	}
 
 	private static String getEndpoint(Access access, Type type, String suffix) {

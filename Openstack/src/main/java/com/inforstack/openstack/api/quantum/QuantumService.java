@@ -57,10 +57,12 @@ public interface QuantumService {
 	
 	public void addInterface(Access access, Router router, Subnet subnet) throws OpenstackAPIException;
 	
-	public FloatingIP associateFloatingIP(Access access, Server server) throws OpenstackAPIException;
+	public FloatingIP createFloatingIP(Access access, String external) throws OpenstackAPIException;
 	
-	public void associateFloatingIP(Access access, Server server, String uuid) throws OpenstackAPIException;
+	public void associateFloatingIP(Access access, String server, String uuid) throws OpenstackAPIException;
 	
 	public void disassociateFloatingIP(Access access, String uuid) throws OpenstackAPIException;
+	
+	public void removeFloatingIP(Access access, String id) throws OpenstackAPIException;
 	
 }

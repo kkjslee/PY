@@ -14,6 +14,7 @@ import com.inforstack.openstack.api.cinder.CinderService;
 import com.inforstack.openstack.api.cinder.VolumeAttachment;
 import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
+import com.inforstack.openstack.api.quantum.QuantumService;
 import com.inforstack.openstack.instance.AttachTask;
 import com.inforstack.openstack.instance.AttachTaskDao;
 import com.inforstack.openstack.instance.AttachTaskService;
@@ -40,6 +41,9 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 	
 	@Autowired
 	private CinderService cinderService;
+	
+	@Autowired
+	private QuantumService quantumService;
 	
 	@PostConstruct
 	public void initThread() {		
@@ -149,7 +153,7 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 					}
 					break;
 				}
-				case Constants.DETACH_TASK_TYPE_VOLUME:
+				case Constants.DETACH_TASK_TYPE_VOLUME: {
 					try {
 						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
 						if (access != null) {
@@ -171,8 +175,54 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 						log.error("Can't attach volume[" + attachId + "] to vm[" + serverId + "]", e);
 					}
 					break;
-				}				
+				}
+				case Constants.ATTACH_TASK_TYPE_IP: {
+					try {
+						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
+						if (access != null) {
+							Instance vm = this.instanceDao.findByObject("uuid", serverId);
+							if (vm != null && vm.getStatus().equalsIgnoreCase("active")) {
+								Instance ip = this.instanceDao.findByObject("uuid", attachId);
+								if (ip != null && ip.getStatus().equalsIgnoreCase("available")) {
+									task.setUpdateTime(now);
+									task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
+									this.quantumService.associateFloatingIP(access, vm.getUuid(), attachId);
+									task.setUpdateTime(now);
+									task.setStatus(Constants.ATTACH_TASK_STATUS_COMPLETE);
+								}
+							}												
+						}
+					} catch (OpenstackAPIException e) {
+						task.setUpdateTime(now);
+						task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
+						log.error("Can't attach ip[" + attachId + "] to vm[" + serverId + "]", e);
+					}
+					break;
+				}
+				case Constants.DETACH_TASK_TYPE_IP: {
+					try {
+						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
+						if (access != null) {
+							Instance vm = this.instanceDao.findByObject("uuid", serverId);
+							if (vm != null && vm.getStatus().equalsIgnoreCase("active")) {
+								Instance ip = this.instanceDao.findByObject("uuid", attachId);
+								if (ip != null && ip.getStatus().equalsIgnoreCase("available")) {
+									task.setUpdateTime(now);
+									task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
+									this.quantumService.disassociateFloatingIP(access, attachId);
+									task.setUpdateTime(now);
+									task.setStatus(Constants.ATTACH_TASK_STATUS_COMPLETE);
+								}
+							}												
+						}
+					} catch (OpenstackAPIException e) {
+						task.setUpdateTime(now);
+						task.setStatus(Constants.ATTACH_TASK_STATUS_ERROR);
+						log.error("Can't attach ip[" + attachId + "] to vm[" + serverId + "]", e);
+					}
+					break;
+				}
+			}
 		}
 	}
-
 }

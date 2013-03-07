@@ -18,6 +18,7 @@
       <div class="menu tabbable tabs-left">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#" name="menuItem" isos:module="modules/entry/index" data-toggle="tab"><spring:message code='admin.navigation.menu.admin.index'/></a></li>
+            <li><a href="#" name="menuItem" isos:module="/modules/entry/edit" data-toggle="tab"><spring:message code='admin.entry.edit'/></a></li>
             <li><a href="#" name="menuItem" isos:module="instance/modules/index" data-toggle="tab"><spring:message code='admin.navi.instance' /></a></li>
             <li><a href="#" name="menuItem" isos:module="flavor/modules/index" data-toggle="tab"><spring:message code='admin.navi.flavor' /></a></li>
             <li><a href="#" name="menuItem" isos:module="image/modules/index" data-toggle="tab"><spring:message code='admin.navi.image' /></a></li>

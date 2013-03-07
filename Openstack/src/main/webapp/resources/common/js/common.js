@@ -94,11 +94,15 @@ function CustomForm(){
 	        	form = container.dialog({
 	        		title : conf.title,
 	        		modal: true,
+	        		autoOpen:false,
 	                resizable: false,
 	                width:conf.width,
 	        		buttons : conf.buttons
 	        	});
-	        	
+	        	if(typeof(conf.callback)!="undefined"){
+	        		callback.call(form);
+				}
+	        	$(form).dialog("open");
 	        	if(success == true){
 	        		inited = true;
 	        	}

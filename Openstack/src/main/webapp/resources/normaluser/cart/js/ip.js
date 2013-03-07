@@ -24,6 +24,7 @@ $(function(){
 function buyOrder(){
 	window.console.log("buy order");
 	if(validOrderPay()){
+		return;
 		window.open(Server + "/buyorder?orderId="+$("#orderId").val());
 	}else{
 		printMessage(selPayMsg);

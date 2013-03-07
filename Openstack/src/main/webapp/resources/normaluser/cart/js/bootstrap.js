@@ -331,13 +331,44 @@ function udpateAmount(price){
 
 
 function buyOrder(){
-	window.console.log("buy order");
+	var orderId= $("#orderId").val();
+	var payId = $("input[name='payMethod']:checked").val();
 	if(validOrderPay()){
-		window.open(Server + "/buyorder?orderId="+$("#orderId").val());
+		showPayDetails(orderId,payId);
 	}else{
 		printMessage(selPayMsg);
 	}
 	
+}
+
+function showPayDetails(){
+	var createDiag=new CustomForm();
+	createDiag.show({
+        title:'<spring:message code="user.order.details"/>',
+        container:$('#showOrderDetails'),
+        url:'<c:url value="/user/cart/showOrderDetails"/>',
+        width:420,
+        buttons: [
+                  {   
+                     text: '<spring:message code="confirm.button"/>', 
+                     click:function(){
+                       payOrder(createDiag);
+                     }},
+                 {
+                   text: '<spring:message code="cancel.button"/>',
+                   click: function() {
+                	   createDiag.close();
+                   }
+                  }
+                  ]
+    });
+}
+
+function payOrder(dataDiag){
+	var form = dataDiag.getForm();
+    var payurl = $(form).find("#payurl").val();
+    dataDiag.close();
+    window.open(payurl);
 }
 
 function validOrderPay(){

@@ -191,7 +191,6 @@
      }
 
     function getTaskStatus(row,id){
-    	var pd=showProcessingDialog();
         $.ajax({
             type: "POST",
             url: '<c:url value="/user/cinder/getVolumeDetail"/>',
@@ -202,7 +201,6 @@
             },
             dataType:"json",
             success: function(data) {
-            	pd.dialog("destroy");
                 try{
                 	if(data.status=="success"){
                 		data = data.data;
@@ -214,7 +212,6 @@
             },
             error: function(jqXHR, textStatus, errorThrown) {
             	clearInterval(rTask);     
-            	pd.dialog("destroy");
                 printError(jqXHR, textStatus, errorThrown);
             }
         });

@@ -13,7 +13,7 @@
 <body>
 <div class="banner">
     <label>
-        <span id="banner" ></span>
+        <span></span>
     </label>
 </div>
 

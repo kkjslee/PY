@@ -50,7 +50,7 @@ example:
 <c:if test="${conf['.forPager'] != null && conf['.forPager'] == true}">
     <table style="width:100%">
 </c:if>
-
+<c:set var="colenth" value="${fn:length(map)}"/>
 <thead class="headerRow"><tr>
     <c:forEach items="${map}" var="item" >
         <c:choose>
@@ -66,6 +66,8 @@ example:
     </c:forEach>
 </tr></thead>
 <tbody>
+    <c:choose>
+    <c:when test="${conf['.datas']!= null && fn:length(conf['.datas'])>0}">
     <c:forEach items="${conf['.datas']}" var="d" varStatus="status">
         <c:if test="${status.index%2 == 0}">
             <tr class="dataRow rowOdd">
@@ -207,6 +209,11 @@ example:
             </c:forEach>
         </tr>
     </c:forEach>
+     </c:when>
+     <c:otherwise>
+        <tr><td colspan="${colenth}"><spring:message code="data.norecords"/></td></tr>
+     </c:otherwise>
+    </c:choose>
 </tbody>
 <c:if test="${conf['.forPager'] != null && conf['.forPager'] == true}">
 </table>

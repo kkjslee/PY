@@ -54,6 +54,10 @@ body {
 .zfb {
     background: url("images/zfb.gif") no-repeat right 0;
 }
+
+.ylzx{
+    background: url("images/ylzx.gif") no-repeat right 0;
+}
 .ui-dialog .ui-dialog-titlebar{
 	padding:0 5px;
 }

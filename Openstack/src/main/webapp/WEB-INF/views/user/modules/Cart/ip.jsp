@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="banner">
-    <span id="banner" ><spring:message code="cart.network.banner"/></span>
+    <span  ><spring:message code="cart.network.banner"/></span>
 </div>
 
 <div id="mainBody" >

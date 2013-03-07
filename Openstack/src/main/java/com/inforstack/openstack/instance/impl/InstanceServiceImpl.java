@@ -97,6 +97,22 @@ public class InstanceServiceImpl implements InstanceService {
 	@Autowired
 	private AttachTaskService attachTaskService;
 	
+	private static final class IPConfig {
+		
+		private String extenal;
+		
+		private boolean web;
+
+		public String getExtenal() {
+			return extenal;
+		}
+
+		public void setExtenal(String extenal) {
+			this.extenal = extenal;
+		}
+		
+	}
+	
 	@Override
 	public DataCenter getDataCenterFromInstance(Instance instance) {
 		DataCenter dataCenter = null;
@@ -215,20 +231,21 @@ public class InstanceServiceImpl implements InstanceService {
 							Server server = this.getServerFromOrder(order);
 							if (server != null) {
 								String tenantName = tenant.getName();
+								String networkName = tenantName + "_" + dataCenterRef + "_private";
 								
 								List<Network> networks = this.networkService.listNetworksFromTenant(tenant, dataCenter.getId());
 								Network network = null;
 								if (networks.isEmpty()) {
-									network = this.networkService.createNetwork(user, tenant, tenantName + "_" + dataCenterRef + "_private", dataCenter);
+									network = this.networkService.createNetwork(user, tenant, networkName, dataCenter);
 								} else {
 									for (Network n : networks) {
-										if (n.getName().equalsIgnoreCase(null)) {
+										if (n.getName().equalsIgnoreCase(networkName)) {
 											network = n;
 											break;
 										}
 									}
 									if (network == null) {
-										network = this.networkService.createNetwork(user, tenant, tenant.getName() + "_" + dataCenterRef + "_private", dataCenter);
+										network = this.networkService.createNetwork(user, tenant, networkName, dataCenter);
 									}
 								}
 								if (network != null) {
@@ -431,6 +448,30 @@ public class InstanceServiceImpl implements InstanceService {
 			}
 		}
 		return volume;
+	}
+	
+	private IPConfig getIPFromOrder(Order order) {
+		IPConfig ipConfig = null;
+		List<SubOrder> subOrders = order.getSubOrders();
+		String dataCenterRef = null;
+		String ipRef = null;
+		for (SubOrder subOrder : subOrders) {
+			int osType = subOrder.getItem().getOsType();
+			String refId = subOrder.getItem().getRefId();
+			if (osType == ItemSpecification.OS_TYPE_DATACENTER_ID) {
+				dataCenterRef = refId;
+			} else if (osType == ItemSpecification.OS_TYPE_NETWORK_ID) {
+				ipRef = refId;
+			}
+		}
+		if (dataCenterRef != null && ipRef != null) {
+			int dataCenterId = Integer.parseInt(dataCenterRef);
+			DataCenter dataCenter = this.dataCenterDao.findById(dataCenterId);
+			if (dataCenter != null) {
+				ipConfig = new IPConfig();
+			}
+		}
+		return ipConfig;
 	}
 	
 	private VirtualMachine bindServerToSubOrder(Server server, Order order, String dataCenterRef, Tenant tenant) {

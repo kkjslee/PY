@@ -1,6 +1,8 @@
 package com.inforstack.openstack.api.nova.server.impl;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
 import com.inforstack.openstack.api.nova.image.Image;
 import com.inforstack.openstack.api.nova.image.ImageService;
+import com.inforstack.openstack.api.nova.server.Address;
 import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerAction;
 import com.inforstack.openstack.api.nova.server.ServerService;
@@ -25,6 +28,8 @@ import com.inforstack.openstack.instance.InstanceDao;
 import com.inforstack.openstack.instance.InstanceStatus;
 import com.inforstack.openstack.instance.InstanceStatusDao;
 import com.inforstack.openstack.instance.UserActionDao;
+import com.inforstack.openstack.instance.VirtualMachine;
+import com.inforstack.openstack.instance.VirtualMachineDao;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.RestUtils;
 
@@ -46,6 +51,9 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Autowired
 	private InstanceDao instanceDao;
+	
+	@Autowired
+	private VirtualMachineDao vmDao;
 	
 	@Autowired
 	private InstanceStatusDao instanceStatusDao;
@@ -153,6 +161,7 @@ public class ServerServiceImpl implements ServerService {
 									String task = s.getTask();
 									self.updateServerStatus(s.getId(), status, task);
 									if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("error")) {
+										self.updateServerAddress(s.getId(), s);
 										break;
 									}
 								} else {
@@ -280,6 +289,22 @@ public class ServerServiceImpl implements ServerService {
 			instance.setTask(task != null ? task : "");
 			instance.setUpdateTime(now);
 		}
+	}
+	
+	@Override
+	public void updateServerAddress(String uuid, Server server) {
+		VirtualMachine vm = this.vmDao.findByObject("uuid", uuid);
+		Map<String, Address[]> addresses = server.getAddresses();
+		if (!addresses.isEmpty()) {
+			Iterator<Address[]> it = addresses.values().iterator();
+			if (it.hasNext()) {
+				Address[] addr = it.next();
+				if (addr.length > 0) {
+					vm.setFixedIp(addr[0].getAddr());
+				}
+			}
+		}
+		this.vmDao.persist(vm);		
 	}
 	
 	private Server getServerDetail(Access access, String id) throws OpenstackAPIException {

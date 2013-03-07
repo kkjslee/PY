@@ -57,19 +57,19 @@ public class UserInstanceController {
 
 	@Autowired
 	private InstanceService instanceService;
-
+	
 	@Autowired
 	private ItemService itemService;
-
+	
 	@Autowired
 	private ServerService serverService;
-
+	
 	@Autowired
 	private FlavorService flavorService;
-
+	
 	@Autowired
 	private KeystoneService keystoneService;
-
+	
 	private final String INSTANCE_MODULE_HOME = "user/modules/Instance";
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
@@ -92,8 +92,7 @@ public class UserInstanceController {
 	}
 
 	@RequestMapping(value = "/getPagerInstanceList", method = RequestMethod.POST)
-	public String getPagerInstances(Model model, Integer pageIndex,
-			Integer pageSize) {
+	public String getPagerInstances(Model model, Integer pageIndex, Integer pageSize) {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
@@ -113,57 +112,47 @@ public class UserInstanceController {
 		String username = SecurityUtils.getUserName();
 		Tenant tenant = SecurityUtils.getTenant();
 
-		// TODO: [rqshao] filter for virtual machines
 		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
 			
 		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
 		instanceList = page.getPagedData(pageIdx);
 		if (instanceList != null) {
-			for (Instance instance : instanceList) {
+			for (Instance instance : instanceList) {				
 				InstanceModel im = new InstanceModel();
 				im.setVmid(instance.getUuid());
 				im.setVmname(instance.getName());
 				im.setStatus(instance.getStatus());
-				im.setStatusdisplay(OpenstackUtil.getMessage(instance
-						.getStatus() + ".status.vm"));
+				im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
 				im.setTenantId(tenant.getUuid());
 				im.setStarttime(instance.getCreateTime());
 				im.setUpdatetime(instance.getUpdateTime());
 				im.setTaskStatus(instance.getTask());
 				im.setAssignedto(username);
 				im.setAccesspoint("");
-
-				log.info(instance.getStatus());
-				log.info(instance.getTask());
-
-				DataCenter dataCenter = this.instanceService
-						.getDataCenterFromInstance(instance);
+				
+				DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
 				im.setRegion(dataCenter.getName().getI18nContent());
-
-				OrderPeriod period = this.instanceService
-						.getPeriodFromInstance(instance);
+				
+				OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
 				im.setPeriod(period.getName().getI18nContent());
-
-				VirtualMachine vm = this.instanceService
-						.findVirtualMachineFromUUID(instance.getUuid());
-				ItemSpecification flavorItem = this.itemService
-						.getItemSpecificationFromRefId(
-								ItemSpecification.OS_TYPE_FLAVOR_ID,
-								vm.getFlavor());
+				
+				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
+				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
-
-				ItemSpecification imageItem = this.itemService
-						.getItemSpecificationFromRefId(
-								ItemSpecification.OS_TYPE_IMAGE_ID,
-								vm.getImage());
+				
+				Map<String, String> tempAddress = new HashMap<String, String>();
+				tempAddress.put("Private", vm.getFixedIp());
+				im.setAddresses(tempAddress);
+				
+				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
 				if (imageItem != null) {
 					im.setOstype(imageItem.getName().getI18nContent());
 				}
 				imList.add(im);
 			}
-
+			
 			model.addAttribute("pageIndex", pageIdx);
 			model.addAttribute("pageSize", pageSze);
 			model.addAttribute("pageTotal", page.getTotalRecord());
@@ -174,8 +163,7 @@ public class UserInstanceController {
 
 	@RequestMapping(value = "/imcontrol", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	String controlInstance(Model model, String executecommand, String vmid,
-			Boolean freeResources) {
+	String controlInstance(Model model, String executecommand, String vmid, Boolean freeResources) {
 		try {
 			String username = SecurityUtils.getUserName();
 			String password = SecurityUtils.getUser().getPassword();
@@ -201,11 +189,9 @@ public class UserInstanceController {
 				} else if (executecommand.equals("poweron")) {
 					action = new StartServer();
 				} else if (executecommand.equals("removevm")) {
-					// serverService.removeServer(access, server);
-					boolean free = (freeResources == null || freeResources
-							.booleanValue());
-					this.instanceService.removeVM(SecurityUtils.getUser(),
-							tenant, server.getId(), free);
+					//serverService.removeServer(access, server);
+					boolean free = (freeResources == null || freeResources.booleanValue());
+					this.instanceService.removeVM(SecurityUtils.getUser(), tenant, server.getId(), free);
 				}
 
 				if (action != null) {
@@ -225,75 +211,45 @@ public class UserInstanceController {
 		InstanceModel im = new InstanceModel();
 		if (!StringUtil.isNullOrEmpty(vmId, false)) {
 			try {
-				Instance instance = this.instanceService
-						.findInstanceFromUUID(vmId);
-				VirtualMachine vm = this.instanceService
-						.findVirtualMachineFromUUID(vmId);
-
+				Instance instance = this.instanceService.findInstanceFromUUID(vmId);
+				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(vmId);
+				
 				String username = SecurityUtils.getUserName();
 				Tenant tenant = SecurityUtils.getTenant();
-
+				
 				im.setTaskStatus(instance.getTask());
 				im.setStatus(instance.getStatus());
 				im.setVmname(instance.getName());
-				im.setStatusdisplay(OpenstackUtil.getMessage(instance
-						.getStatus() + ".status.vm"));
+				im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
 				im.setTenantId(tenant.getUuid());
 				im.setStarttime(instance.getCreateTime());
 				im.setUpdatetime(instance.getUpdateTime());
 				im.setAssignedto(username);
-
+				
 				List<Instance> subInstances = instance.getSubInstance();
 				if (subInstances.size() > 0) {
 					for (Instance subInstance : subInstances) {
 						switch (subInstance.getType()) {
-						case Constants.INSTANCE_TYPE_VOLUME: {
-							AttachmentModel am = new AttachmentModel();
-							am.setId(subInstance.getUuid());
-							am.setVolume(subInstance.getName());
-							im.setAttachmentModel(am);
-							break;
-						}
+							case Constants.INSTANCE_TYPE_VOLUME: {
+								AttachmentModel am = new AttachmentModel();
+								am.setId(subInstance.getUuid());
+								am.setVolume(subInstance.getName());
+								im.setAttachmentModel(am);
+								break;
+							}
 						}
 					}
 				}
-
-				// TODO: [ricky] get addresses from db instead of openstack
-				// Map<String, Address[]> addresses = server
-				// .getAddresses();
-				// Iterator<Entry<String, Address[]>> it = addresses
-				// .entrySet().iterator();
+				
 				Map<String, String> tempAddress = new HashMap<String, String>();
-				// while (it.hasNext()) {
-				// Entry<String, Address[]> entry = it.next();
-				// String key = entry.getKey();
-				// Address[] values = entry.getValue();
-				// String ipString = "";
-				// if (values != null && values.length > 0) {
-				// int length = values.length;
-				// for (int i = 0; i < length; i++) {
-				// ipString = ipString + values[i].getAddr();
-				// if (i < length - 1) {
-				// ipString = ipString + ",";
-				// }
-				// }
-				// }
-				//
-				// tempAddress.put(key, ipString);
-				// }
+				tempAddress.put("Private", vm.getFixedIp());
 				im.setAddresses(tempAddress);
-				ItemSpecification flavorItem = this.itemService
-						.getItemSpecificationFromRefId(
-								ItemSpecification.OS_TYPE_FLAVOR_ID,
-								vm.getFlavor());
+				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
-
-				ItemSpecification imageItem = this.itemService
-						.getItemSpecificationFromRefId(
-								ItemSpecification.OS_TYPE_IMAGE_ID,
-								vm.getImage());
+				
+				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
 				if (imageItem != null) {
 					im.setImageId(imageItem.getName().getI18nContent());
 				}
@@ -344,8 +300,7 @@ public class UserInstanceController {
 				"[plain]"
 						+ StringUtil.formateDateString(instance.getUpdatetime()));
 		// TODO: [ricky]get address
-		// conf.put("form.addressString", "[plain]" +
-		// instance.getAddressString());
+		//conf.put("form.addressString", "[plain]" + instance.getAddressString());
 
 		model.addAttribute("configuration", conf);
 

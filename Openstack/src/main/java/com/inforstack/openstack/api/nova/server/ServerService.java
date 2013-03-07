@@ -21,5 +21,7 @@ public interface ServerService {
 	public void doServerAction(Access access, Server server, ServerAction action) throws OpenstackAPIException;
 	
 	public void updateServerStatus(String uuid, String status, String task);
+	
+	public void updateServerAddress(String uuid, Server server);
 
 }

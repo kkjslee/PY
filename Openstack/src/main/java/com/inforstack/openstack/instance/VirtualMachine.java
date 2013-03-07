@@ -1,5 +1,6 @@
 package com.inforstack.openstack.instance;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +19,9 @@ public class VirtualMachine {
 	private String image;
 	
 	private String flavor;
+	
+	@Column(name="fixed_ip")
+	private String fixedIp;
 	
 	public int getId() {
 		return id;
@@ -57,6 +61,14 @@ public class VirtualMachine {
 
 	public void setFlavor(String flavor) {
 		this.flavor = flavor;
+	}
+
+	public String getFixedIp() {
+		return fixedIp;
+	}
+
+	public void setFixedIp(String fixedIp) {
+		this.fixedIp = fixedIp;
 	}
 	
 }

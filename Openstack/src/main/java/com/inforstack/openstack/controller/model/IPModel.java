@@ -10,7 +10,9 @@ public class IPModel {
 
 	private String zone;
 	
-	private String vm;
+	private String vmId;
+	
+	private String vmName;
 
 	private Date created;
 
@@ -40,12 +42,20 @@ public class IPModel {
 		this.zone = zone;
 	}
 
-	public String getVm() {
-		return vm;
+	public String getVmId() {
+		return vmId;
 	}
 
-	public void setVm(String vm) {
-		this.vm = vm;
+	public void setVmId(String vmId) {
+		this.vmId = vmId;
+	}
+
+	public String getVmName() {
+		return vmName;
+	}
+
+	public void setVmName(String vmName) {
+		this.vmName = vmName;
 	}
 
 	public Date getCreated() {

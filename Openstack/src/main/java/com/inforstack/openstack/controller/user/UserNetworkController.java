@@ -93,7 +93,8 @@ public class UserNetworkController {
 			VirtualMachine vm = null;
 			if (vmId != null && !vmId.trim().isEmpty()) {
 				vm = this.instanceService.findVirtualMachineFromUUID(vmId);
-				ipModel.setVm(vm.getUuid());
+				ipModel.setVmId(vm.getUuid());
+				ipModel.setVmName(vm.getName());
 			}
 			ipList.add(ipModel);
 		}
@@ -170,7 +171,8 @@ public class UserNetworkController {
 			VirtualMachine vm = null;
 			if (vmId != null && !vmId.trim().isEmpty()) {
 				vm = this.instanceService.findVirtualMachineFromUUID(vmId);
-				ipModel.setVm(vm.getUuid());
+				ipModel.setVmId(vm.getUuid());
+				ipModel.setVmName(vm.getName());
 			}
 			ipModel.setStatus(ipInstance.getStatus());
 			return JSONUtil.jsonSuccess(ipModel);

@@ -405,8 +405,8 @@ INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (14,'2
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (15,'2013-02-25 11:11:44','2013-02-25 11:11:44',10,15);
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (16,'2013-02-25 11:12:06','2013-02-25 11:12:06',0.01,16);
 
-INSERT INTO `DataCenter` (`id`,`name_id`) VALUES (1,30);
-INSERT INTO `DataCenter` (`id`,`name_id`) VALUES (2,31);
+INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (1,30,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
+INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (2,31,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
 
 INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','1',1);
 INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','2',1);

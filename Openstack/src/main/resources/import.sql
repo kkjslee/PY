@@ -9,11 +9,11 @@ insert into Language(id, name, language, country) values (2, '中文', 'zh', 'CN
 -- insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '5f4dcc3b5aa765d61d8327deb882cf99');
 -- insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.145:5000/v2.0/tokens');
 -- 29
-insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'ca80cde2ad1e40f5813208d4082769ac')
-insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '72917ad5646e4ef0be11d63c106ff066')
-insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin')
-insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', 'Password9988!')
-insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.29:5000/v2.0/tokens')
+insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'ca80cde2ad1e40f5813208d4082769ac');
+insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '72917ad5646e4ef0be11d63c106ff066');
+insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin');
+insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', 'Password9988!');
+insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.29:5000/v2.0/tokens');
 
 insert into Configuration(id, name, value) values(6, 'openstack.endpoint.tenants', '/tenants');
 insert into Configuration(id, name, value) values(7, 'openstack.endpoint.tenant', '/tenants/{tenant}');
@@ -408,16 +408,16 @@ INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (16,'2
 INSERT INTO `DataCenter` (`id`,`name_id`) VALUES (1,30);
 INSERT INTO `DataCenter` (`id`,`name_id`) VALUES (2,31);
 
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (1,'1','1',1);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (2,'2','2',1);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (3,'3','3',1);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (4,'4','4',1);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (5,'5','5',1);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (6,'1','1',2);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (7,'2','2',2);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (8,'3','3',2);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (9,'4','4',2);
-INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',2);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','1',1);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','2',1);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (3,'3','3',1);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (4,'4','4',1);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (5,'5','5',1);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (6,'1','1',2);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (7,'2','2',2);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (8,'3','3',2);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (9,'4','4',2);
+INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (10,'5','5',2);
 
 -- 145
 -- INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`,`family`) VALUES (1,'1','7429ca38-5a99-438c-a94d-1dddfcb41414',1,'other');
@@ -435,19 +435,19 @@ INSERT INTO `Flavor` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',2
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','d96a771e-1dab-42eb-a9af-faefadbf50cb',2);
 
 -- 29
-INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`,`family`) VALUES (1,'1','b431691a-1d37-4f1e-997d-7af8f37a748e',1,'other');
-INSERT INTO `Image` (`id`,`uuid`,`refId`,`data_center_id`,`family`) VALUES (2,'1','b431691a-1d37-4f1e-997d-7af8f37a748e',2,'other');
+INSERT INTO `Image` (`id`,`uuid`,`ref_id`,`data_center_id`,`family`) VALUES (1,'1','b431691a-1d37-4f1e-997d-7af8f37a748e',1,'other');
+INSERT INTO `Image` (`id`,`uuid`,`ref_id`,`data_center_id`,`family`) VALUES (2,'1','b431691a-1d37-4f1e-997d-7af8f37a748e',2,'other');
 
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (1,'1','455354de-519e-4e2a-a8c4-7152d62ad070',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (2,'2','18c0db71-07dc-4859-84b3-62e874830197',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (3,'3','e0028d50-70e1-4a67-b9ba-817d7ef9b4ab',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (4,'4','f2b21a0b-4fce-4657-b8ef-44d40f268f87',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (5,'5','1da51155-6429-4496-adb0-6fc1a89dd884',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (6,'1','455354de-519e-4e2a-a8c4-7152d62ad070',2);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (7,'2','18c0db71-07dc-4859-84b3-62e874830197',2);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (8,'3','e0028d50-70e1-4a67-b9ba-817d7ef9b4ab',2);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (9,'4','f2b21a0b-4fce-4657-b8ef-44d40f268f87',2);
-INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','1da51155-6429-4496-adb0-6fc1a89dd884',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','455354de-519e-4e2a-a8c4-7152d62ad070',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','18c0db71-07dc-4859-84b3-62e874830197',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (3,'3','e0028d50-70e1-4a67-b9ba-817d7ef9b4ab',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (4,'4','f2b21a0b-4fce-4657-b8ef-44d40f268f87',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (5,'5','1da51155-6429-4496-adb0-6fc1a89dd884',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (6,'1','455354de-519e-4e2a-a8c4-7152d62ad070',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (7,'2','18c0db71-07dc-4859-84b3-62e874830197',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (8,'3','e0028d50-70e1-4a67-b9ba-817d7ef9b4ab',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (9,'4','f2b21a0b-4fce-4657-b8ef-44d40f268f87',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (10,'5','1da51155-6429-4496-adb0-6fc1a89dd884',2);
 
 INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (1,0,1,'1');
 INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (2,1,1,'2');
@@ -469,19 +469,19 @@ INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (4,1,2,'2'
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (9,'4','4',4);
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',5);
 
-insert into payment_method(id, type, icon, text, endpoint) values (1, 1, null, 40, '')
-insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '')
-insert into payment_method(id, type, icon, text, endpoint) values (3, 3, null, 42, null)
+insert into payment_method(id, type, icon, text, endpoint) values (1, 1, null, 40, '');
+insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '');
+insert into payment_method(id, type, icon, text, endpoint) values (3, 3, null, 42, null);
 
-insert into payment_method_property(id, method_id, type, name, value) values (1, 1, 2, 'service', 'create_direct_pay_by_user')
-insert into payment_method_property(id, method_id, type, name, value) values (2, 1, 2, 'partner', '')
-insert into payment_method_property(id, method_id, type, name, value) values (3, 1, 2, '_input_charset', 'utf-8')
-insert into payment_method_property(id, method_id, type, name, value) values (4, 1, 2, 'sign_type', 'MD5')
-insert into payment_method_property(id, method_id, type, name, value) values (5, 1, 3, 'sign', 'com.inforstack.openstack.payment.method.prop.builder.AlipaySignParamBuilder.build')
-insert into payment_method_property(id, method_id, type, name, value) values (6, 1, 2, 'return_url', '')
-insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{order.id}')
-insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{order.id}')
-insert into payment_method_property(id, method_id, type, name, value) values (9, 1, 2, 'payment_type', '1')
-insert into payment_method_property(id, method_id, type, name, value) values (10, 1, 2, 'seller_id', '')
-insert into payment_method_property(id, method_id, type, name, value) values (11, 1, 2, 'total_fee', '{price}')
+insert into payment_method_property(id, method_id, type, name, value) values (1, 1, 2, 'service', 'create_direct_pay_by_user');
+insert into payment_method_property(id, method_id, type, name, value) values (2, 1, 2, 'partner', '');
+insert into payment_method_property(id, method_id, type, name, value) values (3, 1, 2, '_input_charset', 'utf-8');
+insert into payment_method_property(id, method_id, type, name, value) values (4, 1, 2, 'sign_type', 'MD5');
+insert into payment_method_property(id, method_id, type, name, value) values (5, 1, 3, 'sign', 'com.inforstack.openstack.payment.method.prop.builder.AlipaySignParamBuilder.build');
+insert into payment_method_property(id, method_id, type, name, value) values (6, 1, 2, 'return_url', '');
+insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{order.id}');
+insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{order.id}');
+insert into payment_method_property(id, method_id, type, name, value) values (9, 1, 2, 'payment_type', '1');
+insert into payment_method_property(id, method_id, type, name, value) values (10, 1, 2, 'seller_id', '');
+insert into payment_method_property(id, method_id, type, name, value) values (11, 1, 2, 'total_fee', '{price}');
 

@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,8 @@ import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriodService;
+import com.inforstack.openstack.payment.method.PaymentMethod;
+import com.inforstack.openstack.payment.method.PaymentMethodService;
 import com.inforstack.openstack.rule.RuleService;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.UserService;
@@ -71,6 +75,9 @@ public class CartController {
 
 	@Autowired
 	private OrderPeriodService orderPeriodService;
+	
+	@Autowired
+	private PaymentMethodService paymentMethodService;
 
 	private final String CART_MODULE_HOME = "user/modules/Cart";
 
@@ -578,7 +585,32 @@ public class CartController {
 	public String showPayMethod(Model model, HttpServletRequest request,
 			String orderId) {
 		model.addAttribute("orderId", orderId);
+		List<PaymentMethod> paymethods = paymentMethodService.listAll();
+		model.addAttribute("paymethods", paymethods);
+		
 		return CART_MODULE_HOME + "/payMethods";
 	}
+	
+	@RequestMapping(value = "/showOrderDetails", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody 
+		Map<String, Object>  getOrderDetails(Model model, 
+			String orderId, Integer payId, HttpServletRequest request,HttpServletResponse response) {
+		
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put(".form", "start_end");
+		conf.put("form.username", "[plain]");
+		conf.put("form.email", "[plain]");
 
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage(
+				"/templates/form.jsp?form.configuration=configuration&type=",
+				model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse("error message");
+		} else {
+			return OpenstackUtil.buildSuccessResponse(jspString);
+		}
+	}
 }

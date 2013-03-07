@@ -1,5 +1,6 @@
 package com.inforstack.openstack.controller.user;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -61,12 +62,21 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String destFilePath = request.getServletContext().getRealPath("/resources/common/entry");
+		File htmlFile = new File(destFilePath, "html.txt");
+		String html = StringUtil.file2String(htmlFile, "UTF-8");
+		model.addAttribute("content", html);
 		return BASE + "home";
 	}
 
 	@RequestMapping(value = "/modules/entry/index", method = RequestMethod.GET)
-	public String entry(Model model) {
+	public String entry(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		String destFilePath = request.getServletContext().getRealPath("/resources/common/entry");
+		File htmlFile = new File(destFilePath, "html.txt");
+		String html = StringUtil.file2String(htmlFile, "UTF-8");
+		model.addAttribute("content", html);
 		return "user/modules/Entry/index";
 	}
 

@@ -1,7 +1,11 @@
 package com.inforstack.openstack.payment;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.payment.account.Account;
 import com.inforstack.openstack.payment.account.AccountService;
+import com.inforstack.openstack.payment.method.PaymentMethod;
+import com.inforstack.openstack.payment.method.PaymentMethodService;
+import com.inforstack.openstack.payment.method.prop.PaymentMethodProperty;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -32,6 +41,8 @@ public class PaymentServiceImpl implements PaymentService {
 	private InstanceService instanceService;
 	@Autowired
 	private TenantService tenantService;
+	@Autowired
+	private PaymentMethodService paymentMethodService;
 	
 	@Override
 	public Payment createPayment(Payment payment) {
@@ -146,6 +157,37 @@ public class PaymentServiceImpl implements PaymentService {
 		}
 		
 		return invoice.getBalance();
+	}
+
+	@Override
+	public String generateEndpoint(int paymentMethodId, BigDecimal balance,
+			Order order) {
+		PaymentMethod pm = paymentMethodService.findPaymentMethodById(paymentMethodId);
+		if(pm == null){
+			log.error("No payment method found by id : " +paymentMethodId);
+			throw new ApplicationRuntimeException("payment method not found");
+		}
+		
+		Map<String, Object> props = new HashMap<String, Object>();
+		props.put(Constants.PAYMENTMETHODPROPERTY_NAME_ORDER, order);
+		List<PaymentMethodProperty> pmps = paymentMethodService.findParams(pm.getId(), balance.doubleValue(), props);
+		if(pmps == null) {
+			pmps = new ArrayList<PaymentMethodProperty>();
+		}
+		StringBuilder param = new StringBuilder();
+		for(PaymentMethodProperty pmp : pmps){
+			if(param.length() != 0){
+				param.append("&");
+			}
+			
+			param.append(pmp.getName()).append("=").append(pmp.getValue());
+		}
+		
+		if(param.length()==0){
+			return pm.getEndpoint();
+		}else{
+			return pm.getEndpoint() + "?" + param.toString();
+		}
 	}
 	
 }

@@ -81,8 +81,6 @@ public class Constants {
 	public static final Integer PAYMENTMETHODPROPERTY_TYPE_PARAM = 2;
 	public static final Integer PAYMENTMETHODPROPERTY_TYPE_METHOD_PARAM = 3;
 	
-	public static final String PAYMENTMETHODPROPERTY_NAME_PRICE = "price";
-
 	public static final Integer IMG_PROGRESS_ACTIVE = 100;
 	public static final String IMG_STATUS_ACTIVE = "ACTIVE";
 
@@ -190,5 +188,8 @@ public class Constants {
 	public static final String IMAGE_FAMILY_UBUNTU = "ubuntu";
 	public static final String IMAGE_FAMILY_MACOS = "macos";
 	public static final String IMAGE_FAMILY_OTHER = "other";
+	
+	public static final String PAYMENTMETHODPROPERTY_NAME_PRICE = "price";
+	public static final String PAYMENTMETHODPROPERTY_NAME_ORDER = "order";
 	
 }

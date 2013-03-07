@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.i18n.dict.DictionaryService;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
@@ -84,6 +85,18 @@ public class UserOrderController {
 			result.put("html", jspString);
 
 			return OpenstackUtil.buildSuccessResponse(result);
+		}
+	}
+	
+	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> pay(String orderId, int paymentMethodId){
+		try{
+			String endpoint = orderService.payOrder(orderId, paymentMethodId);
+			return OpenstackUtil.buildSuccessResponse(endpoint);
+		}catch(ApplicationRuntimeException are){
+			return OpenstackUtil.buildErrorResponse(are.getMessage());
+		}catch(RuntimeException re){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.pay.failed"));
 		}
 	}
 }

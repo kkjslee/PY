@@ -79,4 +79,6 @@ public interface OrderService {
 
 	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize);
 
+	public String payOrder(String orderId, int paymentMethodId);
+
 }

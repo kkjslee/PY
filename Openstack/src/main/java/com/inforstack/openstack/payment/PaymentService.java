@@ -3,7 +3,9 @@ package com.inforstack.openstack.payment;
 import java.math.BigDecimal;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
+import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.payment.account.Account;
+import com.inforstack.openstack.payment.method.PaymentMethod;
 
 public interface PaymentService {
 
@@ -48,5 +50,8 @@ public interface PaymentService {
 	public BigDecimal applyPayment(Invoice invoice, boolean payasyougo);
 
 	void paidSuccessfully(Payment payment);
+
+	public String generateEndpoint(int paymentMethodId, BigDecimal balance,
+			Order order);
 
 }

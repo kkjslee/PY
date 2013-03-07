@@ -1,6 +1,7 @@
 package com.inforstack.openstack.payment.method;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +29,27 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	private PaymentMethodPropertyService paymentMethodPropertyService;
 	
 	@Override
+	public PaymentMethod findPaymentMethodById(int id) {
+		log.debug("Find payment method by id : " + id);
+		PaymentMethod paymentMethod = paymentMethodDao.findById(id);
+		if(paymentMethod == null){
+			log.debug("No instance found");
+		}else{
+			log.debug("Find payment method successfully");
+		}
+		
+		return paymentMethod;
+	}
+	
+	@Override
 	public PaymentMethod findPaymentMethodByType(int type) {
 		log.debug("Find payment method by type : " + type);
 		PaymentMethod paymentMethod = paymentMethodDao.findByObject("type", type);
-		log.debug("Find payment method successfully");
+		if(paymentMethod == null){
+			log.debug("No instance found");
+		}else{
+			log.debug("Find payment method successfully");
+		}
 		
 		return paymentMethod;
 	}
@@ -42,7 +60,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	}
 	
 	@Override
-	public List<PaymentMethodProperty> findParams(int paymentMethodId, double price){
+	public List<PaymentMethodProperty> findParams(int paymentMethodId, double price, Map<String, Object> properties){
 		PaymentMethod pm =paymentMethodDao.findById(paymentMethodId);
 		if(pm == null){
 			log.error("No payment method found by id : " + paymentMethodId);
@@ -51,8 +69,12 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 		
 		PaymentMethodPropertyService pmps = paymentMethodPropertyService;
 		List<PaymentMethodProperty> props = pmps.findProps(paymentMethodId);
-		Map<String, String> propMap = CollectionUtil.collectionToMap(props, "name", "value");
+		Map<String, Object> propMap = new HashMap<String, Object>();
+		if(properties != null) propMap.putAll(properties);
+		propMap.putAll(CollectionUtil.collectionToMap(props, "name", "value"));
 		propMap.put(Constants.PAYMENTMETHODPROPERTY_NAME_PRICE, "" + price);
+		properties.putAll(propMap);
+		
 		List<PaymentMethodProperty> params = pmps.findParams(paymentMethodId);
 		params = buildParams(params, propMap);
 		List<PaymentMethodProperty> methodParams = pmps.findMethodParams(paymentMethodId);
@@ -63,7 +85,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	}
 
 	private List<PaymentMethodProperty> buildParams(
-			List<PaymentMethodProperty> params, Map<String, String> propMap) {
+			List<PaymentMethodProperty> params, Map<String, Object> propMap) {
 		if(CollectionUtil.isNullOrEmpty(params)){
 			return new ArrayList<PaymentMethodProperty>();
 		}
@@ -77,7 +99,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	
 	private List<PaymentMethodProperty> buildParams(
 			List<PaymentMethodProperty> methodParams,
-			List<PaymentMethodProperty> params, Map<String, String> propMap) {
+			List<PaymentMethodProperty> params, Map<String, Object> propMap) {
 		if(CollectionUtil.isNullOrEmpty(methodParams)){
 			return new ArrayList<PaymentMethodProperty>();
 		}

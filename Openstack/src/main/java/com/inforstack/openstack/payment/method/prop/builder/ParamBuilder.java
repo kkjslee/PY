@@ -7,6 +7,6 @@ import com.inforstack.openstack.payment.method.prop.PaymentMethodProperty;
 
 public interface ParamBuilder {
 
-	public String build(List<PaymentMethodProperty> params, Map<String, String> propMap);
+	public String build(List<PaymentMethodProperty> params, Map<String, Object> propMap);
 	
 }

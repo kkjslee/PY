@@ -16,7 +16,7 @@ public class AlipaySignParamBuilder implements ParamBuilder {
 
 	@Override
 	public String build(List<PaymentMethodProperty> params,
-			Map<String, String> propMap) {
+			Map<String, Object> propMap) {
 		Set<String> exclude = new HashSet<String>();
 		exclude.add("sign_type");
 		
@@ -43,7 +43,7 @@ public class AlipaySignParamBuilder implements ParamBuilder {
 			builder = new StringBuilder();
 		}
 		
-		String key = propMap.get("privatekey");
+		String key = (String)propMap.get("privatekey");
 		if("MD5".equals(sign_type)){
 			return CryptoUtil.md5(builder.append(key).toString());
 		}else if("RSA".equals(sign_type)){

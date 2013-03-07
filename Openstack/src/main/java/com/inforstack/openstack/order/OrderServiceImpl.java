@@ -3,7 +3,9 @@ package com.inforstack.openstack.order;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.payment.PaymentService;
+import com.inforstack.openstack.payment.method.PaymentMethod;
+import com.inforstack.openstack.payment.method.PaymentMethodService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.user.User;
@@ -34,6 +38,7 @@ import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Service("orderService")
 @Transactional
@@ -54,6 +59,8 @@ public class OrderServiceImpl implements OrderService {
 	private InvoiceService invoiceService;
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	private PaymentMethodService paymentMethodService;
 	@Autowired
 	private BillingProcessService billingProcessService;
 
@@ -316,6 +323,17 @@ public class OrderServiceImpl implements OrderService {
 		}
 
 		return pm;
+	}
+
+	@Override
+	public String payOrder(String orderId, int paymentMethodId) {
+		Order order = orderDao.findById(orderId);
+		if(order == null){
+			log.error("No order found by order id : " +orderId);
+			throw new ApplicationRuntimeException("Order not found");
+		}
+		
+		return paymentService.generateEndpoint(paymentMethodId, order.getBalance(), order);
 	}
 
 }

@@ -88,6 +88,8 @@ public class InstanceModel {
 	
 	private String region;
 	
+	private String vnc;
+	
 	private AttachmentModel attachmentModel;
 
 	public InstanceModel() {
@@ -354,6 +356,14 @@ public class InstanceModel {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public String getVnc() {
+		return vnc;
+	}
+
+	public void setVnc(String vnc) {
+		this.vnc = vnc;
 	}
 
 	public AttachmentModel getAttachmentModel() {

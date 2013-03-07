@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -270,6 +271,94 @@ public class ServerServiceImpl implements ServerService {
 				}
 			}
 		}
+	}
+	
+	public static final class VNCRequest {
+		
+		private String type;
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+		
+	}
+	
+	public static final class VNCRequestBody implements RequestBody {
+		
+		@JsonProperty("os-getVNCConsole")
+		private VNCRequest request;
+
+		public VNCRequest getRequest() {
+			return request;
+		}
+
+		public void setRequest(VNCRequest request) {
+			this.request = request;
+		}
+		
+	}
+	
+	public static final class VNCResponse {
+		
+		private String type;
+		
+		private String url;
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
+		public String getType() {
+			return type;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+		
+	}
+	
+	public static final class VNCResponseBody implements RequestBody {
+		
+		@JsonProperty("console")
+		private VNCResponse response;
+
+		public VNCResponse getResponse() {
+			return response;
+		}
+
+		public void setResponse(VNCResponse response) {
+			this.response = response;
+		}
+		
+	}
+	
+	@Override
+	public String getVNCLink(Access access, String uuid, String type) throws OpenstackAPIException {
+		String link = null;
+		if (access != null && uuid != null && !uuid.trim().isEmpty()) {
+			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
+			if (endpoint != null) {
+				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+				VNCRequest vncRequest = new VNCRequest();
+				vncRequest.setType(type);
+				VNCRequestBody request = new VNCRequestBody();
+				request.setRequest(vncRequest);
+				VNCResponseBody response = RestUtils.postForObject(url, access, request, VNCResponseBody.class, uuid);
+				if (response != null) {
+					link = response.getResponse().getUrl();
+				}
+			}
+		}
+		return link;
 	}
 	
 	@Override

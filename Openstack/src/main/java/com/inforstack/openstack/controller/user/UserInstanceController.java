@@ -110,53 +110,59 @@ public class UserInstanceController {
 		List<InstanceModel> imList = new ArrayList<InstanceModel>();
 
 		String username = SecurityUtils.getUserName();
+		String password = SecurityUtils.getUser().getPassword();
 		Tenant tenant = SecurityUtils.getTenant();
-
-		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
+		
+		try {
+			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
 			
-		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
-		instanceList = page.getPagedData(pageIdx);
-		if (instanceList != null) {
-			for (Instance instance : instanceList) {				
-				InstanceModel im = new InstanceModel();
-				im.setVmid(instance.getUuid());
-				im.setVmname(instance.getName());
-				im.setStatus(instance.getStatus());
-				im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
-				im.setTenantId(tenant.getUuid());
-				im.setStarttime(instance.getCreateTime());
-				im.setUpdatetime(instance.getUpdateTime());
-				im.setTaskStatus(instance.getTask());
-				im.setAssignedto(username);
-				im.setAccesspoint("");
-				
-				DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
-				im.setRegion(dataCenter.getName().getI18nContent());
-				
-				OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
-				im.setPeriod(period.getName().getI18nContent());
-				
-				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
-				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
-				if (flavorItem != null) {
-					im.setFlavorName(flavorItem.getName().getI18nContent());
+			PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
+			instanceList = page.getPagedData(pageIdx);
+			if (instanceList != null) {
+				for (Instance instance : instanceList) {				
+					InstanceModel im = new InstanceModel();
+					im.setVmid(instance.getUuid());
+					im.setVmname(instance.getName());
+					im.setStatus(instance.getStatus());
+					im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
+					im.setTenantId(tenant.getUuid());
+					im.setStarttime(instance.getCreateTime());
+					im.setUpdatetime(instance.getUpdateTime());
+					im.setTaskStatus(instance.getTask());
+					im.setAssignedto(username);
+					im.setAccesspoint("");
+					im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
+					
+					DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+					im.setRegion(dataCenter.getName().getI18nContent());
+					
+					OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
+					im.setPeriod(period.getName().getI18nContent());
+					
+					VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
+					ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
+					if (flavorItem != null) {
+						im.setFlavorName(flavorItem.getName().getI18nContent());
+					}
+					
+					Map<String, String> tempAddress = new HashMap<String, String>();
+					tempAddress.put("Private", vm.getFixedIp());
+					im.setAddresses(tempAddress);
+					
+					ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
+					if (imageItem != null) {
+						im.setOstype(imageItem.getName().getI18nContent());
+					}
+					imList.add(im);
 				}
 				
-				Map<String, String> tempAddress = new HashMap<String, String>();
-				tempAddress.put("Private", vm.getFixedIp());
-				im.setAddresses(tempAddress);
-				
-				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
-				if (imageItem != null) {
-					im.setOstype(imageItem.getName().getI18nContent());
-				}
-				imList.add(im);
+				model.addAttribute("pageIndex", pageIdx);
+				model.addAttribute("pageSize", pageSze);
+				model.addAttribute("pageTotal", page.getTotalRecord());
+				model.addAttribute("dataList", imList);
 			}
-			
-			model.addAttribute("pageIndex", pageIdx);
-			model.addAttribute("pageSize", pageSze);
-			model.addAttribute("pageTotal", page.getTotalRecord());
-			model.addAttribute("dataList", imList);
+		} catch (OpenstackAPIException e) {
 		}
 		return INSTANCE_MODULE_HOME + "/tr";
 	}
@@ -168,8 +174,7 @@ public class UserInstanceController {
 			String username = SecurityUtils.getUserName();
 			String password = SecurityUtils.getUser().getPassword();
 			Tenant tenant = SecurityUtils.getTenant();
-			Access access = keystoneService.getAccess(username, password,
-					tenant.getUuid(), true);
+			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
 
 			if (!StringUtil.isNullOrEmpty(executecommand)
 					&& !StringUtils.isNullOrEmpty(vmid)) {

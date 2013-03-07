@@ -236,9 +236,10 @@ function getTaskStatus(row,id){
                     	   updateButtonWidthStatus(row,data.status);
                        }
                   }                
-            }catch(e){printMessage("Data Broken ["+e+"]");};
+            }catch(e){ clearInterval(rTask);printMessage("Data Broken ["+e+"]");};
         },
         error: function(jqXHR, textStatus, errorThrown) {
+         clearInterval(rTask); 
             printError(jqXHR, textStatus, errorThrown);
         }
     });
@@ -261,25 +262,36 @@ function updateButtonWidthStatus(row,status){
 }
 
 function showDetails(which){
-    var data={};
+  var data={};
   var vmId=$(which).parents(".dataRow").first().find("input[isos='vmId']").val();
-   data["vmId"] = vmId;
-   var instanceForm=new CustomForm();
-   instanceForm.show({
+  data["vmId"] = vmId;
+  var instanceForm=new CustomForm();
+  instanceForm.show({
        title:'<spring:message code="instance.details.label"/>',
        container:$('#instanceDetails'),
        url:'<c:url value="/user/instance/showInstanceDetails"/>',
        data:data,
+       callback:changeBtnStyle,
        width:420,
        buttons: [
-                 {   
-                    text: '<spring:message code="confirm.button"/>', 
+                 {
+                    text: '<spring:message code="instance.remove.button"/>', 
+                    click:function(){
+                     showRemoveTips1(which);
+                    }},
+                  {
+                   text: '<spring:message code="close.button"/>', 
                     click:function(){
                      instanceForm.close();
                     }}
                  ]
    });
 }
+
+function changeBtnStyle(container){
+    $(container).find(".ui-dialog-buttonpane button:contains('<s:text name='instance.remove.button'/>')").addClass("btn-warning");
+}
+
 
 function initUI(){
 	 $( ".button").button();

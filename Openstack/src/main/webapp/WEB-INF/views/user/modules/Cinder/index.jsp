@@ -210,9 +210,10 @@
                 	}else if(data.status=="error"){
                 		printMessage(data.msg);
                 	}
-                }catch(e){printMessage("Data Broken ["+e+"]");};
+                }catch(e){clearInterval(rTask);printMessage("Data Broken ["+e+"]");};
             },
             error: function(jqXHR, textStatus, errorThrown) {
+            	clearInterval(rTask);     
             	pd.dialog("destroy");
                 printError(jqXHR, textStatus, errorThrown);
             }

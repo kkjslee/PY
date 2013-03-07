@@ -71,7 +71,7 @@ public interface OrderService {
 	 * @param order
 	 * @param periodType
 	 */
-	public InvoiceCount orderBillingProcess(Order order, Date billingDate, BillingProcess billingProcess);
+	public InvoiceCount orderBillingProcess(Order order, Boolean autoPay, Date billingDate, BillingProcess billingProcess);
 
 	public int checkOrderStatus(Order order);
 

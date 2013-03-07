@@ -161,7 +161,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public String generateEndpoint(int paymentMethodId, BigDecimal balance,
-			Order order) {
+			Order order, Invoice invoice) {
 		PaymentMethod pm = paymentMethodService.findPaymentMethodById(paymentMethodId);
 		if(pm == null){
 			log.error("No payment method found by id : " +paymentMethodId);
@@ -170,6 +170,7 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		Map<String, Object> props = new HashMap<String, Object>();
 		props.put(Constants.PAYMENTMETHODPROPERTY_NAME_ORDER, order);
+		props.put(Constants.PAYMENTMETHODPROPERTY_NAME_INVOICE, invoice);
 		List<PaymentMethodProperty> pmps = paymentMethodService.findParams(pm.getId(), balance.doubleValue(), props);
 		if(pmps == null) {
 			pmps = new ArrayList<PaymentMethodProperty>();

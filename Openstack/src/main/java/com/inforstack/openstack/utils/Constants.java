@@ -191,5 +191,5 @@ public class Constants {
 	
 	public static final String PAYMENTMETHODPROPERTY_NAME_PRICE = "price";
 	public static final String PAYMENTMETHODPROPERTY_NAME_ORDER = "order";
-	
+	public static final String PAYMENTMETHODPROPERTY_NAME_INVOICE = "invoice";
 }

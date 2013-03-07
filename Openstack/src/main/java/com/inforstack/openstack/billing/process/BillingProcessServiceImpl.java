@@ -108,19 +108,19 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	}
 	
 	@Override
-	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf) {
+	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Boolean autoPay) {
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		return self.runBillingProcess(conf, null);
+		return self.runBillingProcess(conf, null, autoPay);
 	}
 	
 	@Override
-	public BillingProcessResult runBillingProcess(Integer tenantId) {
+	public BillingProcessResult runBillingProcess(Integer tenantId, Boolean autoPay) {
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		return self.runBillingProcess(null, tenantId);
+		return self.runBillingProcess(null, tenantId, autoPay);
 	}
 	
 	@Override
-	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Integer tenantId) {
+	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Integer tenantId, Boolean autoPay) {
 		log.debug("Running billing process for billing process configuration : " + 
 				conf==null? null:conf.getId() + ", tenant : " +tenantId);
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
@@ -130,7 +130,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		CursorResult<Order> orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
 		while(orders.hasNext()){
 			Order order = orders.getNext();
-			this.processOrder(order.getId(), bp, bpr);
+			this.processOrder(order.getId(), autoPay, bp, bpr);
 		}
 		orders.close();
 		
@@ -148,14 +148,19 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		return bpr;
 	}
 	
+	public BillingProcessResult runBillingProcessForOrder(String orderId){
+		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
+		return self.runBillingProcessForOrder(orderId, null);
+	}
+	
 	@Override
-	public BillingProcessResult runBillingProcessForOrder(String orderId) {
+	public BillingProcessResult runBillingProcessForOrder(String orderId, Boolean autoPay) {
 		log.debug("Running billing process for order : " + orderId);
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
 		BillingProcess bp = self.createBillingProcess(null, new Date(), SecurityUtils.getUser());
 		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
 		
-		this.processOrder(orderId, bp, bpr);
+		this.processOrder(orderId, autoPay, bp, bpr);
 		
 		bp.setEndTime(new Date());
 		bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
@@ -165,10 +170,12 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	}
 	
 	@Override
-	public void processOrder(String orderId, BillingProcess bp, BillingProcessResult bpr){
+	public void processOrder(String orderId, Boolean autoPay, BillingProcess bp, BillingProcessResult bpr){
 		Lock lock = null;
 		try{
 			Order order = orderService.findOrderById(orderId);
+			if(order == null) return;
+			
 			if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus()) 
 					|| new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
 				
@@ -187,7 +194,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 					billingDate = new Date();
 				}
 					
-				InvoiceCount oic = orderService.orderBillingProcess(order, billingDate, bp);
+				InvoiceCount oic = orderService.orderBillingProcess(order, autoPay, billingDate, bp);
 				if(!BigDecimal.ZERO.equals(oic.getInvoiceTotal())){
 					bpr.setOrderTotal(
 							NumberUtil.add(bpr.getOrderTotal(), 1)

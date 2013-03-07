@@ -1,6 +1,7 @@
 package com.inforstack.openstack.billing.invoice;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -114,6 +115,17 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public void unpaid(Invoice invoice) {
 		invoice.setStatus(Constants.INVOICE_STATUS_UPPAID);
+	}
+
+	@Override
+	public List<Invoice> findInvoicesByBillingProcess(
+			int billingProcessId) {
+		List<Invoice> invoices =  invoiceDao.listByObject("billingProcess.id", billingProcessId);
+		if(invoices == null){
+			invoices = new ArrayList<Invoice>();
+		}
+		
+		return invoices;
 	}
 
 }

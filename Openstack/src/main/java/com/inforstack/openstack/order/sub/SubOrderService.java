@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
-import com.inforstack.openstack.order.period.OrderPeriod;
 
 public interface SubOrderService {
 	
@@ -48,7 +47,7 @@ public interface SubOrderService {
 	 */
 	public List<Period> calcPeriod(SubOrder subOrder, Date billingDate, Date endLimit);
 
-	public InvoiceCount billingProcessSubOrder(SubOrder subOrder, Date billingDate, BillingProcess billingProcess);
+	public InvoiceCount billingProcessSubOrder(SubOrder subOrder, Boolean autoPay, Date billingDate, BillingProcess billingProcess);
 
 	public BigDecimal getPrice(SubOrder subOrder, Period period);
 

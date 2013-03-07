@@ -45,15 +45,14 @@ public interface BillingProcessService {
 	 */
 	public BillingProcess findBillingProcessById(int billingProcessId);
 	
-	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf);
+	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Boolean autoPay);
 
-	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Integer tenantId);
+	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Integer tenantId, Boolean autoPay);
 
-	public BillingProcessResult runBillingProcess(Integer tenantId);
+	public BillingProcessResult runBillingProcess(Integer tenantId, Boolean autoPay);
 
-	public BillingProcessResult runBillingProcessForOrder(String orderId);
+	public BillingProcessResult runBillingProcessForOrder(String orderId, Boolean autoPay);
 
-	void processOrder(String orderId, BillingProcess bp,
-			BillingProcessResult bpr);
+	void processOrder(String orderId, Boolean autoPay, BillingProcess bp, BillingProcessResult bpr);
 	
 }

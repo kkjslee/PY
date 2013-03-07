@@ -59,5 +59,7 @@ public interface InvoiceService {
 	public void paid(Invoice invoice);
 
 	public void unpaid(Invoice invoice);
+
+	public List<Invoice> findInvoicesByBillingProcess(int billingProcessId);
 	
 }

@@ -52,6 +52,6 @@ public interface PaymentService {
 	void paidSuccessfully(Payment payment);
 
 	public String generateEndpoint(int paymentMethodId, BigDecimal balance,
-			Order order);
+			Order order, Invoice invoice);
 
 }

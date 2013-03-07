@@ -3,9 +3,7 @@ package com.inforstack.openstack.order;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +15,7 @@ import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.billing.process.BillingProcessService;
+import com.inforstack.openstack.billing.process.result.BillingProcessResult;
 import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
@@ -28,7 +27,6 @@ import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.payment.PaymentService;
-import com.inforstack.openstack.payment.method.PaymentMethod;
 import com.inforstack.openstack.payment.method.PaymentMethodService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.tenant.TenantService;
@@ -38,7 +36,6 @@ import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
-import com.inforstack.openstack.utils.StringUtil;
 
 @Service("orderService")
 @Transactional
@@ -180,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
 					+ orderId);
 			return null;
 		}
-		billingProcessService.runBillingProcessForOrder(order.getId());
+		billingProcessService.runBillingProcessForOrder(order.getId(), order.getAutoPay());
 		order.setStatus(Constants.ORDER_STATUS_CALLELED);
 
 		log.debug("Change order status successfully");
@@ -210,7 +207,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public InvoiceCount orderBillingProcess(Order order, Date billingDate,
+	public InvoiceCount orderBillingProcess(Order order, Boolean autoPay, Date billingDate,
 			BillingProcess billingProcess) {
 		log.debug("Billing process for order : " + order.getId()
 				+ " with billing date : " + billingDate
@@ -226,7 +223,13 @@ public class OrderServiceImpl implements OrderService {
 		InvoiceCount ic = new InvoiceCount();
 		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus())){
 			Invoice invoice = invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
-			if(order.getAutoPay()){
+			order.setInvoice(invoice);
+			
+			boolean doPay = order.getAutoPay();
+			if(autoPay != null){
+				doPay = autoPay.booleanValue();
+			}
+			if(doPay){
 				paymentService.applyPayment(invoice);
 			}
 			ic.addInvoiceTotal(invoice.getAmount());
@@ -245,7 +248,7 @@ public class OrderServiceImpl implements OrderService {
 			List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
 					statuses, orderPeriods);
 			for (SubOrder so : subOrders) {
-				InvoiceCount sic = subOrderService.billingProcessSubOrder(so,
+				InvoiceCount sic = subOrderService.billingProcessSubOrder(so, autoPay,
 						billingDate, billingProcess);
 				ic.addInvoiceTotal(sic.getInvoiceTotal());
 				ic.addBalance(ic.getBalance());
@@ -332,8 +335,9 @@ public class OrderServiceImpl implements OrderService {
 			log.error("No order found by order id : " +orderId);
 			throw new ApplicationRuntimeException("Order not found");
 		}
+		billingProcessService.runBillingProcessForOrder(orderId, false);
 		
-		return paymentService.generateEndpoint(paymentMethodId, order.getBalance(), order);
+		return paymentService.generateEndpoint(paymentMethodId, order.getInvoice().getBalance(), order, order.getInvoice());
 	}
 
 }

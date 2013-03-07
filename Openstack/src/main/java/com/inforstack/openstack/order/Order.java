@@ -13,10 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
@@ -58,6 +60,10 @@ public class Order {
 	private BigDecimal amount;
 	
 	private BigDecimal balance;
+	
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="invoice_id")
+	private Invoice invoice;
 	
 	
 	public String getId() {
@@ -146,6 +152,14 @@ public class Order {
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 }

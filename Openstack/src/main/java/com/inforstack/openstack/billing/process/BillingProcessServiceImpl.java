@@ -3,7 +3,10 @@ package com.inforstack.openstack.billing.process;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,8 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	private static final Logger log = new Logger(BillingProcessServiceImpl.class);
 	private static final ReentrantReadWriteLock scheduleLock = new ReentrantReadWriteLock();
 	private static final ReentrantReadWriteLock executeLock = new ReentrantReadWriteLock();
+	private static final Lock confLock = new ReentrantLock();
+	private static final Set<Integer> runningConf = new HashSet<Integer>();
 	
 	@Autowired
 	private BillingProcessDao billingProcessDao;
@@ -123,29 +128,43 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Integer tenantId, Boolean autoPay) {
 		log.debug("Running billing process for billing process configuration : " + 
 				conf==null? null:conf.getId() + ", tenant : " +tenantId);
-		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		BillingProcess bp = self.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
-		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
-		
-		CursorResult<Order> orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
-		while(orders.hasNext()){
-			Order order = orders.getNext();
-			this.processOrder(order.getId(), autoPay, bp, bpr);
-		}
-		orders.close();
-		
-		if( conf != null){
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(conf.getNextBillingDate());
-			calendar.add(conf.getPeriodType(), conf.getPeriodQuantity());
-			conf.setNextBillingDate(calendar.getTime());
+		confLock.lock();
+		try{
+			if(conf != null && runningConf.contains(conf.getId())){
+				return null;
+			}
+			runningConf.add(conf.getId());
+		}finally{
+			confLock.unlock();
 		}
 		
-		bp.setEndTime(new Date());
-		bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
-		log.debug("Running billing process finished");
-		
-		return bpr;
+		try{
+			BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
+			BillingProcess bp = self.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
+			BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
+			
+			CursorResult<Order> orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
+			while(orders.hasNext()){
+				Order order = orders.getNext();
+				this.processOrder(order.getId(), autoPay, bp, bpr);
+			}
+			orders.close();
+			
+			if( conf != null){
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(conf.getNextBillingDate());
+				calendar.add(conf.getPeriodType(), conf.getPeriodQuantity());
+				conf.setNextBillingDate(calendar.getTime());
+			}
+			
+			bp.setEndTime(new Date());
+			bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
+			log.debug("Running billing process finished");
+			
+			return bpr;
+		}finally{
+			runningConf.remove(conf);
+		}
 	}
 	
 	public BillingProcessResult runBillingProcessForOrder(String orderId){

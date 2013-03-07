@@ -189,6 +189,7 @@ public class Constants {
 	public static final String IMAGE_FAMILY_MACOS = "macos";
 	public static final String IMAGE_FAMILY_OTHER = "other";
 	
+	public static final String PAYMENTMETHODPROPERTY_NAME_HOST = "host";
 	public static final String PAYMENTMETHODPROPERTY_NAME_PRICE = "price";
 	public static final String PAYMENTMETHODPROPERTY_NAME_ORDER = "order";
 	public static final String PAYMENTMETHODPROPERTY_NAME_INVOICE = "invoice";

@@ -1,6 +1,7 @@
 package com.inforstack.openstack.payment;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.order.Order;
@@ -51,7 +52,6 @@ public interface PaymentService {
 
 	void paidSuccessfully(Payment payment);
 
-	public String generateEndpoint(int paymentMethodId, BigDecimal balance,
-			Order order, Invoice invoice);
+	public String generateEndpoint(int paymentMethodId, BigDecimal balance, Map<String, Object> property);
 
 }

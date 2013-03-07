@@ -3,6 +3,7 @@ package com.inforstack.openstack.order;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.ScrollableResults;
 
@@ -79,6 +80,6 @@ public interface OrderService {
 
 	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize);
 
-	public String payOrder(String orderId, int paymentMethodId);
+	public String payOrder(String orderId, int paymentMethodId, Map<String, Object> property);
 
 }

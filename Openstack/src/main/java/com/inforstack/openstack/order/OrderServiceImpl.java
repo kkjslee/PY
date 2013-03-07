@@ -3,7 +3,9 @@ package com.inforstack.openstack.order;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -329,7 +331,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String payOrder(String orderId, int paymentMethodId) {
+	public String payOrder(String orderId, int paymentMethodId, Map<String, Object> property) {
 		Order order = orderDao.findById(orderId);
 		if(order == null){
 			log.error("No order found by order id : " +orderId);
@@ -337,7 +339,12 @@ public class OrderServiceImpl implements OrderService {
 		}
 		billingProcessService.runBillingProcessForOrder(orderId, false);
 		
-		return paymentService.generateEndpoint(paymentMethodId, order.getInvoice().getBalance(), order, order.getInvoice());
+		if(property == null){
+			property = new HashMap<String, Object>();
+		}
+		property.put(Constants.PAYMENTMETHODPROPERTY_NAME_ORDER, order);
+		property.put(Constants.PAYMENTMETHODPROPERTY_NAME_INVOICE, order.getInvoice());
+		return paymentService.generateEndpoint(paymentMethodId, order.getInvoice().getBalance(), property);
 	}
 
 }

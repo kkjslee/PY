@@ -89,9 +89,11 @@ public class UserOrderController {
 	}
 	
 	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> pay(String orderId, int paymentMethodId){
+	public @ResponseBody Map<String, Object> pay(String orderId, int paymentMethodId, HttpServletRequest request){
 		try{
-			String endpoint = orderService.payOrder(orderId, paymentMethodId);
+			Map<String, Object> property = new HashMap<String, Object>();
+			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, request.getContextPath());
+			String endpoint = orderService.payOrder(orderId, paymentMethodId, property);
 			return OpenstackUtil.buildSuccessResponse(endpoint);
 		}catch(ApplicationRuntimeException are){
 			return OpenstackUtil.buildErrorResponse(are.getMessage());

@@ -68,9 +68,6 @@ public class UserInstanceController {
 	private ServerService serverService;
 	
 	@Autowired
-	private FlavorService flavorService;
-	
-	@Autowired
 	private KeystoneService keystoneService;
 	
 	@Autowired
@@ -123,63 +120,23 @@ public class UserInstanceController {
 		}
 		List<InstanceModel> imList = new ArrayList<InstanceModel>();
 
-		String username = SecurityUtils.getUserName();
-		String password = this.userService.getOpenstackUserPassword();
 		Tenant tenant = SecurityUtils.getTenant();
 		
-		try {
-			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
-			List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
-			
-			PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
-			instanceList = page.getPagedData(pageIdx);
-			if (instanceList != null) {
-				for (Instance instance : instanceList) {				
-					InstanceModel im = new InstanceModel();
-					im.setVmid(instance.getUuid());
-					im.setVmname(instance.getName());
-					im.setStatus(instance.getStatus());
-					im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
-					im.setTenantId(tenant.getUuid());
-					im.setStarttime(instance.getCreateTime());
-					im.setUpdatetime(instance.getUpdateTime());
-					im.setTaskStatus(instance.getTask());
-					im.setAssignedto(username);
-					im.setAccesspoint("");
-					try {
-						im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
-					} catch (OpenstackAPIException e) {					
-					}
-					
-					DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
-					im.setRegion(dataCenter.getName().getI18nContent());
-					
-					OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
-					im.setPeriod(period.getName().getI18nContent());
-					
-					VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
-					ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
-					if (flavorItem != null) {
-						im.setFlavorName(flavorItem.getName().getI18nContent());
-					}
-					
-					Map<String, String> tempAddress = new HashMap<String, String>();
-					tempAddress.put("Private", vm.getFixedIp());
-					im.setAddresses(tempAddress);
-					
-					ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
-					if (imageItem != null) {
-						im.setOstype(imageItem.getName().getI18nContent());
-					}
-					imList.add(im);
-				}
-				
-				model.addAttribute("pageIndex", pageIdx);
-				model.addAttribute("pageSize", pageSze);
-				model.addAttribute("pageTotal", page.getTotalRecord());
-				model.addAttribute("dataList", imList);
+		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
+		
+		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
+		instanceList = page.getPagedData(pageIdx);
+		if (instanceList != null) {
+			for (Instance instance : instanceList) {				
+				InstanceModel im = new InstanceModel();
+				im = retrieveInstance(model, instance.getUuid());
+				imList.add(im);
 			}
-		} catch (OpenstackAPIException e) {
+			
+			model.addAttribute("pageIndex", pageIdx);
+			model.addAttribute("pageSize", pageSze);
+			model.addAttribute("pageTotal", page.getTotalRecord());
+			model.addAttribute("dataList", imList);
 		}
 		return INSTANCE_MODULE_HOME + "/tr";
 	}
@@ -226,18 +183,24 @@ public class UserInstanceController {
 
 		return Constants.JSON_STATUS_DONE;
 	}
-
+	/***
+	 * get instance details
+	 * @param model
+	 * @param vmId
+	 * @return
+	 */
 	@RequestMapping(value = "/getInstance", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	InstanceModel retrieveInstance(Model model, String vmId) {
 		InstanceModel im = new InstanceModel();
 		if (!StringUtil.isNullOrEmpty(vmId, false)) {
+			String username = SecurityUtils.getUserName();
+			String password = this.userService.getOpenstackUserPassword();
+			Tenant tenant = SecurityUtils.getTenant();
 			try {
+				Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
 				Instance instance = this.instanceService.findInstanceFromUUID(vmId);
 				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(vmId);
-				
-				String username = SecurityUtils.getUserName();
-				Tenant tenant = SecurityUtils.getTenant();
 				
 				im.setTaskStatus(instance.getTask());
 				im.setStatus(instance.getStatus());
@@ -246,7 +209,11 @@ public class UserInstanceController {
 				im.setTenantId(tenant.getUuid());
 				im.setStarttime(instance.getCreateTime());
 				im.setUpdatetime(instance.getUpdateTime());
+				if(instance.getStatus().equalsIgnoreCase("deleted")){
+					im.setDeletedTime(instance.getUpdateTime());
+				}
 				im.setAssignedto(username);
+				im.setAccesspoint("");
 				
 				List<Instance> subInstances = instance.getSubInstance();
 				if (subInstances.size() > 0) {
@@ -263,25 +230,29 @@ public class UserInstanceController {
 					}
 				}
 				
-				Map<String, String> tempAddress = new HashMap<String, String>();
-				tempAddress.put("Private", vm.getFixedIp());
-				im.setAddresses(tempAddress);
+				try {
+					im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
+				} catch (OpenstackAPIException e) {					
+				}
+				
+				DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+				im.setRegion(dataCenter.getName().getI18nContent());
+				
+				OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
+				im.setPeriod(period.getName().getI18nContent());
+				
 				ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
 				if (flavorItem != null) {
 					im.setFlavorName(flavorItem.getName().getI18nContent());
 				}
 				
+				Map<String, String> tempAddress = new HashMap<String, String>();
+				tempAddress.put("Private", vm.getFixedIp());
+				im.setAddresses(tempAddress);
+				
 				ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
 				if (imageItem != null) {
-					im.setImageId(imageItem.getName().getI18nContent());
-				}
-				Flavor flavor = this.flavorService.getFlavor(vm.getFlavor());
-				if (flavor != null) {
-					im.setCpus(flavor.getVcpus());
-					im.setMaxcpus(flavor.getVcpus());
-					im.setMemory(flavor.getRam());
-					im.setMaxmemory(flavor.getRam());
-					im.setDisksize(flavor.getDisk());
+					im.setOstype(imageItem.getName().getI18nContent());
 				}
 			} catch (OpenstackAPIException e) {
 				System.out.println(e.getMessage());
@@ -420,89 +391,44 @@ public class UserInstanceController {
 		}
 		List<InstanceModel> imList = new ArrayList<InstanceModel>();
 
-		String username = SecurityUtils.getUserName();
-		String password = SecurityUtils.getUser().getPassword();
 		Tenant tenant = SecurityUtils.getTenant();
 		
-		try {
-			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
-			List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
-			
-			PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
-			instanceList = page.getPagedData(pageIdx);
-			if (instanceList != null) {
-				for (Instance instance : instanceList) {				
-					InstanceModel im = new InstanceModel();
-					im.setVmid(instance.getUuid());
-					im.setVmname(instance.getName());
-					im.setStatus(instance.getStatus());
-					im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
-					im.setTenantId(tenant.getUuid());
-					im.setStarttime(instance.getCreateTime());
-					im.setUpdatetime(instance.getUpdateTime());
-					if(instance.getStatus().equalsIgnoreCase("deleted")){
-						im.setDeletedTime(instance.getUpdateTime());
-					}
-					im.setTaskStatus(instance.getTask());
-					im.setAssignedto(username);
-					im.setAccesspoint("");
-					try {
-						im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
-					} catch (OpenstackAPIException e) {					
-					}
-					
-					DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
-					im.setRegion(dataCenter.getName().getI18nContent());
-					
-					OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
-					im.setPeriod(period.getName().getI18nContent());
-					
-					VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
-					ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
-					if (flavorItem != null) {
-						im.setFlavorName(flavorItem.getName().getI18nContent());
-					}
-					
-					Map<String, String> tempAddress = new HashMap<String, String>();
-					tempAddress.put("Private", vm.getFixedIp());
-					im.setAddresses(tempAddress);
-					
-					ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
-					if (imageItem != null) {
-						im.setOstype(imageItem.getName().getI18nContent());
-					}
-					imList.add(im);
-				}
-				Map<String, Object> conf = new LinkedHashMap<String, Object>();
-				conf.put("grid.name", "[plain]");
-				conf.put("grid.id", "[hidden]");
-				conf.put("grid.period", "[plain]");
-				conf.put("grid.status", "[plain]");
-				conf.put("status.value", "{statusDisplay} ");
-				conf.put("grid.starttime", "[plain]");
-				conf.put("starttime.label", OpenstackUtil.getMessage("createTime.label"));
-				conf.put("grid.deletedTime", "[plain]");
-				conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.deletedTime.label"));
-				conf.put(".forPager", true);
-				conf.put(".datas", imList);
-
-				model.addAttribute("configuration", conf);
-
-				String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
-
-				if (jspString == null) {
-					return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
-				} else {
-					Map<String, Object> result = new HashMap<String, Object>();
-					result.put("recordTotal", page.getTotalRecord());
-					result.put("html", jspString);
-
-					return OpenstackUtil.buildSuccessResponse(result);
-				}
+		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
+		
+		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
+		instanceList = page.getPagedData(pageIdx);
+		if (instanceList != null) {
+			for (Instance instance : instanceList) {				
+				InstanceModel im = new InstanceModel();
+				im = retrieveInstance(model, instance.getUuid());
+				imList.add(im);
 			}
-		} catch (OpenstackAPIException e) {
-			log.error(e.getMessage(), e);
-			return OpenstackUtil.buildErrorResponse(e.getMessage());
+			Map<String, Object> conf = new LinkedHashMap<String, Object>();
+			conf.put("grid.name", "[plain]");
+			conf.put("grid.id", "[hidden]");
+			conf.put("grid.period", "[plain]");
+			conf.put("grid.status", "[plain]");
+			conf.put("status.value", "{statusDisplay} ");
+			conf.put("grid.starttime", "[plain]");
+			conf.put("starttime.label", OpenstackUtil.getMessage("createTime.label"));
+			conf.put("grid.deletedTime", "[plain]");
+			conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.deletedTime.label"));
+			conf.put(".forPager", true);
+			conf.put(".datas", imList);
+
+			model.addAttribute("configuration", conf);
+
+			String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
+
+			if (jspString == null) {
+				return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
+			} else {
+				Map<String, Object> result = new HashMap<String, Object>();
+				result.put("recordTotal", page.getTotalRecord());
+				result.put("html", jspString);
+
+				return OpenstackUtil.buildSuccessResponse(result);
+			}
 		}
 		return OpenstackUtil.buildErrorResponse("error");
 	}

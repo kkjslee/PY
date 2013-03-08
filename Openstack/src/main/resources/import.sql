@@ -219,6 +219,10 @@ insert into Resource(id, url, permission) values (304, '/user/instance/getInstan
 insert into Resource(id, url, permission) values (305, '/user/instance/scripts/template', 'user');
 insert into Resource(id, url, permission) values (306, '/user/instance/showInstanceDetails', 'user');
 insert into Resource(id, url, permission) values (307, '/user/instance/getInstancesWidthStatus', 'user');
+insert into Resource(id, url, permission) values (308, '/user/instance/getPagerInstanceStatusList', 'user');
+insert into Resource(id, url, permission) values (309, '/user/instance/modules/instanceStatus', 'user');
+insert into Resource(id, url, permission) values (310, '/user/instance/modules/updateInstanceWithName', 'user');
+
 
 insert into Resource(id, url, permission) values (350, '/user/cinder/modules/index', 'user');
 insert into Resource(id, url, permission) values (351, '/user/cinder/getPagerVolumeTypeList', 'user');
@@ -271,6 +275,8 @@ insert into Resource(id, url, permission) values (600, '/admin/order/getPagerOrd
 insert into Resource(id, url, permission) values (601, '/admin/order/modules/index', 'admin');
 
 insert into Resource(id, url, permission) values (700, '/user/showedit', 'user');
+insert into Resource(id, url, permission) values (701, '/user/edit', 'user');
+insert into Resource(id, url, permission) values (702, '/user/changePassword', 'user');
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');

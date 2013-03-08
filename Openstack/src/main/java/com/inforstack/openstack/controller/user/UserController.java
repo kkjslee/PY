@@ -33,6 +33,7 @@ import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.utils.StringUtil;
 import com.inforstack.openstack.utils.ValidateUtil;
 
@@ -42,6 +43,7 @@ public class UserController {
 
 	private static final Logger log = new Logger(UserController.class);
 	private static final String BASE = "user/";
+	private static final String USER_BASE_HOME = "user/modules/Userinfo/";
 
 	@Autowired
 	private RootController rootController;
@@ -83,6 +85,14 @@ public class UserController {
 	@RequestMapping(value = "/scripts/navinit", method = RequestMethod.GET)
 	public String naviInit(Model model) {
 		return "user/scripts/navinit";
+	}
+	
+	@RequestMapping(value = "/showedit", method = RequestMethod.GET)
+	public String showUserInfoEdit(Model model) {
+		Integer userId = SecurityUtils.getUserId();
+		User user = userService.findUserById(userId);
+		model.addAttribute("user", user);
+		return USER_BASE_HOME + "index";
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json")

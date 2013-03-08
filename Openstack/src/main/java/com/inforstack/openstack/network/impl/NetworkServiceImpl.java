@@ -104,7 +104,7 @@ public class NetworkServiceImpl implements NetworkService {
 				int[] address = self.generateAddress(dataCenter);
 				String cidr = "" + address[0] + "." + address[1] + "." + address[2] + ".0/24";
 				com.inforstack.openstack.api.quantum.Subnet osSubnet = this.quantumService.createSubnet(access, network.getUuid(), name, 4, cidr, null);
-				com.inforstack.openstack.api.quantum.Router osRouter = this.quantumService.createRouter(access, tenant.getName() + "_router");
+				com.inforstack.openstack.api.quantum.Router osRouter = this.quantumService.createRouter(access, tenant.getName() + "_router", dataCenter.getExternalNet());
 				this.quantumService.addInterface(access, osRouter, osSubnet);
 				if (osSubnet != null && !osSubnet.getId().isEmpty()) {
 					subnet = new Subnet();
@@ -139,7 +139,7 @@ public class NetworkServiceImpl implements NetworkService {
 		int n = 0;
 		for (int i = 10; i < 11 && n <= size; i++) {
 			address[0] = i;
-			for (int j = 0; j < 256 && n <= size; j++) {
+			for (int j = 1; j < 256 && n <= size; j++) {
 				address[1] = j;
 				for (int k = 0; k < 256 && n <= size; k++) {
 					address[2] = k;

@@ -23,8 +23,6 @@ public interface QuantumService {
 	public final static String ENDPOINT_FLOATINGIPS = "openstack.endpoint.floatingips";
 	public final static String ENDPOINT_FLOATINGIP = "openstack.endpoint.floatingip";	
 	
-	public final static String EXTERNAL_NETWORK_ID = "openstack.network.external";
-
 	public Network[] listNetworks(Access access) throws OpenstackAPIException;
 
 	public Network getNetwork(Access access, String id) throws OpenstackAPIException;
@@ -53,7 +51,7 @@ public interface QuantumService {
 
 	public void removePort(Access access, String id) throws OpenstackAPIException;
 	
-	public Router createRouter(Access access, String name) throws OpenstackAPIException;
+	public Router createRouter(Access access, String name, String external) throws OpenstackAPIException;
 	
 	public void addInterface(Access access, Router router, Subnet subnet) throws OpenstackAPIException;
 	

@@ -386,15 +386,14 @@ public class QuantumServiceImpl implements QuantumService {
 	}
 	
 	@Override
-	public Router createRouter(Access access, String name) throws OpenstackAPIException {
+	public Router createRouter(Access access, String name, String external) throws OpenstackAPIException {
 		Router newPort = null;
 		if (access != null) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_ROUTERS);
-			Configuration external = this.configurationDao.findByName(EXTERNAL_NETWORK_ID);
 			if (endpoint != null && external != null) {
 				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
 				Gateway gateway = new Gateway();
-				gateway.setNetwork(external.getValue());
+				gateway.setNetwork(external);
 				Router router = new Router();
 				router.setName(name);
 				router.setAdminStateUp(true);

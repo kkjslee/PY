@@ -723,6 +723,13 @@ public class ItemServiceImpl implements ItemService {
 			}
 			itemSpecification.getName().getId();
 			itemSpecification.getName().getI18ns();
+			if (itemSpecification.getProfile() != null) {
+				Profile profile = itemSpecification.getProfile();
+				profile.getCpu().getId();
+				profile.getMemory().getId();
+				profile.getDisk().getId();
+				profile.getMemory().getId();
+			}
 		}
 		return list;
 	}

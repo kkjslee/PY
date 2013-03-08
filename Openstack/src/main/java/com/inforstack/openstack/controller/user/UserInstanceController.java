@@ -13,6 +13,7 @@ import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +50,7 @@ import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.utils.StringUtil;
+import com.inforstack.openstack.utils.ValidateUtil;
 
 @Controller
 @RequestMapping(value = "/user/instance")
@@ -74,6 +76,9 @@ public class UserInstanceController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private Validator validator;
+	
 	private final String INSTANCE_MODULE_HOME = "user/modules/Instance";
 
 	@RequestMapping(value = "/modules/index", method = RequestMethod.GET)
@@ -93,6 +98,11 @@ public class UserInstanceController {
 	@RequestMapping(value = "/scripts/template", method = RequestMethod.GET)
 	public String template(Model model) {
 		return INSTANCE_MODULE_HOME + "/scripts/template";
+	}
+	
+	@RequestMapping(value = "/modules/instanceStatus", method = RequestMethod.GET)
+	public String getInstanceStatus(Model model) {
+		return INSTANCE_MODULE_HOME + "/status";
 	}
 
 	@RequestMapping(value = "/getPagerInstanceList", method = RequestMethod.POST)
@@ -297,6 +307,13 @@ public class UserInstanceController {
 		InstanceModel instance = retrieveInstance(model, vmId);
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
+		conf.put("form.vmid", "[hidden]");
+		conf.put("form.vmname",
+				"[custom]<input type='text' id='vmname' name='vmname' value='"
+						+ instance.getVmname()
+						+ "'/><a href='#' onclick='updateInstanceName(this)'>"
+						+ OpenstackUtil.getMessage("update.button") + "</a>");
+		
 		conf.put("form.vmname", "[plain]" + instance.getVmname());
 		conf.put("form.statusDisplay", "[plain]" + instance.getStatusdisplay());
 		conf.put("form.imagename", "[plain]" + instance.getImageId());
@@ -360,6 +377,134 @@ public class UserInstanceController {
 			return JSONUtil.jsonError(e.getMessage());
 		}
 
+	}
+	
+	@RequestMapping(value = "/updateInstanceWithName", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody
+	Map<String, Object> updateInstanceName(Model model, InstanceModel vmModel,
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		Map<String, Object> ret = new HashMap<String, Object>();
+		String errorMsg = ValidateUtil.validModel(validator, "admin", vmModel);
+		if (errorMsg != null) {
+			ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
+			return ret;
+		}
+		
+		Instance instance = this.instanceService.findInstanceFromUUID(vmModel.getVmid());
+		if(instance != null){
+			Tenant tenant = SecurityUtils.getTenant();
+			instanceService.updateVM(SecurityUtils.getUser(), tenant, vmModel.getVmid(), vmModel.getVmname());
+			return JSONUtil.jsonSuccess(null, OpenstackUtil.getMessage("operation.success"));
+		}else{
+			return JSONUtil.jsonError("not found");
+		}
+		
+	}
+	
+	@RequestMapping(value = "/getPagerInstanceStatusList", method = RequestMethod.POST, produces = "application/json")
+	public Map<String, Object> getPagerInstancesStatus(Model model, Integer pageIndex, Integer pageSize,HttpServletRequest request, HttpServletResponse response ) {
+		int pageIdx = -1;
+		int pageSze = 0;
+		if (pageIndex == null || pageIndex == 0) {
+			log.info("no pageindex passed, set default value 1");
+			pageIdx = Constants.DEFAULT_PAGE_INDEX;
+		} else {
+			pageIdx = pageIndex;
+		}
+		if (pageSize == null) {
+			log.info("no page size passed, set default value 20");
+			pageSze = Constants.DEFAULT_PAGE_SIZE;
+		} else {
+			pageSze = pageSize;
+		}
+		List<InstanceModel> imList = new ArrayList<InstanceModel>();
+
+		String username = SecurityUtils.getUserName();
+		String password = SecurityUtils.getUser().getPassword();
+		Tenant tenant = SecurityUtils.getTenant();
+		
+		try {
+			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
+			List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, null, "deleted");
+			
+			PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
+			instanceList = page.getPagedData(pageIdx);
+			if (instanceList != null) {
+				for (Instance instance : instanceList) {				
+					InstanceModel im = new InstanceModel();
+					im.setVmid(instance.getUuid());
+					im.setVmname(instance.getName());
+					im.setStatus(instance.getStatus());
+					im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
+					im.setTenantId(tenant.getUuid());
+					im.setStarttime(instance.getCreateTime());
+					im.setUpdatetime(instance.getUpdateTime());
+					if(instance.getStatus().equalsIgnoreCase("deleted")){
+						im.setDeletedTime(instance.getUpdateTime());
+					}
+					im.setTaskStatus(instance.getTask());
+					im.setAssignedto(username);
+					im.setAccesspoint("");
+					try {
+						im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
+					} catch (OpenstackAPIException e) {					
+					}
+					
+					DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+					im.setRegion(dataCenter.getName().getI18nContent());
+					
+					OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
+					im.setPeriod(period.getName().getI18nContent());
+					
+					VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
+					ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
+					if (flavorItem != null) {
+						im.setFlavorName(flavorItem.getName().getI18nContent());
+					}
+					
+					Map<String, String> tempAddress = new HashMap<String, String>();
+					tempAddress.put("Private", vm.getFixedIp());
+					im.setAddresses(tempAddress);
+					
+					ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
+					if (imageItem != null) {
+						im.setOstype(imageItem.getName().getI18nContent());
+					}
+					imList.add(im);
+				}
+				Map<String, Object> conf = new LinkedHashMap<String, Object>();
+				conf.put("grid.name", "[plain]");
+				conf.put("grid.id", "[hidden]");
+				conf.put("grid.period", "[plain]");
+				conf.put("grid.status", "[plain]");
+				conf.put("status.value", "{statusDisplay} ");
+				conf.put("grid.starttime", "[plain]");
+				conf.put("starttime.label", OpenstackUtil.getMessage("createTime.label"));
+				conf.put("grid.deletedTime", "[plain]");
+				conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.deletedTime.label"));
+				conf.put(".forPager", true);
+				conf.put(".datas", imList);
+
+				model.addAttribute("configuration", conf);
+
+				String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
+
+				if (jspString == null) {
+					return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
+				} else {
+					Map<String, Object> result = new HashMap<String, Object>();
+					result.put("recordTotal", page.getTotalRecord());
+					result.put("html", jspString);
+
+					return OpenstackUtil.buildSuccessResponse(result);
+				}
+			}
+		} catch (OpenstackAPIException e) {
+			log.error(e.getMessage(), e);
+			return OpenstackUtil.buildErrorResponse(e.getMessage());
+		}
+		return OpenstackUtil.buildErrorResponse("error");
 	}
 
 }

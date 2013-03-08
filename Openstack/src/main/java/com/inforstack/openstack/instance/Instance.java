@@ -65,6 +65,15 @@ public class Instance {
 	
 	@Column(name="update_time")
 	private Date updateTime;
+	
+	@Column(name="bill_time")
+	private Date billTime;
+	
+	@Column(name="stop_time")
+	private Date stopTime;
+	
+	@Column(name="delete_time")
+	private Date deleteTime;
 
 	public int getId() {
 		return id;
@@ -160,6 +169,30 @@ public class Instance {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+	
+	public Date getBillTime() {
+		return billTime;
+	}
+
+	public void setBillTime(Date billTime) {
+		this.billTime = billTime;
+	}
+
+	public Date getStopTime() {
+		return stopTime;
+	}
+
+	public void setStopTime(Date stopTime) {
+		this.stopTime = stopTime;
+	}
+
+	public Date getDeleteTime() {
+		return deleteTime;
+	}
+
+	public void setDeleteTime(Date deleteTime) {
+		this.deleteTime = deleteTime;
 	}
 
 	public List<SubOrder> getSubOrders() {

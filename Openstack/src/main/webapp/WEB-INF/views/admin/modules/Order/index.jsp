@@ -10,9 +10,7 @@
 </head>
 <body>
 <div class="banner">
-    <label>
-        <span id="banner" ><spring:message code="admin.order.title"/></span>
-    </label>
+    <span id="banner" ><spring:message code="admin.order.title"/></span>
 </div>
 
 <div id="mainBody" >

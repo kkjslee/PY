@@ -12,9 +12,7 @@
 </head>
 <body>
 <div class="banner">
-	<label>
-		<span id="banner" ></span>
-	</label>
+	<span id="banner" ><spring:message code='admin.navi.category' /></span>
 </div>
 
 <div id="mainBody" >

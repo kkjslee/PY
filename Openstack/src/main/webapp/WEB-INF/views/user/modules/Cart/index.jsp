@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="banner">
-        <span id="banner" ></span>
+        <span id="banner" ><spring:message code='user.navi.product' /></span>
 </div>
 
 <div id="mainBody" class="cartForm form-horizontal" >

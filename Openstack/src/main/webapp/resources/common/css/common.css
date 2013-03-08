@@ -69,11 +69,14 @@ body {
 	white-space:nowrap;
 }
 .banner{
-	left: 250px; height: 50px;
+	left: 250px; 
+	height: 50px;
 	border-bottom:1px solid #E5E5E5;
 	line-height: 50px;
     vertical-align: middle;
     font-size: 19px;
+    font-weight:bold;
+    color:#008EE8;
     padding: 0 15px;
 }
 .banner label{
@@ -104,4 +107,18 @@ body {
 }
 .pipvice{
 	font-size:12px;
+}
+
+.cloudForm .control-label{
+    width:140px;
+    padding-top:0;
+}
+.cloudForm.controls{
+    margin-left:150px;
+}
+.cloudForm .control-group{
+    margin-bottom:10px;
+}
+.umust{
+	color:#F60;font-weight:bold;font-size:18px;
 }

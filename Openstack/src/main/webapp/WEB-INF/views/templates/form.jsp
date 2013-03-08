@@ -64,7 +64,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 </c:if>
 
 <c:if test="${conf['.form'] == 'start_end' or conf['.form'] == 'start'}">
-	<form id="customForm" class="form-horizontal" method="${conf['.method']}"
+	<form id="customForm" class="form-horizontal" <c:if test="${conf['.formName'] != null}">name="${conf['.formName']}"</c:if> method="${conf['.method']}"
 		<c:if test="${conf['.action'] != null}">
 			action="${conf['.action']}" 
 		</c:if>
@@ -76,7 +76,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 		</c:if>
 	>
 </c:if>
-<div>${conf[".title"]}</div>
+<div class="cFormTitle <c:if test="${conf['.titleClass'] != null}">${conf['.titleClass']}</c:if>">${conf[".title"]}</div>
 <c:forEach items="${conf}" var="p">
 	<c:if test="${fn:startsWith(p.key, 'form.')}">
 		<c:set value="${fn:replace(p.key, 'form.', '')}" var="item"/>

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="banner">
-      <span id="banner" ><spring:message code="user.order.title"/></span>
+      <span id="banner" ><spring:message code='user.navi.order' /></span>
 </div>
 
 <div id="mainBody" >

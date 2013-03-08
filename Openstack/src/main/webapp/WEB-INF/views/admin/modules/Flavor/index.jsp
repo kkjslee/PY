@@ -12,8 +12,7 @@
 </head>
 <body>
 <div class="banner">
-    <label>
-        <span></span>
+        <span id="banner"><spring:message code='admin.navi.flavor' /></span>
     </label>
 </div>
 

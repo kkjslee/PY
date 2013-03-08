@@ -10,9 +10,7 @@
 </head>
 <body>
 <div class="banner">
-    <label>
-        <span id="banner" ></span>
-    </label>
+   <span id="banner" ><spring:message code='admin.navi.quantum' /></span>
 </div>
 
 <div id="mainBody" >

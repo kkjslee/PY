@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="banner">
-		<span id="banner" ></span>
+	<span id="banner" ><spring:message code='admin.navi.instance' /></span>
 </div>
 
 <div id="mainBody" >

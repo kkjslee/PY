@@ -406,7 +406,7 @@ INSERT INTO order_period(id, create_time, deleted, period_qutity, period_type, n
 
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (1,1,'2013-02-25 11:06:14',0,14,2,'1','2013-02-25 11:06:14',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (2,1,'2013-02-25 11:06:42',0,15,7,'1','2013-02-25 11:06:42',NULL);
-INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (3,1,'2013-02-25 11:07:01',0,16,7,'2','2013-02-25 11:07:01',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (3,0,'2013-02-25 11:07:01',0,16,7,'2','2013-02-25 11:07:01',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (4,1,'2013-02-25 11:07:33',1,17,1,'1','2013-02-25 11:07:33',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (5,1,'2013-02-25 11:07:57',5,18,1,'2','2013-02-25 11:07:57',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (6,1,'2013-02-25 11:08:22',10,19,1,'3','2013-02-25 11:08:22',NULL);

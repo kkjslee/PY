@@ -13,6 +13,8 @@ public class IP {
 	
 	private String uuid;
 	
+	private String address;
+	
 	private String vm;
 
 	public int getId() {
@@ -29,6 +31,14 @@ public class IP {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getVm() {

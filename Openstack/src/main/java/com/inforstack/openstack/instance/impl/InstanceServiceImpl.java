@@ -50,6 +50,7 @@ import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
+import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
 
 @Service("instanceService")
@@ -109,6 +110,9 @@ public class InstanceServiceImpl implements InstanceService {
 	
 	@Autowired
 	private AttachTaskService attachTaskService;
+	
+	@Autowired
+	private UserService userService;
 	
 	private static final class IPConfig {
 		
@@ -278,8 +282,9 @@ public class InstanceServiceImpl implements InstanceService {
 			Access access = null;
 			Server newServer = null;
 			Volume newVolume = null;
+			String password = this.userService.getOpenstackUserPassword();
 			try {
-				access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
+				access = this.keystoneService.getAccess(user.getUsername(), password, tenant.getUuid(), true);
 				if (access != null) {
 					Order order = this.orderService.findOrderById(orderId);
 					if (order != null) {
@@ -328,7 +333,7 @@ public class InstanceServiceImpl implements InstanceService {
 								if (newVolume != null) {
 									vi = this.bindVolumeToSubOrder(newVolume, order, vm, dataCenterRef, tenant);
 									if (server != null && server.getId() != null && !server.getId().isEmpty()) {
-										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), user.getUsername(), user.getPassword(), tenant.getUuid());
+										this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_VOLUME, vm.getUuid(), vi.getUuid(), user.getUsername(), password, tenant.getUuid());
 									}
 								}
 							}
@@ -340,7 +345,7 @@ public class InstanceServiceImpl implements InstanceService {
 									ip = this.bindIPToSubOrder(floatingIP, order, vm, dataCenterRef, tenant);
 								}
 								if (server != null && server.getId() != null && !server.getId().isEmpty()) {
-									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_IP, vm.getUuid(), ip.getUuid(), user.getUsername(), user.getPassword(), tenant.getUuid());
+									this.attachTaskService.addTask(Constants.ATTACH_TASK_TYPE_IP, vm.getUuid(), ip.getUuid(), user.getUsername(), password, tenant.getUuid());
 								}
 							}
 						}
@@ -366,7 +371,8 @@ public class InstanceServiceImpl implements InstanceService {
 		if (instance != null && instance.getType() == Constants.INSTANCE_TYPE_VM) {
 			Access access = null;
 			try {
-				access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
+				String password = this.userService.getOpenstackUserPassword();
+				access = this.keystoneService.getAccess(user.getUsername(), password, tenant.getUuid(), true);
 				if (access != null) {
 					List<Instance> subInstances = instance.getSubInstance();
 					if (subInstances.size() > 0) {
@@ -375,11 +381,11 @@ public class InstanceServiceImpl implements InstanceService {
 							String attachId = subInstance.getUuid();
 							switch (type) {
 								case Constants.INSTANCE_TYPE_VOLUME: {
-									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_VOLUME, serverId, attachId, user.getUsername(), user.getPassword(), tenant.getUuid());
+									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_VOLUME, serverId, attachId, user.getUsername(), password, tenant.getUuid());
 									break;
 								}
 								case Constants.INSTANCE_TYPE_IP: {
-									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_IP, serverId, attachId, user.getUsername(), user.getPassword(), tenant.getUuid());
+									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_IP, serverId, attachId, user.getUsername(), password, tenant.getUuid());
 									break;
 								}
 							}
@@ -615,6 +621,7 @@ public class InstanceServiceImpl implements InstanceService {
 				subOrder.setUuid(floatingIP.getId());
 				ip = new IP();
 				ip.setUuid(floatingIP.getId());
+				ip.setAddress(floatingIP.getFloatingIP());
 				if (vm != null) {
 					ip.setVm(vm.getUuid());					
 				}
@@ -645,7 +652,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void attachVolume(User user, Tenant tenant, String volumeId, String serverId) {
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		try {
 			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
 			if (access != null) {
@@ -668,7 +675,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void detachVolume(User user, Tenant tenant, String volumeId, String serverId) {
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		try {
 			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
 			if (access != null) {
@@ -693,7 +700,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void removeVolume(User user, Tenant tenant, String volumeId) {
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		try {
 			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
 			if (access != null) {
@@ -712,7 +719,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void associateIP(User user, Tenant tenant, String ipId, String serverId) {
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		try {
 			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
 			if (access != null) {
@@ -735,7 +742,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void disassociateIP(User user, Tenant tenant, String ipId, String serverId) {
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		try {
 			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
 			if (access != null) {
@@ -760,7 +767,7 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public void removeIP(User user, Tenant tenant, String ipId) {
 		String username = user.getUsername();
-		String password = user.getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		try {
 			Access access = this.keystoneService.getAccess(username, password, tenant.getUuid(), true);
 			if (access != null) {

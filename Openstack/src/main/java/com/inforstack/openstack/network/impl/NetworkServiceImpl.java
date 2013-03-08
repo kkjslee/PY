@@ -18,6 +18,7 @@ import com.inforstack.openstack.network.Subnet;
 import com.inforstack.openstack.network.SubnetDao;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
+import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 @Service
@@ -35,6 +36,9 @@ public class NetworkServiceImpl implements NetworkService {
 	
 	@Autowired
 	private QuantumService quantumService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	public List<Network> listNetworks() {
@@ -66,7 +70,7 @@ public class NetworkServiceImpl implements NetworkService {
 		Network network = null;
 		Access access = null;
 		try {
-			access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
+			access = this.keystoneService.getAccess(user.getUsername(), this.userService.getOpenstackUserPassword(), tenant.getUuid(), true);
 			if (access != null) {
 				com.inforstack.openstack.api.quantum.Network osNetwork = this.quantumService.createNetwork(access, name, true, false, false);
 				if (osNetwork != null && osNetwork.getStatus().equalsIgnoreCase("ACTIVE")) {
@@ -98,7 +102,7 @@ public class NetworkServiceImpl implements NetworkService {
 		Subnet subnet = null;
 		Access access = null;
 		try {
-			access = this.keystoneService.getAccess(user.getUsername(), user.getPassword(), tenant.getUuid(), true);
+			access = this.keystoneService.getAccess(user.getUsername(), this.userService.getOpenstackUserPassword(), tenant.getUuid(), true);
 			if (access != null) {
 				NetworkService self = (NetworkService) OpenstackUtil.getBean(NetworkService.class);
 				int[] address = self.generateAddress(dataCenter);

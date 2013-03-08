@@ -43,6 +43,7 @@ import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.tenant.Tenant;
+import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.JSONUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
@@ -69,6 +70,9 @@ public class UserInstanceController {
 	
 	@Autowired
 	private KeystoneService keystoneService;
+	
+	@Autowired
+	private UserService userService;
 	
 	private final String INSTANCE_MODULE_HOME = "user/modules/Instance";
 
@@ -110,7 +114,7 @@ public class UserInstanceController {
 		List<InstanceModel> imList = new ArrayList<InstanceModel>();
 
 		String username = SecurityUtils.getUserName();
-		String password = SecurityUtils.getUser().getPassword();
+		String password = this.userService.getOpenstackUserPassword();
 		Tenant tenant = SecurityUtils.getTenant();
 		
 		try {
@@ -175,7 +179,7 @@ public class UserInstanceController {
 	String controlInstance(Model model, String executecommand, String vmid, Boolean freeResources) {
 		try {
 			String username = SecurityUtils.getUserName();
-			String password = SecurityUtils.getUser().getPassword();
+			String password = this.userService.getOpenstackUserPassword();
 			Tenant tenant = SecurityUtils.getTenant();
 			Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
 

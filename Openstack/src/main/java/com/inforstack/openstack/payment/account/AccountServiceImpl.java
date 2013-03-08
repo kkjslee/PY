@@ -59,7 +59,7 @@ public class AccountServiceImpl implements AccountService{
 		synchronized (AccountServiceImpl.class) {
 			int max = new Integer(StringUtil.leftPadding("", '9', DateUtil.SEQ_DATE_LEN));
 			if(sequence == max){
-				throw new ApplicationRuntimeException("Max account limited today");
+				throw new ApplicationRuntimeException("Max account limit reached today");
 			}
 			
 			String date = DateUtil.getSequenceDate(new Date());

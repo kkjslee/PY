@@ -94,14 +94,12 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	
 	@Override
 	public BillingProcessResult runBillingProcess(BillingProcessConfiguration conf, Boolean autoPay) {
-		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		return self.runBillingProcess(conf, null, autoPay);
+		return this.runBillingProcess(conf, null, autoPay);
 	}
 	
 	@Override
 	public BillingProcessResult runBillingProcess(Integer tenantId, Boolean autoPay) {
-		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		return self.runBillingProcess(null, tenantId, autoPay);
+		return this.runBillingProcess(null, tenantId, autoPay);
 	}
 	
 	@Override
@@ -174,8 +172,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	}
 	
 	public BillingProcessResult runBillingProcessForOrder(int orderId){
-		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		return self.runBillingProcessForOrder(orderId, null);
+		return this.runBillingProcessForOrder(orderId, null);
 	}
 	
 	@Override
@@ -213,8 +210,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 			}
 		}
 		
-		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		BillingProcess bp = self.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
+		BillingProcess bp = this.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
 		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
 		return bpr;
 	}

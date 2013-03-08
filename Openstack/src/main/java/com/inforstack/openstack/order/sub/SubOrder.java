@@ -47,6 +47,12 @@ public class SubOrder {
 	
 	private int status;
 	
+	@Column(name="last_pay_time")
+	private Date lastPayTime;
+	
+	@Column(name="last_billing_time")
+	private Date lastBillingTime;
+	
 	private String uuid;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -131,6 +137,22 @@ public class SubOrder {
 
 	public void setInstance(Instance instance) {
 		this.instance = instance;
+	}
+
+	public Date getLastPayTime() {
+		return lastPayTime;
+	}
+
+	public void setLastPayTime(Date lastPayTime) {
+		this.lastPayTime = lastPayTime;
+	}
+
+	public Date getLastBillingTime() {
+		return lastBillingTime;
+	}
+
+	public void setLastBillingTime(Date lastBillingTime) {
+		this.lastBillingTime = lastBillingTime;
 	}
 	
 }

@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,8 @@ import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.order.Order;
+import com.inforstack.openstack.order.OrderServiceImpl;
 import com.inforstack.openstack.payment.account.Account;
 import com.inforstack.openstack.payment.account.AccountService;
 import com.inforstack.openstack.payment.method.PaymentMethod;
@@ -22,7 +26,10 @@ import com.inforstack.openstack.payment.method.PaymentMethodService;
 import com.inforstack.openstack.payment.method.prop.PaymentMethodProperty;
 import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.DateUtil;
+import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Service(value="paymentService")
 @Transactional
@@ -42,22 +49,45 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private PaymentMethodService paymentMethodService;
 	
-	@Override
-	public Payment createPayment(Payment payment) {
-		if(payment == null){
-			log.info("Create payment failed for passed payment is null");
-			return null;
+	private static String cachedDate = null;
+	private static int sequence = 0;
+	
+	@PostConstruct
+	public void postInit(){
+		synchronized (PaymentServiceImpl.class){
+			if(cachedDate == null){
+				Date date = new Date();
+				Payment payment = paymentDao.findLastestBySequenceDate("sequence", date);
+				if(payment != null){
+					cachedDate = payment.getSequence().substring(1, DateUtil.SEQ_DATE_LEN + 2);
+					sequence = new Integer(payment.getSequence().substring(DateUtil.SEQ_DATE_LEN + 2));
+				}else{
+					cachedDate = DateUtil.getSequenceDate(date);
+					sequence = 0;
+				}
+			}
 		}
-		
-		log.debug("Create paymant");
-		paymentDao.persist(payment);
-		log.debug("Create payment successfully");
-		return payment;
+	}
+	
+	private String genenratePaymentSequence(){
+		synchronized (OrderServiceImpl.class) {
+			int max = new Integer(StringUtil.leftPadding("", '9', DateUtil.SEQ_DATE_LEN));
+			if(sequence == max){
+				throw new ApplicationRuntimeException("Max payment limit reached today");
+			}
+			
+			String date = DateUtil.getSequenceDate(new Date());
+			if(!date.equals(cachedDate)){
+				cachedDate = date;
+				sequence = 0;
+			}
+			sequence++;
+			return "P" + date + NumberUtil.leftPaddingZero(sequence, 8);
+		}
 	}
 	
 	public Payment createPayment(double amount, int type, int tenantId, Integer instaceId) {
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		return self.createPayment(new BigDecimal(amount), type, tenantId, instaceId);
+		return this.createPayment(new BigDecimal(amount), type, tenantId, instaceId);
 	}
 	
 	@Override
@@ -72,8 +102,7 @@ public class PaymentServiceImpl implements PaymentService {
 					tenantService.findTenantById(tenantId), null);
 		}
 		
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		return self.createPayment(amount, type, account);
+		return this.createPayment(amount, type, account);
 	}
 	
 	@Override
@@ -85,6 +114,7 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setType(type);
 		payment.setStatus(Constants.PAYMENT_STATUS_NEW);
 		payment.setAccount(account);
+		payment.setSequence(genenratePaymentSequence());
 		
 		paymentDao.persist(payment);
 		log.debug("Create payment successfully");
@@ -121,8 +151,7 @@ public class PaymentServiceImpl implements PaymentService {
 			throw new ApplicationRuntimeException("No invoice found");
 		}
 		
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		BigDecimal balance = self.applyPayment(invoice, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
+		BigDecimal balance = this.applyPayment(invoice, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
 		log.debug("apply payment successfully");
 		return balance;
 	}
@@ -130,8 +159,7 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public BigDecimal applyPayment(Invoice invoice) {
 		log.debug("Apply payment to invoice : " + invoice.getId());
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		BigDecimal balance = self.applyPayment(invoice, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
+		BigDecimal balance = this.applyPayment(invoice, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
 		log.debug("apply payment successfully");
 		return balance;
 	}
@@ -153,10 +181,16 @@ public class PaymentServiceImpl implements PaymentService {
 			payAmount = account.getBalance();
 		}
 		
-		PaymentService self = (PaymentService)OpenstackUtil.getBean("paymentService");
-		Payment payment = self.createPayment(payAmount.negate(), Constants.PAYMENT_TYPE_PAYOUT, account);
+		Payment payment = this.createPayment(payAmount.negate(), Constants.PAYMENT_TYPE_PAYOUT, account);
 		BigDecimal balance = invoiceService.payAmount(invoice, payAmount);
-		self.paidSuccessfully(payment);
+		this.paidSuccessfully(payment);
+		
+		if(payAmount.compareTo(BigDecimal.ZERO) > 0){
+			if(invoice.getSubOrder() != null){
+				invoice.getSubOrder().setLastPayTime(new Date());
+				invoice.getSubOrder().getOrder().setLastPayTime(new Date());
+			}
+		}
 		
 		int val = balance.compareTo(BigDecimal.ZERO);
 		if(val == 0){

@@ -41,8 +41,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 				Date date = new Date();
 				Invoice invoice = invoiceDao.findLastestBySequenceDate("sequence", date);
 				if(invoice != null){
-					cachedDate = invoice.getSequence().substring(0, DateUtil.SEQ_DATE_LEN + 1);
-					sequence = new Integer(invoice.getSequence().substring(DateUtil.SEQ_DATE_LEN + 1));
+					cachedDate = invoice.getSequence().substring(1, DateUtil.SEQ_DATE_LEN + 2);
+					sequence = new Integer(invoice.getSequence().substring(DateUtil.SEQ_DATE_LEN + 2));
 				}else{
 					cachedDate = DateUtil.getSequenceDate(date);
 					sequence = 0;
@@ -64,7 +64,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 				sequence = 0;
 			}
 			sequence++;
-			return date + NumberUtil.leftPaddingZero(sequence, 8);
+			return "I" + date + NumberUtil.leftPaddingZero(sequence, 8);
 		}
 	}
 	

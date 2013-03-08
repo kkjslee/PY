@@ -209,9 +209,10 @@ public class SubOrderServiceImpl implements SubOrderService {
 					calendar.add(subOrder.getOrderPeriod().getPeriodType(), subOrder.getOrderPeriod().getPeriodType());
 					subOrder.setNextBillingDate(calendar.getTime());
 				}
+				
+				subOrder.setLastBillingTime(new Date());
 			}
 		}
-		log.debug("Pay sub order successfully");
 		
 		return ic;
 	}

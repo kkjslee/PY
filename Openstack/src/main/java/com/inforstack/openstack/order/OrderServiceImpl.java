@@ -77,8 +77,8 @@ public class OrderServiceImpl implements OrderService {
 				Date date = new Date();
 				Order order = orderDao.findLastestBySequenceDate("sequence", date);
 				if(order != null){
-					cachedDate = order.getSequence().substring(0, DateUtil.SEQ_DATE_LEN + 1);
-					sequence = new Integer(order.getSequence().substring(DateUtil.SEQ_DATE_LEN + 1));
+					cachedDate = order.getSequence().substring(1, DateUtil.SEQ_DATE_LEN + 2);
+					sequence = new Integer(order.getSequence().substring(DateUtil.SEQ_DATE_LEN + 2));
 				}else{
 					cachedDate = DateUtil.getSequenceDate(date);
 					sequence = 0;
@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
 		synchronized (OrderServiceImpl.class) {
 			int max = new Integer(StringUtil.leftPadding("", '9', DateUtil.SEQ_DATE_LEN));
 			if(sequence == max){
-				throw new ApplicationRuntimeException("Max account limited today");
+				throw new ApplicationRuntimeException("Max order limit reached today");
 			}
 			
 			String date = DateUtil.getSequenceDate(new Date());
@@ -100,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 				sequence = 0;
 			}
 			sequence++;
-			return date + NumberUtil.leftPaddingZero(sequence, 8);
+			return "O" + date + NumberUtil.leftPaddingZero(sequence, 8);
 		}
 	}
 
@@ -287,6 +287,7 @@ public class OrderServiceImpl implements OrderService {
 			log.debug("Pay order successfully");
 		}
 		
+		order.setLastBillingTime(new Date());
 		this.checkOrderStatus(order);
 		
 		return ic;
@@ -306,6 +307,7 @@ public class OrderServiceImpl implements OrderService {
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				if (Constants.SUBORDER_STATUS_AVAILABLE.equals(subOrder.getStatus()) || 
+						Constants.SUBORDER_STATUS_OVERDUE.equals(subOrder.getStatus()) ||
 						Constants.SUBORDER_STATUS_ERROR.equals(subOrder.getStatus()) ||
 						Constants.SUBORDER_STATUS_NEW.equals(subOrder.getStatus())) {
 					return Constants.ORDER_STATUS_ACTIVE;

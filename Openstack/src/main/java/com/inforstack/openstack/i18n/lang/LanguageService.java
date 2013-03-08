@@ -3,6 +3,8 @@ package com.inforstack.openstack.i18n.lang;
 import java.util.List;
 
 public interface LanguageService {
+	
+  public Language findById(int languageId);
 
   /**
    * find language by id

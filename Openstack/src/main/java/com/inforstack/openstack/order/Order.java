@@ -66,6 +66,12 @@ public class Order {
 	@JoinColumn(name="invoice_id")
 	private Invoice invoice;
 	
+	@Column(name="last_pay_time")
+	private Date lastPayTime;
+	
+	@Column(name="last_billing_time")
+	private Date lastBillingTime;
+	
 	public int getId() {
 		return id;
 	}
@@ -168,6 +174,22 @@ public class Order {
 
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
+	}
+
+	public Date getLastPayTime() {
+		return lastPayTime;
+	}
+
+	public void setLastPayTime(Date lastPayTime) {
+		this.lastPayTime = lastPayTime;
+	}
+
+	public Date getLastBillingTime() {
+		return lastBillingTime;
+	}
+
+	public void setLastBillingTime(Date lastBillingTime) {
+		this.lastBillingTime = lastBillingTime;
 	}
 
 }

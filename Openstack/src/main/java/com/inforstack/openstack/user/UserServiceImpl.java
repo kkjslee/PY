@@ -84,6 +84,11 @@ public class UserServiceImpl implements UserService {
 
 		return user;
 	}
+	
+	@Override
+	public String getOpenstackUserPassword(){
+		return OpenstackUtil.getConfig(Constants.CONFIG_OPENSTACK_USER_PASSWORD);
+	}
 
 	@Override
 	public User registerUser(User user, Tenant tenant, int roleId)
@@ -99,9 +104,8 @@ public class UserServiceImpl implements UserService {
 					OpenstackUtil.getMessage("tenant.create.fail"));
 		}
 
-		UserService self = (UserService) OpenstackUtil.getBean("userService");
 		fillUser(user, t);
-		User u = self.createUser(user, roleId);
+		User u = this.createUser(user, roleId);
 		if (u == null) {
 			log.warn("Register user failed for creating user failed : "
 					+ user.getUsername());
@@ -128,14 +132,14 @@ public class UserServiceImpl implements UserService {
 		userDao.persist(user);
 
 		user.setOpenstackUser(keystoneService.createUser(user.getUsername(),
-				user.getPassword(), user.getEmail()));
+				this.getOpenstackUserPassword(), ""));
 		user.setUuid(user.getOpenstackUser().getId());
 		log.debug("create user successfully");
 		return user;
 	}
 
 	@Override
-	public User updateUser(User user) throws OpenstackAPIException {
+	public User updateUser(User user) {
 		User newUser = userDao.findById(user.getId());
 		if (newUser == null) {
 			log.warn("Update user failed for no user found for id :　"
@@ -143,28 +147,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 
-		boolean mergeWithOpenstack = false;
-		com.inforstack.openstack.api.keystone.User ou1 = user
-				.getOpenstackUser();
-		com.inforstack.openstack.api.keystone.User ou2 = newUser
-				.getOpenstackUser();
-		if (!ou1.getEmail().equals(ou2.getEmail())
-				|| !ou1.getName().equals(ou2.getName())
-				|| !ou1.getPassword().equals(ou2.getPassword())
-				|| !ou1.isEnabled() == ou2.isEnabled()) {
-			mergeWithOpenstack = true;
-		}
-
 		log.debug("Update user : " + user.getUsername());
-		newUser = userDao.findById(user);
-		if (newUser == null) {
-			log.warn("Update user failed");
-			return null;
-		}
+		userDao.update(user);
 
-		if (mergeWithOpenstack) {
-			keystoneService.updateUser(ou1);
-		}
 		log.debug("Update user successfully");
 		return newUser;
 	}
@@ -180,8 +165,7 @@ public class UserServiceImpl implements UserService {
 
 		log.debug("Create user for tenant : " + t.getName());
 		fillUser(user, t);
-		UserService self = (UserService) OpenstackUtil.getBean("userService");
-		User u = self.createUser(user, t.getRoleId());
+		User u = this.createUser(user, t.getRoleId());
 		if (u == null) {
 			log.warn("Create tenant user failed");
 			throw new ApplicationRuntimeException(

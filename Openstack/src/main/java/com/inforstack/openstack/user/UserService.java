@@ -51,6 +51,8 @@ public interface UserService {
 	 * @return
 	 */
 	public User findByNameAndEmail(String userName, String email);
+	
+	public String getOpenstackUserPassword();
 
 	/**
 	 * register user
@@ -91,7 +93,7 @@ public interface UserService {
 	 * @return
 	 * @throws OpenstackAPIException
 	 */
-	public User updateUser(User user) throws OpenstackAPIException;
+	public User updateUser(User user);
 
 	/**
 	 * delete user by id
@@ -112,4 +114,5 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean checkQuestion(String username, String question, String answer);
+
 }

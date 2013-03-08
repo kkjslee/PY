@@ -9,13 +9,6 @@ import com.inforstack.openstack.payment.account.Account;
 import com.inforstack.openstack.payment.method.PaymentMethod;
 
 public interface PaymentService {
-
-	/**
-	 * Create payment
-	 * @param payment
-	 * @return
-	 */
-	public Payment createPayment(Payment payment);
 	
 	/**
 	 * Create payment with necessary fileds

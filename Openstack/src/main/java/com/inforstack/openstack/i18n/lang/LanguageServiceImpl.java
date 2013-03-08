@@ -19,6 +19,11 @@ public class LanguageServiceImpl implements LanguageService {
   private static final Logger log = new Logger(LanguageServiceImpl.class);
   @Autowired
   private LanguageDao languageDao;
+  
+  @Override
+  public Language findById(int languageId) {
+	  return languageDao.findById(languageId);
+  }
 
   @Override
   public Language findById(String languageId) {

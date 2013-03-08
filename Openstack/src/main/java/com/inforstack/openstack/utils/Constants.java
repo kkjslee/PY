@@ -21,9 +21,10 @@ public class Constants {
 
 	public static final Integer SUBORDER_STATUS_NEW = 1;
 	public static final Integer SUBORDER_STATUS_AVAILABLE = 2;
-	public static final Integer SUBORDER_STATUS_END = 3;
-	public static final Integer SUBORDER_STATUS_ERROR = 4;
-	public static final Integer SUBORDER_STATUS_DELETED = 5;
+	public static final Integer SUBORDER_STATUS_OVERDUE = 3;
+	public static final Integer SUBORDER_STATUS_END = 4;
+	public static final Integer SUBORDER_STATUS_ERROR = 5;
+	public static final Integer SUBORDER_STATUS_DELETED = 6;
 
 	public static final Integer SUBORDER_TYPE_PREPAID = 1;
 	public static final Integer SUBORDER_TYPE_POSTPAID = 2;
@@ -167,6 +168,7 @@ public class Constants {
 	public static final String CONFIG_SOCKET_PORT = "socket.port";
 	public static final String CONFIG_SOCKET_CEILOMETER_TIMEOUT = "socket.ceilmeter.timeout";
 	public static final String CONFIG_SOCKET_TIMESTAMP_TOLERANCE = "socket.timestamp.tolerance";
+	public static final String CONFIG_OPENSTACK_USER_PASSWORD = "openstack.user.password";
 	public static final String POOLS_SPLITTER = ";";
 	public static final String IP_SPLITTER = ",";
 

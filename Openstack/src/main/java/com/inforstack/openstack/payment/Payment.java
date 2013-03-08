@@ -22,6 +22,8 @@ public class Payment {
 	@GeneratedValue
 	private Integer id;
 	
+	private String sequence;
+	
 	private BigDecimal amount;
 	
 	private int type;
@@ -45,6 +47,14 @@ public class Payment {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
 	}
 
 	public BigDecimal getAmount() {

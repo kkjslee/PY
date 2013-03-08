@@ -2,7 +2,6 @@ package com.inforstack.openstack.billing.invoice;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,15 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
-import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
-import com.inforstack.openstack.payment.Payment;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Entity
@@ -28,6 +23,8 @@ public class Invoice {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	private String sequence;
 	
 	private int status;
 	
@@ -69,6 +66,14 @@ public class Invoice {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
 	}
 
 	public int getStatus() {

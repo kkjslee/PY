@@ -2,6 +2,9 @@ package com.inforstack.openstack.basic;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.payment.account.Account;
+import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.DateUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
@@ -49,6 +55,11 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			}
 		}
 		return self;
+	}
+	
+	@Override
+	public void refresh(Object entity){
+		em.refresh(entity);
 	}
 	
 	@Override
@@ -183,7 +194,35 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		}
 		return intance;
 	}
-
+	
+	@Override
+	public final T findLastestBySequenceDate(String column, Date date) {
+		log.debug("find lastest "+this.modelClz.getSimpleName()+" by sequence column : " + column + ", date : " + date);
+		
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<T> criteria = builder
+					.createQuery(this.modelClz);
+			Root<T> root = criteria.from(this.modelClz);
+			
+			criteria.select(root).where(
+					builder.like(root.<String>get(column), DateUtil.getSequenceDate(date)+"%")
+			);
+			TypedQuery<T> query = em.createQuery(criteria);
+			query.setMaxResults(1);
+			List<T> instances = em.createQuery(criteria).getResultList();
+			if(instances!=null && instances.size()>0){
+				log.debug("get successful");
+				return instances.get(0);
+			}
+			log.debug("No record found ");
+			return null;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
 	@Override
 	public final T persist(T instance) {
 		log.debug("persist " + this.modelClz.getSimpleName());

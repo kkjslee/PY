@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import com.inforstack.openstack.basic.BasicDaoImpl;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
-import com.inforstack.openstack.utils.StringUtil;
 
 @Repository
 public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderDao {
@@ -25,7 +24,7 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 	private EntityManager em;
 	
 	@Override
-	public List<SubOrder> find(String orderId, List<Integer> statuses, List<Integer> orderPeriods) {
+	public List<SubOrder> find(Integer orderId, List<Integer> statuses, List<Integer> orderPeriods) {
 		log.debug("Find all sub order(s) by order id : " + orderId + ", statuses : " + statuses + ", periods : " + orderPeriods);
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -33,7 +32,7 @@ public class SubOrderDaoImpl extends BasicDaoImpl<SubOrder> implements SubOrderD
 					.createQuery(SubOrder.class);
 			Root<SubOrder> root = criteria.from(SubOrder.class);
 			List<Predicate> predicates = new ArrayList<Predicate>();
-			if(!StringUtil.isNullOrEmpty(orderId)){
+			if(orderId != null){
 				predicates.add(
 						builder.equal(root.get("order").get("id"), orderId)
 				);

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,6 @@ import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.billing.process.BillingProcessService;
-import com.inforstack.openstack.billing.process.result.BillingProcessResult;
 import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
@@ -36,8 +37,11 @@ import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.DateUtil;
+import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Service("orderService")
 @Transactional
@@ -62,18 +66,42 @@ public class OrderServiceImpl implements OrderService {
 	private PaymentMethodService paymentMethodService;
 	@Autowired
 	private BillingProcessService billingProcessService;
-
-	@Override
-	public Order createOrder(Order order) {
-		if (order == null) {
-			log.info("Create order failed for passed order is null");
-			return null;
+	
+	private static String cachedDate = null;
+	private static int sequence = 0;
+	
+	@PostConstruct
+	public void postInit(){
+		synchronized (OrderServiceImpl.class){
+			if(cachedDate == null){
+				Date date = new Date();
+				Order order = orderDao.findLastestBySequenceDate("sequence", date);
+				if(order != null){
+					cachedDate = order.getSequence().substring(0, DateUtil.SEQ_DATE_LEN + 1);
+					sequence = new Integer(order.getSequence().substring(DateUtil.SEQ_DATE_LEN + 1));
+				}else{
+					cachedDate = DateUtil.getSequenceDate(date);
+					sequence = 0;
+				}
+			}
 		}
-		log.debug("Create order");
-		orderDao.persist(order);
-		log.debug("Create order successfully");
-
-		return order;
+	}
+	
+	private String genenrateOrderSequence(){
+		synchronized (OrderServiceImpl.class) {
+			int max = new Integer(StringUtil.leftPadding("", '9', DateUtil.SEQ_DATE_LEN));
+			if(sequence == max){
+				throw new ApplicationRuntimeException("Max account limited today");
+			}
+			
+			String date = DateUtil.getSequenceDate(new Date());
+			if(!date.equals(cachedDate)){
+				cachedDate = date;
+				sequence = 0;
+			}
+			sequence++;
+			return date + NumberUtil.leftPaddingZero(sequence, 8);
+		}
 	}
 
 	public Order createOrder(CartModel cartModel) {
@@ -141,6 +169,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setTenant(tenant);
 		order.setAmount(amount);
 		order.setBalance(amount);
+		order.setSequence(this.genenrateOrderSequence());
 		orderDao.persist(order);
 		log.debug("Create order successfully");
 
@@ -171,7 +200,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order cancelOrder(String orderId) {
+	public Order cancelOrder(int orderId) {
 		log.debug("Delete order : " + orderId);
 		Order order = orderDao.findById(orderId);
 		if (order == null) {
@@ -187,7 +216,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order findOrderById(String orderId) {
+	public Order findOrderById(int orderId) {
 		log.debug("Find order by id : " + orderId);
 		Order order = orderDao.findById(orderId);
 		if (order == null) {
@@ -331,7 +360,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public String payOrder(String orderId, int paymentMethodId, Map<String, Object> property) {
+	public String payOrder(int orderId, int paymentMethodId, Map<String, Object> property) {
 		Order order = orderDao.findById(orderId);
 		if(order == null){
 			log.error("No order found by order id : " +orderId);

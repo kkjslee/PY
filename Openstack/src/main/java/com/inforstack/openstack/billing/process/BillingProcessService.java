@@ -25,20 +25,6 @@ public interface BillingProcessService {
 	public BillingProcess createBillingProcess(BillingProcessConfiguration config, Date startTime, User user);
 	
 	/**
-	 * process billing process
-	 * @param billingProcess
-	 * @return
-	 */
-	public BillingProcess processBillingProcess(BillingProcess billingProcess);
-	
-	/**
-	 * process billing process
-	 * @param billingProcessId
-	 * @return
-	 */
-	public BillingProcess processBillingProcess(int billingProcessId);
-	
-	/**
 	 * find billing process
 	 * @param billingProcessId
 	 * @return
@@ -51,8 +37,10 @@ public interface BillingProcessService {
 
 	public BillingProcessResult runBillingProcess(Integer tenantId, Boolean autoPay);
 
-	public BillingProcessResult runBillingProcessForOrder(String orderId, Boolean autoPay);
+	public BillingProcessResult runBillingProcessForOrder(int orderId, Boolean autoPay);
 
-	void processOrder(String orderId, Boolean autoPay, BillingProcess bp, BillingProcessResult bpr);
+	BillingProcessResult processOrder(int orderId, Boolean autoPay, int billingProcessResultId);
+
+	BillingProcessResult createBillingProcessResult(Integer billingProcessConfId);
 	
 }

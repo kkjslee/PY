@@ -34,7 +34,7 @@ public interface InstanceService {
 	
 	public IP findIPFromUUID(String uuid);
 	
-	public void createInstance(User user, Tenant tenant, String orderId);
+	public void createInstance(User user, Tenant tenant, int orderId);
 	
 	public void updateVM(User user, Tenant tenant, String serverId, String name);
 	

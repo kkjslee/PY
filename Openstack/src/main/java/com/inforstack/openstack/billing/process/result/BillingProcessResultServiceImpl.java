@@ -36,9 +36,9 @@ public class BillingProcessResultServiceImpl implements
 	}
 
 	@Override
-	public BillingProcessResult findBillingProcessResult(int billingProcessId) {
-		log.debug("Find billing process result by id : " + billingProcessId);
-		BillingProcessResult bpr = billingProcessResultDao.findById(billingProcessId);
+	public BillingProcessResult findBillingProcessResult(int billingProcessResultId) {
+		log.debug("Find billing process result by id : " + billingProcessResultId);
+		BillingProcessResult bpr = billingProcessResultDao.findById(billingProcessResultId);
 		if(bpr == null){
 			log.debug("No billing process result found");
 		}else{

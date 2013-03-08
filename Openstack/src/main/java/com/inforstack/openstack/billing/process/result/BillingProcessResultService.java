@@ -16,6 +16,6 @@ public interface BillingProcessResultService {
 	 * @param billingProcessId
 	 * @return
 	 */
-	public BillingProcessResult findBillingProcessResult(int billingProcessId);
+	public BillingProcessResult findBillingProcessResult(int billingProcessResultId);
 
 }

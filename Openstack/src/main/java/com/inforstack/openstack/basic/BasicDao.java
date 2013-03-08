@@ -1,5 +1,6 @@
 package com.inforstack.openstack.basic;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,5 +26,9 @@ public interface BasicDao<T> {
 	public PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<T> query);
 
 	public PaginationModel<T> pagination(int pageIndex, int pageSize);
-	
+
+	void refresh(Object entity);
+
+	T findLastestBySequenceDate(String column, Date date);
+
 }

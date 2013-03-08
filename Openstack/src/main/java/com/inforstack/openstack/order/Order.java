@@ -28,9 +28,10 @@ import com.inforstack.openstack.user.User;
 public class Order {
 	
 	@Id
-	@GeneratedValue(generator="order_uuid")
-	@GenericGenerator(name="order_uuid", strategy="uuid")
-	private String id;
+	@GeneratedValue
+	private int id;
+	
+	private String sequence;
 	
 	private Integer status;
 	
@@ -65,13 +66,20 @@ public class Order {
 	@JoinColumn(name="invoice_id")
 	private Invoice invoice;
 	
-	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
 	}
 
 	public List<SubOrder> getSubOrders() {

@@ -11,13 +11,16 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.conf.BillingProcessConfiguration;
+import com.inforstack.openstack.billing.process.conf.BillingProcessConfigurationService;
 import com.inforstack.openstack.billing.process.result.BillingProcessResult;
 import com.inforstack.openstack.billing.process.result.BillingProcessResultService;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
@@ -44,6 +47,8 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	private OrderService orderService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BillingProcessConfigurationService billingProcessConfigurationService;
 	@Autowired
 	private BillingProcessResultService billingProcessResultService;
 	
@@ -74,31 +79,6 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		return bp;
 	}
 	
-	@Override
-	public BillingProcess processBillingProcess(BillingProcess billingProcess) {
-		log.debug("Change billing process status to "
-				+ Constants.BILLINGPROCESS_STATUS_PROCESSING + " : "
-				+ billingProcess.getId());
-		billingProcess.setStatus(Constants.BILLINGPROCESS_STATUS_PROCESSING);
-		log.debug("Change billing process status successfully");
-		
-		return billingProcess;
-	}
-
-	@Override
-	public BillingProcess processBillingProcess(int billingProcessId) {
-		log.debug("Update billing process status");
-		BillingProcess bp = billingProcessDao.findById(billingProcessId);
-		if(bp == null){
-			log.info("Update billing process status failed for no billing process found");
-			return null;
-		}
-		bp.setStatus(Constants.BILLINGPROCESS_STATUS_PROCESSING);
-		log.debug("Update billing process successfully");
-		
-		return bp;
-	}
-
 	@Override
 	public BillingProcess findBillingProcessById(int billingProcessId) {
 		log.debug("Find billing process by id : " + billingProcessId);
@@ -133,20 +113,30 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 			if(conf != null && runningConf.contains(conf.getId())){
 				return null;
 			}
-			runningConf.add(conf.getId());
+			
+			if(conf != null){
+				runningConf.add(conf.getId());
+			}
 		}finally{
 			confLock.unlock();
 		}
 		
+		Integer confId = null;
+		if(conf != null){
+			confId = conf.getId();
+		}
+		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
+		BillingProcessResult bpr = self.createBillingProcessResult(confId);
+		BillingProcess bp = bpr.getBillingProcess();
+		
+		Integer currentOrder = null;
 		try{
-			BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-			BillingProcess bp = self.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
-			BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
-			
 			CursorResult<Order> orders = orderService.findAll(tenantId, Constants.ORDER_STATUS_ACTIVE);
 			while(orders.hasNext()){
 				Order order = orders.getNext();
-				this.processOrder(order.getId(), autoPay, bp, bpr);
+				currentOrder = order.getId();
+				
+				bpr = self.processOrder(currentOrder, autoPay, bpr.getId());
 			}
 			orders.close();
 			
@@ -162,43 +152,90 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 			log.debug("Running billing process finished");
 			
 			return bpr;
+		}catch(RuntimeException re){
+			int c = bpr.getInvoiceTotal().compareTo(BigDecimal.ZERO);
+			if(c == 0){
+				bp.setEndTime(new Date());
+				bp.setStatus(Constants.BILLINGPROCESS_STATUS_FAILED);
+				log.error("Running billing process failed");
+			}else if(c > 0){
+				bp.setEndTime(new Date());
+				bp.setStatus(Constants.BILLINGPROCESS_STATUS_PART_SUCCESS);
+				log.error("Running billing process partly successfully");
+			}else{
+				log.fetal("Invoice total amount is less than 0 for billing process: " + bp.getId());
+			}
+			log.error("Error occured while billing processing order : " + currentOrder, re);
 		}finally{
 			runningConf.remove(conf);
 		}
+		
+		return bpr;
 	}
 	
-	public BillingProcessResult runBillingProcessForOrder(String orderId){
+	public BillingProcessResult runBillingProcessForOrder(int orderId){
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
 		return self.runBillingProcessForOrder(orderId, null);
 	}
 	
 	@Override
-	public BillingProcessResult runBillingProcessForOrder(String orderId, Boolean autoPay) {
+	public BillingProcessResult runBillingProcessForOrder(int orderId, Boolean autoPay) {
 		log.debug("Running billing process for order : " + orderId);
 		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-		BillingProcess bp = self.createBillingProcess(null, new Date(), SecurityUtils.getUser());
-		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
+		BillingProcessResult bpr = self.createBillingProcessResult(null);
+		BillingProcess bp = bpr.getBillingProcess();
 		
-		this.processOrder(orderId, autoPay, bp, bpr);
-		
-		bp.setEndTime(new Date());
-		bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
-		log.debug("Running billing process finished");
+		try{
+			bpr = self.processOrder(orderId, autoPay, bpr.getId());
+			bp.setEndTime(new Date());
+			bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
+			log.debug("Running billing process finished");
+		}catch(RuntimeException re){
+			bp.setEndTime(new Date());
+			bp.setStatus(Constants.BILLINGPROCESS_STATUS_FAILED);
+			log.debug("Running billing process failed");
+		}
 		
 		return bpr;
 	}
 	
+	
 	@Override
-	public void processOrder(String orderId, Boolean autoPay, BillingProcess bp, BillingProcessResult bpr){
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public BillingProcessResult createBillingProcessResult(Integer billingProcessConfId){
+		BillingProcessConfiguration conf = null;
+		
+		if(billingProcessConfId != null){
+			conf = billingProcessConfigurationService.findBillingProcessConfigurationById(billingProcessConfId);
+			if(conf == null){
+				log.error("No billing process configuration found by id : " + billingProcessConfId);
+				throw new ApplicationRuntimeException("No billing process configuration found");
+			}
+		}
+		
+		BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
+		BillingProcess bp = self.createBillingProcess(conf, new Date(), SecurityUtils.getUser());
+		BillingProcessResult bpr = billingProcessResultService.createBillingProcessResult(bp);
+		return bpr;
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public BillingProcessResult processOrder(int orderId, Boolean autoPay, int billingProcessResultId){
+		BillingProcessResult bpr = null;
 		Lock lock = null;
 		try{
+			bpr = billingProcessResultService.findBillingProcessResult(billingProcessResultId);
+			if(bpr == null) return null;
+			
 			Order order = orderService.findOrderById(orderId);
-			if(order == null) return;
+			if(order == null) return bpr;
 			
 			if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus()) 
 					|| new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
 				
 				Date billingDate = null;
+				BillingProcess bp = bpr.getBillingProcess();
 				if(bp != null && bp.getBillingProcessConfiguration() != null) {
 					executeLock.writeLock().lock();
 					scheduleLock.readLock().lock();
@@ -234,6 +271,12 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 				lock.unlock();
 			}
 		}
+		
+		if(bpr.getInvoiceTotal().compareTo(BigDecimal.ZERO) < 0){
+			throw new ApplicationRuntimeException("Invoice amount is less than zero for order : " + orderId);
+		}
+		
+		return bpr;
 	}
 
 }

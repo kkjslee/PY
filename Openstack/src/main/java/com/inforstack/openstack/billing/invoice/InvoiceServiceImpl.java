@@ -5,17 +5,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.DateUtil;
+import com.inforstack.openstack.utils.NumberUtil;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Service
 @Transactional
@@ -24,6 +30,43 @@ public class InvoiceServiceImpl implements InvoiceService {
 	private static final Logger log = new Logger(InvoiceServiceImpl.class);
 	@Autowired
 	private InvoiceDao invoiceDao;
+	
+	private static String cachedDate = null;
+	private static int sequence = 0;
+	
+	@PostConstruct
+	public void postInit(){
+		synchronized (InvoiceServiceImpl.class){
+			if(cachedDate == null){
+				Date date = new Date();
+				Invoice invoice = invoiceDao.findLastestBySequenceDate("sequence", date);
+				if(invoice != null){
+					cachedDate = invoice.getSequence().substring(0, DateUtil.SEQ_DATE_LEN + 1);
+					sequence = new Integer(invoice.getSequence().substring(DateUtil.SEQ_DATE_LEN + 1));
+				}else{
+					cachedDate = DateUtil.getSequenceDate(date);
+					sequence = 0;
+				}
+			}
+		}
+	}
+	
+	private String genenrateInvoiceSequence(){
+		synchronized (InvoiceServiceImpl.class) {
+			int max = new Integer(StringUtil.leftPadding("", '9', DateUtil.SEQ_DATE_LEN));
+			if(sequence == max){
+				throw new ApplicationRuntimeException("Max account limited today");
+			}
+			
+			String date = DateUtil.getSequenceDate(new Date());
+			if(!date.equals(cachedDate)){
+				cachedDate = date;
+				sequence = 0;
+			}
+			sequence++;
+			return date + NumberUtil.leftPaddingZero(sequence, 8);
+		}
+	}
 	
 	@Override
 	public Invoice createInvoice(Date startTime, Date endTime, BigDecimal amount, Tenant tenant, 
@@ -42,6 +85,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoice.setOrder(order);
 		invoice.setTenant(tenant);
 		invoice.setStatus(Constants.INVOICE_STATUS_NEW);
+		invoice.setSequence(genenrateInvoiceSequence());
 		
 		invoiceDao.persist(invoice);
 		log.debug("Create invoice successfully");

@@ -16,7 +16,7 @@ public interface SubOrderService {
 	 * @param periodId
 	 * @return
 	 */
-	public SubOrder createSubOrder(int itemId, String orderId, int periodId);
+	public SubOrder createSubOrder(int itemId, int orderId, int periodId);
 	
 	/**
 	 * find sub order by id
@@ -31,7 +31,7 @@ public interface SubOrderService {
 	 * @param status
 	 * @return
 	 */
-	public List<SubOrder> findSubOrders(String orderId, List<Integer> statuses, List<Integer> orderPeriods);
+	public List<SubOrder> findSubOrders(Integer orderId, List<Integer> statuses, List<Integer> orderPeriods);
 	
 	/**
 	 * delete sub order by id

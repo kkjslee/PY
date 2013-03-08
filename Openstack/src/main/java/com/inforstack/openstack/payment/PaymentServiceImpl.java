@@ -193,10 +193,11 @@ public class PaymentServiceImpl implements PaymentService {
 			param.append(pmp.getName()).append("=").append(pmp.getValue());
 		}
 		
+		StringBuilder endPoint = new StringBuilder(OpenstackUtil.setProperty(pm.getEndpoint(), property));
 		if(param.length()==0){
-			return pm.getEndpoint();
+			return endPoint.toString();
 		}else{
-			return pm.getEndpoint() + "?" + param.toString();
+			return endPoint.append("?").append(param).toString();
 		}
 	}
 	

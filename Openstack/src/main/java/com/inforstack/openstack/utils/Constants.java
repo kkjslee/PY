@@ -49,11 +49,9 @@ public class Constants {
 	public static final Integer INVOICE_STATUS_DELETED = 5;
 
 	public static final Integer BILLINGPROCESS_STATUS_NEW = 1;
-	public static final Integer BILLINGPROCESS_STATUS_WAITING = 2;
-	public static final Integer BILLINGPROCESS_STATUS_PROCESSING = 3;
-	public static final Integer BILLINGPROCESS_STATUS_SUCCESS = 4;
+	public static final Integer BILLINGPROCESS_STATUS_SUCCESS = 3;
 	public static final Integer BILLINGPROCESS_STATUS_PART_SUCCESS = 5;
-	public static final Integer BILLINGPROCESS_STATUS_FAILED = 6;
+	public static final Integer BILLINGPROCESS_STATUS_FAILED = 7;
 
 	public static final Integer TENANT_AGEING_ACTIVE = 1;
 	public static final Integer TENANT_AGEING_DELETED = 2;

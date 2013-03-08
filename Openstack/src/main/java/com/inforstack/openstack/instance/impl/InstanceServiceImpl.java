@@ -274,8 +274,7 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 
 	@Override
-	public void createInstance(User user, Tenant tenant, String orderId) {
-		if (orderId != null && !orderId.trim().isEmpty()) {
+	public void createInstance(User user, Tenant tenant, int orderId) {
 			Access access = null;
 			Server newServer = null;
 			Volume newVolume = null;
@@ -355,7 +354,6 @@ public class InstanceServiceImpl implements InstanceService {
 					
 				}
 			}
-		}
 	}
 
 	@Override

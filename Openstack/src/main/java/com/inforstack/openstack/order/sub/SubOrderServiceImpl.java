@@ -45,7 +45,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 	private PaymentService paymentService;
 	
 	@Override
-	public SubOrder createSubOrder(int itemId, String orderId,
+	public SubOrder createSubOrder(int itemId, int orderId,
 			int periodId) {
 		log.debug("Create sub order for order : " + orderId);
 		ItemSpecification item = itemService.getItemSpecification(itemId);
@@ -78,7 +78,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 	}
 
 	@Override
-	public List<SubOrder> findSubOrders(String orderId, List<Integer> statuses, List<Integer> orderPeriods) {
+	public List<SubOrder> findSubOrders(Integer orderId, List<Integer> statuses, List<Integer> orderPeriods) {
 		log.debug("Find all sub orders by order id : " + orderId + ", status : " + statuses + ", periods : " + orderPeriods);
 		List<SubOrder> subOrders = subOrderDao.find(orderId, statuses, orderPeriods);
 		if(CollectionUtil.isNullOrEmpty(subOrders)){

@@ -17,13 +17,6 @@ import com.inforstack.openstack.tenant.Tenant;
 
 public interface OrderService {
 
-	/**
-	 * create order
-	 * @param order
-	 * @return
-	 */
-	public Order createOrder(Order order);
-	
 	public Order createOrder(CartModel cartModel);
 	
 	/**
@@ -50,14 +43,14 @@ public interface OrderService {
 	 * @param status
 	 * @return
 	 */
-	public Order cancelOrder(String orderId);
+	public Order cancelOrder(int orderId);
 
 	/**
 	 * find order by id
 	 * @param orderId
 	 * @return
 	 */
-	public Order findOrderById(String orderId);
+	public Order findOrderById(int orderId);
 	
 	/**
 	 * find all orders by tenantId and/or status
@@ -80,6 +73,6 @@ public interface OrderService {
 
 	public PaginationModel<Order> findAllWithoutSubOrder(int pageIndex, int pageSize);
 
-	public String payOrder(String orderId, int paymentMethodId, Map<String, Object> property);
+	public String payOrder(int orderId, int paymentMethodId, Map<String, Object> property);
 
 }

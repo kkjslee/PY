@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -127,13 +126,41 @@ public class UserController {
 		try {
 			userService.updateUser(user);
 			log.debug("Register user successfully");
-			OpenstackUtil.buildSuccessResponse(OpenstackUtil.getMessage("update.success"));
+			return OpenstackUtil.buildSuccessResponse(OpenstackUtil.getMessage("update.success"));
 		} catch (RuntimeException e) {
 			log.error(e.getMessage(), e);
-			OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("update.failed"));
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("update.failed"));
 		}
-
-		return ret;
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> changePassword(String password, String newPassword){
+		if(StringUtil.isNullOrEmpty(password) || password.length()<6 || password.length()>45){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("user.password.lable") + 
+					OpenstackUtil.getMessage("not.valid"));
+		}
+		if(StringUtil.isNullOrEmpty(newPassword) || newPassword.length()<6 || newPassword.length()>45){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("newPassword.label") + 
+					OpenstackUtil.getMessage("not.valid"));
+		}
+		
+		Integer userId = SecurityUtils.getUserId();
+		User user = userService.findUserById(userId);
+		
+		if(!password.equals(user.getPassword())){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("user.password.lable") + 
+					OpenstackUtil.getMessage("not.valid"));
+		}
+		user.setPassword(newPassword);
+		
+		try {
+			userService.updateUser(user);
+			log.debug("Change user password successfully");
+			return OpenstackUtil.buildSuccessResponse(OpenstackUtil.getMessage("update.success"));
+		} catch (RuntimeException e) {
+			log.error(e.getMessage(), e);
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("update.failed"));
+		}
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json")

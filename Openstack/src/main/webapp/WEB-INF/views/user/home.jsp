@@ -54,7 +54,8 @@
                     <ul class="accordion-inner">
                         <li><a href="#" name="menuItem" isos:module="instance/modules/index"><spring:message code='user.navi.instance' /></a></li>
                         <li><a href="#" name="menuItem" isos:module="cinder/modules/index"><spring:message code='user.navi.volume' /></a></li>
-                         <li><a href="#" name="menuItem" isos:module="network/modules/index"><spring:message code='user.navi.ip' /></a></li>
+                        <li><a href="#" name="menuItem" isos:module="network/modules/index"><spring:message code='user.navi.ip' /></a></li>
+                        <li><a href="#" name="menuItem" isos:module="instance/modules/instanceStatus"><spring:message code='user.navi.instanceStatus' /></a></li>
                     </ul>
                 </div>
             </div>

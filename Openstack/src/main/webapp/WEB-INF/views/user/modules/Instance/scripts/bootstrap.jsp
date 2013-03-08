@@ -277,7 +277,22 @@ function showDetails(which){
        data:data,
        callback:changeBtnStyle,
        width:420,
-       buttons: [
+       buttons: [{
+                   text: '<spring:message code="user.cpu.use"/>', 
+                    click:function(){
+                    }},
+                    {
+                   text: '<spring:message code="user.memory.use"/>', 
+                    click:function(){
+                    }},
+                    {
+                   text: '<spring:message code="user.network.use"/>', 
+                    click:function(){
+                    }},
+                    {
+                   text: '<spring:message code="user.io.use"/>', 
+                    click:function(){
+                    }},
                  {
                     text: '<spring:message code="instance.remove.button"/>', 
                     click:function(){
@@ -296,7 +311,35 @@ function changeBtnStyle(container){
     $(container).find(".ui-dialog-buttonpane button:contains('<s:text name='instance.remove.button'/>')").addClass("btn-warning");
 }
 
-
+function updateInstanceName(which){
+    var container = $(which).parents(".dataTable").first();
+    var vmId = $(whic).find("input[name='vmid']").val();
+    var vmname = $(whic).find("input[name='vmname']").val();
+     var pd=showProcessingDialog();
+    $.ajax({
+        type: "POST",
+        url: Server+"/updateInstanceWithName",
+        cache: false,
+        data: {
+            vmid: vmid,
+            vmname:vmname
+        },
+        success: function(data) {
+            pd.dialog("destroy");
+            try{
+                var msg="";
+                printMessage(data.msg);
+                
+            }catch(e) {
+                printMessage("Data Broken: ["+e+"]");
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            pd.dialog("destroy");
+            printError(jqXHR, textStatus, errorThrown);
+        }
+    });
+}
 function initUI(){
 	 $( ".button").button();
 }

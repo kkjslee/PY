@@ -24,7 +24,7 @@
 		  <div class="tab-pane active" id="basic">
                 <jsp:useBean id="formMap0" class="java.util.LinkedHashMap" scope="request" />
 			    <c:set target="${formMap0}" property=".form" value="start_end" />
-			    <c:set target="${formMap0}" property=".action" value="/doreg" />
+			    <c:set target="${formMap0}" property=".action" value="/edit" />
 			    <c:set target="${formMap0}" property=".formName" value="user_basic" />
 			    <c:set target="${formMap0}" property="form.username" value="[plain]${user.username}" />
 			    <c:set target="${formMap0}" property="form.firstname" value="[text]${user.firstname}" />
@@ -67,7 +67,7 @@
 		  <div class="tab-pane" id="password">
                  <jsp:useBean id="formMap2" class="java.util.LinkedHashMap" scope="request" />
                 <c:set target="${formMap2}" property=".form" value="start_end" />
-                <c:set target="${formMap2}" property=".action" value="/doreg" />
+                <c:set target="${formMap2}" property=".action" value="/changePassword" />
                 <c:set target="${formMap2}" property=".formName" value="user_password" />
                 <c:set target="${formMap2}" property="form.password" value="[password]" />
                 <spring:message code='user.oldpassword.label' var="oldPasswordLabel"/>
@@ -85,12 +85,15 @@
     </div>
     <script>
     function submitBasic(){
+    	var pd=showProcessingDialog();
     	$("form[name='user_basic']").ajaxSubmit({
     		dataType:"json",
     		succcess:function(data){
-    			printMessage("<spring:message code='operation.success'/>");
+    			pd.dialog("destroy");
+    			printMessage(data.result);
     		},
     		error:function(){
+    			pd.dialog("destroy");
     			printMessage("<spring:message code='operation.failed'/>");
     		}
     	});
@@ -102,12 +105,15 @@
             alert("<spring:message code='all.required'/>");
             return;
         }
+        var pd=showProcessingDialog();
         $("form[name='user_email']").ajaxSubmit({
             dataType:"json",
             succcess:function(data){
-                printMessage("<spring:message code='operation.success'/>");
+            	 pd.dialog("destroy");
+            	printMessage(data.result);
             },
             error:function(){
+            	 pd.dialog("destroy");
                 printMessage("<spring:message code='operation.failed'/>");
             }
         });
@@ -124,12 +130,15 @@
             alert("<spring:message code='password.notequal'/>");
             return;
         }
+        var pd=showProcessingDialog();
     	 $("form[name='user_password']").ajaxSubmit({
              dataType:"json",
              succcess:function(data){
-                 printMessage("<spring:message code='operation.success'/>");
+            	 pd.dialog("destroy");
+            	 printMessage(data.result);
              },
              error:function(){
+            	 pd.dialog("destroy");
                  printMessage("<spring:message code='operation.failed'/>");
              }
          });

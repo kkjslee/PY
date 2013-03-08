@@ -31,8 +31,8 @@
         </tbody>
         <tfoot>
             <tr class="footerRow">
-            <td colspan="5" class="pagination fpager"></td>
-            <td class="fbuttons"></td>
+            <td colspan="4" class="pagination fpager"></td>
+            <td class="fbuttons"><a class="button" href="#" onclick="showCreatImage();return false;"><spring:message code="create.button"/></a></td>
             </tr>
         </tfoot>
     </table>

@@ -4,11 +4,12 @@
 <p class="ptitle"><spring:message code="paymnet.select.title"/></p>
 <input type="hidden" id="orderId" name="orderId" value="${orderId}">
 <ul class="paymethods">
-<c:forEach items="${paymethods}" var="pay">
+<c:forEach items="${paymethods}" var="pay" varStatus="status">
     <li>
         <span class="pitem">
-            <label class="${pay.icon}" >
-                <input type="radio" name="payMethod" value="${pay.id}"/>
+            <label class="${pay.icon} btn <c:choose><c:when test="${status.index ==0}">btn-warning</c:when>
+            <c:when test="${status.index ==1}">btn-info</c:when><c:otherwise>btn-inverse</c:otherwise>" >
+                <input type="radio" name="payMethod" value="${pay.id}"/>${pay.text.i18nContent}
             </label>
         </span>
     </li>

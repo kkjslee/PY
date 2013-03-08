@@ -94,7 +94,7 @@ public class UserOrderController {
 	}
 	
 	@RequestMapping(value = "/pay", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> pay(String orderId, int paymentMethodId, HttpServletRequest request){
+	public @ResponseBody Map<String, Object> pay(int orderId, int paymentMethodId, HttpServletRequest request){
 		try{
 			Map<String, Object> property = new HashMap<String, Object>();
 			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, request.getContextPath());
@@ -110,7 +110,7 @@ public class UserOrderController {
 	@RequestMapping(value = "/showOrderDetails", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody 
 		Map<String, Object>  getOrderDetails(Model model, 
-			String orderId, Integer payId, HttpServletRequest request,HttpServletResponse response) {
+			int orderId, Integer payId, HttpServletRequest request,HttpServletResponse response) {
 		try{
 
 			Map<String, Object> property = new HashMap<String, Object>();

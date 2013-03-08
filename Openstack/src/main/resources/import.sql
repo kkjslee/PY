@@ -257,6 +257,8 @@ insert into Resource(id, url, permission) values (502, '/user/order/showOrderDet
 insert into Resource(id, url, permission) values (600, '/admin/order/getPagerOrderList', 'admin');
 insert into Resource(id, url, permission) values (601, '/admin/order/modules/index', 'admin');
 
+insert into Resource(id, url, permission) values (700, '/user/showedit', 'user');
+
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (3,'name_id',NULL,'Category');

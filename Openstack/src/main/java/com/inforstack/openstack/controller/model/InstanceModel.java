@@ -51,6 +51,8 @@ public class InstanceModel {
 	// vm expire time
 	private Date expiretime;
 	private Date updatetime;
+	//实际删除时间,已经删除的主机，时间为updateTime;
+	private Date deletedTime;
 	// public up bound
 	private List<String> publicips;
 	private List<String> privateips;
@@ -374,4 +376,12 @@ public class InstanceModel {
 		this.attachmentModel = attachmentModel;
 	}
 
+	public Date getDeletedTime() {
+		return deletedTime;
+	}
+
+	public void setDeletedTime(Date deletedTime) {
+		this.deletedTime = deletedTime;
+	}
+	
 }

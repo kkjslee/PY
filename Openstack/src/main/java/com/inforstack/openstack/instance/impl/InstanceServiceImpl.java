@@ -2,7 +2,9 @@ package com.inforstack.openstack.instance.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ import com.inforstack.openstack.item.FlavorDao;
 import com.inforstack.openstack.item.ImageDao;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.item.NetworkTypeDao;
+import com.inforstack.openstack.item.Profile;
 import com.inforstack.openstack.item.VolumeTypeDao;
 import com.inforstack.openstack.network.Network;
 import com.inforstack.openstack.network.NetworkService;
@@ -129,6 +132,31 @@ public class InstanceServiceImpl implements InstanceService {
 			this.web = web;
 		}
 		
+	}
+	
+	@Override
+	public Map<String, Float> getUsagePrice(String uuid) {
+		HashMap<String, Float> prices = new HashMap<String, Float>();
+		Instance instance = this.instanceDao.findByObject("uuid", uuid);
+		List<SubOrder> subOrders = instance.getSubOrders();
+		for (SubOrder subOrder : subOrders) {
+			if (subOrder.getItem().getProfile() != null) {
+				Profile profile = subOrder.getItem().getProfile();
+				if (profile.getCpu() != null) {
+					prices.put(Constants.USAGE_CPU, profile.getCpu().getDefaultPrice());
+				}
+				if (profile.getMemory() != null) {
+					prices.put(Constants.USAGE_MEMORY, profile.getMemory().getDefaultPrice());
+				}
+				if (profile.getDisk() != null) {
+					prices.put(Constants.USAGE_DISK, profile.getDisk().getDefaultPrice());
+				}
+				if (profile.getNetwork() != null) {
+					prices.put(Constants.USAGE_NETWORK, profile.getNetwork().getDefaultPrice());
+				}
+			}
+		}
+		return prices;
 	}
 	
 	@Override

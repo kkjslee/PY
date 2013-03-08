@@ -193,4 +193,10 @@ public class Constants {
 	public static final String PAYMENTMETHODPROPERTY_NAME_PRICE = "price";
 	public static final String PAYMENTMETHODPROPERTY_NAME_ORDER = "order";
 	public static final String PAYMENTMETHODPROPERTY_NAME_INVOICE = "invoice";
+	
+	public static final String USAGE_CPU		= "cpu";
+	public static final String USAGE_MEMORY		= "memory";
+	public static final String USAGE_DISK		= "disk";
+	public static final String USAGE_NETWORK	= "network";
+	
 }

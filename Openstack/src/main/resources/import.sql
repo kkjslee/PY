@@ -195,6 +195,7 @@ insert into Resource(id, url, permission) values (208, '/user/cart/showPayMethod
 insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'user');
 insert into Resource(id, url, permission) values (210, '/user/cart/modules/ip', 'user');
 insert into Resource(id, url, permission) values (211, '/user/cart/modules/volume', 'user');
+insert into Resource(id, url, permission) values (212, '/user/cart/showOrderDetails', 'user');
 
 
 insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');
@@ -286,8 +287,11 @@ INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (27,'name_id',NULL,'ItemSpecification');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (28,'name_id',NULL,'ItemSpecification');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (29,'name_id',NULL,'ItemSpecification');
-INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (30,'name_id',NULL,'DataCenter');
-INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (31,'name_id',NULL,'DataCenter');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (30,'name_id',NULL,'ItemSpecification');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (31,'name_id',NULL,'ItemSpecification');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (32,'name_id',NULL,'ItemSpecification');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (33,'name_id',NULL,'DataCenter');
+INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (34,'name_id',NULL,'DataCenter');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (40,'type',NULL,'PaymentMethod');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (41,'type',NULL,'PaymentMethod');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (42,'type',NULL,'PaymentMethod');
@@ -350,12 +354,18 @@ INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (53,'Vol
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (54,'5G磁盘',27,2);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (55,'Volume 10GB',28,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (56,'10G磁盘',28,2);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (57,'CPUUsage',29,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (57,'CPU Usage',29,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (58,'CPU用量',29,2);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (59,'Data Center A',30,1);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (60,'数据中心A',30,2);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (61,'Data Center B',31,1);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (62,'数据中心B',31,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (59,'Memory Usage',30,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (60,'内存用量',30,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (61,'Disk Usage',31,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (62,'磁盘用量',31,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (63,'Network Usage',32,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (64,'网络用量',32,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (65,'Data Center A',33,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (66,'数据中心A',33,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (67,'Data Center B',34,1);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (68,'数据中心B',34,2);
 
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (70,'alipay',40,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (71,'支付宝',40,2);
@@ -395,6 +405,11 @@ INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`nam
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (14,1,'2013-02-25 11:11:19',5,27,3,'1','2013-02-25 11:11:19',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (15,1,'2013-02-25 11:11:44',10,28,3,'2','2013-02-25 11:11:44',NULL);
 INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (16,1,'2013-02-25 11:12:06',0.01,29,5,NULL,'2013-02-25 11:12:06',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (17,1,'2013-02-25 11:12:06',0.01,30,5,NULL,'2013-02-25 11:12:06',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (18,1,'2013-02-25 11:12:06',0.01,31,5,NULL,'2013-02-25 11:12:06',NULL);
+INSERT INTO `ItemSpecification` (`id`,`available`,`created`,`default_price`,`name_id`,`os_type`,`ref_id`,`updated`,`profile_id`) VALUES (19,1,'2013-02-25 11:12:06',0.01,32,5,NULL,'2013-02-25 11:12:06',NULL);
+
+INSERT INTO `Profile` (`id`,`cpu_id`,`disk_id`,`memory_id`,`network_id`) VALUES (1,16,17,18,19);
 
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (1,'2013-02-25 11:06:14','2013-02-25 11:06:14',0,1);
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (2,'2013-02-25 11:06:42','2013-02-25 11:06:42',0,2);
@@ -412,9 +427,12 @@ INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (13,'2
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (14,'2013-02-25 11:11:19','2013-02-25 11:11:19',5,14);
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (15,'2013-02-25 11:11:44','2013-02-25 11:11:44',10,15);
 INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (16,'2013-02-25 11:12:06','2013-02-25 11:12:06',0.01,16);
+INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (17,'2013-02-25 11:12:06','2013-02-25 11:12:06',0.02,17);
+INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (18,'2013-02-25 11:12:06','2013-02-25 11:12:06',0.03,18);
+INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (19,'2013-02-25 11:12:06','2013-02-25 11:12:06',0.05,19);
 
-INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (1,30,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
-INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (2,31,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
+INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (1,33,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
+INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (2,34,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
 
 INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','1',1);
 INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','2',1);

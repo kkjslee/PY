@@ -1,6 +1,7 @@
 package com.inforstack.openstack.instance;
 
 import java.util.List;
+import java.util.Map;
 
 import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.order.period.OrderPeriod;
@@ -8,6 +9,8 @@ import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 
 public interface InstanceService {
+	
+	public Map<String, Float> getUsagePrice(String uuid);
 	
 	public DataCenter getDataCenterFromInstance(Instance instance);
 	

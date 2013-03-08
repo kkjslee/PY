@@ -87,6 +87,8 @@ insert into Configuration(id, name, value) values(61, 'socket.port', '11533');
 insert into Configuration(id, name, value) values(62, 'socket.ceilmeter.timeout', '60');
 insert into Configuration(id, name, value) values(63, 'socket.timestamp.tolerance', '3000');
 
+insert into Configuration(id, name, value) values(69, 'openstack.user.password', '5f4dcc3b5aa765d61d8327deb882cf99');
+
 insert into Configuration(id, name, value) values(70, 'openstack.network.external', 'c7e5ab7b-3b70-440c-88fd-580272bfae30');
 
 insert into Role(id, name) values (1, 'admin');
@@ -512,7 +514,7 @@ INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (4,1,2,'2'
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',5);
 
 insert into payment_method(id, type, icon, text, endpoint) values (1, 1, null, 40, '');
-insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '{host}/user/pay/payInvoice?invoiceId={invoice.id}');
+insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '{host}/user/pay/payInvoice');
 insert into payment_method(id, type, icon, text, endpoint) values (3, 3, null, 42, '');
 
 insert into payment_method_property(id, method_id, type, name, value) values (1, 1, 2, 'service', 'create_direct_pay_by_user');
@@ -521,9 +523,9 @@ insert into payment_method_property(id, method_id, type, name, value) values (3,
 insert into payment_method_property(id, method_id, type, name, value) values (4, 1, 2, 'sign_type', 'MD5');
 insert into payment_method_property(id, method_id, type, name, value) values (5, 1, 3, 'sign', 'com.inforstack.openstack.payment.method.prop.builder.AlipaySignParamBuilder.build');
 insert into payment_method_property(id, method_id, type, name, value) values (6, 1, 2, 'return_url', '');
-insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{invoice.id}');
-insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{order.id}');
+insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{invoice.sequence}');
+insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{order.sequence}');
 insert into payment_method_property(id, method_id, type, name, value) values (9, 1, 2, 'payment_type', '1');
 insert into payment_method_property(id, method_id, type, name, value) values (10, 1, 2, 'seller_id', '');
 insert into payment_method_property(id, method_id, type, name, value) values (11, 1, 2, 'total_fee', '{price}');
-
+insert into payment_method_property(id, method_id, type, name, value) values (13, 2, 2, 'invoiceId', '{invoice.id}');

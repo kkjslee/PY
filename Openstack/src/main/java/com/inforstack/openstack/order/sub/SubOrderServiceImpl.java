@@ -181,9 +181,8 @@ public class SubOrderServiceImpl implements SubOrderService {
 				", billing process : " + billingProcess==null?null:billingProcess.getId());
 		
 		InvoiceCount ic = new InvoiceCount();
-		SubOrderService self = (SubOrderService)OpenstackUtil.getBean("subOrderService");
 		Order order = subOrder.getOrder();
-		List<Period> periods = self.calcPeriod(subOrder,billingDate, order.getActiveEnd());
+		List<Period> periods = this.calcPeriod(subOrder,billingDate, order.getActiveEnd());
 		
 		boolean doPay = order.getAutoPay();
 		if(autoPay != null){
@@ -191,7 +190,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 		}
 		for(int i=0, size=periods.size();i<size;){
 			Period period = periods.get(i);
-			BigDecimal price = self.getPrice(subOrder, period);
+			BigDecimal price = this.getPrice(subOrder, period);
 			Invoice invoice = invoiceService.createInvoice(period.getStart(), period.getEnd(), price, order.getTenant(), subOrder, order, billingProcess);
 			if(doPay){
 				paymentService.applyPayment(invoice);

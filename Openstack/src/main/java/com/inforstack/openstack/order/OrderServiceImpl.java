@@ -104,12 +104,11 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 
+	@Override
 	public Order createOrder(CartModel cartModel) {
 		log.debug("Create order form cartModel");
 
-		OrderService self = (OrderService) OpenstackUtil
-				.getBean("orderService");
-		Order o = self.createOrder(new BigDecimal(cartModel.getAmount()),
+		Order o = this.createOrder(new BigDecimal(cartModel.getAmount()),
 				SecurityUtils.getTenant(), null, null, true);
 		if (o == null) {
 			log.error("Create order failed");
@@ -187,9 +186,7 @@ public class OrderServiceImpl implements OrderService {
 			return null;
 		}
 
-		OrderService self = (OrderService) OpenstackUtil
-				.getBean("orderService");
-		Order order = self.createOrder(amount, tenant, begin, end, autoPay);
+		Order order = this.createOrder(amount, tenant, begin, end, autoPay);
 		if (order == null) {
 			log.debug("Create order failed");
 		} else {

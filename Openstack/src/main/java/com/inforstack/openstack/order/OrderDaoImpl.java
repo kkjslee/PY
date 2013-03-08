@@ -95,7 +95,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 		criteria.where(predicate);
 		criteria.orderBy(orders);
 		
-		return this.getSelf().pagination(pageIndex, pageSize, criteria);
+		return this.pagination(pageIndex, pageSize, criteria);
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class OrderDaoImpl extends BasicDaoImpl<Order> implements OrderDao {
 		};
 		criteria.orderBy(orders);
 		
-		return this.getSelf().pagination(pageIndex, pageSize, criteria);
+		return this.pagination(pageIndex, pageSize, criteria);
 	}
 	
 }

@@ -35,26 +35,12 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	
 	private Class<T> modelClz;
 	
-	private Class<? extends BasicDaoImpl<T>> clz;
-	
-	private BasicDao<T> self;
-	
 	@SuppressWarnings("unchecked")
 	public BasicDaoImpl() {
-		clz = (Class<? extends BasicDaoImpl<T>>)this.getClass();
 		Type type = this.getClass().getGenericSuperclass();
 		if (type instanceof ParameterizedType) {
 			this.modelClz = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
 		}
-	}
-	
-	protected BasicDao<T> getSelf(){
-		synchronized (this) {
-			if(self == null){
-				self = (BasicDao<T>)OpenstackUtil.getBean(clz);
-			}
-		}
-		return self;
 	}
 	
 	@Override
@@ -64,7 +50,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 	
 	@Override
 	public final PaginationModel<T> pagination(int pageIndex, int pageSize){
-		return getSelf().pagination(pageIndex, pageSize, null);
+		return this.pagination(pageIndex, pageSize, null);
 	}
 	
 	@Override

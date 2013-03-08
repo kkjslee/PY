@@ -3,6 +3,7 @@
 //this is for user dashboard
 $(function(){
     initUI();
+    fixSize();
 });
 
 
@@ -47,6 +48,7 @@ function loadModule(modulePath) {
         success: function(data) {
          $(pd).dialog("close");
             try{
+                fixSize();
                 $(".right").html(data);
             }catch(e) {
                 alert(e);
@@ -55,6 +57,7 @@ function loadModule(modulePath) {
         error: function(jqXHR, textStatus, errorThrown) {
          $(pd).dialog("close");
             window.console.log(jqXHR.status);
+             fixSize();
             alert("<spring:message code="module.load.error"/>");
         },
         complete:function(){

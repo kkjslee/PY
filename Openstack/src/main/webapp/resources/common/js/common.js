@@ -110,3 +110,14 @@ function CustomForm(){
 	    });
 	}
 }
+
+
+function fixSize() {
+  
+    //var height=$(window).height();
+    var width=$(window).width()-$(".left").outerWidth()-15;
+
+    //$("#contentFrame").height(height);
+    $(".right").width(width);
+
+}

@@ -3,6 +3,7 @@
 //this is for admin dashboard
 $(function(){
     initUI();
+     fixSize();
 });
 
 
@@ -36,12 +37,14 @@ function loadModule(modulePath) {
         success: function(data) {
              $(pd).dialog("close");
             try{
+              fixSize();
                 $(".right").html(data);
             }catch(e) {
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
              $(pd).dialog("close");
+              fixSize();
             window.console.log(jqXHR.status);
             alert("<spring:message code="module.load.error"/>");
         },

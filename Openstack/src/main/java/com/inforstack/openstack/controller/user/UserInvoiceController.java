@@ -65,7 +65,7 @@ public class UserInvoiceController {
 						Constants.DICTIONARY_KEY_INVOICE_STATUS, OpenstackUtil
 								.getLanguage().getId()));
 		conf.put("grid.operation", "[button]pay");
-		conf.put("pay.onclick", "showPay('{order.id}')");
+		conf.put("pay.onclick", "showPayMethods('{order.id}')");
 		
 		conf.put(".forPager", true);
 

@@ -477,7 +477,7 @@ public class QuantumServiceImpl implements QuantumService {
 			QuantumService self = OpenstackUtil.getBean(QuantumService.class);
 			Network[] networks = self.listNetworks(access);
 			for (Network network : networks) {
-				if (network.getName().endsWith("_private")) {
+				if (network.getName().startsWith(access.getToken().getTenant().getName()) && network.getName().endsWith("_private")) {
 					Port[] ports = self.listPorts(access);
 					for (Port port : ports) {
 						if (port.getNetwork().equalsIgnoreCase(network.getId()) && port.getDevice().equalsIgnoreCase(server)) {

@@ -129,7 +129,14 @@ insert into Dictionary(id, dict_key, code, language_id, value) values (25, 'true
 insert into Dictionary(id, dict_key, code, language_id, value) values (26, 'true.false', 'true', 2, '是');
 insert into Dictionary(id, dict_key, code, language_id, value) values (27, 'true.false', 'false', 1, 'No');
 insert into Dictionary(id, dict_key, code, language_id, value) values (28, 'true.false', 'false', 2, '否');
-
+insert into Dictionary(id, dict_key, code, language_id, value) values (29, 'invoice.status', '2', 1, 'Unpaid');
+insert into Dictionary(id, dict_key, code, language_id, value) values (30, 'invoice.status', '2', 2, '未支付');
+insert into Dictionary(id, dict_key, code, language_id, value) values (31, 'invoice.status', '3', 1, 'Paid');
+insert into Dictionary(id, dict_key, code, language_id, value) values (32, 'invoice.status', '3', 2, '已支付');
+insert into Dictionary(id, dict_key, code, language_id, value) values (33, 'invoice.status', '4', 1, 'Overdue');
+insert into Dictionary(id, dict_key, code, language_id, value) values (34, 'invoice.status', '4', 2, '已过期');
+insert into Dictionary(id, dict_key, code, language_id, value) values (35, 'invoice.status', '5', 1, 'Deleted');
+insert into Dictionary(id, dict_key, code, language_id, value) values (36, 'invoice.status', '5', 2, '已删除');
 insert into Resource(id, url, permission) values (1, '/admin', 'admin');
 
 insert into Resource(id, url, permission) values (2, '/admin/instance/modules/index', 'admin');
@@ -209,6 +216,8 @@ insert into Resource(id, url, permission) values (209, '/user/cart/checkout', 'u
 insert into Resource(id, url, permission) values (210, '/user/cart/modules/ip', 'user');
 insert into Resource(id, url, permission) values (211, '/user/cart/modules/volume', 'user');
 insert into Resource(id, url, permission) values (212, '/user/cart/showOrderDetails', 'user');
+insert into Resource(id, url, permission) values (213, '/user/cart/showPayMethodNoBtn', 'user');
+
 
 
 insert into Resource(id, url, permission) values (300, '/user/instance/modules/index', 'user');
@@ -277,6 +286,9 @@ insert into Resource(id, url, permission) values (601, '/admin/order/modules/ind
 insert into Resource(id, url, permission) values (700, '/user/showedit', 'user');
 insert into Resource(id, url, permission) values (701, '/user/edit', 'user');
 insert into Resource(id, url, permission) values (702, '/user/changePassword', 'user');
+
+insert into Resource(id, url, permission) values (800, '/user/invoice/modules/index', 'user');
+insert into Resource(id, url, permission) values (801, '/user/invoice/getPagerInvoiceList', 'user');
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');

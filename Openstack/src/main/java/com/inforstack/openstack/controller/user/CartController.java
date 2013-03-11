@@ -591,4 +591,13 @@ public class CartController {
 		return CART_MODULE_HOME + "/payMethods";
 	}
 	
+	@RequestMapping(value = "/showPayMethodNoBtn", method = RequestMethod.POST)
+	public String showPayMethodNoBtn(Model model, HttpServletRequest request,
+			String orderId) {
+		model.addAttribute("orderId", orderId);
+		List<PaymentMethod> paymethods = paymentMethodService.listAll();
+		model.addAttribute("paymethods", paymethods);
+		
+		return CART_MODULE_HOME + "/paysMethodNoBtn";
+	}
 }

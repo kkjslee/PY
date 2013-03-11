@@ -450,7 +450,8 @@ public class UserInstanceController {
 	}
 	
 	@RequestMapping(value = "/getPagerInstanceStatusList", method = RequestMethod.POST, produces = "application/json")
-	public Map<String, Object> getPagerInstancesStatus(Model model, Integer pageIndex, Integer pageSize,HttpServletRequest request, HttpServletResponse response ) {
+	public @ResponseBody
+	Map<String, Object> getPagerInstancesStatus(Model model, Integer pageIndex, Integer pageSize,HttpServletRequest request, HttpServletResponse response ) {
 		int pageIdx = -1;
 		int pageSze = 0;
 		if (pageIndex == null || pageIndex == 0) {
@@ -480,8 +481,7 @@ public class UserInstanceController {
 				imList.add(im);
 			}
 			Map<String, Object> conf = new LinkedHashMap<String, Object>();
-			conf.put("grid.name", "[plain]");
-			conf.put("grid.id", "[hidden]");
+			conf.put("grid.vmname", "[plain]");
 			conf.put("grid.period", "[plain]");
 			conf.put("grid.status", "[plain]");
 			conf.put("status.value", "{statusDisplay} ");

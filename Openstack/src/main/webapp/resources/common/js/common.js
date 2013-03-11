@@ -100,7 +100,7 @@ function CustomForm(){
 	        		buttons : conf.buttons
 	        	});
 	        	if(typeof(conf.callback)!="undefined"){
-	        		callback.call(form);
+	        		conf.callback.call(form);
 				}
 	        	$(form).dialog("open");
 	        	if(success == true){

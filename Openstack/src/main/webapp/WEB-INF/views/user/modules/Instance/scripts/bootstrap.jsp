@@ -19,7 +19,7 @@ function registerTemplate() {
 }
 
 function setup() {
-    window.document.title = '<spring:message code="user.navi.instance"/>';
+    //window.document.title = '<spring:message code="user.navi.instance"/>';
     loadInstances(pageIndex, pageSize);
 }
 //server返回的数据html,应该为tbody中的内容，父层结构：<div id="mainBody"><table class="dataTable  table  table-striped table-hover"><thead></thead><tbody>json返回的内容<tbody><tfoot></tfoot></table></div>

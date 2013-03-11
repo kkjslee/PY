@@ -71,6 +71,9 @@ public class UserInstanceController {
 	private KeystoneService keystoneService;
 	
 	@Autowired
+	private FlavorService flavorService;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
@@ -127,10 +130,58 @@ public class UserInstanceController {
 		PagerModel<Instance> page = new PagerModel<Instance>(instanceList, pageSze);
 		instanceList = page.getPagedData(pageIdx);
 		if (instanceList != null) {
-			for (Instance instance : instanceList) {				
-				InstanceModel im = new InstanceModel();
-				im = retrieveInstance(model, instance.getUuid());
-				imList.add(im);
+			String username = SecurityUtils.getUserName();
+			String password = this.userService.getOpenstackUserPassword();
+			try {
+				Access access = keystoneService.getAccess(username, password, tenant.getUuid(), true);
+				for (Instance instance : instanceList) {
+					VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(instance.getUuid());
+					
+					InstanceModel im = new InstanceModel();
+					
+					im.setVmid(vm.getUuid());
+					im.setTaskStatus(instance.getTask());
+					im.setStatus(instance.getStatus());
+					im.setVmname(instance.getName());
+					im.setStatusdisplay(OpenstackUtil.getMessage(instance.getStatus() + ".status.vm"));
+					im.setTenantId(tenant.getUuid());
+					im.setStarttime(instance.getCreateTime());
+					im.setUpdatetime(instance.getUpdateTime());
+					if(instance.getStatus().equalsIgnoreCase("deleted")){
+						im.setDeletedTime(instance.getUpdateTime());
+					}
+					im.setAssignedto(username);
+					im.setAccesspoint("");
+					
+					try {
+						im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
+					} catch (OpenstackAPIException e) {					
+					}
+					
+					DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);
+					im.setRegion(dataCenter.getName().getI18nContent());
+					
+					OrderPeriod period = this.instanceService.getPeriodFromInstance(instance);
+					im.setPeriod(period.getName().getI18nContent());
+					
+					ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
+					if (flavorItem != null) {
+						im.setFlavorName(flavorItem.getName().getI18nContent());
+					}
+					
+					Map<String, String> tempAddress = new HashMap<String, String>();
+					tempAddress.put("Private", vm.getFixedIp());
+					im.setAddresses(tempAddress);
+					
+					ItemSpecification imageItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_IMAGE_ID, vm.getImage());
+					if (imageItem != null) {
+						im.setOstype(imageItem.getName().getI18nContent());
+					}
+					
+					imList.add(im);
+				}
+			} catch (OpenstackAPIException e) {
+				
 			}
 			
 			model.addAttribute("pageIndex", pageIdx);
@@ -280,6 +331,21 @@ public class UserInstanceController {
 	Map<String, Object> showInstanceDetails(Model model, String vmId,
 			HttpServletRequest request, HttpServletResponse response) {
 		InstanceModel instance = retrieveInstance(model, vmId);
+		VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(vmId);
+		try {
+			ItemSpecification flavorItem = this.itemService.getItemSpecificationFromRefId(ItemSpecification.OS_TYPE_FLAVOR_ID, vm.getFlavor());
+			if (flavorItem != null) {
+				instance.setFlavorName(flavorItem.getName().getI18nContent());
+			}
+			
+			Flavor flavor = this.flavorService.getFlavor(vm.getFlavor());
+			instance.setCpus(flavor.getVcpus());
+			instance.setMemory(flavor.getRam());
+			instance.setDisksize(flavor.getDisk());
+			instance.setFlavorId(flavor.getId());
+		} catch (OpenstackAPIException e) {
+		}
+		
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
 		conf.put("form.vmid", "[hidden]");
@@ -291,7 +357,7 @@ public class UserInstanceController {
 		
 		conf.put("form.vmname", "[plain]" + instance.getVmname());
 		conf.put("form.statusDisplay", "[plain]" + instance.getStatusdisplay());
-		conf.put("form.imagename", "[plain]" + instance.getImageId());
+		conf.put("form.imagename", "[plain]" + instance.getOstype());
 		conf.put("form.cpus", "[plain]" + instance.getCpus());
 		conf.put("form.memory", "[plain]" + instance.getMemory());
 		conf.put("form.disksize", "[plain]" + instance.getDisksize());

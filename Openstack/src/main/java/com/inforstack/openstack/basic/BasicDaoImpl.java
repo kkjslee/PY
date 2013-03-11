@@ -2,8 +2,6 @@ package com.inforstack.openstack.basic;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
-import com.inforstack.openstack.payment.account.Account;
-import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.DateUtil;
-import com.inforstack.openstack.utils.OpenstackUtil;
 
 public class BasicDaoImpl<T> implements BasicDao<T> {
 

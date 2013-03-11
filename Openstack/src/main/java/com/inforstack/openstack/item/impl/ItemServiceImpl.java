@@ -226,15 +226,11 @@ public class ItemServiceImpl implements ItemService {
 			}
 		}
 		if (uuid != null) {
-			List<ItemSpecification> itemSpecifications = this.itemSpecificationDao.listByObject("osType", osType);
-			for (ItemSpecification is : itemSpecifications) {
-				if (is.getRefId().equalsIgnoreCase(uuid)) {
-					itemSpecification = is;
-					itemSpecification.getName().getId();
-					if (itemSpecification.getProfile() != null) {
-						itemSpecification.getProfile().getId();
-					}
-					break;
+			itemSpecification = this.itemSpecificationDao.findByTypeAndRefId(osType, uuid);
+			if (itemSpecification != null) {
+				itemSpecification.getName().getId();
+				if (itemSpecification.getProfile() != null) {
+					itemSpecification.getProfile().getId();
 				}
 			}
 		}

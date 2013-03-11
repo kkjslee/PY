@@ -368,11 +368,8 @@ public class OrderServiceImpl implements OrderService {
 			log.error("No order found by order id : " +orderId);
 			throw new ApplicationRuntimeException("Order not found");
 		}
-		if(order.getInvoice() == null || order.getInvoice().getId() == 0){
-			log.error("No invoice found for order : " +orderId);
-			throw new ApplicationRuntimeException("Invoice hasn't generated for order");
-		}
 		BillingProcessResult bpr = billingProcessService.runBillingProcessForOrder(orderId, false);
+		orderDao.refresh(order);
 		Payment payment = paymentService.createPayment(
 				order.getSequence(), bpr.getUnPaidTotal().negate(),
 				Constants.PAYMENT_TYPE_AUTHORISATION, order.getTenant().getId(), null);

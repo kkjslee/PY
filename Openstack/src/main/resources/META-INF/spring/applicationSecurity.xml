@@ -22,6 +22,7 @@
     <http request-matcher="ciRegex" pattern="/user/scripts/bootstrap(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/scripts/template(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/pay/alipay(/?)(\?.*){0,1}" security="none"/>
+    <http request-matcher="ciRegex" pattern="/user/activeUser(/?)(\?.*){0,1}" security="none"/>
    
 	<http pattern="/*.jsp" security="none"/>
     <http pattern="/resource/**" security="none"/>

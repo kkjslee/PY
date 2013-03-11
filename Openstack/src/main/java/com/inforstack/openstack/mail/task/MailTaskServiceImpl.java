@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.mail.conf.MailConfigation;
 
 @Service
@@ -35,5 +36,20 @@ public class MailTaskServiceImpl implements MailTaskService{
 	@Override
 	public void deleteTask(MailTask mailTask) {
 		mailTask.setDeleted(true);
+	}
+
+	@Override
+	public CursorResult<MailTask> findAll() {
+		return mailTaskDao.findAll();
+	}
+
+	@Override
+	public MailTask findById(int mailTaskId) {
+		return mailTaskDao.findById(mailTaskId);
+	}
+
+	@Override
+	public void removeTask(MailTask mailTask) {
+		mailTaskDao.remove(mailTask);
 	}
 }

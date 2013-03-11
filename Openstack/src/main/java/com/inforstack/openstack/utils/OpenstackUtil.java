@@ -134,6 +134,10 @@ public class OpenstackUtil {
 					+ roleId);
 		}
 	}
+	
+	public static String getHost(HttpServletRequest req) {
+		return req.getScheme()+"://"+ req.getServerName()+":"+req.getServerPort()+req.getContextPath();
+	}
 
 	public static Object getProperty(Object beanOrMap, String prop) {
 		if (prop == null || beanOrMap == null)
@@ -321,4 +325,5 @@ public class OpenstackUtil {
 		}
 
 	}
+
 }

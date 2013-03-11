@@ -115,4 +115,8 @@ public interface UserService {
 	 */
 	public boolean checkQuestion(String username, String question, String answer);
 
+	public void sendActiveUserEmail(User user, String url);
+
+	public User active(String mailCode, String random);
+
 }

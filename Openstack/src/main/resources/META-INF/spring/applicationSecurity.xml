@@ -54,10 +54,23 @@
         <beans:property name="rejectPublicInvocations" value="true" />
     </beans:bean>
    
-	<security:authentication-manager alias="authenticationManager">
-		<security:authentication-provider user-service-ref="userDetailsService">
-			 <security:password-encoder hash="md5"/>
-		</security:authentication-provider>
-	</security:authentication-manager>
+	<beans:bean id="org.springframework.security.authenticationManager" 
+			class="org.springframework.security.authentication.ProviderManager">
+		<beans:property name="providers">
+			<beans:list>
+				<beans:ref bean="daoAuthenticationProvider"/>
+			</beans:list>
+		</beans:property>
+		<beans:property name="authenticationEventPublisher" ref="authenticationEventPublisher" />
+	</beans:bean>
+	<beans:alias name="org.springframework.security.authenticationManager" alias="authenticationManager"/>
+	
+	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService"/>
+		<beans:property name="passwordEncoder" ref="passwordEncoder"/>
+	</beans:bean>
+	
+	<beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	
 	
 </beans:beans>

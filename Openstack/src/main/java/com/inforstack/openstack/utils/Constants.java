@@ -73,9 +73,9 @@ public class Constants {
 	public static final Integer MAILTEMPALTE_TYPE_TEXT = 1;
 	public static final Integer MAILTEMPALTE_TYPE_HTML = 2;
 	
-	public static final Integer MAILTASK_priority_LOW = 10;
-	public static final Integer MAILTASK_priority_MEDIUM = 20;
-	public static final Integer MAILTASK_priority_HIGH = 30;
+	public static final Integer MAILTASK_PRIORITY_LOW = 10;
+	public static final Integer MAILTASK_PRIORITY_MEDIUM = 20;
+	public static final Integer MAILTASK_PRIORITY_HIGH = 30;
 	
 	public static final Integer PAYMENTMETHODPROPERTY_TYPE_PROP = 1;
 	public static final Integer PAYMENTMETHODPROPERTY_TYPE_PARAM = 2;
@@ -210,4 +210,10 @@ public class Constants {
 	public static final String SEQUENCE_PREFIX_ORDER = "O";
 	public static final String SEQUENCE_PREFIX_INVOICE = "I";
 	public static final String SEQUENCE_PREFIX_PAYMENT = "P";
+	
+	public static final String MAIL_CODE_VALIDATE_USER = "validateUser";
+	
+	public static final String MAILTEMPLATE_PROPERTY_URL = "url";
+	public static final String MAILTEMPLATE_PROPERTY_TASKCODE = "taskcode";
+	public static final String MAILTEMPLATE_PROPERTY_USER = "user";
 }

@@ -536,3 +536,9 @@ insert into payment_method_property(id, method_id, type, name, value) values (10
 insert into payment_method_property(id, method_id, type, name, value) values (11, 1, 2, 'total_fee', '{price}');
 insert into payment_method_property(id, method_id, type, name, value) values (12, 1, 2, 'trade_id', '{payment.id}');
 insert into payment_method_property(id, method_id, type, name, value) values (13, 2, 2, 'trade_id', '{payment.id}');
+
+insert into mail_configuration(id, protocal, host, port, username, password) values (1, 'smtp', 'smtp.163.com', '25', 'test99cloud@163.com', '455740054e5c')
+
+insert into mail(id, code, sender) values (1, 'validateUser', 1)
+
+insert into mail_template(id, language_id, type, title, body, mail_id) values(1, 1, 1, '测试', '{url}', 1)

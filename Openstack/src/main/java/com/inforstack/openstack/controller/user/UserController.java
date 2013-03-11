@@ -29,6 +29,7 @@ import com.inforstack.openstack.i18n.dict.Dictionary;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.mail.MailService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
@@ -59,7 +60,7 @@ public class UserController {
 	
 	@Autowired
 	private LanguageService languageService;
-
+	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String register(Model model) {
 		log.debug("visit register page");
@@ -380,6 +381,7 @@ public class UserController {
 		boolean success = true;
 		try {
 			userService.registerUser(user, tenant, Constants.ROLE_USER);
+			userService.sendActiveUserEmail(user, OpenstackUtil.getHost(req)+"/user/activeUser");
 		} catch (OpenstackAPIException e) {
 			success = false;
 			if (e.getCode() == 409) {
@@ -389,6 +391,9 @@ public class UserController {
 			}
 			log.error(e.getMessage());
 
+		} catch (RuntimeException re) {
+			success = false;
+			log.error(re.getMessage(), re);
 		}
 
 		if (success == false) {
@@ -407,5 +412,11 @@ public class UserController {
 
 		return ret;
 	}
-
+	
+	@RequestMapping(value = "/activeUser", method = RequestMethod.GET)
+	public String activeUser(String random, Model model, HttpServletRequest req, HttpServletResponse resp){
+		User user = userService.active(Constants.MAIL_CODE_VALIDATE_USER, random);
+		
+		return rootController.visitUser(model);
+	}
 }

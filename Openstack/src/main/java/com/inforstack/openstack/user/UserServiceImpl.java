@@ -2,10 +2,13 @@ package com.inforstack.openstack.user;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.h2.util.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,9 @@ import com.inforstack.openstack.api.keystone.KeystoneService.Role;
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.mail.MailService;
+import com.inforstack.openstack.mail.task.code.TaskCode;
+import com.inforstack.openstack.mail.task.code.TaskCodeService;
 import com.inforstack.openstack.security.group.SecurityGroup;
 import com.inforstack.openstack.security.permission.Permission;
 import com.inforstack.openstack.tenant.Tenant;
@@ -23,6 +29,7 @@ import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.CryptoUtil;
+import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 
@@ -37,6 +44,10 @@ public class UserServiceImpl implements UserService {
 	private TenantService tenantService;
 	@Autowired
 	private KeystoneService keystoneService;
+	@Autowired
+	private MailService mailService;
+	@Autowired
+	private TaskCodeService taskCodeService;
 
 	@Override
 	public Set<Permission> getPermissions(Integer userId) {
@@ -125,7 +136,7 @@ public class UserServiceImpl implements UserService {
 	public User createUser(User user, int roleId) throws OpenstackAPIException {
 		log.debug("Create user : " + user.getUsername());
 		user.setRoleId(roleId);
-		user.setStatus(Constants.USER_STATUS_VALID);
+		user.setStatus(Constants.USER_STATUS_INVALID);
 		user.setAgeing(Constants.USER_AGEING_ACTIVE);
 		user.setCreateTime(new Date());
 		user.setPassword(CryptoUtil.md5(user.getPassword()));
@@ -256,6 +267,35 @@ public class UserServiceImpl implements UserService {
 			log.debug("Find user successfully");
 		}
 
+		return user;
+	}
+
+	@Override
+	public void sendActiveUserEmail(User user, String url) {
+		Map<String, Object> properties = new HashMap<String, Object>();
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_USER, user);
+		TaskCode tc = taskCodeService.createTaskCode(Constants.MAIL_CODE_VALIDATE_USER, user.getId()+"", null);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_TASKCODE, tc);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_URL, url+"?random="+tc.getRandom());
+		mailService.addMailTask(Constants.MAIL_CODE_VALIDATE_USER,
+				user.getEmail(), user.getDefaultLanguage(), properties, Constants.MAILTASK_PRIORITY_HIGH);
+	}
+
+	@Override
+	public User active(String mailCode, String random) {
+		TaskCode tc = taskCodeService.findTaskCode(mailCode, random);
+		if(tc == null){
+			return null;
+		}
+		
+		Integer userId = NumberUtil.getInteger(tc.getEntityId());
+		if(userId == null){
+			return null;
+		}
+		
+		User user = this.findUserById(userId);
+		user.setStatus(Constants.USER_STATUS_VALID);
+		
 		return user;
 	}
 

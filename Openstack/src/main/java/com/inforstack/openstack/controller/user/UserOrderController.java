@@ -97,7 +97,7 @@ public class UserOrderController {
 	public @ResponseBody Map<String, Object> pay(int orderId, int paymentMethodId, HttpServletRequest request){
 		try{
 			Map<String, Object> property = new HashMap<String, Object>();
-			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, request.getContextPath());
+			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, OpenstackUtil.getHost(request));
 			String endpoint = orderService.payOrder(orderId, paymentMethodId, property);
 			return OpenstackUtil.buildSuccessResponse(endpoint);
 		}catch(ApplicationRuntimeException are){
@@ -114,7 +114,7 @@ public class UserOrderController {
 		try{
 
 			Map<String, Object> property = new HashMap<String, Object>();
-			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, request.getContextPath());
+			property.put(Constants.PAYMENTMETHODPROPERTY_NAME_HOST, OpenstackUtil.getHost(request));
 			String endpoint = orderService.payOrder(orderId, payId, property);
 			Order order = orderService.findOrderById(orderId);
 			PaymentMethod paymethod = paymentMethodService.findPaymentMethodById(payId);

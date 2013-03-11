@@ -10,9 +10,11 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.mail.conf.MailConfigation;
 import com.inforstack.openstack.mail.conf.MailConfigationService;
@@ -78,6 +80,7 @@ public class MailServiceImpl implements MailService {
 		return this.updateMailSender(mailId, sender);
 	}
 	
+	@Override
 	public MailTask addMailTask(String mailCode, String toMail, int language, Map<String, Object> propertise, int priority){
 		MailService self = (MailService)OpenstackUtil.getBean("mailService");
 		Mail mail = self.findMailByCode(mailCode);
@@ -110,7 +113,23 @@ public class MailServiceImpl implements MailService {
 				(tempalte.getType() == Constants.MAILTEMPALTE_TYPE_HTML), priority);
 	}
 	
-	public void sendMail(MailTask mailTask){
+	@Override
+	@Scheduled(fixedDelay=10000)
+	public void sendMail(){
+		CursorResult<MailTask> mts = mailTaskService.findAll();
+		while(mts.hasNext()){
+			sendMail(mts.getNext().getId());
+		}
+		mts.close();
+	}
+	
+	
+	public void sendMail(int mailTaskId){
+		MailTask mailTask = mailTaskService.findById(mailTaskId);
+		if(mailTask == null){
+			log.warn("Cannot find mail task by id : " + mailTaskId);
+			return;
+		}
 		MailConfigation sender =mailTask.getSender();
 		if(sender == null){
 			log.error("Cannot find sender for mailTask : " + mailTask.getId());
@@ -138,7 +157,7 @@ public class MailServiceImpl implements MailService {
 			helper.setText(mailTask.getText(), mailTask.getHtml());
 			mailSender.send(helper.getMimeMessage());
 			
-			mailTaskService.deleteTask(mailTask);
+			mailTaskService.removeTask(mailTask);
 		}catch(IOException ioe){
 			log.error("Error occured while loading mail properties", ioe);
 		}catch(MessagingException me){

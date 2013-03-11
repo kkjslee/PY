@@ -131,6 +131,13 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
+	public Payment topup(Integer paymentId) {
+		Payment payment = paymentDao.findById(paymentId);
+		return this.topup(payment.getMethod().getText().getI18nContent(), 
+				payment.getAmount().negate(), payment.getAccount());
+	}
+	
+	@Override
 	public void paidSuccessfully(Payment payment){
 		paymentDao.lock(payment.getAccount(), LockModeType.PESSIMISTIC_WRITE);
 		accountService.changeAccount(payment.getAccount(), payment.getAmount(), 
@@ -331,5 +338,5 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		return payment;
 	}
-	
+
 }

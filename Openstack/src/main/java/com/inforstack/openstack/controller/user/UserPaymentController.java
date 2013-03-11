@@ -28,12 +28,12 @@ public class UserPaymentController {
 	private InvoiceService invoiceService;
 	
 	@RequestMapping(value = "/accountpay", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Map<String, Object> accountpay(int tradeId){
+	public @ResponseBody Map<String, Object> accountpay(int trade_id){
 		try{
-			Payment payment = paymentService.findPaymentById(tradeId);
+			Payment payment = paymentService.findPaymentById(trade_id);
 			if(payment == null){
 				return OpenstackUtil.buildErrorResponse(
-						OpenstackUtil.getMessage("trade.not.found") + " : " + tradeId);
+						OpenstackUtil.getMessage("trade.not.found") + " : " + trade_id);
 			}
 			
 			payment = paymentService.processPayment(payment.getId());
@@ -50,16 +50,15 @@ public class UserPaymentController {
 	}
 	
 	@RequestMapping(value = "/alipay", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Map<String, Object> alipay(int tradeId){
+	public @ResponseBody Map<String, Object> alipay(int trade_id){
 		try{
-			Payment payment = paymentService.findPaymentById(tradeId);
+			Payment payment = paymentService.findPaymentById(trade_id);
 			if(payment == null){
 				return OpenstackUtil.buildErrorResponse(
-						OpenstackUtil.getMessage("trade.not.found") + " : " + tradeId);
+						OpenstackUtil.getMessage("trade.not.found") + " : " + trade_id);
 			}
 			
-			paymentService.topup(payment.getMethod().getText().getI18nContent(), 
-					payment.getAmount().negate(), payment.getAccount());
+			paymentService.topup(payment.getId());
 			
 			payment = paymentService.processPayment(payment.getId());
 			if(Constants.PAYMENT_STATUS_OK.equals(payment.getStatus())){

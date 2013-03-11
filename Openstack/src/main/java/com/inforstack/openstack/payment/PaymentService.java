@@ -19,6 +19,8 @@ public interface PaymentService {
 	
 	Payment createPayment(String subject, BigDecimal amount, int type, Account account);
 	
+	Payment topup(Integer paymentId);
+	
 	Payment topup(String subject, BigDecimal amount, Account account);
 	
 	public BigDecimal applyPayment(int invoiceId);

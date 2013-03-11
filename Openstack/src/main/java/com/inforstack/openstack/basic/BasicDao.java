@@ -24,6 +24,8 @@ public interface BasicDao<T> {
 	
 	public void remove(T instance);
 	
+	void detach(Object instance);
+	
 	void lock(Object instance, LockModeType lockType);
 
 	public PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<T> query);

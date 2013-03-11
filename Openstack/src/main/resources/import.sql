@@ -291,7 +291,7 @@ insert into Resource(id, url, permission) values (702, '/user/changePassword', '
 insert into Resource(id, url, permission) values (800, '/user/invoice/modules/index', 'user');
 insert into Resource(id, url, permission) values (801, '/user/invoice/getPagerInvoiceList', 'user');
 
-insert into Resource(id, url, permission) values (900, '/user/pay/doPay', 'user');
+insert into Resource(id, url, permission) values (900, '/user/pay/showPay', 'user');
 insert into Resource(id, url, permission) values (901, '/user/pay/topup', 'user');
 
 

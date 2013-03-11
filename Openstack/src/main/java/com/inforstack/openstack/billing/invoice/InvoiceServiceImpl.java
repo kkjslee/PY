@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
@@ -135,17 +136,17 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public List<Invoice> findInvoice(Date from, Date to) {
+	public PaginationModel<Invoice> findInvoice(int pageIndex, int pageSize, Integer tenantId, Date from, Date to) {
 		log.debug("Find invoice created from : " + from + ", to : " + to);
 		
-		List<Invoice> invoices = invoiceDao.findByTime(from, to);
-		if(CollectionUtil.isNullOrEmpty(invoices)){
+		PaginationModel<Invoice> model = invoiceDao.findByTime(pageIndex, pageSize, tenantId, from, to);
+		if(CollectionUtil.isNullOrEmpty(model.getData())){
 			log.debug("No invoices found");
 		}else{
-			log.debug(invoices.size() + " invoices found");
+			log.debug(model.getData().size() + " invoices found");
 		}
 		
-		return invoices;
+		return model;
 	}
 
 	@Override

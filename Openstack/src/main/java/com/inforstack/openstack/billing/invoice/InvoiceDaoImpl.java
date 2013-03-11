@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.utils.CollectionUtil;
 
@@ -21,7 +22,8 @@ public class InvoiceDaoImpl extends BasicDaoImpl<Invoice> implements InvoiceDao 
 	private static final Logger log = new Logger(InvoiceDaoImpl.class);
 	
 	@Override
-	public List<Invoice> findByTime(Date from, Date to) {
+	public PaginationModel<Invoice> findByTime(int pageIndex, int pageSize,
+			Integer tenantId, Date from, Date to) {
 		log.debug("Find invoices from : " + from + ", to : " + to);
 		try {
 			CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -29,6 +31,11 @@ public class InvoiceDaoImpl extends BasicDaoImpl<Invoice> implements InvoiceDao 
 					.createQuery(Invoice.class);
 			Root<Invoice> root = criteria.from(Invoice.class);
 			List<Predicate> predicates = new ArrayList<Predicate>();
+			if(tenantId != null){
+				predicates.add(
+						builder.equal(root.get("tenant").get("id"), tenantId)
+				);
+			}
 			if(from != null){
 				predicates.add(
 						builder.greaterThanOrEqualTo(root.<Date>get("createTime"), from)
@@ -39,22 +46,13 @@ public class InvoiceDaoImpl extends BasicDaoImpl<Invoice> implements InvoiceDao 
 						builder.lessThanOrEqualTo(root.<Date>get("createTime"), to)
 				);
 			}
-			if(predicates.isEmpty()){
-				criteria.select(root);
-			}else{
-				criteria.select(root).where(
+			if(!predicates.isEmpty()){
+				criteria.where(
 					builder.and(predicates.toArray(new Predicate[predicates.size()]))
 				);
 			}
 			
-			List<Invoice> invoices = em.createQuery(criteria).getResultList();
-			if(CollectionUtil.isNullOrEmpty(invoices)){
-				log.debug("No record found");
-				return new ArrayList<Invoice>();
-			}
-			
-			log.debug("Find successfully");
-			return invoices;
+			return this.pagination(pageIndex, pageSize, criteria);
 		} catch (RuntimeException re) {
 			log.error(re.getMessage(), re);
 			throw re;

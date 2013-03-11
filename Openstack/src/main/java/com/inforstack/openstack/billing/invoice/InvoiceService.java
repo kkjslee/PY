@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
@@ -52,7 +53,7 @@ public interface InvoiceService {
 	 * @param to create time <= to time, or null for no condition
 	 * @return
 	 */
-	public List<Invoice> findInvoice(Date from, Date to);
+	public PaginationModel<Invoice> findInvoice(int pageIndex, int pageSize, Integer tenantId, Date from, Date to);
 
 	public BigDecimal payAmount(Invoice invoice, BigDecimal payAmount);
 

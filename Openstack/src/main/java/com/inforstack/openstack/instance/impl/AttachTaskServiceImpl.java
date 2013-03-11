@@ -153,7 +153,7 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 					}
 					break;
 				}
-				case Constants.DETACH_TASK_TYPE_VOLUME: {
+				case Constants.DELETE_TASK_TYPE_VOLUME: {
 					try {
 						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
 						if (access != null) {
@@ -199,17 +199,18 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 					}
 					break;
 				}
-				case Constants.DETACH_TASK_TYPE_IP: {
+				case Constants.DELETE_TASK_TYPE_IP: {
 					try {
 						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
 						if (access != null) {
 							Instance vm = this.instanceDao.findByObject("uuid", serverId);
 							if (vm != null) {
 								Instance ip = this.instanceDao.findByObject("uuid", attachId);
-								if (ip != null && ip.getStatus().equalsIgnoreCase("in-use")) {
+								if (ip != null) {
 									task.setUpdateTime(now);
 									task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
 									this.quantumService.disassociateFloatingIP(access, attachId);
+									this.quantumService.removeFloatingIP(access, attachId);
 									task.setUpdateTime(now);
 									task.setStatus(Constants.ATTACH_TASK_STATUS_COMPLETE);
 								}

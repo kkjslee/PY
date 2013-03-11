@@ -381,11 +381,11 @@ public class InstanceServiceImpl implements InstanceService {
 							String attachId = subInstance.getUuid();
 							switch (type) {
 								case Constants.INSTANCE_TYPE_VOLUME: {
-									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_VOLUME, serverId, attachId, user.getUsername(), password, tenant.getUuid());
+									this.attachTaskService.addTask(Constants.DELETE_TASK_TYPE_VOLUME, serverId, attachId, user.getUsername(), password, tenant.getUuid());
 									break;
 								}
 								case Constants.INSTANCE_TYPE_IP: {
-									this.attachTaskService.addTask(Constants.DETACH_TASK_TYPE_IP, serverId, attachId, user.getUsername(), password, tenant.getUuid());
+									this.attachTaskService.addTask(Constants.DELETE_TASK_TYPE_IP, serverId, attachId, user.getUsername(), password, tenant.getUuid());
 									break;
 								}
 							}

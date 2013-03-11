@@ -181,6 +181,8 @@ public class Constants {
 	public static final int ATTACH_TASK_TYPE_IP = 2;
 	public static final int DETACH_TASK_TYPE_VOLUME = 11;
 	public static final int DETACH_TASK_TYPE_IP = 12;
+	public static final int DELETE_TASK_TYPE_VOLUME = 21;
+	public static final int DELETE_TASK_TYPE_IP = 22;
 
 	public static final Integer ATTACH_TASK_STATUS_NEW = 0;
 	public static final Integer ATTACH_TASK_STATUS_PROCESSING = 1;

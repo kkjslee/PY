@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.payment.account.Account;
+import com.inforstack.openstack.utils.Constants;
 
 public interface PaymentService {
 	
@@ -18,6 +19,8 @@ public interface PaymentService {
 	Payment createPayment(String subject, BigDecimal amount, int type, int tenantId, Integer instaceId);
 	
 	Payment createPayment(String subject, BigDecimal amount, int type, Account account);
+	
+	public Payment topup(String subject, BigDecimal amount);
 	
 	Payment topup(Integer paymentId);
 	

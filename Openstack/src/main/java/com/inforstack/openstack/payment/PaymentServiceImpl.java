@@ -31,6 +31,7 @@ import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.DateUtil;
 import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
+import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.utils.StringUtil;
 
 @Service(value="paymentService")
@@ -120,6 +121,13 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		paymentDao.persist(payment);
 		log.debug("Create payment successfully");
+		return payment;
+	}
+	
+	@Override
+	public Payment topup(String subject, BigDecimal amount){
+		Payment payment = this.createPayment(subject, amount, Constants.PAYMENT_TYPE_TOPUP, accountService.findActiveAccount(SecurityUtils.getTenantId(), null));
+		this.paidSuccessfully(payment);
 		return payment;
 	}
 	

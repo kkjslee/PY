@@ -1,5 +1,6 @@
 package com.inforstack.openstack.controller.user;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,4 +74,20 @@ public class UserPaymentController {
 		}
 	}
 	
+	@RequestMapping(value = "/topup", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> topup(double price){
+		try{
+			Payment payment = paymentService.topup("topup", new BigDecimal(price));
+			
+			if(payment!=null && Constants.PAYMENT_STATUS_OK.equals(payment.getStatus())){
+				return OpenstackUtil.buildSuccessResponse("");
+			}else{
+				return OpenstackUtil.buildErrorResponse("");
+			}
+		}catch(ApplicationRuntimeException are){
+			return OpenstackUtil.buildErrorResponse(are.getMessage());
+		}catch(RuntimeException re){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("trade.failed"));
+		}
+	}
 }

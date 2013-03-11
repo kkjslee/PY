@@ -80,6 +80,7 @@
     	        }]
     	    });
     	 //set server list
+    	 $(serverPanel).dialog("open");
     	 getInstancesWidthStatus(serverPanel);
     }
     

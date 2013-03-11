@@ -33,17 +33,17 @@
         $.template("serverPanel",  Template_ServerSelPanel);
         $.template("serverRow",  Template_ServerRow);
     })
-    function showDetachorAttachVolume(command,openDesc, volumeId, serverId,which){
-        jConfirm("<spring:message code='volume.detachorattch.tip'/>".sprintf(openDesc),function(){
+    function showAssociateOrDe(command,openDesc, ipId, serverId,which){
+        jConfirm("<spring:message code='ip.detachorattch.tip'/>".sprintf(openDesc),function(){
             if(!isNull(serverId)){
-                ctrlVolume(command,volumeId, serverId, which);
+                ctrlIP(command,ipId, serverId, which);
             }else{
-                showServerSelPanel(command,volumeId, which);
+                showServerSelPanel(command,ipId, which);
             }
         });
     }
     
-    function showServerSelPanel(command,volumeId, which){
+    function showServerSelPanel(command,ipId, which){
          var serverPanel = $.tmpl("serverPanel", [{
                 id: "serverPanel"
             }]).appendTo("#mainBody");
@@ -59,7 +59,7 @@
                     click: function() {
                         var uuid = $(serverPanel).find(".ui-selected").find("input[name='uuid']").val();
                         if(!isNull(uuid)){
-                            ctrlVolume(command,volumeId, uuid,which);
+                            ctrlIP(command,ipId, uuid,which);
                         }else{
                             printMessage("<spring:message code='choose.server.tip'/>");
                             return;
@@ -78,18 +78,19 @@
                 }]
             });
          //set server list
+         $(serverPanel).dialog("open");
          getInstancesWidthStatus(serverPanel);
     }
     
-    function ctrlVolume(command,volumeId, serverId,which){
+    function ctrlIP(command,ipId, serverId,which){
         var pd=showProcessingDialog();
         $.ajax({
             type: "POST",
-            url: '<c:url value="/user/cinder/volumecontrol"/>',
+            url: '<c:url value="/user/network/ipcontrol"/>',
             cache: false,
             data: {
                 executecommand: command,
-                volumeId: volumeId,
+                ipId: ipId,
                 serverId:serverId
             },
             success: function(data) {

@@ -45,7 +45,7 @@ public class Constants {
 	public static final Integer ACCOUNT_STATUS_INACTIVE = 2;
 	public static final Integer ACCOUNT_STATUS_DELETED = 3;
 
-	public static final Integer INVOICE_STATUS_UPPAID = 2;
+	public static final Integer INVOICE_STATUS_UNPAID = 2;
 	public static final Integer INVOICE_STATUS_PAID = 3;
 	public static final Integer INVOICE_STATUS_OVERDUE = 4;
 	public static final Integer INVOICE_STATUS_DELETED = 5;
@@ -156,6 +156,7 @@ public class Constants {
 	public static final String DICTIONARY_KEY_PERIOD_TYPE = "period.type";
 	public static final String DICTIONARY_KEY_ORDER_STATUS = "order.status";
 	public static final String DICTIONARY_KEY_TRUE_FALSE = "true.false";
+	public static final String DICTIONARY_KEY_INVOICE_STATUS = "invoice.status";
 
 	public static final int INSTANCE_TYPE_VM = 1;
 	public static final int INSTANCE_TYPE_VOLUME = 2;

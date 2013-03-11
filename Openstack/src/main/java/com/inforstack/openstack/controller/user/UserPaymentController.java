@@ -31,7 +31,7 @@ public class UserPaymentController {
 	
 	private static final String USER_BASE_HOME = "user/modules/Userinfo/";
 	
-	@RequestMapping(value = "/accountpay", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/accountpay", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Map<String, Object> accountpay(int trade_id){
 		try{
 			Payment payment = paymentService.findPaymentById(trade_id);

@@ -29,7 +29,8 @@ import com.inforstack.openstack.i18n.dict.Dictionary;
 import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.log.Logger;
-import com.inforstack.openstack.mail.MailService;
+import com.inforstack.openstack.payment.account.Account;
+import com.inforstack.openstack.payment.account.AccountService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
@@ -61,6 +62,10 @@ public class UserController {
 	@Autowired
 	private LanguageService languageService;
 	
+	@Autowired
+	private AccountService accountService;
+	
+	
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String register(Model model) {
 		log.debug("visit register page");
@@ -74,6 +79,8 @@ public class UserController {
 		File htmlFile = new File(destFilePath, "html.txt");
 		String html = StringUtil.file2String(htmlFile, "UTF-8");
 		model.addAttribute("content", html);
+		Account account = accountService.findActiveAccount(SecurityUtils.getTenantId(), null);
+		model.addAttribute("balance", account.getBalance());
 		return BASE + "home";
 	}
 
@@ -84,6 +91,8 @@ public class UserController {
 		File htmlFile = new File(destFilePath, "html.txt");
 		String html = StringUtil.file2String(htmlFile, "UTF-8");
 		model.addAttribute("content", html);
+		Account account = accountService.findActiveAccount(SecurityUtils.getTenantId(), null);
+		model.addAttribute("balance", account.getBalance());
 		return "user/modules/Entry/index";
 	}
 

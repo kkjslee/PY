@@ -154,7 +154,7 @@ public class UserVolumeController {
 
 		List<Instance> instanceList = this.instanceService
 				.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VOLUME,
-						null, null);
+						null, "deleted");
 
 		for (Instance instance : instanceList) {
 			String uuid = instance.getUuid();

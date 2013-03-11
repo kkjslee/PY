@@ -75,7 +75,7 @@ public class UserNetworkController {
 
 		Tenant tenant = SecurityUtils.getTenant();
 
-		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_IP, null, null);
+		List<Instance> instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_IP, null, "deleted");
 
 		for (Instance instance : instanceList) {
 			String uuid = instance.getUuid();

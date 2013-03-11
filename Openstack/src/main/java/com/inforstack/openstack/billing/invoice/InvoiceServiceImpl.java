@@ -91,7 +91,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoice.setSubOrder(subOrder);
 		invoice.setOrder(order);
 		invoice.setTenant(tenant);
-		invoice.setStatus(Constants.INVOICE_STATUS_UPPAID);
+		invoice.setStatus(Constants.INVOICE_STATUS_UNPAID);
 		invoice.setSequence(genenrateInvoiceSequence());
 		
 		invoiceDao.persist(invoice);
@@ -143,6 +143,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 		if(CollectionUtil.isNullOrEmpty(model.getData())){
 			log.debug("No invoices found");
 		}else{
+			for(Invoice iv: model.getData()){
+				if(iv.getSubOrder() != null){
+					iv.getSubOrder().getOrderPeriod().getName().getId();
+				}
+				iv.getOrder().getId();
+				
+			}
 			log.debug(model.getData().size() + " invoices found");
 		}
 		
@@ -165,7 +172,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public void unpaid(Invoice invoice) {
-		invoice.setStatus(Constants.INVOICE_STATUS_UPPAID);
+		invoice.setStatus(Constants.INVOICE_STATUS_UNPAID);
 	}
 
 	@Override
@@ -186,7 +193,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public List<Invoice> findUnPaidInvoicesByOrder(int orderId) {
-		return invoiceDao.findInvoices(Constants.INVOICE_STATUS_UPPAID, orderId);
+		return invoiceDao.findInvoices(Constants.INVOICE_STATUS_UNPAID, orderId);
 	}
 
 	@Override

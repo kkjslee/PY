@@ -282,7 +282,7 @@ public class CinderServiceImpl implements CinderService {
 				instance.setDescription(description);
 				instance.setSize(size);
 				instance.setBootable(bootable);
-				instance.setType(type);
+				//instance.setType(type);
 				instance.setZone(zone);
 				
 				VolumeBody request = new VolumeBody();

@@ -21,6 +21,7 @@
     <c:set target="${pageMap}" property=".pageIndex" value="0"/>
     <c:set target="${pageMap}" property=".pageSize" value="10"/>
     <c:set target="${pageMap}" property=".pagination" value="pagination"/>
+    <c:set target="${pageMap}" property=".loadSuccessCall" value="updateIPDisplay"/>
     <c:set target="${pageMap}" property=".colspanLeft" value="3"/>
     <c:set target="${pageMap}" property=".colspanRight" value="1"/>
     <c:set target="${pageMap}" property=".url" value="${paginationUrl}"/>
@@ -155,7 +156,7 @@
             }
         });
     }
-    function updateVolumeDisplay(){
+    function updateIPDisplay(){
         $("tbody").find("tr").each(function(e){
             var statusV = $(this).find("input[name='statusV']").val();
             if(statusV == "in-use"){
@@ -190,7 +191,7 @@
     function getTaskStatus(row,id){
         $.ajax({
             type: "POST",
-            url: '<c:url value="/user/cinder/getVolumeDetail"/>',
+            url: '<c:url value="/user/network/getIPDetail"/>',
             cache: false,
             async:false,
             data:{

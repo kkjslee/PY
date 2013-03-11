@@ -180,7 +180,7 @@
          var hasTask = false;
          $(".dataTable").find("input[name='statusV']").each(function(){
         	 window.console.log($(this).val());
-        	 if($(this.val()) == "pending"){
+        	 if($(this).val() == "pending"){
         		 hasTask = true;
                  var row =  $(this).parents(".dataRow").first();
                  var vmId = $(row).find("input[name='id']").val();

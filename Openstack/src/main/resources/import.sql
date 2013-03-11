@@ -177,6 +177,7 @@ insert into Resource(id, url, permission) values (31, '/user', 'user');
 insert into Resource(id, url, permission) values (32, '/user/scripts/navinit', 'user');
 insert into Resource(id, url, permission) values (35, '/user/modules/entry/index', 'user');
 
+
 insert into Resource(id, url, permission) values (36, '/admin/category/modules/index', 'admin');
 insert into Resource(id, url, permission) values (37, '/admin/category/scripts/bootstrap', 'admin');
 insert into Resource(id, url, permission) values (38, '/admin/category/scripts/template', 'admin');
@@ -289,6 +290,11 @@ insert into Resource(id, url, permission) values (702, '/user/changePassword', '
 
 insert into Resource(id, url, permission) values (800, '/user/invoice/modules/index', 'user');
 insert into Resource(id, url, permission) values (801, '/user/invoice/getPagerInvoiceList', 'user');
+
+insert into Resource(id, url, permission) values (900, '/user/pay/doPay', 'user');
+insert into Resource(id, url, permission) values (901, '/user/pay/topup', 'user');
+
+
 
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (1,'name_id',NULL,'Category');
 INSERT INTO `i18n_link` (`id`,`column_name`,`create_time`,`table_name`) VALUES (2,'name_id',NULL,'Category');

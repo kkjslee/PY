@@ -14,12 +14,12 @@ insert into Language(id, name, language, country) values (2, '中文', 'zh', 'CN
 -- insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin');
 -- insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', 'Password9988!');
 -- insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.29:5000/v2.0/tokens');
--- 61
-insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', 'fdf55d9a0c474bd29a19fcdcc63f9ec3');
-insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', 'fdf55d9a0c474bd29a19fcdcc63f9ec3');
+-- 65
+insert into Configuration(id, name, value) values(1, 'openstack.tenant.admin', '4b4da4312f1d4a759b698dee3bd302ce');
+insert into Configuration(id, name, value) values(2, 'openstack.tenant.demo', '4b4da4312f1d4a759b698dee3bd302ce');
 insert into Configuration(id, name, value) values(3, 'openstack.user.admin.name', 'admin');
-insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', '99cloud');
-insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.61:5000/v2.0/tokens');
+insert into Configuration(id, name, value) values(4, 'openstack.user.admin.pass', 'Password9988!');
+insert into Configuration(id, name, value) values(5, 'openstack.endpoint.tokens', 'http://192.168.1.65:5000/v2.0/tokens');
 
 insert into Configuration(id, name, value) values(6, 'openstack.endpoint.tenants', '/tenants');
 insert into Configuration(id, name, value) values(7, 'openstack.endpoint.tenant', '/tenants/{tenant}');
@@ -75,10 +75,10 @@ insert into Configuration(id, name, value) values(43, 'openstack.endpoint.floati
 -- insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', '8289859bfa02405f85de97be60689e8e');
 -- insert into Configuration(id, name, value) values(52, 'openstack.role.member', '2de10f0627b34a11973eab0ff88e6c3c');
 
--- 61
-insert into Configuration(id, name, value) values(50, 'openstack.role.admin', '92593098b368460b83421aa2115ca9f9');
-insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', '92593098b368460b83421aa2115ca9f9');
-insert into Configuration(id, name, value) values(52, 'openstack.role.member', '92593098b368460b83421aa2115ca9f9');
+-- 65
+insert into Configuration(id, name, value) values(50, 'openstack.role.admin', 'd551cfeb00864aaba2715a3a8b438c1c');
+insert into Configuration(id, name, value) values(51, 'openstack.role.reseller', 'd551cfeb00864aaba2715a3a8b438c1c');
+insert into Configuration(id, name, value) values(52, 'openstack.role.member', 'd551cfeb00864aaba2715a3a8b438c1c');
 
 insert into Configuration(id, name, value) values(53, 'openstack.cache.expire', '2');
 
@@ -89,7 +89,7 @@ insert into Configuration(id, name, value) values(63, 'socket.timestamp.toleranc
 
 insert into Configuration(id, name, value) values(69, 'openstack.user.password', '5f4dcc3b5aa765d61d8327deb882cf99');
 
-insert into Configuration(id, name, value) values(70, 'openstack.network.external', 'c7e5ab7b-3b70-440c-88fd-580272bfae30');
+insert into Configuration(id, name, value) values(70, 'openstack.network.external', '9282526f-4b57-47ea-9d79-519e733ad678');
 
 insert into Role(id, name) values (1, 'admin');
 insert into Role(id, name) values (2, 'user');
@@ -455,8 +455,8 @@ INSERT INTO `Price` (`id`,`activated`,`created`,`value`,`item_id`) VALUES (19,'2
 -- INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (1,33,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
 -- INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (2,34,'c7e5ab7b-3b70-440c-88fd-580272bfae30');
 
-INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (1,33,'f5a6f28d-a353-4876-b625-be5e25ec15af');
-INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (2,34,'f5a6f28d-a353-4876-b625-be5e25ec15af');
+INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (1,33,'9282526f-4b57-47ea-9d79-519e733ad678');
+INSERT INTO `DataCenter` (`id`,`name_id`,`external_network`) VALUES (2,34,'9282526f-4b57-47ea-9d79-519e733ad678');
 
 INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','1',1);
 INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','2',1);
@@ -485,16 +485,16 @@ INSERT INTO `Flavor` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (10,'5','5',
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','d96a771e-1dab-42eb-a9af-faefadbf50cb',2);
 
 -- 29
-INSERT INTO `Image` (`id`,`uuid`,`ref_id`,`data_center_id`,`family`) VALUES (1,'1','475e87a5-377b-43da-a5c8-d379a147177b',1,'other');
-INSERT INTO `Image` (`id`,`uuid`,`ref_id`,`data_center_id`,`family`) VALUES (2,'1','475e87a5-377b-43da-a5c8-d379a147177b',2,'other');
+INSERT INTO `Image` (`id`,`uuid`,`ref_id`,`data_center_id`,`family`) VALUES (1,'1','d5ac40d0-4818-4ec0-bfaa-0ad9a378d11d',1,'other');
+INSERT INTO `Image` (`id`,`uuid`,`ref_id`,`data_center_id`,`family`) VALUES (2,'1','d5ac40d0-4818-4ec0-bfaa-0ad9a378d11d',2,'other');
 
-INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','607c7eba-ad95-4230-b67c-fafb9eccc016',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','31f6f7a1-7f3c-43b0-9ef3-69ac622d29b0',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (1,'1','94d07605-7bf8-439d-b2dc-b5ef128151cc',1);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (2,'2','d1d7a027-c493-4e02-9a7f-9df1cffe51e4',1);
 INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (3,'3','e0028d50-70e1-4a67-b9ba-817d7ef9b4ab',1);
 INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (4,'4','f2b21a0b-4fce-4657-b8ef-44d40f268f87',1);
 INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (5,'5','1da51155-6429-4496-adb0-6fc1a89dd884',1);
-INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (6,'1','607c7eba-ad95-4230-b67c-fafb9eccc016',2);
-INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (7,'2','31f6f7a1-7f3c-43b0-9ef3-69ac622d29b0',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (6,'1','94d07605-7bf8-439d-b2dc-b5ef128151cc',2);
+INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (7,'2','d1d7a027-c493-4e02-9a7f-9df1cffe51e4',2);
 INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (8,'3','e0028d50-70e1-4a67-b9ba-817d7ef9b4ab',2);
 INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (9,'4','f2b21a0b-4fce-4657-b8ef-44d40f268f87',2);
 INSERT INTO `VolumeType` (`id`,`uuid`,`ref_id`,`data_center_id`) VALUES (10,'5','1da51155-6429-4496-adb0-6fc1a89dd884',2);

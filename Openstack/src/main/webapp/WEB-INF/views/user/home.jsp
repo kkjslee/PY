@@ -82,6 +82,7 @@
                  <div id="ncollapse4" class="accordion-body collapse">
                     <ul class="accordion-inner">
                        <li><a href="#" name="menuItem" isos:module="invoice/modules/index"><spring:message code="user.navi.invoice"/></a></li>
+                        <li><a href="#" name="menuItem" isos:module="/pay/showPay">充值</a></li>
                     </ul>
                 </div>
             </div>
@@ -113,7 +114,7 @@
 </div>
 
 <div class="right">
-      <div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="user.entry.title"/></div>
+      <div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="user.entry.title"/> ,当前余额: ${balance}</div>
     <div style="padding:30px 0 10px 60px;">
         <div style="font-family:'微软雅黑';font-size:14px;">${content}</div>
     </div>

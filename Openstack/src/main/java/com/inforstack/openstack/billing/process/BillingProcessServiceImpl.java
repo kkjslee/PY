@@ -187,13 +187,14 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 			bp.setEndTime(new Date());
 			bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
 			log.debug("Running billing process finished");
+			return bpr;
 		}catch(RuntimeException re){
 			bp.setEndTime(new Date());
 			bp.setStatus(Constants.BILLINGPROCESS_STATUS_FAILED);
 			log.error("Running billing process failed", re);
+			throw re;
 		}
 		
-		return bpr;
 	}
 	
 	

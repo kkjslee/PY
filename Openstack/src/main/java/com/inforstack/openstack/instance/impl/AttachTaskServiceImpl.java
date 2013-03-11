@@ -204,9 +204,9 @@ public class AttachTaskServiceImpl implements AttachTaskService {
 						Access access = this.keystoneService.getAccess(user, pass, tenant, true);
 						if (access != null) {
 							Instance vm = this.instanceDao.findByObject("uuid", serverId);
-							if (vm != null && vm.getStatus().equalsIgnoreCase("active")) {
+							if (vm != null) {
 								Instance ip = this.instanceDao.findByObject("uuid", attachId);
-								if (ip != null && ip.getStatus().equalsIgnoreCase("available")) {
+								if (ip != null && ip.getStatus().equalsIgnoreCase("in-use")) {
 									task.setUpdateTime(now);
 									task.setStatus(Constants.ATTACH_TASK_STATUS_PROCESSING);
 									this.quantumService.disassociateFloatingIP(access, attachId);

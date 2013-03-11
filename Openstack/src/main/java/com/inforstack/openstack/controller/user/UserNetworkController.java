@@ -120,10 +120,10 @@ public class UserNetworkController {
 		conf.put("grid.operation", "[button]associate,disassociate,remove");
 		conf.put("associate.onclick", "showAssociateOrDe('associate','"
 				+ OpenstackUtil.getMessage("associate.label")
-				+ "','{id}','{vm}', this)");
+				+ "','{id}','{vmId}', this)");
 		conf.put("disassociate.onclick", "showAssociateOrDe('disassociate','"
 				+ OpenstackUtil.getMessage("disassociate.label")
-				+ "','{id}','{vm}',this)");
+				+ "','{id}','{vmId}',this)");
 		conf.put("remove.onclick", "showAssociateOrDe('remove','"
 				+ OpenstackUtil.getMessage("remove.label")
 				+ "','{id}','{vm}',this)");

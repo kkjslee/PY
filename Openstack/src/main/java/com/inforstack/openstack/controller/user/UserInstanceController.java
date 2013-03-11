@@ -410,9 +410,15 @@ public class UserInstanceController {
 		}
 		List<Instance> instanceList;
 		try {
-			instanceList = this.instanceService.findInstanceFromTenant(tenant,
-					Constants.INSTANCE_TYPE_VM, include, exclude);
-			return JSONUtil.jsonSuccess(instanceList);
+			instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, include, exclude);
+			ArrayList<Object> instanceModelList = new ArrayList<Object>();
+			for (Instance instance : instanceList) {
+				HashMap<String, String> instanceModel = new HashMap<String, String>();
+				instanceModel.put("uuid", instance.getUuid());
+				instanceModel.put("name", instance.getName());
+				instanceModelList.add(instanceModel);
+			}
+			return JSONUtil.jsonSuccess(instanceModelList);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return JSONUtil.jsonError(e.getMessage());

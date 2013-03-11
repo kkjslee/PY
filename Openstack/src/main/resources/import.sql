@@ -519,7 +519,7 @@ INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (4,1,2,'2'
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (9,'4','4',4);
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',5);
 
-insert into payment_method(id, type, catlog, icon, text, endpoint) values (1, 1, 3, null, 40, '');
+insert into payment_method(id, type, catlog, icon, text, endpoint) values (1, 1, 3, null, 40, '{host}/user/pay/alipay');
 insert into payment_method(id, type, catlog, icon, text, endpoint) values (2, 2, 2, null, 41, '{host}/user/pay/accountpay');
 insert into payment_method(id, type, catlog, icon, text, endpoint) values (3, 3, 3, null, 42, '');
 
@@ -534,4 +534,5 @@ insert into payment_method_property(id, method_id, type, name, value) values (8,
 insert into payment_method_property(id, method_id, type, name, value) values (9, 1, 2, 'payment_type', '1');
 insert into payment_method_property(id, method_id, type, name, value) values (10, 1, 2, 'seller_id', '');
 insert into payment_method_property(id, method_id, type, name, value) values (11, 1, 2, 'total_fee', '{price}');
+insert into payment_method_property(id, method_id, type, name, value) values (12, 1, 2, 'trade_id', '{payment.id}');
 insert into payment_method_property(id, method_id, type, name, value) values (13, 2, 2, 'trade_id', '{payment.id}');

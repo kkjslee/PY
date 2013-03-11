@@ -80,7 +80,7 @@ public class UserController {
 		String html = StringUtil.file2String(htmlFile, "UTF-8");
 		model.addAttribute("content", html);
 		Account account = accountService.findActiveAccount(SecurityUtils.getTenantId(), null);
-		model.addAttribute("balance", account.getBalance());
+		model.addAttribute("balance", account != null ? account.getBalance() : 0);
 		return BASE + "home";
 	}
 
@@ -92,7 +92,7 @@ public class UserController {
 		String html = StringUtil.file2String(htmlFile, "UTF-8");
 		model.addAttribute("content", html);
 		Account account = accountService.findActiveAccount(SecurityUtils.getTenantId(), null);
-		model.addAttribute("balance", account.getBalance());
+		model.addAttribute("balance", account != null ? account.getBalance() : 0);
 		return "user/modules/Entry/index";
 	}
 

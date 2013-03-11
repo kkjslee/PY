@@ -126,7 +126,7 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	@Override
 	public Payment topup(String subject, BigDecimal amount){
-		Payment payment = this.createPayment(subject, amount, Constants.PAYMENT_TYPE_TOPUP, accountService.findActiveAccount(SecurityUtils.getTenantId(), null));
+		Payment payment = this.createPayment(subject, amount, Constants.PAYMENT_TYPE_TOPUP, accountService.findOrCreateActiveAccount(SecurityUtils.getTenant(), null));
 		this.paidSuccessfully(payment);
 		return payment;
 	}

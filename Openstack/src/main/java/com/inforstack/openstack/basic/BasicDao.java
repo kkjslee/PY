@@ -3,6 +3,7 @@ package com.inforstack.openstack.basic;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.LockModeType;
 import javax.persistence.criteria.CriteriaQuery;
 
 import com.inforstack.openstack.controller.model.PaginationModel;
@@ -22,6 +23,8 @@ public interface BasicDao<T> {
 	public void update(T instance);
 	
 	public void remove(T instance);
+	
+	void lock(Object instance, LockModeType lockType);
 
 	public PaginationModel<T> pagination(int pageIndex, int pageSize, CriteriaQuery<T> query);
 

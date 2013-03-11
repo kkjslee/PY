@@ -124,5 +124,4 @@ public class Account {
 	public void setPoint(Integer point) {
 		this.point = point;
 	}
-	
 }

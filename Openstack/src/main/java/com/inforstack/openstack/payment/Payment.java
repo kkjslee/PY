@@ -38,6 +38,8 @@ public class Payment {
 	@JoinColumn(name="method_id")
 	private PaymentMethod method;
 	
+	private String subject;
+	
 	@Column(name="create_time")
 	private Date createTime;
 
@@ -103,6 +105,14 @@ public class Payment {
 
 	public void setMethod(PaymentMethod method) {
 		this.method = method;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	
 }

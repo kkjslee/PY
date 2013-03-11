@@ -9,8 +9,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.inforstack.openstack.basic.BasicDaoImpl;
@@ -52,7 +50,48 @@ public class InvoiceDaoImpl extends BasicDaoImpl<Invoice> implements InvoiceDao 
 			List<Invoice> invoices = em.createQuery(criteria).getResultList();
 			if(CollectionUtil.isNullOrEmpty(invoices)){
 				log.debug("No record found");
-				return invoices;
+				return new ArrayList<Invoice>();
+			}
+			
+			log.debug("Find successfully");
+			return invoices;
+		} catch (RuntimeException re) {
+			log.error(re.getMessage(), re);
+			throw re;
+		}
+	}
+
+	@Override
+	public List<Invoice> findInvoices(Integer status, Integer orderId) {
+		log.debug("Find invoices by order id : " + orderId + ", status : " + status);
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<Invoice> criteria = builder
+					.createQuery(Invoice.class);
+			Root<Invoice> root = criteria.from(Invoice.class);
+			List<Predicate> predicates = new ArrayList<Predicate>();
+			if(status != null){
+				predicates.add(
+						builder.equal(root.get("status"), status)
+				);
+			}
+			if(orderId != null){
+				predicates.add(
+						builder.equal(root.get("order").get("id"), orderId)
+				);
+			}
+			if(predicates.isEmpty()){
+				criteria.select(root);
+			}else{
+				criteria.select(root).where(
+					builder.and(predicates.toArray(new Predicate[predicates.size()]))
+				);
+			}
+			
+			List<Invoice> invoices = em.createQuery(criteria).getResultList();
+			if(CollectionUtil.isNullOrEmpty(invoices)){
+				log.debug("No record found");
+				return new ArrayList<Invoice>();
 			}
 			
 			log.debug("Find successfully");

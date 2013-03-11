@@ -16,11 +16,14 @@ import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.payment.Payment;
+import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.DateUtil;
 import com.inforstack.openstack.utils.NumberUtil;
+import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.StringUtil;
 
 @Service
@@ -30,6 +33,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 	private static final Logger log = new Logger(InvoiceServiceImpl.class);
 	@Autowired
 	private InvoiceDao invoiceDao;
+	@Autowired
+	private PaymentService paymentService;
 	
 	private static String cachedDate = null;
 	private static int sequence = 0;
@@ -40,9 +45,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 			if(cachedDate == null){
 				Date date = new Date();
 				Invoice invoice = invoiceDao.findLastestBySequenceDate("sequence", date);
+				int preLen = Constants.SEQUENCE_PREFIX_INVOICE.length();
 				if(invoice != null){
-					cachedDate = invoice.getSequence().substring(1, DateUtil.SEQ_DATE_LEN + 2);
-					sequence = new Integer(invoice.getSequence().substring(DateUtil.SEQ_DATE_LEN + 2));
+					cachedDate = invoice.getSequence().substring(0+preLen, DateUtil.SEQ_DATE_LEN + 1 + preLen);
+					sequence = new Integer(invoice.getSequence().substring(DateUtil.SEQ_DATE_LEN + 1 + preLen));
 				}else{
 					cachedDate = DateUtil.getSequenceDate(date);
 					sequence = 0;
@@ -64,7 +70,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 				sequence = 0;
 			}
 			sequence++;
-			return "I" + date + NumberUtil.leftPaddingZero(sequence, 8);
+			return Constants.SEQUENCE_PREFIX_INVOICE + date + NumberUtil.leftPaddingZero(sequence, 8);
 		}
 	}
 	
@@ -84,7 +90,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoice.setSubOrder(subOrder);
 		invoice.setOrder(order);
 		invoice.setTenant(tenant);
-		invoice.setStatus(Constants.INVOICE_STATUS_NEW);
+		invoice.setStatus(Constants.INVOICE_STATUS_UPPAID);
 		invoice.setSequence(genenrateInvoiceSequence());
 		
 		invoiceDao.persist(invoice);
@@ -172,4 +178,40 @@ public class InvoiceServiceImpl implements InvoiceService {
 		return invoices;
 	}
 
+	@Override
+	public Invoice findInvoiceBySequence(String subject) {
+		return invoiceDao.findByObject("sequence", subject);
+	}
+
+	@Override
+	public List<Invoice> findUnPaidInvoicesByOrder(int orderId) {
+		return invoiceDao.findInvoices(Constants.INVOICE_STATUS_UPPAID, orderId);
+	}
+
+	@Override
+	public boolean fullPayment(int invoiceId, int paymentId) {
+		Invoice invoice = this.findInvoice(invoiceId);
+		Payment payment = paymentService.findPaymentById(paymentId);
+		if(invoice == null || payment == null){
+			return false;
+		}
+		
+		if(payment.getAccount().getTenant().getId().equals(invoice.getTenant().getId())){
+			return false;
+		}
+		
+		if(payment.getAmount().compareTo(payment.getAccount().getAmount()) > 0 ){
+			return false;
+		}
+		if(payment.getType() != Constants.PAYMENT_TYPE_PAYOUT){
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));
+		}
+		BigDecimal balance = paymentService.applyPayment(invoice, payment);
+		if(balance.compareTo(BigDecimal.ZERO) != 0){
+			throw new ApplicationRuntimeException("Full payment failed");
+		}
+		paymentService.paidSuccessfully(payment);
+		
+		return true;
+	}
 }

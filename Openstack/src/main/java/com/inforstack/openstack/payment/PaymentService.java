@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 import com.inforstack.openstack.billing.invoice.Invoice;
-import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.payment.account.Account;
-import com.inforstack.openstack.payment.method.PaymentMethod;
 
 public interface PaymentService {
 	
@@ -17,18 +15,11 @@ public interface PaymentService {
 	 * @param type
 	 * @return
 	 */
-	public Payment createPayment(double amount, int type, int tenantId, Integer instaceId);
+	Payment createPayment(String subject, BigDecimal amount, int type, int tenantId, Integer instaceId);
 	
-	Payment createPayment(BigDecimal amount, int type, int tenantId, Integer instaceId);
+	Payment createPayment(String subject, BigDecimal amount, int type, Account account);
 	
-	Payment createPayment(BigDecimal amount, int type, Account account);
-	
-	/**
-	 * process payment
-	 * @param paymentId
-	 * @return
-	 */
-	public Payment processPayment(int paymentId);
+	Payment topup(String subject, BigDecimal amount, Account account);
 	
 	public BigDecimal applyPayment(int invoiceId);
 	
@@ -38,15 +29,30 @@ public interface PaymentService {
 	 */
 	public BigDecimal applyPayment(Invoice invoice);
 	
+	public BigDecimal applyPayment(Invoice invoice, Payment payment);
+	
 	/**
 	 * apply payments to invoice
-	 * @param invoice
-	 * @param type sub order type : perpaid or postpaid
 	 */
-	public BigDecimal applyPayment(Invoice invoice, boolean payasyougo);
+	public BigDecimal applyPayment(Invoice invoice, Payment payment, boolean payasyougo);
+	
+	Payment payAuthorisation(Payment payment);
+	
+	public BigDecimal authorisation(Payment payment);
+	
+	Payment paymentPocessing(int paymentId);
 
 	void paidSuccessfully(Payment payment);
 
 	public String generateEndpoint(int paymentMethodId, BigDecimal balance, Map<String, Object> property);
+
+	Payment findPaymentById(int paymentId);
+
+	/**
+	 * process payment
+	 * @param paymentId
+	 * @return
+	 */
+	public Payment processPayment(int paymentId);
 
 }

@@ -54,6 +54,18 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 		return paymentMethod;
 	}
 	
+	public List<PaymentMethod> getPayoutMethods(){
+		return paymentMethodDao.findMethodsByCatlogs(new int[]{
+				Constants.PAYMENTMETHODPROPERTY_CATLOG_PAYOUT, 
+				Constants.PAYMENTMETHODPROPERTY_CATLOG_TOPUP_PAYOUT});
+	}
+	
+	public List<PaymentMethod> getTopupMethods(){
+		return paymentMethodDao.findMethodsByCatlogs(new int[]{
+				Constants.PAYMENTMETHODPROPERTY_CATLOG_TOPUP, 
+				Constants.PAYMENTMETHODPROPERTY_CATLOG_TOPUP_PAYOUT});
+	}
+	
 	@Override
 	public List<PaymentMethod> listAll(){
 		List<PaymentMethod> pms = paymentMethodDao.listAll();

@@ -92,6 +92,8 @@ public class User {
 	@Column(name="create_time")
 	private Date createTime;
 	
+	private Integer tried;
+	
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinTable(name="user_instance",
 		joinColumns = { @JoinColumn(name="user_id", insertable=false, updatable = false) },
@@ -300,6 +302,14 @@ public class User {
 
 	public void setDefaultLanguage(Integer defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
+	}
+	
+	public Integer getTried() {
+		return tried;
+	}
+
+	public void setTried(Integer tried) {
+		this.tried = tried;
 	}
 
 	public com.inforstack.openstack.api.keystone.User getOpenstackUser() {

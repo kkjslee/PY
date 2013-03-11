@@ -9,4 +9,6 @@ public interface InvoiceDao extends BasicDao<Invoice>  {
 
 	public List<Invoice> findByTime(Date from, Date to);
 
+	public List<Invoice> findInvoices(Integer status, Integer orderId);
+
 }

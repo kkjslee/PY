@@ -391,9 +391,9 @@ INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (68,'数
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (70,'alipay',40,1);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (71,'支付宝',40,2);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (72,'Account payment',41,1);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (73,'账户支付',41,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (73,'账户',41,2);
 INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (74,'offline payment',42,1);
-INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (75,'线下支付',42,2);
+INSERT INTO `I18n` (`id`,`content`,`i18n_link_id`,`language_id`) VALUES (75,'线下',42,2);
 
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (1,1,1,1);
 INSERT INTO `Category` (`id`,`enable`,`system`,`name_id`) VALUES (2,1,1,2);
@@ -519,19 +519,19 @@ INSERT INTO `NetworkType` (`id`,`web`,`data_center_id`,`uuid`) VALUES (4,1,2,'2'
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (9,'4','4',4);
 -- INSERT INTO `VolumeType` (`id`,`uuid`,`refId`,`data_center_id`) VALUES (10,'5','5',5);
 
-insert into payment_method(id, type, icon, text, endpoint) values (1, 1, null, 40, '');
-insert into payment_method(id, type, icon, text, endpoint) values (2, 2, null, 41, '{host}/user/pay/payInvoice');
-insert into payment_method(id, type, icon, text, endpoint) values (3, 3, null, 42, '');
+insert into payment_method(id, type, catlog, icon, text, endpoint) values (1, 1, 3, null, 40, '');
+insert into payment_method(id, type, catlog, icon, text, endpoint) values (2, 2, 2, null, 41, '{host}/user/pay/accountpay');
+insert into payment_method(id, type, catlog, icon, text, endpoint) values (3, 3, 3, null, 42, '');
 
 insert into payment_method_property(id, method_id, type, name, value) values (1, 1, 2, 'service', 'create_direct_pay_by_user');
 insert into payment_method_property(id, method_id, type, name, value) values (2, 1, 2, 'partner', '');
 insert into payment_method_property(id, method_id, type, name, value) values (3, 1, 2, '_input_charset', 'utf-8');
 insert into payment_method_property(id, method_id, type, name, value) values (4, 1, 2, 'sign_type', 'MD5');
 insert into payment_method_property(id, method_id, type, name, value) values (5, 1, 3, 'sign', 'com.inforstack.openstack.payment.method.prop.builder.AlipaySignParamBuilder.build');
-insert into payment_method_property(id, method_id, type, name, value) values (6, 1, 2, 'return_url', '');
-insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{invoice.sequence}');
-insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{order.sequence}');
+insert into payment_method_property(id, method_id, type, name, value) values (6, 1, 2, 'return_url', '{host}/user/pay/alipay');
+insert into payment_method_property(id, method_id, type, name, value) values (7, 1, 2, 'out_trade_no', '{payment.sequence}');
+insert into payment_method_property(id, method_id, type, name, value) values (8, 1, 2, 'subject', '{payment.subject}');
 insert into payment_method_property(id, method_id, type, name, value) values (9, 1, 2, 'payment_type', '1');
 insert into payment_method_property(id, method_id, type, name, value) values (10, 1, 2, 'seller_id', '');
 insert into payment_method_property(id, method_id, type, name, value) values (11, 1, 2, 'total_fee', '{price}');
-insert into payment_method_property(id, method_id, type, name, value) values (13, 2, 2, 'invoiceId', '{invoice.id}');
+insert into payment_method_property(id, method_id, type, name, value) values (13, 2, 2, 'trade_id', '{payment.id}');

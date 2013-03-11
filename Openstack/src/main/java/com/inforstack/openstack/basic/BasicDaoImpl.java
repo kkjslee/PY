@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -240,6 +241,16 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 			log.error(re.getMessage(), re);
 		}
 	} 
+	
+	@Override
+	public final void lock(Object instance, LockModeType lockType){
+		log.debug("lock instance " + this.modelClz.getSimpleName());
+		try {
+			em.lock(instance, lockType);
+		} catch (RuntimeException re){
+			log.error(re.getMessage(), re);
+		}
+	}
 	
 	public static class CursorResult<K>{
 		private ScrollableResults results;

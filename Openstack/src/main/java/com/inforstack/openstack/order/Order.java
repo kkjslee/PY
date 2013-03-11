@@ -16,8 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;

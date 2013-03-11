@@ -19,6 +19,7 @@ import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.billing.process.BillingProcessService;
+import com.inforstack.openstack.billing.process.result.BillingProcessResult;
 import com.inforstack.openstack.controller.model.CartItemModel;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
@@ -29,6 +30,7 @@ import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.order.sub.SubOrderService;
+import com.inforstack.openstack.payment.Payment;
 import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.payment.method.PaymentMethodService;
 import com.inforstack.openstack.tenant.Tenant;
@@ -76,9 +78,10 @@ public class OrderServiceImpl implements OrderService {
 			if(cachedDate == null){
 				Date date = new Date();
 				Order order = orderDao.findLastestBySequenceDate("sequence", date);
+				int preLen = Constants.SEQUENCE_PREFIX_ORDER.length();
 				if(order != null){
-					cachedDate = order.getSequence().substring(1, DateUtil.SEQ_DATE_LEN + 2);
-					sequence = new Integer(order.getSequence().substring(DateUtil.SEQ_DATE_LEN + 2));
+					cachedDate = order.getSequence().substring(0+preLen, DateUtil.SEQ_DATE_LEN + 1 + preLen);
+					sequence = new Integer(order.getSequence().substring(DateUtil.SEQ_DATE_LEN + 1 + preLen));
 				}else{
 					cachedDate = DateUtil.getSequenceDate(date);
 					sequence = 0;
@@ -100,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
 				sequence = 0;
 			}
 			sequence++;
-			return "O" + date + NumberUtil.leftPaddingZero(sequence, 8);
+			return Constants.SEQUENCE_PREFIX_ORDER + date + NumberUtil.leftPaddingZero(sequence, 8);
 		}
 	}
 
@@ -365,14 +368,60 @@ public class OrderServiceImpl implements OrderService {
 			log.error("No order found by order id : " +orderId);
 			throw new ApplicationRuntimeException("Order not found");
 		}
-		billingProcessService.runBillingProcessForOrder(orderId, false);
+		BillingProcessResult bpr = billingProcessService.runBillingProcessForOrder(orderId, false);
+		Payment payment = paymentService.createPayment(
+				order.getSequence(), bpr.getUnPaidTotal().negate(),
+				Constants.PAYMENT_TYPE_AUTHORISATION, order.getTenant().getId(), null);
 		
 		if(property == null){
 			property = new HashMap<String, Object>();
 		}
-		property.put(Constants.PAYMENTMETHODPROPERTY_NAME_ORDER, order);
-		property.put(Constants.PAYMENTMETHODPROPERTY_NAME_INVOICE, order.getInvoice());
+		property.put(Constants.PAYMENTMETHODPROPERTY_NAME_PAYMENT, payment);
 		return paymentService.generateEndpoint(paymentMethodId, order.getInvoice().getBalance(), property);
+	}
+
+	@Override
+	public Order findOrderBySequence(String subject) {
+		return orderDao.findByObject("sequence", subject);
+	}
+
+	@Override
+	public boolean fullPayment(int orderId, int paymentId) {
+		Order order = orderDao.findById(orderId);
+		Payment payment = paymentService.findPaymentById(paymentId);
+		if(order == null || payment == null){
+			return false;
+		}
+		
+		if(!payment.getAccount().getTenant().getId().equals(order.getTenant().getId())){
+			return false;
+		}
+		
+		if(payment.getAmount().compareTo(payment.getAccount().getAmount()) > 0 ){
+			return false;
+		}
+		if(payment.getType() != Constants.PAYMENT_TYPE_PAYOUT){
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));
+		}
+		
+		if(order.getStatus() == Constants.ORDER_STATUS_NEW){
+			BigDecimal balance = paymentService.applyPayment(order.getInvoice(), payment);
+			if(balance.compareTo(BigDecimal.ZERO) != 0){
+				throw new ApplicationRuntimeException("Full payment failed");
+			}
+			paymentService.paidSuccessfully(payment);
+		}else{
+			List<Invoice> invoices = invoiceService.findUnPaidInvoicesByOrder(orderId);
+			if(invoices != null) {
+				for(Invoice invoice : invoices){
+					if(invoiceService.fullPayment(invoice.getId(), paymentId) == false){
+						throw new ApplicationRuntimeException("Full payment failed");
+					}
+				}
+			}
+		}
+		
+		return true;
 	}
 
 }

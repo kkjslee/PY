@@ -2,17 +2,14 @@ package com.inforstack.openstack.order;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
-
-import org.hibernate.ScrollableResults;
 
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.controller.model.CartModel;
 import com.inforstack.openstack.controller.model.PaginationModel;
-import com.inforstack.openstack.order.sub.SubOrder;
+import com.inforstack.openstack.payment.Payment;
 import com.inforstack.openstack.tenant.Tenant;
 
 public interface OrderService {
@@ -75,4 +72,8 @@ public interface OrderService {
 
 	public String payOrder(int orderId, int paymentMethodId, Map<String, Object> property);
 
+	public Order findOrderBySequence(String subject);
+
+	public boolean fullPayment(int orderId, int paymentId);
+	
 }

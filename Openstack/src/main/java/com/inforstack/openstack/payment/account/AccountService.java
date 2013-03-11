@@ -2,7 +2,6 @@ package com.inforstack.openstack.payment.account;
 
 import java.math.BigDecimal;
 
-import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.tenant.Tenant;
 

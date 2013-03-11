@@ -61,5 +61,11 @@ public interface InvoiceService {
 	public void unpaid(Invoice invoice);
 
 	public List<Invoice> findInvoicesByBillingProcess(int billingProcessId);
+
+	public Invoice findInvoiceBySequence(String subject);
+
+	public List<Invoice> findUnPaidInvoicesByOrder(int orderId);
+
+	boolean fullPayment(int invoiceId, int paymentId);
 	
 }

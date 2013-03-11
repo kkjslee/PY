@@ -25,6 +25,8 @@ public class PaymentMethod {
 	
 	private Integer type;
 	
+	private Integer catlog;
+	
 	private String icon;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -82,6 +84,14 @@ public class PaymentMethod {
 
 	public void setPropertise(List<PaymentMethodProperty> propertise) {
 		this.propertise = propertise;
+	}
+
+	public Integer getCatlog() {
+		return catlog;
+	}
+
+	public void setCatlog(Integer catlog) {
+		this.catlog = catlog;
 	}
 	
 }

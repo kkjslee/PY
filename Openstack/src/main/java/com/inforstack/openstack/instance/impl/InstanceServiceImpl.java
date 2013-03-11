@@ -521,7 +521,6 @@ public class InstanceServiceImpl implements InstanceService {
 				volume.setName(volumeName);
 				volume.setType(volumeTypeRef);
 				volume.setSize(Integer.parseInt(vt.getName()));
-				volume.setSize(1);
 			}
 		}
 		return volume;

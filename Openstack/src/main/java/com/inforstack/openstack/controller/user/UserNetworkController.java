@@ -83,6 +83,7 @@ public class UserNetworkController {
 			IPModel ipModel = new IPModel();
 			ipModel.setId(ip.getUuid());
 			ipModel.setSubOrderId(instance.getSubOrders().get(0).getId());
+			ipModel.setAddress(ip.getAddress());
 			ipModel.setCreated(instance.getCreateTime());
 			ipModel.setStatus(instance.getStatus());
 
@@ -103,12 +104,16 @@ public class UserNetworkController {
 		ipList = page.getPagedData(pageIdx);
 
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
-		conf.put("grid.name", "[plain]");
+		//conf.put("grid.name", "[plain]");
+		conf.put("grid.address", "[plain]");
 		conf.put("grid.id", "[hidden]");
 		conf.put("grid.statusV", "[hidden]");
 		conf.put("statusV.value", "{status}");
 		conf.put("grid.status", "[plain]");
 		conf.put("status.value", "{statusDisplay} ");
+		conf.put("grid.vmId", "[hidden]");
+		conf.put("grid.vmName", "[plain]");
+		conf.put("grid.zone", "[plain]");
 		conf.put("grid.created", "[plain]");
 		conf.put("created.label", OpenstackUtil.getMessage("createTime.label"));
 		conf.put(".forPager", true);

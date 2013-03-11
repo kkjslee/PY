@@ -202,6 +202,7 @@ public class UserInstanceController {
 				Instance instance = this.instanceService.findInstanceFromUUID(vmId);
 				VirtualMachine vm = this.instanceService.findVirtualMachineFromUUID(vmId);
 				
+				im.setVmid(vm.getUuid());
 				im.setTaskStatus(instance.getTask());
 				im.setStatus(instance.getStatus());
 				im.setVmname(instance.getName());
@@ -224,6 +225,9 @@ public class UserInstanceController {
 								am.setId(subInstance.getUuid());
 								am.setVolume(subInstance.getName());
 								im.setAttachmentModel(am);
+								break;
+							}
+							case Constants.INSTANCE_TYPE_IP: {
 								break;
 							}
 						}

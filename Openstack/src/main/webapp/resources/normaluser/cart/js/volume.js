@@ -98,6 +98,7 @@ function checkOutOrder(callBack){
 
 function showPayDetails(_orderId,_payId){
 	var createDiag=new CustomForm();
+	$("#showOrderDetails").empty();
 	createDiag.show({
 		title:"Details",
         container:$('#showOrderDetails'),

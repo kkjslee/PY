@@ -333,6 +333,7 @@ function buyOrder(){
 
 function showPayDetails(_orderId,_payId){
 	var createDiag=new CustomForm();
+	$("#showOrderDetails").empty();
 	createDiag.show({
         container:$('#showOrderDetails'),
         url:orderDetailUrl,

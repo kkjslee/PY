@@ -129,7 +129,7 @@ function createNetWork(dataDiag){
 }
 
 function showEditNetwork(id){
-	var editDiag=new CustomForm();
+  var editDiag=new CustomForm();
    editDiag.show({
 	    title:'<spring:message code="admin.network.edit"/>',
 	    container:$('#showEditNetworkForm'),

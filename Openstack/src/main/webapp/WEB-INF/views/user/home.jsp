@@ -81,7 +81,7 @@
                  </div>
                  <div id="ncollapse4" class="accordion-body collapse">
                     <ul class="accordion-inner">
-                       <li><a href="#" name="menuItem" isos:module="order/modules/index">todo</a></li>
+                       <li><a href="#" name="menuItem" isos:module="invoice/modules/index"><spring:message code="user.navi.invoice"/></a></li>
                     </ul>
                 </div>
             </div>

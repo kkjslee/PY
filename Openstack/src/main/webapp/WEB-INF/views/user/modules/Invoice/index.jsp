@@ -10,19 +10,18 @@
 </head>
 <body>
 <div class="banner">
-      <span id="banner" ><spring:message code='user.navi.order' /></span>
+      <span id="banner" ><spring:message code='user.navi.invoice' /></span>
 </div>
 
-<div id="mainBody" class="orderList">
-
-    <c:url value='/user/order/getPagerOrderList' var="paginationUrl"/>
+<div id="mainBody" >
+    <c:url value='/user/invoice/getPagerInvoiceList' var="paginationUrl"/>
     <jsp:useBean id="pageMap" class="java.util.HashMap" scope="request" />
     <c:set target="${pageMap}" property=".content" value="dataTable"/>
     <c:set target="${pageMap}" property=".pageIndex" value="0"/>
     <c:set target="${pageMap}" property=".pageSize" value="20"/>
     <c:set target="${pageMap}" property=".pagination" value="pagination"/>
-    <c:set target="${pageMap}" property=".colspanLeft" value="5"/>
-    <c:set target="${pageMap}" property=".colspanRight" value="3"/>
+    <c:set target="${pageMap}" property=".colspanLeft" value="7"/>
+    <c:set target="${pageMap}" property=".colspanRight" value="2"/>
     <c:set target="${pageMap}" property=".url" value="${paginationUrl}"/>
     <jsp:include page="/WEB-INF/views/templates/pagination.jsp" >
         <jsp:param name="pagination.configuration" value="pageMap"/>
@@ -38,14 +37,14 @@
             container:$('#showPaymethods'),
             url:'<c:url value="/user/cart/showPayMethodNoBtn"/>',
             data:{
-                orderId:orderId
+            	orderId:orderId
             },
             width:500,
             buttons: [
                       {   
                          text: '<spring:message code="paynow.label"/>', 
                          click:function(){
-                             showPayDetails(createDiag);
+                        	 showPayDetails(createDiag);
                          }},
                      {
                        text: '<spring:message code="cancel.button"/>',
@@ -55,6 +54,11 @@
                       }
                       ]
         });
+    }
+    
+    function showPays(form){
+    	$(form).find(".selectPayMethods").show();
+    	$(form).find(".cartButton").remove();
     }
     
     function showPayDetails(dataDiag){

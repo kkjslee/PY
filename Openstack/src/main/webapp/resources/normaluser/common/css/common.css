@@ -164,3 +164,6 @@
 .payMethodsContainer{
 	text-align:left;
 }
+.orderList .table th, .table td{
+	padding:7px 25px 7px 6px;
+}

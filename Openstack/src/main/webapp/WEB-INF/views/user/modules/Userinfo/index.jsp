@@ -22,10 +22,8 @@
 		 
 		<div class="tab-content" id="userTabForms">
 		  <div class="tab-pane active" id="basic">
-		        <c:url value="/user/edit" var="uEdit"/>
                 <jsp:useBean id="formMap0" class="java.util.LinkedHashMap" scope="request" />
 			    <c:set target="${formMap0}" property=".form" value="start_end" />
-			    <c:set target="${formMap0}" property=".action" value="${uEdit}" />
 			    <c:set target="${formMap0}" property=".formName" value="user_basic" />
 			    <c:set target="${formMap0}" property="form.username" value="[plain]${user.username}" />
 			    <c:set target="${formMap0}" property="form.firstname" value="[text]${user.firstname}" />
@@ -37,6 +35,11 @@
 			    <c:set target="${formMap0}" property="form.city" value="[text]${user.city}" />
 			    <c:set target="${formMap0}" property="form.address" value="[text]${user.address}" />
 			    <c:set target="${formMap0}" property="form.postcode" value="[text]${user.postcode}" />
+			    <c:set target="${formMap0}" property="form.defaultLanguage" value="[select]${user.defaultLanguage}" />
+                <c:set target="${formMap0}" property="defaultLanguage.options" value="${languages}" />
+                <c:set target="${formMap0}" property="defaultLanguage.option.key" value="key" />
+                <c:set target="${formMap0}" property="defaultLanguage.option.value" value="value" />
+			    
 			    <c:import url="/WEB-INF/views/templates/form.jsp">
 			        <c:param name="form.configuration" value="formMap0" />
 			    </c:import>
@@ -45,12 +48,10 @@
 			    </div>
           </div>
 		  <div class="tab-pane" id="email">
-		        <c:url value="/user/doreg" var="uReg"/>
                 <jsp:useBean id="formMap1" class="java.util.LinkedHashMap" scope="request" />
                 <c:set target="${formMap1}" property=".form" value="start_end" />
                 <spring:message code='user.newemail.tip' var="newEmailTip"/>
                 <c:set target="${formMap1}" property=".title" value="${newEmailTip}" />
-                <c:set target="${formMap1}" property=".action" value="${uReg}" />
                 <c:set target="${formMap1}" property=".titleClass" value="alert" />
                 <c:set target="${formMap1}" property=".formName" value="user_email" />
                 <c:set target="${formMap1}" property="form.oldEmail" value="[plain]${user.email}" />
@@ -89,18 +90,37 @@
     <script>
     function submitBasic(){
     	var pd=showProcessingDialog();
-    	$("form[name='user_basic']").ajaxSubmit({
-    		dataType:"json",
-    		succcess:function(data){
-    			pd.dialog("destroy");
-    			printMessage(data.result);
-    		},
-    		error:function(){
-    			pd.dialog("destroy");
-    			printMessage("<spring:message code='operation.failed'/>");
-    		}
-    	});
-    	return false;
+        $.ajax({
+            type: "POST",
+            url: '<c:url value="/user/edit"/>',
+            cache: false,
+            data: {
+            	firstname: $("#firstname").val(),
+            	lastname:$("#lastname").val(),
+            	phone:$("#phone").val(),
+            	mobile:$("#mobile").val(),
+            	country:$("#country").val(),
+            	province:$("#privince").val(),
+            	city:$("#city").val(),
+            	address:$("#address").val(),
+            	postcode:$("#postcode").val(),
+            	defaultLanguage:$("#defaultLanguage").val()
+            	
+            },
+            success: function(data) {
+                pd.dialog("destroy");
+                try{
+                    printMessage(data.result);
+                    
+                }catch(e) {
+                    printMessage("Data Broken: ["+e+"]");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                pd.dialog("destroy");
+                printError(jqXHR, textStatus, errorThrown);
+            }
+        });
     }
     function submitEmail(){
     	var email= $("form[name='user_email']").find("#email").val();
@@ -109,43 +129,63 @@
             return;
         }
         var pd=showProcessingDialog();
-        $("form[name='user_email']").ajaxSubmit({
-            dataType:"json",
-            succcess:function(data){
-            	 pd.dialog("destroy");
-            	printMessage(data.result);
+        $.ajax({
+            type: "POST",
+            url: '<c:url value="/user/changeEmail"/>',
+            cache: false,
+            data: {
+                
             },
-            error:function(){
-            	 pd.dialog("destroy");
-                printMessage("<spring:message code='operation.failed'/>");
+            success: function(data) {
+                pd.dialog("destroy");
+                try{
+                    printMessage(data.result);
+                    
+                }catch(e) {
+                    printMessage("Data Broken: ["+e+"]");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                pd.dialog("destroy");
+                printError(jqXHR, textStatus, errorThrown);
             }
         });
-        return false;
     }
     function submitPassword(){
     	var password = $("form[name='user_password']").find("#password").val();
+    	var newPassword = $("form[name='user_password']").find("#password").val();
         var confirmPassword= $("form[name='user_password']").find("#confirmPassword").val();
         if(isNull(password) || isNull(confirmPassword)){
             alert("<spring:message code='all.required'/>");
             return;
         }
-        if(password != confirmPassword){
+        if(newPassword != confirmPassword){
             alert("<spring:message code='password.notequal'/>");
             return;
         }
         var pd=showProcessingDialog();
-    	 $("form[name='user_password']").ajaxSubmit({
-             dataType:"json",
-             succcess:function(data){
-            	 pd.dialog("destroy");
-            	 printMessage(data.result);
-             },
-             error:function(){
-            	 pd.dialog("destroy");
-                 printMessage("<spring:message code='operation.failed'/>");
-             }
-         });
-         return false;
+        $.ajax({
+            type: "POST",
+            url: '<c:url value="/user/changePassword"/>',
+            cache: false,
+            data: {
+                password:password,
+                newPassword:newPassword
+            },
+            success: function(data) {
+                pd.dialog("destroy");
+                try{
+                    printMessage(data.result);
+                    
+                }catch(e) {
+                    printMessage("Data Broken: ["+e+"]");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                pd.dialog("destroy");
+                printError(jqXHR, textStatus, errorThrown);
+            }
+        });
     }
     </script>
 </body>

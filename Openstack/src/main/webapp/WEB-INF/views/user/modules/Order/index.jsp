@@ -61,7 +61,6 @@
          var form = dataDiag.getForm();
          var orderId = $(form).find("#orderId").val();
          var payId = $(form).find("input[name='payMethod']:checked").val();
-         var pd=showProcessingDialog();
          var createDiag2=new CustomForm();
          $('#showOrderDetails').empty();
          createDiag2.show({

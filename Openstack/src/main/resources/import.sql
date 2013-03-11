@@ -293,6 +293,8 @@ insert into Resource(id, url, permission) values (801, '/user/invoice/getPagerIn
 
 insert into Resource(id, url, permission) values (900, '/user/pay/showPay', 'user');
 insert into Resource(id, url, permission) values (901, '/user/pay/topup', 'user');
+insert into Resource(id, url, permission) values (902, '/user/pay/accountpay', 'user');
+insert into Resource(id, url, permission) values (903, '/user/pay/alipay', 'user');
 
 
 

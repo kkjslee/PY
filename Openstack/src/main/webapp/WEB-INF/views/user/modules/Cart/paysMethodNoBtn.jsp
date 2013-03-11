@@ -9,7 +9,7 @@
         <span class="pitem">
             <label class="${pay.icon} btn <c:choose><c:when test="${status.index ==0}">btn-warning</c:when>
             <c:when test="${status.index ==1}">btn-info</c:when><c:otherwise>btn-inverse</c:otherwise></c:choose>" >
-                <input type="radio" name="payMethod" value="${pay.id}"/>${pay.text.i18nContent}
+                <input type="radio" name="payMethod" id="payMethod" value="${pay.id}"/>${pay.text.i18nContent}
             </label>
         </span>
     </li>

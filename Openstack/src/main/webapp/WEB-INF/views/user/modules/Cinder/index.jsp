@@ -179,10 +179,14 @@
     function refreshTaskStatus(){
          var hasTask = false;
          $(".dataTable").find("input[name='statusV']").each(function(){
-             hasTask = true;
-             var row =  $(this).parents(".dataRow").first();
-             var vmId = $(row).find("input[name='id']").val();
-             getTaskStatus(row, vmId);
+        	 window.console.log($(this).val());
+        	 if($(this.val()) == "pending"){
+        		 hasTask = true;
+                 var row =  $(this).parents(".dataRow").first();
+                 var vmId = $(row).find("input[name='id']").val();
+                 getTaskStatus(row, vmId);
+        	 }
+             
          });
          if(!hasTask && !isNull(rTask)){
              clearInterval(rTask);     

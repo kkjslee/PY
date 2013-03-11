@@ -71,7 +71,7 @@ public class UserOrderController {
 		conf.put("createdBy.value", "{createdBy.username} ");
 		conf.put("grid.createTime", "[plain]");
 		conf.put("grid.operation", "[button]pay");
-		conf.put("pay.onclick", "showPayMethods('{order.id}')");
+		conf.put("pay.onclick", "showPayMethods('{id}')");
 		conf.put(".forPager", true);
 
 		conf.put(".datas", pm.getData());

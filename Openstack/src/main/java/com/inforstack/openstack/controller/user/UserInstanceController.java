@@ -481,8 +481,14 @@ public class UserInstanceController {
 			conf.put("status.value", "{statusDisplay} ");
 			conf.put("grid.starttime", "[plain]");
 			conf.put("starttime.label", OpenstackUtil.getMessage("createTime.label"));
+			conf.put("grid.billTime", "[plain]");
+			conf.put("billTime.label", OpenstackUtil.getMessage("instance.billTime.label"));
+			conf.put("grid.stopTime", "[plain]");
+			conf.put("stopTime.label", OpenstackUtil.getMessage("instance.futurestopTime.label"));
 			conf.put("grid.deletedTime", "[plain]");
-			conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.deletedTime.label"));
+			conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.futuredeletedTime.label"));
+			conf.put("grid.amount", "[plain]");
+			conf.put("amount.label", OpenstackUtil.getMessage("instance.amount.label"));
 			conf.put(".forPager", true);
 			conf.put(".datas", imList);
 

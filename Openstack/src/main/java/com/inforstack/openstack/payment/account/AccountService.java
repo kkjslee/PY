@@ -13,7 +13,7 @@ public interface AccountService {
 
 	public Account findAccountById(int accountId);
 
-	public Account findActiveAccount(int tenantId, int instanceId);
+	public Account findActiveAccount(Integer tenantId, Integer instanceId);
 
 	public Account findActiveAccount(Tenant tenant, Instance instance);
 

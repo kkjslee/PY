@@ -121,12 +121,10 @@ public class UserOrderController {
 			Map<String, Object> conf = new LinkedHashMap<String, Object>();
 			conf.put(".form", "start_end");
 			conf.put(".title", OpenstackUtil.getMessage("user.order.pay"));
-			conf.put("form.endpoint", "[hidden]");
-			conf.put("endpoint.value", endpoint);
+			conf.put("form.endpoint", "[hidden]"+ endpoint);
 			
-			conf.put("form.amount", "[plain]");
+			conf.put("form.amount", "[plain]" +  order.getAmount());
 			conf.put("amount.label", OpenstackUtil.getMessage("user.order.amount"));
-			conf.put("amount.value", order.getAmount());
 			conf.put("form.paymethod", "[custom]<label class='" + paymethod.getIcon() + "'></label>");
 			model.addAttribute("configuration", conf);
 
@@ -143,6 +141,7 @@ public class UserOrderController {
 		}catch(ApplicationRuntimeException are){
 			return OpenstackUtil.buildErrorResponse(are.getMessage());
 		}catch(RuntimeException re){
+			re.printStackTrace();
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.pay.failed"));
 		}
 		

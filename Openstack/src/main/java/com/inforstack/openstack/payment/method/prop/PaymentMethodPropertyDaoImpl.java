@@ -28,7 +28,6 @@ public class PaymentMethodPropertyDaoImpl extends
 					.createQuery(PaymentMethodProperty.class);
 			Root<PaymentMethodProperty> root = criteria.from(PaymentMethodProperty.class);
 			List<Predicate> predicates = new ArrayList<Predicate>();
-			predicates.add(builder.equal(root.get("status"), Constants.ACCOUNT_STATUS_ACTIVE));
 			if(paymentMethodId != null){
 				predicates.add(builder.equal(root.get("method").get("id"), paymentMethodId));
 			}

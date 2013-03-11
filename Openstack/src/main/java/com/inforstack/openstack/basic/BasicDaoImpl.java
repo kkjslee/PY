@@ -247,6 +247,16 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		}
 	}
 	
+	@Override
+	public final void detach(Object instance){
+		log.debug("lock instance " + this.modelClz.getSimpleName());
+		try {
+			em.detach(instance);
+		} catch (RuntimeException re){
+			log.error(re.getMessage(), re);
+		}
+	}
+	
 	public static class CursorResult<K>{
 		private ScrollableResults results;
 		private Session session;

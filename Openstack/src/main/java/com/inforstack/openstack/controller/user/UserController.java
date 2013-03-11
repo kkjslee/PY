@@ -1,8 +1,10 @@
 package com.inforstack.openstack.controller.user;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,8 @@ import com.inforstack.openstack.controller.RootController;
 import com.inforstack.openstack.controller.model.PaginationModel;
 import com.inforstack.openstack.controller.model.RegisterModel;
 import com.inforstack.openstack.controller.model.UserModel;
+import com.inforstack.openstack.i18n.dict.Dictionary;
+import com.inforstack.openstack.i18n.lang.Language;
 import com.inforstack.openstack.i18n.lang.LanguageService;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.tenant.Tenant;
@@ -92,6 +96,16 @@ public class UserController {
 		Integer userId = SecurityUtils.getUserId();
 		User user = userService.findUserById(userId);
 		model.addAttribute("user", user);
+		List<Language> lList = languageService.list();
+		model.addAttribute("lList", lList);
+		List<Dictionary> dictList = new ArrayList<Dictionary>();
+		for(Language l: lList){
+			Dictionary d = new Dictionary();
+			d.setKey(l.getId().toString());
+			d.setValue(l.getName());
+			dictList.add(d);
+		}
+		model.addAttribute("languages", dictList);
 		return USER_BASE_HOME + "index";
 	}
 	

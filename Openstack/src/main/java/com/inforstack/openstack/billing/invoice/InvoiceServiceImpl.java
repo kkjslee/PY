@@ -78,7 +78,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public Invoice createInvoice(Date startTime, Date endTime, BigDecimal amount, Tenant tenant, 
 			SubOrder subOrder, Order order, BillingProcess billingProcess) {
 		log.debug("Create invoice with startTime : " + startTime + ", endTime : " +  endTime + ", amount : " +
-				amount + ", tenant : " + tenant.getId() + ", subOrder : " + subOrder.getId()+ "order : " +
+				amount + ", tenant : " +  tenant.getId() + ", subOrder : " + (subOrder==null?"":subOrder.getId())+ "order : " +
 				order.getId() + ", billingProcess : " + billingProcess.getId());
 		Invoice invoice = new Invoice();
 		invoice.setAmount(amount);

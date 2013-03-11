@@ -1,5 +1,6 @@
 package com.inforstack.openstack.controller.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -93,6 +94,12 @@ public class InstanceModel {
 	private String vnc;
 	
 	private AttachmentModel attachmentModel;
+	
+	private Date billTime;
+	
+	private Date stopTime;
+	
+	private BigDecimal amount;
 
 	public InstanceModel() {
 		super();
@@ -383,5 +390,31 @@ public class InstanceModel {
 	public void setDeletedTime(Date deletedTime) {
 		this.deletedTime = deletedTime;
 	}
+
+	public Date getBillTime() {
+		return billTime;
+	}
+
+	public void setBillTime(Date billTime) {
+		this.billTime = billTime;
+	}
+
+	public Date getStopTime() {
+		return stopTime;
+	}
+
+	public void setStopTime(Date stopTime) {
+		this.stopTime = stopTime;
+	}
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	
+	
 	
 }

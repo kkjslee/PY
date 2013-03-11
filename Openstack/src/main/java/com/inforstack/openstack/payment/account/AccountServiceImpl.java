@@ -127,7 +127,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 	
 	@Override
-	public Account findActiveAccount(int tenantId, int instanceId){
+	public Account findActiveAccount(Integer tenantId, Integer instanceId){
 		return accountDao.findActiveAccount(tenantId, instanceId);
 	}
 
@@ -136,11 +136,10 @@ public class AccountServiceImpl implements AccountService{
 		Integer tenantId = tenant==null? null:tenant.getId();
 		Integer instanceId = instance==null? null:instance.getId();
 		
-		AccountService self = (AccountService)OpenstackUtil.getBean("AccountService");
-		Account account = self.findActiveAccount(tenantId, instanceId);
+		Account account = this.findActiveAccount(tenantId, instanceId);
 		
 		if(account == null){
-			account = self.createAccount(tenantId, instanceId);
+			account = this.createAccount(tenantId, instanceId);
 		}
 		
 		return account;

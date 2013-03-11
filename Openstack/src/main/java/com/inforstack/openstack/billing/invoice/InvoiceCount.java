@@ -17,7 +17,8 @@ public class InvoiceCount {
 	}
 
 	public BigDecimal addInvoiceTotal(BigDecimal augend){
-		return invoiceTotal.add(augend);
+		invoiceTotal = invoiceTotal.add(augend);
+		return invoiceTotal;
 	}
 
 	public BigDecimal getBalance() {
@@ -29,6 +30,7 @@ public class InvoiceCount {
 	}
 	
 	public BigDecimal addBalance(BigDecimal augend){
-		return balance.add(augend);
+		balance = balance.add(augend);
+		return balance;
 	}
 }

@@ -112,6 +112,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 		}
 		
 		for(PaymentMethodProperty param : params){
+			paymentMethodDao.detach(param);
 			param.setValue(OpenstackUtil.setProperty(param.getValue(), propMap));
 		}
 		
@@ -145,6 +146,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 				value = "";
 			}
 			
+			paymentMethodDao.detach(mp);
 			mp.setValue(value);
 		}
 		

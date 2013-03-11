@@ -151,7 +151,7 @@ public class OpenstackUtil {
 			} else {
 				if(beanOrMap instanceof Map){
 					return getProperty(
-							((Map<?, ?>)beanOrMap).get(prop), prop.substring(index + 1));
+							((Map<?, ?>)beanOrMap).get(prop.substring(0, index)), prop.substring(index + 1));
 				}else{
 					return getProperty(
 							beanOrMap.getClass()

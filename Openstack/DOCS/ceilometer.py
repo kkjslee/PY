@@ -12,7 +12,7 @@ try:
     import binascii
     from Crypto.PublicKey import RSA
     from Crypto.Cipher import PKCS1_v1_5
-    from nova.virt.libvirt.driver import cfg, CONF, etree
+    from nova.virt.libvirt.driver import cfg, etree
     from nova.openstack.common import timeutils
     from nova.openstack.common import log as logging
     from nova.openstack.common import jsonutils as json
@@ -20,10 +20,10 @@ try:
     from nova.db.sqlalchemy.models import Column, Integer, String, Boolean, DateTime
     from nova.db.sqlalchemy.models import ForeignKey, DateTime
     from nova.db.sqlalchemy.models import relationship, backref
-    #from nova.db.sqlalchemy.models import get_session
-    from sqlalchemy.ext.declarative import declarative_base
-    from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
+    from nova.db.sqlalchemy.models import get_session
+    #from sqlalchemy.ext.declarative import declarative_base
+    #from sqlalchemy import create_engine
+    #from sqlalchemy.orm import sessionmaker
 except ImportError, e:
     print "Import error in %s : %s" % (__name__, e)
     import sys
@@ -33,6 +33,7 @@ except ImportError, e:
 logging.logging.basicConfig()
 logger = logging.logging.getLogger(__name__)
 
+CONF = cfg.CONF
 CONF.register_opts([
     cfg.IntOpt('ceilometer_gather_interval',
                default=2,
@@ -52,8 +53,8 @@ CONF.register_opts([
 
 ])
 
-engine=create_engine('mysql://root:inforstack@192.168.1.145:3306/nova',echo=False)
-get_session=sessionmaker(bind=engine)
+#engine=create_engine('mysql://root:inforstack@192.168.1.145:3306/nova',echo=False)
+#get_session=sessionmaker(bind=engine)
 
 class DomainInfo(BASE):
     __tablename__="domain_info"

@@ -3,11 +3,13 @@ var cart_volumeTypeSelected_UUID="";
 var cart_dataCenterSelected_UUID="";
 var volumeMsg = "";
 var selPayMsg =  "";
+var orderDetailUrl = "";
 //this should be called first in jsp file
-function setServer(server,_volumeMsg, _selPayMsg){
+function setServer(server,_volumeMsg, _selPayMsg,_orderDetailUrl){
 	Server = server;
 	volumeMsg = _volumeMsg;
 	selPayMsg = _selPayMsg;
+	orderDetailUrl = _orderDetailUrl;
 }
 $(function(){
 	setup();
@@ -24,10 +26,10 @@ $(function(){
 });
 
 function buyOrder(){
-	window.console.log("buy order");
+	var orderId= $("#orderId").val();
+	var payId = $("input[name='payMethod']:checked").val();
 	if(validOrderPay()){
-		return;
-		window.open(Server + "/buyorder?orderId="+$("#orderId").val());
+		showPayDetails(orderId,payId);
 	}else{
 		printMessage(selPayMsg);
 	}
@@ -92,6 +94,42 @@ function checkOutOrder(callBack){
             return false;
         }
     });
+}
+
+function showPayDetails(_orderId,_payId){
+	var createDiag=new CustomForm();
+	createDiag.show({
+		title:"Details",
+        container:$('#showOrderDetails'),
+        url:orderDetailUrl,
+        width:420,
+        data:{
+        	orderId:_orderId,
+        	payId:_payId
+        },
+        buttons: [
+                  {   
+                     text: 'OK', 
+                     click:function(){
+                       payOrder(createDiag);
+                     }},
+                 {
+                   text: 'Cancel',
+                   click: function() {
+                	   createDiag.close();
+                   }
+                  }
+                  ]
+    });
+}
+
+function payOrder(dataDiag){
+	var form = dataDiag.getForm();
+    var payurl = $(form).find("#endpoint").val();
+    dataDiag.close();
+    if(!isNull(payurl)){
+    	 window.open(payurl);
+    }
 }
 
 function validOrderCondition(){

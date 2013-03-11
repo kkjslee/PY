@@ -60,6 +60,7 @@
        <div class="payMethodsContainer">
        </div>
     </div>
-    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="paymethod.name.required"/>');$("select").selectmenu();</script>
+    <div id="showOrderDetails"></div>
+    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="paymethod.name.required"/>','<%=request.getContextPath()%>/user/order/showOrderDetails');$("select").selectmenu();</script>
 </body>
 </html>

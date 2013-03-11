@@ -22,9 +22,10 @@
 		 
 		<div class="tab-content" id="userTabForms">
 		  <div class="tab-pane active" id="basic">
+		        <c:url value="/user/edit" var="uEdit"/>
                 <jsp:useBean id="formMap0" class="java.util.LinkedHashMap" scope="request" />
 			    <c:set target="${formMap0}" property=".form" value="start_end" />
-			    <c:set target="${formMap0}" property=".action" value="/edit" />
+			    <c:set target="${formMap0}" property=".action" value="${uEdit}" />
 			    <c:set target="${formMap0}" property=".formName" value="user_basic" />
 			    <c:set target="${formMap0}" property="form.username" value="[plain]${user.username}" />
 			    <c:set target="${formMap0}" property="form.firstname" value="[text]${user.firstname}" />
@@ -44,11 +45,12 @@
 			    </div>
           </div>
 		  <div class="tab-pane" id="email">
+		        <c:url value="/user/doreg" var="uReg"/>
                 <jsp:useBean id="formMap1" class="java.util.LinkedHashMap" scope="request" />
                 <c:set target="${formMap1}" property=".form" value="start_end" />
                 <spring:message code='user.newemail.tip' var="newEmailTip"/>
                 <c:set target="${formMap1}" property=".title" value="${newEmailTip}" />
-                <c:set target="${formMap1}" property=".action" value="/doreg" />
+                <c:set target="${formMap1}" property=".action" value="${uReg}" />
                 <c:set target="${formMap1}" property=".titleClass" value="alert" />
                 <c:set target="${formMap1}" property=".formName" value="user_email" />
                 <c:set target="${formMap1}" property="form.oldEmail" value="[plain]${user.email}" />
@@ -65,9 +67,10 @@
                 </div>
           </div>
 		  <div class="tab-pane" id="password">
-                 <jsp:useBean id="formMap2" class="java.util.LinkedHashMap" scope="request" />
+		        <c:url value="/user/changePassword" var="uPassword"/>
+                <jsp:useBean id="formMap2" class="java.util.LinkedHashMap" scope="request" />
                 <c:set target="${formMap2}" property=".form" value="start_end" />
-                <c:set target="${formMap2}" property=".action" value="/changePassword" />
+                <c:set target="${formMap2}" property=".action" value="${uPassword}" />
                 <c:set target="${formMap2}" property=".formName" value="user_password" />
                 <c:set target="${formMap2}" property="form.password" value="[password]" />
                 <spring:message code='user.oldpassword.label' var="oldPasswordLabel"/>
@@ -100,7 +103,7 @@
     	return false;
     }
     function submitEmail(){
-    	var email= $("form[name='user_email']").find("email").val();
+    	var email= $("form[name='user_email']").find("#email").val();
         if(isNull(email)){
             alert("<spring:message code='all.required'/>");
             return;
@@ -120,8 +123,8 @@
         return false;
     }
     function submitPassword(){
-    	var password = $("form[name='user_password']").find("password").val();
-        var confirmPassword= $("form[name='user_password']").find("confirmPassword").val();
+    	var password = $("form[name='user_password']").find("#password").val();
+        var confirmPassword= $("form[name='user_password']").find("#confirmPassword").val();
         if(isNull(password) || isNull(confirmPassword)){
             alert("<spring:message code='all.required'/>");
             return;

@@ -17,7 +17,7 @@ function formatDate(time){
 }
 
 function isSuccess(response){
-	if(typeof(response) == 'object' && response && response.status == 1){
+	if(typeof(response) == 'object' && response && (response.status == 1 ||response.status == "success")){
 		return true;
 	}
 	

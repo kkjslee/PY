@@ -8,12 +8,14 @@ var cart_dataCenterSelected_UUID="";
 var instangMsg = "";
 var volumeMsg = "";
 var selPayMsg =  "";
+var orderDetailUrl = "";
 //this should be called first in jsp file
-function setServer(server,_instangMsg, _volumeMsg, _selPayMsg){
+function setServer(server,_instangMsg, _volumeMsg, _selPayMsg,_orderDetailUrl){
 	Server = server;
 	instangMsg = _instangMsg;
 	volumeMsg = _volumeMsg;
 	selPayMsg = _selPayMsg;
+	orderDetailUrl = _orderDetailUrl;
 }
 $(function(){
 	$( ".cartForm" ).tooltip();
@@ -332,9 +334,8 @@ function buyOrder(){
 function showPayDetails(_orderId,_payId){
 	var createDiag=new CustomForm();
 	createDiag.show({
-        title:'<spring:message code="user.order.details"/>',
         container:$('#showOrderDetails'),
-        url:'<c:url value="/user/order/showOrderDetails"/>',
+        url:orderDetailUrl,
         width:420,
         data:{
         	orderId:_orderId,
@@ -342,12 +343,12 @@ function showPayDetails(_orderId,_payId){
         },
         buttons: [
                   {   
-                     text: '<spring:message code="confirm.button"/>', 
+                     text: 'OK', 
                      click:function(){
                        payOrder(createDiag);
                      }},
                  {
-                   text: '<spring:message code="cancel.button"/>',
+                   text: 'Cancel',
                    click: function() {
                 	   createDiag.close();
                    }

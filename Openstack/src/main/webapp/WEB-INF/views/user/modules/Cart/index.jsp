@@ -198,6 +198,6 @@
 	   </div>
 	</div>
 	<div id="showOrderDetails"></div>
-    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="instance.name.required"/>','<spring:message code="volumeType.name.required"/>','<spring:message code="paymethod.name.required"/>');$("select").selectmenu();</script>
+    <script>setServer("<%=request.getContextPath()%>/user/cart",'<spring:message code="instance.name.required"/>','<spring:message code="volumeType.name.required"/>','<spring:message code="paymethod.name.required"/>','<%=request.getContextPath()%>/user/order/showOrderDetails');$("select").selectmenu();</script>
 </body>
 </html>

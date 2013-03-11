@@ -18,6 +18,7 @@ body {
     float: left;
     width: 134px;
     height: 50px;
+    list-style:none;
 }
 
 .pitem {
@@ -32,14 +33,16 @@ body {
 .pitem label {
     width: 91px;
     height: 30px;
+    line-height:30px;
     padding-right: 20px;
     cursor: pointer;
     vertical-align: middle;
     display: block;
+    font-size:15px;
 }
 
 .pitem input {
-    margin: 10px 5px 0 0;
+    margin: 0 5px 0 0;
     cursor: pointer;
 }
 

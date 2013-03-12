@@ -153,9 +153,11 @@ public class UserInstanceController {
 					im.setAssignedto(username);
 					im.setAccesspoint("");
 					
-					try {
-						im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
-					} catch (OpenstackAPIException e) {					
+					if (instance.getStatus().equalsIgnoreCase("active")) {
+						try {
+							im.setVnc(this.serverService.getVNCLink(access, instance.getUuid(), "novnc"));
+						} catch (OpenstackAPIException e) {					
+						}
 					}
 					
 					DataCenter dataCenter = this.instanceService.getDataCenterFromInstance(instance);

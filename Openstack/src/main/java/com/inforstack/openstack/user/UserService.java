@@ -121,4 +121,7 @@ public interface UserService {
 
 	public void sendResetPasswordEmail(User user, String url);
 
+	public User resetPassword(String mailCode, String random,
+			String password);
+
 }

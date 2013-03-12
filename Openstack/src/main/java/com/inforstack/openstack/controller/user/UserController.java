@@ -334,6 +334,34 @@ public class UserController {
 			return ret;
 		}
 	}
+	
+	@RequestMapping(value = "/doresetpassword", method = RequestMethod.POST)
+	public String doResetPassword(String random, String password, Model model, HttpServletRequest req, HttpServletResponse resp){
+		User user = null;
+		
+		String errorMsg = null;
+		if(password != null){
+			RegisterModel rm = new RegisterModel();
+			rm.setPassword(password);
+			errorMsg = ValidateUtil.validModel(validator, "user", rm);
+			
+			if(errorMsg == null){
+				try{
+					user = userService.resetPassword(Constants.MAIL_CODE_RESET_PASSWORD, random, password);
+				}catch(RuntimeException re){
+					log.error("active user failed", re);
+				}
+			}
+		}
+		
+		if(user != null){
+			model.addAttribute("message", OpenstackUtil.getMessage("user.active.success"));
+		}else{
+			model.addAttribute("errorMessage", errorMsg!=null?errorMsg:OpenstackUtil.getMessage("user.active.fail"));
+		}
+		
+		return rootController.visitUser(model);
+	}
 
 	@RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)
 	public String bootstrap(Model model) {
@@ -438,9 +466,9 @@ public class UserController {
 		}
 		
 		if(user != null && Constants.USER_STATUS_VALID.equals(user.getStatus())){
-			model.addAttribute("message", OpenstackUtil.getMessage("user.active.success"));
+			model.addAttribute("message", OpenstackUtil.getMessage("active.success"));
 		}else{
-			model.addAttribute("errorMessage", OpenstackUtil.getMessage("user.active.fail"));
+			model.addAttribute("errorMessage", OpenstackUtil.getMessage("active.fail"));
 		}
 		
 		return rootController.visitUser(model);

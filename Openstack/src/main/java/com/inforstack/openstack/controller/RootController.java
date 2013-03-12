@@ -31,7 +31,7 @@ public class RootController {
 
 	@RequestMapping(value = "/user/loginfailed", method = RequestMethod.GET)
 	public String userLoginFailed(Model model) {
-		model.addAttribute("errorMessage", OpenstackUtil.getMessage("user.login.failed"));
+		model.addAttribute("errorMessage", OpenstackUtil.getMessage("login.failed"));
 		return visitUser(model);
 	}
 
@@ -43,7 +43,7 @@ public class RootController {
 
 	@RequestMapping(value = "/admin/loginfailed", method = RequestMethod.GET)
 	public String adminLoginFailed(Model model) {
-		model.addAttribute("errorMessage", OpenstackUtil.getMessage("user.login.failed"));
+		model.addAttribute("errorMessage", OpenstackUtil.getMessage("login.failed"));
 		return visitAdmin(model);
 	}
 
@@ -55,7 +55,7 @@ public class RootController {
 
 	@RequestMapping(value = "/agent/loginfailed", method = RequestMethod.GET)
 	public String agentLoginFailed(Model model) {
-		model.addAttribute("errorMessage", OpenstackUtil.getMessage("user.login.failed"));
+		model.addAttribute("errorMessage", OpenstackUtil.getMessage("login.failed"));
 		return visitAgent(model);
 	}
 

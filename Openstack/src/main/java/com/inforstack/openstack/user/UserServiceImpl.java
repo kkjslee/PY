@@ -311,4 +311,24 @@ public class UserServiceImpl implements UserService {
 				user.getEmail(), user.getDefaultLanguage(), properties, Constants.MAILTASK_PRIORITY_HIGH);
 	}
 
+	@Override
+	public User resetPassword(String mailCode, String random,
+			String password) {
+		TaskCode tc = taskCodeService.findTaskCode(mailCode, random);
+		if(tc == null){
+			return null;
+		}
+		
+		Integer userId = NumberUtil.getInteger(tc.getEntityId());
+		if(userId == null){
+			return null;
+		}
+		
+		User user = this.findUserById(userId);
+		user.setPassword(CryptoUtil.md5(password));
+		taskCodeService.removeTaskCode(tc);
+		
+		return user;
+	}
+
 }

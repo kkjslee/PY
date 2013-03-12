@@ -68,10 +68,8 @@
                 </div>
           </div>
 		  <div class="tab-pane" id="password">
-		        <c:url value="/user/changePassword" var="uPassword"/>
                 <jsp:useBean id="formMap2" class="java.util.LinkedHashMap" scope="request" />
                 <c:set target="${formMap2}" property=".form" value="start_end" />
-                <c:set target="${formMap2}" property=".action" value="${uPassword}" />
                 <c:set target="${formMap2}" property=".formName" value="user_password" />
                 <c:set target="${formMap2}" property="form.password" value="[password]" />
                 <spring:message code='user.oldpassword.label' var="oldPasswordLabel"/>
@@ -153,7 +151,7 @@
     }
     function submitPassword(){
     	var password = $("form[name='user_password']").find("#password").val();
-    	var newPassword = $("form[name='user_password']").find("#password").val();
+    	var newPassword = $("form[name='user_password']").find("#newPassword").val();
         var confirmPassword= $("form[name='user_password']").find("#confirmPassword").val();
         if(isNull(password) || isNull(confirmPassword)){
             alert("<spring:message code='all.required'/>");

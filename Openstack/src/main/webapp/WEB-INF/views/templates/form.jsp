@@ -176,7 +176,7 @@ form.<itemName>			[itemType]<value>					itemName是表单元素的id和name，it
 		  <div  class="control-group">
 			<label class="control-label"  for="${item}">&nbsp;</label>
 			<div  class="controls">
-				<input type="submit" id="${item}" name="${item}" value="${fn:replace(p.value, '[submit]', '')}"/>
+				<input type="submit" id="${item}" name="${item}" class="btn btn-primary" value="${fn:replace(p.value, '[submit]', '')}"/>
 			</div>
 		</div>
 		</c:if>

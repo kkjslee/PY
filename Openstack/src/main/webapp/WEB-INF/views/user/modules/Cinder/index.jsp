@@ -80,7 +80,7 @@
     	        }]
     	    });
     	 //set server list
-    	 $(serverPanel).dialog("open");
+    	
     	 getInstancesWidthStatus(serverPanel);
     }
     
@@ -142,8 +142,7 @@
                             $(selContainer).tableSelect({
                             });
                         }
-
-                        $(serverPanel).dialog("open");
+                		 $(container).dialog("open");
                 	}else if(data.status =="error"){
                 		printMessage(data.msg);
                 	}
@@ -168,23 +167,22 @@
             	$(this).find("li[name='attach']").hide();
             	$(this).find("li[name='detach']").hide();
             }
-        })
+        });
+    	checkPageDiskStatus();
     }
     
     var rTask ;
-    function checkPageVMStatus(){
+    function checkPageDiskStatus(){
         rTask  = setInterval(refreshTaskStatus,2500);
 
     }
     function refreshTaskStatus(){
          var hasTask = false;
          $(".dataTable").find("tr").each(function(){
-        	 window.console.log($(this).val());
-        	 if($(this).val() == "pending"){
+        	 if($(this).find("input[name='statusV']").val() == "detaching" || $(this).find("input[name='statusV']").val() == "attaching"){
         		 hasTask = true;
-                 var row =  $(this).parents(".dataRow").first();
-                 var vmId = $(row).find("input[name='id']").val();
-                 getTaskStatus(row, vmId);
+                 var targetId = $(this).find("input[name='id']").val();
+                 getTaskStatus($(this), targetId);
         	 }
              
          });
@@ -223,8 +221,10 @@
         if(!isNull(status)){
         	if(status == "in-use"){
                 $(row).find("li[name='attach']").hide();
+                $(row).find("li[name='detach']").show();
             }else if(status == "available"){
                 $(row).find("li[name='detach']").hide();
+                (row).find("li[name='attach']").show();
             }else{
                 $(row).find("li[name='attach']").hide();
                 $(row).find("li[name='detach']").hide();
@@ -232,7 +232,7 @@
         	 $(row).find("input[name='statusV']").val(status);
         	 $(row).find("span[name='status']").html(statusDisplay);
         }
-       
+        checkPageDiskStatus();
     }
     </script>
     

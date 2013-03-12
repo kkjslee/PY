@@ -75,7 +75,7 @@
                                {   
                                   text: '<spring:message code="confirm.button"/>', 
                                   click:function(){
-                                	  resetPassword(forPswForm);
+                                	  forgetpassword(forPswForm);
                                   }},
                               {
                                 text: '<spring:message code="cancel.button"/>',
@@ -88,7 +88,7 @@
                  });
          });
 		 
-		 function resetPassword(forPswForm){
+		 function forgetpassword(forPswForm){
              var form = forPswForm.getForm();
              var username = $(form).find("#username").val();
              var email = $(form).find("#email").val();
@@ -100,7 +100,7 @@
                  type: "POST",
                     dataType: "json",
                     cache: false,
-                    url:  '<c:url value="/user/resetPassword" />',
+                    url:  '<c:url value="/user/forgetpassword" />',
                     data:{
                             username: username,
                             email: email

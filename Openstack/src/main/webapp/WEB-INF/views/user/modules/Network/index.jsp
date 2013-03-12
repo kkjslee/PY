@@ -168,20 +168,23 @@
                 $(this).find("li[name='detach']").hide();
             }
         })
+        checkPageIPStatus();
     }
     
     var rTask ;
-    function checkPageVMStatus(){
+    function checkPageIPStatus(){
         rTask  = setInterval(refreshTaskStatus,2500);
 
     }
     function refreshTaskStatus(){
          var hasTask = false;
-         $(".dataTable").find("input[name='statusV']").each(function(){
-             hasTask = true;
-             var row =  $(this).parents(".dataRow").first();
-             var vmId = $(row).find("input[name='id']").val();
-             getTaskStatus(row, vmId);
+         $(".dataTable").find("tr").each(function(){
+             if($(this).find("input[name='statusV']").val() == "associating" || $(this).find("input[name='statusV']").val() == "disassociating"){
+                 hasTask = true;
+                 var targetId = $(this).find("input[name='id']").val();
+                 getTaskStatus($(this), targetId);
+             }
+             
          });
          if(!hasTask && !isNull(rTask)){
              clearInterval(rTask);     
@@ -218,7 +221,9 @@
         if(!isNull(status)){
             if(status == "in-use"){
                 $(row).find("li[name='associate']").hide();
+                $(row).find("li[name='disassociate']").show();
             }else if(status == "available"){
+            	$(row).find("li[name='associate']").show();
                 $(row).find("li[name='disassociate']").hide();
             }else{
                 $(row).find("li[name='associate']").hide();

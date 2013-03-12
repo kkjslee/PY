@@ -253,6 +253,7 @@ insert into resource(id, url, permission) values (700, '/user/showedit', 'user')
 insert into resource(id, url, permission) values (701, '/user/edit', 'user');
 insert into resource(id, url, permission) values (702, '/user/changePassword', 'user');
 
+
 insert into resource(id, url, permission) values (800, '/user/invoice/modules/index', 'user');
 insert into resource(id, url, permission) values (801, '/user/invoice/getPagerInvoiceList', 'user');
 

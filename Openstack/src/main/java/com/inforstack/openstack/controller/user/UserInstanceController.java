@@ -480,39 +480,38 @@ public class UserInstanceController {
 				im = retrieveInstance(model, instance.getUuid());
 				imList.add(im);
 			}
-			Map<String, Object> conf = new LinkedHashMap<String, Object>();
-			conf.put("grid.vmname", "[plain]");
-			conf.put("grid.period", "[plain]");
-			conf.put("grid.status", "[plain]");
-			conf.put("status.value", "{statusDisplay} ");
-			conf.put("grid.starttime", "[plain]");
-			conf.put("starttime.label", OpenstackUtil.getMessage("createTime.label"));
-			conf.put("grid.billTime", "[plain]");
-			conf.put("billTime.label", OpenstackUtil.getMessage("instance.billTime.label"));
-			conf.put("grid.stopTime", "[plain]");
-			conf.put("stopTime.label", OpenstackUtil.getMessage("instance.futurestopTime.label"));
-			conf.put("grid.deletedTime", "[plain]");
-			conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.futuredeletedTime.label"));
-			conf.put("grid.amount", "[plain]");
-			conf.put("amount.label", OpenstackUtil.getMessage("instance.amount.label"));
-			conf.put(".forPager", true);
-			conf.put(".datas", imList);
-
-			model.addAttribute("configuration", conf);
-
-			String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
-
-			if (jspString == null) {
-				return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
-			} else {
-				Map<String, Object> result = new HashMap<String, Object>();
-				result.put("recordTotal", page.getTotalRecord());
-				result.put("html", jspString);
-
-				return OpenstackUtil.buildSuccessResponse(result);
-			}
 		}
-		return OpenstackUtil.buildErrorResponse("error");
+		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put("grid.vmname", "[plain]");
+		conf.put("grid.period", "[plain]");
+		conf.put("grid.status", "[plain]");
+		conf.put("status.value", "{statusdisplay} ");
+		conf.put("grid.starttime", "[plain]");
+		conf.put("starttime.label", OpenstackUtil.getMessage("createTime.label"));
+		conf.put("grid.billTime", "[plain]");
+		conf.put("billTime.label", OpenstackUtil.getMessage("instance.billTime.label"));
+		conf.put("grid.stopTime", "[plain]");
+		conf.put("stopTime.label", OpenstackUtil.getMessage("instance.futurestopTime.label"));
+		conf.put("grid.deletedTime", "[plain]");
+		conf.put("deletedTime.label", OpenstackUtil.getMessage("instance.futuredeletedTime.label"));
+		conf.put("grid.amount", "[plain]");
+		conf.put("amount.label", OpenstackUtil.getMessage("instance.amount.label"));
+		conf.put(".forPager", true);
+		conf.put(".datas", imList);
+
+		model.addAttribute("configuration", conf);
+
+		String jspString = OpenstackUtil.getJspPage("/templates/grid.jsp?grid.configuration=configuration&type=", model.asMap(), request, response);
+
+		if (jspString == null) {
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("order.list.loading.failed"));
+		} else {
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("recordTotal", page.getTotalRecord());
+			result.put("html", jspString);
+
+			return OpenstackUtil.buildSuccessResponse(result);
+		}
 	}
 
 }

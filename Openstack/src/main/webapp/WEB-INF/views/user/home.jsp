@@ -114,10 +114,32 @@
 </div>
 
 <div class="right">
-      <div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="user.entry.title"/> ,当前余额: ${balance}</div>
+    <div style="font-family:'微软雅黑'; font-weight:bold; font-size:18px; color:#e38967; padding:50px 0 10px 40px; border-bottom:1px solid #ddd;"><spring:message code="user.entry.title"/> ,当前余额: ${balance}</div>
     <div style="padding:30px 0 10px 60px;">
         <div style="font-family:'微软雅黑';font-size:14px;">${content}</div>
     </div>
+    <div>
+        <h4>快捷入口</h4>
+        <a href="#" onclick="redirectLink('cart/modules/index');">获取云主机</a>&nbsp;&nbsp;<a href="#" onclick="redirectLink('instance/modules/index');">我的云主机管理</a>  
+    </div>
+    <script>
+    function redirectLink(module){
+    	$(".accordion-body" ).each(function(e){
+    		$(this).removeClass("in");
+    		$(this).css("height","0");
+    	});
+    	$("#sidebar_menu").find("li").each(function(){
+    		if($(this).find("a").attr("isos:module") == module){
+    			$(this).find("a").trigger("click");
+    			$(this).parents("li:eq(0)").addClass("active");
+    		    var abody = $(this).parents(".accordion-body:eq(0)");
+                 $(abody).addClass("in");
+                 $(abody).css("height","auto");
+    			return;
+    		}
+    	});
+    }
+    </script>
 </div>
 </div>
 

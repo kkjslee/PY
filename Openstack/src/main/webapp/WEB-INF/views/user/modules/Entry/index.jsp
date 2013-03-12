@@ -12,28 +12,25 @@
     </div>
     <div>
         <h4>快捷入口</h4>
-        <a href="#" onclick="getVM();return false;">获取云主机</a>&nbsp;&nbsp;<a href="#" onclick="manageVM();return false;">我的云主机管理</a>  
+        <a href="#" onclick="redirectLink('cart/modules/index');">获取云主机</a>&nbsp;&nbsp;<a href="#" onclick="redirectLink('instance/modules/index');">我的云主机管理</a>  
     </div>
     <script>
-    function getVM(){
+    function redirectLink(module){
+        $(".accordion-body" ).each(function(e){
+            $(this).removeClass("in");
+            $(this).css("height","0");
+        });
         $("#sidebar_menu").find("li").each(function(){
-            if($(this).find("a").attr("isos:module") == "cart/modules/index"){
+            if($(this).find("a").attr("isos:module") == module){
                 $(this).find("a").trigger("click");
                 $(this).parents("li:eq(0)").addClass("active");
-                $(this).parents(".accordion-body:eq(0)").addClass("in");
+                var abody = $(this).parents(".accordion-body:eq(0)");
+                 $(abody).addClass("in");
+                 $(abody).css("height","auto");
+                return;
             }
         });
     }
-    function manageVM(){
-        $("#sidebar_menu").find("li").each(function(){
-        if($(this).find("a").attr("isos:module") == "instance/modules/index"){
-            $(this).find("a").trigger("click");
-            $(this).parents("li:eq(0)").addClass("active");
-            $(this).parents(".accordion-body:eq(0)").addClass("in");
-        }
-    });
-    }
-    
     </script>
 </body>
 </html>

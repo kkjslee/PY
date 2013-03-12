@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -297,14 +298,14 @@ public class UserController {
 			return OpenstackUtil.buildSuccessResponse(jspString);
 		}
 	}
-
-	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST, produces = "application/json")
+	
+	@RequestMapping(value = "/forgetpassword", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
-	Map<String, Object> resetPSW(String userName, String email,
+	Map<String, Object> forgetPassword(String username, String email,
 			Model model, HttpServletRequest request) {
 
 		Map<String, Object> ret = new HashMap<String, Object>();
-		if (StringUtil.isNullOrEmpty(userName)) {
+		if (StringUtil.isNullOrEmpty(username)) {
 			ret.put("error", OpenstackUtil.getMessage("username.label")
 					+ OpenstackUtil.getMessage("not.null.empty"));
 		} else if (StringUtil.isNullOrEmpty(email)) {
@@ -318,8 +319,10 @@ public class UserController {
 		
 		User user = null;
 		try{
-			user = userService.findByNameAndEmail(userName, email);
-			userService.sendResetPasswordEmail(user, OpenstackUtil.getHost(request)+"/user/resetpassword");
+			user = userService.findByNameAndEmail(username, email);
+			if(user != null){
+				userService.sendResetPasswordEmail(user, OpenstackUtil.getHost(request)+"/user/resetpassword");
+			}
 		}catch(RuntimeException	re){
 			log.error("reset password failed", re);
 		}
@@ -333,6 +336,16 @@ public class UserController {
 			// TODO new password email
 			return ret;
 		}
+	}
+	
+	@RequestMapping(value = "/resetpassword")
+	public String showResetPassword(String random, Model model, HttpServletRequest request) {
+		if(!StringUtils.isNullOrEmpty(random)){
+			model.addAttribute("random", random);
+		}else{
+			model.addAttribute("random", "undefined");
+		}
+		return "user/forgetpassword";
 	}
 	
 	@RequestMapping(value = "/doresetpassword", method = RequestMethod.POST)
@@ -355,12 +368,14 @@ public class UserController {
 		}
 		
 		if(user != null){
-			model.addAttribute("message", OpenstackUtil.getMessage("user.active.success"));
+			model.addAttribute("message", OpenstackUtil.getMessage("password.reset.success"));
+			return rootController.visitUser(model);
 		}else{
-			model.addAttribute("errorMessage", errorMsg!=null?errorMsg:OpenstackUtil.getMessage("user.active.fail"));
+			model.addAttribute("errorMessage", errorMsg!=null?errorMsg:OpenstackUtil.getMessage("password.reset.fail"));
+			return showResetPassword(random,model ,req);
 		}
 		
-		return rootController.visitUser(model);
+		
 	}
 
 	@RequestMapping(value = "/scripts/bootstrap", method = RequestMethod.GET)

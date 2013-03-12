@@ -10,7 +10,7 @@ public interface MailService {
 
 	Mail findMailById(int mailId);
 
-	MailTemplate findMailTempalte(int mailId, int languageId);
+	MailTemplate findMailTempalte(int mailId, Integer languageId);
 
 	Mail updateMailSender(int mailId, MailConfigation sender);
 

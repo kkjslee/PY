@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 		log.debug("Get permissions by user id : " + userId);
 		User user = userDao.findById(userId);
 		if (user == null) {
-			log.info("Get permisstions failed for no user found by id : "
+			log.debug("Get permisstions failed for no user found by id : "
 					+ userId);
 			return permissions;
 		}
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 		log.debug("find user by name : " + userName);
 		User user = userDao.findByName(userName);
 		if (user == null) {
-			log.info("No user found by name : " + userName);
+			log.debug("No user found by name : " + userName);
 		} else {
 			log.debug("Find user successfully");
 		}
@@ -209,7 +209,7 @@ public class UserServiceImpl implements UserService {
 
 		User user = userDao.findById(userId);
 		if (user == null) {
-			log.info("No user instance found for user id : " + userId);
+			log.warn("No user instance found for user id : " + userId);
 			return null;
 		}
 		userDao.remove(user);
@@ -222,7 +222,7 @@ public class UserServiceImpl implements UserService {
 		log.debug("Check Question with user name : " + username);
 		User user = userDao.findByName(username);
 		if (user == null) {
-			log.info("Check question failed for no user find by user name : "
+			log.warn("Check question failed for no user find by user name : "
 					+ username);
 			return false;
 		}
@@ -295,8 +295,20 @@ public class UserServiceImpl implements UserService {
 		
 		User user = this.findUserById(userId);
 		user.setStatus(Constants.USER_STATUS_VALID);
+		taskCodeService.removeTaskCode(tc);
 		
 		return user;
+	}
+
+	@Override
+	public void sendResetPasswordEmail(User user, String url) {
+		Map<String, Object> properties = new HashMap<String, Object>();
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_USER, user);
+		TaskCode tc = taskCodeService.createTaskCode(Constants.MAIL_CODE_RESET_PASSWORD, user.getId()+"", null);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_TASKCODE, tc);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_URL, url+"?random="+tc.getRandom());
+		mailService.addMailTask(Constants.MAIL_CODE_RESET_PASSWORD,
+				user.getEmail(), user.getDefaultLanguage(), properties, Constants.MAILTASK_PRIORITY_HIGH);
 	}
 
 }

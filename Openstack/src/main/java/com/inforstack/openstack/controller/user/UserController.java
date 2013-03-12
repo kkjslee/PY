@@ -316,7 +316,13 @@ public class UserController {
 			return ret;
 		}
 		
-		User user = userService.findByNameAndEmail(userName, email);
+		User user = null;
+		try{
+			user = userService.findByNameAndEmail(userName, email);
+			userService.sendResetPasswordEmail(user, OpenstackUtil.getHost(request)+"/user/resetpassword");
+		}catch(RuntimeException	re){
+			log.error("reset password failed", re);
+		}
 		if (user == null) {
 			ret.put(Constants.JSON_ERROR_STATUS,
 					OpenstackUtil.getMessage("user.email.notexist"));
@@ -424,7 +430,18 @@ public class UserController {
 	
 	@RequestMapping(value = "/activeUser", method = RequestMethod.GET)
 	public String activeUser(String random, Model model, HttpServletRequest req, HttpServletResponse resp){
-		User user = userService.active(Constants.MAIL_CODE_VALIDATE_USER, random);
+		User user = null;
+		try{
+			user = userService.active(Constants.MAIL_CODE_VALIDATE_USER, random);
+		}catch(RuntimeException re){
+			log.error("active user failed", re);
+		}
+		
+		if(user != null && Constants.USER_STATUS_VALID.equals(user.getStatus())){
+			model.addAttribute("message", OpenstackUtil.getMessage("user.active.success"));
+		}else{
+			model.addAttribute("errorMessage", OpenstackUtil.getMessage("user.active.fail"));
+		}
 		
 		return rootController.visitUser(model);
 	}

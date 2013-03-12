@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
+import com.inforstack.openstack.exception.ApplicationRuntimeException;
 import com.inforstack.openstack.log.Logger;
 import com.inforstack.openstack.mail.conf.MailConfigation;
 import com.inforstack.openstack.mail.conf.MailConfigationService;
@@ -54,7 +55,7 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public MailTemplate findMailTempalte(int mailId, int languageId){
+	public MailTemplate findMailTempalte(int mailId, Integer languageId){
 		return mailTemplateService.findTemplateByMailId(mailId, languageId);
 	}
 	
@@ -82,17 +83,19 @@ public class MailServiceImpl implements MailService {
 	
 	@Override
 	public MailTask addMailTask(String mailCode, String toMail, int language, Map<String, Object> propertise, int priority){
-		MailService self = (MailService)OpenstackUtil.getBean("mailService");
-		Mail mail = self.findMailByCode(mailCode);
+		Mail mail = this.findMailByCode(mailCode);
 		if(mail == null) {
 			log.error("No mail found for mailCode : " + mailCode);
-			return null;
+			throw new ApplicationRuntimeException("No mail found");
 		}
 		
-		MailTemplate tempalte = self.findMailTempalte(mail.getId(), language);
+		MailTemplate tempalte = this.findMailTempalte(mail.getId(), language);
+		if(tempalte == null){
+			tempalte = this.findMailTempalte(mail.getId(), null);
+		}
 		if(tempalte == null){
 			log.error("Cannot find template for mailCode : " + mailCode);
-			return null;
+			throw new ApplicationRuntimeException("No template found");
 		}
 		
 		StringBuilder text = new StringBuilder();

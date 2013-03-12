@@ -32,10 +32,12 @@ public class OpenstackAuthenticationEventPublisher extends
 			Authentication authentication) {
 		String username = authentication.getName();
 		User user = userService.findByName(username);
-		if(user.getTried() == null){
-			user.setTried(0);
+		if(user != null){
+			if(user.getTried() == null){
+				user.setTried(0);
+			}
+			user.setTried(user.getTried() + 1);
 		}
-		user.setTried(user.getTried() + 1);
 		super.publishAuthenticationFailure(exception, authentication);
 	}
 

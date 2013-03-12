@@ -36,4 +36,9 @@ public class TaskCodeServiceImpl implements TaskCodeService {
 		dao.persist(tc);
 		return tc;
 	}
+
+	@Override
+	public void removeTaskCode(TaskCode tc) {
+		dao.remove(tc);
+	}
 }

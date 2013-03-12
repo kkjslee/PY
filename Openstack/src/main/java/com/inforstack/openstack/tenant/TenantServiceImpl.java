@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inforstack.openstack.api.OpenstackAPIException;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.log.Logger;
+import com.inforstack.openstack.payment.account.AccountService;
 import com.inforstack.openstack.promotion.Promotion;
 import com.inforstack.openstack.promotion.PromotionService;
 import com.inforstack.openstack.utils.Constants;
@@ -27,6 +28,8 @@ public class TenantServiceImpl implements TenantService {
 	private KeystoneService keystoneService;
 	@Autowired
 	private PromotionService promotionService;
+	@Autowired
+	private AccountService accountService;
 	
 	@Override
 	public Tenant createTenant(Tenant tenant, int roleId) throws OpenstackAPIException  {
@@ -35,6 +38,8 @@ public class TenantServiceImpl implements TenantService {
 		tenant.setAgeing(Constants.TENANT_AGEING_ACTIVE);
 		tenant.setCreateTime(new Date());
 		tenantDao.persist(tenant);
+		
+		accountService.createAccount(tenant.getId(), null);
 		
 		tenant.setOpenstatckTenant(keystoneService.createTenant(tenant.getName(), "", true));
 		tenant.setUuid(tenant.getOpenstatckTenant().getId());

@@ -9,4 +9,6 @@ public interface TaskCodeService {
 	TaskCode createTaskCode(String mailCode, String entityId,
 			Map<String, String> properties);
 
+	void removeTaskCode(TaskCode tc);
+
 }

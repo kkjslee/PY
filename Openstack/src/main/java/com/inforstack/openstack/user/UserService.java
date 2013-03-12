@@ -119,4 +119,6 @@ public interface UserService {
 
 	public User active(String mailCode, String random);
 
+	public void sendResetPasswordEmail(User user, String url);
+
 }

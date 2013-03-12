@@ -220,6 +220,7 @@ public class Constants {
 	public static final String SEQUENCE_PREFIX_PAYMENT = "P";
 	
 	public static final String MAIL_CODE_VALIDATE_USER = "validateUser";
+	public static final String MAIL_CODE_RESET_PASSWORD = "resetPassword";
 	
 	public static final String MAILTEMPLATE_PROPERTY_URL = "url";
 	public static final String MAILTEMPLATE_PROPERTY_TASKCODE = "taskcode";

@@ -232,11 +232,11 @@ ${request}
 						 	<a type="button" id="agentRegBtn" href="<c:url value='/${enterpoint}/reg'/>" class="regBtn btn btn-warning pull-right"><spring:message code="user.user.signup"/></a>
 						 </c:if>
 			       <div id="message" class="msg">
-				       <c:if test="${not empty param.error && param.error=='true'}">
-				            <p class="error" style="color:red"><spring:message code="user.login.fail"></spring:message></p>
+				       <c:if test="${not empty errorMessage}">
+				            <p class="error" style="color:red">${errorMessage}</p>
 				       </c:if>
-				        <c:if test="${not empty param.reg && param.reg=='success'}">
-                            <p class="success" style="color:green"><spring:message code="user.reg.success"></spring:message></p>
+				        <c:if test="${not empty message}">
+                            <p class="success" style="color:green">${message}</p>
                        </c:if>
 			        </div>  
 			        <div id="showRegForm"></div>

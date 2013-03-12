@@ -8,6 +8,6 @@ public interface MailTemplateService {
 
 	List<MailTemplate> findTemplatesByMailId(int mailId);
 
-	MailTemplate findTemplateByMailId(int mailId, int languageId);
+	MailTemplate findTemplateByMailId(int mailId, Integer languageId);
 
 }

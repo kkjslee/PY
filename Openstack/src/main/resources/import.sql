@@ -491,5 +491,7 @@ insert into payment_method_property(id, method_id, type, name, value) values (13
 insert into mail_configuration(id, protocal, host, port, username, password) values (1, 'smtp', 'smtp.163.com', '25', 'test99cloud@163.com', '455740054e5c');
 
 insert into mail(id, code, sender) values (1, 'validateUser', 1);
+insert into mail(id, code, sender) values (2, 'resetPassword', 1);
 
-insert into mail_template(id, language_id, type, title, body, mail_id) values(1, 1, 1, '测试', '{url}', 1);
+insert into mail_template(id, language_id, type, title, body, mail_id) values(1, 2, 1, '激活', '{url}', 1);
+insert into mail_template(id, language_id, type, title, body, mail_id) values(2, 2, 2, '重置密码', '{url}', 2);

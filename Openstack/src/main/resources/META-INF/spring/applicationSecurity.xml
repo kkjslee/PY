@@ -8,6 +8,7 @@
                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
 	<http request-matcher="ciRegex" pattern="/user/login(/?)(\?.*){0,1}" security="none"/>
+	<http request-matcher="ciRegex" pattern="/user/loginfailed(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/user/reg(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/regForm(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/resetPassword(/?)(\?.*){0,1}" security="none"/>
@@ -16,7 +17,9 @@
 	<http request-matcher="ciRegex" pattern="/user/doReg(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/user/.*?/login(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/admin/login(/?)(\?.*){0,1}" security="none"/>
+	<http request-matcher="ciRegex" pattern="/admin/loginfailed(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/agent/login(/?)(\?.*){0,1}" security="none"/>
+	<http request-matcher="ciRegex" pattern="/agent/loginfailed(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/agent/reg(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/agent/doReg(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/scripts/bootstrap(/?)(\?.*){0,1}" security="none"/>
@@ -29,21 +32,21 @@
 	
    <security:http pattern="/user/**"  auto-config="true" access-denied-page="/user/login" >
         <security:form-login login-page="/user/login" login-processing-url="/user/doLogin" 
-        		authentication-failure-url="/user/login?error=true" default-target-url="/user" always-use-default-target="true"/>  
+        		authentication-failure-url="/user/loginfailed" default-target-url="/user" always-use-default-target="true"/>  
         <security:logout logout-url="/user/doLogout" logout-success-url="/user/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
    </security:http>
    
    <security:http pattern="/admin/**" auto-config="true" access-denied-page="/admin/login" >
         <security:form-login login-page="/admin/login" login-processing-url="/admin/doLogin" 
-        		authentication-failure-url="/admin/login?error=true" default-target-url="/admin" always-use-default-target="true"/>  
+        		authentication-failure-url="/admin/loginfailed" default-target-url="/admin" always-use-default-target="true"/>  
         <security:logout logout-url="/admin/doLogout" logout-success-url="/admin/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter" />
    </security:http>
    
    <security:http pattern="/agent/**" auto-config="true" access-denied-page="/agent/login" >
         <security:form-login login-page="/agent/login" login-processing-url="/agent/doLogin" 
-        		authentication-failure-url="/agent/login?error=true" default-target-url="/agent" always-use-default-target="true"/>  
+        		authentication-failure-url="/agent/loginfailed" default-target-url="/agent" always-use-default-target="true"/>  
         <security:logout logout-url="/agent/doLogout" logout-success-url="/agent/login" />  
         <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="securityFilter"/>
    </security:http>

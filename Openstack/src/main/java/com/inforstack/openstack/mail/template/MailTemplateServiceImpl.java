@@ -26,7 +26,7 @@ public class MailTemplateServiceImpl implements MailTemplateService{
 	}
 	
 	@Override
-	public MailTemplate findTemplateByMailId(int mailId, int languageId){
+	public MailTemplate findTemplateByMailId(int mailId, Integer languageId){
 		List<MailTemplate> tempaltes = mailTemplateDao.findTemplateByMailIdAndLanguage(mailId, languageId);
 		if(CollectionUtil.isNullOrEmpty(tempaltes)){
 			return null;

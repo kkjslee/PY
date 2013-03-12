@@ -11,7 +11,9 @@
 	<http request-matcher="ciRegex" pattern="/user/loginfailed(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/user/reg(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/regForm(/?)(\?.*){0,1}" security="none"/>
-    <http request-matcher="ciRegex" pattern="/user/resetPassword(/?)(\?.*){0,1}" security="none"/>
+    <http request-matcher="ciRegex" pattern="/user/forgetpassword(/?)(\?.*){0,1}" security="none"/>
+    <http request-matcher="ciRegex" pattern="/user/resetpassword(/?)(\?.*){0,1}" security="none"/>
+    <http request-matcher="ciRegex" pattern="/user/doresetpassword(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/forgetPswForm(/?)(\?.*){0,1}" security="none"/>
     <http request-matcher="ciRegex" pattern="/user/userReg(/?)(\?.*){0,1}" security="none"/>
 	<http request-matcher="ciRegex" pattern="/user/doReg(/?)(\?.*){0,1}" security="none"/>

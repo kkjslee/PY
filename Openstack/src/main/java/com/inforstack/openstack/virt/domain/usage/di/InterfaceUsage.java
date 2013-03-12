@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.virt.domain.usage.DomainUsage;
 
 @Entity
+@Table(name="interface_usage")
 public class InterfaceUsage {
 	
 	@Id

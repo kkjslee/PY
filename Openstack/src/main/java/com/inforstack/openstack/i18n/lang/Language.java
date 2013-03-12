@@ -3,8 +3,10 @@ package com.inforstack.openstack.i18n.lang;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="language")
 public class Language {
 	
 	@Id

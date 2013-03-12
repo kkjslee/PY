@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.billing.process.BillingProcess;
 import com.inforstack.openstack.order.Order;
@@ -18,6 +19,7 @@ import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Entity
+@Table(name="invoice")
 public class Invoice {
 	
 	@Id

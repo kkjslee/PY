@@ -3,8 +3,10 @@ package com.inforstack.openstack.instance;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name="Volume")
+@Entity
+@Table(name="volume")
 public class VolumeInstance {
 
 	@Id

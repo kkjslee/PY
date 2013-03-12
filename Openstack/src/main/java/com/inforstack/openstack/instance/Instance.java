@@ -15,12 +15,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 
 @Entity
+@Table(name="instance")
 public class Instance {
 
 	@Id

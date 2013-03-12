@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
+@Table(name="i18n")
 public class I18n {
 	
 	@Id

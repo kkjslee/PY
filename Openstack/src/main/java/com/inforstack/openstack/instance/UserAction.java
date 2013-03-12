@@ -10,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.order.sub.SubOrder;
 import com.inforstack.openstack.user.User;
 
 @Entity
+@Table(name="user_action")
 public class UserAction {
 
 	@Id

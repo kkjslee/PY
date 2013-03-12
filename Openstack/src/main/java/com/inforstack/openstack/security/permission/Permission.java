@@ -3,8 +3,10 @@ package com.inforstack.openstack.security.permission;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="permission")
 public class Permission {
 	
 	@Id

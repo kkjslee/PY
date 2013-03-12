@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Entity
+@Table(name="promotion")
 public class Promotion {
 	
 	@Id

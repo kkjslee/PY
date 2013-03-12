@@ -14,10 +14,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
+@Table(name="item_specification")
 public class ItemSpecification {
 
 	public static final int OS_TYPE_NONE_ID = 0;

@@ -8,11 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.item.DataCenter;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Entity
+@Table(name="subnet")
 public class Subnet {
 
 	@Id

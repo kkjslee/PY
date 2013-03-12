@@ -11,11 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.instance.Instance;
 import com.inforstack.openstack.tenant.Tenant;
 
 @Entity
+@Table(name="account")
 public class Account {
 	
 	@Id

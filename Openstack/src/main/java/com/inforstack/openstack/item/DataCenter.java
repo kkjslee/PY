@@ -11,10 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
 
 @Entity
+@Table(name="data_center")
 public class DataCenter {
 
 	@Id

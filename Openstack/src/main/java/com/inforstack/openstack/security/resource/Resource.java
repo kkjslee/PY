@@ -1,18 +1,14 @@
 package com.inforstack.openstack.security.resource;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.inforstack.openstack.security.permission.Permission;
+import javax.persistence.Table;
 
 
 
 @Entity
+@Table(name="resource")
 public class Resource {
 	
 	@Id

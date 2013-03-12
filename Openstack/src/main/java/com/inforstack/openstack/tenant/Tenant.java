@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.inforstack.openstack.i18n.link.I18nLink;
@@ -22,6 +23,7 @@ import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.utils.SecurityUtils;
 
 @Entity
+@Table(name="tenant")
 public class Tenant {
 	
 	@Id

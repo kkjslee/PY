@@ -114,6 +114,11 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setAmount(amount);
 		payment.setCreateTime(new Date());
 		payment.setType(type);
+		if(type < Constants.PAYMENT_TYPE_ORDER){
+			payment.setCatalog(Constants.PAYMENT_CATALOG_TOPUP);
+		}else{
+			payment.setCatalog(Constants.PAYMENT_CATALOG_PAYOUT);
+		}
 		payment.setStatus(Constants.PAYMENT_STATUS_NEW);
 		payment.setAccount(account);
 		payment.setSequence(genenratePaymentSequence());
@@ -125,31 +130,24 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public Payment topup(String subject, BigDecimal amount){
-		Payment payment = this.createPayment(subject, amount, Constants.PAYMENT_TYPE_TOPUP, accountService.findOrCreateActiveAccount(SecurityUtils.getTenant(), null));
+	public Payment topup(String subject, BigDecimal amount, int type){
+		Payment payment = this.createPayment(subject, amount, type, accountService.findActiveAccount(SecurityUtils.getTenantId(), null));
 		this.paidSuccessfully(payment);
 		return payment;
 	}
 	
 	@Override
-	public Payment topup(String subject, BigDecimal amount, Account account){
-		Payment payment = this.createPayment(subject, amount, Constants.PAYMENT_TYPE_TOPUP, account);
+	public Payment topup(String subject, BigDecimal amount, int type, Account account){
+		Payment payment = this.createPayment(subject, amount, type, account);
 		this.paidSuccessfully(payment);
 		return payment;
-	}
-	
-	@Override
-	public Payment topup(Integer paymentId) {
-		Payment payment = paymentDao.findById(paymentId);
-		return this.topup(payment.getMethod().getText().getI18nContent(), 
-				payment.getAmount().negate(), payment.getAccount());
 	}
 	
 	@Override
 	public void paidSuccessfully(Payment payment){
 		paymentDao.lock(payment.getAccount(), LockModeType.PESSIMISTIC_WRITE);
 		accountService.changeAccount(payment.getAccount(), payment.getAmount(), 
-				payment.getType() != Constants.PAYMENT_TYPE_TOPUP);
+				payment.getType() >= Constants.PAYMENT_TYPE_REFUND);
 		payment.setStatus(Constants.PAYMENT_STATUS_OK);
 	}
 
@@ -168,60 +166,58 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public BigDecimal applyPayment(int invoiceId) {
+	public BigDecimal applyPayment(int invoiceId, int paymentId) {
 		log.debug("Apply payment to invoice : " + invoiceId);
 		Invoice invoice = invoiceService.findInvoice(invoiceId);
 		if(invoice == null){
 			log.error("No invoice found by id : " + invoiceId);
 			throw new ApplicationRuntimeException("No invoice found");
 		}
-		
-		BigDecimal balance = this.applyPayment(invoice);
-		log.debug("apply payment successfully");
-		return balance;
-	}
-
-	@Override
-	public BigDecimal applyPayment(Invoice invoice) {
-		return this.applyPayment(invoice, null);
-	}
-	
-	public BigDecimal applyPayment(Invoice invoice, Payment payment){
-		log.debug("Apply payment to invoice : " + invoice.getId());
-		BigDecimal balance = this.applyPayment(invoice, payment, invoice.getSubOrder().getOrderPeriod().getPayAsYouGo());
-		log.debug("apply payment successfully");
-		return balance;
-	}
-
-	@Override
-	public BigDecimal applyPayment(Invoice invoice, Payment payment, boolean payasyougo) {
-		log.debug("Apply payment to invoice : " + invoice.getId() + ", payasyougo : " + payasyougo);
-		Account account = null;
-		if(payment != null){
-			account = payment.getAccount();
-		}else{
-			if(payasyougo){
-				account = accountService.findOrCreateActiveAccount(invoice.getTenant(), invoice.getSubOrder().getInstance());
-			}else{
-				account = accountService.findOrCreateActiveAccount(invoice.getTenant(), null);
-			}
-		}
-		
-		paymentDao.lock(account, LockModeType.PESSIMISTIC_WRITE);
-		BigDecimal payAmount = null;
-		if(account.getBalance().compareTo(invoice.getBalance()) >= 0){
-			payAmount = invoice.getBalance();
-		}else{
-			payAmount = account.getBalance();
-		}
-		
+		Payment payment = this.findPaymentById(paymentId);
 		if(payment == null){
-			payment = this.createPayment(invoice.getSequence(), payAmount.negate(), Constants.PAYMENT_TYPE_PAYOUT, account);
-		}else{
-			if(payAmount.compareTo(payment.getAmount()) < 0){
-				throw new ApplicationRuntimeException(OpenstackUtil.getMessage("acount.money.not.enough"));
-			}
+			log.error("No payment found by id : " + paymentId);
+			throw new ApplicationRuntimeException("No payment found");
 		}
+		
+		BigDecimal balance = this.applyPayment(invoice, payment);
+		log.debug("apply payment successfully");
+		return balance;
+	}
+
+	public BigDecimal applyPayment(Invoice invoice, int type, boolean payasyougo) {
+		Account account = null;
+		if(payasyougo){
+			account = accountService.findOrCreateActiveAccount(invoice.getTenant(), invoice.getSubOrder().getInstance());
+		}else{
+			account = accountService.findOrCreateActiveAccount(invoice.getTenant(), null);
+		}
+		
+		if(account.getAmount().compareTo(invoice.getBalance()) < 0){
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("acount.money.not.enough"));
+		}
+		Payment payment = this.createPayment(invoice.getSequence(), invoice.getBalance().negate(), type, account);
+		return this.applyPayment(invoice, payment);
+	}
+
+	@Override
+	public BigDecimal applyPayment(Invoice invoice, Payment payment) {
+		log.debug("Apply payment to invoice : " + invoice.getId());
+		
+		BigDecimal payAmount = payment.getAmount().negate();
+		if(!Constants.PAYMENT_CATALOG_PAYOUT.equals(payment.getCatalog()) 
+				|| payAmount.compareTo(BigDecimal.ZERO) <= 0){
+			throw new ApplicationRuntimeException("Pay out amount should be more than zero");
+		}
+		
+		Account account =  payment.getAccount();
+		if(account == null){
+			throw new ApplicationRuntimeException("Account noo found");
+		}
+		paymentDao.lock(account, LockModeType.PESSIMISTIC_WRITE);
+		if(account.getBalance().compareTo(payAmount) < 0){
+			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("acount.money.not.enough"));
+		}
+		
 		BigDecimal balance = invoiceService.payAmount(invoice, payAmount);
 		this.paidSuccessfully(payment);
 		
@@ -240,7 +236,7 @@ public class PaymentServiceImpl implements PaymentService {
 			invoiceService.unpaid(invoice);
 			log.debug("Invoice payment not finished");
 		}else{
-			log.error("Invoice banlance is less than zero");
+			log.fetal("Invoice banlance is less than zero");
 		}
 		
 		return invoice.getBalance();
@@ -270,7 +266,8 @@ public class PaymentServiceImpl implements PaymentService {
 		if(payment.getAmount().compareTo(BigDecimal.ZERO) > 0){
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("acount.authorise.illegal"));
 		}
-		Payment newPayment = this.createPayment(payment.getSubject(), payment.getAmount(), Constants.PAYMENT_TYPE_PAYOUT, payment.getAccount());
+		Payment newPayment = this.createPayment(payment.getSubject(), payment.getAmount(), 
+				payment.getMethod().getPaymentType(), payment.getAccount());
 		newPayment.setStatus(Constants.PAYMENT_STATUS_OK);
 		payment.setStatus(Constants.PAYMENT_STATUS_DELETED);
 		
@@ -312,33 +309,35 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public Payment processPayment(int paymentId){
+	public Payment processPayout(int paymentId){
 		Payment payment = this.findPaymentById(paymentId);
 		if(payment == null){
 			throw new ApplicationRuntimeException("Payment not found");
 		}
 		
 		paymentDao.lock(payment.getAccount(), LockModeType.PESSIMISTIC_WRITE);
-		if(Constants.PAYMENT_TYPE_AUTHORISATION.equals(payment.getType())){
-			this.authorisation(payment);
-		}else if(Constants.PAYMENT_TYPE_PAYOUT.equals(payment.getType())){
-			String subject = payment.getSubject();
-			if(subject.startsWith(Constants.SEQUENCE_PREFIX_ORDER)){
-				Order order = orderService.findOrderBySequence(subject);
-				if(order == null){
-					throw new ApplicationRuntimeException(
-							OpenstackUtil.getMessage("order.not.found") + " : " + subject);
+		if(Constants.PAYMENT_CATALOG_PAYOUT.equals(payment.getCatalog())){
+			if(Constants.PAYMENT_TYPE_AUTHORISATION.equals(payment.getType())){
+				this.authorisation(payment);
+			}else {
+				String subject = payment.getSubject();
+				if(subject.startsWith(Constants.SEQUENCE_PREFIX_ORDER)){
+					Order order = orderService.findOrderBySequence(subject);
+					if(order == null){
+						throw new ApplicationRuntimeException(
+								OpenstackUtil.getMessage("order.not.found") + " : " + subject);
+					}
+					orderService.fullPayment(order.getId(), payment.getId());
+				}else if(subject.startsWith(Constants.SEQUENCE_PREFIX_INVOICE)){
+					Invoice invoice = invoiceService.findInvoiceBySequence(subject);
+					if(invoice == null){
+						throw new ApplicationRuntimeException(
+								OpenstackUtil.getMessage("invoice.not.found") + " : " + subject);
+					}
+					invoiceService.fullPayment(invoice.getId(), payment.getId());
+				}else{
+					throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));
 				}
-				orderService.fullPayment(order.getId(), payment.getId());
-			}else if(subject.startsWith(Constants.SEQUENCE_PREFIX_INVOICE)){
-				Invoice invoice = invoiceService.findInvoiceBySequence(subject);
-				if(invoice == null){
-					throw new ApplicationRuntimeException(
-							OpenstackUtil.getMessage("invoice.not.found") + " : " + subject);
-				}
-				invoiceService.fullPayment(invoice.getId(), payment.getId());
-			}else{
-				throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));
 			}
 		}else{
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));

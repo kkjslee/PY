@@ -21,6 +21,7 @@ import com.inforstack.openstack.order.Order;
 import com.inforstack.openstack.order.OrderService;
 import com.inforstack.openstack.order.period.OrderPeriod;
 import com.inforstack.openstack.order.period.OrderPeriodService;
+import com.inforstack.openstack.payment.Payment;
 import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
@@ -193,7 +194,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 			BigDecimal price = this.getPrice(subOrder, period);
 			Invoice invoice = invoiceService.createInvoice(period.getStart(), period.getEnd(), price, order.getTenant(), subOrder, order, billingProcess);
 			if(doPay){
-				paymentService.applyPayment(invoice);
+				paymentService.applyPayment(invoice, Constants.PAYMENT_TYPE_SUBORDER, subOrder.getOrderPeriod().getPayAsYouGo());
 			}
 			ic.addInvoiceTotal(invoice.getAmount());
 			ic.addBalance(invoice.getBalance());

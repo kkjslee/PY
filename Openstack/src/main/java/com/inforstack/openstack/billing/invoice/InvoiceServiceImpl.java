@@ -211,7 +211,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		if(payment.getAmount().compareTo(payment.getAccount().getAmount()) > 0 ){
 			return false;
 		}
-		if(payment.getType() != Constants.PAYMENT_TYPE_PAYOUT){
+		if(!Constants.PAYMENT_CATALOG_PAYOUT.equals(payment.getType())){
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));
 		}
 		BigDecimal balance = paymentService.applyPayment(invoice, payment);

@@ -470,9 +470,9 @@ INSERT INTO `network_type` (`id`,`web`,`data_center_id`,`uuid`) VALUES (2,1,1,'2
 INSERT INTO `network_type` (`id`,`web`,`data_center_id`,`uuid`) VALUES (3,0,2,'1');
 INSERT INTO `network_type` (`id`,`web`,`data_center_id`,`uuid`) VALUES (4,1,2,'2');
 
-insert into payment_method(id, type, catlog, icon, text, endpoint) values (1, 1, 3, null, 40, '{host}/user/pay/alipay');
-insert into payment_method(id, type, catlog, icon, text, endpoint) values (2, 2, 2, null, 41, '{host}/user/pay/accountpay');
-insert into payment_method(id, type, catlog, icon, text, endpoint) values (3, 3, 3, null, 42, '');
+insert into payment_method(id, payment_type, catlog, icon, text, endpoint) values (1, 1, 3, null, 40, '{host}/user/pay/alipay');
+insert into payment_method(id, payment_type, catlog, icon, text, endpoint) values (2, 504, 2, null, 41, '{host}/user/pay/accountpay');
+insert into payment_method(id, payment_type, catlog, icon, text, endpoint) values (3, 50, 3, null, 42, '');
 
 insert into payment_method_property(id, method_id, type, name, value) values (1, 1, 2, 'service', 'create_direct_pay_by_user');
 insert into payment_method_property(id, method_id, type, name, value) values (2, 1, 2, 'partner', '');

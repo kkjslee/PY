@@ -28,6 +28,8 @@ public class Payment {
 	
 	private BigDecimal amount;
 	
+	private int catalog;
+	
 	private int type;
 	
 	private int status;
@@ -115,6 +117,14 @@ public class Payment {
 
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public int getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(int catalog) {
+		this.catalog = catalog;
 	}
 	
 }

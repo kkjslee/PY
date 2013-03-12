@@ -40,7 +40,7 @@ public class UserPaymentController {
 						OpenstackUtil.getMessage("trade.not.found") + " : " + trade_id);
 			}
 			
-			payment = paymentService.processPayment(payment.getId());
+			payment = paymentService.processPayout(payment.getId());
 			if(Constants.PAYMENT_STATUS_OK.equals(payment.getStatus())){
 				return OpenstackUtil.buildSuccessResponse("");
 			}else{
@@ -62,9 +62,9 @@ public class UserPaymentController {
 						OpenstackUtil.getMessage("trade.not.found") + " : " + trade_id);
 			}
 			
-			paymentService.topup(payment.getId());
+			paymentService.topup("", payment.getAmount().negate(), Constants.PAYMENT_TYPE_ALIPAY);
 			
-			payment = paymentService.processPayment(payment.getId());
+			payment = paymentService.processPayout(payment.getId());
 			if(Constants.PAYMENT_STATUS_OK.equals(payment.getStatus())){
 				return OpenstackUtil.buildSuccessResponse("");
 			}else{
@@ -80,7 +80,7 @@ public class UserPaymentController {
 	@RequestMapping(value = "/topup", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody Map<String, Object> topup(double price){
 		try{
-			Payment payment = paymentService.topup("topup", new BigDecimal(price));
+			Payment payment = paymentService.topup("", new BigDecimal(price), Constants.PAYMENT_TYPE_ALIPAY);
 			
 			if(payment!=null && Constants.PAYMENT_STATUS_OK.equals(payment.getStatus())){
 				return OpenstackUtil.buildSuccessResponse("OK");

@@ -3,6 +3,7 @@ package com.inforstack.openstack.payment.method;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,9 +24,10 @@ public class PaymentMethod {
 	@GeneratedValue
 	private Integer id;
 	
-	private Integer type;
+	@Column(name="payment_type")
+	private Integer paymentType;
 	
-	private Integer catlog;
+	private Integer catalog;
 	
 	private String icon;
 	
@@ -46,12 +48,12 @@ public class PaymentMethod {
 		this.id = id;
 	}
 
-	public Integer getType() {
-		return type;
+	public Integer getPaymentType() {
+		return paymentType;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setPaymentType(Integer paymentType) {
+		this.paymentType = paymentType;
 	}
 
 	public String getIcon() {
@@ -86,12 +88,12 @@ public class PaymentMethod {
 		this.propertise = propertise;
 	}
 
-	public Integer getCatlog() {
-		return catlog;
+	public Integer getCatalog() {
+		return catalog;
 	}
 
-	public void setCatlog(Integer catlog) {
-		this.catlog = catlog;
+	public void setCatalog(Integer catalog) {
+		this.catalog = catalog;
 	}
-	
+
 }

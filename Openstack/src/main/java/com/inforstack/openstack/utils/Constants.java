@@ -34,12 +34,19 @@ public class Constants {
 	public static final Integer PAYMENT_STATUS_ERROR = 3;
 	public static final Integer PAYMENT_STATUS_OK = 4;
 	public static final Integer PAYMENT_STATUS_DELETED = 5;
+	
+	public static final Integer PAYMENT_CATALOG_TOPUP = 1;
+	public static final Integer PAYMENT_CATALOG_PAYOUT = 2;
 
-	public static final Integer PAYMENT_TYPE_TOPUP = 1;
-	public static final Integer PAYMENT_TYPE_REFUND = 2;
-	public static final Integer PAYMENT_TYPE_POINTS = 3;
-	public static final Integer PAYMENT_TYPE_PAYOUT = 4;
-	public static final Integer PAYMENT_TYPE_AUTHORISATION = 5;
+	public static final Integer PAYMENT_TYPE_ALIPAY = 1;
+	public static final Integer PAYMENT_TYPE_OFFLINE = 50;
+	public static final Integer PAYMENT_TYPE_REFUND = 400;
+	public static final Integer PAYMENT_TYPE_POINTS = 401;
+	public static final Integer PAYMENT_TYPE_ORDER = 501;
+	public static final Integer PAYMENT_TYPE_SUBORDER = 502;
+	public static final Integer PAYMENT_TYPE_INVOICE = 503;
+	public static final Integer PAYMENT_TYPE_ACCOUNT = 504;
+	public static final Integer PAYMENT_TYPE_AUTHORISATION = 550;
 	
 	public static final Integer ACCOUNT_STATUS_ACTIVE = 1;
 	public static final Integer ACCOUNT_STATUS_INACTIVE = 2;
@@ -81,9 +88,9 @@ public class Constants {
 	public static final Integer PAYMENTMETHODPROPERTY_TYPE_PARAM = 2;
 	public static final Integer PAYMENTMETHODPROPERTY_TYPE_METHOD_PARAM = 3;
 	
-	public static final Integer PAYMENTMETHODPROPERTY_CATLOG_TOPUP = 1;
-	public static final Integer PAYMENTMETHODPROPERTY_CATLOG_PAYOUT = 2;
-	public static final Integer PAYMENTMETHODPROPERTY_CATLOG_TOPUP_PAYOUT = 3;
+	public static final Integer PAYMENTMETHOD_CATALOG_TOPUP = 1;
+	public static final Integer PAYMENTMETHOD_CATALOG_PAYOUT = 2;
+	public static final Integer PAYMENTMETHOD_CATALOG_TOPUP_PAYOUT = 3;
 	
 	public static final Integer IMG_PROGRESS_ACTIVE = 100;
 	public static final String IMG_STATUS_ACTIVE = "ACTIVE";

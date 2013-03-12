@@ -20,26 +20,15 @@ public interface PaymentService {
 	
 	Payment createPayment(String subject, BigDecimal amount, int type, Account account);
 	
-	public Payment topup(String subject, BigDecimal amount);
+	public Payment topup(String subject, BigDecimal amount, int type);
 	
-	Payment topup(Integer paymentId);
+	Payment topup(String subject, BigDecimal amount, int type, Account account);
 	
-	Payment topup(String subject, BigDecimal amount, Account account);
+	public BigDecimal applyPayment(int invoiceId, int paymentId);
 	
-	public BigDecimal applyPayment(int invoiceId);
-	
-	/**
-	 * apply payments to invoice
-	 * @param invoice
-	 */
-	public BigDecimal applyPayment(Invoice invoice);
+	public BigDecimal applyPayment(Invoice invoice, int type, boolean payasyougo);
 	
 	public BigDecimal applyPayment(Invoice invoice, Payment payment);
-	
-	/**
-	 * apply payments to invoice
-	 */
-	public BigDecimal applyPayment(Invoice invoice, Payment payment, boolean payasyougo);
 	
 	Payment payAuthorisation(Payment payment);
 	
@@ -58,6 +47,6 @@ public interface PaymentService {
 	 * @param paymentId
 	 * @return
 	 */
-	public Payment processPayment(int paymentId);
+	public Payment processPayout(int paymentId);
 
 }

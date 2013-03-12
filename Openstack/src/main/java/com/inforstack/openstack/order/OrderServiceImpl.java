@@ -261,7 +261,7 @@ public class OrderServiceImpl implements OrderService {
 				doPay = autoPay.booleanValue();
 			}
 			if(doPay){
-				paymentService.applyPayment(invoice);
+				paymentService.applyPayment(invoice, Constants.PAYMENT_TYPE_ORDER, false);
 			}
 			ic.addInvoiceTotal(invoice.getAmount());
 			ic.addBalance(invoice.getBalance());
@@ -401,7 +401,7 @@ public class OrderServiceImpl implements OrderService {
 		if(payment.getAmount().compareTo(payment.getAccount().getAmount()) > 0 ){
 			return false;
 		}
-		if(payment.getType() != Constants.PAYMENT_TYPE_PAYOUT){
+		if(payment.getCatalog() != Constants.PAYMENT_CATALOG_PAYOUT){
 			throw new ApplicationRuntimeException(OpenstackUtil.getMessage("payment.type.not.support"));
 		}
 		

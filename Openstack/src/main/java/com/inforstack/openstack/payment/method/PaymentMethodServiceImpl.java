@@ -56,14 +56,14 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 	
 	public List<PaymentMethod> getPayoutMethods(){
 		return paymentMethodDao.findMethodsByCatlogs(new int[]{
-				Constants.PAYMENTMETHODPROPERTY_CATLOG_PAYOUT, 
-				Constants.PAYMENTMETHODPROPERTY_CATLOG_TOPUP_PAYOUT});
+				Constants.PAYMENTMETHOD_CATALOG_PAYOUT, 
+				Constants.PAYMENTMETHOD_CATALOG_TOPUP_PAYOUT});
 	}
 	
 	public List<PaymentMethod> getTopupMethods(){
 		return paymentMethodDao.findMethodsByCatlogs(new int[]{
-				Constants.PAYMENTMETHODPROPERTY_CATLOG_TOPUP, 
-				Constants.PAYMENTMETHODPROPERTY_CATLOG_TOPUP_PAYOUT});
+				Constants.PAYMENTMETHOD_CATALOG_TOPUP, 
+				Constants.PAYMENTMETHOD_CATALOG_TOPUP_PAYOUT});
 	}
 	
 	@Override

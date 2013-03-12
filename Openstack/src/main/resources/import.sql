@@ -196,7 +196,7 @@ insert into resource(id, url, permission) values (306, '/user/instance/showInsta
 insert into resource(id, url, permission) values (307, '/user/instance/getInstancesWidthStatus', 'user');
 insert into resource(id, url, permission) values (308, '/user/instance/getPagerInstanceStatusList', 'user');
 insert into resource(id, url, permission) values (309, '/user/instance/modules/instanceStatus', 'user');
-insert into resource(id, url, permission) values (310, '/user/instance/modules/updateInstanceWithName', 'user');
+insert into resource(id, url, permission) values (310, '/user/instance/updateInstanceWithName', 'user');
 
 
 insert into resource(id, url, permission) values (350, '/user/cinder/modules/index', 'user');

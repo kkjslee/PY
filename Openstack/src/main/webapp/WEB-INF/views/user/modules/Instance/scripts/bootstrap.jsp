@@ -312,9 +312,9 @@ function changeBtnStyle(container){
 }
 
 function updateInstanceName(which){
-    var container = $(which).parents(".dataTable").first();
-    var vmId = $(whic).find("input[name='vmid']").val();
-    var vmname = $(whic).find("input[name='vmname']").val();
+    var container = $(which).parents("#customForm").first();
+    var vmid = container.find("#vmid").val();
+    var vmname = container.find("#vmname").val();
      var pd=showProcessingDialog();
     $.ajax({
         type: "POST",

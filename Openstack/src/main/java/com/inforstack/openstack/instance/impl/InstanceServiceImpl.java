@@ -363,6 +363,16 @@ public class InstanceServiceImpl implements InstanceService {
 
 	@Override
 	public void updateVM(User user, Tenant tenant, String serverId, String name) {
+		if (name != null) {
+			Instance instance = this.instanceDao.findByObject("uuid", serverId);
+			if (instance != null) {
+				instance.setName(name);
+			}
+			VirtualMachine vm = this.virtualMachineDao.findByObject("uuid", serverId);
+			if (vm != null) {
+				vm.setName(name);
+			}
+		}
 	}
 
 	@Override

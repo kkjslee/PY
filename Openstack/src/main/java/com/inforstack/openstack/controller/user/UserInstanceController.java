@@ -350,14 +350,14 @@ public class UserInstanceController {
 		
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
 		conf.put(".form", "start_end");
-		conf.put("form.vmid", "[hidden]");
+		conf.put("form.vmid", "[hidden]" + instance.getVmid());
 		conf.put("form.vmname",
 				"[custom]<input type='text' id='vmname' name='vmname' value='"
 						+ instance.getVmname()
-						+ "'/><a href='#' onclick='updateInstanceName(this)'>"
+						+ "' /><a href='#' onclick='updateInstanceName(this)'>"
 						+ OpenstackUtil.getMessage("update.button") + "</a>");
 		
-		conf.put("form.vmname", "[plain]" + instance.getVmname());
+		//conf.put("form.vmname", "[plain]" + instance.getVmname());
 		conf.put("form.statusDisplay", "[plain]" + instance.getStatusdisplay());
 		conf.put("form.imagename", "[plain]" + instance.getOstype());
 		conf.put("form.cpus", "[plain]" + instance.getCpus());
@@ -371,8 +371,6 @@ public class UserInstanceController {
 				"form.updatetime",
 				"[plain]"
 						+ StringUtil.formateDateString(instance.getUpdatetime()));
-		// TODO: [ricky]get address
-		//conf.put("form.addressString", "[plain]" + instance.getAddressString());
 
 		model.addAttribute("configuration", conf);
 
@@ -484,6 +482,7 @@ public class UserInstanceController {
 			}
 		}
 		Map<String, Object> conf = new LinkedHashMap<String, Object>();
+		conf.put("grid.vmid", "[hidden]");
 		conf.put("grid.vmname", "[plain]");
 		conf.put("grid.period", "[plain]");
 		conf.put("grid.status", "[plain]");

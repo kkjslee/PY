@@ -178,7 +178,7 @@
     }
     function refreshTaskStatus(){
          var hasTask = false;
-         $(".dataTable").find("input[name='statusV']").each(function(){
+         $(".dataTable").find("tr").each(function(){
         	 window.console.log($(this).val());
         	 if($(this).val() == "pending"){
         		 hasTask = true;

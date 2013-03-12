@@ -10,5 +10,30 @@
     <div style="padding:30px 0 10px 60px;">
         <div style="font-family:'微软雅黑';font-size:14px;">${content}</div>
     </div>
+    <div>
+        <h4>快捷入口</h4>
+        <a href="#" onclick="getVM();return false;">获取云主机</a>&nbsp;&nbsp;<a href="#" onclick="manageVM();return false;">我的云主机管理</a>  
+    </div>
+    <script>
+    function getVM(){
+        $("#sidebar_menu").find("li").each(function(){
+            if($(this).find("a").attr("isos:module") == "cart/modules/index"){
+                $(this).find("a").trigger("click");
+                $(this).parents("li:eq(0)").addClass("active");
+                $(this).parents(".accordion-body:eq(0)").addClass("in");
+            }
+        });
+    }
+    function manageVM(){
+        $("#sidebar_menu").find("li").each(function(){
+        if($(this).find("a").attr("isos:module") == "instance/modules/index"){
+            $(this).find("a").trigger("click");
+            $(this).parents("li:eq(0)").addClass("active");
+            $(this).parents(".accordion-body:eq(0)").addClass("in");
+        }
+    });
+    }
+    
+    </script>
 </body>
 </html>

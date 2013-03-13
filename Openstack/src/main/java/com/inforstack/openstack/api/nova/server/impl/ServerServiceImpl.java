@@ -185,23 +185,23 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public void removeServer(final Access access, final Server server) throws OpenstackAPIException {
-		if (access != null && server != null && !server.getId().trim().isEmpty()) {
+	public void removeServer(final Access access, final String uuid) throws OpenstackAPIException {
+		if (access != null && uuid != null && !uuid.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER);
 			if (endpoint != null) {
 				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				RestUtils.delete(url, access, server.getId());
+				RestUtils.delete(url, access, uuid);
 				
 				final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
 				if (self != null) {
-					self.updateServerStatus(server.getId(), "pending", "pending");
+					self.updateServerStatus(uuid, "pending", "pending");
 					Thread thread = new Thread(new Runnable() {
 
 						@Override
 						public void run() {
 							while (true) {
 								try {
-									Server s = ServerServiceImpl.this.getServerDetail(access, server.getId());
+									Server s = ServerServiceImpl.this.getServerDetail(access, uuid);
 									if (s != null) {
 										String status = s.getStatus();
 										String task = s.getTask();
@@ -210,7 +210,7 @@ public class ServerServiceImpl implements ServerService {
 											break;
 										}
 									} else {
-										self.updateServerStatus(server.getId(), "deleted", null);
+										self.updateServerStatus(uuid, "deleted", null);
 										break;
 									}
 									Thread.sleep(1000);
@@ -222,7 +222,7 @@ public class ServerServiceImpl implements ServerService {
 							}
 						}
 						
-					}, "Removing server " + server.getId());
+					}, "Removing server " + uuid);
 					thread.start();
 				}
 			}
@@ -230,23 +230,23 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public void doServerAction(final Access access, final Server server, ServerAction action) throws OpenstackAPIException {
-		if (access != null && server != null && !server.getId().trim().isEmpty()) {
+	public void doServerAction(final Access access, final String uuid, ServerAction action) throws OpenstackAPIException {
+		if (access != null && uuid != null && !uuid.trim().isEmpty()) {
 			Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
 			if (endpoint != null) {
 				String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
-				RestUtils.postForLocation(url, access, action, server.getId());
+				RestUtils.postForLocation(url, access, action, uuid);
 				
 				final ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
 				if (self != null) {
-					self.updateServerStatus(server.getId(), "pending", "pending");
+					self.updateServerStatus(uuid, "pending", "pending");
 					Thread thread = new Thread(new Runnable() {
 
 						@Override
 						public void run() {
 							while (true) {
 								try {
-									Server s = ServerServiceImpl.this.getServerDetail(access, server.getId());
+									Server s = ServerServiceImpl.this.getServerDetail(access, uuid);
 									if (s != null) {
 										String status = s.getStatus();
 										String task = s.getTask();
@@ -266,7 +266,7 @@ public class ServerServiceImpl implements ServerService {
 							}
 						}
 						
-					}, "Updating server " + server.getId());
+					}, "Updating server " + uuid);
 					thread.start();
 				}
 			}
@@ -359,6 +359,61 @@ public class ServerServiceImpl implements ServerService {
 			}
 		}
 		return link;
+	}
+	
+	@Override
+	public void resizeServer(final Access access, final String uuid, String flavorId) throws OpenstackAPIException {
+		if (access != null && uuid != null && !uuid.trim().isEmpty() && flavorId != null && !flavorId.trim().isEmpty()) {
+			Server server = this.getServer(access, uuid, false);
+			if (server != null && !server.getFlavor().getId().equalsIgnoreCase(flavorId)) {
+				Flavor flavor = this.flavorService.getFlavor(flavorId);
+				if (flavor != null) {
+					Configuration endpoint = this.configurationDao.findByName(ENDPOINT_SERVER_ACTION);
+					if (endpoint != null) {
+						final String url = getEndpoint(access, Type.INTERNAL, endpoint.getValue());
+						ServerAction action = new ResizeServer(flavorId);
+						RestUtils.postForLocation(url, access, action, uuid);
+						
+						ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
+						if (self != null) {
+							self.updateServerStatus(uuid, "pending", "pending");
+							Thread thread = new Thread(new Runnable() {
+								@Override
+								public void run() {
+									boolean confirmed = false;
+									while (true) {
+										try {
+											Thread.sleep(1000);
+											Server s = ServerServiceImpl.this.getServerDetail(access, uuid);
+											if (s != null) {
+												String status = s.getStatus();
+												String task = s.getTask();
+												ServerService self = (ServerService) OpenstackUtil.getBean("serverService");
+												self.updateServerStatus(s.getId(), status, task);
+												if (status.equalsIgnoreCase("resized") && !confirmed) {
+													RestUtils.postForLocation(url, access, new ConfirmResizeServer(), uuid);
+													confirmed = true;
+												} else if ((task == null || task.equalsIgnoreCase("none")) && status.equalsIgnoreCase("active")) {
+													break;
+												}
+											} else {
+												break;
+											}
+										} catch (OpenstackAPIException e) {
+											break;
+										} catch (InterruptedException e) {
+											break;
+										}
+									}
+								}
+								
+							}, "Resizing server " + uuid);
+							thread.start();
+						}
+					}
+				}
+			}
+		}		
 	}
 	
 	@Override

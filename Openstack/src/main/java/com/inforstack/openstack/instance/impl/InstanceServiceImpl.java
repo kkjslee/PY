@@ -376,15 +376,22 @@ public class InstanceServiceImpl implements InstanceService {
 	}
 
 	@Override
-	public void updateVM(User user, Tenant tenant, String serverId, String name) {
+	public void updateInstanceName(User user, Tenant tenant, String uuid, String name) {
 		if (name != null) {
-			Instance instance = this.instanceDao.findByObject("uuid", serverId);
+			Instance instance = this.instanceDao.findByObject("uuid", uuid);
 			if (instance != null) {
 				instance.setName(name);
 			}
-			VirtualMachine vm = this.virtualMachineDao.findByObject("uuid", serverId);
-			if (vm != null) {
-				vm.setName(name);
+			if (instance.getType() == Constants.INSTANCE_TYPE_VM) {
+				VirtualMachine vm = this.virtualMachineDao.findByObject("uuid", uuid);
+				if (vm != null) {
+					vm.setName(name);
+				}
+			} else if (instance.getType() == Constants.INSTANCE_TYPE_VOLUME) {
+				VolumeInstance vi = this.volumeInstanceDao.findByObject("uuid", uuid);
+				if (vi != null) {
+					vi.setName(name);
+				}
 			}
 		}
 	}
@@ -415,9 +422,7 @@ public class InstanceServiceImpl implements InstanceService {
 							}
 						}
 					}
-					Server server = new Server();
-					server.setId(serverId);					
-					this.serverService.removeServer(access, server);
+					this.serverService.removeServer(access, serverId);
 				}
 			} catch (OpenstackAPIException e) {
 				

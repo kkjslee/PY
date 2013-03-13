@@ -23,7 +23,6 @@ import com.inforstack.openstack.api.keystone.Access;
 import com.inforstack.openstack.api.keystone.KeystoneService;
 import com.inforstack.openstack.api.nova.flavor.Flavor;
 import com.inforstack.openstack.api.nova.flavor.FlavorService;
-import com.inforstack.openstack.api.nova.server.Server;
 import com.inforstack.openstack.api.nova.server.ServerAction;
 import com.inforstack.openstack.api.nova.server.ServerService;
 import com.inforstack.openstack.api.nova.server.impl.PauseServer;
@@ -206,8 +205,6 @@ public class UserInstanceController {
 			if (!StringUtil.isNullOrEmpty(executecommand)
 					&& !StringUtils.isNullOrEmpty(vmid)) {
 				ServerAction action = null;
-				Server server = new Server();
-				server.setId(vmid);
 				if (executecommand.equals("poweroff")) {
 					action = new StopServer();
 				} else if (executecommand.equals("pause")) {
@@ -223,11 +220,11 @@ public class UserInstanceController {
 				} else if (executecommand.equals("removevm")) {
 					//serverService.removeServer(access, server);
 					boolean free = (freeResources == null || freeResources.booleanValue());
-					this.instanceService.removeVM(SecurityUtils.getUser(), tenant, server.getId(), free);
+					this.instanceService.removeVM(SecurityUtils.getUser(), tenant, vmid, free);
 				}
 
 				if (action != null) {
-					serverService.doServerAction(access, server, action);
+					serverService.doServerAction(access, vmid, action);
 				}
 			}
 		} catch (OpenstackAPIException e) {
@@ -452,7 +449,7 @@ public class UserInstanceController {
 		Instance instance = this.instanceService.findInstanceFromUUID(vmModel.getVmid());
 		if(instance != null){
 			Tenant tenant = SecurityUtils.getTenant();
-			instanceService.updateVM(SecurityUtils.getUser(), tenant, vmModel.getVmid(), vmModel.getVmname());
+			instanceService.updateInstanceName(SecurityUtils.getUser(), tenant, vmModel.getVmid(), vmModel.getVmname());
 			return JSONUtil.jsonSuccess(null, OpenstackUtil.getMessage("operation.success"));
 		}else{
 			return JSONUtil.jsonError(vmModel.getVmname(),"not found");

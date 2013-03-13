@@ -38,7 +38,7 @@ public interface InstanceService {
 	
 	public void createInstance(User user, Tenant tenant, int orderId);
 	
-	public void updateVM(User user, Tenant tenant, String serverId, String name);
+	public void updateInstanceName(User user, Tenant tenant, String uuid, String name);
 	
 	public void removeVM(User user, Tenant tenant, String serverId, boolean freeAttachedResouces);
 

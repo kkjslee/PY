@@ -143,7 +143,7 @@ public class NetworkServiceImpl implements NetworkService {
 		int n = 0;
 		for (int i = 10; i < 11 && n <= size; i++) {
 			address[0] = i;
-			for (int j = 1; j < 256 && n <= size; j++) {
+			for (int j = 5; j < 256 && n <= size; j++) {
 				address[1] = j;
 				for (int k = 0; k < 256 && n <= size; k++) {
 					address[2] = k;

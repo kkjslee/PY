@@ -16,11 +16,13 @@ public interface ServerService {
 	
 	public Server createServer(Access access, Server server) throws OpenstackAPIException;
 	
-	public void removeServer(Access access, Server server) throws OpenstackAPIException;
+	public void removeServer(Access access, String uuid) throws OpenstackAPIException;
 	
-	public void doServerAction(Access access, Server server, ServerAction action) throws OpenstackAPIException;
+	public void doServerAction(Access access, String uuid, ServerAction action) throws OpenstackAPIException;
 	
 	public String getVNCLink(Access access, String uuid, String type) throws OpenstackAPIException;
+	
+	public void resizeServer(Access access, String uuid, String flavorId) throws OpenstackAPIException;
 	
 	public void updateServerStatus(String uuid, String status, String task);
 	

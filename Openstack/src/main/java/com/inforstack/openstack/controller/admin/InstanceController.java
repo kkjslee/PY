@@ -175,8 +175,6 @@ public class InstanceController {
 			if (!StringUtil.isNullOrEmpty(executecommand)
 					&& !StringUtils.isNullOrEmpty(vmid)) {
 				ServerAction action = null;
-				Server server = new Server();
-				server.setId(vmid);
 				if (executecommand.equals("poweroff")) {
 					action = new StopServer();
 				} else if (executecommand.equals("pause")) {
@@ -190,11 +188,11 @@ public class InstanceController {
 				} else if (executecommand.equals("poweron")) {
 					action = new StartServer();
 				} else if (executecommand.equals("removevm")) {
-					serverService.removeServer(access, server);
+					serverService.removeServer(access, vmid);
 				}
 
 				if (action != null) {
-					serverService.doServerAction(access, server, action);
+					serverService.doServerAction(access, vmid, action);
 				}
 			}
 		} catch (OpenstackAPIException e) {

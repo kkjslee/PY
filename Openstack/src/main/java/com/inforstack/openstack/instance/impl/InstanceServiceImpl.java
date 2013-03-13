@@ -668,11 +668,17 @@ public class InstanceServiceImpl implements InstanceService {
 				Instance volInstance = this.instanceDao.findByObject("uuid", volumeId);
 				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
 				if (volInstance != null && volInstance.getType() == Constants.INSTANCE_TYPE_VOLUME && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
-					if (volInstance.getStatus().equalsIgnoreCase("available")) {
+					if (!this.hasSubInstance(vmInstance, Constants.INSTANCE_TYPE_VOLUME) && volInstance.getStatus().equalsIgnoreCase("available")) {
 						VolumeInstance vi = this.volumeInstanceDao.findByObject("uuid", volumeId);
 						vi.setVm(serverId);
 						this.volumeInstanceDao.persist(vi);
 						this.cinderService.attachVolume(access, serverId, volumeId, null);
+						volInstance.setParent(vmInstance);
+						List<Instance> subInstances = vmInstance.getSubInstance();
+						subInstances.add(volInstance);
+						vmInstance.setSubInstance(subInstances);
+						this.instanceDao.persist(vmInstance);
+						this.instanceDao.persist(volInstance);
 					}
 				}
 			}
@@ -691,12 +697,18 @@ public class InstanceServiceImpl implements InstanceService {
 				Instance volInstance = this.instanceDao.findByObject("uuid", volumeId);
 				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
 				if (volInstance != null && volInstance.getType() == Constants.INSTANCE_TYPE_VOLUME && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
-					if (volInstance.getStatus().equalsIgnoreCase("in-use")) {
+					if (volInstance.getStatus().equalsIgnoreCase("in-use") && volInstance.getParent().getId() == vmInstance.getId()) {
 						VolumeInstance vi = this.volumeInstanceDao.findByObject("uuid", volumeId);
 						if (vi.getVm().equalsIgnoreCase(serverId)) {
 							vi.setVm(null);
 							this.volumeInstanceDao.persist(vi);
 							this.cinderService.detachVolume(access, serverId, volumeId);
+							volInstance.setParent(null);
+							List<Instance> subInstances = vmInstance.getSubInstance();
+							subInstances.remove(volInstance);
+							vmInstance.setSubInstance(subInstances);
+							this.instanceDao.persist(vmInstance);
+							this.instanceDao.persist(volInstance);
 						}
 					}
 				}
@@ -735,11 +747,17 @@ public class InstanceServiceImpl implements InstanceService {
 				Instance ipInstance = this.instanceDao.findByObject("uuid", ipId);
 				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
 				if (ipInstance != null && ipInstance.getType() == Constants.INSTANCE_TYPE_IP && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
-					if (ipInstance.getStatus().equalsIgnoreCase("available")) {
+					if (!this.hasSubInstance(vmInstance, Constants.INSTANCE_TYPE_IP) && ipInstance.getStatus().equalsIgnoreCase("available")) {
 						IP ip = this.ipDao.findByObject("uuid", ipId);
 						ip.setVm(serverId);
 						this.ipDao.persist(ip);
 						this.quantumService.associateFloatingIP(access, serverId, ipId);
+						ipInstance.setParent(vmInstance);
+						List<Instance> subInstances = vmInstance.getSubInstance();
+						subInstances.add(ipInstance);
+						vmInstance.setSubInstance(subInstances);
+						this.instanceDao.persist(vmInstance);
+						this.instanceDao.persist(ipInstance);
 					}
 				}
 			}
@@ -758,12 +776,18 @@ public class InstanceServiceImpl implements InstanceService {
 				Instance ipInstance = this.instanceDao.findByObject("uuid", ipId);
 				Instance vmInstance = this.instanceDao.findByObject("uuid", serverId);
 				if (ipInstance != null && ipInstance.getType() == Constants.INSTANCE_TYPE_IP && vmInstance != null && vmInstance.getType() == Constants.INSTANCE_TYPE_VM) {
-					if (ipInstance.getStatus().equalsIgnoreCase("in-use")) {
+					if (ipInstance.getStatus().equalsIgnoreCase("in-use") && ipInstance.getParent().getId() == vmInstance.getId()) {
 						IP ip = this.ipDao.findByObject("uuid", ipId);
 						if (ip.getVm().equalsIgnoreCase(serverId)) {
 							ip.setVm(null);
 							this.ipDao.persist(ip);
 							this.quantumService.disassociateFloatingIP(access, ipId);
+							ipInstance.setParent(null);
+							List<Instance> subInstances = vmInstance.getSubInstance();
+							subInstances.remove(ipInstance);
+							vmInstance.setSubInstance(subInstances);
+							this.instanceDao.persist(vmInstance);
+							this.instanceDao.persist(ipInstance);
 						}
 					}
 				}
@@ -783,13 +807,27 @@ public class InstanceServiceImpl implements InstanceService {
 				Instance ipInstance = this.instanceDao.findByObject("uuid", ipId);
 				if (ipInstance != null && ipInstance.getType() == Constants.INSTANCE_TYPE_IP) {
 					if (!ipInstance.getStatus().equalsIgnoreCase("in-use")) {
-						
+						this.quantumService.removeFloatingIP(access, ipId);
 					}
 				}
 			}
 		} catch (OpenstackAPIException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private boolean hasSubInstance(Instance instance, int type) {
+		boolean has = false;
+		if (instance.getType() == Constants.INSTANCE_TYPE_VM) {
+			List<Instance> subInstances = instance.getSubInstance();
+			for (Instance sub : subInstances) {
+				if (sub.getType() == type) {
+					has = true;
+					break;
+				}
+			}
+		}
+		return has;
 	}
 
 }

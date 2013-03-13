@@ -93,16 +93,17 @@ function showRemoveTips2(vmid,vmVolume){
 	        width: "400px",
 	        buttons: [
 	        {
-	            text: '<spring:message code="confirm.button"/>',
+	            text: '<spring:message code="yes.button"/>',
 	            click: function() {
 	                $(this).dialog("destroy");
 	                window.console.log("remove vm id:" + vmid);
 	                removeInstance(vmid,true);
 	            }
 	        },{
-                text: '<spring:message code="cancel.button"/>',
+                text: '<spring:message code="no.button"/>',
                 click: function() {
                     $(this).dialog("destroy");
+                    removeInstance(vmid,false);
                 }
             }]
 	    });
@@ -236,8 +237,9 @@ function getTaskStatus(row,id){
                         $(row).find(".statusVice").text(data.taskStatus);
                        }else{
                            $(row).find(".statusTitle").text(data.statusdisplay);
+                           $(row).find("input[isos='vnc']").val(data.vnc);
                     	   $(row).find(".statusVice").remove();
-                    	   updateButtonWidthStatus(row,data.status);
+                    	   updateButtonWidthStatus(row,data);
                        }
                   }                
             }catch(e){ clearInterval(rTask);printMessage("Data Broken ["+e+"]");};
@@ -248,8 +250,12 @@ function getTaskStatus(row,id){
         }
     });
 }
-function updateButtonWidthStatus(row,status){
-
+function updateButtonWidthStatus(row,data){
+    var status = data.status;
+    var vnc = "";
+    if(!isNull(data.vnc)){
+        vnc = data.vnc;
+    }
     if(!isNull(status)){
      $(row).find(".ope").hide();
      $(row).find(".vm"+status).show();
@@ -257,7 +263,9 @@ function updateButtonWidthStatus(row,status){
         $(row).find(".vmunpause").show();
         $(row).find(".vmresuming").show();
         $(row).find(".vmdeleted").show();
-        $(row).find(".vmvnc").show();
+     }
+     if(!isNull(vnc)){
+         $(row).find(".vmvnc").show();
      }
      if(status == "deleted"){
      }
@@ -327,9 +335,10 @@ function updateInstanceName(which){
         success: function(data) {
             pd.dialog("destroy");
             try{
-                var msg="";
                 printMessage(data.msg);
-                
+                if(data.status=="error"){
+                    $(container).find("#vmname").val(data.data);
+                }
             }catch(e) {
                 printMessage("Data Broken: ["+e+"]");
             }

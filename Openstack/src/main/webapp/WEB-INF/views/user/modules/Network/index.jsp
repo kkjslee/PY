@@ -36,6 +36,10 @@
     })
     function showAssociateOrDe(command,openDesc, ipId, serverId,which){
         jConfirm("<spring:message code='ip.detachorattch.tip'/>".sprintf(openDesc),function(){
+        	if(command == "remove"){
+        		 ctrlIP(command,ipId, serverId, which);
+        		 return;
+        	}
             if(!isNull(serverId)){
                 ctrlIP(command,ipId, serverId, which);
             }else{
@@ -79,7 +83,6 @@
                 }]
             });
          //set server list
-         $(serverPanel).dialog("open");
          getInstancesWidthStatus(serverPanel);
     }
     
@@ -127,7 +130,8 @@
             cache: false,
             data: {
                 includeStatus: "",
-                excludeStatus: "deleted"
+                excludeStatus: "deleted",
+                hasIp:false
             },
             success: function(data) {
                 pd.dialog("destroy");
@@ -142,7 +146,7 @@
                             });
                         }
 
-                        $(serverPanel).dialog("open");
+                        $(container).dialog("open");
                     }else if(data.status =="error"){
                         printMessage(data.msg);
                     }
@@ -160,12 +164,12 @@
         $("tbody").find("tr").each(function(e){
             var statusV = $(this).find("input[name='statusV']").val();
             if(statusV == "in-use"){
-                $(this).find("li[name='attach']").hide();
+                $(this).find("li[name='associate']").hide();
             }else if(statusV == "available"){
-                $(this).find("li[name='detach']").hide();
+                $(this).find("li[name='disassociate']").hide();
             }else{
-                $(this).find("li[name='attach']").hide();
-                $(this).find("li[name='detach']").hide();
+                $(this).find("li[name='associate']").hide();
+                $(this).find("li[name='disassociate']").hide();
             }
         })
         checkPageIPStatus();
@@ -179,7 +183,8 @@
     function refreshTaskStatus(){
          var hasTask = false;
          $(".dataTable").find("tr").each(function(){
-             if($(this).find("input[name='statusV']").val() == "associating" || $(this).find("input[name='statusV']").val() == "disassociating"){
+             if($(this).find("input[name='statusV']").val() == "associating" || $(this).find("input[name='statusV']").val() == "pending"
+            		 || $(this).find("input[name='statusV']").val() == "disassociating"){
                  hasTask = true;
                  var targetId = $(this).find("input[name='id']").val();
                  getTaskStatus($(this), targetId);
@@ -232,7 +237,6 @@
              $(row).find("input[name='statusV']").val(status);
              $(row).find("span[name='status']").html(statusDisplay);
         }
-       
     }
     </script>
     

@@ -37,6 +37,10 @@
     })
     function showDetachorAttachVolume(command,openDesc, volumeId, serverId,which){
     	jConfirm("<spring:message code='volume.detachorattch.tip'/>".sprintf(openDesc),function(){
+    		if(command == "remove"){
+    			ctrlVolume(command,ipId, serverId, which);
+                return;
+           }
     		if(!isNull(serverId)){
     			ctrlVolume(command,volumeId, serverId, which);
     		}else{
@@ -128,7 +132,8 @@
             cache: false,
             data: {
             	includeStatus: "",
-            	excludeStatus: "deleted"
+            	excludeStatus: "deleted",
+            	hasVol:false
             },
             success: function(data) {
                 pd.dialog("destroy");
@@ -179,7 +184,8 @@
     function refreshTaskStatus(){
          var hasTask = false;
          $(".dataTable").find("tr").each(function(){
-        	 if($(this).find("input[name='statusV']").val() == "detaching" || $(this).find("input[name='statusV']").val() == "attaching"){
+        	 if($(this).find("input[name='statusV']").val() == "detaching" || $(this).find("input[name='statusV']").val() == "attaching"
+        			 || $(this).find("input[name='statusV']").val() == "pending"){
         		 hasTask = true;
                  var targetId = $(this).find("input[name='id']").val();
                  getTaskStatus($(this), targetId);
@@ -232,7 +238,6 @@
         	 $(row).find("input[name='statusV']").val(status);
         	 $(row).find("span[name='status']").html(statusDisplay);
         }
-        checkPageDiskStatus();
     }
     </script>
     

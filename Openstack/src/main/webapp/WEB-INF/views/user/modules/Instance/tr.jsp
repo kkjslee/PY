@@ -54,7 +54,7 @@
 	        <li class="ope vmresuming"    <c:if test='${item.status=="resuming" || item.status == "active"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="ctlInstance(this, 'suspend','<spring:message code='suspend.button'/>');return false;"><spring:message code="suspend.button" /></a></li>
 	        <li <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showDetails(this);return false;"><spring:message code="detail.button" /></a></li>
 	        <li class="ope vmdeleted"  <c:if test='${item.status!="deleted"}'> style="display:block"  </c:if>><a class="button" href="#" onclick="showRemoveTips1(this);return false;"><spring:message code="remove.button" /></a></li>
-		    <li class="ope vmvnc"  style="display:block" ><a class="button" href="#" onclick="openVNC(this);return false;"><spring:message code="vnc.button" /></a></li>
+		    <li class="ope vmvnc"  <c:if test='${item.vnc!= null && item.vnc!=""}'> style="display:block"  </c:if>><a class="button" href="#" onclick="openVNC(this);return false;"><spring:message code="vnc.button" /></a></li>
 		  </ul>
         </div>
         </td>

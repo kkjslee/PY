@@ -36,6 +36,7 @@ import com.inforstack.openstack.tenant.Tenant;
 import com.inforstack.openstack.user.User;
 import com.inforstack.openstack.user.UserService;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.CryptoUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
 import com.inforstack.openstack.utils.StringUtil;
@@ -172,11 +173,11 @@ public class UserController {
 		Integer userId = SecurityUtils.getUserId();
 		User user = userService.findUserById(userId);
 		
-		if(!password.equals(user.getPassword())){
+		if(!CryptoUtil.md5(password).equals(user.getPassword())){
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("user.password.lable") + 
 					OpenstackUtil.getMessage("not.valid"));
 		}
-		user.setPassword(newPassword);
+		user.setPassword(CryptoUtil.md5(newPassword));
 		
 		try {
 			userService.updateUser(user);
@@ -197,11 +198,11 @@ public class UserController {
 		
 		try {
 			userService.sendChangeMailEmail(SecurityUtils.getUserId(), mail,
-					OpenstackUtil.getHost(req)+"/user/doresetmail");
-			return OpenstackUtil.buildSuccessResponse("");
+					OpenstackUtil.getHost(req)+"/user/showresetemail");
+			return OpenstackUtil.buildSuccessResponse(OpenstackUtil.getMessage("changeemail.submit.success"));
 		} catch (RuntimeException e) {
 			log.error(e.getMessage(), e);
-			return OpenstackUtil.buildErrorResponse("");
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("changeemail.submit.failed"));
 		}
 	}
 
@@ -506,8 +507,8 @@ public class UserController {
 		return rootController.visitUser(model);
 	}
 	
-	@RequestMapping(value = "/doresetmail", method = RequestMethod.POST, produces = "application/json")
-	public @ResponseBody Map<String, Object> doResetMail(String random, String verifyCode, Model model){
+	@RequestMapping(value = "/doresetmail")
+	public String doResetMail(String random, String verifyCode, Model model){
 		User user = null;
 		try{
 			user = userService.resetMail(Constants.MAIL_CODE_RESET_EMAIL, random, verifyCode);
@@ -516,11 +517,20 @@ public class UserController {
 		}
 		
 		if(user != null){
-			return OpenstackUtil.buildSuccessResponse(
-					OpenstackUtil.getMessage("email.reset.success"));
+			model.addAttribute("message", OpenstackUtil.getMessage("email.reset.success"));
 		}else{
-			return OpenstackUtil.buildErrorResponse(
-					OpenstackUtil.getMessage("email.reset.fail"));
+			model.addAttribute("errorMessage", OpenstackUtil.getMessage("email.reset.fail"));
 		}
+		return "user/showactiveemail";
+	}
+	
+	@RequestMapping(value = "/showresetemail")
+	public String showResetEmail(String random, Model model, HttpServletRequest request) {
+		if(!StringUtil.isNullOrEmpty(random)){
+			model.addAttribute("random", random);
+		}else{
+			model.addAttribute("random", "undefined");
+		}
+		return "user/showactiveemail";
 	}
 }

@@ -282,15 +282,21 @@ public class UserVolumeController {
 	@RequestMapping(value = "/getVolumeDetail", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> getVolume(Model model, String uuid) {
-		Instance vi = instanceService.findInstanceFromUUID(uuid);
-		VolumeModel volumeModel = new VolumeModel();
-		if (vi != null) {
-			volumeModel.setId(vi.getUuid());
-			volumeModel.setStatus(vi.getStatus());
-			return JSONUtil.jsonSuccess(volumeModel);
-		} else {
-			return JSONUtil.jsonError("not found");
+		Instance vi = null;
+		try {
+			vi = instanceService.findInstanceFromUUID(uuid);
+			VolumeModel volumeModel = new VolumeModel();
+			if (vi != null) {
+				volumeModel.setId(vi.getUuid());
+				volumeModel.setStatus(vi.getStatus());
+				return JSONUtil.jsonSuccess(volumeModel);
+			} else {
+				return JSONUtil.jsonError("not found");
+			}
+		} catch (Exception e) {
+			return JSONUtil.jsonError(e.getMessage());
 		}
+		
 
 	}
 }

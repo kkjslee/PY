@@ -208,6 +208,10 @@ public class OrderServiceImpl implements OrderService {
 					+ orderId);
 			return null;
 		}
+		Date now = new Date();
+		for(SubOrder so : order.getSubOrders()){
+			so.setNextBillingDate(now);
+		}
 		billingProcessService.runBillingProcessForOrder(order.getId(), order.getAutoPay());
 		order.setStatus(Constants.ORDER_STATUS_CALLELED);
 
@@ -245,12 +249,6 @@ public class OrderServiceImpl implements OrderService {
 				+ ", billing process : " + billingProcess == null ? null
 				: billingProcess.getId());
 
-		List<OrderPeriod> ops = null;
-		if (billingProcess != null
-				&& billingProcess.getBillingProcessConfiguration() != null) {
-			ops = billingProcess.getBillingProcessConfiguration().getOrderPeriods();
-		}
-		
 		InvoiceCount ic = new InvoiceCount();
 		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus())){
 			Invoice invoice = invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
@@ -266,6 +264,12 @@ public class OrderServiceImpl implements OrderService {
 			ic.addInvoiceTotal(invoice.getAmount());
 			ic.addBalance(invoice.getBalance());
 		}else if(new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
+			List<OrderPeriod> ops = null;
+			if (billingProcess != null
+					&& billingProcess.getBillingProcessConfiguration() != null) {
+				ops = billingProcess.getBillingProcessConfiguration().getOrderPeriods();
+			}
+			
 			List<Integer> statuses = new ArrayList<Integer>();
 			statuses.add(Constants.SUBORDER_STATUS_AVAILABLE);
 			List<Integer> orderPeriods = null;
@@ -276,19 +280,26 @@ public class OrderServiceImpl implements OrderService {
 				}
 			}
 			
-			List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
-					statuses, orderPeriods);
-			for (SubOrder so : subOrders) {
-				InvoiceCount sic = subOrderService.billingProcessSubOrder(so, autoPay,
-						billingDate, billingProcess);
-				ic.addInvoiceTotal(sic.getInvoiceTotal());
-				ic.addBalance(ic.getBalance());
+			if(orderPeriods==null || orderPeriods.size()>0){
+				List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
+						statuses, orderPeriods);
+				for (SubOrder so : subOrders) {
+					InvoiceCount sic = subOrderService.billingProcessSubOrder(so, autoPay,
+							billingDate, billingProcess);
+					ic.addInvoiceTotal(sic.getInvoiceTotal());
+					ic.addBalance(ic.getBalance());
+				}
+				log.debug("Pay order successfully");
+			}else{
+				log.info("No order period is related to billing process configuration : "
+						+  billingProcess.getBillingProcessConfiguration().getId());
 			}
-			log.debug("Pay order successfully");
 		}
 		
-		order.setLastBillingTime(new Date());
-		this.checkOrderStatus(order);
+		if(ic.getInvoiceTotal().compareTo(BigDecimal.ZERO) > 0){
+			order.setLastBillingTime(new Date());
+			this.checkOrderStatus(order);
+		}
 		
 		return ic;
 	}

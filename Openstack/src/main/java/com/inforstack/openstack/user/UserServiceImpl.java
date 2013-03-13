@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
-import org.h2.util.Task;
+import org.hibernate.validator.constraints.impl.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +30,11 @@ import com.inforstack.openstack.tenant.TenantService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
 import com.inforstack.openstack.utils.CryptoUtil;
+import com.inforstack.openstack.utils.MapUtil;
 import com.inforstack.openstack.utils.NumberUtil;
 import com.inforstack.openstack.utils.OpenstackUtil;
 import com.inforstack.openstack.utils.SecurityUtils;
+import com.inforstack.openstack.utils.StringUtil;
 
 @Service("userService")
 @Transactional(rollbackFor = Exception.class)
@@ -271,7 +274,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void sendActiveUserEmail(User user, String url) {
+	public void sendActiveUserEmail(Integer userId, String url) {
+		User user = this.findUserById(userId);
+		if(user == null){
+			throw new ApplicationRuntimeException("User not found");
+		}
+		
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(Constants.MAILTEMPLATE_PROPERTY_USER, user);
 		TaskCode tc = taskCodeService.createTaskCode(Constants.MAIL_CODE_VALIDATE_USER, user.getId()+"", null);
@@ -294,6 +302,10 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		User user = this.findUserById(userId);
+		if(user == null){
+			return null;
+		}
+		
 		user.setStatus(Constants.USER_STATUS_VALID);
 		taskCodeService.removeTaskCode(tc);
 		
@@ -301,7 +313,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void sendResetPasswordEmail(User user, String url) {
+	public void sendResetPasswordEmail(Integer userId, String url) {
+		User user = this.findUserById(userId);
+		if(user == null){
+			throw new ApplicationRuntimeException("User not found");
+		}
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(Constants.MAILTEMPLATE_PROPERTY_USER, user);
 		TaskCode tc = taskCodeService.createTaskCode(Constants.MAIL_CODE_RESET_PASSWORD, user.getId()+"", null);
@@ -325,9 +341,69 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		User user = this.findUserById(userId);
+		if(user == null){
+			return null;
+		}
+		
 		user.setPassword(CryptoUtil.md5(password));
 		taskCodeService.removeTaskCode(tc);
 		
+		return user;
+	}
+	
+	@Override
+	public void sendChangeMailEmail(Integer userId, String mail, String url) {
+		Map<String, Object> properties = new HashMap<String, Object>();
+		User user = this.findUserById(userId);
+		if(user == null){
+			throw new ApplicationRuntimeException("User not found");
+		}
+		
+		String verifyCode = OpenstackUtil.random(24);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_USER, user);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_URL, verifyCode);
+		mailService.addMailTask(Constants.MAIL_CODE_RESET_EMAIL_VERIFY,
+				user.getEmail(), user.getDefaultLanguage(), properties, Constants.MAILTASK_PRIORITY_MEDIUM);
+		
+		Map<String, String> tcProp = new HashMap<String, String>();
+		tcProp.put(Constants.TASKCODE_PROPERTY_KEY_VERIFYCODE, verifyCode);
+		tcProp.put(Constants.TASKCODE_PROPERTY_KEY_MAIL, mail);
+		TaskCode tc = taskCodeService.createTaskCode(Constants.MAIL_CODE_RESET_EMAIL, user.getId()+"", tcProp);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_TASKCODE, tc);
+		properties.put(Constants.MAILTEMPLATE_PROPERTY_URL, url+"?random="+tc.getRandom());
+		mailService.addMailTask(Constants.MAIL_CODE_RESET_EMAIL,
+				mail, user.getDefaultLanguage(), properties, Constants.MAILTASK_PRIORITY_MEDIUM);
+	}
+
+	@Override
+	public User resetMail(String mailCode, String random, String verifyCode) {
+		TaskCode tc = taskCodeService.findTaskCode(mailCode, random);
+		if(tc == null){
+			return null;
+		}
+		
+		Map<String, String> props = MapUtil.buildPropMap(tc.getProperties());
+		String vc = props.get(Constants.TASKCODE_PROPERTY_KEY_VERIFYCODE);
+		if(vc == null || !vc.equals(verifyCode)){
+			return null;
+		}
+		
+		String mail = props.get(Constants.TASKCODE_PROPERTY_KEY_MAIL);
+		if(StringUtil.isNullOrEmpty(mail) || !new EmailValidator().isValid(mail, null)){
+			return null;
+		}
+		
+		Integer userId = NumberUtil.getInteger(tc.getEntityId());
+		if(userId == null){
+			return null;
+		}
+		
+		User user = this.findUserById(userId);
+		if(user == null){
+			return null;
+		}
+		
+		user.setEmail(mail);
 		return user;
 	}
 

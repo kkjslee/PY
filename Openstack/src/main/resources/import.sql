@@ -493,6 +493,10 @@ insert into mail_configuration(id, protocal, host, port, username, password) val
 
 insert into mail(id, code, sender) values (1, 'validateUser', 1);
 insert into mail(id, code, sender) values (2, 'resetPassword', 1);
+insert into mail(id, code, sender) values (3, 'resetEmail', 1);
+insert into mail(id, code, sender) values (4, 'resetEmailVerify', 1);
 
 insert into mail_template(id, language_id, type, title, body, mail_id) values(1, 2, 1, '激活', '{url}', 1);
 insert into mail_template(id, language_id, type, title, body, mail_id) values(2, 2, 2, '重置密码', '{url}', 2);
+insert into mail_template(id, language_id, type, title, body, mail_id) values(3, 2, 2, '修改邮箱', '{url}', 3);
+insert into mail_template(id, language_id, type, title, body, mail_id) values(4, 2, 2, '修改邮箱验证码', '{url}', 4);

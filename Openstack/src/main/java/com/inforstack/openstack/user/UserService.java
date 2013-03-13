@@ -115,13 +115,17 @@ public interface UserService {
 	 */
 	public boolean checkQuestion(String username, String question, String answer);
 
-	public void sendActiveUserEmail(User user, String url);
+	public void sendActiveUserEmail(Integer userId, String url);
 
 	public User active(String mailCode, String random);
 
-	public void sendResetPasswordEmail(User user, String url);
+	public void sendResetPasswordEmail(Integer userId, String url);
 
 	public User resetPassword(String mailCode, String random,
 			String password);
+
+	public User resetMail(String mailCode, String random, String verifyCode);
+
+	public void sendChangeMailEmail(Integer userId, String mail, String url);
 
 }

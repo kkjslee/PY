@@ -221,8 +221,13 @@ public class Constants {
 	
 	public static final String MAIL_CODE_VALIDATE_USER = "validateUser";
 	public static final String MAIL_CODE_RESET_PASSWORD = "resetPassword";
+	public static final String MAIL_CODE_RESET_EMAIL = "resetEmail";
+	public static final String MAIL_CODE_RESET_EMAIL_VERIFY = "resetEmailVerify";
 	
 	public static final String MAILTEMPLATE_PROPERTY_URL = "url";
 	public static final String MAILTEMPLATE_PROPERTY_TASKCODE = "taskcode";
 	public static final String MAILTEMPLATE_PROPERTY_USER = "user";
+	
+	public static final String TASKCODE_PROPERTY_KEY_VERIFYCODE = "verifyCode";
+	public static final String TASKCODE_PROPERTY_KEY_MAIL = "mail";
 }

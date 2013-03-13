@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.h2.util.StringUtils;
+import org.hibernate.validator.constraints.impl.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -187,6 +187,23 @@ public class UserController {
 			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("update.failed"));
 		}
 	}
+	
+	@RequestMapping(value = "/changemail", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> changeMail(String mail, HttpServletRequest req){
+		if(StringUtil.isNullOrEmpty(mail) || !new EmailValidator().isValid(mail, null)){
+			return OpenstackUtil.buildErrorResponse(OpenstackUtil.getMessage("email.label") + 
+					OpenstackUtil.getMessage("not.valid"));
+		}
+		
+		try {
+			userService.sendChangeMailEmail(SecurityUtils.getUserId(), mail,
+					OpenstackUtil.getHost(req)+"/user/doresetmail");
+			return OpenstackUtil.buildSuccessResponse("");
+		} catch (RuntimeException e) {
+			log.error(e.getMessage(), e);
+			return OpenstackUtil.buildErrorResponse("");
+		}
+	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
@@ -321,7 +338,7 @@ public class UserController {
 		try{
 			user = userService.findByNameAndEmail(username, email);
 			if(user != null){
-				userService.sendResetPasswordEmail(user, OpenstackUtil.getHost(request)+"/user/resetpassword");
+				userService.sendResetPasswordEmail(user.getId(), OpenstackUtil.getHost(request)+"/user/resetpassword");
 			}
 		}catch(RuntimeException	re){
 			log.error("reset password failed", re);
@@ -340,7 +357,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/resetpassword")
 	public String showResetPassword(String random, Model model, HttpServletRequest request) {
-		if(!StringUtils.isNullOrEmpty(random)){
+		if(!StringUtil.isNullOrEmpty(random)){
 			model.addAttribute("random", random);
 		}else{
 			model.addAttribute("random", "undefined");
@@ -362,7 +379,7 @@ public class UserController {
 				try{
 					user = userService.resetPassword(Constants.MAIL_CODE_RESET_PASSWORD, random, password);
 				}catch(RuntimeException re){
-					log.error("active user failed", re);
+					log.error("reset password failed", re);
 				}
 			}
 		}
@@ -439,7 +456,7 @@ public class UserController {
 		boolean success = true;
 		try {
 			userService.registerUser(user, tenant, Constants.ROLE_USER);
-			userService.sendActiveUserEmail(user, OpenstackUtil.getHost(req)+"/user/activeUser");
+			userService.sendActiveUserEmail(user.getId(), OpenstackUtil.getHost(req)+"/user/activeUser");
 		} catch (OpenstackAPIException e) {
 			success = false;
 			if (e.getCode() == 409) {
@@ -487,5 +504,23 @@ public class UserController {
 		}
 		
 		return rootController.visitUser(model);
+	}
+	
+	@RequestMapping(value = "/doresetmail", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Map<String, Object> doResetMail(String random, String verifyCode, Model model){
+		User user = null;
+		try{
+			user = userService.resetMail(Constants.MAIL_CODE_RESET_EMAIL, random, verifyCode);
+		}catch(RuntimeException re){
+			log.error("reset email failed", re);
+		}
+		
+		if(user != null){
+			return OpenstackUtil.buildSuccessResponse(
+					OpenstackUtil.getMessage("email.reset.success"));
+		}else{
+			return OpenstackUtil.buildErrorResponse(
+					OpenstackUtil.getMessage("email.reset.fail"));
+		}
 	}
 }

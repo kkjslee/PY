@@ -27,5 +27,7 @@ public interface ServerService {
 	public void updateServerStatus(String uuid, String status, String task);
 	
 	public void updateServerAddress(String uuid, Server server);
+	
+	public void updateServerFlavor(String uuid, String flavorId);
 
 }

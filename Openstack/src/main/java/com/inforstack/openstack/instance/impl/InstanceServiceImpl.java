@@ -142,21 +142,23 @@ public class InstanceServiceImpl implements InstanceService {
 	public Map<String, Float> getUsagePrice(String uuid) {
 		HashMap<String, Float> prices = new HashMap<String, Float>();
 		Instance instance = this.instanceDao.findByObject("uuid", uuid);
-		List<SubOrder> subOrders = instance.getSubOrders();
-		for (SubOrder subOrder : subOrders) {
-			if (subOrder.getItem().getProfile() != null) {
-				Profile profile = subOrder.getItem().getProfile();
-				if (profile.getCpu() != null) {
-					prices.put(Constants.USAGE_CPU, profile.getCpu().getDefaultPrice());
-				}
-				if (profile.getMemory() != null) {
-					prices.put(Constants.USAGE_MEMORY, profile.getMemory().getDefaultPrice());
-				}
-				if (profile.getDisk() != null) {
-					prices.put(Constants.USAGE_DISK, profile.getDisk().getDefaultPrice());
-				}
-				if (profile.getNetwork() != null) {
-					prices.put(Constants.USAGE_NETWORK, profile.getNetwork().getDefaultPrice());
+		if (instance.getType() == Constants.INSTANCE_TYPE_VM) {
+			List<SubOrder> subOrders = instance.getSubOrders();
+			for (SubOrder subOrder : subOrders) {
+				if (subOrder.getItem().getProfile() != null) {
+					Profile profile = subOrder.getItem().getProfile();
+					if (profile.getCpu() != null) {
+						prices.put(Constants.USAGE_CPU, profile.getCpu().getDefaultPrice());
+					}
+					if (profile.getMemory() != null) {
+						prices.put(Constants.USAGE_MEMORY, profile.getMemory().getDefaultPrice());
+					}
+					if (profile.getDisk() != null) {
+						prices.put(Constants.USAGE_DISK, profile.getDisk().getDefaultPrice());
+					}
+					if (profile.getNetwork() != null) {
+						prices.put(Constants.USAGE_NETWORK, profile.getNetwork().getDefaultPrice());
+					}
 				}
 			}
 		}

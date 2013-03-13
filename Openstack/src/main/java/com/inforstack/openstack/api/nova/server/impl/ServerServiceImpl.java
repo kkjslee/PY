@@ -362,7 +362,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
-	public void resizeServer(final Access access, final String uuid, String flavorId) throws OpenstackAPIException {
+	public void resizeServer(final Access access, final String uuid, final String flavorId) throws OpenstackAPIException {
 		if (access != null && uuid != null && !uuid.trim().isEmpty() && flavorId != null && !flavorId.trim().isEmpty()) {
 			Server server = this.getServer(access, uuid, false);
 			if (server != null && !server.getFlavor().getId().equalsIgnoreCase(flavorId)) {
@@ -394,6 +394,7 @@ public class ServerServiceImpl implements ServerService {
 													RestUtils.postForLocation(url, access, new ConfirmResizeServer(), uuid);
 													confirmed = true;
 												} else if ((task == null || task.equalsIgnoreCase("none")) && status.equalsIgnoreCase("active")) {
+													self.updateServerFlavor(uuid, flavorId);
 													break;
 												}
 											} else {
@@ -448,6 +449,13 @@ public class ServerServiceImpl implements ServerService {
 				}
 			}
 		}
+		this.vmDao.persist(vm);		
+	}
+	
+	@Override
+	public void updateServerFlavor(String uuid, String flavorId) {
+		VirtualMachine vm = this.vmDao.findByObject("uuid", uuid);
+		vm.setFlavor(flavorId);
 		this.vmDao.persist(vm);		
 	}
 	

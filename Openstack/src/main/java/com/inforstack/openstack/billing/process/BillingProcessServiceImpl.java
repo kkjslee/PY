@@ -219,7 +219,8 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		BillingProcess bp = bpr.getBillingProcess();
 		
 		try{
-			bpr = this.processOrder(orderId, autoPay, bpr.getId());
+			BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
+			bpr = self.processOrder(orderId, autoPay, bpr.getId());
 			bp.setEndTime(new Date());
 			bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
 			log.debug("Running billing process finished");

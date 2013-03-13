@@ -268,8 +268,11 @@ public class OrderServiceImpl implements OrderService {
 
 		InvoiceCount ic = new InvoiceCount();
 		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus())){
-			Invoice invoice = invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
-			order.setInvoice(invoice);
+			Invoice invoice = order.getInvoice();
+			if(invoice == null){
+				invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
+				order.setInvoice(invoice);
+			}
 			
 			boolean doPay = order.getAutoPay();
 			if(autoPay != null){

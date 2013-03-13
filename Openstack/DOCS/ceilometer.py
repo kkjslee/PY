@@ -229,7 +229,7 @@ class UploaderThread(threading.Thread):
                     continue
                 l_data = self._last(data.instance_uuid, session)
                 increment = self._calcIncrement(data, l_data)
-                increment["logTime"] = data.log_time
+                
                 result = uploader.sendData(json.dumps(increment))
                 if result :
                     data.deleted = True
@@ -305,6 +305,19 @@ class UploaderThread(threading.Thread):
                     interfaceInfo['outgoingErrors'] = interfaceInfo['outgoingErrors'] - l_interfaceInfo.outgoing_errors
                     interfaceInfo['outgoingDrop'] = interfaceInfo['outgoingDrop'] - l_interfaceInfo.outgoing_drop
 
+        increment['diskReadBytes'] = 0
+        increment['diskWriteBytes'] = 0
+        for diskInfo in increment['diskUsages']:
+            increment['diskReadBytes'] += diskInfo['readBytes']
+            increment['diskWriteBytes'] += diskInfo['writeBytes']
+
+        increment['interfaceReadBytes'] = 0
+        increment['interfaceWriteBytes'] = 0
+        for interfaceInfo in increment['interfaceUsages']:
+            increment['interfaceReadBytes'] += interfaceInfo['incomingBytes']
+            increment['interfaceWriteBytes'] += interfaceInfo['outgoingBytes']
+                
+        increment["logTime"] = data.log_time
         return increment
 
     def _buildIncrement(self, data):

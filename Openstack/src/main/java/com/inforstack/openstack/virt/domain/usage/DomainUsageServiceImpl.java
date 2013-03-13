@@ -1,5 +1,7 @@
 package com.inforstack.openstack.virt.domain.usage;
 
+import java.util.Date;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,11 @@ public class DomainUsageServiceImpl implements DomainUsageService {
 		
 		log.debug("No instance exists");
 		return false;
+	}
+
+	@Override
+	public DomainUsage sumUsage(String uuid, Date start, Date end) {
+		return domainUsageDao.sum(uuid, start, end);
 	}
 
 }

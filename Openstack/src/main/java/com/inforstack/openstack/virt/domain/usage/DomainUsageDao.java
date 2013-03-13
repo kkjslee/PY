@@ -8,4 +8,6 @@ public interface DomainUsageDao extends BasicDao<DomainUsage>{
 
 	DomainUsage find(Integer instanceId, String instanceUuid, Date logTime);
 
+	DomainUsage sum(String uuid, Date start, Date end);
+
 }

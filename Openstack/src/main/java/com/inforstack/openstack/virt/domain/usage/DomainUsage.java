@@ -48,6 +48,18 @@ public class DomainUsage {
 	@Column(name="cpu_time")
 	private Long cpuTime;
 	
+	@Column(name="disk_read_bytes")
+	private Long diskReadBytes;
+	
+	@Column(name="disk_write_bytes")
+	private Long diskWriteBytes;
+	
+	@Column(name="interface_read_bytes")
+	private Long interfaceReadBytes;
+	
+	@Column(name="interface_write_bytes")
+	private Long interfaceWriteBytes;
+	
 	@Column(name="log_time")
 	private Date logTime;
 	
@@ -129,6 +141,38 @@ public class DomainUsage {
 
 	public void setCpuTime(Long cpuTime) {
 		this.cpuTime = cpuTime;
+	}
+	
+	public Long getDiskReadBytes() {
+		return diskReadBytes;
+	}
+
+	public void setDiskReadBytes(Long diskReadBytes) {
+		this.diskReadBytes = diskReadBytes;
+	}
+
+	public Long getDiskWriteBytes() {
+		return diskWriteBytes;
+	}
+
+	public void setDiskWriteBytes(Long diskWriteBytes) {
+		this.diskWriteBytes = diskWriteBytes;
+	}
+
+	public Long getInterfaceReadBytes() {
+		return interfaceReadBytes;
+	}
+
+	public void setInterfaceReadBytes(Long interfaceReadBytes) {
+		this.interfaceReadBytes = interfaceReadBytes;
+	}
+
+	public Long getInterfaceWriteBytes() {
+		return interfaceWriteBytes;
+	}
+
+	public void setInterfaceWriteBytes(Long interfaceWriteBytes) {
+		this.interfaceWriteBytes = interfaceWriteBytes;
 	}
 
 	public List<DiskUsage> getDiskUsages() {

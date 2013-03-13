@@ -1,10 +1,14 @@
 package com.inforstack.openstack.order.sub;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,7 @@ import com.inforstack.openstack.billing.invoice.Invoice;
 import com.inforstack.openstack.billing.invoice.InvoiceCount;
 import com.inforstack.openstack.billing.invoice.InvoiceService;
 import com.inforstack.openstack.billing.process.BillingProcess;
+import com.inforstack.openstack.instance.InstanceService;
 import com.inforstack.openstack.item.ItemService;
 import com.inforstack.openstack.item.ItemSpecification;
 import com.inforstack.openstack.log.Logger;
@@ -24,6 +29,9 @@ import com.inforstack.openstack.order.period.OrderPeriodService;
 import com.inforstack.openstack.payment.PaymentService;
 import com.inforstack.openstack.utils.CollectionUtil;
 import com.inforstack.openstack.utils.Constants;
+import com.inforstack.openstack.utils.NumberUtil;
+import com.inforstack.openstack.virt.domain.usage.DomainUsage;
+import com.inforstack.openstack.virt.domain.usage.DomainUsageService;
 
 @Service("subOrderService")
 @Transactional
@@ -42,6 +50,10 @@ public class SubOrderServiceImpl implements SubOrderService {
 	private InvoiceService invoiceService;
 	@Autowired
 	private PaymentService paymentService;
+	@Autowired
+	private InstanceService instanceService;
+	@Autowired
+	private DomainUsageService domainUsageService;
 	
 	@Override
 	public SubOrder createSubOrder(int itemId, int orderId,
@@ -139,11 +151,12 @@ public class SubOrderServiceImpl implements SubOrderService {
 				nextBillingDate = calendar.getTime();
 				
 				calendar.add(Calendar.SECOND, -1);
-				period.setPeriodEnd(calendar.getTime());
-				period.setEnd(calendar.getTime());
-				if(endLimit != null && endLimit.before(period.getEnd())){
-					period.setEnd(endLimit);
+				Date periodEnd = calendar.getTime();
+				period.setPeriodEnd(periodEnd);
+				if(endLimit != null && endLimit.before(periodEnd)){
+					periodEnd = endLimit;
 				}
+				period.setEnd(periodEnd);
 				
 				periodLst.add(period);
 			} while (billingDate.after(nextBillingDate));
@@ -155,11 +168,12 @@ public class SubOrderServiceImpl implements SubOrderService {
 				
 				calendar.setTime(nextBillingDate);
 				calendar.add(Calendar.SECOND, -1);
-				period.setPeriodEnd(calendar.getTime());
-				period.setEnd(calendar.getTime());
-				if(endLimit != null && endLimit.before(period.getEnd())){
-					period.setEnd(endLimit);
+				Date periodEnd = calendar.getTime();
+				period.setPeriodEnd(periodEnd);
+				if(endLimit != null && endLimit.before(periodEnd)){
+					periodEnd = endLimit;
 				}
+				period.setEnd(periodEnd);
 				
 				calendar.setTime(nextBillingDate);
 				calendar.add(pType, pQquantity);
@@ -217,9 +231,36 @@ public class SubOrderServiceImpl implements SubOrderService {
 
 	@Override
 	public BigDecimal getPrice(SubOrder subOrder, Period period) {
-		BigDecimal price = null;
+		BigDecimal price = BigDecimal.ZERO;
 		if(subOrder.getOrderPeriod().getPayAsYouGo()){
-			
+			Map<String, Float> priceMap = new HashMap<String, Float>();
+			if(subOrder.getUuid() != null){
+				priceMap = instanceService.getUsagePrice(subOrder.getUuid());
+			}
+			DomainUsage usage = domainUsageService.sumUsage(subOrder.getUuid(), period.getStart(), period.getEnd());
+			for(String item : priceMap.keySet()){
+				if(Constants.USAGE_CPU.equals(item)){
+					price = price.add(
+							new BigDecimal(priceMap.get(item)).multiply(
+									new BigDecimal(usage.getCpuTime())));
+				}else if(Constants.USAGE_DISK.equals(item)){
+					price = price.add(
+							new BigDecimal(priceMap.get(item)).multiply(
+									new BigDecimal(
+											usage.getDiskReadBytes() +
+											usage.getDiskWriteBytes())));
+				}else if(Constants.USAGE_MEMORY.equals(item)){
+					price = price.add(
+							new BigDecimal(priceMap.get(item)).multiply(
+									new BigDecimal(usage.getMemoryUsed())));
+				}else if(Constants.USAGE_NETWORK.equals(item)){
+					price = price.add(
+							new BigDecimal(priceMap.get(item)).multiply(
+									new BigDecimal(
+											usage.getInterfaceReadBytes() + 
+											usage.getInterfaceWriteBytes())));
+				}
+			}
 		}else{
 			price =  subOrder.getPrice();
 			if(period.wholePeriod() == false){
@@ -227,6 +268,7 @@ public class SubOrderServiceImpl implements SubOrderService {
 			}
 		}
 		
+		price.round(new MathContext(2));
 		return price;
 	}
 

@@ -223,6 +223,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 			bpr = this.processOrder(orderId, autoPay, bpr.getId());
 			bp.setEndTime(new Date());
 			bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
+			billingProcessDao.flush();
 			log.debug("Running billing process finished");
 			return bpr;
 		}catch(RuntimeException re){

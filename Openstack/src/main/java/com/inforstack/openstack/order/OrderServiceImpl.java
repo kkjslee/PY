@@ -270,7 +270,7 @@ public class OrderServiceImpl implements OrderService {
 		if(new Integer(Constants.ORDER_STATUS_NEW).equals(order.getStatus())){
 			Invoice invoice = order.getInvoice();
 			if(invoice == null){
-				invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
+				invoice = invoiceService.createInvoice(billingDate, billingDate, order.getAmount(), order.getTenant(), null, order, billingProcess);
 				order.setInvoice(invoice);
 			}
 			
@@ -382,7 +382,6 @@ public class OrderServiceImpl implements OrderService {
 			throw new ApplicationRuntimeException("Order not found");
 		}
 		BillingProcessResult bpr = billingProcessService.runBillingProcessForOrder(orderId, false);
-		orderDao.refresh(order);
 		Payment payment = paymentService.createPayment(
 				order.getSequence(), bpr.getUnPaidTotal().negate(),
 				Constants.PAYMENT_TYPE_AUTHORISATION, order.getTenant().getId(), null);

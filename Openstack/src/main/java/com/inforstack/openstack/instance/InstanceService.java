@@ -22,6 +22,8 @@ public interface InstanceService {
 	
 	public Instance findInstanceFromUUID(String uuid);
 	
+	public Instance findSubInstanceFromUUID(String uuid, int type);
+	
 	public List<VirtualMachine> findVirtualMachineFromTenant(Tenant tenant, String includeStatus, String excludeStatus);
 	
 	public VirtualMachine findVirtualMachineFromUUID(String uuid);

@@ -225,9 +225,19 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public Instance findInstanceFromUUID(String uuid) {
 		Instance instance = this.instanceDao.findByObject("uuid", uuid);
+		return instance;
+	}
+	
+	@Override
+	public Instance findSubInstanceFromUUID(String uuid, int type) {
+		Instance instance = this.instanceDao.findByObject("uuid", uuid);
 		List<Instance> subInstances = instance.getSubInstance();
+		instance = null;
 		for (Instance subInstance : subInstances) {
-			subInstance.getId();
+			if (subInstance.getType() == type) {
+				instance = subInstance;
+				break;
+			}
 		}
 		return instance;
 	}

@@ -269,22 +269,16 @@ public class UserInstanceController {
 				im.setAssignedto(username);
 				im.setAccesspoint("");
 				
-				List<Instance> subInstances = instance.getSubInstance();
-				if (subInstances.size() > 0) {
-					for (Instance subInstance : subInstances) {
-						switch (subInstance.getType()) {
-							case Constants.INSTANCE_TYPE_VOLUME: {
-								AttachmentModel am = new AttachmentModel();
-								am.setId(subInstance.getUuid());
-								am.setVolume(subInstance.getName());
-								im.setAttachmentModel(am);
-								break;
-							}
-							case Constants.INSTANCE_TYPE_IP: {
-								break;
-							}
-						}
-					}
+				Instance volInstance = this.instanceService.findSubInstanceFromUUID(vmId, Constants.INSTANCE_TYPE_VOLUME);
+				if (volInstance != null) {
+					AttachmentModel am = new AttachmentModel();
+					am.setId(volInstance.getUuid());
+					am.setVolume(volInstance.getName());
+					im.setAttachmentModel(am);
+				}
+				
+				Instance ipInstance = this.instanceService.findSubInstanceFromUUID(vmId, Constants.INSTANCE_TYPE_IP);
+				if (ipInstance != null) {					
 				}
 				
 				try {
@@ -313,12 +307,10 @@ public class UserInstanceController {
 				}
 			} catch (OpenstackAPIException e) {
 				System.out.println(e.getMessage());
-				if (e.getMessage().contains("404")
-						|| e.getMessage().contains("Can not fetch data")) {
+				if (e.getMessage().contains("404") || e.getMessage().contains("Can not fetch data")) {
 					log.error(e.getMessage());
 					im.setStatus("deleted");
-					im.setStatusdisplay(OpenstackUtil
-							.getMessage("deleted.status.vm"));
+					im.setStatusdisplay(OpenstackUtil.getMessage("deleted.status.vm"));
 				} else {
 					log.error(e.getMessage(), e);
 				}
@@ -413,9 +405,19 @@ public class UserInstanceController {
 			instanceList = this.instanceService.findInstanceFromTenant(tenant, Constants.INSTANCE_TYPE_VM, include, exclude);
 			ArrayList<Object> instanceModelList = new ArrayList<Object>();
 			for (Instance instance : instanceList) {
+				String vmId = instance.getUuid();
 				HashMap<String, String> instanceModel = new HashMap<String, String>();
-				instanceModel.put("uuid", instance.getUuid());
+				instanceModel.put("uuid", vmId);
 				instanceModel.put("name", instance.getName());
+				
+				Instance volInstance = this.instanceService.findSubInstanceFromUUID(vmId, Constants.INSTANCE_TYPE_VOLUME);
+				if (volInstance != null) {
+					instanceModel.put("vol", volInstance.getUuid());
+				}				
+				Instance ipInstance = this.instanceService.findSubInstanceFromUUID(vmId, Constants.INSTANCE_TYPE_IP);
+				if (ipInstance != null) {
+					instanceModel.put("ip", ipInstance.getUuid());
+				}
 				instanceModelList.add(instanceModel);
 			}
 			return JSONUtil.jsonSuccess(instanceModelList);

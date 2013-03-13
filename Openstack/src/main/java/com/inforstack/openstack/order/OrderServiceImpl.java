@@ -233,10 +233,27 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public CursorResult<Order> findAll(Integer tenantId, Integer status) {
+	public CursorResult<Integer> findAll(Integer tenantId, Integer status) {
+		return this.findAll(tenantId, null, status);
+	}
+	
+	@Override
+	public CursorResult<Integer> findAll(Integer tenantId, Date billingDate,
+			Integer status) {
 		log.debug("Find all orders by tenant : " + tenantId + ", status : "
 				+ status);
-		CursorResult<Order> results = orderDao.find(tenantId, status);
+		CursorResult<Integer> results = orderDao.find(tenantId, billingDate, status);
+		log.debug("Find successfully");
+		return results;
+	}
+
+	
+	@Override
+	public CursorResult<Integer> findAll(
+			List<Integer> orderPeriods, Date billingDate, Integer status) {
+		log.debug("Find all orders by tenant : " + CollectionUtil.toString(orderPeriods) 
+				+ ", status : " + status);
+		CursorResult<Integer> results = orderDao.find(orderPeriods, billingDate, status);
 		log.debug("Find successfully");
 		return results;
 	}
@@ -264,36 +281,18 @@ public class OrderServiceImpl implements OrderService {
 			ic.addInvoiceTotal(invoice.getAmount());
 			ic.addBalance(invoice.getBalance());
 		}else if(new Integer(Constants.ORDER_STATUS_ACTIVE).equals(order.getStatus())){
-			List<OrderPeriod> ops = null;
-			if (billingProcess != null
-					&& billingProcess.getBillingProcessConfiguration() != null) {
-				ops = billingProcess.getBillingProcessConfiguration().getOrderPeriods();
-			}
-			
 			List<Integer> statuses = new ArrayList<Integer>();
 			statuses.add(Constants.SUBORDER_STATUS_AVAILABLE);
-			List<Integer> orderPeriods = null;
-			if(ops != null){
-				orderPeriods = new ArrayList<Integer>();
-				for(OrderPeriod op : ops){
-					orderPeriods.add(op.getId());
-				}
-			}
 			
-			if(orderPeriods==null || orderPeriods.size()>0){
-				List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
-						statuses, orderPeriods);
-				for (SubOrder so : subOrders) {
-					InvoiceCount sic = subOrderService.billingProcessSubOrder(so, autoPay,
-							billingDate, billingProcess);
-					ic.addInvoiceTotal(sic.getInvoiceTotal());
-					ic.addBalance(ic.getBalance());
-				}
-				log.debug("Pay order successfully");
-			}else{
-				log.info("No order period is related to billing process configuration : "
-						+  billingProcess.getBillingProcessConfiguration().getId());
+			List<SubOrder> subOrders = subOrderService.findSubOrders(order.getId(),
+					statuses, null);
+			for (SubOrder so : subOrders) {
+				InvoiceCount sic = subOrderService.billingProcessSubOrder(so, autoPay,
+						billingDate, billingProcess);
+				ic.addInvoiceTotal(sic.getInvoiceTotal());
+				ic.addBalance(ic.getBalance());
 			}
+			log.debug("Pay order successfully");
 		}
 		
 		if(ic.getInvoiceTotal().compareTo(BigDecimal.ZERO) > 0){

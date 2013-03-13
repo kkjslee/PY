@@ -61,6 +61,7 @@ public class Constants {
 	public static final Integer BILLINGPROCESS_STATUS_SUCCESS = 3;
 	public static final Integer BILLINGPROCESS_STATUS_PART_SUCCESS = 5;
 	public static final Integer BILLINGPROCESS_STATUS_FAILED = 7;
+	public static final Integer BILLINGPROCESS_STATUS_ERROR = 9;
 
 	public static final Integer TENANT_AGEING_ACTIVE = 1;
 	public static final Integer TENANT_AGEING_DELETED = 2;

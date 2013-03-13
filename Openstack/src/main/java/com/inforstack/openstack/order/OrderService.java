@@ -2,6 +2,7 @@ package com.inforstack.openstack.order;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.inforstack.openstack.basic.BasicDaoImpl.CursorResult;
@@ -55,7 +56,13 @@ public interface OrderService {
 	 * @param status
 	 * @return
 	 */
-	public CursorResult<Order> findAll(Integer tenantId, Integer status);
+	public CursorResult<Integer> findAll(Integer tenantId, Integer status);
+	
+	public CursorResult<Integer> findAll(Integer tenantId, Date billingDate,
+			Integer status);
+
+	public CursorResult<Integer> findAll(List<Integer> orderPeriods,
+			Date billingDate, Integer status);
 	
 	/**
 	 * 
@@ -75,5 +82,5 @@ public interface OrderService {
 	public Order findOrderBySequence(String subject);
 
 	public boolean fullPayment(int orderId, int paymentId);
-	
+
 }

@@ -13,6 +13,14 @@ public class CollectionUtil {
 		}
 		return false;
 	}
+	
+	public static String toString(Collection<? extends Object> collection){
+		if(collection == null){
+			return "";
+		}else{
+			return collection.toString();
+		}
+	}
 
 	public static Map<String, String> collectionToMap(
 			List<? extends Object> props, String key, String value) {

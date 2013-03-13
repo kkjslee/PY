@@ -185,10 +185,12 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		CursorResult<Order> orders = this.orderService.findAll(tenant.getId(), null);
+		CursorResult<Integer> orders = this.orderService.findAll(tenant.getId(), null);
 		
 		while(orders.hasNext()){
-			Order order = orders.getNext();
+			Order order = orderService.findOrderById(orders.getNext());
+			if(order == null) continue;
+			
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				List<Instance> instances = this.instanceDao.listInstancesBySubOrder(subOrder.getId(), 0, includeStatus, excludeStatus);
@@ -203,10 +205,12 @@ public class InstanceServiceImpl implements InstanceService {
 	@Override
 	public List<Instance> findInstanceFromTenant(Tenant tenant, int type, String includeStatus, String excludeStatus) {
 		List<Instance> instanceList = new ArrayList<Instance>();
-		CursorResult<Order> orders = this.orderService.findAll(tenant.getId(), null);
+		CursorResult<Integer> orders = this.orderService.findAll(tenant.getId(), null);
 		
 		while (orders.hasNext()) {
-			Order order = orders.getNext();
+			Order order = orderService.findOrderById(orders.getNext());
+			if(order == null) continue;
+			
 			List<SubOrder> subOrders = order.getSubOrders();
 			for (SubOrder subOrder : subOrders) {
 				Instance instance = subOrder.getInstance();

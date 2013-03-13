@@ -257,6 +257,15 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 		}
 	}
 	
+	@Override
+	public final void flush(){
+		try{
+			em.flush();
+		}catch(RuntimeException re){
+			log.error(re.getMessage(), re);
+		}
+	}
+	
 	public static class CursorResult<K>{
 		private ScrollableResults results;
 		private Session session;

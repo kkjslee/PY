@@ -153,7 +153,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 						if(conf != null){
 							confId = conf.getId();
 						}
-						bpr = this.createBillingProcessResult(confId);
+						bpr = self.createBillingProcessResult(confId);
 						bp = bpr.getBillingProcess();
 					}
 					
@@ -217,10 +217,10 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 		log.debug("Running billing process for order : " + orderId);
 		BillingProcessResult bpr = this.createBillingProcessResult(null);
 		BillingProcess bp = bpr.getBillingProcess();
+		billingProcessDao.flush();
 		
 		try{
-			BillingProcessService self = (BillingProcessService)OpenstackUtil.getBean("billingProcessService");
-			bpr = self.processOrder(orderId, autoPay, bpr.getId());
+			bpr = this.processOrder(orderId, autoPay, bpr.getId());
 			bp.setEndTime(new Date());
 			bp.setStatus(Constants.BILLINGPROCESS_STATUS_SUCCESS);
 			log.debug("Running billing process finished");
@@ -234,6 +234,7 @@ public class BillingProcessServiceImpl implements BillingProcessService {
 	
 	
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public BillingProcessResult createBillingProcessResult(Integer billingProcessConfId){
 		BillingProcessConfiguration conf = null;
 		

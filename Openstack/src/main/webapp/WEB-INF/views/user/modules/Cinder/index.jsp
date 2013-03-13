@@ -38,7 +38,7 @@
     function showDetachorAttachVolume(command,openDesc, volumeId, serverId,which){
     	jConfirm("<spring:message code='volume.detachorattch.tip'/>".sprintf(openDesc),function(){
     		if(command == "remove"){
-    			ctrlVolume(command,ipId, serverId, which);
+    			ctrlVolume(command,volumeId, serverId, which);
                 return;
            }
     		if(!isNull(serverId)){
@@ -166,6 +166,7 @@
             var statusV = $(this).find("input[name='statusV']").val();
             if(statusV == "in-use"){
                 $(this).find("li[name='attach']").hide();
+                $(this).find("li[name='remove']").hide();
             }else if(statusV == "available"){
                 $(this).find("li[name='detach']").hide();
             }else{
@@ -185,7 +186,7 @@
          var hasTask = false;
          $(".dataTable").find("tr").each(function(){
         	 if($(this).find("input[name='statusV']").val() == "detaching" || $(this).find("input[name='statusV']").val() == "attaching"
-        			 || $(this).find("input[name='statusV']").val() == "pending"){
+        			 || $(this).find("input[name='statusV']").val() == "pending" || $(this).find("input[name='statusV']").val() == "deleting"){
         		 hasTask = true;
                  var targetId = $(this).find("input[name='id']").val();
                  getTaskStatus($(this), targetId);
@@ -228,15 +229,20 @@
         	if(status == "in-use"){
                 $(row).find("li[name='attach']").hide();
                 $(row).find("li[name='detach']").show();
+                $(this).find("li[name='remove']").hide();
             }else if(status == "available"){
                 $(row).find("li[name='detach']").hide();
-                (row).find("li[name='attach']").show();
+                $(row).find("li[name='attach']").show();
+            }else if(status == "deleted"){
+                $(row).find("li[name='detach']").hide();
+                $(row).find("li[name='attach']").hide();
+                $(row).find("li[name='remove']").hide();
             }else{
                 $(row).find("li[name='attach']").hide();
                 $(row).find("li[name='detach']").hide();
             }
         	 $(row).find("input[name='statusV']").val(status);
-        	 $(row).find("span[name='status']").html(statusDisplay);
+        	 $(row).find("span[name='status']").text(statusDisplay);
         }
     }
     </script>

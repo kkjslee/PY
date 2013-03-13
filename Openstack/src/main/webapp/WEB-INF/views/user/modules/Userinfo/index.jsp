@@ -129,10 +129,10 @@
         var pd=showProcessingDialog();
         $.ajax({
             type: "POST",
-            url: '<c:url value="/user/changeEmail"/>',
+            url: '<c:url value="/user/changemail"/>',
             cache: false,
             data: {
-                
+              mail:email  
             },
             success: function(data) {
                 pd.dialog("destroy");

@@ -165,6 +165,7 @@
             var statusV = $(this).find("input[name='statusV']").val();
             if(statusV == "in-use"){
                 $(this).find("li[name='associate']").hide();
+                $(this).find("li[name='remove']").hide();
             }else if(statusV == "available"){
                 $(this).find("li[name='disassociate']").hide();
             }else{
@@ -184,7 +185,7 @@
          var hasTask = false;
          $(".dataTable").find("tr").each(function(){
              if($(this).find("input[name='statusV']").val() == "associating" || $(this).find("input[name='statusV']").val() == "pending"
-            		 || $(this).find("input[name='statusV']").val() == "disassociating"){
+            		 || $(this).find("input[name='statusV']").val() == "disassociating" || $(this).find("input[name='statusV']").val() == "deleting"){
                  hasTask = true;
                  var targetId = $(this).find("input[name='id']").val();
                  getTaskStatus($(this), targetId);
@@ -227,15 +228,20 @@
             if(status == "in-use"){
                 $(row).find("li[name='associate']").hide();
                 $(row).find("li[name='disassociate']").show();
+                $(this).find("li[name='remove']").hide();
             }else if(status == "available"){
             	$(row).find("li[name='associate']").show();
                 $(row).find("li[name='disassociate']").hide();
+            }else if(status == "deleted"){
+                $(row).find("li[name='associate']").hide();
+                $(row).find("li[name='disassociate']").hide();
+                $(row).find("li[name='remove']").hide();
             }else{
                 $(row).find("li[name='associate']").hide();
                 $(row).find("li[name='disassociate']").hide();
             }
              $(row).find("input[name='statusV']").val(status);
-             $(row).find("span[name='status']").html(statusDisplay);
+             $(row).find("span[name='status']").text(statusDisplay);
         }
     }
     </script>

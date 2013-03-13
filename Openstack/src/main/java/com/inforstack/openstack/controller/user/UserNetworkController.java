@@ -126,7 +126,7 @@ public class UserNetworkController {
 				+ "','{id}','{vmId}',this)");
 		conf.put("remove.onclick", "showAssociateOrDe('remove','"
 				+ OpenstackUtil.getMessage("remove.label")
-				+ "','{id}','{vm}',this)");
+				+ "','{id}','',this)");
 		conf.put(".datas", ipList);
 
 		model.addAttribute("configuration", conf);
@@ -146,8 +146,10 @@ public class UserNetworkController {
 
 	@RequestMapping(value = "/ipcontrol", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody Map<String, Object> controlIP(Model model, String executecommand, String ipId, String serverId) {
-		if (StringUtil.isNullOrEmpty(serverId)) {
-			return JSONUtil.jsonError("server is null");
+		if(!executecommand.equalsIgnoreCase("remove")){
+			if (StringUtil.isNullOrEmpty(serverId)) {
+				return JSONUtil.jsonError("server is null");
+			}
 		}
 		try {
 			if (!StringUtil.isNullOrEmpty(executecommand) && !StringUtils.isNullOrEmpty(ipId)) {
@@ -162,6 +164,7 @@ public class UserNetworkController {
 				}
 			}
 		} catch (RuntimeException e) {
+			log.error(e.getMessage(), e);
 			return JSONUtil.jsonError(e.getMessage());
 		}
 

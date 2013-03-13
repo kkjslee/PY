@@ -389,7 +389,7 @@ public class UserInstanceController {
 	@RequestMapping(value = "/getInstancesWidthStatus", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody
 	Map<String, Object> getInstancesWidthStatus(Model model,
-			String includeStatus, String excludeStatus,
+			String includeStatus, String excludeStatus,Boolean hasIp, Boolean hasVol,
 			HttpServletRequest request, HttpServletResponse response) {
 		Tenant tenant = SecurityUtils.getTenant();
 		String include = null;
@@ -411,10 +411,21 @@ public class UserInstanceController {
 				instanceModel.put("name", instance.getName());
 				
 				Instance volInstance = this.instanceService.findSubInstanceFromUUID(vmId, Constants.INSTANCE_TYPE_VOLUME);
+				if(hasVol!=null && !hasVol){
+					if (volInstance != null) {
+						continue;
+					}
+				}
+				
 				if (volInstance != null) {
 					instanceModel.put("vol", volInstance.getUuid());
-				}				
+				}
 				Instance ipInstance = this.instanceService.findSubInstanceFromUUID(vmId, Constants.INSTANCE_TYPE_IP);
+				if(hasIp!=null && !hasIp){
+					if (ipInstance != null) {
+						continue;
+					}
+				}
 				if (ipInstance != null) {
 					instanceModel.put("ip", ipInstance.getUuid());
 				}
@@ -433,11 +444,9 @@ public class UserInstanceController {
 	Map<String, Object> updateInstanceName(Model model, InstanceModel vmModel,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		Map<String, Object> ret = new HashMap<String, Object>();
 		String errorMsg = ValidateUtil.validModel(validator, "admin", vmModel);
 		if (errorMsg != null) {
-			ret.put(Constants.JSON_ERROR_STATUS, errorMsg);
-			return ret;
+			return JSONUtil.jsonError(vmModel.getVmname() != null?vmModel.getVmname() : "",errorMsg);
 		}
 		
 		Instance instance = this.instanceService.findInstanceFromUUID(vmModel.getVmid());
@@ -446,7 +455,7 @@ public class UserInstanceController {
 			instanceService.updateVM(SecurityUtils.getUser(), tenant, vmModel.getVmid(), vmModel.getVmname());
 			return JSONUtil.jsonSuccess(null, OpenstackUtil.getMessage("operation.success"));
 		}else{
-			return JSONUtil.jsonError("not found");
+			return JSONUtil.jsonError(vmModel.getVmname(),"not found");
 		}
 		
 	}

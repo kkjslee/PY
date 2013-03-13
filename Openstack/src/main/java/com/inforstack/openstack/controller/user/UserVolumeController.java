@@ -210,13 +210,16 @@ public class UserVolumeController {
 		conf.put("grid.zone", "[plain]");
 		conf.put("zone.value", "{zone} ");
 		conf.put("attachTo.value", "{attachment.server} ");
-		conf.put("grid.operation", "[button]attach,detach");
+		conf.put("grid.operation", "[button]attach,detach,remove");
 		conf.put("attach.onclick", "showDetachorAttachVolume('attach','"
 				+ OpenstackUtil.getMessage("attach.label")
 				+ "','{id}','{attachment.id}', this)");
 		conf.put("detach.onclick", "showDetachorAttachVolume('detach','"
 				+ OpenstackUtil.getMessage("detach.label")
 				+ "','{id}','{attachment.id}',this)");
+		conf.put("remove.onclick", "showDetachorAttachVolume('remove','"
+				+ OpenstackUtil.getMessage("remove.label")
+				+ "','{id}','',this)");
 		conf.put(".forPager", true);
 		conf.put(".datas", vtList);
 
@@ -242,8 +245,10 @@ public class UserVolumeController {
 	public @ResponseBody
 	Map<String, Object> controlVolume(Model model, String executecommand,
 			String volumeId, String serverId) {
-		if (StringUtil.isNullOrEmpty(serverId)) {
-			return JSONUtil.jsonError("server is null");
+		if(!executecommand.equalsIgnoreCase("remove")){
+			if (StringUtil.isNullOrEmpty(serverId)) {
+				return JSONUtil.jsonError("server is null");
+			}
 		}
 		try {
 			if (!StringUtil.isNullOrEmpty(executecommand)
